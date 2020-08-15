@@ -1,7 +1,9 @@
+@import 'variables';
 
 h1{
 font-size: 2.5rem;
 font-weight: 700;
+color: $indigo-700;
 }
 .base {
     padding: 10px 15px ;
@@ -13,4 +15,7 @@ input, select, textarea {
 
 button {
     @extend .base;
+}
+nav button {
+    background-color: $gray-800;
 }
