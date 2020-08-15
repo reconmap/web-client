@@ -43,7 +43,7 @@ const App = () => {
               <Dashboard>
                 <Route path={`${url}/tasks`} component={Tasks} exact />
                 <Route path={`${url}/projects`} component={Projects} />
-                <Route path={`${url}/project`} component={Project} />
+                <Route path={`${url}/project/:id`} component={Project} />
                 <Route path={`${url}/users`} component={Users} />
                 <Route path={`${url}/integrations`} component={Integrations} />
                 <Route path={`${url}/reports`} component={Reports} />
