@@ -2,7 +2,7 @@ import React from 'react'
 import useFetch from '../../hooks/useFetch'
 
 const Tasks = () => {
-    const {data, refreshData} = useFetch('https://jsonplaceholder.typicode.com/todos') 
+    const {data, } = useFetch('https://jsonplaceholder.typicode.com/todos') 
     
     return <div>
         <h1>Tasks</h1>
