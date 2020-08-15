@@ -2,11 +2,9 @@ import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import Dashboard from "./../dashboard";
-import Features from "./Features";
 import Footer from "./Footer";
 import Forbidden from "./Forbidden";
 import Header from "./Header";
-import Help from "./Help";
 import Login from "./Login";
 import Home from "./Home";
 
@@ -21,8 +19,6 @@ const App = () => {
           <main role="main" className="flex flex-1 flex-col " >
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
-            <Route path="/help" exact component={Help} />
-            <Route path="/features" exact component={Features} />
             <Route path="/oops" exact component={Forbidden} />
           </main>
           <Footer />
