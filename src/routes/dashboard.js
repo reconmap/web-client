@@ -9,5 +9,4 @@ export default [
     { title: 'Reports', icon: 'home', to: '/reports' },
     { title: 'Audit log', icon: 'home', to: '/audit' },
     { title: 'Projects', icon: 'home', to: '/projects' },
-    { title: 'External API', icon: 'home', to: '/external-api' },
   ]
