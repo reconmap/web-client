@@ -15,6 +15,7 @@ import Projects from "../dashboard/screens/Projects";
 import Project from "../dashboard/screens/Project";
 import Users from "../dashboard/screens/Users";
 import Integrations from "../dashboard/screens/Integrations";
+import Reports from "../dashboard/screens/Reports";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -45,6 +46,7 @@ const App = () => {
                 <Route path={`${url}/project`} component={Project} />
                 <Route path={`${url}/users`} component={Users} />
                 <Route path={`${url}/integrations`} component={Integrations} />
+                <Route path={`${url}/reports`} component={Reports} />
               </Dashboard>
             )}
           />
