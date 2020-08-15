@@ -29,9 +29,21 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path='/dashboard' component={Dashboard} />
-          <Route exact path="/tasks" component={Tasks} />
+          
+          {/* <Route exact path="/tasks" component={Tasks} />
           <Route exact path="/projects" component={Projects} />
-          <Route exact path="/project" component={Project} />
+          <Route exact path="/project" component={Project} /> */}
+
+          <Route
+            path="/dashboard"
+            render={({ match: { url } }) => (
+              <Dashboard>
+                <Route path={`${url}/tasks`} component={Tasks} exact />
+                <Route path={`${url}/projects`} component={Projects} />
+                <Route path={`${url}/project`} component={Project} />
+              </Dashboard>
+            )}
+          />
         </Switch>
       </Router>
     </AuthContext.Provider>

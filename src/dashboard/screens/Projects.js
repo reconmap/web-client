@@ -5,7 +5,7 @@ import Project from './Project'
 const Projects = ({projects}) => {
     return (
         <ul>
-            <li><Link to="/project">Project a</Link></li>
+            <li><Link to="/dashboard/project">Project a</Link></li>
             <li>Project b</li>
             <li>Project c</li>
         </ul>
