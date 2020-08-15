@@ -1,11 +1,24 @@
-import React from 'react'
+import React from "react";
+import Wrap from "./Wrap";
 
 const Home = () => {
-    return <div className='flex flex-col justify-center h-full items-center text-center'>
-        <img src='logo.png' />
-        <h1 className='text-6xl font-bold'>ReconMap</h1>
-        <h2 className='text-3xl max-w-xl'>ReconMap is an open source security tool for InfoSec professionals that allows them to plan, execute and document reconnaissance projects for multiple targets.</h2>
-    </div>
-}
+  return (
+    <Wrap>
+      <div className='flex justify-between items-center  w-full flex-col md:flex-row' >
 
-export default Home
+        <div className='order-2 '>
+          <h1 className="text-5xl md:text-6xl  font-bold">Recon<span className='text-gray-200'>Map</span></h1>
+          <h2 className="text-2xl md:text-4xl max-w-xl text-gray-600">
+            ReconMap is an open source security tool for InfoSec professionals
+            that allows them to plan, execute and document reconnaissance
+            projects for multiple targets.
+              </h2>
+        </div>
+        <i className='fa fa-mountain fa-10x text-red-600 order-1 md:order-3 p-5' />
+      </div>
+
+    </Wrap>
+  );
+};
+
+export default Home;

@@ -1,0 +1,36 @@
+@import 'variables';
+
+h1{
+    font-size: 3rem;
+    font-weight: 700;
+    color: $red-600;
+}
+.base {
+    padding: 10px 15px ;
+    border-radius: 5px;
+    transition:.12s;
+    font-weight: 600;
+    background-color: $gray-800;
+    color: $gray-100;
+    font-size: 1.04rem;
+}
+input, select, textarea {
+    @extend .base;
+    outline: transparent ;
+    &:hover{
+        box-shadow: 0 0 4px 0 #fff;
+    }
+    &:active,  &:focus{
+        background-color: $gray-700;
+    }
+}
+
+button {
+    @extend .base;
+    &:hover{
+        background-color: $red-600;
+    }
+}
+nav button {
+    background-color: $gray-800;
+}
