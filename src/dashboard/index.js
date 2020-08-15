@@ -9,7 +9,7 @@ function Dashboard({children}) {
           <Header />
           <div className="  flex flex-row   ">
             <Sidebar />
-            <main role="main" className="  p-5" >
+            <main role="main" className="  p-5 w-full" >
               {children}
             </main>
           </div>
