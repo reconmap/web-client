@@ -13,6 +13,8 @@ import AuthContext from "../contexts/AuthContext";
 import Tasks from "../dashboard/screens/Tasks";
 import Projects from "../dashboard/screens/Projects";
 import Project from "../dashboard/screens/Project";
+import Users from "../dashboard/screens/Users";
+import Integrations from "../dashboard/screens/Integrations";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -41,6 +43,8 @@ const App = () => {
                 <Route path={`${url}/tasks`} component={Tasks} exact />
                 <Route path={`${url}/projects`} component={Projects} />
                 <Route path={`${url}/project`} component={Project} />
+                <Route path={`${url}/users`} component={Users} />
+                <Route path={`${url}/integrations`} component={Integrations} />
               </Dashboard>
             )}
           />
