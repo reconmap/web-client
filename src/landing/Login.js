@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import Wrap from "./Wrap";
 
 const Login = () => {
   const history = useHistory();
@@ -17,10 +18,7 @@ const Login = () => {
     history.push("/dashboard");
   };
   return (
-    <div className=" container flex w-full h-screen p-3 mx-auto flex-col ">
-      <Header />
-      <main role="main" className="flex flex-1 flex-col ">
-        <div className="flex flex-col justify-center h-full items-center ">
+    <Wrap>
           <h1 className="text-5xl font-bold mb-10">Login in</h1>
           <section className="flex flex-col w-full sm:w-1/2 max-w-md gap-2 ">
             <label htmlFor="inputEmail" className="sr-only">
@@ -53,10 +51,7 @@ const Login = () => {
               {!loading ? "Sign in" : "Espere por favor"}
             </button>
           </section>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </Wrap>
   );
 };
 
