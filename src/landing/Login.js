@@ -19,7 +19,7 @@ const Login = () => {
   };
   return (
     <Wrap>
-          <h1 className="text-5xl font-bold mb-10">Login in</h1>
+          <h1 className="text-5xl font-bold mb-10">Login</h1>
           <section className="flex flex-col w-full sm:w-1/2 max-w-md gap-2 ">
             <label htmlFor="inputEmail" className="sr-only">
               Email address
