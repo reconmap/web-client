@@ -1,0 +1,16 @@
+
+h1{
+font-size: 2.5rem;
+font-weight: 700;
+}
+.base {
+    padding: 10px 15px ;
+    border-radius: 4px;
+}
+input, select, textarea {
+    @extend .base;
+}
+
+button {
+    @extend .base;
+}

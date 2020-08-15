@@ -1,31 +1,42 @@
-import React from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 
 import Dashboard from "./../dashboard";
-import Footer from "./Footer";
-import Forbidden from "./Forbidden";
-import Header from "./Header";
-import Login from "./Login";
 import Home from "./Home";
+import Login from "./Login";
+import AuthContext from "../contexts/AuthContext";
 
 const App = () => {
+  const [logged, setLogged] = useState(false);
+  const history = useHistory();
+  
+  useEffect(() => {
+    setLogged(!!localStorage.getItem("reconmap-logged"));
+  }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/dashboard" exact component={Dashboard} />
-        <div className=" container flex w-full h-screen p-3 mx-auto flex-col ">
-          <Header />
-          <main role="main" className="flex flex-1 flex-col " >
-            <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/oops" exact component={Forbidden} />
-          </main>
-          <Footer />
-        </div>
-      </Switch>
-    </Router>
+    <AuthContext.Provider value={{ logged, setLogged }}>
+      <Router>
+        <Switch>
+          {logged ? 
+            history.location.pathname ?
+              <Route exact path={history.location.pathname}> <Dashboard /> </Route>
+              : <Route exact path='/dashboard'> <Dashboard /> </Route>
+           : (
+            <>
+              <Route exact path="/"> <Home /> </Route>
+              <Route exact path="/login" component={() => <Login />} />
+            </>
+          )}
+        </Switch>
+      </Router>
+    </AuthContext.Provider>
   );
-}
+};
 
 export default App;
