@@ -14,7 +14,7 @@ const Login = () => {
     authContext.setLogged(true);
     localStorage.setItem("reconmap-logged", "true");
     setLoading(false);
-    history.replace("/dashboard");
+    history.push("/dashboard");
   };
   return (
     <div className=" container flex w-full h-screen p-3 mx-auto flex-col ">
