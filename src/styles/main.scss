@@ -1,13 +1,14 @@
 @import 'variables';
 
 h1{
-font-size: 2.5rem;
-font-weight: 700;
-color: $indigo-700;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $red-600;
 }
 .base {
     padding: 10px 15px ;
     border-radius: 4px;
+    transition:.2s;
 }
 input, select, textarea {
     @extend .base;
@@ -15,6 +16,9 @@ input, select, textarea {
 
 button {
     @extend .base;
+    &:hover{
+        background-color: $red-600;
+    }
 }
 nav button {
     background-color: $gray-800;

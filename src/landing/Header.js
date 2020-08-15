@@ -20,7 +20,7 @@ export default function Header() {
   }
 
   return <nav className="flex items-center justify-between w-full  p-2 ">
-    <h3 className="text-3xl font-bold items-center flex hover:text-gray-300 cursor-pointer"  onClick={handleGoHome}><i className='fa fa-mountain mr-2 text-base ' />Reconmap</h3>
+    <h3 className="text-3xl font-bold items-center flex hover:text-gray-400 cursor-pointer"  onClick={handleGoHome}><i className='fa fa-mountain mr-2 text-base text-red-600' />Reconmap</h3>
     <nav className="font-semibold gap-5 flex items-center">
       {LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 font-bold   py-1 text-base hover:text-white hover:border-white`} to={ link.to } target="_blank"> {link.title} </Link>))}
       {authContext.logged ? <button onClick={handleLogOut} >Log out</button>

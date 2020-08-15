@@ -30,6 +30,7 @@ const Login = () => {
               placeholder="Email address"
               required
               autoFocus
+              className='bg-gray-800 text-xl'
             />
             <label htmlFor="inputPassword" className="sr-only">
               Password
@@ -39,17 +40,18 @@ const Login = () => {
               id="inputPassword"
               placeholder="Password"
               required
+              className='bg-gray-800 text-xl'
             />
-            <div className="checkbox my-3">
-              <input type="checkbox" value="remember-me" /> Remember me
-            </div>
             <button
               onClick={handleLogin}
               to="dashboard"
-              className="bg-blue-500"
+              className="bg-gray-800 text-xl"
             >
               {!loading ? "Sign in" : "Espere por favor"}
             </button>
+            <div className="checkbox my-3 text-gray-500">
+              <input type="checkbox" value="remember-me" /> Remember me
+            </div>
           </section>
         </Wrap>
   );
