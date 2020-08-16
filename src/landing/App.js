@@ -17,6 +17,7 @@ import Integrations from "../dashboard/screens/Integrations";
 import Reports from "../dashboard/screens/Reports";
 import Templates from "../dashboard/screens/Templates";
 import UploadTask from "../dashboard/screens/UploadTask";
+import UserPreferences from "../components/users/UserPreferences";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -46,6 +47,7 @@ const App = () => {
                 <Route path={`${url}/projects`} component={Projects} />
                 <Route path={`${url}/project/:id`} component={Project} />
                 <Route path={`${url}/users`} component={Users} />
+                <Route path={`${url}/user/preferences`} component={UserPreferences} />
                 <Route path={`${url}/integrations`} component={Integrations} />
                 <Route path={`${url}/reports`} component={Reports} />
                 <Route path={`${url}/templates`} component={Templates} />
