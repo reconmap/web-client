@@ -7,6 +7,7 @@ const Users = () => {
             <button href="#">Create user</button>
 
             <table className='w-full'>
+                <tbody>
                 <tr>
                     <th>Username</th>
                     <th>Role</th>
@@ -22,6 +23,7 @@ const Users = () => {
                     <td>read-only</td>
                     <td><a href="#">Delete</a></td>
                 </tr>
+                </tbody>
             </table>
         </>
     )
