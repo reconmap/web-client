@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
 
-import Footer from "./Footer";
-import Header from "./Header";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import Wrap from "./Wrap";
@@ -12,10 +10,23 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const handleLogin = () => {
     setLoading(true);
-    authContext.setLogged(true);
-    localStorage.setItem("reconmap-logged", "true");
-    setLoading(false);
-    history.push("/dashboard");
+    const formData = new FormData();
+    formData.append('username', document.getElementById('inputUsername').value);
+    formData.append('password', document.getElementById('inputPassword').value);
+    fetch('http://localhost:8080/users', {
+      method: 'POST',
+      body: formData
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.dir(data);
+        authContext.setLogged(true);
+        localStorage.setItem("reconmap-logged", "true");
+        localStorage.setItem("accessToken", data.access_token);
+    
+        setLoading(false);
+        history.push("/dashboard");    
+      });
   };
   return (
     <Wrap>
@@ -23,10 +34,10 @@ const Login = () => {
 
           <section className="flex flex-col w-full sm:w-1/2 max-w-lg gap-2 ">
           <h1 className="text-5xl font-bold mb-10">Login</h1>
-            <label htmlFor="inputEmail" className="sr-only">
-              Email address
+            <label htmlFor="inputUsername" className="sr-only">
+              Username
             </label>
-            <input type="email" id="inputEmail" placeholder="Email address" required autoFocus />
+            <input type="text" id="inputUsername" placeholder="Username" required autoFocus />
             <label htmlFor="inputPassword" className="sr-only">
               Password
             </label>

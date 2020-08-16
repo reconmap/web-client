@@ -8,7 +8,12 @@ class Project extends Component {
 
     componentDidMount() {
         const id = this.props.match.params.id;
-        fetch('http://localhost:8080/projects/' + id)
+        fetch('http://localhost:8080/projects/' + id, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        })
             .then((response) => response.json())
             .then((project) => this.setState({ project: project }));
     }

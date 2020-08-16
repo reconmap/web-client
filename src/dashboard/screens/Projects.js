@@ -7,7 +7,12 @@ class Projects extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/projects')
+        fetch('http://localhost:8080/projects', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        })
             .then((response) => response.json())
             .then((projects) => this.setState({ projects: projects }));
     }
