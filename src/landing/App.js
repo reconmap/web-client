@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Route,
   BrowserRouter as Router,
-  Switch,
-  useHistory,
+  Switch
 } from "react-router-dom";
 
 import Dashboard from "../dashboard";

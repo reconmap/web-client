@@ -1,5 +1,4 @@
 import React from 'react'
-import useFetch from '../../hooks/useFetch'
 
 const Tasks = () => {
     const TASKS = [

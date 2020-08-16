@@ -61,7 +61,7 @@ class Project extends Component {
                     </div>
                     <div className='base'>
                         <h3>Vulnerabilities</h3>
-                        <p><a href="#">Add Vulnerability</a></p>
+                        <p><a href="add.html">Add Vulnerability</a></p>
                         <ul>
                             <li>Vulnerability "sql injection" found on host "www.fom" on date 2020-08-12 by user "Ethical hacker 1"</li>
                         </ul>
@@ -70,13 +70,13 @@ class Project extends Component {
                 <section className='grid lg:grid-cols-3 gap-4 my-4'>
                     <div>
                         <h3>Team</h3>
-                        <a href="">Ethical hacker 1</a>
+                        <a href="/users/1">Ethical hacker 1</a>
                     </div>
                     <div>
                         <h3>Tasks (1/3 completed)</h3>
                         <input type="checkbox" checked="checked" /> Run port scanner (<Link to="/dashboard/tasks/upload">Upload results</Link>)<br />
-                        <input type="checkbox" /> Run tool X (<a href="#">Upload results</a>)<br />
-                        <input type="checkbox" /> Run tool Y (<a href="#">Upload results</a>)<br />
+                        <input type="checkbox" /> Run tool X (<a href="/upload">Upload results</a>)<br />
+                        <input type="checkbox" /> Run tool Y (<a href="/upload">Upload results</a>)<br />
                         <br />
                         <button href="">Add task</button>
                     </div>
