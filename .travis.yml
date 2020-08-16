@@ -5,4 +5,4 @@ before_install:
   - make
 
 script:
-  - make test:ci
+  - make tests-ci

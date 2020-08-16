@@ -20,7 +20,7 @@ start:
 tests: prepare
 	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true reconmap-web-frontend test
 
-.PHONY: ci-tests
-ci-tests: prepare
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true reconmap-web-frontend ci-test
+.PHONY: tests-ci
+tests-ci: prepare
+	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true reconmap-web-frontend test:ci
 
