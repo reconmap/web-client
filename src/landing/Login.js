@@ -17,15 +17,25 @@ const Login = () => {
       method: 'POST',
       body: formData
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if(response.status !== 200) {
+          throw new Error('Invalid credentials');
+        }
+        return response.json();
+      })
       .then((data) => {
-        console.dir(data);
         authContext.setLogged(true);
         localStorage.setItem("reconmap-logged", "true");
         localStorage.setItem("accessToken", data.access_token);
     
         setLoading(false);
         history.push("/dashboard");    
+      })
+      .catch(function(err) {
+          setLoading(false);
+          alert(err);
+      })
+      .finally(function() {
       });
   };
   return (
