@@ -11,7 +11,6 @@ import Login from "./Login";
 import AuthContext from "../contexts/AuthContext";
 import Tasks from "../dashboard/screens/Tasks";
 import ProjectsList from '../components/projects/List';
-import Project from "../components/project/Details";
 import Integrations from "../dashboard/screens/Integrations";
 import Reports from "../dashboard/screens/Reports";
 import Templates from "../dashboard/screens/Templates";
@@ -34,11 +33,6 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path='/dashboard' component={Dashboard} />
-          
-          {/* <Route exact path="/tasks" component={Tasks} />
-          <Route exact path="/projects" component={Projects} />
-          <Route exact path="/project" component={Project} /> */}
-
           <Route
             path="/dashboard"
             render={({ match: { url } }) => (
