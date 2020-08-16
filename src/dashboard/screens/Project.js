@@ -14,53 +14,83 @@ class Project extends Component {
     }
 
     render() {
-        if(!this.state.project) {
+        if (!this.state.project) {
             return 'Loading...'
         }
         return (
             <>
-                <h3>{this.state.project.name}</h3>
+                <section className='flex lg:items-center justify-between my-4 pb-4 border-b border-gray-800 flex-col lg:flex-row' >
+                    <div className='items-center flex gap-4'>
+                        <button onClick={() => console.log('go back function')}><i className='fa fa-angle-left' /></button>
+                        <h2 className='text-white'>{this.state.project.name}</h2>
+                    </div>
+                    <div className='flex items-center justify-between gap-4'>
+                        <button href="">Archive</button>
+                        <button href="">Delete</button>
+                        <button href="generate-map-report.html">Generate Recon Map Report</button>
+                        <button href="generate-report.html">Generate Recconnaisance Report</button>
+                    </div>
+                </section>
 
-                <a href="">Archive</a> | <a href="">Delete</a> | <a href="generate-map-report.html">Generate recon map report</a> | <a href="generate-report.html">Generate recconnaisance report</a>
+                <section className='grid lg:grid-cols-3 gap-4 my-4'>
+                    <div className='base'>
+                        <h3>Description</h3>
 
-                <h2>Description</h2>
+                        <p>{this.state.project.description}</p>
+                    </div>
+                    <div className='base'>
+                        <h3>Target(s)</h3>
+                        <table className='font-mono text-sm w-full' >
+                            <thead>
+                                <tr><th>Host</th><th>uri</th></tr>
 
-                <p>{this.state.project.description}</p>
+                            </thead>
+                            <tbody>
 
-                <h2>Target(s)</h2>
+                                <tr><td>Host</td><td>www.fom</td></tr>
+                                <tr><td>Host</td><td>www.foa</td></tr>
+                                <tr><td>Host</td><td>www.fas</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className='base'>
+                        <h3>Vulnerabilities</h3>
+                        <p><a href="#">Add Vulnerability</a></p>
+                        <ul>
+                            <li>Vulnerability "sql injection" found on host "www.fom" on date 2020-08-12 by user "Ethical hacker 1"</li>
+                        </ul>
+                    </div>
+                </section>
+                <section className='grid lg:grid-cols-3 gap-4 my-4'>
+                    <div>
+                        <h3>Team</h3>
+                        <a href="">Ethical hacker 1</a>
+                    </div>
+                    <div>
+                        <h3>Tasks (1/3 completed)</h3>
+                        <input type="checkbox" checked="checked" /> Run port scanner (<a href="upload-task-result.html">Upload results</a>)<br />
+                        <input type="checkbox" /> Run tool X (<a href="#">Upload results</a>)<br />
+                        <input type="checkbox" /> Run tool Y (<a href="#">Upload results</a>)<br />
+                        <br />
+                        <button href="">Add task</button>
+                    </div>
+                    <div>
 
-                <ul>
-                    <li>Host www.fom</li>
-                    <li>Host www.foa</li>
-                    <li>Host www.fas</li>
-                </ul>
+                        <h3>Audit log</h3>
+                        <ul>
+                            <li>2020-08-12 22:26 User "Ethical hacker 1" uploaded results for task "Run port scanner"</li>
+                        </ul>
 
-                <h2>Vulnerabilities</h2>
+                        <button href="export">Export audit log</button>
+                    </div>
+                </section>
 
-                <p><a href="#">Add Vulnerability</a></p>
 
-                <ul>
-                    <li>Vulnerability "sql injection" found on host "www.fom" on date 2020-08-12 by user "Ethical hacker 1"</li>
-                </ul>
 
-                <h4>Team</h4>
 
-                <a href="">Ethical hacker 1</a>
 
-                <h4>Tasks (1/3 completed)</h4>
-                <input type="checkbox" checked="checked" /> Run port scanner (<a href="upload-task-result.html">Upload results</a>)<br />
-                <input type="checkbox" /> Run tool X (<a href="#">Upload results</a>)<br />
-                <input type="checkbox" /> Run tool Y (<a href="#">Upload results</a>)<br />
-                <br />
-                <a href="">Add task</a>
 
-                <h4>Audit log</h4>
 
-                <ul>
-                    <li>2020-08-12 22:26 User "Ethical hacker 1" uploaded results for task "Run port scanner"</li>
-                </ul>
-
-                <a href="export">Export audit log</a>
             </>
         )
     }

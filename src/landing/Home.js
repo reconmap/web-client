@@ -5,7 +5,6 @@ const Home = () => {
   return (
     <Wrap>
       <div className='flex justify-between items-center  w-full flex-col md:flex-row' >
-
         <div className='order-2 '>
           <h1 className="text-5xl md:text-6xl  font-bold">Recon<span className='text-gray-200'>Map</span></h1>
           <h2 className="text-2xl md:text-4xl max-w-xl text-gray-600">

@@ -2,36 +2,24 @@ import React from 'react'
 import useFetch from '../../hooks/useFetch'
 
 const Tasks = () => {
-    const {data, } = useFetch('https://jsonplaceholder.typicode.com/todos') 
-    
+    const TASKS = [
+        { title: 'Computer OS fingerprint probe', code: 'nmap -v -O target_IP' },
+        { title: 'Network or Port Scan', code: 'nmap -v -sS target_IP' },
+        { title: 'TCP Null Scan', code: 'nmap -v -sN target_IP' },
+        { title: 'TCP SYNFIN Scan', code: 'nmap -v —scanflags SYNFIN target_IP' },
+        { title: 'TCP Xmas Scan', code: 'nmap -v -sX target_IP' },
+    ]
     return <>
         <h1>Tasks</h1>
-        { data ?
-            <div>
-            <ul>
-                { data.map( task=> 
-                    <li key={task.id}>
-                    {task.completed ? '✅' : '❌'} {task.title}
-                    </li>
-                )}
-            </ul>
-                <h3>Computer OS fingerprint probe</h3>
-<code>nmap -v -O target_IP</code>
+        <div className='flex flex-col gap-4'>
+            {TASKS.map(task =>
+                <article className='base'>
+                    <h5>{task.title}</h5>
+                    <code>{task.code}</code>
+                </article>
+            )}
+        </div>
 
-<h3>Network or Port Scan</h3>
-<code>nmap -v -sS target_IP</code>
-
-<h3>TCP Null Scan</h3>
-<code>nmap -v -sN target_IP</code>
-
-<h3>TCP SYNFIN Scan</h3>
-<code>nmap -v —scanflags SYNFIN target_IP</code>
-
-<h3>TCP Xmas Scan</h3>
-<code>nmap -v -sX target_IP</code>
-            </div>
-            : 'Cargando...'
-        }
     </>
 }
 

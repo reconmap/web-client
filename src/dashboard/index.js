@@ -5,11 +5,11 @@ import Sidebar from "./components/Sidebar";
 function Dashboard({children}) {
   
   return (
-        <div className=" container flex w-full h-screen p-3 mx-auto flex-col ">
+        <div className=" flex w-full h-screen p-5 mx-auto flex-col ">
           <Header />
-          <div className="  flex flex-row   ">
+          <div className="flex flex-row border-t border-gray-800">
             <Sidebar />
-            <main role="main" className="  p-5 w-full" >
+            <main role="main" className="p-5 w-full" >
               {children}
             </main>
           </div>
