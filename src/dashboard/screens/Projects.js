@@ -41,7 +41,7 @@ class Projects extends Component {
 const ProjectLink = ({project}) => {
     return     <Link to={`/dashboard/project/${project.id}`}>
                     <article className='base hover:border-red-600 border-2 border-transparent flex flex-col'>
-                        <h4 className='mb-2 items-center flex justify-between text-white'>{project.name} {project.is_template==1 && <i className='fa fa-file-code text-xs opacity-50'/>}</h4>
+                        <h4 className='mb-2 items-center flex justify-between text-white'>{project.name} {project.is_template === 1 && <i className='fa fa-file-code text-xs opacity-50'/>}</h4>
                         <p className='text-gray-500 text-sm'>{project.description}</p>
                     </article>
                 </Link>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import configuration from '../../Configuration';
 
 class Project extends Component {

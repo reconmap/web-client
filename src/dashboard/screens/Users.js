@@ -16,12 +16,12 @@ const Users = () => {
                 <tr>
                     <td>root</td>
                     <td>admin</td>
-                    <td><a href="#">Delete</a></td>
+                    <td><a href="delete.html">Delete</a></td>
                 </tr>
                 <tr>
                     <td>user</td>
                     <td>read-only</td>
-                    <td><a href="#">Delete</a></td>
+                    <td><a href="delete.html">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

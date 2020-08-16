@@ -21,7 +21,6 @@ import UploadTask from "../dashboard/screens/UploadTask";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     setLogged(!!localStorage.getItem("reconmap-logged"));
