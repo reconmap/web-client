@@ -6,6 +6,6 @@ export default [
     { title: 'Tasks', icon: 'list', to: '/dashboard/tasks' },
     { title: 'Templates', icon: 'box', to: '/dashboard/templates' },
     { title: 'Reports', icon: 'chart-pie', to: '/dashboard/reports' },
-    { title: 'Audit log', icon: 'book', to: '/dashboard/audit' },
+    { title: 'Audit log', icon: 'book', to: '/dashboard/auditlog' },
     { title: 'Projects', icon: 'boxes', to: '/dashboard/projects' }
   ]

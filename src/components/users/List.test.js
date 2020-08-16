@@ -3,7 +3,7 @@ import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import Users from "./List";
+import UsersList from "./List";
 
 let container = null;
 beforeEach(() => {
