@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 class Project extends Component {
     state = {
@@ -73,7 +73,7 @@ class Project extends Component {
                     </div>
                     <div>
                         <h3>Tasks (1/3 completed)</h3>
-                        <input type="checkbox" checked="checked" /> Run port scanner (<a href="upload-task-result.html">Upload results</a>)<br />
+                        <input type="checkbox" checked="checked" /> Run port scanner (<Link to="/dashboard/tasks/upload">Upload results</Link>)<br />
                         <input type="checkbox" /> Run tool X (<a href="#">Upload results</a>)<br />
                         <input type="checkbox" /> Run tool Y (<a href="#">Upload results</a>)<br />
                         <br />

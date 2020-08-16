@@ -16,6 +16,8 @@ import Project from "../dashboard/screens/Project";
 import Users from "../dashboard/screens/Users";
 import Integrations from "../dashboard/screens/Integrations";
 import Reports from "../dashboard/screens/Reports";
+import Templates from "../dashboard/screens/Templates";
+import UploadTask from "../dashboard/screens/UploadTask";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -41,12 +43,14 @@ const App = () => {
             path="/dashboard"
             render={({ match: { url } }) => (
               <Dashboard>
-                <Route path={`${url}/tasks`} component={Tasks} exact />
+                <Route exact path={`${url}/tasks`} component={Tasks} />
+                <Route exact path={`${url}/tasks/upload`} component={UploadTask} />
                 <Route path={`${url}/projects`} component={Projects} />
                 <Route path={`${url}/project/:id`} component={Project} />
                 <Route path={`${url}/users`} component={Users} />
                 <Route path={`${url}/integrations`} component={Integrations} />
                 <Route path={`${url}/reports`} component={Reports} />
+                <Route path={`${url}/templates`} component={Templates} />
               </Dashboard>
             )}
           />
