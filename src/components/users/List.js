@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Users = () => {
+const UsersList = () => {
     return (
         <>
             <h1>Users</h1>
@@ -29,4 +29,4 @@ const Users = () => {
     )
 }
 
-export default Users
+export default UsersList

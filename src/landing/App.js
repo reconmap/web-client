@@ -10,14 +10,15 @@ import Home from "./Home";
 import Login from "./Login";
 import AuthContext from "../contexts/AuthContext";
 import Tasks from "../dashboard/screens/Tasks";
-import Projects from "../dashboard/screens/Projects";
-import Project from "../dashboard/screens/Project";
-import Users from "../dashboard/screens/Users";
+import ProjectsList from '../components/projects/List';
+import Project from "../components/project/Details";
 import Integrations from "../dashboard/screens/Integrations";
 import Reports from "../dashboard/screens/Reports";
 import Templates from "../dashboard/screens/Templates";
 import UploadTask from "../dashboard/screens/UploadTask";
-import UserPreferences from "../components/users/UserPreferences";
+import UserPreferences from "../components/user/Preferences";
+import UsersList from "../components/users/List";
+import ProjectDetails from "../components/project/Details";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -44,9 +45,9 @@ const App = () => {
               <Dashboard>
                 <Route exact path={`${url}/tasks`} component={Tasks} />
                 <Route exact path={`${url}/tasks/upload`} component={UploadTask} />
-                <Route path={`${url}/projects`} component={Projects} />
-                <Route path={`${url}/project/:id`} component={Project} />
-                <Route path={`${url}/users`} component={Users} />
+                <Route path={`${url}/projects`} component={ProjectsList} />
+                <Route path={`${url}/project/:id`} component={ProjectDetails} />
+                <Route path={`${url}/users`} component={UsersList} />
                 <Route path={`${url}/user/preferences`} component={UserPreferences} />
                 <Route path={`${url}/integrations`} component={Integrations} />
                 <Route path={`${url}/reports`} component={Reports} />

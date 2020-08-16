@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import configuration from '../../Configuration';
 
-class Projects extends Component {
+class ProjectsList extends Component {
     state = {
         projects: []
     }
@@ -46,4 +46,4 @@ const ProjectLink = ({project}) => {
                     </article>
                 </Link>
 }
-export default Projects
+export default ProjectsList

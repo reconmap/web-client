@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import configuration from '../../Configuration';
 
-class Project extends Component {
+class ProjectDetails extends Component {
     state = {
         project: null
     }
@@ -90,16 +90,9 @@ class Project extends Component {
                         <button href="export">Export audit log</button>
                     </div>
                 </section>
-
-
-
-
-
-
-
             </>
         )
     }
 }
 
-export default Project
+export default ProjectDetails

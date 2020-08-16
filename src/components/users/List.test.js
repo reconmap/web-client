@@ -3,7 +3,7 @@ import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import Users from "./Users";
+import Users from "./List";
 
 let container = null;
 beforeEach(() => {
@@ -21,7 +21,7 @@ afterEach(() => {
 
 it("renders with or without a name", () => {
   act(() => {
-    render(<Users />, container);
+    render(<UsersList />, container);
   });
   expect(container.innerHTML).toMatch(/<button href="#">Create user<\/button>/);
 });
