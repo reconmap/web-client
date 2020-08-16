@@ -16,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "ci-test": "CI=true react-scripts test --no-watchman --all",
+    "test:ci": "CI=true react-scripts test --no-watchman --all",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

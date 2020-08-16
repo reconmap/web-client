@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import Wrap from "./Wrap";
+import configuration from '../Configuration';
 
 const Login = () => {
   const history = useHistory();
@@ -23,7 +24,7 @@ const Login = () => {
     const formData = new FormData();
     formData.append('username', credentials.username);
     formData.append('password', credentials.password);
-    fetch('http://localhost:8080/users', {
+    fetch(`${configuration.api.baseUrl}/users`, {
       method: 'POST',
       body: formData
     })
