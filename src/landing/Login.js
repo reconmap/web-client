@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
@@ -9,6 +9,13 @@ const Login = () => {
   const authContext = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState({username:null,password:null})
+  const [error, setError] = useState()
+
+  useEffect(() => {
+    // each time an error occurs
+    error && setTimeout(()=>{ setError() },4000)
+   }, [error])
+
   const handleUsername = e => { setCredentials({...credentials, username:e.target.value})}
   const handlePassword = e => { setCredentials({...credentials, password:e.target.value})}
   const handleLogin = () => {
@@ -36,7 +43,7 @@ const Login = () => {
       })
       .catch(function(err) {
           setLoading(false);
-          alert(err);
+          setError(err)
       })
       .finally(function() {
       });
@@ -55,12 +62,14 @@ const Login = () => {
               Password
             </label>
             <input type="password" id="inputPassword" onChange={handlePassword} placeholder="Password" required />
-            <button onClick={handleLogin} to="dashboard" disabled={!credentials.username || !credentials.password}>
+            <button onClick={handleLogin} to="dashboard" className={ (!credentials.username || !credentials.password) && 'opacity-50 hover:bg-gray-800' } disabled={!credentials.username || !credentials.password}>
               {!loading ? "Sign in" : "Espere por favor"}
             </button>
             <div className="checkbox my-3 text-gray-500">
               <input type="checkbox" value="remember-me" /> Remember me
             </div>
+            {error && <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'><i className='fa fa-exclamation'/>
+            <span className='mx-auto'> Oops... Incorrect username and/or password</span></p>}
           </section>
         <i className='fa fa-lock fa-10x text-gray-800 order-1 md:order-3 p-5 hidden md:inline' />
         </div>
