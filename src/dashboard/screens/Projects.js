@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import configuration from '../../Configuration';
 
 class Projects extends Component {
     state = {
@@ -7,7 +8,7 @@ class Projects extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/projects', {
+        fetch(`${configuration.api.baseUrl}/projects`, {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('accessToken')

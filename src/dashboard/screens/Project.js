@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { useParams, Link } from 'react-router-dom';
+import configuration from '../../Configuration';
 
 class Project extends Component {
     state = {
@@ -8,7 +9,7 @@ class Project extends Component {
 
     componentDidMount() {
         const id = this.props.match.params.id;
-        fetch('http://localhost:8080/projects/' + id, {
+        fetch(`${configuration.api.baseUrl}/projects/${id}`, {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('accessToken')
