@@ -19,6 +19,7 @@ import UsersList from "../components/users/List";
 import ProjectDetails from "../components/project/Details";
 import AuditLogList from "../components/auditlog/List";
 import TemplatesList from '../components/projects/TemplatesList';
+import VulnerabilitiesList from "../components/vulnerabilities/List";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -48,6 +49,7 @@ const App = () => {
                 <Route path={`${url}/reports`} component={Reports} />
                 <Route path={`${url}/auditlog`} component={AuditLogList} />
                 <Route path={`${url}/templates`} component={TemplatesList} />
+                <Route path={`${url}/vulnerabilities`} component={VulnerabilitiesList} />
               </Dashboard>
             )}
           />
