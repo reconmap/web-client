@@ -27,7 +27,7 @@ class ProjectDetails extends Component {
             <>
                 <section className='flex lg:items-center justify-between my-4 pb-4 border-b border-gray-800 flex-col lg:flex-row' >
                     <div className='items-center flex gap-4'>
-                        <button onClick={() => console.log('go back function')}><i className='fa fa-angle-left' /></button>
+                        <button onClick={() => console.log('go back function')}><i data-feather="arrow-left"></i></button>
                         <h2 className='text-white'>{this.state.project.name}</h2>
                     </div>
                     <div className='flex items-center justify-between gap-4'>

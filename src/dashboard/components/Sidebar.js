@@ -11,8 +11,8 @@ export default function Sidebar() {
         key={index}
         to={link.to}
         className={`px-4 py-3 flex items-center w-full  md:text-sm lg:text-base tracking-wide hover:text-white hover:bg-gray-800 transition duration-150 rounded hover:text-white border-l-4 border-transparent hover:border-gray-700 ${currentScreen.includes(link.to) ? 'text-white bg-gray-800 border-red-600' : 'text-gray-500'} `} >
-        <i className={`fa fa-${link.icon} md:text-xs opacity-75 md:mr-3 fa-fw `} />
-        <span className='hidden md:inline'>{link.title}</span>
+        <i data-feather={link.icon} ></i>
+        <span className='hidden ml-3 md:inline flex-1'>{link.title}</span>
       </Link>)}
     </aside>
   )

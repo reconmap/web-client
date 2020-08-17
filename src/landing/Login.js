@@ -69,10 +69,10 @@ const Login = () => {
             <div className="checkbox my-3 text-gray-500">
               <input type="checkbox" value="remember-me" /> Remember me
             </div>
-            {error && <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'><i className='fa fa-exclamation'/>
+            {error && <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'>
             <span className='mx-auto'> Oops... Incorrect username and/or password</span></p>}
           </section>
-        <i className='fa fa-lock fa-10x text-gray-800 order-1 md:order-3 p-5 hidden md:inline' />
+        <i data-feather={'lock'} className=' text-gray-800 order-1 md:order-3 p-5 hidden md:inline' />
         </div>
 
         </Wrap>

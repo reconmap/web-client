@@ -57,6 +57,8 @@ input, select, textarea {
 
 button {
     @extend .base;
+    display: inline-flex;
+    align-items: center;
     &:hover{
         background-color: $red-600;
     }

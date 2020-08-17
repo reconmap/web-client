@@ -1,11 +1,11 @@
 export default [
     { title: 'Dashboard', icon: 'columns', to: '/dashboard/dashboard' },
-    { title: 'Vulnerabilities', icon: 'bug', to: '/dashboard/vulnerabilities' },
+    { title: 'Vulnerabilities', icon: 'alert-circle', to: '/dashboard/vulnerabilities' },
     { title: 'User and permissions', icon: 'users', to: '/dashboard/users' },
-    { title: 'Integrations', icon: 'plug', to: '/dashboard/integrations' },
-    { title: 'Tasks', icon: 'list', to: '/dashboard/tasks' },
-    { title: 'Templates', icon: 'box', to: '/dashboard/templates' },
-    { title: 'Reports', icon: 'chart-pie', to: '/dashboard/reports' },
-    { title: 'Audit log', icon: 'book', to: '/dashboard/auditlog' },
-    { title: 'Projects', icon: 'boxes', to: '/dashboard/projects' }
+    { title: 'Integrations', icon: 'cpu', to: '/dashboard/integrations' },
+    { title: 'Tasks', icon: 'check-square', to: '/dashboard/tasks' },
+    { title: 'Templates', icon: 'clipboard', to: '/dashboard/templates' },
+    { title: 'Reports', icon: 'pie-chart', to: '/dashboard/reports' },
+    { title: 'Audit log', icon: 'file-text', to: '/dashboard/auditlog' },
+    { title: 'Projects', icon: 'layers', to: '/dashboard/projects' }
   ]

@@ -13,7 +13,7 @@ const Home = () => {
             projects for multiple targets.
               </h2>
         </div>
-        <i className='fa fa-mountain fa-10x text-red-600 order-1 md:order-3 p-5' />
+        <i data-feather={'award'} className=' text-red-600 order-1 md:order-3 p-5' />
       </div>
 
     </Wrap>
