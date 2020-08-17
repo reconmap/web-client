@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import configuration from '../../Configuration';
 
 class ProjectDetails extends Component {
+    constructor(props){
+        super(props)
+        this.handleDelete = this.handleDelete.bind(this)
+    }
     state = {
         project: null
     }
@@ -23,6 +27,18 @@ class ProjectDetails extends Component {
             });
     }
 
+    handleDelete(id) {
+        if (window.confirm('Are you sure you want to delete this project?') ) {
+            fetch(`${configuration.api.baseUrl}/projects/${id}`, {
+                method: 'DELETE',
+                headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
+            })
+            .then(() =>{ this.props.history.goBack() })
+            .catch(e => console.log(e))
+            
+        }
+    }
+
     render() {
         if (!this.state.project) {
             return 'Loading...'
@@ -36,7 +52,7 @@ class ProjectDetails extends Component {
                     </div>
                     <div className='flex items-center justify-between gap-4'>
                         <button href="">Archive</button>
-                        <button href="">Delete</button>
+                        <button onClick={()=>this.handleDelete(this.state.project.id)}>Delete</button>
                         <button href="generate-map-report.html">Generate Recon Map Report</button>
                         <button href="generate-report.html">Generate Recconnaisance Report</button>
                     </div>
