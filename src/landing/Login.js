@@ -24,7 +24,7 @@ const Login = () => {
     const formData = new FormData();
     formData.append('username', credentials.username);
     formData.append('password', credentials.password);
-    fetch(`${configuration.api.baseUrl}/users`, {
+    fetch(`${configuration.api.baseUrl}/users/login`, {
       method: 'POST',
       body: formData
     })

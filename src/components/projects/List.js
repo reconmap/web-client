@@ -28,10 +28,6 @@ class ProjectsList extends Component {
                             <ProjectLink project={project}  key={project.id}/>
                         )
                     }
-                    <ProjectLink project={{ name: 'Just a test', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'0'}}/>
-                    <ProjectLink project={{ name: 'Populating this view', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'1'}}/>
-                    <ProjectLink project={{ name: 'Example name for a project', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'0'}}/>
-                    <ProjectLink project={{ name: 'Just a test', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'0'}}/>
                 </section>
             </div>
         )

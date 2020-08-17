@@ -25,6 +25,7 @@ class AuditLogList extends Component {
                     <thead>
                         <tr>
                             <th>Date/Time</th>
+                            <th>IP</th>
                             <th>Action</th>
                             <th>User</th>
                             <th>Email</th>
@@ -32,17 +33,21 @@ class AuditLogList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {
-                        this.state.auditLog.map((entry, index) =>
-                            <tr>
-                                <td>{entry.insert_ts}</td>
-                                <td>{entry.action}</td>
-                                <td>{entry.name}</td>
-                                <td>{entry.email}</td>
-                                <td>{entry.role}</td>
-                            </tr>
-                        )
-                    }
+                        {
+                            this.state.auditLog.map((entry, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{entry.insert_ts}</td>
+                                        <td>{entry.client_ip}</td>
+                                        <td>{entry.action}</td>
+                                        <td>{entry.name}</td>
+                                        <td>{entry.email}</td>
+                                        <td>{entry.role}</td>
+                                    </tr>
+                                )
+                            }
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
