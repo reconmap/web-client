@@ -15,7 +15,7 @@ class AuditLogList extends Component {
         })
             .then(response => {
                 var contentDispositionHeader = response.headers.get('Content-Disposition');
-                var filename = contentDispositionHeader.match(/(?<=")(?:\\.|[^"\\])*(?=")/)[0];
+                var filename = contentDispositionHeader.split('filename=')[1].split(';')[0];
                 return Promise.all([response.blob(), filename]);
             })
             .then((values) => {
