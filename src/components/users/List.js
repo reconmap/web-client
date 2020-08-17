@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import configuration from '../../Configuration';
 
 class UsersList extends Component {
+    constructor(props){
+        super(props)
+        this.handleDelete = this.handleDelete.bind(this)
+    }
     state = {
         users: []
     }
@@ -15,6 +19,17 @@ class UsersList extends Component {
         })
             .then((response) => response.json())
             .then((users) => this.setState({ users: users }));
+    }
+    handleDelete(id) {
+        if (window.confirm('Are you sure you want to delete this user?') ) {
+            fetch(`${configuration.api.baseUrl}/users/${id}`, {
+                method: 'DELETE',
+                headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
+            })
+            .then(() =>{ this.props.history.goBack() })
+            .catch(e => console.log(e))
+            
+        }
     }
 
     render() {
@@ -38,7 +53,7 @@ class UsersList extends Component {
                                     <tr key={index}>
                                         <td>{user.name}</td>
                                         <td>{user.role}</td>
-                                        <td><a href="delete.html">Delete</a></td>
+                                        <td><button onClick={()=>this.handleDelete(user.id)}>Delete</button></td>
                                     </tr>
                                 )
                             })
