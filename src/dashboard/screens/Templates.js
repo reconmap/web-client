@@ -1,6 +1,8 @@
 import React from 'react'
 
 const Templates = () => {
+    React.useEffect(() => { document.title = 'Templates | Reconmap'; },[]);
+
     return (
         <>
         <h2>Project templates</h2>

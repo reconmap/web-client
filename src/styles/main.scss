@@ -1,19 +1,57 @@
 @import 'variables';
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3 {
     color: $gray-600;
     font-weight: 600;
 
 }
+.base {
+    padding: $padding 15px ;
+    border-width: 4px;
+    border-color: transparent;
+    border-radius: $radius;
+    transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
+    background-color: $gray-800;
+    color: $gray-100;
+    font-size: 1.04rem;
+    &:hover {
+        transform: translateY(-2);
+        -webkit-transform: translateY(-2);
+    }
+}
+.base-project {
+    width: 256px;
+    height: 256px;
+    aspect-ratio: 1 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-radius: 14px;
+}
+.base-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.75rem;
+    line-height: 2rem;
+    color: $gray-200;
+    margin-top: 10px;
+}
+.base-desc {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+    color: $gray-600;
+}
+
 h1{
     color: $red-600;
     font-weight: 700;
-    font-size: 3rem;
+    font-size: 2.6rem;
     margin-bottom: .4rem;
 }
 h2{ font-size: 2.1rem; }
 h3{ font-size: 1.7rem; }
-h4{ font-size: 1.4rem; }
 
 table {
     th{
@@ -31,19 +69,7 @@ code{
     border-radius: $radius;
 
 }
-.base {
-    padding: $padding 15px ;
-    border-radius: $radius;
-    transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
-    font-weight: 500;
-    background-color: $gray-800;
-    color: $gray-100;
-    font-size: 1.04rem;
-    &:hover {
-        transform: translateY(-2);
-        -webkit-transform: translateY(-2);
-    }
-}
+
 input, select, textarea {
     @extend .base;
     outline: transparent ;

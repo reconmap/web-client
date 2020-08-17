@@ -1,6 +1,8 @@
 import React from 'react'
 
 const UploadTask = () => {
+    React.useEffect(() => { document.title = 'Upload Task | Reconmap'; },[]);
+
     return (
         <>
         
