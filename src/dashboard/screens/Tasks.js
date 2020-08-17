@@ -1,4 +1,5 @@
 import React from 'react'
+import TaskBadge from '../../components/badges/TaskBadge';
 
 const Tasks = () => {
     React.useEffect(() => { document.title = 'Tasks | Reconmap'; },[]);
@@ -13,12 +14,7 @@ const Tasks = () => {
     return <>
         <h1>Tasks</h1>
         <div className='flex flex-wrap gap-4'>
-            {TASKS.map(task =>
-                <article className='base base-task'>
-                    <code className='text-gray-600'>{task.code}</code>
-                    <h5 className='base-subtitle'>{task.title}</h5>
-                </article>
-            )}
+            {TASKS.map(task => <TaskBadge task={task} key={task.id} /> )}
         </div>
 
     </>

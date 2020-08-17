@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import configuration from '../../Configuration';
+import UserBadge from '../badges/UserBadge';
 
 class ProjectDetails extends Component {
     constructor(props){
@@ -91,6 +92,10 @@ class ProjectDetails extends Component {
                     <div>
                         <h3>Team</h3>
                         <a href="/users/1">Ethical hacker 1</a>
+                        <div className='flex flex-wrap'>
+                            <UserBadge name='Santiago Lizardo' role='Full Stack Dev'/>
+                            <UserBadge name='Pablo Lizardo' role='UX Designer'/>
+                        </div>
                     </div>
                     <div>
                         <h3>Tasks (1/3 completed)</h3>
