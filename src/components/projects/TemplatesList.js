@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import configuration from '../../Configuration';
+import { Link } from 'react-router-dom';
 
 class TemplatesList extends Component {
     state = {
@@ -22,21 +23,35 @@ class TemplatesList extends Component {
     render() {
         return (
             <>
-                <h2>Project templates</h2>
+                <h1>Project templates</h1>
 
-                <div>
-                    <a href="create-project.html">Create template</a>
+                <div className='mb-4'>
+                    <a href="create-project.html" className=''>Create template</a>
                 </div>
+                <section className='flex flex-wrap gap-4'>
 
-                {
-                    this.state.templates.map((template, index) => 
-                        <div key={index}>
-                        <h3>{template.name}</h3><p>3 tasks</p>
-                        <span>java</span> <span>local</span><br />
-                        <a href="project.html">Create project using template</a> | <a href="clone.html">Clone</a>
-                        </div>    
-                    )
-                }
+                    {
+                        this.state.templates.map((template, index) =>
+                            <Link to={`/dashboard/project/${index}`}>
+                                <article className='base base-project'>
+                                    <div className=' mb-auto flex flex-col gap-1'>
+                                        <button className='text-sm p-1' href="project.html">Create project using template</button>
+                                        <button className='text-sm p-1' href="clone.html">Clone</button>
+
+                                    </div>
+                                    <div className='base-desc gap-3 flex-row flex'>
+                                        <span className='text-red-600'>3 tasks</span>
+                                            <span className=''>java</span>
+                                            <span className=''>local</span>
+                                    </div>
+                                    <h4 className='base-title'>{template.name}</h4>
+                                </article>
+                            </Link>
+
+                        )
+                    }
+                </section>
+
             </>
         )
     }
