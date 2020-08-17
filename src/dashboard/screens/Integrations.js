@@ -14,12 +14,12 @@ const Integrations = () => {
             <h1>Integrations</h1>
             <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                 {INTEGRATIONS.map(integration =>
-                    <article key={integration.app} className='base hover:border-red-600 border-2 border-transparent flex flex-col'>
-                        <h4 className='text-white flex py-2 items-center justify-between mb-4'>
+                    <article key={integration.app} className='base base-integration'>
+                        <h4 className='base-subtitle'>
                             {integration.app}
-                            <i data-feather={integration.icon} className={` text-red-600  text-4xl`} />
+                            <i data-feather={integration.icon} className={` text-red-600  float-right text-4xl`} />
                         </h4>
-                        <p className='text-gray-500 text-sm'>{integration.desc}</p>
+                        <p className='base-desc py-4'>{integration.desc}</p>
                         <p className='text-right'><button className="px-3 py-1"><i data-feather='check-square' className='mr-2'></i> Enable</button></p>
                     </article>
                 )}

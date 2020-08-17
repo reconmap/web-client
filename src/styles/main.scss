@@ -6,6 +6,7 @@ h1,h2,h3 {
 
 }
 .base {
+    display: flex;
     padding: $padding 15px ;
     border-width: 4px;
     border-color: transparent;
@@ -19,6 +20,18 @@ h1,h2,h3 {
         -webkit-transform: translateY(-2);
     }
 }
+.base-integration { 
+    flex-direction: column; 
+    @extend .base-reactive;
+}
+.base-task { 
+    overflow: hidden;
+    height: 128px;
+    width: 256px;;
+    flex-direction: column; 
+    justify-content: flex-end;
+    @extend .base-reactive;
+}
 .base-project {
     width: 256px;
     height: 256px;
@@ -27,12 +40,27 @@ h1,h2,h3 {
     flex-direction: column;
     justify-content: flex-end;
     border-radius: 14px;
+    @extend .base-reactive;
+}
+.base-reactive { 
+    &:hover {
+        border-color: $red-600;
+        cursor: pointer;
+    }
 }
 .base-title {
     font-style: normal;
     font-weight: 600;
     font-size: 1.75rem;
     line-height: 2rem;
+    color: $gray-200;
+    margin-top: 10px;
+}
+.base-subtitle {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
     color: $gray-200;
     margin-top: 10px;
 }
@@ -59,14 +87,8 @@ table {
     }
 }
 code{ 
-    background-color: $gray-900;
-    color:$gray-300;
-    padding: $padding;
-    display: block;
-    margin-top: 10px ;
-    font-weight: 500;
-    border-left: 4px solid $red-600;
-    border-radius: $radius;
+    // background-color: $gray-900;
+    // color:$gray-300;
 
 }
 
