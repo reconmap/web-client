@@ -1,6 +1,9 @@
 import React from 'react'
 
 const Integrations = () => {
+
+    React.useEffect(() => { document.title = 'Integrations | Reconmap'; },[]);
+
     const INTEGRATIONS = [
         { app: 'Jira', desc: 'This integration allows you to import or export tasks to and from Jira', icon: 'list', enabled: 1 },
         { app: 'Trello', desc: 'This integration allows you to import or export tasks to and from trello', icon: 'trello', enabled: 1 },

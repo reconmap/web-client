@@ -8,6 +8,8 @@ class ProjectsList extends Component {
     }
 
     componentDidMount() {
+        document.title = 'Project List | Reconmap';
+        
         fetch(`${configuration.api.baseUrl}/projects`, {
             method: 'GET',
             headers: {
@@ -22,13 +24,13 @@ class ProjectsList extends Component {
         return (
             <div>
                 <h1>Projects</h1>
-                <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                <section className='flex flex-wrap gap-4'>
                     {
                         this.state.projects.map((project, index) =>
                             <ProjectLink project={project}  key={project.id}/>
                         )
                     }
-                    <ProjectLink project={{ name: 'Just a test', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'0'}}/>
+                    <ProjectLink project={{ name: 'Project\'s name', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'0'}}/>
                     <ProjectLink project={{ name: 'Populating this view', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'1'}}/>
                     <ProjectLink project={{ name: 'Example name for a project', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'0'}}/>
                     <ProjectLink project={{ name: 'Just a test', description: 'Culpa aute duis nisi exercitation culpa incididunt amet tempor aliquip qui cillum.', is_template:'0'}}/>
@@ -40,9 +42,9 @@ class ProjectsList extends Component {
 
 const ProjectLink = ({project}) => {
     return     <Link to={`/dashboard/project/${project.id}`}>
-                    <article className='base hover:border-red-600 border-2 border-transparent flex flex-col'>
-                        <h4 className='mb-2 items-center flex justify-between text-white'>{project.name} {project.is_template === 1 && <i data-feather='clipboard' className=' text-xs opacity-50'/>}</h4>
-                        <p className='text-gray-500 text-sm'>{project.description}</p>
+                    <article className='base base-project hover:border-red-600 border-2 border-transparent'>
+                        <p className='base-desc'>{project.description}</p>
+                        <h4 className='base-title mb-2 items-center flex justify-between text-white'>{project.name} {project.is_template === 1 && <i data-feather='clipboard' className=' text-xs opacity-50'/>}</h4>
                     </article>
                 </Link>
 }

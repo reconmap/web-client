@@ -8,6 +8,7 @@ class ProjectDetails extends Component {
     }
 
     componentDidMount() {
+
         const id = this.props.match.params.id;
         fetch(`${configuration.api.baseUrl}/projects/${id}`, {
             method: 'GET',
@@ -16,7 +17,10 @@ class ProjectDetails extends Component {
             }
         })
             .then((response) => response.json())
-            .then((project) => this.setState({ project: project }));
+            .then((project) => {
+                this.setState({ project: project })
+                document.title = `${project.name} | Reconmap`;
+            });
     }
 
     render() {

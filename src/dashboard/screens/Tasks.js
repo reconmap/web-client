@@ -1,6 +1,8 @@
 import React from 'react'
 
 const Tasks = () => {
+    React.useEffect(() => { document.title = 'Tasks | Reconmap'; },[]);
+
     const TASKS = [
         { title: 'Computer OS fingerprint probe', code: 'nmap -v -O target_IP' },
         { title: 'Network or Port Scan', code: 'nmap -v -sS target_IP' },
