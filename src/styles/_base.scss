@@ -1,0 +1,65 @@
+// base reconmap components
+.base {
+    display: flex;
+    flex-direction: column;
+    padding: $padding 15px ;
+    border-width: 4px;
+    border-color: transparent;
+    border-radius: $radius;
+    transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
+    background-color: $gray-800;
+    color: $gray-100;
+    font-size: 1.04rem;
+    &:hover {
+        transform: translateY(-2);
+        -webkit-transform: translateY(-2);
+    }
+}
+.base-integration { 
+    @extend .base-reactive;
+}
+.base-task { 
+    overflow: hidden;
+    height: 128px;
+    width: 256px;;
+    justify-content: flex-end;
+    @extend .base-reactive;
+}
+.base-project {
+    width: 256px;
+    height: 256px;
+    aspect-ratio: 1 1;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 14px;
+    @extend .base-reactive;
+}
+.base-reactive { 
+    &:hover {
+        border-color: $red-600;
+        cursor: pointer;
+    }
+}
+.base-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.75rem;
+    line-height: 2rem;
+    color: $gray-200;
+    margin-top: 10px;
+}
+.base-subtitle {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    color: $gray-200;
+    margin-top: 10px;
+}
+.base-desc {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+    color: $gray-600;
+}
