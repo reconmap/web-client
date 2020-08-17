@@ -13,12 +13,12 @@ import Tasks from "../dashboard/screens/Tasks";
 import ProjectsList from '../components/projects/List';
 import Integrations from "../dashboard/screens/Integrations";
 import Reports from "../dashboard/screens/Reports";
-import Templates from "../dashboard/screens/Templates";
 import UploadTask from "../dashboard/screens/UploadTask";
 import UserPreferences from "../components/user/Preferences";
 import UsersList from "../components/users/List";
 import ProjectDetails from "../components/project/Details";
 import AuditLogList from "../components/auditlog/List";
+import TemplatesList from '../components/projects/TemplatesList';
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -47,7 +47,7 @@ const App = () => {
                 <Route path={`${url}/integrations`} component={Integrations} />
                 <Route path={`${url}/reports`} component={Reports} />
                 <Route path={`${url}/auditlog`} component={AuditLogList} />
-                <Route path={`${url}/templates`} component={Templates} />
+                <Route path={`${url}/templates`} component={TemplatesList} />
               </Dashboard>
             )}
           />
