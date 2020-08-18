@@ -13,7 +13,7 @@ import Tasks from "../dashboard/screens/Tasks";
 import ProjectsList from '../components/projects/List';
 import Integrations from "../dashboard/screens/Integrations";
 import Reports from "../dashboard/screens/Reports";
-import UploadTask from "../dashboard/screens/UploadTask";
+import UploadTaskResult from "../components/task/UploadTaskResult";
 import UserPreferences from "../components/user/Preferences";
 import UsersList from "../components/users/List";
 import ProjectDetails from "../components/project/Details";
@@ -41,7 +41,7 @@ const App = () => {
             render={({ match: { url } }) => (
               <Dashboard>
                 <Route exact path={`${url}/tasks`} component={Tasks} />
-                <Route exact path={`${url}/tasks/upload`} component={UploadTask} />
+                <Route exact path={`${url}/tasks/upload`} component={UploadTaskResult} />
                 <Route path={`${url}/projects`} component={ProjectsList} />
                 <Route path={`${url}/project/:id`} component={ProjectDetails} />
                 <Route path={`${url}/users/create`} component={UserCreationForm} />

@@ -1,7 +1,7 @@
-
-import Header from "../landing/Header";
 import React from "react";
+import Header from "../components/layout/Header";
 import Sidebar from "../components/layout/sidebar";
+
 function Dashboard({children}) {
   
   return (

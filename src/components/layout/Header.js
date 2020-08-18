@@ -1,7 +1,7 @@
 import { Link, useHistory } from 'react-router-dom'
 
 import React, { useContext } from 'react'
-import AuthContext from './../contexts/AuthContext'
+import AuthContext from '../../contexts/AuthContext'
 
 export default function Header() {
   const history = useHistory()

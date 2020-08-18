@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UploadTask = () => {
+const UploadTaskResult = () => {
     React.useEffect(() => { document.title = 'Upload Task | Reconmap'; },[]);
 
     return (
@@ -26,4 +26,4 @@ nmap -v -O www.fas
     )
 }
 
-export default UploadTask
+export default UploadTaskResult
