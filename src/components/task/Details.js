@@ -75,7 +75,7 @@ class TaskDetails extends Component {
                     this.state.results.map((value, index) => 
                         <div key={index}>
                             Date: {value.insert_ts}<br />
-                            <textarea>{value.output}</textarea>
+                            <textarea readOnly value={value.output} style={{width: '100%'}} />
                             <hr />
                         </div>
                     )

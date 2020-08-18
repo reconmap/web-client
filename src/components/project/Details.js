@@ -117,7 +117,7 @@ class ProjectDetails extends Component {
                         <h3>Tasks (1/{this.state.tasks.length} completed)</h3>
                         {
                             this.state.tasks.map((task, index) =>
-                            <><input type="checkbox" checked="checked" readOnly /> <Link to={"/dashboard/tasks/"+ task.id}>{task.name}</Link> (<Link to="/dashboard/tasks/upload">Upload results</Link>)<br /></>
+                            <><input type="checkbox" checked="checked" readOnly /> <Link to={"/dashboard/tasks/"+ task.id}>{task.name}</Link> (<Link to={"/dashboard/tasks/"+ task.id + "/upload"}>Upload results</Link>)<br /></>
                             )
                         }
                         <br />
