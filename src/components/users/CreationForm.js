@@ -16,25 +16,29 @@ const UserCreationForm = () => {
         setLoading(false)
         history.push('/dashboard/users/')
     }
-    const handleChangeName = e=> setUserData({...userData,name:e.target.value})
-    const handleChangePassword = e=> setUserData({...userData,password:e.target.value})
-    const handleChangeEmail = e=> setUserData({...userData,email:e.target.value})
-    const handleChangeRole = e=> setUserData({...userData,role:e.target.value})
+    const handleChangeName = e => setUserData({ ...userData, name: e.target.value })
+    const handleChangePassword = e => setUserData({ ...userData, password: e.target.value })
+    const handleChangeEmail = e => setUserData({ ...userData, email: e.target.value })
+    const handleChangeRole = e => setUserData({ ...userData, role: e.target.value })
+    const handleGoBack = () => { history.push('/dashboard/users/') }
+    const allFieldsFilled = userData.name && userData.password && userData.email && userData.role
     return (
-        <form onSubmit={e=>e.preventDefault()}>
-            <label htmlFor='new-user-name'>Name</label>
-            <input type="text" name="new-user-name" onChange={handleChangeName}/>
-            <label htmlFor='new-user-password'>Password</label>
-            <input type="password" name="new-user-password" onChange={handleChangePassword}/>
-            <label htmlFor='new-user-email'>Email</label>
-            <input type="text" name="new-user-email" onChange={handleChangeEmail}/>
-            <label htmlFor='new-user-role'>Role</label>
-            <select name="new-user-role" onChange={handleChangeRole}>
+        <form onSubmit={e => e.preventDefault()}>
+            <label htmlFor='name'>Name</label>
+            <input autofocus type="text" name="name" onChange={handleChangeName} />
+            <label htmlFor='password'>Password</label>
+            <input type="password" name="password" onChange={handleChangePassword} />
+            <label htmlFor='email'>Email</label>
+            <input type="email" name="email" onChange={handleChangeEmail} />
+            <label htmlFor='role'>Role</label>
+            <select name="role" onChange={handleChangeRole}>
+                <option></option>
                 <option>Creator</option>
                 <option>Writer</option>
                 <option>Reader</option>
             </select>
-            <button onClick={handleCreate} disabled={loading}>{loading ? 'Wait please' : 'Create'}</button>
+            <button onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</button>
+            <button onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</button>
         </form>
     )
 }

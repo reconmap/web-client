@@ -2,7 +2,34 @@
 @import 'base';
 @import 'typography';
 
+form  {
+    label, input, select, button{
+        margin: 10px auto;
+        width: 100%;
+        max-width: 500px;
+        display: block;
+}}
+button {
+    @extend .base;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    &:hover:not([disabled]){ background-color: $red-600; }
+}
+button[type='reset'], button[type='cancel']{
+    opacity: .75;
+    background-color: transparent;
+    border-color: $gray-800;
+    &:hover{
+        background-color: transparent;
+        border-color: $red-600;
+    }
+}
+button[disabled] { 
+    opacity: .5;
 
+    cursor: not-allowed;
+}
 table {
     th{
         text-align: left;
@@ -20,11 +47,5 @@ input, select, textarea {
     }
 }
 
-button {
-    @extend .base;
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    &:hover{ background-color: $red-600; }
-}
+
 nav button { background-color: $gray-800; }
