@@ -49,6 +49,11 @@ const Login = () => {
       .finally(function() {
       });
   };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin()
+   }
+  }
   return (
     <Wrap>
       <div className='flex justify-between items-center  w-full flex-col md:flex-row' >
@@ -62,7 +67,7 @@ const Login = () => {
             <label htmlFor="inputPassword" className="sr-only">
               Password
             </label>
-            <input onKeyPress={handleLogin} type="password" id="inputPassword" onChange={handlePassword} placeholder="Password" required />
+            <input onKeyPress={handleKeyPress} type="password" id="inputPassword" onChange={handlePassword} placeholder="Password" required />
             <button onClick={handleLogin} to="dashboard" className={ (!credentials.username || !credentials.password) ? 'opacity-50 hover:bg-gray-800' : ''} disabled={!credentials.username || !credentials.password}>
               {!loading ? "Sign in" : "Processing..."}
             </button>
