@@ -4,39 +4,56 @@ import configuration from '../../Configuration';
 import UserBadge from '../badges/UserBadge';
 
 class ProjectDetails extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
     }
     state = {
-        project: null
+        project: null,
+        tasks: [],
+        targets: [],
     }
 
     componentDidMount() {
 
         const id = this.props.match.params.id;
-        fetch(`${configuration.api.baseUrl}/projects/${id}`, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-            }
-        })
-            .then((response) => response.json())
-            .then((project) => {
-                this.setState({ project: project })
+        Promise.all([
+            fetch(`${configuration.api.baseUrl}/projects/${id}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                }
+            }),
+            fetch(`${configuration.api.baseUrl}/projects/${id}/tasks`, {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                }
+            }),
+            fetch(`${configuration.api.baseUrl}/projects/${id}/targets`, {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                }
+            })
+        ])
+            .then((responses) => Promise.all(responses.map((response) => response.json())))
+            .then((responses) => {
+                const [project, tasks, targets] = responses;
+                this.setState({ project: project, tasks: tasks, targets: targets })
                 document.title = `${project.name} | Reconmap`;
             });
     }
 
     handleDelete(id) {
-        if (window.confirm('Are you sure you want to delete this project?') ) {
+        if (window.confirm('Are you sure you want to delete this project?')) {
             fetch(`${configuration.api.baseUrl}/projects/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
             })
-            .then(() =>{ this.props.history.goBack() })
-            .catch(e => console.log(e))
-            
+                .then(() => { this.props.history.goBack() })
+                .catch(e => console.log(e))
+
         }
     }
 
@@ -52,10 +69,9 @@ class ProjectDetails extends Component {
                         <h2 className='text-white'>{this.state.project.name}</h2>
                     </div>
                     <div className='flex items-center justify-between gap-4'>
+                        <button href="generate-report.html">Generate Report</button>
                         <button href="">Archive</button>
-                        <button onClick={()=>this.handleDelete(this.state.project.id)}>Delete</button>
-                        <button href="generate-map-report.html">Generate Recon Map Report</button>
-                        <button href="generate-report.html">Generate Recconnaisance Report</button>
+                        <button onClick={() => this.handleDelete(this.state.project.id)}>Delete</button>
                     </div>
                 </section>
 
@@ -70,13 +86,13 @@ class ProjectDetails extends Component {
                         <table className='font-mono text-sm w-full' >
                             <thead>
                                 <tr><th>Host</th><th>uri</th></tr>
-
                             </thead>
                             <tbody>
-
-                                <tr><td>Host</td><td>www.fom</td></tr>
-                                <tr><td>Host</td><td>www.foa</td></tr>
-                                <tr><td>Host</td><td>www.fas</td></tr>
+                                {
+                                    this.state.targets.map((target, index) =>
+                                        <tr key={index}><td>{target.kind}</td><td>{target.name}</td></tr>
+                                    )
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -93,15 +109,17 @@ class ProjectDetails extends Component {
                         <h3>Team</h3>
                         <a href="/users/1">Ethical hacker 1</a>
                         <div className='flex flex-wrap'>
-                            <UserBadge name='Santiago Lizardo' role='Full Stack Dev'/>
-                            <UserBadge name='Pablo Lizardo' role='UX Designer'/>
+                            <UserBadge name='Santiago Lizardo' role='Full Stack Dev' />
+                            <UserBadge name='Pablo Lizardo' role='UX Designer' />
                         </div>
                     </div>
                     <div>
-                        <h3>Tasks (1/3 completed)</h3>
-                        <input type="checkbox" checked="checked" /> Run port scanner (<Link to="/dashboard/tasks/upload">Upload results</Link>)<br />
-                        <input type="checkbox" /> Run tool X (<a href="/upload">Upload results</a>)<br />
-                        <input type="checkbox" /> Run tool Y (<a href="/upload">Upload results</a>)<br />
+                        <h3>Tasks (1/{this.state.tasks.length} completed)</h3>
+                        {
+                            this.state.tasks.map((task, index) =>
+                            <><input type="checkbox" checked="checked" /> {task.name} (<Link to="/dashboard/tasks/upload">Upload results</Link>)<br /></>
+                            )
+                        }
                         <br />
                         <button href="">Add task</button>
                     </div>
