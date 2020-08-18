@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import configuration from '../../Configuration';
 import UserBadge from '../badges/UserBadge';
 
-class ProjectDetails extends Component {
+class TaskDetails extends Component {
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
@@ -138,4 +138,4 @@ class ProjectDetails extends Component {
     }
 }
 
-export default ProjectDetails
+export default TaskDetails

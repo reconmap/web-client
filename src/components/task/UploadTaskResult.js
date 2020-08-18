@@ -1,29 +1,47 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { secureApiFetch } from '../../services/api';
 
-const UploadTaskResult = () => {
-    React.useEffect(() => { document.title = 'Upload Task | Reconmap'; },[]);
+class UploadTaskResult extends Component {
 
-    return (
-        <>
-        
-<h2>Task: Run port scanner </h2>
+    componentDidMount() {
+        document.title = 'Upload Task | Reconmap';
+    }
 
-Command: 
+    handleUploadClick() {
+        var resultFileInput = document.getElementById('resultFile');
+        var formData = new FormData;
+        formData.append('resultFile', resultFileInput.files[0]);
+        secureApiFetch('/tasks/results', {
+            method: 'POST',
+            body: formData
+        })
+        .then((response) => {
+                console.dir(response);
+        })
+        .catch((error) => console.log(error));
+    }
 
-<code>
-    <pre>
-nmap -v -O www.fom
-nmap -v -O www.foa
-nmap -v -O www.fas
-</pre>
-</code>
+    render() {
+        return (
+            <>
+                <h2>Task: Run port scanner </h2>
 
-<form action="project.html">
-    <input type="file" />
-    <button>Upload results</button>
-</form>
-        </>
-    )
+            Command:
+                <code>
+                    <pre>
+                        nmap -v -O www.fom
+                        nmap -v -O www.foa
+                        nmap -v -O www.fas
+                </pre>
+                </code>
+
+                <form action="project.html">
+                    <input type="file" id="resultFile" />
+                    <button onClick={this.handleUploadClick}>Upload results</button>
+                </form>
+            </>
+        )
+    }
 }
 
 export default UploadTaskResult

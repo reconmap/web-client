@@ -21,6 +21,7 @@ import AuditLogList from "../components/auditlog/List";
 import TemplatesList from '../components/projects/TemplatesList';
 import VulnerabilitiesList from "../components/vulnerabilities/List";
 import UserCreationForm from "../components/users/CreationForm";
+import TaskDetails from "../components/task/Details";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -41,6 +42,7 @@ const App = () => {
             render={({ match: { url } }) => (
               <Dashboard>
                 <Route exact path={`${url}/tasks`} component={Tasks} />
+                <Route exact path={`${url}/tasks/:id`} component={TaskDetails} />
                 <Route exact path={`${url}/tasks/upload`} component={UploadTaskResult} />
                 <Route path={`${url}/projects`} component={ProjectsList} />
                 <Route path={`${url}/project/:id`} component={ProjectDetails} />
