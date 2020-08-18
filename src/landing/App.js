@@ -47,7 +47,7 @@ const App = () => {
                 <Route path={`${url}/projects`} component={ProjectsList} />
                 <Route path={`${url}/project/:id`} component={ProjectDetails} />
                 <Route path={`${url}/users/create`} component={UserCreationForm} />
-                <Route path={`${url}/users`} component={UsersList} />
+                <Route exact path={`${url}/users`} component={UsersList} />
                 <Route path={`${url}/user/preferences`} component={UserPreferences} />
                 <Route path={`${url}/integrations`} component={Integrations} />
                 <Route path={`${url}/reports`} component={Reports} />
