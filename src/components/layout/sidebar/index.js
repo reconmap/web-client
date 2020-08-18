@@ -1,5 +1,5 @@
 import React from 'react'
-import LINKS from './../../routes/dashboard'
+import LINKS from './Links'
 import { Link, useHistory } from 'react-router-dom'
 
 export default function Sidebar() {
