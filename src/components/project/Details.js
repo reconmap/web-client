@@ -100,7 +100,7 @@ class ProjectDetails extends Component {
                                 <li>Vulnerability "sql injection" found on host "www.fom" on date 2020-08-12 by user "Ethical hacker 1"</li>
                             </ul>
                         </p>
-                        <button href="add.html" className='bg-gray-900 text-sm mt-4 py-1 px-3 ' >Add New Vulnerability</button>
+                        <button href="add.html" >Add New Vulnerability</button>
                     </div>
                 </section>
                 <section className='grid lg:grid-cols-3 gap-4 my-4'>

@@ -1,6 +1,7 @@
 @import 'variables';
 @import 'base';
 @import 'typography';
+@import 'buttons';
 
 .heading{
     display: flex;
@@ -15,40 +16,6 @@ form  {
         max-width: 500px;
         display: block;
 }}
-button {
-    @extend .base;
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    &:hover:not([disabled]){ background-color: $red-600; }
-}
-button[type='reset'], button[type='cancel'], button[type='delete']{
-    opacity: .75;
-    background-color: transparent;
-    border-color: $gray-800;
-    &:hover{
-        background-color: transparent;
-        border-color: $red-600;
-    }
-}
-button[type='menu']{
-    opacity: .75;
-    background-color: transparent;
-    border-color: $gray-800;
-    &:hover{
-        background-color: transparent;
-        border-color: $gray-600;
-        color: white;
-    }
-}
-button[disabled] { 
-    opacity: .5;
-    cursor: not-allowed;
-}
-
-button + button { 
-    // margin-left: 1rem;
-}
 
 table {
     margin: 1rem auto;
@@ -72,6 +39,3 @@ input, select, textarea {
         background-color: $gray-700;
     }
 }
-
-
-nav button { background-color: $gray-800; }

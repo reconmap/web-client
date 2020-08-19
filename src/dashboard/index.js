@@ -30,8 +30,10 @@ const DashboardPanels = () => {
 }
 
 const RandomPanel = ({desc, title}) => {
-  return <article className='base base-reactive'>
-    <p className='base-desc'>{desc}</p>
+  return <article className='base base-reactive' >
+    <button>Action</button>
+    <button type='menu'>Secondary action</button>
+    <p className='base-desc mt-4'>{desc}</p>
     <h4 className='base-subtitle'>{title}</h4>
   </article>
 }

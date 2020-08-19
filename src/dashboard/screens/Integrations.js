@@ -23,7 +23,7 @@ const Integrations = () => {
                             <i data-feather={integration.icon} className={` text-red-600  float-right text-4xl`} />
                         </h4>
                         <p className='base-desc py-4'>{integration.desc}</p>
-                        <p className='text-right'><button className="px-3 py-1"><i data-feather='check-square' className='mr-2'></i> Enable</button></p>
+                       <button><i data-feather='check-square' className='mr-2'></i> Enable</button>
                     </article>
                 )}
             </section>

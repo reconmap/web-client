@@ -34,8 +34,8 @@ class TemplatesList extends Component {
                             <Link to={`/dashboard/project/${index}`}>
                                 <article className='base base-project'>
                                     <div className=' mb-auto flex flex-col gap-1'>
-                                        <button className='text-sm p-1' href="project.html">Create project using template</button>
-                                        <button className='text-sm p-1' href="clone.html">Clone</button>
+                                        <button href="project.html">Create project using template</button>
+                                        <button href="clone.html">Clone</button>
 
                                     </div>
                                     <div className='base-desc gap-3 flex-row flex'>
