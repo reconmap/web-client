@@ -1,5 +1,5 @@
 export default [
-    { title: 'Dashboard', icon: 'columns', to: '/dashboard/dashboard' },
+    { title: 'Dashboard', icon: 'columns', to: '/dashboard' },
     { title: 'Vulnerabilities', icon: 'alert-circle', to: '/dashboard/vulnerabilities' },
     { title: 'Tasks', icon: 'check-square', to: '/dashboard/tasks' },
     { title: 'Projects', icon: 'layers', to: '/dashboard/projects' },
