@@ -22,6 +22,7 @@ import TemplatesList from '../components/projects/TemplatesList';
 import VulnerabilitiesList from "../components/vulnerabilities/List";
 import UserCreationForm from "../components/users/CreationForm";
 import TaskDetails from "../components/task/Details";
+import UIComponents from "../dashboard/screens/UIComponents";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -54,6 +55,7 @@ const App = () => {
                 <Route path={`${url}/auditlog`} component={AuditLogList} />
                 <Route path={`${url}/templates`} component={TemplatesList} />
                 <Route path={`${url}/vulnerabilities`} component={VulnerabilitiesList} />
+                <Route path={`${url}/components`} component={UIComponents} />
               </Dashboard>
             )}
           />
