@@ -3,10 +3,19 @@ import Alert from "../../components/ui/Alert";
 
 export default function UIComponents() {
   return (
-    <div className='grid grid-cols-3 gap-10'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
       <section>
       <h1>Components</h1>
       <p className='base-desc'>Most of them are just html5 native tags. Some others require a minimun set of classes or attributes. </p>
+      </section>
+      <section>
+      <h1>Projects</h1>
+        <div className='base base-project'>
+          <h5 className='base-desc'>Description</h5>
+          <h3 className='base-title'>Project</h3>
+          <footer>This is the footer</footer>
+        </div>
+
       </section>
 
       <section className="py-4">

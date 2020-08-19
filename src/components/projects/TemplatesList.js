@@ -45,12 +45,14 @@ class TemplatesList extends Component {
                                         <button href="clone.html">Clone</button>
 
                                     </div>
-                                    <div className='base-desc gap-3 flex-row flex'>
-                                        <span className='text-red-600'>3 tasks</span>
-                                            <span className=''>java</span>
-                                            <span className=''>local</span>
-                                    </div>
+                                    
                                     <h4 className='base-title'>{template.name}</h4>
+                                    <footer>
+                                    <span className='text-red-600'>3 tasks</span>
+                                        <span className='ml-2'>java</span>
+                                        <span className='ml-2'>local</span>
+                                    </footer>
+
                                 </article>
                             </Link>
 
