@@ -4,24 +4,21 @@ const UserPreferences = () => {
     return (
         <>
 
-            <form action="../dashboard.html">
-                <div>
-                    Language
+            <form action="../dashboard.html" onSubmit={e=>e.preventDefault()}>
+                    <label>Language</label>
                     <select>
                         <option>English</option>
                         <option>Spanish</option>
                     </select>
-                </div>
 
-                <div>
-                    Timezone
+                    <label>Timezone</label>
                     <select>
                         <option>UTC-4</option>
                         <option>UTC</option>
                     </select>
-                </div>
 
                 <button>Save</button>
+                <button type='cancel'>Cancel</button>
             </form>
         </>
     )
