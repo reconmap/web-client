@@ -9,6 +9,29 @@ class ProjectReport extends Component {
         project: null
     }
 
+    handleExport() {
+        fetch(`${configuration.api.baseUrl}/projects/1/report?format=pdf`, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+            }
+        })
+            .then(response => {
+                var contentDispositionHeader = response.headers.get('Content-Disposition');
+                var filename = contentDispositionHeader.split('filename=')[1].split(';')[0];
+                return Promise.all([response.blob(), filename]);
+            })
+            .then((values) => {
+                const blob = values[0];
+                const filename = values[1];
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+            })
+    }
+
     componentDidMount() {
 
         const id = this.props.match.params.id;
@@ -36,8 +59,8 @@ class ProjectReport extends Component {
         return (
             <>
                 <h2>{this.state.project.name}</h2>
-
-                <div id="report" style={{width: '80%', backgroundColor: 'white', height: '500px', padding: '20px'}}></div>
+                <button onClick={this.handleExport}><i data-feather='plus' className='mr-2'/> Export to PDF</button>
+                <div id="report"></div>
             </>
         )
     }
