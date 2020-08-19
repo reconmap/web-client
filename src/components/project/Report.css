@@ -1,0 +1,6 @@
+#report {
+    all: initial;
+    * {
+      all: unset;
+    }
+  }

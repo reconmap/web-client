@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import configuration from '../../Configuration';
 import UserBadge from '../badges/UserBadge';
+import secureApiFetch from '../../services/api';
 
 class ProjectDetails extends Component {
     constructor(props) {
@@ -12,37 +13,39 @@ class ProjectDetails extends Component {
         project: null,
         tasks: [],
         targets: [],
+        vulnerabilities: []
     }
 
     componentDidMount() {
 
         const id = this.props.match.params.id;
         Promise.all([
-            fetch(`${configuration.api.baseUrl}/projects/${id}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-                }
+            secureApiFetch(`/projects/${id}`, {
+                method: 'GET'
             }),
-            fetch(`${configuration.api.baseUrl}/projects/${id}/tasks`, {
-                method: 'GET',
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-                }
+            secureApiFetch(`/projects/${id}/tasks`, {
+                method: 'GET'
             }),
-            fetch(`${configuration.api.baseUrl}/projects/${id}/targets`, {
-                method: 'GET',
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-                }
+            secureApiFetch(`/projects/${id}/targets`, {
+                method: 'GET'
+            }),
+            secureApiFetch(`/projects/${id}/vulnerabilities`, {
+                method: 'GET'
             })
         ])
             .then((responses) => Promise.all(responses.map((response) => response.json())))
             .then((responses) => {
-                const [project, tasks, targets] = responses;
-                this.setState({ project: project, tasks: tasks, targets: targets })
-                document.title = `${project.name} | Reconmap`;
-            });
+                const newState = {
+                    project: responses[0],
+                    tasks: responses[1],
+                    targets: responses[2],
+                    vulnerabilities: responses[3],
+                };
+                console.dir(newState);
+                this.setState(newState)
+                document.title = `${newState.project.name} | ReconMap`;
+            })
+            .catch((error) => alert(error));
     }
 
     handleDelete(id) {
@@ -69,7 +72,7 @@ class ProjectDetails extends Component {
                         <h2 className='text-white'>{this.state.project.name}</h2>
                     </div>
                     <div className='flex items-center justify-between gap-4'>
-                        <button href="generate-report.html">Generate Report</button>
+                        <button onClick={() => document.location = `/dashboard/project/${this.state.project.id}/report`}>Generate Report</button>
                         <button href="">Archive</button>
                         <button onClick={() => this.handleDelete(this.state.project.id)} type='delete'>Delete</button>
                     </div>
@@ -87,17 +90,21 @@ class ProjectDetails extends Component {
                                 <tr><th>Host</th><th>uri</th></tr>
                             </thead>
                             <tbody>
-                                { this.state.targets.map((target, index) =>
-                                        <tr key={index}><td>{target.kind}</td><td>{target.name}</td></tr>
-                                    )}
+                                {this.state.targets.map((target, index) =>
+                                    <tr key={index}><td>{target.kind}</td><td>{target.name}</td></tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
                     <div className='base'>
                         <h4 className='text-white'>Vulnerabilities</h4>
-                        <p  className='text-gray-600 text-sm' >
+                        <p className='text-gray-600 text-sm' >
                             <ul>
-                                <li>Vulnerability "sql injection" found on host "www.fom" on date 2020-08-12 by user "Ethical hacker 1"</li>
+                                {
+                                    this.state.vulnerabilities.map((vuln, index) =>
+                                        <li key={index}>{vuln.summary}</li>
+                                    )
+                                }
                             </ul>
                         </p>
                         <button href="add.html" >Add New Vulnerability</button>
@@ -116,7 +123,7 @@ class ProjectDetails extends Component {
                         <h4>Tasks (1/{this.state.tasks.length} completed)</h4>
                         {
                             this.state.tasks.map((task, index) =>
-                            <><input type="checkbox" checked="checked" readOnly /> <Link to={"/dashboard/tasks/"+ task.id}>{task.name}</Link> (<Link to={"/dashboard/tasks/"+ task.id + "/upload"}>Upload results</Link>)<br /></>
+                                <><input type="checkbox" checked="checked" readOnly /> <Link to={"/dashboard/tasks/" + task.id}>{task.name}</Link> (<Link to={"/dashboard/tasks/" + task.id + "/upload"}>Upload results</Link>)<br /></>
                             )
                         }
                         <br />

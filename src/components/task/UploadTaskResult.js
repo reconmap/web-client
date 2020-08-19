@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { secureApiFetch } from '../../services/api';
+import secureApiFetch from '../../services/api';
 
 class UploadTaskResult extends Component {
 
@@ -17,7 +17,7 @@ class UploadTaskResult extends Component {
         const taskId = this.props.match.params.id;
 
         var resultFileInput = document.getElementById('resultFile');
-        var formData = new FormData;
+        var formData = new FormData();
         formData.append('resultFile', resultFileInput.files[0]);
         formData.append('taskId', taskId);
         secureApiFetch('/tasks/results', {

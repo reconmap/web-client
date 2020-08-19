@@ -23,6 +23,7 @@ import VulnerabilitiesList from "../components/vulnerabilities/List";
 import UserCreationForm from "../components/users/CreationForm";
 import TaskDetails from "../components/task/Details";
 import UIComponents from "../dashboard/screens/UIComponents";
+import ProjectReport from "../components/project/Report";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -46,7 +47,8 @@ const App = () => {
                 <Route exact path={`${url}/tasks/:id`} component={TaskDetails} />
                 <Route exact path={`${url}/tasks/:id/upload`} component={UploadTaskResult} />
                 <Route path={`${url}/projects`} component={ProjectsList} />
-                <Route path={`${url}/project/:id`} component={ProjectDetails} />
+                <Route path={`${url}/project/:id/report`} component={ProjectReport} />
+                <Route exact path={`${url}/project/:id`} component={ProjectDetails} />
                 <Route path={`${url}/users/create`} component={UserCreationForm} />
                 <Route exact path={`${url}/users`} component={UsersList} />
                 <Route path={`${url}/user/preferences`} component={UserPreferences} />

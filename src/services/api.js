@@ -1,6 +1,6 @@
 import configuration from '../Configuration';
 
-export function secureApiFetch(input, init) {
+function secureApiFetch(input, init) {
     const headers = {
         Authorization: 'Bearer ' + localStorage.getItem('accessToken')
     }
@@ -12,3 +12,5 @@ export function secureApiFetch(input, init) {
     }
     return fetch(configuration.api.baseUrl + input, init);
 }
+
+export default secureApiFetch

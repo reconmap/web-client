@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
-import configuration from '../../Configuration';
 import { Link } from 'react-router-dom';
+import secureApiFetch from '../../services/api';
 
 class TemplatesList extends Component {
     state = {
         templates: []
     }
 
+    cloneProject(templateId) {
+        secureApiFetch(`/projects/${templateId}/clone`, {
+            method: 'POST',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                this.props.history.push('/dashboard/projects');
+            });
+    }
+
     componentDidMount() {
         document.title = 'Project templates | ReconMap';
 
-        fetch(`${configuration.api.baseUrl}/projects?isTemplate=1`, {
+        secureApiFetch(`/projects?isTemplate=1`, {
             method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-            }
         })
             .then((response) => response.json())
             .then((data) => this.setState({ templates: data }));
@@ -31,7 +38,7 @@ class TemplatesList extends Component {
 
                     {
                         this.state.templates.map((template, index) =>
-                            <Link to={`/dashboard/project/${index}`}>
+                            <Link onClick={() => this.cloneProject(template.id)}>
                                 <article className='base base-project'>
                                     <div className=' mb-auto flex flex-col gap-1'>
                                         <button href="project.html">Create project using template</button>
