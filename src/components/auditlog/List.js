@@ -43,11 +43,11 @@ class AuditLogList extends Component {
     render() {
         return (
             <>
-                <button onClick={this.handleExport}>Export to CSV</button>
-
-                <div>
+                <div className='heading'>
                     <h1>Audit Log</h1>
-                    <table>
+                    <button onClick={this.handleExport}>Export to CSV</button>
+                </div>
+                    <table className='w-full'>
                         <thead>
                             <tr>
                                 <th>Date/Time</th>
@@ -76,7 +76,6 @@ class AuditLogList extends Component {
                             }
                         </tbody>
                     </table>
-                </div>
             </>
         )
     }

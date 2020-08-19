@@ -2,9 +2,15 @@
 @import 'base';
 @import 'typography';
 
+.heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 form  {
     label, input, select, button{
-        margin: 10px auto;
+        margin: 1rem auto;
         width: 100%;
         max-width: 500px;
         display: block;
@@ -16,7 +22,7 @@ button {
     align-items: center;
     &:hover:not([disabled]){ background-color: $red-600; }
 }
-button[type='reset'], button[type='cancel']{
+button[type='reset'], button[type='cancel'], button[type='delete']{
     opacity: .75;
     background-color: transparent;
     border-color: $gray-800;
@@ -27,12 +33,22 @@ button[type='reset'], button[type='cancel']{
 }
 button[disabled] { 
     opacity: .5;
-
     cursor: not-allowed;
 }
+
+button + button { 
+    // margin-left: 1rem;
+}
+
 table {
+    margin: 1rem auto;
     th{
         text-align: left;
+        font-weight: 500;
+        letter-spacing: .01rem;
+    }
+    td{
+        padding: .3rem .1rem;
     }
 }
 

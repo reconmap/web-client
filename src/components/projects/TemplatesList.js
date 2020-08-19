@@ -23,10 +23,9 @@ class TemplatesList extends Component {
     render() {
         return (
             <>
-                <h1>Project templates</h1>
-
-                <div className='mb-4'>
-                    <a href="create-project.html" className=''>Create template</a>
+                <div className='heading'>
+                    <h1>Project templates</h1>
+                    <button ><i data-feather='plus' className='mr-2'/> Create Template</button>
                 </div>
                 <section className='flex flex-wrap gap-4'>
 

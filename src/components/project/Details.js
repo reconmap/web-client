@@ -71,42 +71,41 @@ class ProjectDetails extends Component {
                     <div className='flex items-center justify-between gap-4'>
                         <button href="generate-report.html">Generate Report</button>
                         <button href="">Archive</button>
-                        <button onClick={() => this.handleDelete(this.state.project.id)}>Delete</button>
+                        <button onClick={() => this.handleDelete(this.state.project.id)} type='delete'>Delete</button>
                     </div>
                 </section>
 
                 <section className='grid lg:grid-cols-3 gap-4 my-4'>
                     <div className='base'>
-                        <h3>Description</h3>
-
-                        <p>{this.state.project.description}</p>
+                        <h4 className='text-white'>Description</h4>
+                        <p className='text-gray-600 text-sm'>{this.state.project.description}</p>
                     </div>
                     <div className='base'>
-                        <h3>Target(s)</h3>
+                        <h4 className='text-white'>Target(s)</h4>
                         <table className='font-mono text-sm w-full' >
                             <thead>
                                 <tr><th>Host</th><th>uri</th></tr>
                             </thead>
                             <tbody>
-                                {
-                                    this.state.targets.map((target, index) =>
+                                { this.state.targets.map((target, index) =>
                                         <tr key={index}><td>{target.kind}</td><td>{target.name}</td></tr>
-                                    )
-                                }
+                                    )}
                             </tbody>
                         </table>
                     </div>
                     <div className='base'>
-                        <h3>Vulnerabilities</h3>
-                        <p><a href="add.html">Add Vulnerability</a></p>
-                        <ul>
-                            <li>Vulnerability "sql injection" found on host "www.fom" on date 2020-08-12 by user "Ethical hacker 1"</li>
-                        </ul>
+                        <h4 className='text-white'>Vulnerabilities</h4>
+                        <p  className='text-gray-600 text-sm' >
+                            <ul>
+                                <li>Vulnerability "sql injection" found on host "www.fom" on date 2020-08-12 by user "Ethical hacker 1"</li>
+                            </ul>
+                        </p>
+                        <button href="add.html" className='bg-gray-900 text-sm mt-4 py-1 px-3 ' >Add New Vulnerability</button>
                     </div>
                 </section>
                 <section className='grid lg:grid-cols-3 gap-4 my-4'>
                     <div>
-                        <h3>Team</h3>
+                        <h4>Team</h4>
                         <a href="/users/1">Ethical hacker 1</a>
                         <div className='flex flex-wrap'>
                             <UserBadge name='Santiago Lizardo' role='Full Stack Dev' />
@@ -114,7 +113,7 @@ class ProjectDetails extends Component {
                         </div>
                     </div>
                     <div>
-                        <h3>Tasks (1/{this.state.tasks.length} completed)</h3>
+                        <h4>Tasks (1/{this.state.tasks.length} completed)</h4>
                         {
                             this.state.tasks.map((task, index) =>
                             <><input type="checkbox" checked="checked" readOnly /> <Link to={"/dashboard/tasks/"+ task.id}>{task.name}</Link> (<Link to={"/dashboard/tasks/"+ task.id + "/upload"}>Upload results</Link>)<br /></>
@@ -125,7 +124,7 @@ class ProjectDetails extends Component {
                     </div>
                     <div>
 
-                        <h3>Audit log</h3>
+                        <h4>Audit log</h4>
                         <ul>
                             <li>2020-08-12 22:26 User "Ethical hacker 1" uploaded results for task "Run port scanner"</li>
                         </ul>

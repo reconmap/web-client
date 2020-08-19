@@ -11,7 +11,10 @@ const Integrations = () => {
     ]
     return (
         <>
-            <h1>Integrations</h1>
+            <div className='heading'>
+                <h1>Integrations</h1>
+                <button onClick={() => { this.props.history.push("/dashboard/integration/create"); }}>Create integration</button>
+            </div>
             <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                 {INTEGRATIONS.map(integration =>
                     <article key={integration.app} className='base base-integration'>

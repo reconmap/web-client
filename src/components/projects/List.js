@@ -23,7 +23,10 @@ class ProjectsList extends Component {
     render() {
         return (
             <div>
-                <h1>Projects</h1>
+                <div className='heading'>
+                    <h1>Projects</h1>
+                    <button ><i data-feather='plus' className='mr-2'/> Create Project</button>
+                </div>
                 <section className='flex flex-wrap gap-4'>
                     {
                         this.state.projects.map((project, index) =>

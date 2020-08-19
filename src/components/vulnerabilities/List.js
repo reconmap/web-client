@@ -20,10 +20,12 @@ class VulnerabilitiesList extends Component {
     render() {
         return (
             <>
+            <div className='heading'>
                 <h1>Vulnerabilities</h1>
-                <button href="#">Create user</button>
+                <button ><i data-feather='plus' className='mr-2'/> Create Vulnerability</button>
+            </div>
 
-                <table className='w-full'>
+                <table className='w-full my-4'>
                     <thead>
                         <tr>
                             <th>Date/Time</th>

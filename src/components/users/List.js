@@ -36,15 +36,16 @@ class UsersList extends Component {
     render() {
         return (
             <>
-                <h1>Users</h1>
-                <button onClick={() => { this.props.history.push("/dashboard/users/create"); }}>Create user</button>
-
+                <div className='heading'>
+                    <h1>Users</h1>
+                    <button onClick={() => { this.props.history.push("/dashboard/users/create"); }}>Create user</button>
+                </div>
                 <table className='w-full'>
                     <thead>
                         <tr>
                             <th>Username</th>
                             <th>Role</th>
-                            <th>Options</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +55,7 @@ class UsersList extends Component {
                                     <tr key={index}>
                                         <td>{user.name}</td>
                                         <td>{user.role}</td>
-                                        <td><button onClick={() => this.handleDelete(user.id)}>Delete</button></td>
+                                        <td className='text-right'><button onClick={() => this.handleDelete(user.id)} type='delete'>Delete</button></td>
                                     </tr>
                                 )
                             })
