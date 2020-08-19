@@ -13,6 +13,7 @@ start:
 		-v $(PWD):/var/www/webapp \
 		-p 3001:3000 \
 		-e REACT_APP_STAGE=$(RECONMAP_APP_STAGE) \
+		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \
 		--name reconmap-web-frontend \
 		reconmap-web-frontend start
