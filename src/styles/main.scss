@@ -19,13 +19,25 @@ form  {
 
 table {
     margin: 1rem auto;
+   
+    tr:nth-child(even){
+        background-color: rgba($gray-500, .05);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    tr:hover{
+        background-color: rgba($gray-500, .1);
+    }
     th{
         text-align: left;
         font-weight: 500;
         letter-spacing: .01rem;
+        padding: .5rem;
+
     }
     td{
-        padding: .3rem .1rem;
+        border-top: 1px solid rgba($gray-500, .1);
+        padding: .7rem .5rem;
     }
 }
 

@@ -3,17 +3,22 @@ import Alert from "../../components/ui/Alert";
 
 export default function UIComponents() {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
-      <section>
-      <h1>Components</h1>
-      <p className='base-desc'>Most of them are just html5 native tags. Some others require a minimun set of classes or attributes. </p>
-      </section>
-      <section>
-      <h1>Projects</h1>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10'>
+   
+      <section className='py-4'>
+      <label>Projects</label>
+      <div className='gap-4 flex flex-wrap'>
+
         <div className='base base-project'>
-          <h5 className='base-desc'>Description</h5>
-          <h3 className='base-title'>Project</h3>
-          <footer>This is the footer</footer>
+          <h3>Description</h3>
+          <h1>Project with footer</h1>
+          <footer>Id enim laboris cillum mollit amet reprehenderit</footer>
+        </div>
+        <div className='base base-project'>
+          <header>Dolore laborum ad ad ipsum ex pariatur quis enim Lorem irure. </header>
+          <h3>Description of project with header</h3>
+          <h1>Project</h1>
+        </div>
         </div>
 
       </section>
@@ -41,19 +46,20 @@ export default function UIComponents() {
       <section className="py-4">
         <label>Base | Cards</label>
         <div className="base">
-          <p className="base-desc">Base Description</p>
-          <h3 className="base-subtitle">Base SubTitle</h3>
-          <h2 className="base-title">Base Title</h2>
+          <h3>Base Description</h3>
+          <h2>Base SubTitle</h2>
         </div>
         <div className="base base-reactive mt-2">
-          <h2 className="base-title">Base Title on Reactive Component</h2>
-          <p className="base-desc">Base Description</p>
+          <h1>Base Title on Reactive Component</h1>
+          <h3>Base Description</h3>
         </div>
-        <div className="base base-reactive mt-2 bg-blue">
-          <h2 className="base-title">Base Component with buttons</h2>
-          <p className="base-desc mb-4">Base Description</p>
-          <button>Primary</button>
-          <button>Primary</button>
+        <div className="base base-reactive mt-2 ">
+          <h1>Base Component with buttons</h1>
+          <h3>Base Description</h3>
+          <footer>
+            <button>Primary</button>
+            <button>Primary</button>
+          </footer>
 
         </div>
       </section>

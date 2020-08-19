@@ -40,19 +40,16 @@ class TemplatesList extends Component {
                         this.state.templates.map((template, index) =>
                             <Link onClick={() => this.cloneProject(template.id)}>
                                 <article className='base base-project'>
-                                    <div className=' mb-auto flex flex-col gap-1'>
-                                        <button href="project.html">Create project using template</button>
-                                        <button href="clone.html">Clone</button>
-
-                                    </div>
-                                    
-                                    <h4 className='base-title'>{template.name}</h4>
+                                    <header>
+                                        <button href="project.html">Start from this</button>
+                                        <button href="clone.html" className='ml-2'>Clone</button>
+                                    </header>
+                                    <h1>{template.name}</h1>
                                     <footer>
-                                    <span className='text-red-600'>3 tasks</span>
+                                        <span className='text-red-600'>3 tasks</span>
                                         <span className='ml-2'>java</span>
                                         <span className='ml-2'>local</span>
                                     </footer>
-
                                 </article>
                             </Link>
 

@@ -17,13 +17,13 @@ const Integrations = () => {
             </div>
             <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                 {INTEGRATIONS.map(integration =>
-                    <article key={integration.app} className='base base-integration'>
-                        <h4 className='base-subtitle'>
+                    <article key={integration.app} className='base '>
+                        <h2 className='mb-2'>
                             {integration.app}
                             <i data-feather={integration.icon} className={` text-red-600  float-right text-4xl`} />
-                        </h4>
-                        <p className='base-desc py-4'>{integration.desc}</p>
-                       <button><i data-feather='check-square' className='mr-2'></i> Enable</button>
+                        </h2>
+                            <p className='mb-2'>{integration.desc}</p>
+                            <button className='mt-2'><i data-feather='check-square' className='mr-2'></i> Enable</button>
                     </article>
                 )}
             </section>

@@ -80,11 +80,11 @@ class ProjectDetails extends Component {
 
                 <section className='grid lg:grid-cols-3 gap-4 my-4'>
                     <div className='base'>
-                        <h4 className='text-white'>Description</h4>
-                        <p className='text-gray-600 text-sm'>{this.state.project.description}</p>
+                        <h2>Description</h2>
+                        <p>{this.state.project.description}</p>
                     </div>
                     <div className='base'>
-                        <h4 className='text-white'>Target(s)</h4>
+                        <h2>Target(s)</h2>
                         <table className='font-mono text-sm w-full' >
                             <thead>
                                 <tr><th>Host</th><th>uri</th></tr>
@@ -97,8 +97,7 @@ class ProjectDetails extends Component {
                         </table>
                     </div>
                     <div className='base'>
-                        <h4 className='text-white'>Vulnerabilities</h4>
-                        <p className='text-gray-600 text-sm' >
+                        <h2>Vulnerabilities</h2>
                             <ul>
                                 {
                                     this.state.vulnerabilities.map((vuln, index) =>
@@ -106,38 +105,45 @@ class ProjectDetails extends Component {
                                     )
                                 }
                             </ul>
-                        </p>
+                            <footer>
+
                         <button href="add.html" >Add New Vulnerability</button>
+                            </footer>
                     </div>
                 </section>
                 <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                    <div>
-                        <h4>Team</h4>
-                        <a href="/users/1">Ethical hacker 1</a>
+                    <article className='base'>
+                        <h2>Team</h2>
                         <div className='flex flex-wrap'>
                             <UserBadge name='Santiago Lizardo' role='Full Stack Dev' />
                             <UserBadge name='Pablo Lizardo' role='UX Designer' />
                         </div>
-                    </div>
-                    <div>
-                        <h4>Tasks (1/{this.state.tasks.length} completed)</h4>
-                        {
-                            this.state.tasks.map((task, index) =>
-                                <><input type="checkbox" checked="checked" readOnly /> <Link to={"/dashboard/tasks/" + task.id}>{task.name}</Link> (<Link to={"/dashboard/tasks/" + task.id + "/upload"}>Upload results</Link>)<br /></>
-                            )
-                        }
-                        <br />
-                        <button href="">Add task</button>
-                    </div>
-                    <div>
-
-                        <h4>Audit log</h4>
+                    </article>
+                    <article className='base'>
+                        <h2>Tasks <small>1/{this.state.tasks.length} completed</small></h2>
+                        <div className='flex flex-col gap-2 mb-2'>
+                            { this.state.tasks.map((task, index) =>
+                                <div className='flex flex-row items-center justify-start'>
+                                    <input type="checkbox" checked="checked" readOnly className='mr-4'/> 
+                                    <Link to={"/dashboard/tasks/" + task.id}>{task.name}</Link>
+                                    <Link className=' ml-auto' to={"/dashboard/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
+                                </div>
+                                )
+                            }
+                        </div>
+                        <footer>
+                            <button href="">Add task</button>
+                        </footer>
+                    </article>
+                    <article className='base'>
+                        <h2>Audit log</h2>
                         <ul>
                             <li>2020-08-12 22:26 User "Ethical hacker 1" uploaded results for task "Run port scanner"</li>
                         </ul>
-
-                        <button href="export">Export audit log</button>
-                    </div>
+                        <footer>
+                            <button href="export">Export audit log</button>
+                        </footer>
+                    </article>
                 </section>
             </>
         )

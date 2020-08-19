@@ -19,20 +19,20 @@
         margin-right:  -15px;
         margin-left:  -15px;
         margin-top: -$padding;
-        margin-bottom: $padding;
+        margin-bottom: auto;
         padding: $padding;
         background-color: $gray-700;
+        font-size: .9rem;
 
     }
     footer{
         margin-right:  -15px;
         margin-left:  -15px;
         margin-bottom: -$padding;
-        margin-top: $padding;
+        margin-top: auto;
         padding: $padding 15px;
         font-size: .9rem;
         color:$gray-600;
-
         background-color: $gray-900;
     }
 }
@@ -49,11 +49,8 @@
     &-green { background-color: $green-900; }
     &-blue { background-color: $blue-900; }
 }
-.base-integration { 
-    @extend .base-reactive;
-}
+
 .base-task { 
-    overflow: hidden;
     height: 128px;
     width: 256px;;
     justify-content: flex-end;
@@ -67,6 +64,9 @@
     justify-content: flex-end;
     border-radius: 14px;
     @extend .base-reactive;
+    footer { 
+        margin-top: 0px;
+    }
     
 }
 .base-reactive { 
@@ -75,23 +75,30 @@
         cursor: pointer;
     }
 }
-.base-title {
+.base-text , .base p {
+    font-size: .9rem;
+    color : $gray-500;
+}
+
+.base-title, .base h1 {
     font-style: normal;
     font-weight: 600;
     font-size: 1.75rem;
     line-height: 2rem;
     color: $gray-200;
-    margin-top: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
-.base-subtitle {
+.base-subtitle, .base h2 {
     font-style: normal;
     font-weight: 600;
     font-size: 1.4rem;
     line-height: 1.8rem;
     color: $gray-200;
-    margin-top: 10px;
+    margin-top: .7rem;
+    margin-bottom: .7rem;
 }
-.base-desc {
+.base-desc , .base h3 {
     font-style: normal;
     font-weight: 600;
     font-size: 1.1rem;
