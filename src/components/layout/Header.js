@@ -13,6 +13,7 @@ export default function Header() {
   ];
 
   const handleGoHome = () => { history.push('/') }
+  const handleMyProfile = () => { history.push('/dashboard/user/me') }
   const handleLogOut = () => {
     localStorage.removeItem('reconmap-logged');
     authContext.setLogged(false)
@@ -30,11 +31,17 @@ export default function Header() {
 
     <nav className="font-semibold gap-5 flex items-center justify-end py-4 md:py-0 md:w-1/3">
 
-      {authContext.logged ? <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/dashboard/user/preferences') }} className=' ' ><i data-feather='sliders' className='mr-2' /> Preferences </button>
-        : LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 py-1 text-sm hover:text-white hover:border-white`} to={link.to} target="_blank"> {link.title} </Link>))}
-
-      {authContext.logged ? <button onClick={handleLogOut} ><i data-feather={'log-out'} className='mr-2'/> Log out</button>
-        : <Link to='login' ><button>Log in <i data-feather={'log-in'} className='ml-2'/></button></Link>}
+    {authContext.logged ? <>
+          <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/dashboard/user/preferences') }} className=' ' ><i data-feather='sliders' className='mr-2' /> Preferences </button>
+          <button onClick={handleMyProfile} type='menu' >My Profile</button>
+          <button onClick={handleLogOut} ><i data-feather={'log-out'} className='mr-2'/> Log out</button>
+        </>
+        : 
+        <>
+          {LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 py-1 text-sm hover:text-white hover:border-white`} to={link.to} target="_blank"> {link.title} </Link>))}
+          <Link to='login' ><button>Log in <i data-feather={'log-in'} className='ml-2'/></button></Link>
+        </>
+        }
     </nav>
   </nav>
 }

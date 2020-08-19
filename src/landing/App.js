@@ -24,6 +24,7 @@ import UserCreationForm from "../components/users/CreationForm";
 import TaskDetails from "../components/task/Details";
 import UIComponents from "../dashboard/screens/UIComponents";
 import ProjectReport from "../components/project/Report";
+import Profile from "../dashboard/screens/Profile";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -52,6 +53,7 @@ const App = () => {
                 <Route path={`${url}/users/create`} component={UserCreationForm} />
                 <Route exact path={`${url}/users`} component={UsersList} />
                 <Route path={`${url}/user/preferences`} component={UserPreferences} />
+                <Route path={`${url}/user/me`} component={Profile} />
                 <Route path={`${url}/integrations`} component={Integrations} />
                 <Route path={`${url}/reports`} component={Reports} />
                 <Route path={`${url}/auditlog`} component={AuditLogList} />
