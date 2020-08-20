@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Integrations = () => {
+const IntegrationsList = () => {
 
     React.useEffect(() => { document.title = 'Integrations | Reconmap'; },[]);
 
@@ -32,4 +32,4 @@ const Integrations = () => {
     )
 }
 
-export default Integrations
+export default IntegrationsList

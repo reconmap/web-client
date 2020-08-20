@@ -5,14 +5,11 @@ import {
   Switch
 } from "react-router-dom";
 
-import Dashboard from "../dashboard";
+import Dashboard from "../components/layout/dashboard";
 import Home from "./Home";
 import Login from "./Login";
 import AuthContext from "../contexts/AuthContext";
-import Tasks from "../dashboard/screens/Tasks";
 import ProjectsList from '../components/projects/List';
-import Integrations from "../dashboard/screens/Integrations";
-import Reports from "../dashboard/screens/Reports";
 import UploadTaskResult from "../components/task/UploadTaskResult";
 import UserPreferences from "../components/user/Preferences";
 import UsersList from "../components/users/List";
@@ -22,9 +19,12 @@ import TemplatesList from '../components/projects/TemplatesList';
 import VulnerabilitiesList from "../components/vulnerabilities/List";
 import UserCreationForm from "../components/users/CreationForm";
 import TaskDetails from "../components/task/Details";
-import UIComponents from "../dashboard/screens/UIComponents";
+import ComponentsList from "../components/ui/ComponentsList";
 import ProjectReport from "../components/project/Report";
-import Profile from "../dashboard/screens/Profile";
+import TasksList from "../components/tasks/List";
+import ReportsList from "../components/reports/List";
+import UserProfile from "../components/user/Profile";
+import IntegrationsList from "../components/integrations/Integrations";
 
 const App = () => {
   const [logged, setLogged] = useState(false);
@@ -44,7 +44,7 @@ const App = () => {
             path="/dashboard"
             render={({ match: { url } }) => (
               <Dashboard>
-                <Route exact path={`${url}/tasks`} component={Tasks} />
+                <Route exact path={`${url}/tasks`} component={TasksList} />
                 <Route exact path={`${url}/tasks/:id`} component={TaskDetails} />
                 <Route exact path={`${url}/tasks/:id/upload`} component={UploadTaskResult} />
                 <Route path={`${url}/projects`} component={ProjectsList} />
@@ -53,13 +53,13 @@ const App = () => {
                 <Route path={`${url}/users/create`} component={UserCreationForm} />
                 <Route exact path={`${url}/users`} component={UsersList} />
                 <Route path={`${url}/user/preferences`} component={UserPreferences} />
-                <Route path={`${url}/user/me`} component={Profile} />
-                <Route path={`${url}/integrations`} component={Integrations} />
-                <Route path={`${url}/reports`} component={Reports} />
+                <Route path={`${url}/user/me`} component={UserProfile} />
+                <Route path={`${url}/integrations`} component={IntegrationsList} />
+                <Route path={`${url}/reports`} component={ReportsList} />
                 <Route path={`${url}/auditlog`} component={AuditLogList} />
                 <Route path={`${url}/templates`} component={TemplatesList} />
                 <Route path={`${url}/vulnerabilities`} component={VulnerabilitiesList} />
-                <Route path={`${url}/components`} component={UIComponents} />
+                <Route path={`${url}/components`} component={ComponentsList} />
               </Dashboard>
             )}
           />

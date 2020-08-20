@@ -31,3 +31,14 @@ clean:
 	docker stop reconmap-web-frontend || true
 	git clean -fdx
 
+.PHONY: build
+build:
+	docker run --rm -it \
+		-w /var/www/webapp \
+		-v $(PWD):/var/www/webapp \
+		-e REACT_APP_STAGE=prod \
+		-e NODE_OPTIONS="--max-old-space-size=8192" \
+		--entrypoint yarn \
+		--name reconmap-web-frontend \
+		reconmap-web-frontend build
+

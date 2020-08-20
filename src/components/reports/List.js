@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Reports = () => {
+const ReportsList = () => {
     React.useEffect(() => { document.title = 'Reports | Reconmap'; },[]);
 
     return (
@@ -28,4 +28,4 @@ const Reports = () => {
     )
 }
 
-export default Reports
+export default ReportsList

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Header from "../components/layout/Header";
-import Sidebar from "../components/layout/sidebar";
+import Header from "../Header";
+import Sidebar from "../sidebar";
 import Plot from 'react-plotly.js';
-import secureApiFetch from '../services/api';
+import secureApiFetch from '../../../services/api';
 
 function Dashboard({ children }) {
 

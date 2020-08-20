@@ -1,7 +1,7 @@
 import React from "react";
-import Alert from "../../components/ui/Alert";
+import Alert from "./Alert";
 
-export default function UIComponents() {
+export default function ComponentsList() {
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10'>
    

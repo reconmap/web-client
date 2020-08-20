@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Profile() {
+export default function UserProfile() {
     return (
         <div>
             <div className=' flex flex-col md:flex-row items-center justify-center  max-w-xl mx-auto my-10'>
