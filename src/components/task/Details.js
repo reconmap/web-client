@@ -54,33 +54,28 @@ class TaskDetails extends Component {
             return 'Loading...'
         }
         return (
-            <>
-                <h2>Task {this.state.task.name}</h2>
-
-                <p>{this.state.task.description}</p>
-
-                <dl>
-                    <dt>Creation time</dt>
-                    <dd>{this.state.task.insert_ts}</dd>
-                </dl>
-
-                <h2>Results</h2>
-
-                {
-                    this.state.results.length === 0 &&
-                        <p>No results</p>
-                }
-
-                {
-                    this.state.results.map((value, index) => 
-                        <div key={index}>
-                            Date: {value.insert_ts}<br />
-                            <textarea readOnly value={value.output} style={{width: '100%'}} />
-                            <hr />
-                        </div>
-                    )
-                }
-            </>
+            <div>
+                <h3 className='heading'>Task {this.state.task.name}</h3>
+                <div className='flex items-start gap-4'>
+                    <article className='base w-48'>
+                        <p>{this.state.task.description}</p>
+                        <footer>
+                            <label>Creation time</label> 
+                            <strong>{this.state.task.insert_ts}</strong>
+                        </footer>
+                    </article>
+                    <article className='base flex-1'>
+                        <h3>Results</h3>
+                        { this.state.results.map((value, index) => 
+                            <div key={index} className='pb-2 border-b mb-2'>
+                                <label>Date: {value.insert_ts}</label>
+                                <textarea readOnly value={value.output} style={{width: '100%'}} />
+                            </div>
+                        ) }
+                        { this.state.results.length === 0 &&  <footer> No results </footer> }
+                    </article>
+                </div>
+            </div>
         )
     }
 }

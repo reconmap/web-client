@@ -10,6 +10,20 @@ const Reports = () => {
                 <button ><i data-feather='plus' className='mr-2'/> Create Report</button>
             </div>
             <p>Example vulnerability report. Download <a href="/reports/example.docx">Word</a> or <a href="/reports/example.pdf">PDF</a>.</p>
+            <div className='flex flex-wrap gap-4 my-4'>
+                <article className='base base-reactive w-48 h-64 justify-end'>
+                    <p>This is a brief resume of the report</p>
+                    <h2>Report 1</h2>
+                </article>
+                <article className='base base-reactive w-48 h-64 justify-end'>
+                    <p>Velit elit sint ad adipisicing pariatur laboris dolore ut.</p>
+                    <h2>Report 2</h2>
+                </article>
+                <article className='base base-reactive w-48 h-64 justify-end'>
+                    <p>Elit nisi in duis nisi.</p>
+                    <h2>Report 3</h2>
+                </article>
+            </div>
         </div>
     )
 }

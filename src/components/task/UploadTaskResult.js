@@ -24,31 +24,39 @@ class UploadTaskResult extends Component {
             method: 'POST',
             body: formData
         })
-        .then((response) => {
+            .then((response) => {
                 this.props.history.push('/dashboard/tasks/' + taskId);
-        })
-        .catch((error) => console.log(error));
+            })
+            .catch((error) => console.log(error));
     }
 
     render() {
         return (
-            <>
-                <h2>Task: Run port scanner </h2>
 
-            Command:
-                <code>
-                    <pre>
-                        nmap -v -O www.fom
-                        nmap -v -O www.foa
-                        nmap -v -O www.fas
-                </pre>
-                </code>
+            <div>
+                <h3 className='heading'>Task: Run port scanner </h3>
+                <div className='flex items-start gap-4'>
+                    <article className='base flex-1'>
+                        <h3>Command</h3>
+                        <code >
+                            <pre className='whitespace-pre-wrap'>
+                                nmap -v -O www.fom
+                                nmap -v -O www.foa
+                                nmap -v -O www.fas
+                            </pre>
+                        </code>
+                    </article>
+                    <article className='base flex-1'>
+                        <h3>Results</h3>
+                        <form>
+                            <input type="file" id="resultFile" />
+                            <button onClick={this.handleUploadClick}>Upload results</button>
+                        </form>                
+                    </article>
+                </div>
+            </div>
 
-                <form>
-                    <input type="file" id="resultFile" />
-                    <button onClick={this.handleUploadClick}>Upload results</button>
-                </form>
-            </>
+
         )
     }
 }

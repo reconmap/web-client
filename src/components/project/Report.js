@@ -44,23 +44,25 @@ class ProjectReport extends Component {
                 this.setState(newState)
                 document.title = `Report ${newState.project.name} | Reconmap`;
             });
-            secureApiFetch(`/projects/${id}/report`, {
-                method: 'GET',
-            })
-                .then((responses) => responses.text())
-                .then((data) => {
-                    document.getElementById('report').innerHTML = data;
-                });
-            }
+        secureApiFetch(`/projects/${id}/report`, {
+            method: 'GET',
+        })
+            .then((responses) => responses.text())
+            .then((data) => {
+                document.getElementById('report').innerHTML = data;
+            });
+    }
     render() {
         if (!this.state.project) {
             return 'Loading...'
         }
         return (
             <>
-                <h2>{this.state.project.name}</h2>
-                <button onClick={this.handleExport}><i data-feather='plus' className='mr-2'/> Export to PDF</button>
-                <div id="report"></div>
+                <div className='heading'>
+                    <h2>{this.state.project.name}</h2>
+                    <button onClick={this.handleExport}><i data-feather='plus' className='mr-2' /> Export to PDF</button>
+                </div>
+                <div className='text-sm mx-auto max-w-xl rounded overflow-hidden shadow my-4' id="report"></div>
             </>
         )
     }

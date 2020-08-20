@@ -1,11 +1,17 @@
 // Typography
-h1,h2,h3,h4,h5,h6 , table th, label, details summary {
+table th, label, details summary {
     color: $gray-600;
+}
+p a {
+    border-bottom: 2px dotted $gray-600;
+    &:hover {
+        color: $gray-400;
+        border-bottom-color: $red-500;
+    }
 }
 h1{
     color: $red-600;
     font-weight: 700;
-    margin-bottom: .4rem;
     font-size: 2.6rem;
 }
 h2{ font-size: 2.1rem; }
