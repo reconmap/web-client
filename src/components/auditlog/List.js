@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import configuration from '../../Configuration';
+import Pagination from '../layout/Pagination';
 
 class AuditLogList extends Component {
     constructor( props ) {
@@ -63,11 +64,12 @@ class AuditLogList extends Component {
             <>
                 <div className='heading'>
                     <h1>Audit Log</h1>
-                    <div className='flex gap-4 items-center'>
-                        <button disabled={this.state.pagination.page <=1} onClick={this.handlePrev}>◀</button>
-                        <label>{this.state.pagination.page} / {this.state.pagination.total} </label>
-                        <button disabled={this.state.pagination.page >= this.state.pagination.total} onClick={this.handleNext}>▶</button>
-                    </div>
+                    <Pagination
+                        page={this.state.pagination.page}
+                        total={this.state.pagination.total}
+                        handlePrev={this.handlePrev}
+                        handleNext={this.handleNext}
+                    />
                     <button onClick={this.handleExport}>Export to CSV</button>
                 </div>
                     <table className='w-full'>
