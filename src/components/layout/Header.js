@@ -1,8 +1,10 @@
 import { Link, useHistory } from 'react-router-dom'
 
-import React from 'react'
 import { AuthConsumer } from '../../contexts/AuthContext'
 
+import React, { useContext } from 'react'
+import AuthContext from '../../contexts/AuthContext'
+import { IconLogin } from '../icons'
 export default function Header() {
   const history = useHistory()
 
@@ -19,7 +21,7 @@ export default function Header() {
       ({ isAuth, logout }) => (
         <nav className="flex items-center justify-between w-full   px-2 pb-5 flex-col md:flex-row ">
           <h3 className="text-3xl font-bold items-center flex hover:text-gray-400 cursor-pointer md:w-1/3" onClick={handleGoHome}>
-            <i className=' mr-2 text-red-600' data-feather={'award'} />
+          <img src={'logo.svg'} height='28px' width='28px' className='mr-2 mt-1'/>
         Recon
         <span className='opacity-75'>map</span>
           </h3>
