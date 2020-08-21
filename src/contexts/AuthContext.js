@@ -1,5 +1,5 @@
 import React, { createContext, Component } from "react";
-import configuration from '../Configuration';
+import secureApiFetch from '../services/api';
 
 const AuthContext = createContext()
 
@@ -21,7 +21,7 @@ class AuthProvider extends Component {
         const formData = new FormData();
         formData.append('username', credentials.username);
         formData.append('password', credentials.password);
-        fetch(`${configuration.api.baseUrl}/users/login`, {
+        secureApiFetch(`/users/login`, {
           method: 'POST',
           body: formData
         })
@@ -42,8 +42,14 @@ class AuthProvider extends Component {
     }
 
     logout() {
+      secureApiFetch(`/users/logout`, {
+        method: 'POST',
+      })
+      .finally(() => {
         localStorage.removeItem('isAuth');
+        localStorage.removeItem('accessToken');
         this.setState({ isAuth: false })
+      });
     }
 
     render() {

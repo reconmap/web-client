@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
-import { useHistory, Redirect } from "react-router-dom";
-import { AuthConsumer, AuthProvider } from "../../contexts/AuthContext";
+import { Redirect } from "react-router-dom";
+import { AuthConsumer } from "../../contexts/AuthContext";
 import Wrap from "../layout/Wrap";
 
 const Login = (props) => {
 
-  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState({ username: null, password: null })
   const [error, setError] = useState()
@@ -15,9 +14,6 @@ const Login = (props) => {
     // each time an error occurs
     error && setTimeout(() => { setError() }, 4000)
   }, [error])
-
-  const handleLogin = () => {
-  }
 
   const handleUsername = e => { setCredentials({ ...credentials, username: e.target.value }) }
   const handlePassword = e => { setCredentials({ ...credentials, password: e.target.value }) }
