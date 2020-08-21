@@ -30,6 +30,7 @@ class VulnerabilitiesList extends Component {
                         <tr>
                             <th>Date/Time</th>
                             <th>Summary</th>
+                            <th>Description</th>
                             <th>Risk</th>
                             <th>Status</th>
                         </tr>
@@ -41,6 +42,7 @@ class VulnerabilitiesList extends Component {
                                     <tr key={index}>
                                         <td>{vulnerability.insert_ts}</td>
                                         <td>{vulnerability.summary}</td>
+                                        <td>{vulnerability.description}</td>
                                         <td>{vulnerability.risk}</td>
                                         <td>OPEN</td>
                                     </tr>
