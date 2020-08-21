@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import configuration from '../../Configuration';
 import UserBadge from '../badges/UserBadge';
 import secureApiFetch from '../../services/api';
 
@@ -41,7 +40,6 @@ class ProjectDetails extends Component {
                     targets: responses[2],
                     vulnerabilities: responses[3],
                 };
-                console.dir(newState);
                 this.setState(newState)
                 document.title = `${newState.project.name} | Reconmap`;
             })
@@ -50,7 +48,7 @@ class ProjectDetails extends Component {
 
     handleDelete(id) {
         if (window.confirm('Are you sure you want to delete this project?')) {
-            fetch(`${configuration.api.baseUrl}/projects/${id}`, {
+            secureApiFetch(`/projects/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
             })

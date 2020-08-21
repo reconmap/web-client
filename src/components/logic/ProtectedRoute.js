@@ -7,7 +7,7 @@ const ProtectedRoute = ({component: Component, ...rest}) => (
     <AuthConsumer>
         {
         ({isAuth}) => (
-            <Route render={props => 
+            <Route {...rest} render={props => 
                 isAuth ? <Component {...props} /> : <Redirect to={{ pathname: "/login", state: { from: props.location }}} />
             } />
         )
