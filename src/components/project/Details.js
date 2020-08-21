@@ -43,7 +43,7 @@ class ProjectDetails extends Component {
                 };
                 console.dir(newState);
                 this.setState(newState)
-                document.title = `${newState.project.name} | ReconMap`;
+                document.title = `${newState.project.name} | Reconmap`;
             })
             .catch((error) => alert(error));
     }

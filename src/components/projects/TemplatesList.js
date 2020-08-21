@@ -18,7 +18,7 @@ class TemplatesList extends Component {
     }
 
     componentDidMount() {
-        document.title = 'Project templates | ReconMap';
+        document.title = 'Project templates | Reconmap';
 
         secureApiFetch(`/projects?isTemplate=1`, {
             method: 'GET',
