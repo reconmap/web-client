@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 import Dashboard from "./components/layout/dashboard";
-import Home from "./components/layout/Home";
 import Login from "./components/user/Login";
 import ProjectsList from './components/projects/List';
 import UploadTaskResult from "./components/task/UploadTaskResult";
@@ -34,9 +33,8 @@ const App = () => {
     <Router>
       <AuthProvider>
         <Switch>
-          <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
-          <ProtectedRoute exact path='/dashboard' component={Dashboard} />
+          <ProtectedRoute exact path='/' component={Dashboard} />
           <Dashboard>
             <Switch>
               <ProtectedRoute exact path={`/tasks`} component={TasksList} />
