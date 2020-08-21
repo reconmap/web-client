@@ -20,9 +20,9 @@ class TasksList extends Component {
 
         return <>
             <h1>Tasks</h1>
-
+            <div className='heading'>
             <div>
-                Project
+                <label>Project</label>
         <select>
                     <option>Any</option>
                     <option>Project 1</option>
@@ -30,7 +30,7 @@ class TasksList extends Component {
                 </select>
             </div>
             <div>
-                Assignee
+            <label>Assignee</label>
         <select>
                     <option>Anyone</option>
                     <option>User 1</option>
@@ -38,7 +38,7 @@ class TasksList extends Component {
                 </select>
             </div>
             <div>
-                Status
+            <label>Status</label>
         <select>
                     <option>Any</option>
                     <option>Open</option>
@@ -46,7 +46,7 @@ class TasksList extends Component {
                 </select>
             </div>
             <button>Apply filters</button>
-
+</div>
             <table className='w-full'>
                 <thead>
                     <tr>
