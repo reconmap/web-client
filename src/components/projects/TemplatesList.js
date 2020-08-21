@@ -13,7 +13,7 @@ class TemplatesList extends Component {
         })
             .then((response) => response.json())
             .then((data) => {
-                this.props.history.push('/dashboard/projects');
+                this.props.history.push('/projects');
             });
     }
 

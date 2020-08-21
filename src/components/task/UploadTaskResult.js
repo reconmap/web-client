@@ -25,7 +25,7 @@ class UploadTaskResult extends Component {
             body: formData
         })
             .then((response) => {
-                this.props.history.push('/dashboard/tasks/' + taskId);
+                this.props.history.push('/tasks/' + taskId);
             })
             .catch((error) => console.log(error));
     }

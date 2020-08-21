@@ -38,7 +38,7 @@ class UsersList extends Component {
             <>
                 <div className='heading'>
                     <h1>Users</h1>
-                    <button onClick={() => { this.props.history.push("/dashboard/users/create"); }}>Create user</button>
+                    <button onClick={() => { this.props.history.push("/users/create"); }}>Create user</button>
                 </div>
                 <table className='w-full'>
                     <thead>

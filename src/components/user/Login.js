@@ -29,7 +29,6 @@ const Login = (props) => {
 
   const onOk = () => {
     setLoading(false);
-    history.push("/dashboard");
   }
   const onKo = (err) => {
     setLoading(false);

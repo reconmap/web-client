@@ -14,7 +14,7 @@ export default function Header() {
   ];
 
   const handleGoHome = () => { history.push('/') }
-  const handleMyProfile = () => { history.push('/dashboard/user/me') }
+  const handleMyProfile = () => { history.push('/user/me') }
 
   return <AuthConsumer>
     {
@@ -31,7 +31,7 @@ export default function Header() {
           <nav className="font-semibold gap-5 flex items-center justify-end py-4 md:py-0 md:w-1/3">
 
             {isAuth ? <>
-              <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/dashboard/user/preferences') }} className=' ' ><i data-feather='sliders' className='mr-2' /> Preferences </button>
+              <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/user/preferences') }} className=' ' ><i data-feather='sliders' className='mr-2' /> Preferences </button>
               <button onClick={handleMyProfile} type='menu' >My Profile</button>
               <button onClick={logout} ><i data-feather={'log-out'} className='mr-2' /> Log out</button>
             </>

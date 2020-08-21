@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const ProjectBadge = ({ project }) => {
-    return <Link to={`/dashboard/project/${project.id}`}>
+    return <Link to={`/project/${project.id}`}>
         <article className='base base-project'>
             <p>{project.description}</p>
             <h1 className='items-center flex justify-between'>

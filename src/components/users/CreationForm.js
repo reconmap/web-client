@@ -14,13 +14,13 @@ const UserCreationForm = () => {
             headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
         })
         setLoading(false)
-        history.push('/dashboard/users/')
+        history.push('/users/')
     }
     const handleChangeName = e => setUserData({ ...userData, name: e.target.value })
     const handleChangePassword = e => setUserData({ ...userData, password: e.target.value })
     const handleChangeEmail = e => setUserData({ ...userData, email: e.target.value })
     const handleChangeRole = e => setUserData({ ...userData, role: e.target.value })
-    const handleGoBack = () => { history.push('/dashboard/users/') }
+    const handleGoBack = () => { history.push('/users/') }
     const allFieldsFilled = userData.name && userData.password && userData.email && userData.role
     return (
         <form onSubmit={e => e.preventDefault()}>

@@ -72,7 +72,7 @@ class ProjectDetails extends Component {
                         <h2 className='text-white'>{this.state.project.name}</h2>
                     </div>
                     <div className='flex items-center justify-between gap-4'>
-                        <button onClick={() => document.location = `/dashboard/project/${this.state.project.id}/report`}>Generate Report</button>
+                        <button onClick={() => document.location = `/project/${this.state.project.id}/report`}>Generate Report</button>
                         <button href="">Archive</button>
                         <button onClick={() => this.handleDelete(this.state.project.id)} type='delete'>Delete</button>
                     </div>
@@ -125,8 +125,8 @@ class ProjectDetails extends Component {
                             { this.state.tasks.map((task, index) =>
                                 <div className='flex flex-row items-center justify-start'>
                                     <input type="checkbox" checked="checked" readOnly className='mr-4'/> 
-                                    <Link to={"/dashboard/tasks/" + task.id}>{task.name}</Link>
-                                    <Link className=' ml-auto' to={"/dashboard/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
+                                    <Link to={"/tasks/" + task.id}>{task.name}</Link>
+                                    <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
                                 </div>
                                 )
                             }
