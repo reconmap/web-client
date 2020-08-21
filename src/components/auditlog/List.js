@@ -2,8 +2,17 @@ import React, { Component } from 'react'
 import configuration from '../../Configuration';
 
 class AuditLogList extends Component {
+    constructor( props ) {
+        super(props)
+        this.handleNext = this.handleNext.bind(this)
+        this.handlePrev = this.handlePrev.bind(this)
+    }
     state = {
-        auditLog: []
+        auditLog: [],
+        pagination:{
+            page: 1, 
+            total:43
+        }
     }
 
     handleExport() {
@@ -30,7 +39,7 @@ class AuditLogList extends Component {
     }
 
     componentDidMount() {
-        fetch(`${configuration.api.baseUrl}/auditlog`, {
+        fetch(`${configuration.api.baseUrl}/auditlog?page=${this.state.pagination.page}`, {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('accessToken')
@@ -39,12 +48,26 @@ class AuditLogList extends Component {
             .then((response) => response.json())
             .then((auditLog) => this.setState({ auditLog: auditLog }));
     }
-
+    handlePrev(){
+        this.setState(prevState => {
+            return this.state.pagination.page =  prevState.pagination.page -1
+        })
+    }
+    handleNext(){
+        this.setState(prevState => {
+            return this.state.pagination.page =  prevState.pagination.page +1
+        })
+    }
     render() {
         return (
             <>
                 <div className='heading'>
                     <h1>Audit Log</h1>
+                    <div className='flex gap-4 items-center'>
+                        <button disabled={this.state.pagination.page <=1} onClick={this.handlePrev}>◀</button>
+                        <label>{this.state.pagination.page} / {this.state.pagination.total} </label>
+                        <button disabled={this.state.pagination.page >= this.state.pagination.total} onClick={this.handleNext}>▶</button>
+                    </div>
                     <button onClick={this.handleExport}>Export to CSV</button>
                 </div>
                     <table className='w-full'>
