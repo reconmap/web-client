@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import TaskBadge from '../badges/TaskBadge';
 import secureApiFetch from '../../services/api';
 
 class TasksList extends Component {
