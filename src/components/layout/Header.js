@@ -2,7 +2,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import React, { useContext } from 'react'
 import AuthContext from '../../contexts/AuthContext'
-
+import { IconLogin } from '../icons'
 export default function Header() {
   const history = useHistory()
   const authContext = useContext(AuthContext)
@@ -22,9 +22,8 @@ export default function Header() {
 
   return <nav className="flex items-center justify-between w-full   px-2 pb-5 flex-col md:flex-row ">
     <h3 className="text-3xl font-bold items-center flex hover:text-gray-400 cursor-pointer md:w-1/3" onClick={handleGoHome}>
-      <i className=' mr-2 text-red-600' data-feather={'award'} />
-      Recon
-      <span className='opacity-75'>Map</span>
+      <img src={'logo.svg'} height='28px' width='28px' className='mr-2 mt-1'/>
+      Recon <span className='text-red-600'>map</span>
     </h3>
 
     {authContext.logged && <input className=' md:w-1/4 my-4 md:my-0 md:mx-5' placeholder="Search..." />}
@@ -32,7 +31,7 @@ export default function Header() {
     <nav className="font-semibold gap-5 flex items-center justify-end py-4 md:py-0 md:w-1/3">
 
     {authContext.logged ? <>
-          <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/dashboard/user/preferences') }} className=' ' ><i data-feather='sliders' className='mr-2' /> Preferences </button>
+          <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/dashboard/user/preferences') }} className=' ' ><IconLogin /> Preferences </button>
           <button onClick={handleMyProfile} type='menu' >My Profile</button>
           <button onClick={handleLogOut} ><i data-feather={'log-out'} className='mr-2'/> Log out</button>
         </>

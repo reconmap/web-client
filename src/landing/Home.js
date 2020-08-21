@@ -1,5 +1,6 @@
 import React from "react";
 import Wrap from "./Wrap";
+import { IconShield } from "../components/icons";
 
 const Home = () => {
   return (
@@ -13,7 +14,7 @@ const Home = () => {
             projects for multiple targets.
               </h2>
         </div>
-        <i data-feather={'award'} className=' text-red-600 order-1 md:order-3 p-5' />
+        <IconShield size='24'/>
       </div>
 
     </Wrap>
