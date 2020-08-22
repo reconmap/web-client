@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import UserBadge from '../badges/UserBadge';
 import secureApiFetch from '../../services/api';
+import DeleteButton from '../ui/buttons/Delete';
 
 class ProjectDetails extends Component {
     constructor(props) {
@@ -49,8 +50,7 @@ class ProjectDetails extends Component {
     handleDelete(id) {
         if (window.confirm('Are you sure you want to delete this project?')) {
             secureApiFetch(`/projects/${id}`, {
-                method: 'DELETE',
-                headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
+                method: 'DELETE'
             })
                 .then(() => { this.props.history.goBack() })
                 .catch(e => console.log(e))
@@ -72,7 +72,7 @@ class ProjectDetails extends Component {
                     <div className='flex items-center justify-between gap-4'>
                         <button onClick={() => document.location = `/project/${this.state.project.id}/report`}>Generate Report</button>
                         <button href="">Archive</button>
-                        <button onClick={() => this.handleDelete(this.state.project.id)} type='delete'>Delete</button>
+                        <DeleteButton onClick={() => this.handleDelete(this.state.project.id)} />
                     </div>
                 </section>
 
@@ -114,7 +114,6 @@ class ProjectDetails extends Component {
                         <h2>Team</h2>
                         <div className='flex flex-wrap'>
                             <UserBadge name='Santiago Lizardo' role='Full Stack Dev' />
-                            <UserBadge name='Pablo Lizardo' role='UX Designer' />
                         </div>
                     </article>
                     <article className='base'>
@@ -131,15 +130,6 @@ class ProjectDetails extends Component {
                         </div>
                         <footer>
                             <button href="">Add task</button>
-                        </footer>
-                    </article>
-                    <article className='base'>
-                        <h2>Audit log</h2>
-                        <ul>
-                            <li>2020-08-12 22:26 User "Ethical hacker 1" uploaded results for task "Run port scanner"</li>
-                        </ul>
-                        <footer>
-                            <button href="export">Export audit log</button>
                         </footer>
                     </article>
                 </section>
