@@ -27,6 +27,7 @@ import IntegrationsList from "./components/integrations/Integrations";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
 import { AuthProvider } from './contexts/AuthContext';
+import VulnerabilityDetails from './components/vulnerabilities/Details';
 
 const App = () => {
   return (
@@ -51,7 +52,8 @@ const App = () => {
               <ProtectedRoute path={`/reports`} component={ReportsList} />
               <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
               <ProtectedRoute path={`/templates`} component={TemplatesList} />
-              <ProtectedRoute path={`/vulnerabilities`} component={VulnerabilitiesList} />
+              <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList} />
+              <ProtectedRoute path={`/vulnerabilities/:id`} component={VulnerabilityDetails} />
               <Route path={`/components`} component={ComponentsList} />
               <Redirect to={PageNotFound} />
             </Switch>
