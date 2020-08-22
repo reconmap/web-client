@@ -47,7 +47,7 @@ const App = () => {
               <ProtectedRoute path={`/users/create`} component={UserCreationForm} />
               <ProtectedRoute exact path={`/users`} component={UsersList} />
               <ProtectedRoute path={`/user/preferences`} component={UserPreferences} />
-              <ProtectedRoute path={`/user/me`} component={UserProfile} />
+              <ProtectedRoute path={`/user/:id`} component={UserProfile} />
               <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
               <ProtectedRoute path={`/reports`} component={ReportsList} />
               <ProtectedRoute path={`/auditlog`} component={AuditLogList} />

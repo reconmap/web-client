@@ -2,7 +2,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import { AuthConsumer } from '../../contexts/AuthContext'
 
-import React from 'react'
+import React, { useReducer } from 'react'
 export default function Header() {
   const history = useHistory()
 
@@ -12,14 +12,14 @@ export default function Header() {
   ];
 
   const handleGoHome = () => { history.push('/') }
-  const handleMyProfile = () => { history.push('/user/me') }
+  const handleMyProfile = () => { history.push(`/user/${localStorage.getItem('user.id')}`) }
 
   return <AuthConsumer>
     {
       ({ isAuth, logout }) => (
         <nav className="flex items-center justify-between w-full   px-2 pb-5 flex-col md:flex-row ">
           <h3 className="text-3xl font-bold items-center flex hover:text-gray-400 cursor-pointer md:w-1/3" onClick={handleGoHome}>
-          <img src="/logo.svg" height='28px' width='28px' className='mr-2 mt-1' alt="Reconmap logo" />
+            <img src="/logo.svg" height='28px' width='28px' className='mr-2 mt-1' alt="Reconmap logo" />
         Recon
         <span className='opacity-75'>map</span>
           </h3>

@@ -9,7 +9,6 @@ const ReportsList = () => {
                 <h1>Reports</h1>
                 <button ><i data-feather='plus' className='mr-2'/> Create Report</button>
             </div>
-            <p>Example vulnerability report. Download <a href="/reports/example.docx">Word</a> or <a href="/reports/example.pdf">PDF</a>.</p>
             <div className='flex flex-wrap gap-4 my-4'>
                 <article className='base base-reactive w-48 h-64 justify-end'>
                     <p>This is a brief resume of the report</p>

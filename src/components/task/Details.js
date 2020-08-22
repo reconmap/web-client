@@ -6,13 +6,13 @@ class TaskDetails extends Component {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
     }
+
     state = {
         task: null,
         results: []
     }
 
     componentDidMount() {
-
         const id = this.props.match.params.id;
         secureApiFetch(`/tasks/${id}`, {
             method: 'GET'

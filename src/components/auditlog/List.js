@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import configuration from '../../Configuration';
 import Pagination from '../layout/Pagination';
 import Ipv4Link from '../ui/Ipv4Link';
+import secureApiFetch from '../../services/api';
+import { Link } from 'react-router-dom';
 
 class AuditLogList extends Component {
     constructor(props) {
@@ -18,11 +20,8 @@ class AuditLogList extends Component {
     }
 
     handleExport() {
-        fetch(`${configuration.api.baseUrl}/auditlog/export`, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-            }
+        secureApiFetch(`/auditlog/export`, {
+            method: 'GET'
         })
             .then(response => {
                 var contentDispositionHeader = response.headers.get('Content-Disposition');
@@ -41,11 +40,8 @@ class AuditLogList extends Component {
     }
 
     componentDidMount() {
-        fetch(`${configuration.api.baseUrl}/auditlog?page=${this.state.pagination.page}`, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-            }
+        secureApiFetch(`/auditlog?page=${this.state.pagination.page}`, {
+            method: 'GET'
         })
             .then((response) => response.json())
             .then((auditLog) => this.setState({ auditLog: auditLog }));
@@ -91,7 +87,7 @@ class AuditLogList extends Component {
                                         <td>{entry.insert_ts}</td>
                                         <td><Ipv4Link value={entry.client_ip} /></td>
                                         <td>{entry.action}</td>
-                                        <td>{entry.name}</td>
+                                        <td><Link to={`/user/${entry.user_id}`}>{entry.name}</Link></td>
                                         <td>{entry.role}</td>
                                     </tr>
                                 )
