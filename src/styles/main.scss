@@ -46,7 +46,8 @@ input, select, textarea {
     @extend .base;
     outline: transparent ;
     &:hover{
-        box-shadow: 0 0 4px 0 #fff;
+        box-shadow: 0 0 0px 3px $red-500;
+        
     }
     &:active,  &:focus{
         background-color: $gray-700;

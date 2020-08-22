@@ -1,11 +1,15 @@
+import React from 'react'
+
+import { IconExclamation, IconClipboardCheck, IconDashboard, IconFolder, IconDocumentDuplicate, IconChartBar, IconDocument, IconUserGroup, IconReport, IconExtensions } from "../../icons";
+
 export default [
-    { title: 'Dashboard', icon: 'columns', to: '/dashboard' },
-    { title: 'Vulnerabilities', icon: 'alert-circle', to: '/vulnerabilities' },
-    { title: 'Tasks', icon: 'check-square', to: '/tasks' },
-    { title: 'Projects', icon: 'layers', to: '/projects' },
-    { title: 'Templates', icon: 'clipboard', to: '/templates' },
-    { title: 'Reports', icon: 'pie-chart', to: '/reports' },
-    { title: 'Audit log', icon: 'file-text', to: '/auditlog' },
-    { title: 'User and permissions', icon: 'users', to: '/users' },
-    { title: 'Integrations', icon: 'cpu', to: '/integrations' },
+    { title: 'Dashboard', icon: <IconDashboard />, to: '/dashboard' },
+    { title: 'Vulnerabilities', icon: <IconExclamation />, to: '/vulnerabilities' },
+    { title: 'Tasks', icon: <IconClipboardCheck />, to: '/tasks' },
+    { title: 'Projects', icon: <IconFolder/>, to: '/projects' },
+    { title: 'Templates', icon: <IconDocumentDuplicate />, to: '/templates' },
+    { title: 'Reports', icon: <IconChartBar />, to: '/reports' },
+    { title: 'Audit log', icon: <IconReport />, to: '/auditlog' },
+    { title: 'User and permissions', icon: <IconUserGroup />, to: '/users' },
+    { title: 'Integrations', icon: <IconExtensions />, to: '/integrations' },
   ]

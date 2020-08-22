@@ -35,26 +35,25 @@ class UserProfile extends Component {
             <div>
                 <div className=' flex flex-col md:flex-row items-center justify-center  max-w-xl mx-auto my-10'>
 
-                    <figure className='w-48 h-48 bg-gray-800  rounded-full mr-10'><img src={`https://www.gravatar.com/avatar/${hash}?s=200&d=robohash`} /></figure>
+                    <figure className='w-48 h-48 bg-gray-800 overflow-hidden shadow-lg rounded-full mr-10'><img src={`https://www.gravatar.com/avatar/${hash}?s=200&d=robohash`} /></figure>
                     <div className=' flex flex-col flex-1'>
                         <h1>{this.state.user.name}</h1>
                         <article className='text-gray-600'>
                             User since {this.state.user.insert_ts}
                     </article>
                         <div className='flex flex-row gap-4 my-2 font-semibold text-sm'>
-                            <span className='px-3 py-1 rounded-full bg-red-500 text-black'>11 errors</span>
-                            <span className='px-3 py-1 rounded-full bg-green-500 text-black'>2 awards</span>
-                            <span className='px-3 py-1 rounded-full bg-yellow-500 text-black'>3 bugs</span>
+                            <span className='px-3 py-1 rounded-full bg-red-500 text-black'>{this.state.user.role}</span>
                         </div>
                     </div>
                 </div>
-                <h3 className='mt-4'>Activity</h3>
-
-                <ul>
-                    {
-                        this.state.auditLog.map((log, index) => <li><date>{log.insert_ts}</date> {log.action}</li>)
-                    }
-                </ul>
+                <article className='base max-w-lg mx-auto'>
+                    <h3 className='base-subtitle'>Activity</h3>
+                    <ul>
+                        {
+                            this.state.auditLog.map((log, index) => <li><date>{log.insert_ts}</date> {log.action}</li>)
+                        }
+                    </ul>
+                </article>
 
             </div>
         )
