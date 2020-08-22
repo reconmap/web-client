@@ -27,7 +27,6 @@ class VulnerabilitiesList extends Component {
             })
                 .then(() => this.loadData())
                 .catch(e => console.log(e))
-
         }
     }
 
@@ -51,7 +50,7 @@ class VulnerabilitiesList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.vulnerabilities.length == 0 &&
+                        {this.state.vulnerabilities.length === 0 &&
                             <tr>
                                 <td colspan="6" style={{textAlign: "center"}}>
                                     <img src="/images/blank-canvas.png" alt="No results" style={{width: '240px', margin: "auto"}} />

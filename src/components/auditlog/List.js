@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import configuration from '../../Configuration';
 import Pagination from '../layout/Pagination';
+import Ipv4Link from '../ui/Ipv4Link';
 
 class AuditLogList extends Component {
-    constructor( props ) {
+    constructor(props) {
         super(props)
         this.handleNext = this.handleNext.bind(this)
         this.handlePrev = this.handlePrev.bind(this)
     }
     state = {
         auditLog: [],
-        pagination:{
-            page: 1, 
-            total:43
+        pagination: {
+            page: 1,
+            total: 43
         }
     }
 
@@ -49,14 +50,14 @@ class AuditLogList extends Component {
             .then((response) => response.json())
             .then((auditLog) => this.setState({ auditLog: auditLog }));
     }
-    handlePrev(){
+    handlePrev() {
         this.setState(prevState => {
-            return this.state.pagination.page =  prevState.pagination.page -1
+            return this.state.pagination.page = prevState.pagination.page - 1
         })
     }
-    handleNext(){
+    handleNext() {
         this.setState(prevState => {
-            return this.state.pagination.page =  prevState.pagination.page +1
+            return this.state.pagination.page = prevState.pagination.page + 1
         })
     }
     render() {
@@ -72,35 +73,33 @@ class AuditLogList extends Component {
                     />
                     <button onClick={this.handleExport}>Export to CSV</button>
                 </div>
-                    <table className='w-full'>
-                        <thead>
-                            <tr>
-                                <th>Date/Time</th>
-                                <th>IP</th>
-                                <th>Action</th>
-                                <th>User</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.auditLog.map((entry, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{entry.insert_ts}</td>
-                                            <td>{entry.client_ip}</td>
-                                            <td>{entry.action}</td>
-                                            <td>{entry.name}</td>
-                                            <td>{entry.email}</td>
-                                            <td>{entry.role}</td>
-                                        </tr>
-                                    )
-                                }
+                <table className='w-full'>
+                    <thead>
+                        <tr>
+                            <th>Date/Time</th>
+                            <th>IP</th>
+                            <th>Action</th>
+                            <th>User</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            this.state.auditLog.map((entry, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{entry.insert_ts}</td>
+                                        <td><Ipv4Link value={entry.client_ip} /></td>
+                                        <td>{entry.action}</td>
+                                        <td>{entry.name}</td>
+                                        <td>{entry.role}</td>
+                                    </tr>
                                 )
                             }
-                        </tbody>
-                    </table>
+                            )
+                        }
+                    </tbody>
+                </table>
             </>
         )
     }
