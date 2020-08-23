@@ -1,16 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
+import { IconExclamationCircle} from './../../icons'
 
-class PageNotFound extends Component {
-
-    render() {
-        return (
-            <>
-                <h2>Page not found</h2> 
-
-                <p>Please navigate to another section of the dashboard.</p>
-            </>
-        )
-    }
+export default function PageNotFound() {
+    return (
+        <div className='h-full text-3xl text-gray-700 flex flex-col items-center justify-center text-center w-full '>
+            <IconExclamationCircle size='32'/>
+            <small>Page Not Found</small>
+        </div>
+    )
 }
-
-export default PageNotFound

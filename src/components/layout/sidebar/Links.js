@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IconExclamation, IconClipboardCheck, IconDashboard, IconFolder, IconDocumentDuplicate, IconChartBar, IconDocument, IconUserGroup, IconReport, IconExtensions } from "../../icons";
+import { IconExclamation, IconClipboardCheck, IconDashboard, IconFolder, IconDocumentDuplicate, IconChartBar, IconUserGroup, IconReport, IconExtensions } from "../../icons";
 
 export default [
     { title: 'Dashboard', icon: <IconDashboard />, to: '/dashboard' },

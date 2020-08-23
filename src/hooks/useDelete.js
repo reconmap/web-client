@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import secureApiFetch from '../services/api'
 
 export default function useDelete(endpoint, updateCb ) {

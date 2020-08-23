@@ -9,18 +9,18 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import CreateButton from '../ui/buttons/Create';
 
-const VulnerabilitiesList = () =>  {
+const VulnerabilitiesList = () => {
     useSetTitle('Vulnerabilities')
 
-    const [vulnerabilities, update, error] = useFetch('/vulnerabilities')
+    const [vulnerabilities, update] = useFetch('/vulnerabilities')
     const destroy = useDelete('/vulnerabilities/', update);
 
-    return ( <>
-            <div className='heading'>
-                <h1>Vulnerabilities</h1>
-                <CreateButton>Create Vulnerability</CreateButton>
-            </div>
-            { !vulnerabilities ? <Loading /> : vulnerabilities.length === 0 ? <NoResults />
+    return (<>
+        <div className='heading'>
+            <h1>Vulnerabilities</h1>
+            <CreateButton>Create Vulnerability</CreateButton>
+        </div>
+        {!vulnerabilities ? <Loading /> : vulnerabilities.length === 0 ? <NoResults />
             : <table className='w-full my-4'>
                 <thead>
                     <tr>
@@ -32,25 +32,26 @@ const VulnerabilitiesList = () =>  {
                     </tr>
                 </thead>
                 <tbody>
-                    { vulnerabilities.map((vulnerability, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td><Link className='flex flex-col' to={`/vulnerabilities/${vulnerability.id}`}>
-                                        <span className='text-xl text-red-500'>{vulnerability.summary}</span>
-                                        {vulnerability.description}
-                                    </Link></td>
+                    {vulnerabilities.map((vulnerability, index) => {
+                        return (
+                            <tr key={index}>
+                                <td><Link className='flex flex-col' to={`/vulnerabilities/${vulnerability.id}`}>
+                                    <span className='text-xl text-red-500'>{vulnerability.summary}</span>
+                                    {vulnerability.description}
+                                </Link></td>
 
-                                    <td><RiskBadge risk={vulnerability.risk}/></td>
-                                    <td>OPEN</td>
-                                    <td>{vulnerability.insert_ts}</td>
+                                <td><RiskBadge risk={vulnerability.risk} /></td>
+                                <td>OPEN</td>
+                                <td>{vulnerability.insert_ts}</td>
 
-                                    <td className='text-right   '><DeleteButton onClick={() => destroy(vulnerability.id)} /></td>
-                                </tr>
-                            ) }) }
+                                <td className='text-right   '><DeleteButton onClick={() => destroy(vulnerability.id)} /></td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
         }
-        </> )
+    </>)
 }
 
 export default VulnerabilitiesList

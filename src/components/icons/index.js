@@ -10,7 +10,7 @@ export const IconComment = ({size='6',color,styling}) => <svg viewBox="0 0 20 20
 
 export const IconLeft= ({size='6',color,styling}) => <svg viewBox="0 0 20 20" fill="currentColor" className={`arrow-left w-${size} h-${size} ${styling} `}><path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" /></svg>
 
-export const IconRight= ({size='6',color,styling}) => <svg viewBox="0 0 20 20" fill="currentColor" class={`arrow-right w-${size} h-${size} ${styling}`}><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+export const IconRight= ({size='6',color,styling}) => <svg viewBox="0 0 20 20" fill="currentColor" className={`arrow-right w-${size} h-${size} ${styling}`}><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
 
 export const IconDelete = ({size='6',color,styling}) => <svg viewBox="0 0 20 20" fill="currentColor" className={`backspace w-${size} h-${size} ${styling} `}><path fillRule="evenodd" d="M6.707 4.879A3 3 0 018.828 4H15a3 3 0 013 3v6a3 3 0 01-3 3H8.828a3 3 0 01-2.12-.879l-4.415-4.414a1 1 0 010-1.414l4.414-4.414zm4 2.414a1 1 0 00-1.414 1.414L10.586 10l-1.293 1.293a1 1 0 101.414 1.414L12 11.414l1.293 1.293a1 1 0 001.414-1.414L13.414 10l1.293-1.293a1 1 0 00-1.414-1.414L12 8.586l-1.293-1.293z" clipRule="evenodd" /></svg>
 

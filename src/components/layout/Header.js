@@ -2,7 +2,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import { AuthConsumer } from '../../contexts/AuthContext'
 
-import React, { useReducer } from 'react'
+import React from 'react'
 import { IconPreferences, IconLogout, IconUser } from '../icons';
 export default function Header() {
   const history = useHistory()

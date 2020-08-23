@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { IconDelete, IconX } from '../icons'
+import { IconX } from '../icons'
 
 const ProjectCard = ({ project, destroy }) => {
     return <div><Link to={`/project/${project.id}`}>

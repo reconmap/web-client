@@ -10,7 +10,7 @@ import useFetch from '../../hooks/useFetch';
 
 const TasksList = () => {
     useSetTitle('Tasks');
-    const [tasks, updateTasks, error] = useFetch('/tasks')
+    const [tasks, updateTasks] = useFetch('/tasks')
     const [projects] = useFetch('/projects')
     const [filter, setFilter] = useState({ project:'', user:'', status:'' })
 
@@ -63,15 +63,15 @@ const TasksList = () => {
                     {tasks
                     .filter( task => task.project_id.includes(filter.project) )
                     .filter( task => task.completed.includes(filter.status) )
-                    .map((task, index) =>
-                        <tr>
+                    .map((task) =>
+                        <tr key={task.id}>
                             <td>
                                 <details>
                                     <summary className='text-red-500 flex items-center cursor-pointer'> {task.name}</summary>
                                     <p className='pre-whitespace-line font-mono w-56' style={{ whiteSpace: 'pre-wrap'}}>{task.description}</p>
                                 </details>
                             </td>
-                            <td><ProjectBadge name={projects && projects.find(({id})=>id == task.project_id)?.name}/></td>
+                            <td><ProjectBadge name={projects && projects.find(({id})=>id === task.project_id)?.name}/></td>
                             <td className='font-mono text-gray-500 '>{task.parser}</td>
                             <td><StatusBadge status={task.completed}/></td>
                             <td className='text-right'><DeleteButton onClick={() => destroy(task.id)} /></td>

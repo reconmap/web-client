@@ -55,7 +55,7 @@ const App = () => {
               <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList} />
               <ProtectedRoute path={`/vulnerabilities/:id`} component={VulnerabilityDetails} />
               <Route path={`/components`} component={ComponentsList} />
-              <Redirect to={PageNotFound} />
+              <Redirect to={'/'}><PageNotFound /></Redirect>
             </Switch>
           </Dashboard>
           <Route component={PageNotFound} />
