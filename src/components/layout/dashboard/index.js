@@ -48,8 +48,8 @@ class DashboardPanels extends Component {
         <h1>Dashboard</h1>
         <Plot
           data={[this.state.plotData]}
-          layout={{ title: 'User activity on the platform over time',yaxis:{gridcolor:'gray'}, xaxis: { autotick: false , color:'white'} , paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)' ,legend:{font:{color:'white'}}, titlefont:{color:'white'}}}
-          config={{ autoSize: true }}
+          layout={{ title: 'User activity on the platform over time', yaxis: { gridcolor: 'gray' }, xaxis: { autotick: false, color: 'white' }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', legend: { font: { color: 'white' } }, titlefont: { color: 'white' } }}
+          config={{ autoSize: true, displayModeBar: false }}
         />
       </div>
     </section>
