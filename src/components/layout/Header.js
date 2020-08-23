@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { AuthConsumer } from '../../contexts/AuthContext'
 
 import React from 'react'
-import { IconPreferences, IconLogout, IconUser } from '../icons';
+import { IconPreferences, IconQuestionCircle, IconLogout, IconUser } from '../icons';
 export default function Header() {
   const history = useHistory()
 
@@ -27,6 +27,7 @@ export default function Header() {
 
           <nav className="  font-semibold gap-5 flex items-center justify-end py-4 lg:py-0 ">
 
+          <a href="https://reconmap.org/user-manual/" target="_blank" rel="noopener noreferrer" type='menu'><IconQuestionCircle styling='mr-2'/>User manual</a>
             {isAuth ? <>
               <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/user/preferences') }}><IconPreferences styling='mr-2'/> Preferences </button>
               <button onClick={handleMyProfile} type='menu' >
