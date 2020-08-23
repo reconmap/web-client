@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import configuration from '../../Configuration';
 import { useHistory } from 'react-router-dom';
+import secureApiFetch from '../../services/api';
 
 const UserCreationForm = () => {
     const history = useHistory()
@@ -8,13 +8,15 @@ const UserCreationForm = () => {
     const [loading, setLoading] = useState(false)
     const handleCreate = async () => {
         setLoading(true)
-        await fetch(`${configuration.api.baseUrl}/users`, {
+        await secureApiFetch(`/users`, {
             method: 'POST',
-            body: JSON.stringify(userData),
-            headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
+            body: JSON.stringify(userData)
+        }).then(() => {
+            history.push('/users/')
         })
-        setLoading(false)
-        history.push('/users/')
+        .finally(() => {
+            setLoading(false);
+        })
     }
     const handleChangeName = e => setUserData({ ...userData, name: e.target.value })
     const handleChangePassword = e => setUserData({ ...userData, password: e.target.value })
@@ -25,7 +27,7 @@ const UserCreationForm = () => {
     return (
         <form onSubmit={e => e.preventDefault()}>
             <label htmlFor='name'>Name</label>
-            <input autofocus type="text" name="name" onChange={handleChangeName} />
+            <input autoFocus type="text" name="name" onChange={handleChangeName} />
             <label htmlFor='password'>Password</label>
             <input type="password" name="password" onChange={handleChangePassword} />
             <label htmlFor='email'>Email</label>
