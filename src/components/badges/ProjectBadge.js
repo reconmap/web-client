@@ -1,17 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { IconDocument } from '../icons'
 
-const ProjectBadge = ({ project }) => {
-    return <Link to={`/project/${project.id}`}>
-        <article className='base base-project'>
-            <p>{project.description}</p>
-            <h1 className='items-center flex justify-between'>
-                {project.name} 
-                {project.is_template === 1 && <i data-feather='clipboard' className=' text-xs opacity-50' />}
-            </h1>
-            <footer>{project.insert_ts}</footer>
-        </article>
-    </Link>
+export default function ProjectBadge({name}) {
+   
+    return (
+        <div className={`px-2  flex justify-between items-center border-l-2 border-red-500  py-1 rounded bg-gray-800 text-black uppercase font-semibold text-white `}>
+            <IconDocument styling='mr-2 '/>
+            <span className='flex-1 w-32 truncate'>
+                {name} 
+            </span>
+                
+        </div>
+    )
 }
-
-export default ProjectBadge

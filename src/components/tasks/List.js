@@ -1,47 +1,33 @@
-import React, { Component } from 'react'
-import secureApiFetch from '../../services/api';
+import React, {  useState } from 'react'
 import DeleteButton from '../ui/buttons/Delete';
+import useSetTitle from '../../hooks/useSetTitle';
+import Loading from '../ui/Loading';
+import NoResults from '../ui/NoResults';
+import useDelete from '../../hooks/useDelete';
+import ProjectBadge from '../badges/ProjectBadge';
+import StatusBadge from '../badges/StatusBadge';
+import useFetch from '../../hooks/useFetch';
 
-class TasksList extends Component {
-    state = {
-        tasks: []
-    }
+const TasksList = () => {
+    useSetTitle('Tasks');
+    const [tasks, updateTasks, error] = useFetch('/tasks')
+    const [projects] = useFetch('/projects')
+    const [filter, setFilter] = useState({ project:'', user:'', status:'' })
 
-    componentDidMount() {
-        document.title = 'Tasks List | Reconmap';
+    const handleSetProject = (e)=>{ setFilter({...filter, project:e.target.value})}
+    const handleSetStatus = (e)=>{ setFilter({...filter, status:e.target.value})}
 
-        this.loadData();
-    }
-
-    loadData() {
-        secureApiFetch(`/tasks`, {
-            method: 'GET'
-        })
-            .then((response) => response.json())
-            .then((data) => this.setState({ tasks: data }));        
-    }
-
-    handleDelete(task) {
-        if (window.confirm(`Do you really want to delete the "${task.name}" task?`)) {
-            secureApiFetch(`/tasks/${task.id}`, {
-                method: 'DELETE'
-            })
-                .then(() => this.loadData())
-                .catch(e => console.log(e))
-        }        
-    }
-
-    render() {
-
+    const destroy = useDelete('/tasks/', updateTasks);
+    
         return <>
-            <h1>Tasks</h1>
+        
             <div className='heading'>
+            <h1>Tasks</h1>
                 <div>
                     <label>Project</label>
-                    <select>
-                        <option>Any</option>
-                        <option>Project 1</option>
-                        <option>Project 2</option>
+                    <select onChange={handleSetProject}>
+                        <option value=''>Any</option>
+                        {projects && projects.map(project=><option value={project.id} key={project.id}>{project.name}</option>)}
                     </select>
                 </div>
                 <div>
@@ -54,36 +40,48 @@ class TasksList extends Component {
                 </div>
                 <div>
                     <label>Status</label>
-                    <select>
-                        <option>Any</option>
-                        <option>Open</option>
-                        <option>Closed</option>
+                    <select onChange={handleSetStatus}>
+                        <option value=''>Any</option>
+                        <option value='0'>Open</option>
+                        <option value='1'>Closed</option>
                     </select>
                 </div>
-                <button>Apply filters</button>
             </div>
+
+            { !tasks ? <Loading /> : tasks.length === 0 ? <NoResults /> :
             <table className='w-full'>
                 <thead>
                     <tr>
                         <th>Summary</th>
+                        <th>Project</th>
+                        <th>Parser</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.tasks.map((task, index) =>
+                    {tasks
+                    .filter( task => task.project_id.includes(filter.project) )
+                    .filter( task => task.completed.includes(filter.status) )
+                    .map((task, index) =>
                         <tr>
-                            <td>{task.name}</td>
-                            <td>{task.status}</td>
-                            <td><DeleteButton onClick={() => this.handleDelete(task)} /></td>
+                            <td>
+                                <details>
+                                    <summary className='text-red-500 flex items-center cursor-pointer'> {task.name}</summary>
+                                    <p className='pre-whitespace-line font-mono w-56' style={{ whiteSpace: 'pre-wrap'}}>{task.description}</p>
+                                </details>
+                            </td>
+                            <td><ProjectBadge name={projects && projects.find(({id})=>id == task.project_id)?.name}/></td>
+                            <td className='font-mono text-gray-500 '>{task.parser}</td>
+                            <td><StatusBadge status={task.completed}/></td>
+                            <td className='text-right'><DeleteButton onClick={() => destroy(task.id)} /></td>
                         </tr>
                     )}
 
                 </tbody>
-            </table>
+            </table>}
 
         </>
-    }
 }
 
 export default TasksList

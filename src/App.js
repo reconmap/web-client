@@ -23,7 +23,7 @@ import ProjectReport from "./components/project/Report";
 import TasksList from "./components/tasks/List";
 import ReportsList from "./components/reports/List";
 import UserProfile from "./components/user/Profile";
-import IntegrationsList from "./components/integrations/Integrations";
+import IntegrationsList from "./components/integrations/List";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
 import { AuthProvider } from './contexts/AuthContext';

@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
-import configuration from '../../Configuration';
+import React, { Component, useState } from 'react'
 import Pagination from '../layout/Pagination';
 import Ipv4Link from '../ui/Ipv4Link';
 import secureApiFetch from '../../services/api';
 import { Link } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
+import Loading from '../ui/Loading';
+import NoResults from '../ui/NoResults';
+import useSetTitle from '../../hooks/useSetTitle';
+import { IconSave } from '../icons';
 
-class AuditLogList extends Component {
-    constructor(props) {
-        super(props)
-        this.handleNext = this.handleNext.bind(this)
-        this.handlePrev = this.handlePrev.bind(this)
-    }
-    state = {
-        auditLog: [],
-        pagination: {
-            page: 1,
-            total: 43
-        }
-    }
+const AuditLogList = () => {
+    useSetTitle('Reports');
 
-    handleExport() {
-        secureApiFetch(`/auditlog/export`, {
-            method: 'GET'
-        })
+    const [ pagination, setPagination ] = useState({ page: 1, total: 10 })
+
+    const handlePrev = () => { setPagination({...pagination, page: pagination.page-1} ) }
+    const handleNext = () => { setPagination({...pagination, page: pagination.page+1} ) }
+
+    const [auditLog, update, error] = useFetch(`/auditlog?page=${pagination.page}`)
+
+    const handleExport = () => {
+        secureApiFetch(`/auditlog/export`, { method: 'GET' })
             .then(response => {
                 var contentDispositionHeader = response.headers.get('Content-Disposition');
                 var filename = contentDispositionHeader.split('filename=')[1].split(';')[0];
@@ -39,36 +37,13 @@ class AuditLogList extends Component {
             })
     }
 
-    componentDidMount() {
-        secureApiFetch(`/auditlog?page=${this.state.pagination.page}`, {
-            method: 'GET'
-        })
-            .then((response) => response.json())
-            .then((auditLog) => this.setState({ auditLog: auditLog }));
-    }
-    handlePrev() {
-        this.setState(prevState => {
-            return this.state.pagination.page = prevState.pagination.page - 1
-        })
-    }
-    handleNext() {
-        this.setState(prevState => {
-            return this.state.pagination.page = prevState.pagination.page + 1
-        })
-    }
-    render() {
-        return (
-            <>
+        return ( <>
                 <div className='heading'>
                     <h1>Audit Log</h1>
-                    <Pagination
-                        page={this.state.pagination.page}
-                        total={this.state.pagination.total}
-                        handlePrev={this.handlePrev}
-                        handleNext={this.handleNext}
-                    />
-                    <button onClick={this.handleExport}>Export to CSV</button>
+                    <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev} handleNext={handleNext} />
+                    <button onClick={handleExport}><IconSave styling='mr-2'/> Export to CSV</button>
                 </div>
+            { !auditLog ? <Loading /> : auditLog.length === 0 ? <NoResults /> :
                 <table className='w-full'>
                     <thead>
                         <tr>
@@ -80,8 +55,7 @@ class AuditLogList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            this.state.auditLog.map((entry, index) => {
+                        { auditLog.map((entry, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{entry.insert_ts}</td>
@@ -91,14 +65,11 @@ class AuditLogList extends Component {
                                         <td>{entry.role}</td>
                                     </tr>
                                 )
-                            }
-                            )
-                        }
+                            } ) }
                     </tbody>
-                </table>
+                </table>}
             </>
         )
-    }
 }
 
 export default AuditLogList

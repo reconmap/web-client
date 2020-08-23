@@ -3,9 +3,10 @@ import Header from "../Header";
 import Sidebar from "../sidebar";
 import Plot from 'react-plotly.js';
 import secureApiFetch from '../../../services/api';
+import useSetTitle from "../../../hooks/useSetTitle";
 
 function Dashboard({ children }) {
-
+  useSetTitle('Dashboard')
   return (
     <div className=" flex w-full h-screen p-5 mx-auto flex-col ">
       <Header />
@@ -47,7 +48,7 @@ class DashboardPanels extends Component {
         <h1>Dashboard</h1>
         <Plot
           data={[this.state.plotData]}
-          layout={{ title: 'User activity on the platform over time', xaxis: { autotick: false } }}
+          layout={{ title: 'User activity on the platform over time',yaxis:{gridcolor:'gray'}, xaxis: { autotick: false , color:'white'} , paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)' ,legend:{font:{color:'white'}}, titlefont:{color:'white'}}}
           config={{ autoSize: true }}
         />
       </div>

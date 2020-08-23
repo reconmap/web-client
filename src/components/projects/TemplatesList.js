@@ -1,44 +1,36 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link, useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
+import useSetTitle from '../../hooks/useSetTitle';
+import useFetch from '../../hooks/useFetch';
+import useDelete from '../../hooks/useDelete';
+import { IconPlus } from '../icons';
+import Loading from '../ui/Loading';
+import NoResults from '../ui/NoResults';
+import CreateButton from '../ui/buttons/Create';
 
-class TemplatesList extends Component {
-    state = {
-        templates: []
-    }
+const TemplatesList = ()=> {
+    const history = useHistory()
+    useSetTitle('Projects templates');
+    const [templates, updateTemplates, error] = useFetch('/projects?isTemplate=1')
+    const destroy = useDelete('/projects/', updateTemplates);
 
-    cloneProject(templateId) {
-        secureApiFetch(`/projects/${templateId}/clone`, {
-            method: 'POST',
-        })
+    const cloneProject = (templateId)=> {
+        secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST', })
             .then((response) => response.json())
-            .then((data) => {
-                this.props.history.push('/projects');
-            });
+            .then(() => { history.push('/projects'); });
     }
 
-    componentDidMount() {
-        document.title = 'Project templates | Reconmap';
-
-        secureApiFetch(`/projects?isTemplate=1`, {
-            method: 'GET',
-        })
-            .then((response) => response.json())
-            .then((data) => this.setState({ templates: data }));
-    }
-
-    render() {
-        return (
+    return (
             <>
                 <div className='heading'>
-                    <h1>Project templates</h1>
-                    <button ><i data-feather='plus' className='mr-2'/> Create Template</button>
+                    <h1>Project Templates</h1>
+                    <CreateButton>Create Template</CreateButton>
                 </div>
+                { !templates ? <Loading /> : templates.length === 0 ? <NoResults /> :
                 <section className='flex flex-wrap gap-4'>
-
-                    {
-                        this.state.templates.map((template, index) =>
-                            <Link onClick={() => this.cloneProject(template.id)}>
+                    { templates.map((template, index) =>
+                            <Link onClick={() => cloneProject(template.id)} key={index}>
                                 <article className='base base-project'>
                                     <header>
                                         <button href="project.html">Start from this</button>
@@ -52,14 +44,11 @@ class TemplatesList extends Component {
                                     </footer>
                                 </article>
                             </Link>
-
-                        )
-                    }
+                        ) }
                 </section>
-
+                }
             </>
         )
-    }
 }
 
 export default TemplatesList

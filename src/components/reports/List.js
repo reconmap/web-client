@@ -1,30 +1,29 @@
 import React from 'react'
+import useSetTitle from '../../hooks/useSetTitle';
+import NoResults from '../ui/NoResults';
+import Loading from '../ui/Loading';
+import useFetch from '../../hooks/useFetch';
+import CreateButton from '../ui/buttons/Create';
 
 const ReportsList = () => {
-    React.useEffect(() => { document.title = 'Reports | Reconmap'; },[]);
+    useSetTitle('Reports');
+    const [reports, update, error] = useFetch('/reports')
 
-    return (
-        <div>
+    return <div>
             <div className='heading'>
                 <h1>Reports</h1>
-                <button ><i data-feather='plus' className='mr-2'/> Create Report</button>
+                <CreateButton>Create Report</CreateButton>
             </div>
+            { !reports ? <Loading /> : reports.length === 0 ? <NoResults /> :
             <div className='flex flex-wrap gap-4 my-4'>
+            { reports.map((report) =>
                 <article className='base base-reactive w-48 h-64 justify-end'>
-                    <p>This is a brief resume of the report</p>
-                    <h2>Report 1</h2>
+                    <p>{report.name}</p>
+                    <h2>{report.description}</h2>
                 </article>
-                <article className='base base-reactive w-48 h-64 justify-end'>
-                    <p>Velit elit sint ad adipisicing pariatur laboris dolore ut.</p>
-                    <h2>Report 2</h2>
-                </article>
-                <article className='base base-reactive w-48 h-64 justify-end'>
-                    <p>Elit nisi in duis nisi.</p>
-                    <h2>Report 3</h2>
-                </article>
-            </div>
+            )}
+            </div> }
         </div>
-    )
 }
 
 export default ReportsList

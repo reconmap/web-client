@@ -3,6 +3,19 @@
 @import 'typography';
 @import 'buttons';
 
+.anim-rotate {
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+@keyframes spin {
+    0%{
+        transform : rotate(0deg);
+    }
+    100% {
+        transform : rotate(-359deg);
+    }
+}
 .heading{
     display: flex;
     justify-content: space-between;
@@ -38,7 +51,7 @@ table {
     }
     td{
         border-top: 1px solid rgba($gray-500, .1);
-        padding: .7rem .5rem;
+        padding: .4rem;
     }
 }
 

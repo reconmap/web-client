@@ -1,10 +1,13 @@
 import React from 'react'
+import useSetTitle from '../../hooks/useSetTitle'
+import { IconSave, IconX } from './../icons'
 
 const UserPreferences = () => {
+    useSetTitle('Preferences')
     return (
         <>
-
-            <form action="../dashboard.html" onSubmit={e=>e.preventDefault()}>
+            <h1>Preferences</h1>
+            <form onSubmit={e=>e.preventDefault()}>
                     <label>Language</label>
                     <select>
                         <option>English</option>
@@ -17,8 +20,8 @@ const UserPreferences = () => {
                         <option>UTC</option>
                     </select>
 
-                <button>Save</button>
-                <button type='cancel'>Cancel</button>
+                <button className='flex '><IconSave styling='mr-2'/> Save</button>
+                <button className='flex ' type='cancel'><IconX styling='mr-2'/> Cancel</button>
             </form>
         </>
     )

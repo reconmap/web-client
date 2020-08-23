@@ -1,82 +1,56 @@
-import React, { Component } from 'react'
-import secureApiFetch from '../../services/api'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import DeleteButton from '../ui/buttons/Delete';
+import useSetTitle from './../../hooks/useSetTitle'
+import NoResults from '../ui/NoResults';
+import Loading from '../ui/Loading';
+import RiskBadge from '../badges/RiskBadge';
+import useDelete from '../../hooks/useDelete';
+import useFetch from '../../hooks/useFetch';
+import CreateButton from '../ui/buttons/Create';
 
-class VulnerabilitiesList extends Component {
-    state = {
-        vulnerabilities: []
-    }
+const VulnerabilitiesList = () =>  {
+    useSetTitle('Vulnerabilities')
 
-    componentDidMount() {
-        this.loadData();
-    }
+    const [vulnerabilities, update, error] = useFetch('/vulnerabilities')
+    const destroy = useDelete('/vulnerabilities/', update);
 
-    loadData() {
-        secureApiFetch(`/vulnerabilities`, {
-            method: 'GET'
-        })
-            .then((response) => response.json())
-            .then((data) => this.setState({ vulnerabilities: data }));
-    }
+    return ( <>
+            <div className='heading'>
+                <h1>Vulnerabilities</h1>
+                <CreateButton>Create Vulnerability</CreateButton>
+            </div>
+            { !vulnerabilities ? <Loading /> : vulnerabilities.length === 0 ? <NoResults />
+            : <table className='w-full my-4'>
+                <thead>
+                    <tr>
+                        <th>Summary</th>
+                        <th>Risk</th>
+                        <th>Status</th>
+                        <th>Date/Time</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { vulnerabilities.map((vulnerability, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td><Link className='flex flex-col' to={`/vulnerabilities/${vulnerability.id}`}>
+                                        <span className='text-xl text-red-500'>{vulnerability.summary}</span>
+                                        {vulnerability.description}
+                                    </Link></td>
 
-    handleDelete(id) {
-        if (window.confirm('Are you sure you want to delete this vulnerability?')) {
-            secureApiFetch(`/vulnerabilities/${id}`, {
-                method: 'DELETE'
-            })
-                .then(() => this.loadData())
-                .catch(e => console.log(e))
+                                    <td><RiskBadge risk={vulnerability.risk}/></td>
+                                    <td>OPEN</td>
+                                    <td>{vulnerability.insert_ts}</td>
+
+                                    <td className='text-right   '><DeleteButton onClick={() => destroy(vulnerability.id)} /></td>
+                                </tr>
+                            ) }) }
+                </tbody>
+            </table>
         }
-    }
-
-    render() {
-        return (
-            <>
-                <div className='heading'>
-                    <h1>Vulnerabilities</h1>
-                    <button ><i data-feather='plus' className='mr-2' /> Create Vulnerability</button>
-                </div>
-
-                <table className='w-full my-4'>
-                    <thead>
-                        <tr>
-                            <th>Date/Time</th>
-                            <th>Summary</th>
-                            <th>Description</th>
-                            <th>Risk</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.vulnerabilities.length === 0 &&
-                            <tr>
-                                <td colspan="6" style={{textAlign: "center"}}>
-                                    <img src="/images/blank-canvas.png" alt="No results" style={{width: '240px', margin: "auto"}} />
-                                    <h3>No results</h3>
-                                </td>
-                            </tr>
-                        }
-                        {
-                            this.state.vulnerabilities.map((vulnerability, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{vulnerability.insert_ts}</td>
-                                        <td><Link to={`/vulnerabilities/${vulnerability.id}`}>{vulnerability.summary}</Link></td>
-                                        <td><Link to={`/vulnerabilities/${vulnerability.id}`}>{vulnerability.description}</Link></td>
-                                        <td>{vulnerability.risk}</td>
-                                        <td>OPEN</td>
-                                        <td><DeleteButton onClick={() => this.handleDelete(vulnerability.id)} /></td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
-            </>
-        )
-    }
+        </> )
 }
 
 export default VulnerabilitiesList
