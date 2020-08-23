@@ -58,9 +58,6 @@ const Login = (props) => {
                 <button onClick={() => login(credentials, onOk, onKo)} to="dashboard" className={(!credentials.username || !credentials.password) ? 'opacity-50 hover:bg-gray-800' : ''} disabled={!credentials.username || !credentials.password}>
                   {!loading ? "Sign in" : "Processing..."}
                 </button>
-                <div className="checkbox my-3 text-gray-500">
-                  <input type="checkbox" value="remember-me" /> Remember me
-              </div>
                 {error && <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'>
                   <span className='mx-auto'> Oops... Incorrect username and/or password</span></p>}
               </section>

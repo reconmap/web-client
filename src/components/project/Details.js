@@ -71,7 +71,6 @@ class ProjectDetails extends Component {
                     </div>
                     <div className='flex items-center justify-between gap-4'>
                         <button onClick={() => document.location = `/project/${this.state.project.id}/report`}>Generate Report</button>
-                        <button href="">Archive</button>
                         <DeleteButton onClick={() => this.handleDelete(this.state.project.id)} />
                     </div>
                 </section>
