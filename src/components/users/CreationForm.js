@@ -4,7 +4,7 @@ import secureApiFetch from '../../services/api';
 
 const UserCreationForm = () => {
     const history = useHistory()
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState({ name: null, password: null, email: null, role: null, sendEmailToUser: false })
     const [loading, setLoading] = useState(false)
     const handleCreate = async () => {
         setLoading(true)
@@ -14,31 +14,40 @@ const UserCreationForm = () => {
         }).then(() => {
             history.push('/users/')
         })
-        .finally(() => {
-            setLoading(false);
-        })
+            .finally(() => {
+                setLoading(false);
+            })
     }
-    const handleChangeName = e => setUserData({ ...userData, name: e.target.value })
-    const handleChangePassword = e => setUserData({ ...userData, password: e.target.value })
-    const handleChangeEmail = e => setUserData({ ...userData, email: e.target.value })
-    const handleChangeRole = e => setUserData({ ...userData, role: e.target.value })
+    const handleFormChange = e => {
+        const target = e.target;
+        const name = target.name;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        setUserData({
+            ...userData, [name]: value
+        });
+    };
     const handleGoBack = () => { history.push('/users/') }
     const allFieldsFilled = userData.name && userData.password && userData.email && userData.role
     return (
         <form onSubmit={e => e.preventDefault()}>
             <label htmlFor='name'>Name</label>
-            <input autoFocus type="text" name="name" onChange={handleChangeName} />
+            <input autoFocus type="text" name="name" onChange={handleFormChange} />
             <label htmlFor='password'>Password</label>
-            <input type="password" name="password" onChange={handleChangePassword} />
+            <input type="password" name="password" onChange={handleFormChange} />
             <label htmlFor='email'>Email</label>
-            <input type="email" name="email" onChange={handleChangeEmail} />
+            <input type="email" name="email" onChange={handleFormChange} />
             <label htmlFor='role'>Role</label>
-            <select name="role" onChange={handleChangeRole}>
+            <select name="role" onChange={handleFormChange}>
                 <option></option>
                 <option>Creator</option>
                 <option>Writer</option>
                 <option>Reader</option>
             </select>
+            <label>
+                Send email to user
+                <input type="checkbox" name="sendEmailToUser" onChange={handleFormChange} />
+            </label>
+
             <button onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</button>
             <button onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</button>
         </form>
