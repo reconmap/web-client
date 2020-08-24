@@ -14,7 +14,8 @@ import UserPreferences from "./components/user/Preferences";
 import UsersList from "./components/users/List";
 import ProjectDetails from "./components/project/Details";
 import AuditLogList from "./components/auditlog/List";
-import TemplatesList from './components/projects/TemplatesList';
+import TemplatesList from './components/templates/List';
+import TemplateDetails from './components/templates/Details';
 import VulnerabilitiesList from "./components/vulnerabilities/List";
 import UserCreationForm from "./components/users/CreationForm";
 import TaskDetails from "./components/task/Details";
@@ -51,7 +52,8 @@ const App = () => {
               <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
               <ProtectedRoute path={`/reports`} component={ReportsList} />
               <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
-              <ProtectedRoute path={`/templates`} component={TemplatesList} />
+              <ProtectedRoute exact path={`/templates`} component={TemplatesList} />
+              <ProtectedRoute exact path={`/templates/:id`} component={TemplateDetails} />
               <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList} />
               <ProtectedRoute path={`/vulnerabilities/:id`} component={VulnerabilityDetails} />
               <Route path={`/components`} component={ComponentsList} />
