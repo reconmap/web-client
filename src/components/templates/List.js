@@ -5,8 +5,6 @@ import useSetTitle from '../../hooks/useSetTitle';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
-import CreateButton from '../ui/buttons/Create';
-// import useDelete from '../../hooks/useDelete';
 
 const TemplatesList = () => {
     const history = useHistory()
@@ -19,24 +17,25 @@ const TemplatesList = () => {
             .then(() => { history.push('/projects'); });
     }
 
+    const viewProject = (templateId) => {
+        history.push(`/templates/${templateId}`);
+    }
+
     return (
         <>
             <div className='heading'>
-                <h1>Project Templates</h1>
-                <CreateButton>Create Template</CreateButton>
+                <h1>Project templates</h1>
             </div>
             {!templates ? <Loading /> : templates.length === 0 ? <NoResults /> :
                 <section className='flex flex-wrap gap-4'>
                     {templates.map((template, index) =>
-                        <article className='base base-project' onClick={() => cloneProject(template.id)} key={index}>
+                        <article className='base base-project' onClick={() => viewProject(template.id)} key={index}>
                             <header>
-                                <button href="project.html">Start from this</button>
+                                <button onClick={() => cloneProject(template.id)} key={index} title="Create project using this template">Create project</button>
                             </header>
                             <h1>{template.name}</h1>
                             <footer>
-                                <span className='text-red-600'>3 tasks</span>
-                                <span className='ml-2'>java</span>
-                                <span className='ml-2'>local</span>
+                                <span className='text-red-600'>{template.num_tasks} tasks</span>
                             </footer>
                         </article>
                     )}
