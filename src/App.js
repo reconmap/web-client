@@ -19,6 +19,7 @@ import TemplateDetails from './components/templates/Details';
 import VulnerabilitiesList from "./components/vulnerabilities/List";
 import UserCreationForm from "./components/users/CreationForm";
 import TaskDetails from "./components/task/Details";
+import TaskCreationForm from "./components/task/Create";
 import ComponentsList from "./components/ui/ComponentsList";
 import ProjectReport from "./components/project/Report";
 import TasksList from "./components/tasks/List";
@@ -44,6 +45,7 @@ const App = () => {
               <ProtectedRoute exact path={`/tasks/:id/upload`} component={UploadTaskResult} />
               <ProtectedRoute path={`/projects`} component={ProjectsList} />
               <ProtectedRoute path={`/project/:id/report`} component={ProjectReport} />
+              <ProtectedRoute path={`/project/:id/tasks/create`} component={TaskCreationForm} />
               <ProtectedRoute exact path={`/project/:id`} component={ProjectDetails} />
               <ProtectedRoute path={`/users/create`} component={UserCreationForm} />
               <ProtectedRoute exact path={`/users`} component={UsersList} />

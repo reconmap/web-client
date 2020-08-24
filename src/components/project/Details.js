@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import UserBadge from '../badges/UserBadge';
 import secureApiFetch from '../../services/api';
 import DeleteButton from '../ui/buttons/Delete';
+import { IconLeft } from '../icons';
 
 class ProjectDetails extends Component {
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleAddTask = this.handleAddTask.bind(this)
     }
     state = {
         project: null,
@@ -46,7 +48,9 @@ class ProjectDetails extends Component {
             })
             .catch((error) => alert(error));
     }
-
+    handleAddTask = () => {
+        this.props.history.push(`/project/${this.props.match.params.id}/tasks/create`)
+    }
     handleDelete(id) {
         if (window.confirm('Are you sure you want to delete this project?')) {
             secureApiFetch(`/projects/${id}`, {
@@ -64,11 +68,9 @@ class ProjectDetails extends Component {
         }
         return (
             <>
-                <section className='flex lg:items-center justify-between my-4 pb-4 border-b border-gray-800 flex-col lg:flex-row' >
-                    <div className='items-center flex gap-4'>
-                        <button onClick={() => console.log('go back function')}><i data-feather="arrow-left"></i></button>
-                        <h2 className='text-white'>{this.state.project.name}</h2>
-                    </div>
+                <section className='heading' >
+                    <button onClick={() => this.props.history.goBack()}><IconLeft /></button>
+                    <h1 className='mr-auto ml-4'>{this.state.project.name}</h1>
                     <div className='flex items-center justify-between gap-4'>
                         <button onClick={() => document.location = `/project/${this.state.project.id}/report`}>Generate Report</button>
                         <DeleteButton onClick={() => this.handleDelete(this.state.project.id)} />
@@ -128,7 +130,7 @@ class ProjectDetails extends Component {
                             }
                         </div>
                         <footer>
-                            <button href="">Add task</button>
+                            <button onClick={this.handleAddTask}>Add task</button>
                         </footer>
                     </article>
                 </section>
