@@ -27,7 +27,8 @@ export default function Header() {
 
           <nav className="  font-semibold gap-5 flex items-center justify-end py-4 lg:py-0 ">
 
-          <a href="https://reconmap.org/user-manual/" target="_blank" rel="noopener noreferrer" type='menu'><IconQuestionCircle styling='mr-2'/>User manual</a>
+          <a href="https://reconmap.org/user-manual/" target="_blank" rel="noopener noreferrer" type='menu' className='button'><IconQuestionCircle styling='mr-2'/>User manual</a>
+
             {isAuth ? <>
               <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/user/preferences') }}><IconPreferences styling='mr-2'/> Preferences </button>
               <button onClick={handleMyProfile} type='menu' >
