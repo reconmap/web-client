@@ -14,15 +14,13 @@ const AuditLogList = ({ history }) => {
     useSetTitle('Reports');
 
     const [auditLog, setAuditLog] = useState([])
-    const [pagination, setPagination] = useState({ page: 0, total: 1 })
+    const [pagination, setPagination] = useState({ page: 0, total: 0 })
 
     const handlePrev = () => {
         setPagination({ ...pagination, page: pagination.page - 1 })
-        reloadData()
     }
     const handleNext = () => {
         setPagination({ ...pagination, page: pagination.page + 1 })
-        reloadData()
     }
 
     const reloadData = () => {
@@ -39,8 +37,8 @@ const AuditLogList = ({ history }) => {
     }
 
     useEffect(() => {
-        reloadData()
-    }, [])
+        pagination && reloadData()
+    }, [pagination.page])
 
     const handleExport = () => {
         secureApiFetch(`/auditlog/export`, { method: 'GET' })
