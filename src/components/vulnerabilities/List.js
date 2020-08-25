@@ -29,6 +29,7 @@ const VulnerabilitiesList = ({history}) => {
                     <tr>
                         <th>Summary</th>
                         <th>Risk</th>
+                        <th><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
                         <th>Status</th>
                         <th>Date/Time</th>
                         <th></th>
@@ -44,6 +45,7 @@ const VulnerabilitiesList = ({history}) => {
                                 </Link></td>
 
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
+                                <td>{vulnerability.cvss_score}</td>
                                 <td>OPEN</td>
                                 <td>{vulnerability.insert_ts}</td>
 
