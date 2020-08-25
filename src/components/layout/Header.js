@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { AuthConsumer } from '../../contexts/AuthContext'
 
 import React from 'react'
-import { IconPreferences, IconQuestionCircle, IconLogout, IconUser } from '../icons';
+import { IconPreferences, IconQuestionCircle, IconLogout, IconUser, IconBookOpen } from '../icons';
 export default function Header() {
   const history = useHistory()
 
@@ -14,7 +14,11 @@ export default function Header() {
 
   const handleGoHome = () => { history.push('/') }
   const handleMyProfile = () => { history.push(`/user/${localStorage.getItem('user.id')}`) }
+  const handleOpenPrefs = () => { history.push('/user/preferences') }
+  const handleUserManual = ()=>{
+    window.open("https://reconmap.org/user-manual/",'_blank');
 
+  }
   return <AuthConsumer>
     {
       ({ isAuth, logout }) => (
@@ -25,24 +29,25 @@ export default function Header() {
 
           {isAuth && <input className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0' placeholder="Search..." />}
 
-          <nav className="  font-semibold gap-5 flex items-center justify-end py-4 lg:py-0 ">
+          <div className="  font-semibold gap-5 flex items-center justify-end py-4 lg:py-0 ">
 
-          <a href="https://reconmap.org/user-manual/" target="_blank" rel="noopener noreferrer" type='menu' className='button'><IconQuestionCircle styling='mr-2'/>User manual</a>
-
+            <button type='menu' onClick={handleUserManual}>
+              <IconBookOpen styling='mr-2' />User manual
+            </button>
             {isAuth ? <>
-              <button type='menu' onClick={(e) => { e.preventDefault(); history.push('/user/preferences') }}><IconPreferences styling='mr-2'/> Preferences </button>
+              <button type='menu' onClick={handleOpenPrefs}>
+                <IconPreferences styling='mr-2' /> Preferences
+              </button>
               <button onClick={handleMyProfile} type='menu' >
-              <IconUser styling='mr-2'/>
-              My Profile</button>
-              <button onClick={logout} > <IconLogout /> </button>
+                <IconUser styling='mr-2' />
+                My Profile
+              </button>
+              <button onClick={logout} >
+                <IconLogout />
+              </button>
             </>
-              :
-              <>
-                {LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 py-1 text-sm hover:text-white hover:border-white`} to={link.to} target="_blank"> {link.title} </Link>))}
-                <Link to='login' ><button>Log in <i data-feather={'log-in'} className='ml-2' /></button></Link>
-              </>
-            }
-          </nav>
+              : LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 py-1 text-sm hover:text-white hover:border-white`} to={link.to} target="_blank"> {link.title} </Link>)) }
+          </div>
         </nav>
       )
     }

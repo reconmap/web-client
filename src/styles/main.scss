@@ -23,13 +23,34 @@
     margin-bottom: 1rem;
 }
 
+
+input, select, textarea {
+    @extend .base;
+    outline: transparent ;
+    &:hover{
+        box-shadow: 0 0 0px 3px $red-500;
+        
+    }
+    &:active,  &:focus{
+        background-color: $gray-700;
+    }
+}
+
 form  {
-    label, input, select, button{
+    label, input:not([type='checkbox']), select, button{
         margin: 1rem auto;
         width: 100%;
         max-width: 500px;
         display: block;
 }}
+
+form input[type='checkbox'] {
+    float: left;
+    margin-right: 1rem;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}
 
 table {
     margin: 1rem auto;
@@ -52,17 +73,5 @@ table {
     td{
         border-top: 1px solid rgba($gray-500, .1);
         padding: .4rem;
-    }
-}
-
-input, select, textarea {
-    @extend .base;
-    outline: transparent ;
-    &:hover{
-        box-shadow: 0 0 0px 3px $red-500;
-        
-    }
-    &:active,  &:focus{
-        background-color: $gray-700;
     }
 }

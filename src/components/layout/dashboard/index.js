@@ -20,24 +20,23 @@ function Dashboard({ children }) {
   );
 }
 const  DashboardPanels  = () => {
-  const data = [
-    {name: 'Page A', uv: 400},
-    {name: 'Page b', uv: 100},
-    {name: 'Page A', uv: 500},
-    {name: 'Page A', uv: 40},
-  ];
+
 
   const [stats] = useFetch('/auditlog/stats')
 
     return <section>
       <div className=''>
         <h1>Dashboard</h1>
-        <article className='base ' style={{ width:'440px'}} >
-          <LineChart width={400} height={200} data={data}>
-            <Line type="monotone" dataKey="uv" stroke="#8884d8"  strokeWidth={3}/>
-            <CartesianGrid stroke="#222" />
-            <XAxis dataKey="name" />
+        <article className='base ' style={{ width:'440px' }} >
+          <LineChart width={400} height={200} data={stats} >
+            <Line type="monotone" dataKey="total" stroke="#8884d8"  strokeWidth={3}/>
+            <CartesianGrid stroke="#000"  />
+            <XAxis dataKey="log_date" />
+            <YAxis dataKey="total" />
           </LineChart>
+          <footer>
+          auditlog/stats
+          </footer>
         </article>
       </div>
     </section>

@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import secureApiFetch from '../../services/api';
 import configuration from '../../Configuration';
 import './Report.css';
-
+import Breadcrumb from './../ui/Breadcrumb'
+import { IconSave } from '../icons';
 class ProjectReport extends Component {
-
+    constructor(props){
+        super(props)
+    }
     state = {
         project: null
     }
@@ -52,15 +55,17 @@ class ProjectReport extends Component {
                 document.getElementById('report').innerHTML = data;
             });
     }
+    handleGoBack(){ this.props.history.goBack() }
+
     render() {
-        if (!this.state.project) {
-            return 'Loading...'
-        }
+        
         return (
+
             <>
+            <Breadcrumb path={this.props.history.location.pathname} goBack={()=>this.handleGoBack()}/>
                 <div className='heading'>
-                    <h2>{this.state.project.name}</h2>
-                    <button onClick={this.handleExport}><i data-feather='plus' className='mr-2' /> Export to PDF</button>
+                    { this.state.project ? <h2>{this.state.project.name}</h2> : '...' }
+                    <button onClick={this.handleExport}><IconSave styling='mr-2' /> Export to PDF</button>
                 </div>
                 <div className='text-sm mx-auto max-w-xl rounded overflow-hidden shadow my-4' id="report"></div>
             </>

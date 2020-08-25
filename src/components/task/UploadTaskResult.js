@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api';
-
+import Breadcrumb from './../ui/Breadcrumb'
 class UploadTaskResult extends Component {
 
     constructor(props) {
@@ -30,11 +30,13 @@ class UploadTaskResult extends Component {
             .catch((error) => console.log(error));
     }
 
+    handleGoBack(){ this.props.history.goBack() }
     render() {
         return (
 
             <div>
-                <h3 className='heading'>Task: Run port scanner </h3>
+                <Breadcrumb path={this.props.history.location.pathname} goBack={()=>this.handleGoBack()}/>
+                <h1 className='heading'>Task: Run port scanner </h1>
                 <div className='flex items-start gap-4'>
                     <article className='base flex-1'>
                         <h3>Command</h3>

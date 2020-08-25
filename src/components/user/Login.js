@@ -45,7 +45,7 @@ const Login = (props) => {
             {isAuth && <Redirect to={redirectTo} />}
             <div className='flex justify-between items-center  w-full flex-col md:flex-row' >
 
-              <section className="flex flex-col w-full sm:w-1/2 max-w-lg gap-2 ">
+              <section className="flex flex-col w-full sm:w-1/2 max-w-md gap-2 mx-auto text-center">
                 <h1 className="text-5xl font-bold mb-10">Login</h1>
                 <label htmlFor="inputUsername" className="sr-only">
                   Username
