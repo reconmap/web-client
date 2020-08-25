@@ -6,10 +6,12 @@ import useFetch from '../../hooks/useFetch';
 import { Link } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
+import DeleteButton from '../ui/buttons/Delete';
+import useDelete from '../../hooks/useDelete';
 
-const ReportsList = ({history}) => {
+const ReportsList = ({ history }) => {
     useSetTitle('Save eports');
-    const [reports] = useFetch('/reports')
+    const [reports, fetchReports] = useFetch('/reports')
     const handleDownload = (reportId) => {
         secureApiFetch(`/reports/${reportId}/download`, { method: 'GET' })
             .then(response => {
@@ -27,9 +29,12 @@ const ReportsList = ({history}) => {
                 a.click();
             })
     }
+
+    const deleteReport = useDelete('/reports', fetchReports);
+
     return <div>
-            <Breadcrumb path={history.location.pathname} />
-    
+        <Breadcrumb path={history.location.pathname} />
+
         <div className='heading'>
             <h1>Saved reports</h1>
         </div>
@@ -50,8 +55,9 @@ const ReportsList = ({history}) => {
                                 <td><Link to={`/project/${report.project_id}`}>{report.project_name}</Link></td>
                                 <td>{report.format}</td>
                                 <td>{report.insert_ts}</td>
-                                <td>
-                                    <Link to="#" onClick={() => handleDownload(report.id)}>Download</Link>
+                                <td  className="  gap-5 flex items-center justify-end  ">
+                                    <button onClick={() => handleDownload(report.id)}>Download</button>
+                                    <DeleteButton onClick={() => deleteReport(report.id)} />
                                 </td>
                             </tr>
                         )

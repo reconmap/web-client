@@ -34,8 +34,7 @@ class TaskDetails extends Component {
     handleDelete(id) {
         if (window.confirm('Are you sure you want to delete this task?')) {
             secureApiFetch(`/tasks/${id}`, {
-                method: 'DELETE',
-                headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') }
+                method: 'DELETE'
             })
                 .then(() => { this.props.history.goBack() })
                 .catch(e => console.log(e))

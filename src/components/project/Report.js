@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api';
-import configuration from '../../Configuration';
 import './Report.css';
 import Breadcrumb from './../ui/Breadcrumb'
 import { IconSave } from '../icons';
@@ -13,11 +12,8 @@ class ProjectReport extends Component {
     }
 
     handleExport() {
-        fetch(`${configuration.api.baseUrl}/projects/1/report?format=pdf`, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-            }
+        secureApiFetch(`/projects/1/report?format=pdf`, {
+            method: 'GET'
         })
             .then(response => {
                 var contentDispositionHeader = response.headers.get('Content-Disposition');
@@ -36,7 +32,6 @@ class ProjectReport extends Component {
     }
 
     componentDidMount() {
-
         const id = this.props.match.params.id;
         secureApiFetch(`/projects/${id}`, {
             method: 'GET',
