@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import Header from "../Header";
 import Sidebar from "../sidebar";
-import Plot from 'react-plotly.js';
-import secureApiFetch from '../../../services/api';
 import useSetTitle from "../../../hooks/useSetTitle";
+import useFetch from "../../../hooks/useFetch";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 function Dashboard({ children }) {
   useSetTitle('Dashboard')
@@ -19,41 +19,28 @@ function Dashboard({ children }) {
     </div>
   );
 }
-class DashboardPanels extends Component {
+const  DashboardPanels  = () => {
+  const data = [
+    {name: 'Page A', uv: 400},
+    {name: 'Page b', uv: 100},
+    {name: 'Page A', uv: 500},
+    {name: 'Page A', uv: 40},
+  ];
 
-  state = {
-    plotData: {
-      x: [],
-      y: [],
-      type: 'bar'
-    }
-  }
+  const [stats] = useFetch('/auditlog/stats')
 
-  componentDidMount() {
-    secureApiFetch('/auditlog/stats', { method: 'GET' })
-      .then((response) => response.json())
-      .then((json) => {
-        var newState = {
-          x: json.map(a => a.log_date),
-          y: json.map(a => a.total),
-          type: 'bar'
-        };
-        this.setState({ plotData: newState });
-      });
-  }
-
-  render() {
     return <section>
       <div className=''>
         <h1>Dashboard</h1>
-        <Plot
-          data={[this.state.plotData]}
-          layout={{ title: 'User activity on the platform over time', yaxis: { gridcolor: 'gray' }, xaxis: { autotick: false, color: 'white' }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', legend: { font: { color: 'white' } }, titlefont: { color: 'white' } }}
-          config={{ autoSize: true, displayModeBar: false }}
-        />
+        <article className='base ' style={{ width:'440px'}} >
+          <LineChart width={400} height={200} data={data}>
+            <Line type="monotone" dataKey="uv" stroke="#8884d8"  strokeWidth={3}/>
+            <CartesianGrid stroke="#222" />
+            <XAxis dataKey="name" />
+          </LineChart>
+        </article>
       </div>
     </section>
-  }
 }
 
 export default Dashboard;
