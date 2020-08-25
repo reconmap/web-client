@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Pagination from '../layout/Pagination';
 import Ipv4Link from '../ui/Ipv4Link';
 import secureApiFetch from '../../services/api';
@@ -10,15 +10,37 @@ import useSetTitle from '../../hooks/useSetTitle';
 import { IconSave } from '../icons';
 import Breadcrumb from '../ui/Breadcrumb';
 
-const AuditLogList = ({history}) => {
+const AuditLogList = ({ history }) => {
     useSetTitle('Reports');
 
-    const [pagination, setPagination] = useState({ page: 1, total: 10 })
+    const [auditLog, setAuditLog] = useState([])
+    const [pagination, setPagination] = useState({ page: 0, total: 1 })
 
-    const handlePrev = () => { setPagination({ ...pagination, page: pagination.page - 1 }) }
-    const handleNext = () => { setPagination({ ...pagination, page: pagination.page + 1 }) }
+    const handlePrev = () => {
+        setPagination({ ...pagination, page: pagination.page - 1 })
+        reloadData()
+    }
+    const handleNext = () => {
+        setPagination({ ...pagination, page: pagination.page + 1 })
+        reloadData()
+    }
 
-    const [auditLog] = useFetch(`/auditlog?page=${pagination.page}`)
+    const reloadData = () => {
+        secureApiFetch(`/auditlog?page=${pagination.page}`, { method: 'GET' })
+            .then((response) => {
+                if (response.headers.has('X-Page-Count')) {
+                   setPagination({...pagination, total: response.headers.get('X-Page-Count')})
+                }    
+                return response.json()
+            })
+            .then((data) => {
+                setAuditLog(data);
+            })
+    }
+
+    useEffect(() => {
+        reloadData()
+    }, [])
 
     const handleExport = () => {
         secureApiFetch(`/auditlog/export`, { method: 'GET' })
@@ -39,7 +61,7 @@ const AuditLogList = ({history}) => {
     }
 
     return (<>
-        <Breadcrumb path={history.location.pathname}/>
+        <Breadcrumb path={history.location.pathname} />
 
         <div className='heading'>
             <h1>Audit Log</h1>
