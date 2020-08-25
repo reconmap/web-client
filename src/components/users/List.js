@@ -2,19 +2,19 @@ import React from 'react'
 import DeleteButton from "../../components/ui/buttons/Delete";
 import CreateButton from "../../components/ui/buttons/Create";
 import useSetTitle from '../../hooks/useSetTitle';
-import { useHistory } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import useDelete from '../../hooks/useDelete';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const UsersList = () => {
+const UsersList = ({history}) => {
     useSetTitle('Users');
-    const history = useHistory()
     const [users, updateUsers] = useFetch('/users')
     const destroy = useDelete('/users/', updateUsers);
     const handleCreate = () => { history.push("/users/create"); }
     return (<>
+        <Breadcrumb path={history.location.pathname}/>
         <div className='heading'>
             <h1>Users</h1>
             <CreateButton onClick={handleCreate}>Create User</CreateButton>

@@ -1,13 +1,12 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import useSetTitle from '../../hooks/useSetTitle';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const TemplatesList = () => {
-    const history = useHistory()
+const TemplatesList = ({history}) => {
     useSetTitle('Projects templates');
     const [templates] = useFetch('/projects?isTemplate=1')
 
@@ -23,9 +22,8 @@ const TemplatesList = () => {
 
     return (
         <>
-            <div className='heading'>
-                <h1>Project templates</h1>
-            </div>
+            <Breadcrumb path={history.location.pathname} />
+            <h1>Project templates</h1>
             {!templates ? <Loading /> : templates.length === 0 ? <NoResults /> :
                 <section className='flex flex-wrap gap-4'>
                     {templates.map((template, index) =>

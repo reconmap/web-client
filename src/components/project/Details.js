@@ -7,6 +7,7 @@ import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
+import Breadcrumb from '../ui/Breadcrumb';
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
@@ -23,9 +24,10 @@ const ProjectDetails = ({match, history}) => {
     if( !project ) { return <Loading /> }
     return (
         <>
+            <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
+
             <section className='heading' >
-                <button onClick={handleGoBack}><IconLeft /></button>
-                <h1 className='mr-auto ml-4'>{project.name}</h1>
+                <h1 className='mr-auto'>{project.name}</h1>
                 <div className='flex items-center justify-between gap-4'>
                     <button onClick={handleGenerateReport}>Generate Report</button>
                     <DeleteButton onClick={() => destroy(project.id)} />

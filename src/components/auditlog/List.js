@@ -8,8 +8,9 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import useSetTitle from '../../hooks/useSetTitle';
 import { IconSave } from '../icons';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const AuditLogList = () => {
+const AuditLogList = ({history}) => {
     useSetTitle('Reports');
 
     const [pagination, setPagination] = useState({ page: 1, total: 10 })
@@ -38,6 +39,8 @@ const AuditLogList = () => {
     }
 
     return (<>
+        <Breadcrumb path={history.location.pathname}/>
+
         <div className='heading'>
             <h1>Audit Log</h1>
             <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev} handleNext={handleNext} />

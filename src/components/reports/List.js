@@ -5,8 +5,9 @@ import Loading from '../ui/Loading';
 import useFetch from '../../hooks/useFetch';
 import { Link } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const ReportsList = () => {
+const ReportsList = ({history}) => {
     useSetTitle('Save eports');
     const [reports] = useFetch('/reports')
     const handleDownload = (reportId) => {
@@ -27,6 +28,8 @@ const ReportsList = () => {
             })
     }
     return <div>
+            <Breadcrumb path={history.location.pathname} />
+    
         <div className='heading'>
             <h1>Saved reports</h1>
         </div>

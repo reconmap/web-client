@@ -8,14 +8,17 @@ import RiskBadge from '../badges/RiskBadge';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import CreateButton from '../ui/buttons/Create';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const VulnerabilitiesList = () => {
+const VulnerabilitiesList = ({history}) => {
     useSetTitle('Vulnerabilities')
 
     const [vulnerabilities, update] = useFetch('/vulnerabilities')
     const destroy = useDelete('/vulnerabilities/', update);
 
     return (<>
+        <Breadcrumb path={history.location.pathname} />
+
         <div className='heading'>
             <h1>Vulnerabilities</h1>
             <CreateButton>Create Vulnerability</CreateButton>

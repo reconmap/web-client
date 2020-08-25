@@ -7,8 +7,9 @@ import useDelete from '../../hooks/useDelete';
 import ProjectBadge from '../badges/ProjectBadge';
 import StatusBadge from '../badges/StatusBadge';
 import useFetch from '../../hooks/useFetch';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const TasksList = () => {
+const TasksList = ({history}) => {
     useSetTitle('Tasks');
     const [tasks, updateTasks] = useFetch('/tasks')
     const [projects] = useFetch('/projects')
@@ -20,6 +21,7 @@ const TasksList = () => {
     const destroy = useDelete('/tasks/', updateTasks);
     
         return <>
+            <Breadcrumb path={history.location.pathname} />
         
             <div className='heading'>
             <h1>Tasks</h1>

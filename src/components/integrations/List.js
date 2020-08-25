@@ -1,5 +1,4 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom';
 import useSetTitle from '../../hooks/useSetTitle';
 import useFetch from '../../hooks/useFetch';
 import useDelete from '../../hooks/useDelete';
@@ -7,15 +6,16 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import CreateButton from '../ui/buttons/Create';
 import DeleteButton from '../ui/buttons/Delete';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const IntegrationsList = () => {
+const IntegrationsList = ({history}) => {
     useSetTitle('Integrations');
-    const history = useHistory()
     const [integrations, updateIntegrations] = useFetch('/integrations')
     const destroy = useDelete('/integrations/', updateIntegrations);
     const handleCreate = () => { history.push("/integration/create"); }
     return (
         <>
+            <Breadcrumb path={history.location.pathname}/>
             <div className='heading'>
                 <h1>Integrations</h1>
                 <CreateButton onClick={handleCreate}>Create integration</CreateButton>

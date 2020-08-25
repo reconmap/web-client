@@ -1,11 +1,13 @@
 import React from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
 import { IconSave, IconX } from './../icons'
+import Breadcrumb from '../ui/Breadcrumb'
 
-const UserPreferences = () => {
+const UserPreferences = ({history}) => {
     useSetTitle('Preferences')
     return (
         <>
+            <Breadcrumb path={history.location.pathname}/>
             <h1>Preferences</h1>
             <form onSubmit={e=>e.preventDefault()}>
                     <label>Language</label>

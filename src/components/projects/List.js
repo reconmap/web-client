@@ -6,13 +6,16 @@ import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import CreateButton from './../ui/buttons/Create'
+import Breadcrumb from '../ui/Breadcrumb';
 
-const ProjectsList = () => {
+const ProjectsList = ({history}) => {
     useSetTitle('Projects');
     const [projects, updateProjects] = useFetch('/projects')
     const destroy = useDelete('/projects/', updateProjects);
 
     return <div>
+        <Breadcrumb path={history.location.pathname} />
+    
         <div className='heading'>
             <h1>Projects</h1>
             <CreateButton>Create Project</CreateButton>

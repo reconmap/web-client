@@ -3,13 +3,16 @@ import MD5 from '../../services/md5';
 import Loading from '../ui/Loading';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
+import Breadcrumb from '../ui/Breadcrumb';
 
-const UserProfile = ({ match }) => {
+const UserProfile = ({ match, history }) => {
     useSetTitle('User');
-    const [user, updateUser] = useFetch(`/users/${match.params.id}`)
-    const [auditLog, updateAuditLog] = useFetch(`/users/${match.params.id}/activity`)
+    const [user] = useFetch(`/users/${match.params.id}`)
+    const [auditLog] = useFetch(`/users/${match.params.id}/activity`)
     return (
         <div>
+            <Breadcrumb path={history.location.pathname}/>
+        
             <div className=' flex flex-col md:flex-row items-center justify-center  max-w-xl mx-auto my-10'>
                 <figure className='w-48 h-48 flex bg-gray-800 overflow-hidden shadow-lg rounded-full mr-10'>{user&&<img alt='Avatar' src={`https://www.gravatar.com/avatar/${MD5(user.email)}?s=200&d=robohash`} />}</figure>
                 {user ? <div className=' flex flex-col flex-1'>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { IconLeft } from '../icons'
 import secureApiFetch from '../../services/api';
+import Breadcrumb from '../ui/Breadcrumb';
 
 export default function TaskCreateForm({match, history}) {
     const [newTask, setNewTask] = useState({ name: null, description: null, parser: null, project_id: match.params.id })
@@ -21,10 +22,8 @@ export default function TaskCreateForm({match, history}) {
 
     return (
         <div>
-            <section className='heading' >
-                <button onClick={handleGoBack}><IconLeft /></button>
-                <h1 className='mr-auto ml-4'>Nueva tarea</h1>
-            </section>
+            <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
+            <h1>Create Task</h1>
             <form onSubmit={e => e.preventDefault()}>
                 <label htmlFor='name'>Name</label>
                 <input autoFocus type="text" name="name" onChange={handleFormChange} />
