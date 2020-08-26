@@ -15,6 +15,6 @@ These are the timeframes in which we aim to resolve any security issue, based on
 |Medium|14 days|
 |Low|31 days|
 
-## Recognisition
+## Recognition
 
 Anyone reporting a vulnerability will be added to our credits permanently. Financial rewards are generally unavailable at this point in time but we are open to discuss compensation on a case by case basis.
