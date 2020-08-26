@@ -9,6 +9,7 @@ import NoResults from '../ui/NoResults';
 import useSetTitle from '../../hooks/useSetTitle';
 import { IconSave } from '../icons';
 import Breadcrumb from '../ui/Breadcrumb';
+import UserRoleBadge from '../badges/UserRoleBadge';
 
 const AuditLogList = ({ history }) => {
     useSetTitle('Reports');
@@ -70,9 +71,9 @@ const AuditLogList = ({ history }) => {
             <table className='w-full'>
                 <thead>
                     <tr>
+                        <th>Action</th>
                         <th>Date/Time</th>
                         <th>IP</th>
-                        <th>Action</th>
                         <th>User</th>
                         <th>Role</th>
                     </tr>
@@ -81,11 +82,11 @@ const AuditLogList = ({ history }) => {
                     {auditLog.map((entry, index) => {
                         return (
                             <tr key={index}>
+                                <th>{entry.action}</th>
                                 <td>{entry.insert_ts}</td>
                                 <td><Ipv4Link value={entry.client_ip} /></td>
-                                <td>{entry.action}</td>
                                 <td><Link to={`/user/${entry.user_id}`}>{entry.name}</Link></td>
-                                <td>{entry.role}</td>
+                                <td > <UserRoleBadge role={entry.role} /> </td>
                             </tr>
                         )
                     })}

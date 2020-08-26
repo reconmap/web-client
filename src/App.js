@@ -8,11 +8,15 @@ import {
 
 import Dashboard from "./components/layout/dashboard";
 import Login from "./components/user/Login";
+
+import ProjectCreateForm from './components/projects/Create';
 import ProjectsList from './components/projects/List';
+import ProjectDetails from "./components/project/Details";
+import ProjectReport from "./components/project/Report";
+
 import UploadTaskResult from "./components/task/UploadTaskResult";
 import UserPreferences from "./components/user/Preferences";
 import UsersList from "./components/users/List";
-import ProjectDetails from "./components/project/Details";
 import AuditLogList from "./components/auditlog/List";
 import TemplatesList from './components/templates/List';
 import TemplateDetails from './components/templates/Details';
@@ -21,7 +25,6 @@ import UserCreationForm from "./components/users/CreationForm";
 import TaskDetails from "./components/task/Details";
 import TaskCreationForm from "./components/task/Create";
 import ComponentsList from "./components/ui/ComponentsList";
-import ProjectReport from "./components/project/Report";
 import TasksList from "./components/tasks/List";
 import ReportsList from "./components/reports/List";
 import UserProfile from "./components/user/Profile";
@@ -43,7 +46,8 @@ const App = () => {
               <ProtectedRoute exact path={`/tasks`} component={TasksList} />
               <ProtectedRoute exact path={`/tasks/:id`} component={TaskDetails} />
               <ProtectedRoute exact path={`/tasks/:id/upload`} component={UploadTaskResult} />
-              <ProtectedRoute path={`/projects`} component={ProjectsList} />
+              <ProtectedRoute exact path={`/projects`} component={ProjectsList} />
+              <ProtectedRoute exact path={`/projects/create`} component={ProjectCreateForm} />
               <ProtectedRoute path={`/project/:id/report`} component={ProjectReport} />
               <ProtectedRoute path={`/project/:id/tasks/create`} component={TaskCreationForm} />
               <ProtectedRoute exact path={`/project/:id`} component={ProjectDetails} />

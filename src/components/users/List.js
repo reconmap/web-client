@@ -7,12 +7,16 @@ import useDelete from '../../hooks/useDelete';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
+import { IconUser, IconStar, IconBookOpen } from '../icons';
+import UserRoleBadge from '../badges/UserRoleBadge';
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
     const [users, updateUsers] = useFetch('/users')
     const destroy = useDelete('/users/', updateUsers);
     const handleCreate = () => { history.push("/users/create"); }
+
+    
     return (<>
         <Breadcrumb path={history.location.pathname}/>
         <div className='heading'>
@@ -23,6 +27,7 @@ const UsersList = ({history}) => {
             <table className='w-full'>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Username</th>
                         <th>Role</th>
                         <th></th>
@@ -30,8 +35,13 @@ const UsersList = ({history}) => {
                 </thead>
                 <tbody>
                     {users.map((user, index) => <tr key={index}>
-                        <td>{user.name}</td>
-                        <td>{user.role}</td>
+                        <th className='w-16'>
+                            <figure className='w-12 h-12 rounded-full bg-gray-800 flex items-end overflow-hidden justify-center'>
+                                <IconUser size={10} styling='-mb-1 text-red-500'/>
+                            </figure>
+                        </th>
+                        <th>{user.name}</th>
+                        <td > <UserRoleBadge role={user.role} /> </td>
                         <td className='text-right'><DeleteButton onClick={() => destroy(user.id)} /></td>
                     </tr>)}
                 </tbody>

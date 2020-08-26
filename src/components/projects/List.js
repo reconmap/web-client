@@ -12,13 +12,15 @@ const ProjectsList = ({history}) => {
     useSetTitle('Projects');
     const [projects, updateProjects] = useFetch('/projects')
     const destroy = useDelete('/projects/', updateProjects);
-
+    const handleCreateProject = () => {
+        history.push('/projects/create')
+    }
     return <div>
         <Breadcrumb path={history.location.pathname} />
     
         <div className='heading'>
             <h1>Projects</h1>
-            <CreateButton>Create Project</CreateButton>
+            <CreateButton onClick={handleCreateProject}>Create Project</CreateButton>
         </div>
         {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
             <section className='flex flex-wrap gap-4'>

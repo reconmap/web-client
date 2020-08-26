@@ -67,13 +67,13 @@ const TasksList = ({history}) => {
                     .filter( task => task.completed.includes(filter.status) )
                     .map((task) =>
                         <tr key={task.id}>
-                            <td>
+                            <th>
                                 <details>
-                                    <summary className='text-red-500 flex items-center cursor-pointer'> {task.name}</summary>
-                                    <p className='pre-whitespace-line font-mono w-56' style={{ whiteSpace: 'pre-wrap'}}>{task.description}</p>
+                                    <summary className='text-white flex items-center cursor-pointer'> {task.name}</summary>
+                                    <p className='pre-whitespace-line font-mono w-56 text-xs' style={{ whiteSpace: 'pre-wrap'}}>{task.description}</p>
                                 </details>
-                            </td>
-                            <td><ProjectBadge name={projects && projects.find(({id})=>id === task.project_id)?.name}/></td>
+                            </th>
+                            <td><ProjectBadge name={projects && projects.find(({id})=>id == task.project_id)?.name}/></td>
                             <td className='font-mono text-gray-500 '>{task.parser}</td>
                             <td><StatusBadge status={task.completed}/></td>
                             <td className='text-right'><DeleteButton onClick={() => destroy(task.id)} /></td>

@@ -39,10 +39,10 @@ const VulnerabilitiesList = ({history}) => {
                     {vulnerabilities.map((vulnerability, index) => {
                         return (
                             <tr key={index}>
-                                <td><Link className='flex flex-col' to={`/vulnerabilities/${vulnerability.id}`}>
-                                    <span className='text-xl text-red-500'>{vulnerability.summary}</span>
+                                <th><Link className='flex flex-col' to={`/vulnerabilities/${vulnerability.id}`}>
+                                    <span>{vulnerability.summary}</span>
                                     {vulnerability.description}
-                                </Link></td>
+                                </Link></th>
 
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td>{vulnerability.cvss_score}</td>

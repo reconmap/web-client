@@ -74,4 +74,10 @@ table {
         border-top: 1px solid rgba($gray-500, .1);
         padding: .4rem;
     }
+    tbody {
+        tr th {
+            color: white;
+            font-size: 1.15rem;
+        }
+    }
 }
