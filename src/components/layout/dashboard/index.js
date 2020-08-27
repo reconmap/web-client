@@ -50,34 +50,37 @@ const DashboardPanels = () => {
   return <section>
     <div className=''>
       <h1>Dashboard</h1>
-      <article className='base ' style={{ width: '440px' }} >
-        <LineChart width={400} height={200} data={auditLogStats} >
-          <Line type="monotone" dataKey="total" stroke="#8884d8" strokeWidth={3} />
-          <CartesianGrid stroke="#000" />
-          <XAxis dataKey="log_date" />
-          <YAxis dataKey="total" />
-        </LineChart>
-        <footer>User activity over time</footer>
-      </article>
-      <article className='base ' style={{ width: '440px' }} >
-        <PieChart width={400} height={400}>
-          <Pie
-            data={vulnerabilityStats}
-            dataKey="total"
-            cx={200}
-            cy={200}
-            labelLine={false}
-            outerRadius={80}
-            fill="#8884d8"
-            label={renderCustomLabel}
-          >
-            {
-              vulnerabilityStats && vulnerabilityStats.map((entry, index) => <Cell fill={colors[entry.risk]} />)
-            }
-          </Pie>
-        </PieChart>
-        <footer>Vulnerabilities by risk</footer>
-      </article>
+      <div className='flex flex-wrap gap-4'>
+        <article className='base ' style={{ width: '410px' }} >
+          <LineChart width={380} height={200} data={auditLogStats} >
+            <Line type="monotone" dataKey="total" stroke="#8884d8" strokeWidth={3} />
+            <CartesianGrid stroke="#000" />
+            <XAxis dataKey="log_date" />
+            <YAxis dataKey="total" />
+          </LineChart>
+          <footer>User activity over time</footer>
+        </article>
+        <article className='base ' style={{ width: '410px' }} >
+          <PieChart width={380} height={400}>
+            <Pie
+              data={vulnerabilityStats}
+              dataKey="total"
+              cx={200}
+              cy={200}
+              labelLine={false}
+              outerRadius={80}
+              fill="#8884d8"
+              label={renderCustomLabel}
+            >
+              {
+                vulnerabilityStats && vulnerabilityStats.map((entry, index) => <Cell fill={colors[entry.risk]} />)
+              }
+            </Pie>
+          </PieChart>
+          <footer>Vulnerabilities by risk</footer>
+        </article>
+      </div>
+
     </div>
   </section>
 }
