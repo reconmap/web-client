@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api'
+import { Link } from 'react-router-dom'
 
 class TaskDetails extends Component {
     constructor(props) {
@@ -31,6 +32,15 @@ class TaskDetails extends Component {
             });
     }
 
+    handleToggle(task) {
+        secureApiFetch(`/tasks/${task.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ completed: task.completed ? '0' : '1' })
+        })
+            .then(() => { this.props.history.goBack() })
+            .catch(e => console.log(e))
+    }
+
     handleDelete(id) {
         if (window.confirm('Are you sure you want to delete this task?')) {
             secureApiFetch(`/tasks/${id}`, {
@@ -43,6 +53,7 @@ class TaskDetails extends Component {
     }
 
     render() {
+        const task = this.state.task;
         if (!this.state.task) {
             return 'Loading...'
         }
@@ -50,12 +61,15 @@ class TaskDetails extends Component {
             <div>
                 <h3 className='heading'>Task {this.state.task.name}</h3>
                 <div className='flex items-start gap-4'>
-                    <article className='base w-48'>
+                    <article className='base'>
+                        <p><em>Created on {this.state.task.insert_ts}</em></p>
+                        <h2>Instructions</h2>
                         <p>{this.state.task.description}</p>
-                        <footer>
-                            <label>Creation time</label>
-                            <strong>{this.state.task.insert_ts}</strong>
-                        </footer>
+                        <h2>Actions</h2>
+
+                        {task.completed === 1 && <button onClick={() => this.handleToggle(task)}>Mark as incompleted</button>}
+                        {task.completed !== 1 && <button onClick={() => this.handleToggle(task)}>Mark as completed</button>}
+                        <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link>
                     </article>
                     <article className='base flex-1'>
                         <h3>Results</h3>

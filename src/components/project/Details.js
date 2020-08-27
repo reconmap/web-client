@@ -51,20 +51,27 @@ const ProjectDetails = ({ match, history }) => {
 export default ProjectDetails
 
 const ProjectTasks = ({ tasks, handleAddTask }) => {
-
     return <article className='base'>
-        <h2>Tasks <small>1/{tasks && tasks.length} completed</small></h2>
         {tasks ?
-            <div className='flex flex-col gap-2 mb-2'>
+        <>
+        <h2>Tasks <small>({tasks.reduce(function (total, task) { return task.completed ? total + 1 : total; }, 0)}/{tasks && tasks.length} completed)</small></h2>
+        <div className='flex flex-col gap-2 mb-2'>
                 {tasks.map((task, index) =>
                     <div className='flex flex-row items-center justify-start'>
-                        <input type="checkbox" checked="checked" readOnly className='mr-4' />
+                        {task.completed ?
+                            <input type="checkbox" checked="checked" readOnly className='mr-4' />
+                            :
+                            <input type="checkbox" readOnly className='mr-4' />
+                        }
                         <Link to={"/tasks/" + task.id}>{task.name}</Link>
                         <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
                     </div>
                 )
                 }
-            </div> : <Loading />}
+            </div>
+            </>
+            :
+            <Loading />}
         <footer>
             <button onClick={handleAddTask}>Add task</button>
         </footer>
@@ -81,10 +88,10 @@ const ProjectTargets = ({ targets, handleAddTarget }) => {
                 {targets.map((target, index) => <tr key={index}><td>{target.kind}</td><td>{target.name}</td></tr>)}
             </tbody>
         </table>
-        : <Loading />}
+            : <Loading />}
         <footer>
-        <button onClick={handleAddTarget}>Add target</button>
-        </footer>                
+            <button onClick={handleAddTarget}>Add target</button>
+        </footer>
     </div>
 }
 
