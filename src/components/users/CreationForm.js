@@ -43,10 +43,9 @@ const UserCreationForm = () => {
                 <input type="email" name="email" onChange={handleFormChange} />
                 <label htmlFor='role'>Role</label>
                 <select name="role" onChange={handleFormChange}>
-                    <option></option>
-                    <option>Creator</option>
-                    <option>Writer</option>
-                    <option>Reader</option>
+                    <option value="reader">Reader</option>
+                    <option value="writer">Writer</option>
+                    <option value="creator">Creator</option>
                 </select>
                 <label>
                     Send email to user

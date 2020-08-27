@@ -33,14 +33,6 @@ const TasksList = ({history}) => {
                     </select>
                 </div>
                 <div>
-                    <label>Assignee</label>
-                    <select>
-                        <option>Anyone</option>
-                        <option>User 1</option>
-                        <option>User 2</option>
-                    </select>
-                </div>
-                <div>
                     <label>Status</label>
                     <select onChange={handleSetStatus}>
                         <option value=''>Any</option>

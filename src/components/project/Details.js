@@ -18,6 +18,7 @@ const ProjectDetails = ({ match, history }) => {
     const destroy = useDelete(`/projects/`, updateProject);
 
     const handleAddTask = () => { history.push(`/project/${match.params.id}/tasks/create`) }
+    const handleAddTarget = () => { history.push(`/project/${match.params.id}/targets/create`) }
     const handleGenerateReport = () => { history.push(`/project/${project.id}/report`) }
     const handleGoBack = () => { history.goBack() }
 
@@ -34,13 +35,13 @@ const ProjectDetails = ({ match, history }) => {
                         </div>
                     </section>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <ProjectDescription description={project.description}/>
-                        <ProjectTargets targets={targets} />
+                        <ProjectDescription description={project.description} />
+                        <ProjectTargets targets={targets} handleAddTarget={handleAddTarget} />
                         <ProjectVulnerabilities vulnerabilities={vulnerabilities} />
                     </section>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
                         <ProjectTeam />
-                        <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>
+                        <ProjectTasks tasks={tasks} handleAddTask={handleAddTask} />
                     </section>
                 </>
             }
@@ -50,27 +51,27 @@ const ProjectDetails = ({ match, history }) => {
 
 export default ProjectDetails
 
-const ProjectTasks = ({tasks, handleAddTask}) => {
+const ProjectTasks = ({ tasks, handleAddTask }) => {
 
     return <article className='base'>
-            <h2>Tasks <small>1/{tasks && tasks.length} completed</small></h2>
-            {tasks ?
-                <div className='flex flex-col gap-2 mb-2'>
-                    {tasks.map((task, index) =>
-                        <div className='flex flex-row items-center justify-start'>
-                            <input type="checkbox" checked="checked" readOnly className='mr-4' />
-                            <Link to={"/tasks/" + task.id}>{task.name}</Link>
-                            <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
-                        </div>
-                    )
-                    }
-                </div> : <Loading />}
-            <footer>
-                <button onClick={handleAddTask}>Add task</button>
-            </footer>
-        </article>
+        <h2>Tasks <small>1/{tasks && tasks.length} completed</small></h2>
+        {tasks ?
+            <div className='flex flex-col gap-2 mb-2'>
+                {tasks.map((task, index) =>
+                    <div className='flex flex-row items-center justify-start'>
+                        <input type="checkbox" checked="checked" readOnly className='mr-4' />
+                        <Link to={"/tasks/" + task.id}>{task.name}</Link>
+                        <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
+                    </div>
+                )
+                }
+            </div> : <Loading />}
+        <footer>
+            <button onClick={handleAddTask}>Add task</button>
+        </footer>
+    </article>
 }
-const ProjectTargets = ({ targets }) => {
+const ProjectTargets = ({ targets, handleAddTarget }) => {
     return <div className='base'>
         <h2>Target(s)</h2>
         {targets ? <table className='font-mono text-sm w-full' >
@@ -78,18 +79,22 @@ const ProjectTargets = ({ targets }) => {
                 <tr><th>Host</th><th>uri</th></tr>
             </thead>
             <tbody>
-                {targets.map((target, index) => <tr key={index}><td>{target.kind}</td><td>{target.name}</td></tr> )}
+                {targets.map((target, index) => <tr key={index}><td>{target.kind}</td><td>{target.name}</td></tr>)}
             </tbody>
-        </table> : <Loading />}
+        </table>
+        : <Loading />}
+        <footer>
+        <button onClick={handleAddTarget}>Add target</button>
+        </footer>                
     </div>
 }
 
-const ProjectVulnerabilities = ({vulnerabilities}) => {
+const ProjectVulnerabilities = ({ vulnerabilities }) => {
     return <div className='base'>
         <h2>Vulnerabilities</h2>
         {vulnerabilities ?
             <ul>
-                {vulnerabilities.map((vuln, index) => <li key={index}>{vuln.summary}</li> )}
+                {vulnerabilities.map((vuln, index) => <li key={index}>{vuln.summary}</li>)}
             </ul> : <Loading />}
         <footer>
             <button href="add.html" >Add New Vulnerability</button>
@@ -97,18 +102,18 @@ const ProjectVulnerabilities = ({vulnerabilities}) => {
     </div>
 }
 
-const ProjectDescription = ({ description } ) => {
+const ProjectDescription = ({ description }) => {
     return <div className='base'>
-            <h2>Description</h2>
-            <p>{description}</p>
-        </div>
+        <h2>Description</h2>
+        <p>{description}</p>
+    </div>
 }
 
 const ProjectTeam = () => {
     return <article className='base'>
-                <h2>Team</h2>
-                <div className='flex flex-wrap'>
-                    <UserBadge name='Santiago Lizardo' role='Full Stack Dev' />
-                </div>
-            </article>
+        <h2>Team</h2>
+        <div className='flex flex-wrap'>
+            <UserBadge name='Santiago Lizardo' role='Full Stack Dev' />
+        </div>
+    </article>
 }

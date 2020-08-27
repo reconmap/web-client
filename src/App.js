@@ -33,6 +33,7 @@ import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
 import { AuthProvider } from './contexts/AuthContext';
 import VulnerabilityDetails from './components/vulnerabilities/Details';
+import TargetCreateForm from './components/target/Create';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
               <ProtectedRoute exact path={`/projects/create`} component={ProjectCreateForm} />
               <ProtectedRoute path={`/project/:id/report`} component={ProjectReport} />
               <ProtectedRoute path={`/project/:id/tasks/create`} component={TaskCreationForm} />
+              <ProtectedRoute path={`/project/:id/targets/create`} component={TargetCreateForm} />
               <ProtectedRoute exact path={`/project/:id`} component={ProjectDetails} />
               <ProtectedRoute path={`/users/create`} component={UserCreationForm} />
               <ProtectedRoute exact path={`/users`} component={UsersList} />

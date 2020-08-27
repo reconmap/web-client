@@ -4,6 +4,7 @@ import Loading from '../ui/Loading';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
+import UserRoleBadge from '../badges/UserRoleBadge';
 
 const UserProfile = ({ match, history }) => {
     useSetTitle('User');
@@ -21,7 +22,7 @@ const UserProfile = ({ match, history }) => {
                         User since {user.insert_ts}
                     </article>
                     <div className='flex flex-row gap-4 my-2 font-semibold text-sm'>
-                        <span className='px-3 py-1 rounded-full bg-red-500 text-black'>{user.role}</span>
+                        <UserRoleBadge role={user.role} />
                     </div>
                 </div> : <Loading /> }
             </div>

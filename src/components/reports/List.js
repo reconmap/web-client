@@ -31,7 +31,7 @@ const ReportsList = ({ history }) => {
             })
     }
 
-    const deleteReport = useDelete('/reports', fetchReports);
+    const deleteReport = useDelete('/reports/', fetchReports);
 
     return <div>
         <Breadcrumb path={history.location.pathname} />
