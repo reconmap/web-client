@@ -9,6 +9,7 @@ import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconUser, IconStar, IconBookOpen } from '../icons';
 import UserRoleBadge from '../badges/UserRoleBadge';
+import MD5 from '../../services/md5';
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
@@ -36,9 +37,7 @@ const UsersList = ({history}) => {
                 <tbody>
                     {users.map((user, index) => <tr key={index}>
                         <th className='w-16'>
-                            <figure className='w-12 h-12 rounded-full bg-gray-800 flex items-end overflow-hidden justify-center'>
-                                <IconUser size={10} styling='-mb-1 text-red-500'/>
-                            </figure>
+                        <figure className='w-10 h-10 flex bg-gray-800 overflow-hidden shadow-lg rounded-full mr-10'>{user&&<img alt='Avatar' src={`https://www.gravatar.com/avatar/${MD5(user.email)}?s=200&d=robohash`} />}</figure>
                         </th>
                         <th>{user.name}</th>
                         <td > <UserRoleBadge role={user.role} /> </td>
