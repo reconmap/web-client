@@ -3,16 +3,23 @@ import secureApiFetch from '../../services/api';
 import './Report.css';
 import Breadcrumb from './../ui/Breadcrumb'
 import { IconSave } from '../icons';
+
 class ProjectReport extends Component {
-    constructor(props){
-        super(props)
-    }
     state = {
         project: null
     }
 
-    handleExport() {
-        secureApiFetch(`/projects/1/report?format=pdf`, {
+    projectId = null;
+
+    constructor(props) {
+        super(props)
+
+        this.projectId = this.props.match.params.id;
+    }
+
+
+    handleExport(projectId) {
+        secureApiFetch(`/projects/${projectId}/report?format=pdf`, {
             method: 'GET'
         })
             .then(response => {
@@ -50,19 +57,21 @@ class ProjectReport extends Component {
                 document.getElementById('report').innerHTML = data;
             });
     }
-    handleGoBack(){ this.props.history.goBack() }
+    handleGoBack() { this.props.history.goBack() }
 
     render() {
-        
+
+        const projectId = this.projectId;
+
         return (
 
             <>
-            <Breadcrumb path={this.props.history.location.pathname} goBack={()=>this.handleGoBack()}/>
+                <Breadcrumb path={this.props.history.location.pathname} goBack={() => this.handleGoBack()} />
                 <div className='heading'>
-                    { this.state.project ? <h2>{this.state.project.name}</h2> : '...' }
-                    <button onClick={this.handleExport}><IconSave styling='mr-2' /> Export to PDF</button>
+                    {this.state.project ? <h2>{this.state.project.name}</h2> : '...'}
+                    <button onClick={() => this.handleExport(projectId)}><IconSave styling='mr-2' /> Export to PDF</button>
                 </div>
-                <div className='text-sm mx-auto max-w-xl rounded overflow-hidden shadow my-4' id="report"></div>
+                <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4' id="report"></div>
             </>
         )
     }
