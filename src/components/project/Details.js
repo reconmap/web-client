@@ -35,12 +35,11 @@ const ProjectDetails = ({ match, history }) => {
                         </div>
                     </section>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <ProjectDescription description={project.description} />
+                        <ProjectDescription project={project} />
                         <ProjectTargets targets={targets} handleAddTarget={handleAddTarget} />
                         <ProjectVulnerabilities vulnerabilities={vulnerabilities} />
                     </section>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <ProjectTeam />
                         <ProjectTasks tasks={tasks} handleAddTask={handleAddTask} />
                     </section>
                 </>
@@ -102,18 +101,10 @@ const ProjectVulnerabilities = ({ vulnerabilities }) => {
     </div>
 }
 
-const ProjectDescription = ({ description }) => {
+const ProjectDescription = ({ project }) => {
     return <div className='base'>
         <h2>Description</h2>
-        <p>{description}</p>
+        <p><em>Created on {project.insert_ts}</em></p>
+        <p>{project.description}</p>
     </div>
-}
-
-const ProjectTeam = () => {
-    return <article className='base'>
-        <h2>Team</h2>
-        <div className='flex flex-wrap'>
-            <UserBadge name='Santiago Lizardo' role='Full Stack Dev' />
-        </div>
-    </article>
 }
