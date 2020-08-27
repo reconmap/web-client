@@ -1,14 +1,14 @@
 
-[![Build Status](https://travis-ci.org/reconmap/web-frontend.svg?branch=master)](https://travis-ci.org/reconmap/web-frontend)
+[![Build Status](https://travis-ci.org/reconmap/web-client.svg?branch=master)](https://travis-ci.org/reconmap/web-client)
 
-## Reconmap Web frontend
+# Reconmap Web frontend
 
-### Requirements
+## Requirements
 
 - Docker
 - Make
 
-### How to run
+## How to run
 
 ```sh
 $ make
