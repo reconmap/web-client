@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import UserBadge from '../badges/UserBadge';
 import DeleteButton from '../ui/buttons/Delete';
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';

@@ -3,7 +3,7 @@ import Breadcrumb from '../ui/Breadcrumb'
 
  const  ProjectCreate = ({history}) => {
      const handleGoBack = () => {history.goBack()}
-    const [loading, setLoading] = useState(false)
+    const [loading] = useState(false)
 
     const [ newProject, setNewProject ] = useState({name:'',description:''})
      const handleFormChange = e => {

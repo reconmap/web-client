@@ -6,7 +6,7 @@ const Breadcrumb = ( {path, goBack} ) => {
     {goBack ? <div onClick={goBack} className='p-1 text-gray-700 hover:text-gray-200 hover:bg-gray-800 rounded cursor-pointer'><IconLeft size={'6'}/></div> : 
     <div className='p-1 text-gray-700 hover:text-gray-200 hover:bg-gray-800 rounded cursor-pointer'><IconFolder size={'6'}/></div> }
     {path.split('/').map( route => 
-        route != '' && route.length > 1 && <span className=' leading-none capitalize flex-inline font-medium tracking-wide '> <i className='mx-2 text-gray-700 font-bold'>/</i> {route} </span>
+        route !== '' && route.length > 1 && <span className=' leading-none capitalize flex-inline font-medium tracking-wide '> <i className='mx-2 text-gray-700 font-bold'>/</i> {route} </span>
     )} </div>
 }
 export default Breadcrumb

@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
-import UserBadge from '../badges/UserBadge';
 import secureApiFetch from '../../services/api';
 import DeleteButton from '../ui/buttons/Delete';
 import Breadcrumb from '../ui/Breadcrumb';

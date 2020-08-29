@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
-import { IconLeft, IconRight } from '../icons';
 import Breadcrumb from '../ui/Breadcrumb';
 
 const UserCreationForm = () => {

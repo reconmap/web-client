@@ -3,7 +3,6 @@ import Pagination from '../layout/Pagination';
 import Ipv4Link from '../ui/Ipv4Link';
 import secureApiFetch from '../../services/api';
 import { Link } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import useSetTitle from '../../hooks/useSetTitle';

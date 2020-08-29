@@ -7,9 +7,7 @@ import useDelete from '../../hooks/useDelete';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
-import { IconUser, IconStar, IconBookOpen } from '../icons';
 import UserRoleBadge from '../badges/UserRoleBadge';
-import MD5 from '../../services/md5';
 import UserAvatar from '../badges/UserAvatar';
 
 const UsersList = ({history}) => {

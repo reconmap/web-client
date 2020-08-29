@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { IconLeft } from '../icons'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 

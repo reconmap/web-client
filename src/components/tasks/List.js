@@ -65,7 +65,7 @@ const TasksList = ({ history }) => {
                                         <summary className='text-white flex items-center cursor-pointer'><Link to={`/tasks/${task.id}`}>{task.name}</Link></summary>
                                     </details>
                                 </th>
-                                <td><ProjectBadge name={projects && projects.find(({ id }) => id == task.project_id)?.name} /></td>
+                                <td><ProjectBadge name={projects && projects.find(({ id }) => id === task.project_id)?.name} /></td>
                                 <td className='font-mono text-gray-500 '>{task.parser}</td>
                                 <td><StatusBadge status={task.completed} /></td>
                                 <td className='text-right'><DeleteButton onClick={() => destroy(task.id)} /></td>

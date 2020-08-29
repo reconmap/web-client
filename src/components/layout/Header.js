@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { AuthConsumer } from '../../contexts/AuthContext'
 
 import React from 'react'
-import { IconPreferences, IconQuestionCircle, IconLogout, IconUser, IconBookOpen } from '../icons';
+import { IconPreferences,IconLogout, IconUser, IconBookOpen } from '../icons';
 export default function Header() {
   const history = useHistory()
 
