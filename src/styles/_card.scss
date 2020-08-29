@@ -1,20 +1,33 @@
-// base reconmap components
-.base {
+// card reconmap components
+.card {
     display: flex;
     flex-direction: column;
     padding: $padding 15px ;
-    border-width: 4px;
+    border-width: $border-width;
     border-color: transparent;
     border-radius: $radius;
     transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
     background-color: $gray-800;
     color: $gray-100;
-    font-size: 1.04rem;
     overflow: hidden;
-    h1,h2,h3,h4,h5,h6 {
-        // &:last-child {margin-top: .5rem;}
-        // &:last-child { margin-bottom: .75rem;}
+    h1, .card-title{
+        font-weight: 900;
+        font-size: $font-size-card-title;
+        line-height: 34px;
     }
+    h2, .card-subtitle { 
+        font-weight: 500;
+        font-size: 22px;
+        color: #FFFFFF;
+    }
+    h3, h4, h5,h6, .card-desc { 
+        font-weight: bold;
+        font-size: $font-size-card-desc;
+        line-height: 23px;
+        display: flex;
+        color: $gray-600;
+    }
+    
     &:hover {
         transform: translateY(-2);
         -webkit-transform: translateY(-2);
@@ -26,7 +39,6 @@
         margin-bottom: auto;
         padding: $padding;
         background-color: $gray-700;
-        font-size: .9rem;
 
     }
     footer{
@@ -35,81 +47,43 @@
         margin-bottom: -$padding;
         margin-top: auto;
         padding: $padding 15px;
-        font-size: .9rem;
+        font-size: $font-size-small;
         color:$gray-600;
         background-color: $gray-900;
     }
 }
-.badge {
-    padding: .25rem 1rem;
-    font-size: .9rem;
-    font-weight:600;
-    border-radius: .25rem;
-    margin: auto .2rem;
-}
-.bg {
-    &-red { background-color: $red-900; }
-    &-yellow { background-color: $yellow-900; }
-    &-green { background-color: $green-900; }
-    &-blue { background-color: $blue-900; }
-}
 
-.base-task { 
-    height: 128px;
-    width: 256px;;
-    justify-content: flex-end;
-    @extend .base-reactive;
-}
-.base-project {
-    width: 256px;
-    height: 256px;
-    aspect-ratio: 1 1;
-    display: flex;
-    justify-content: flex-end;
-    border-radius: 14px;
-    @extend .base-reactive;
-    footer { 
-        margin-top: 0px;
-    }
-    
-}
-.base-reactive { 
+
+.reactive { 
     &:hover {
         border-color: $white;
         cursor: pointer;
     }
 }
-.base-text , .base p {
-    font-size: .9rem;
-    line-height: 1.5rem;
-    color : $gray-500;
-    margin-top: .25rem;
-    margin-bottom: .75rem;
-}
 
-.base-title, .base h1 {
+.card-title, .card h1 {
     font-style: normal;
     font-weight: 600;
-    font-size: 1.75rem;
+    font-size: $font-size-card-title;
     line-height: 2rem;
     color: $gray-200;
     &:not(:first-of-type)  {margin-top: .5em;}
     &:not(:last-child) { margin-bottom: 1rem;}
 }
-.base-subtitle, .base h2 {
+.card-subtitle, .card h2 {
     font-style: normal;
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: $font-size-card-subtitle;
     line-height: 1.8rem;
     color: $gray-200;
     &:not(:first-child)  {margin-top: .5rem;}
     &:not(:last-child) { margin-bottom: .75rem;}
 
 }
-.base-desc , .base h3 {
+.card-desc , .card h3 {
     font-style: normal;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: $font-size-card-desc;
     line-height: 1.4rem;
     color: $gray-600;
     &:not(:first-child)  {margin-top: .3rem;}

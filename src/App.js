@@ -24,7 +24,6 @@ import VulnerabilitiesList from "./components/vulnerabilities/List";
 import UserCreationForm from "./components/users/CreationForm";
 import TaskDetails from "./components/task/Details";
 import TaskCreationForm from "./components/task/Create";
-import ComponentsList from "./components/ui/ComponentsList";
 import TasksList from "./components/tasks/List";
 import ReportsList from "./components/reports/List";
 import UserProfile from "./components/user/Profile";
@@ -64,7 +63,6 @@ const App = () => {
               <ProtectedRoute exact path={`/templates/:id`} component={TemplateDetails} />
               <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList} />
               <ProtectedRoute path={`/vulnerabilities/:id`} component={VulnerabilityDetails} />
-              <Route path={`/components`} component={ComponentsList} />
               <Redirect to={'/'}><PageNotFound /></Redirect>
             </Switch>
           </Dashboard>

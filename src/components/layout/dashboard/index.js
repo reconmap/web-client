@@ -8,7 +8,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, PieChart, Pie, Cell } fro
 function Dashboard({ children }) {
   useSetTitle('Dashboard')
   return (
-    <div className=" flex w-full h-screen p-5 mx-auto flex-col ">
+    <div className=" flex w-full h-screen p-5 mx-auto flex-col container mx-auto">
       <Header />
       <div className="flex flex-row border-t border-gray-800">
         <Sidebar />
@@ -47,11 +47,10 @@ const DashboardPanels = () => {
     );
   };
 
-  return <section>
-    <div className=''>
+  return <section >
       <h1>Dashboard</h1>
       <div className='flex flex-wrap gap-4'>
-        <article className='base ' style={{ width: '410px' }} >
+        <article className='card ' style={{ width: '410px' }} >
           <LineChart width={380} height={200} data={auditLogStats} >
             <Line type="monotone" dataKey="total" stroke="#8884d8" strokeWidth={3} />
             <CartesianGrid stroke="#000" />
@@ -60,7 +59,7 @@ const DashboardPanels = () => {
           </LineChart>
           <footer>User activity over time</footer>
         </article>
-        <article className='base ' style={{ width: '410px' }} >
+        <article className='card ' style={{ width: '410px' }} >
           <PieChart width={380} height={400}>
             <Pie
               data={vulnerabilityStats}
@@ -81,7 +80,6 @@ const DashboardPanels = () => {
         </article>
       </div>
 
-    </div>
   </section>
 }
 

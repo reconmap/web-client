@@ -40,13 +40,13 @@ const TemplateDetails = ({ history, match }) => {
                     </section>
 
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <div className='base'>
+                        <div className='card'>
                             <h2>Description</h2>
                             <p>{template.description}</p>
                         </div>
                     </section>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <article className='base'>
+                        <article className='card'>
                             <h2>Tasks</h2>
                             <div className='flex flex-col gap-2 mb-2'>
                                 {tasks && tasks.map((task, index) =>

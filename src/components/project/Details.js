@@ -24,24 +24,20 @@ const ProjectDetails = ({ match, history }) => {
 
     return (
         <>
-            <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
+            <section className='heading' >
+                <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
+                <div className='flex items-center justify-between gap-4'>
+                    <DeleteButton onClick={() => destroy(project.id)} />
+                    <button onClick={handleGenerateReport}><IconClipboardCheck styling='mr-2' /> Generate Report</button>
+                </div>
+            </section>
             {!project ? <Loading /> :
                 <>
-                    <section className='heading' >
-                        <h1 className='mr-auto'>{project.name}</h1>
-                        <div className='flex items-center justify-between gap-4'>
-                            <button onClick={handleGenerateReport}><IconClipboardCheck styling='mr-2' /> Generate Report</button>
-                            <DeleteButton onClick={() => destroy(project.id)} />
-                        </div>
-                    </section>
-                    <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <ProjectDescription project={project} />
-                        <ProjectTargets targets={targets} handleAddTarget={handleAddTarget} />
-                        <ProjectVulnerabilities vulnerabilities={vulnerabilities} />
-                    </section>
-                    <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <ProjectTasks tasks={tasks} handleAddTask={handleAddTask} />
-                    </section>
+                    <h1>{project.name}</h1>
+                    <ProjectDescription project={project} />
+                    <ProjectTargets targets={targets} handleAddTarget={handleAddTarget} />
+                    <ProjectTasks tasks={tasks} handleAddTask={handleAddTask} />
+                    <ProjectVulnerabilities vulnerabilities={vulnerabilities} />
                 </>
             }
         </>
@@ -51,24 +47,24 @@ const ProjectDetails = ({ match, history }) => {
 export default ProjectDetails
 
 const ProjectTasks = ({ tasks, handleAddTask }) => {
-    return <article className='base'>
+    return <article className='card'>
         {tasks ?
-        <>
-        <h2>Tasks <small>({tasks.reduce(function (total, task) { return task.completed ? total + 1 : total; }, 0)}/{tasks && tasks.length} completed)</small></h2>
-        <div className='flex flex-col gap-2 mb-2'>
-                {tasks.map((task, index) =>
-                    <div className='flex flex-row items-center justify-start'>
-                        {task.completed ?
-                            <input type="checkbox" checked="checked" readOnly className='mr-4' />
-                            :
-                            <input type="checkbox" readOnly className='mr-4' />
-                        }
-                        <Link to={"/tasks/" + task.id}>{task.name}</Link>
-                        <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
-                    </div>
-                )
-                }
-            </div>
+            <>
+                <h2>Tasks <small>({tasks.reduce(function (total, task) { return task.completed ? total + 1 : total; }, 0)}/{tasks && tasks.length} completed)</small></h2>
+                <div className='flex flex-col gap-2 mb-2'>
+                    {tasks.map((task, index) =>
+                        <div className='flex flex-row items-center justify-start'>
+                            {task.completed ?
+                                <input type="checkbox" checked="checked" readOnly className='mr-4' />
+                                :
+                                <input type="checkbox" readOnly className='mr-4' />
+                            }
+                            <Link to={"/tasks/" + task.id}>{task.name}</Link>
+                            <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button className='w-20'>Upload results</button></Link>
+                        </div>
+                    )
+                    }
+                </div>
             </>
             :
             <Loading />}
@@ -78,7 +74,7 @@ const ProjectTasks = ({ tasks, handleAddTask }) => {
     </article>
 }
 const ProjectTargets = ({ targets, handleAddTarget }) => {
-    return <div className='base'>
+    return <div className='card'>
         <h2>Target(s)</h2>
         {targets ? <table className='font-mono text-sm w-full' >
             <thead>
@@ -96,7 +92,7 @@ const ProjectTargets = ({ targets, handleAddTarget }) => {
 }
 
 const ProjectVulnerabilities = ({ vulnerabilities }) => {
-    return <div className='base'>
+    return <div className='card'>
         <h2>Vulnerabilities</h2>
         {vulnerabilities ?
             <ul>
@@ -109,9 +105,8 @@ const ProjectVulnerabilities = ({ vulnerabilities }) => {
 }
 
 const ProjectDescription = ({ project }) => {
-    return <div className='base'>
-        <h2>Description</h2>
-        <p><em>Created on {project.insert_ts}</em></p>
+    return <div className='flex items-start justify-between'>
         <p>{project.description}</p>
+        <p>Created on <date>{project.insert_ts}</date></p>
     </div>
 }

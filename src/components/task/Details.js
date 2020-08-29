@@ -61,7 +61,7 @@ class TaskDetails extends Component {
             <div>
                 <h3 className='heading'>Task {this.state.task.name}</h3>
                 <div className='flex items-start gap-4'>
-                    <article className='base'>
+                    <article className='card'>
                         <p><em>Created on {this.state.task.insert_ts}</em></p>
                         <h2>Instructions</h2>
                         <p>{this.state.task.description}</p>
@@ -71,7 +71,7 @@ class TaskDetails extends Component {
                         {task.completed !== 1 && <button onClick={() => this.handleToggle(task)}>Mark as completed</button>}
                         <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link>
                     </article>
-                    <article className='base flex-1'>
+                    <article className='card flex-1'>
                         <h3>Results</h3>
                         {this.state.results.map((value, index) =>
                             <div key={index} className='pb-2 border-b mb-2'>

@@ -1,0 +1,16 @@
+
+form  {
+    label, input:not([type='checkbox']), select, button{
+        margin: 1rem auto;
+        width: 100%;
+        max-width: 500px;
+        display: block;
+}}
+
+form input[type='checkbox'] {
+    float: left;
+    margin-right: 1rem;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}

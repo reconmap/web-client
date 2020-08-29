@@ -8,7 +8,7 @@ import useFetch from '../../hooks/useFetch';
 import CreateButton from './../ui/buttons/Create'
 import Breadcrumb from '../ui/Breadcrumb';
 
-const ProjectsList = ({history}) => {
+const ProjectsList = ({ history }) => {
     useSetTitle('Projects');
     const [projects, updateProjects] = useFetch('/projects')
     const destroy = useDelete('/projects/', updateProjects);
@@ -16,19 +16,18 @@ const ProjectsList = ({history}) => {
         history.push('/projects/create')
     }
     return <div>
-        <Breadcrumb path={history.location.pathname} />
-    
-        <div className='heading'>
-            <h1>Projects</h1>
-            <CreateButton onClick={handleCreateProject}>Create Project</CreateButton>
-        </div>
-        {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
-            <section className='flex flex-wrap gap-4'>
-                {projects.map((project) =>
-                    <ProjectCard project={project} destroy={destroy} key={project.id} />
-                )}
-            </section>}
-    </div>
+                <Breadcrumb path={history.location.pathname} />
+                <div className='heading'>
+                    <h1>Projects</h1>
+                    <CreateButton onClick={handleCreateProject}>Create Project</CreateButton>
+                </div>
+                {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
+                    <section className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 items-end'>
+                        {projects.map((project) =>
+                            <ProjectCard project={project} destroy={destroy} key={project.id} />
+                        )}
+                    </section>}
+            </div>
 }
 
 

@@ -23,7 +23,7 @@ const IntegrationsList = ({history}) => {
             {!integrations ? <Loading /> : integrations.length === 0 ? <NoResults /> :
                 <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {integrations.map(integration =>
-                        <article key={integration.app} className='base '>
+                        <article key={integration.app} className='card '>
                             <h2 className='mb-2'>
                                 {integration.app}
                                 <i data-feather={integration.icon} className={` text-red-600  float-right text-4xl`} />

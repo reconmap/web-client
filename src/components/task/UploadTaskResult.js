@@ -38,7 +38,7 @@ class UploadTaskResult extends Component {
                 <Breadcrumb path={this.props.history.location.pathname} goBack={()=>this.handleGoBack()}/>
                 <h1 className='heading'>Task: Run port scanner </h1>
                 <div className='flex items-start gap-4'>
-                    <article className='base flex-1'>
+                    <article className='card flex-1'>
                         <h3>Command</h3>
                         <code >
                             <pre className='whitespace-pre-wrap'>
@@ -48,7 +48,7 @@ class UploadTaskResult extends Component {
                             </pre>
                         </code>
                     </article>
-                    <article className='base flex-1'>
+                    <article className='card flex-1'>
                         <h3>Results</h3>
                         <form>
                             <input type="file" id="resultFile" />

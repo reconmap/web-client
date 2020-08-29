@@ -42,7 +42,7 @@ class VulnerabilityDetails extends Component {
             <div>
                 <h3 className='heading'>Vulnerability {this.state.vulnerability.name}</h3>
                 <div className='flex items-start gap-4'>
-                    <article className='base w-48'>
+                    <article className='card w-48'>
                         <p>{this.state.vulnerability.description}</p>
                         <footer>
                             <label>Creation time</label>

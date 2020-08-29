@@ -27,7 +27,7 @@ const TemplatesList = ({history}) => {
             {!templates ? <Loading /> : templates.length === 0 ? <NoResults /> :
                 <section className='flex flex-wrap gap-4'>
                     {templates.map((template, index) =>
-                        <article className='base base-project' onClick={() => viewProject(template.id)} key={index}>
+                        <article className='card' onClick={() => viewProject(template.id)} key={index}>
                             <header>
                                 <button onClick={() => cloneProject(template.id)} key={index} title="Create project using this template">Create project</button>
                             </header>

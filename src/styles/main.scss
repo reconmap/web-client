@@ -1,7 +1,8 @@
 @import 'variables';
-@import 'base';
+@import 'card';
 @import 'typography';
-@import 'buttons';
+@import 'forms';
+@import 'inputs';
 
 .anim-rotate {
     animation-name: spin;
@@ -23,34 +24,20 @@
     margin-bottom: 1rem;
 }
 
-
-input, select, textarea {
-    @extend .base;
-    outline: transparent ;
-    &:hover{
-        box-shadow: 0 0 0px 3px $red-500;
-        
-    }
-    &:active,  &:focus{
-        background-color: $gray-700;
-    }
+.badge {
+    padding: .25rem 1rem;
+    font-size: $font-size-small;
+    font-weight:600;
+    border-radius: .25rem;
+    margin: auto .2rem;
+}
+.bg {
+    &-red { background-color: $red-900; }
+    &-yellow { background-color: $yellow-900; }
+    &-green { background-color: $green-900; }
+    &-blue { background-color: $blue-900; }
 }
 
-form  {
-    label, input:not([type='checkbox']), select, button{
-        margin: 1rem auto;
-        width: 100%;
-        max-width: 500px;
-        display: block;
-}}
-
-form input[type='checkbox'] {
-    float: left;
-    margin-right: 1rem;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-}
 
 table {
     margin: 1rem auto;

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { IconX } from '../icons'
 import dayjs from 'dayjs'
 const ProjectCard = ({ project, destroy }) => {
-    return <div><Link to={`/project/${project.id}`}>
-                    <article className={`base base-project`}>
+    return <div className=''><Link to={`/project/${project.id}`}>
+                    <article className={`card reactive`}>
                         <p>{project.description}</p>
                         <h1 className='items-center flex justify-between'>
                             {project.name}

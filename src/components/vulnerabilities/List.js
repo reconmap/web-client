@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import DeleteButton from '../ui/buttons/Delete';
 import useSetTitle from './../../hooks/useSetTitle'
@@ -9,11 +9,24 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import CreateButton from '../ui/buttons/Create';
 import Breadcrumb from '../ui/Breadcrumb';
+import Pagination from '../layout/Pagination';
 
 const VulnerabilitiesList = ({history}) => {
     useSetTitle('Vulnerabilities')
 
-    const [vulnerabilities, update] = useFetch('/vulnerabilities')
+
+    const [pagination, setPagination] = useState({ page: 0, total: 0 })
+
+    const handlePrev = () => {
+        setPagination({ ...pagination, page: pagination.page - 1 })
+    }
+    const handleNext = () => {
+        setPagination({ ...pagination, page: pagination.page + 1 })
+    }
+
+
+    
+    const [vulnerabilities, update] = useFetch(`/vulnerabilities?page=${pagination.page}`)
     const destroy = useDelete('/vulnerabilities/', update);
 
     return (<>
@@ -21,6 +34,8 @@ const VulnerabilitiesList = ({history}) => {
 
         <div className='heading'>
             <h1>Vulnerabilities</h1>
+            <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev} handleNext={handleNext} />
+
             <CreateButton>Create Vulnerability</CreateButton>
         </div>
         {!vulnerabilities ? <Loading /> : vulnerabilities.length === 0 ? <NoResults />

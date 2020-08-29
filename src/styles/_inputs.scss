@@ -1,10 +1,37 @@
+.actions { 
+    padding: $padding 15px ;
+    border-width: $border-width;
+    border-color: transparent;
+    border-radius: $radius;
+    transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
+    background-color: $gray-800;
+    color: $gray-100;
+    font-size: $font-size-action;
+}
+.breadcrumb {
+    @extend .actions;
+    background-color: transparent;
+
+}
+input, select, textarea {
+    @extend .actions;
+    outline: transparent ;
+    &:hover{
+        box-shadow: 0 0 0px 3px $red-500;
+    }
+    &:active,  &:focus{
+        background-color: $gray-700;
+    }
+}
+
 .button-group {
     display: inline-flex;
     flex-wrap: wrap;
     gap: 1rem;
 }
-button,.button {
-    @extend .base;
+
+button,.button, .btn {
+    @extend .actions;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -36,25 +63,26 @@ button[disabled] {
     opacity: .5;
     cursor: not-allowed;
 }
-.base { 
+.card { 
     button {
     background-color: $gray-900;
-    font-size: .8rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: $font-size-action;
     padding: .25rem 1rem;
     margin-top: .25rem;
     margin-bottom: .25rem;
-}
-button[type='menu']{
-    opacity: .75;
-    background-color: transparent;
-    border-color: $gray-900;
-    &:hover{
-    opacity: 1;
-
-        background-color: transparent;
-        border-color: $red-600;
-        color: white;
     }
-}
+    button[type='menu']{
+        opacity: .75;
+        background-color: transparent;
+        border-color: $gray-900;
+        &:hover{
+            opacity: 1;
+            background-color: transparent;
+            border-color: $red-600;
+            color: white;
+        }
+    }
 }
 
