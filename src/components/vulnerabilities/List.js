@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import DeleteButton from '../ui/buttons/Delete';
 import useSetTitle from './../../hooks/useSetTitle'
@@ -6,15 +6,15 @@ import NoResults from '../ui/NoResults';
 import Loading from '../ui/Loading';
 import RiskBadge from '../badges/RiskBadge';
 import useDelete from '../../hooks/useDelete';
-import useFetch from '../../hooks/useFetch';
 import CreateButton from '../ui/buttons/Create';
 import Breadcrumb from '../ui/Breadcrumb';
 import Pagination from '../layout/Pagination';
+import secureApiFetch from '../../services/api';
 
-const VulnerabilitiesList = ({history}) => {
+const VulnerabilitiesList = ({ history }) => {
     useSetTitle('Vulnerabilities')
 
-
+    const [vulnerabilities, setVulnerabilities] = useState([]);
     const [pagination, setPagination] = useState({ page: 0, total: 0 })
 
     const handlePrev = () => {
@@ -24,10 +24,24 @@ const VulnerabilitiesList = ({history}) => {
         setPagination({ ...pagination, page: pagination.page + 1 })
     }
 
+    const reloadData = () => {
+        secureApiFetch(`/vulnerabilities?page=${pagination.page}`, { method: 'GET' })
+            .then((response) => {
+                if (response.headers.has('X-Page-Count')) {
+                   setPagination({...pagination, total: response.headers.get('X-Page-Count')})
+                }    
+                return response.json()
+            })
+            .then((data) => {
+                setVulnerabilities(data);
+            })
+    }
 
-    
-    const [vulnerabilities, update] = useFetch(`/vulnerabilities?page=${pagination.page}`)
-    const destroy = useDelete('/vulnerabilities/', update);
+    useEffect(() => {
+        pagination && reloadData()
+    }, [pagination.page])    
+
+    const destroy = useDelete('/vulnerabilities/', reloadData);
 
     return (<>
         <Breadcrumb path={history.location.pathname} />
