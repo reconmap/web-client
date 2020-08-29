@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { AuthConsumer } from '../../contexts/AuthContext'
 
 import React from 'react'
-import { IconPreferences,IconLogout, IconUser, IconBookOpen } from '../icons';
+import { IconPreferences, IconLogout, IconUser, IconBookOpen } from '../icons';
 export default function Header() {
   const history = useHistory()
 
@@ -15,10 +15,16 @@ export default function Header() {
   const handleGoHome = () => { history.push('/') }
   const handleMyProfile = () => { history.push(`/user/${localStorage.getItem('user.id')}`) }
   const handleOpenPrefs = () => { history.push('/user/preferences') }
-  const handleUserManual = ()=>{
-    window.open("https://reconmap.org/user-manual/",'_blank');
-
+  const handleUserManual = () => {
+    window.open("https://reconmap.org/user-manual/", '_blank');
   }
+
+  const handleSearchKeyDown = (e) => {
+    if(e.key === 'Enter') {
+      history.push('/search/' + encodeURIComponent(e.target.value));
+    }
+  }
+
   return <AuthConsumer>
     {
       ({ isAuth, logout }) => (
@@ -27,7 +33,7 @@ export default function Header() {
             <img src="/logo.svg" height='28px' width='28px' className='mr-2 mt-1' alt="Reconmap logo" /> Recon <span className=' text-red-500'>map</span>
           </h3>
 
-          {isAuth && <input className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0' placeholder="Search..." />}
+          {isAuth && <input className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0' placeholder="Search..." onKeyDown={handleSearchKeyDown} />}
 
           <div className="  font-semibold gap-5 flex items-center justify-end py-4 lg:py-0 ">
 
@@ -46,7 +52,7 @@ export default function Header() {
                 <IconLogout />
               </button>
             </>
-              : LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 py-1 text-sm hover:text-white hover:border-white`} to={link.to} target="_blank"> {link.title} </Link>)) }
+              : LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 py-1 text-sm hover:text-white hover:border-white`} to={link.to} target="_blank"> {link.title} </Link>))}
           </div>
         </nav>
       )

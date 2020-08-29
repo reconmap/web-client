@@ -33,6 +33,7 @@ import ProtectedRoute from "./components/logic/ProtectedRoute";
 import { AuthProvider } from './contexts/AuthContext';
 import VulnerabilityDetails from './components/vulnerabilities/Details';
 import TargetCreateForm from './components/target/Create';
+import SearchResults from './components/search/Results';
 
 const App = () => {
   return (
@@ -56,6 +57,7 @@ const App = () => {
               <ProtectedRoute exact path={`/users`} component={UsersList} />
               <ProtectedRoute path={`/user/preferences`} component={UserPreferences} />
               <ProtectedRoute path={`/user/:id`} component={UserProfile} />
+              <ProtectedRoute path={`/search/:keywords`} component={SearchResults} />
               <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
               <ProtectedRoute path={`/reports`} component={ReportsList} />
               <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
