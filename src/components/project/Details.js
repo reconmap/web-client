@@ -8,6 +8,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import { IconClipboardCheck } from '../icons';
 import TasksTable from '../tables/TasksTable';
 import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
+import { Link } from 'react-router-dom';
 
 const ProjectDetails = ({ match, history }) => {
     useSetTitle('Project');
@@ -15,6 +16,7 @@ const ProjectDetails = ({ match, history }) => {
     const [tasks] = useFetch(`/projects/${match.params.id}/tasks`)
     const [targets] = useFetch(`/projects/${match.params.id}/targets`)
     const [vulnerabilities] = useFetch(`/projects/${match.params.id}/vulnerabilities`)
+    const [users] = useFetch(`/projects/${match.params.id}/users`)
     const destroy = useDelete(`/projects/`, updateProject);
 
     const handleAddTask = () => { history.push(`/project/${match.params.id}/tasks/create`) }
@@ -35,6 +37,12 @@ const ProjectDetails = ({ match, history }) => {
                 <>
                     <h1>{project.name}</h1>
                     <ProjectDescription project={project} />
+                    <h2>Team</h2>
+                    {users && <ul>
+                        {users.map((user, index) =>
+                            <li><Link to={`/user/${user.id}`}>{user.name}</Link></li>
+                        )}
+                    </ul>}
                     <ProjectTargets targets={targets} handleAddTarget={handleAddTarget} />
                     <ProjectTasks tasks={tasks} handleAddTask={handleAddTask} />
                     <ProjectVulnerabilities vulnerabilities={vulnerabilities} />
@@ -76,13 +84,13 @@ const ProjectTargets = ({ targets, handleAddTarget }) => {
 
 const ProjectVulnerabilities = ({ vulnerabilities }) => {
     return <section>
-            <div className='heading'>
-                <h2>Vulnerabilities</h2>
-                <button className='sm'>Add New Vulnerability</button>
-            </div>
-            {vulnerabilities ? <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>
-                : <Loading />}
-        </section>
+        <div className='heading'>
+            <h2>Vulnerabilities</h2>
+            <button className='sm'>Add New Vulnerability</button>
+        </div>
+        {vulnerabilities ? <VulnerabilitiesTable vulnerabilities={vulnerabilities} />
+            : <Loading />}
+    </section>
 }
 
 const ProjectDescription = ({ project }) => {
