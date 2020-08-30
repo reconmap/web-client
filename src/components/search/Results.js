@@ -14,6 +14,7 @@ const SearchResults = (props) => {
     
     const keywords = decodeURIComponent(props.match.params.keywords);
 
+    useEffect(() => {
     const reloadData = () => {
         secureApiFetch(`/vulnerabilities?keywords=${keywords}`, { method: 'GET' })
             .then((response) => {
@@ -24,7 +25,7 @@ const SearchResults = (props) => {
             })
     }
 
-    useEffect(() => {
+
         reloadData()
     }, [keywords])
     return <div>

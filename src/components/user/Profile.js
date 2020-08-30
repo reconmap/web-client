@@ -15,7 +15,7 @@ const UserProfile = ({ match, history }) => {
             <Breadcrumb path={history.location.pathname}/>
         
             <div className=' flex flex-col md:flex-row items-center justify-center  max-w-xl mx-auto my-10'>
-                <UserAvatar email={user.email} size={48}/>
+                {user && <UserAvatar email={user.email} size={48}/>}
                 {user ? <div className=' flex flex-col flex-1'>
                     <h1>{user.name}</h1>
                     <article className='text-gray-600'>

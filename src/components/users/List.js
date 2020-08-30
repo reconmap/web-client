@@ -9,16 +9,17 @@ import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
+import { Link } from 'react-router-dom';
 
-const UsersList = ({history}) => {
+const UsersList = ({ history }) => {
     useSetTitle('Users');
     const [users, updateUsers] = useFetch('/users')
     const destroy = useDelete('/users/', updateUsers);
     const handleCreate = () => { history.push("/users/create"); }
 
-    
+
     return (<>
-        <Breadcrumb path={history.location.pathname}/>
+        <Breadcrumb path={history.location.pathname} />
         <div className='heading'>
             <h1>Users</h1>
             <CreateButton onClick={handleCreate}>Create User</CreateButton>
@@ -36,9 +37,9 @@ const UsersList = ({history}) => {
                 <tbody>
                     {users.map((user, index) => <tr key={index}>
                         <th className='w-16'>
-                        <UserAvatar email={user.email} size={10} />
+                            <UserAvatar email={user.email} size={10} />
                         </th>
-                        <th>{user.name}</th>
+                        <th><Link to={`/user/${user.id}`}>{user.name}</Link></th>
                         <td > <UserRoleBadge role={user.role} /> </td>
                         <td className='text-right'><DeleteButton onClick={() => destroy(user.id)} /></td>
                     </tr>)}

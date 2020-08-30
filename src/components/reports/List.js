@@ -17,7 +17,8 @@ const ReportsList = ({ history }) => {
         secureApiFetch(`/reports/${reportId}/download`, { method: 'GET' })
             .then(response => {
                 var contentDispositionHeader = response.headers.get('Content-Disposition');
-                var filename = contentDispositionHeader.split('filename=')[1].split(';')[0];
+                const filenameRe = new RegExp(/filename="(.*)";/)
+                var filename = filenameRe.exec(contentDispositionHeader)[1]
                 return Promise.all([response.blob(), filename]);
             })
             .then((values) => {
