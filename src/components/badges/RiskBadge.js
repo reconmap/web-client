@@ -3,14 +3,14 @@ import { IconInformation, IconExclamation, IconShieldExclamation } from '../icon
 
 export default function RiskBadge({ risk }) {
     const RISKS = {
-        none: { color: 'green-500', icon: <IconInformation styling='mr-auto' /> },
-        low: { color: 'green-500', icon: <IconInformation styling='mr-auto' /> },
-        medium: { color: 'yellow-600', icon: <IconExclamation styling='mr-auto' /> },
-        high: { color: 'red-500', icon: <IconShieldExclamation styling='mr-auto' /> },
-        critical: { color: 'red-500', icon: <IconShieldExclamation styling='mr-auto' /> }
+        none: { color: 'green-500', icon: <IconInformation size='4' styling='mr-2' /> },
+        low: { color: 'green-500', icon: <IconInformation size='4' styling='mr-2' /> },
+        medium: { color: 'yellow-600', icon: <IconExclamation size='4' styling='mr-2' /> },
+        high: { color: 'red-500', icon: <IconShieldExclamation size='4' styling='mr-2' /> },
+        critical: { color: 'red-500', icon: <IconShieldExclamation size='4' styling='mr-2' /> }
     }
     return (
-        <span  className={`px-2 py-1 flex justify-start items-center rounded bg-${RISKS[risk].color} text-white uppercase text-sm font-medium `}>
+        <span  className={`px-2  h-8  flex justify-start items-center rounded-full border-2 border-${RISKS[risk].color} text-${RISKS[risk].color} uppercase text-sm font-medium `}>
             {RISKS[risk].icon}
             {risk} 
         </span>

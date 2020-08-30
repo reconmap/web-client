@@ -22,9 +22,9 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                     {vulnerabilities.map((vulnerability, index) => {
                         return (
                             <tr key={index}>
-                                <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td><VulnerabilityBadge vulnerability={vulnerability}/></td>
                                 <td><small className='text-gray-500'>{vulnerability.description}</small></td>
+                                <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td><CvssScore score={vulnerability.cvss_score}/></td>
                                 <td>{vulnerability.status}</td>
                                 <td>{vulnerability.insert_ts}</td>
