@@ -9,6 +9,8 @@ import Breadcrumb from '../ui/Breadcrumb';
 import { IconClipboardCheck } from '../icons';
 import TaskBadge from '../badges/TaskBadge';
 import TaskCompletedBadge from '../badges/TaskCompletedBadge';
+import BadgeOutline from '../badges/BadgeOutline';
+import TasksTable from '../tables/TasksTable';
 
 const ProjectDetails = ({ match, history }) => {
     useSetTitle('Project');
@@ -54,28 +56,7 @@ const ProjectTasks = ({ tasks, handleAddTask }) => {
             <h2>Tasks(s) <small>({tasks && tasks.reduce(function (total, task) { return task.completed ? total + 1 : total; }, 0)}/{tasks && tasks.length} completed)</small></h2>
             <button onClick={handleAddTask} className='sm'>Add task</button>
         </div>
-
-        {tasks ? <table className='w-full'>
-        <thead>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Preview</th>
-            <th className='text-right'>Actions</th>
-        </thead>
-            <tbody>
-                {tasks.map((task, index) =>
-                    <tr>
-                        <td><TaskBadge task={task}/></td>
-                        <td><TaskCompletedBadge completed={task.completed}/></td>
-                        <td><small className='text-gray-600 font-mono'>{task.description.slice(0,40)} </small></td>
-                        <td className='text-right'><Link to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link></td>
-
-                    </tr>
-                )}
-            </tbody>
-        </table>
-            :
-            <Loading />}
+        {tasks ? <TasksTable tasks={tasks} /> : <Loading />}
     </section>
 }
 const ProjectTargets = ({ targets, handleAddTarget }) => {

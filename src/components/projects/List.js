@@ -23,7 +23,7 @@ const ProjectsList = ({ history }) => {
                 </div>
                     <h1>Projects</h1>
                 {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
-                    <table>
+                    <table className='w-full'>
                     <thead></thead>
                     <tbody>
                         {projects.map((project) =>
