@@ -19,9 +19,9 @@ h1{
     color: $red-500;
 }
 h2 {
-    font-size : $font-size-card-title;
-    color: $gray-500;
-
+    font-size : $font-size-card-subtitle;
+    color: $gray-600;
+    font-weight: 500;
 }
 p {
     font-style: normal;

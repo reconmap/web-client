@@ -1,5 +1,4 @@
 import React from 'react'
-import ProjectCard from './../badges/ProjectCard'
 import useSetTitle from '../../hooks/useSetTitle';
 import NoResults from '../ui/NoResults';
 import Loading from '../ui/Loading';

@@ -7,6 +7,8 @@ import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconClipboardCheck } from '../icons';
+import TaskBadge from '../badges/TaskBadge';
+import TaskCompletedBadge from '../badges/TaskCompletedBadge';
 
 const ProjectDetails = ({ match, history }) => {
     useSetTitle('Project');
@@ -54,18 +56,19 @@ const ProjectTasks = ({ tasks, handleAddTask }) => {
         </div>
 
         {tasks ? <table className='w-full'>
+        <thead>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Preview</th>
+            <th className='text-right'>Actions</th>
+        </thead>
             <tbody>
                 {tasks.map((task, index) =>
                     <tr>
-                        <td><Link to={"/tasks/" + task.id}>{task.name}</Link></td>
-                        <td className='w-1/2'><small className='text-gray-500'>{task.description}</small></td>
-                        <td><Link to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link></td>
-                        <td> {task.completed ?
-                            <input type="checkbox" checked="checked" readOnly className='mr-4' />
-                            :
-                            <input type="checkbox" readOnly className='mr-4' />
-                        }</td>
-
+                        <td><TaskBadge task={task}/></td>
+                        <td><TaskCompletedBadge completed={task.completed}/></td>
+                        <td><small className='text-gray-600 font-mono'>{task.description.slice(0,40)} </small></td>
+                        <td className='text-right'><Link to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link></td>
 
                     </tr>
                 )}
