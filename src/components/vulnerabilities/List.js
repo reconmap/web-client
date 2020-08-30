@@ -73,7 +73,7 @@ const VulnerabilitiesList = ({ history }) => {
 
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td>{vulnerability.cvss_score}</td>
-                                <td>OPEN</td>
+                                <td>{vulnerability.status}</td>
                                 <td>{vulnerability.insert_ts}</td>
 
                                 <td className='text-right   '><DeleteButton onClick={() => destroy(vulnerability.id)} /></td>

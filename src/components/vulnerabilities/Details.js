@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api'
+import RiskBadge from '../badges/RiskBadge'
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -34,7 +35,17 @@ class VulnerabilityDetails extends Component {
         }
     }
 
+    handleStatus(vuln) {
+        secureApiFetch(`/vulnerabilities/${vuln.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ status: vuln.status === 'open' ? 'closed' : 'open' })
+        })
+            .then(() => { this.props.history.goBack() })
+            .catch(e => console.log(e))
+    }
+
     render() {
+        const vuln = this.state.vulnerability;
         if (!this.state.vulnerability) {
             return 'Loading...'
         }
@@ -44,6 +55,15 @@ class VulnerabilityDetails extends Component {
                 <div className='flex items-start gap-4'>
                     <article className='card w-48'>
                         <p>{this.state.vulnerability.description}</p>
+                        <RiskBadge risk={vuln.risk} />
+                        <dl>
+                            <dt>Status</dt>
+                            <dd>{vuln.status}</dd>
+                        </dl>
+                        <h2>Actions</h2>
+
+                        {vuln.status === 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as closed</button>}
+                        {vuln.status !== 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as open</button>}
                         <footer>
                             <label>Creation time</label>
                             <strong>{this.state.vulnerability.insert_ts}</strong>
