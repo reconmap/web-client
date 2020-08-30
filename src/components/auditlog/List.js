@@ -59,13 +59,13 @@ const AuditLogList = ({ history }) => {
     }
 
     return (<>
-        <Breadcrumb path={history.location.pathname} />
 
         <div className='heading'>
-            <h1>Audit Log</h1>
+            <Breadcrumb path={history.location.pathname} />
             <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev} handleNext={handleNext} />
             <button onClick={handleExport}><IconSave styling='mr-2' /> Export to CSV</button>
         </div>
+        <h1>Audit Log</h1>
         {!auditLog ? <Loading /> : auditLog.length === 0 ? <NoResults /> :
             <table className='w-full'>
                 <thead>

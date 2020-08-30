@@ -3,6 +3,7 @@
 @import 'typography';
 @import 'forms';
 @import 'inputs';
+@import 'tables';
 
 .anim-rotate {
     animation-name: spin;
@@ -38,33 +39,3 @@
     &-blue { background-color: $blue-900; }
 }
 
-
-table {
-    margin: 1rem auto;
-   
-    tr:nth-child(even){
-        background-color: rgba($gray-500, .05);
-        border-radius: 5px;
-        overflow: hidden;
-    }
-    tr:hover{
-        background-color: rgba($gray-500, .1);
-    }
-    th{
-        text-align: left;
-        font-weight: 500;
-        letter-spacing: .01rem;
-        padding: .5rem;
-
-    }
-    td{
-        border-top: 1px solid rgba($gray-500, .1);
-        padding: .4rem;
-    }
-    tbody {
-        tr th {
-            color: white;
-            font-size: 1.15rem;
-        }
-    }
-}

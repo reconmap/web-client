@@ -7,6 +7,8 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import CreateButton from './../ui/buttons/Create'
 import Breadcrumb from '../ui/Breadcrumb';
+import DeleteButton from '../ui/buttons/Delete';
+import { Link } from 'react-router-dom';
 
 const ProjectsList = ({ history }) => {
     useSetTitle('Projects');
@@ -16,17 +18,25 @@ const ProjectsList = ({ history }) => {
         history.push('/projects/create')
     }
     return <div>
-                <Breadcrumb path={history.location.pathname} />
                 <div className='heading'>
-                    <h1>Projects</h1>
+                    <Breadcrumb path={history.location.pathname} />
                     <CreateButton onClick={handleCreateProject}>Create Project</CreateButton>
                 </div>
+                    <h1>Projects</h1>
                 {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
-                    <section className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 items-end'>
+                    <table>
+                    <thead></thead>
+                    <tbody>
                         {projects.map((project) =>
-                            <ProjectCard project={project} destroy={destroy} key={project.id} />
+                            <tr key={project.id}>
+                                <td><Link to={`/project/${project.id}`}>{project.name}</Link></td>
+                                <td><small className='text-gray-500'>{project.description}</small></td>
+                                <td>{project.insert_ts}</td>
+                                <td className='text-right'><DeleteButton onClick={() => destroy(project.id)} /></td>
+                            </tr>
                         )}
-                    </section>}
+                    </tbody>
+                    </table>}
             </div>
 }
 

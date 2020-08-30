@@ -18,11 +18,11 @@ const UsersList = ({history}) => {
 
     
     return (<>
-        <Breadcrumb path={history.location.pathname}/>
         <div className='heading'>
-            <h1>Users</h1>
+            <Breadcrumb path={history.location.pathname}/>
             <CreateButton onClick={handleCreate}>Create User</CreateButton>
         </div>
+            <h1>Users</h1>
         {!users ? <Loading /> : users.length === 0 ? <NoResults /> :
             <table className='w-full'>
                 <thead>

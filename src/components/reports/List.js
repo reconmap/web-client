@@ -34,11 +34,11 @@ const ReportsList = ({ history }) => {
     const deleteReport = useDelete('/reports/', fetchReports);
 
     return <div>
-        <Breadcrumb path={history.location.pathname} />
+            <div className='heading'>
 
-        <div className='heading'>
+                <Breadcrumb path={history.location.pathname} />
+            </div>
             <h1>Saved reports</h1>
-        </div>
         {!reports ? <Loading /> : reports.length === 0 ? <NoResults /> :
             <table className='w-full my-4'>
                 <thead>

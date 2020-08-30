@@ -22,10 +22,9 @@ const TasksList = ({ history }) => {
     const destroy = useDelete('/tasks/', updateTasks);
 
     return <>
-        <Breadcrumb path={history.location.pathname} />
 
         <div className='heading'>
-            <h1>Tasks</h1>
+            <Breadcrumb path={history.location.pathname} />
             <div>
                 <label>Project</label>
                 <select onChange={handleSetProject}>
@@ -42,6 +41,7 @@ const TasksList = ({ history }) => {
                 </select>
             </div>
         </div>
+        <h1>Tasks</h1>
 
         {!tasks ? <Loading /> : tasks.length === 0 ? <NoResults /> :
             <table className='w-full'>

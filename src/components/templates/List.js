@@ -22,7 +22,10 @@ const TemplatesList = ({history}) => {
 
     return (
         <>
-            <Breadcrumb path={history.location.pathname} />
+            <div className='heading'>
+                <Breadcrumb path={history.location.pathname} />
+                <button>Create Template</button>
+            </div>
             <h1>Project templates</h1>
             {!templates ? <Loading /> : templates.length === 0 ? <NoResults /> :
                 <section className='flex flex-wrap gap-4'>
