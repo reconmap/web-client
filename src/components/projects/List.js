@@ -7,7 +7,7 @@ import useFetch from '../../hooks/useFetch';
 import CreateButton from './../ui/buttons/Create'
 import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from '../ui/buttons/Delete';
-import { Link } from 'react-router-dom';
+import ProjectBadge from '../badges/ProjectBadge';
 
 const ProjectsList = ({ history }) => {
     useSetTitle('Projects');
@@ -28,7 +28,7 @@ const ProjectsList = ({ history }) => {
                     <tbody>
                         {projects.map((project) =>
                             <tr key={project.id}>
-                                <td><Link to={`/project/${project.id}`}>{project.name}</Link></td>
+                                <td><ProjectBadge project={project}/></td>
                                 <td><small className='text-gray-500'>{project.description}</small></td>
                                 <td>{project.insert_ts}</td>
                                 <td className='text-right'><DeleteButton onClick={() => destroy(project.id)} /></td>
