@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import DeleteButton from '../ui/buttons/Delete';
 import useSetTitle from '../../hooks/useSetTitle';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';

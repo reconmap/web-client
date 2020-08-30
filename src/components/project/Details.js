@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import DeleteButton from '../ui/buttons/Delete';
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
@@ -7,10 +6,8 @@ import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconClipboardCheck } from '../icons';
-import TaskBadge from '../badges/TaskBadge';
-import TaskCompletedBadge from '../badges/TaskCompletedBadge';
-import BadgeOutline from '../badges/BadgeOutline';
 import TasksTable from '../tables/TasksTable';
+import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
 
 const ProjectDetails = ({ match, history }) => {
     useSetTitle('Project');
@@ -83,20 +80,7 @@ const ProjectVulnerabilities = ({ vulnerabilities }) => {
                 <h2>Vulnerabilities</h2>
                 <button className='sm'>Add New Vulnerability</button>
             </div>
-            {vulnerabilities ?
-                <table className='w-full'>
-                    <tbody>
-                            {vulnerabilities.map((vuln, index) => <tr key={index}>
-                                <td>{vuln.summary}</td>
-                                <td>{vuln.description}</td>
-                                <td>{vuln.risk}</td>
-                                <td>{vuln.cvss_score}</td>
-                                <td>{vuln.target_id}</td>
-                                <td>{vuln.reported_by_uid}</td>
-                            
-                            </tr>)}
-                    </tbody>
-                </table>
+            {vulnerabilities ? <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>
                 : <Loading />}
         </section>
 }
