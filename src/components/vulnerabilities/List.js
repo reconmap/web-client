@@ -28,8 +28,8 @@ const VulnerabilitiesList = ({ history }) => {
         secureApiFetch(`/vulnerabilities?page=${pagination.page}`, { method: 'GET' })
             .then((response) => {
                 if (response.headers.has('X-Page-Count')) {
-                   setPagination({...pagination, total: response.headers.get('X-Page-Count')})
-                }    
+                    setPagination({ ...pagination, total: response.headers.get('X-Page-Count') })
+                }
                 return response.json()
             })
             .then((data) => {
@@ -39,19 +39,17 @@ const VulnerabilitiesList = ({ history }) => {
 
     useEffect(() => {
         pagination && reloadData()
-    }, [pagination.page])    
+    }, [pagination.page])
 
     const destroy = useDelete('/vulnerabilities/', reloadData);
 
     return (<>
-        <Breadcrumb path={history.location.pathname} />
-
         <div className='heading'>
-            <h1>Vulnerabilities</h1>
+            <Breadcrumb path={history.location.pathname} />
             <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev} handleNext={handleNext} />
-
             <CreateButton>Create Vulnerability</CreateButton>
         </div>
+        <h1>Vulnerabilities</h1>
         {!vulnerabilities ? <Loading /> : vulnerabilities.length === 0 ? <NoResults />
             : <table className='w-full my-4'>
                 <thead>

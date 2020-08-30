@@ -15,11 +15,11 @@ const IntegrationsList = ({history}) => {
     const handleCreate = () => { history.push("/integration/create"); }
     return (
         <>
-            <Breadcrumb path={history.location.pathname}/>
             <div className='heading'>
-                <h1>Integrations</h1>
+                <Breadcrumb path={history.location.pathname}/>
                 <CreateButton onClick={handleCreate}>Create integration</CreateButton>
             </div>
+            <h1>Integrations</h1>
             {!integrations ? <Loading /> : integrations.length === 0 ? <NoResults /> :
                 <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {integrations.map(integration =>

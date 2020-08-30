@@ -8,7 +8,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, PieChart, Pie, Cell } fro
 function Dashboard({ children }) {
   useSetTitle('Dashboard')
   return (
-    <div className=" flex w-full h-screen p-5 mx-auto flex-col container mx-auto">
+    <div className=" flex w-full h-screen p-5 mx-auto flex-col">
       <Header />
       <div className="flex flex-row border-t border-gray-800">
         <Sidebar />

@@ -1,5 +1,7 @@
 .actions { 
-    padding: $padding 15px ;
+    padding:0 $padding 0 $padding;
+    height: 50px;
+
     border-width: $border-width;
     border-color: transparent;
     border-radius: $radius;
@@ -7,14 +9,25 @@
     background-color: $gray-800;
     color: $gray-100;
     font-size: $font-size-action;
+    
 }
+
 .breadcrumb {
     @extend .actions;
+    border:$border-width solid $gray-800;
     background-color: transparent;
-
 }
+
 input, select, textarea {
     @extend .actions;
+    &.sm {
+        height: 32px;
+        font-size: $font-size-small;
+        padding: 0px $padding/2;
+        svg {
+            width: 14px;
+        }
+    }
     outline: transparent ;
     &:hover{
         box-shadow: 0 0 0px 3px $red-500;
@@ -32,6 +45,14 @@ input, select, textarea {
 
 button,.button, .btn {
     @extend .actions;
+    &.sm {
+        height: 32px;
+        font-size: $font-size-small;
+        padding: 0px $padding/2;
+        svg {
+            width: 14px;
+        }
+    }
     display: inline-flex;
     flex-direction: row;
     align-items: center;
