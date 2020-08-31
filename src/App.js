@@ -34,6 +34,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import VulnerabilityDetails from './components/vulnerabilities/Details';
 import TargetCreateForm from './components/target/Create';
 import SearchResults from './components/search/Results';
+import ProjectMembership from './components/project/Membership';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
               <ProtectedRoute exact path={`/projects`} component={ProjectsList} />
               <ProtectedRoute exact path={`/projects/create`} component={ProjectCreateForm} />
               <ProtectedRoute path={`/project/:id/report`} component={ProjectReport} />
+              <ProtectedRoute path={`/project/:id/membership`} component={ProjectMembership} />
               <ProtectedRoute path={`/project/:id/tasks/create`} component={TaskCreationForm} />
               <ProtectedRoute path={`/project/:id/targets/create`} component={TargetCreateForm} />
               <ProtectedRoute exact path={`/project/:id`} component={ProjectDetails} />

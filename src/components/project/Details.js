@@ -38,6 +38,7 @@ const ProjectDetails = ({ match, history }) => {
                     <h1>{project.name}</h1>
                     <ProjectDescription project={project} />
                     <h2>Team</h2>
+                    <Link to={`/project/${project.id}/membership`}>Manage project membership</Link>
                     {users && <ul>
                         {users.map((user, index) =>
                             <li><Link to={`/user/${user.id}`}>{user.name}</Link></li>
