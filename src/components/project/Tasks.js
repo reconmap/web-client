@@ -7,7 +7,7 @@ const ProjectTasks = ({ tasks, handleAddTask }) => {
     return <section>
         <div className='heading'>
         <IconClipboardList />
-            <h2>Tasks(s) <small>({tasks && tasks.reduce(function (total, task) { return task.completed ? total + 1 : total; }, 0)}/{tasks && tasks.length} completed)</small></h2>
+            <h2>Task(s) <small>({tasks && tasks.reduce(function (total, task) { return task.completed ? total + 1 : total; }, 0)}/{tasks && tasks.length} completed)</small></h2>
             <button onClick={handleAddTask}>
                 <IconPlus />
                 Add task
