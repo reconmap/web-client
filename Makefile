@@ -42,3 +42,8 @@ build:
 		--name reconmap-web-frontend \
 		reconmap-web-frontend build
 
+.PHONY: shell
+shell:
+	docker exec -it reconmap-web-frontend bash
+
+

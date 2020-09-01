@@ -1,29 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
-import { IconSave, IconX } from './../icons'
+import { IconSave } from './../icons'
 import Breadcrumb from '../ui/Breadcrumb'
+import CancelButton from '../ui/buttons/Cancel'
+import { getAllTimezones } from 'countries-and-timezones';
+import secureApiFetch from '../../services/api';
 
-const UserPreferences = ({history}) => {
+const UserPreferences = ({ history }) => {
     useSetTitle('Preferences')
+    const timezones = getAllTimezones();
+    const timezoneKeys = Object.keys(timezones).sort();
+    const [timezone, setTimezone] = useState(null);
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const handleChange = (e) => {
+        setTimezone(e.target.value);
+    }
+
+    const handleSubmit = () => {
+        secureApiFetch(`/users/${user.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ timezone: timezone })
+        })
+            .then(() => {
+                user.timezone = timezone;
+                localStorage.setItem('user', JSON.stringify(user));
+                history.push('/');
+            })
+            .catch(e => console.log(e))
+    }
+
     return (
         <>
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb path={history.location.pathname} />
             <h1>Preferences</h1>
-            <form onSubmit={e=>e.preventDefault()}>
-                    <label>Language</label>
-                    <select>
-                        <option>English</option>
-                        <option>Spanish</option>
-                    </select>
+            <form onSubmit={e => e.preventDefault()}>
+                <label>Timezone</label>
+                <select onChange={handleChange} defaultValue={user.timezone}>
+                    {timezoneKeys.map((key) =>
+                        <option value={timezones[key].name}>{timezones[key].name}</option>
+                    )}
+                </select>
 
-                    <label>Timezone</label>
-                    <select>
-                        <option>UTC-4</option>
-                        <option>UTC</option>
-                    </select>
-
-                <button className='flex '><IconSave styling='mr-2'/> Save</button>
-                <button className='flex ' type='cancel'><IconX styling='mr-2'/> Cancel</button>
+                <button className='flex ' onClick={handleSubmit}><IconSave styling='mr-2' /> Save</button>
+                <CancelButton onClick={() => { history.push("/") }} />
             </form>
         </>
     )

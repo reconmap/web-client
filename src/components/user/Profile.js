@@ -20,9 +20,13 @@ const UserProfile = ({ match, history }) => {
                 {user && <UserAvatar email={user.email} size={48}/>}
                 {user ? <div className=' flex flex-col flex-1 ml-5'>
                     <h1>{user.name}</h1>
-                    <article className='text-gray-600'>
-                        User since {user.insert_ts}
-                    </article>
+                    <dl className='text-gray-600'>
+                        <dt>User since</dt>
+                        <dd>{user.insert_ts}</dd>
+
+                        <dt>Timezone</dt>
+                        <dd>{user.timezone}</dd>
+                    </dl>
                     <div className='flex flex-row gap-4 my-2 font-semibold text-sm'>
                         <UserRoleBadge role={user.role} />
                     </div>

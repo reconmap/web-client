@@ -35,6 +35,7 @@ class AuthProvider extends Component {
         localStorage.setItem("accessToken", data.access_token);
         localStorage.setItem('isAuth', true);
         localStorage.setItem('user.id', data.id);
+        localStorage.setItem('user', JSON.stringify(data));
         this.setState({ isAuth: true });
         onOk();
       })
