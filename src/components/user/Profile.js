@@ -16,7 +16,7 @@ const UserProfile = ({ match, history }) => {
         
             <div className=' flex flex-col md:flex-row items-center justify-center  max-w-xl mx-auto my-10'>
                 {user && <UserAvatar email={user.email} size={48}/>}
-                {user ? <div className=' flex flex-col flex-1'>
+                {user ? <div className=' flex flex-col flex-1 ml-5'>
                     <h1>{user.name}</h1>
                     <article className='text-gray-600'>
                         User since {user.insert_ts}

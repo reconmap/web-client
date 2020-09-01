@@ -66,7 +66,7 @@ const TasksList = ({ match, history }) => {
                         { users &&
                             members.map((member, index) =>
                                 <tr>
-                                    <td className='w-16'><UserAvatar size={10} email={users.find((user)=> user.id == member.id).email}/></td>
+                                    <td className='w-16'><UserAvatar size={10} email={users.find((user)=> user.id === member.id).email}/></td>
                                     <td><Link to={`/user/${member.id}`}>{member.name}</Link></td>
                                     <td className='text-right'><DeleteButton onClick={() => handleDelete(member)} /></td>
                                 </tr>
