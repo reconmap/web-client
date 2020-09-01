@@ -9,9 +9,9 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
         <table className='w-full my-4'>
                 <thead>
                     <tr>
-                        <th>Risk</th>
                         <th>Summary</th>
                         <th>Description</th>
+                        <th>Risk</th>
                         <th><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
                         <th>Status</th>
                         <th>Date/Time</th>

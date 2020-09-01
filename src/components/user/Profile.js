@@ -5,6 +5,8 @@ import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
+import AuditLogsTable from '../tables/AuditLogsTable';
+import { IconBookOpen } from '../icons';
 
 const UserProfile = ({ match, history }) => {
     useSetTitle('User');
@@ -26,13 +28,13 @@ const UserProfile = ({ match, history }) => {
                     </div>
                 </div> : <Loading /> }
             </div>
-            <article className='card max-w-lg mx-auto'>
-                <h3>Activity</h3>
-                { auditLog ?
-                <ul>
-                    { auditLog.map((log, index) => <li key={index}><date>{log.insert_ts}</date> {log.action}</li>)}
-                </ul>: <Loading /> }
-            </article>
+            <section >
+            <div className='heading'>
+                <IconBookOpen />
+                <h2>Activity</h2>
+            </div>
+                { auditLog ? <AuditLogsTable auditLog={auditLog}/>: <Loading /> }
+            </section>
 
         </div>
     )
