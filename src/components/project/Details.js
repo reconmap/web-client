@@ -6,7 +6,6 @@ import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconClipboardCheck } from '../icons';
-import { Link } from 'react-router-dom';
 import ProjectTargets from './Targets';
 import ProjectTasks from './Tasks';
 import ProjectVulnerabilities from './Vulnerabilities';
