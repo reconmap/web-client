@@ -4,6 +4,7 @@ import TaskCompletedBadge from '../badges/TaskCompletedBadge'
 import BadgeOutline from '../badges/BadgeOutline'
 import { Link } from 'react-router-dom'
 import DeleteButton from '../ui/buttons/Delete'
+import { IconUpload } from '../icons'
 
 export default function TasksTable({tasks, filter={project:'', status:''}, destroy}) {
     return (
@@ -29,7 +30,7 @@ export default function TasksTable({tasks, filter={project:'', status:''}, destr
                                 <td><small className='text-gray-600 font-mono'>{task.description.slice(0,40)} </small></td>
                                 <td>
                                     <div className='flex-col flex'>
-                                        <Link  to={"/tasks/" + task.id + "/upload"}><button className='mb-1 w-full'>Upload results</button></Link>
+                                        <Link  to={"/tasks/" + task.id + "/upload"}><button className='mb-1 w-full'><IconUpload styling='mr-2'/> Upload results</button></Link>
                                         <DeleteButton onClick={() => destroy(task.id)} />
                                     </div>
                                 </td>
