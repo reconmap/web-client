@@ -7,9 +7,10 @@ const ProjectTeam = ({project, users}) => {
     return (
         <section className='mb-4'>
         <div className='heading'>
+            <IconUserGroup />
             <h2>Team</h2>
             <Link to={`/project/${project.id}/membership`}>
-                <button className='sm'><IconUserGroup styling='mr-2' /> Manage project membership</button>
+                <button><IconUserGroup /> Manage project membership</button>
             </Link>
         </div>
         {users &&  <div className='flex flex-wrap  '>
