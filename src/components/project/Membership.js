@@ -6,6 +6,9 @@ import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from '../ui/buttons/Delete';
 import secureApiFetch from '../../services/api';
+import UserAvatar from '../badges/UserAvatar';
+import { Link } from 'react-router-dom';
+import { IconPlus } from '../icons';
 
 const TasksList = ({ match, history }) => {
     const projectId = match.params.id;
@@ -50,9 +53,9 @@ const TasksList = ({ match, history }) => {
                             <option value={user.id}>{user.name}</option>
                         )}
                     </select>
-                    <button onClick={handleOnClick}>Add selected user as member</button>
+                    <button onClick={handleOnClick}><IconPlus /> Add selected user as member</button>
                 </form>
-                <table class="w-full">
+                <table className="w-full">
                     <thead>
                         <tr>
                             <td>Name</td>
@@ -60,11 +63,12 @@ const TasksList = ({ match, history }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        { users &&
                             members.map((member, index) =>
                                 <tr>
-                                    <td>{member.name}</td>
-                                    <td><DeleteButton onClick={() => handleDelete(member)} /></td>
+                                    <td className='w-16'><UserAvatar size={10} email={users.find((user)=> user.id == member.id).email}/></td>
+                                    <td><Link to={`/user/${member.id}`}>{member.name}</Link></td>
+                                    <td className='text-right'><DeleteButton onClick={() => handleDelete(member)} /></td>
                                 </tr>
                             )
                         }
