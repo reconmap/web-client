@@ -2,6 +2,7 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
+import { createMemoryHistory } from 'history';
 
 import UsersList from "./List";
 
@@ -20,8 +21,9 @@ afterEach(() => {
 });
 
 it("renders with or without a name", () => {
+  const history = createMemoryHistory();
   act(() => {
-    render(<UsersList />, container);
+    render(<UsersList history={history} />, container);
   });
-  expect(container.innerHTML).toMatch(/<button href="#">Create user<\/button>/);
+  expect(container.innerHTML).toMatch(/Create User<\/button>/);
 });
