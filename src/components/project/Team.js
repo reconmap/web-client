@@ -16,8 +16,8 @@ const ProjectTeam = ({project, users}) => {
        
                 {users.map((user, index) =>
                     <Link to={`/user/${user.id}`}>
-                        <div className='flex flex-col rounded border-2 border-transparent hover:border-gray-800 p-2 mx-2 w-32 items-center'>
-                            <UserAvatar email={user.email} size={16} />
+                        <div className='flex flex-col text-center rounded border-2 border-transparent hover:border-gray-800 p-2 mx-1 w-32 items-center'>
+                            <UserAvatar email={user.email} size={20} />
                             <small className='text-gray-500 mt-2'>{user.name}</small>
                         </div>
                     </Link>
