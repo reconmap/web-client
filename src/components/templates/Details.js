@@ -21,10 +21,10 @@ const TemplateDetails = ({ history, match }) => {
 
     const destroy = useDelete('/tasks/', updateTemplate);
 
-    const handleGoBack = () => { history.goBack()}
+    const handleGoBack = () => { history.goBack() }
     return (
         <>
-            <Breadcrumb path={history.location.pathname} goBack={handleGoBack}/>
+            <Breadcrumb path={history.location.pathname} goBack={handleGoBack} />
             {(!template) ?
                 <Loading /> :
                 <>
@@ -48,12 +48,13 @@ const TemplateDetails = ({ history, match }) => {
                         <article className='card'>
                             <h2>Tasks</h2>
                             <div className='flex flex-col gap-2 mb-2'>
-                                {tasks && tasks.map((task, index) =>
-                                    <div className='flex flex-row items-center justify-start'>
-                                        <Link to={"/tasks/" + task.id}>{task.name}</Link>
-                                    </div>
-                                )
-                                }
+                                <ol>
+                                    {tasks && tasks.map((task, index) =>
+                                        <li>
+                                            <Link to={"/tasks/" + task.id}>{task.name}</Link>
+                                        </li>
+                                    )}
+                                </ol>
                             </div>
                         </article>
                     </section>

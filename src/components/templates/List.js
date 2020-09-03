@@ -6,7 +6,7 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
 
-const TemplatesList = ({history}) => {
+const TemplatesList = ({ history }) => {
     useSetTitle('Projects templates');
     const [templates] = useFetch('/projects?isTemplate=1')
 
