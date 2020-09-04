@@ -51,10 +51,10 @@ const App = () => {
               <ProtectedRoute exact path={`/tasks/:id([0-9]+)/upload`} component={UploadTaskResult} />
               <ProtectedRoute exact path={`/projects`} component={ProjectsList} />
               <ProtectedRoute exact path={`/projects/create`} component={ProjectCreateForm} />
-              <ProtectedRoute path={`/project/:id/report`} component={ProjectReport} />
-              <ProtectedRoute path={`/project/:id/membership`} component={ProjectMembership} />
-              <ProtectedRoute path={`/project/:id/tasks/create`} component={TaskCreationForm} />
-              <ProtectedRoute path={`/project/:id/targets/create`} component={TargetCreateForm} />
+              <ProtectedRoute path={`/project/:id([0-9]+)/report`} component={ProjectReport} />
+              <ProtectedRoute path={`/project/:id([0-9]+)/membership`} component={ProjectMembership} />
+              <ProtectedRoute path={`/project/:id([0-9]+)/tasks/create`} component={TaskCreationForm} />
+              <ProtectedRoute path={`/project/:id([0-9]+)/targets/create`} component={TargetCreateForm} />
               <ProtectedRoute exact path={`/project/:id([0-9]+)`} component={ProjectDetails} />
               <ProtectedRoute path={`/users/create`} component={UserCreationForm} />
               <ProtectedRoute exact path={`/users`} component={UsersList} />
