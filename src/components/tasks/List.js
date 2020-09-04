@@ -40,11 +40,11 @@ const TasksList = ({ history }) => {
         </div>
         <h1>Tasks</h1>
 
-        {!tasks ? 
-            <Loading /> :     
-                tasks.length === 0 ? 
-                    <NoResults /> : 
-                    <TasksTable tasks={tasks} filter={filter} destroy={destroy}/> }
+        {!tasks ?
+            <Loading /> :
+            tasks.length === 0 ?
+                <NoResults /> :
+                <TasksTable tasks={tasks} filter={filter} destroy={destroy} />}
 
     </>
 }

@@ -17,26 +17,26 @@ const ProjectsList = ({ history }) => {
         history.push('/projects/create')
     }
     return <div>
-                <div className='heading'>
-                    <Breadcrumb path={history.location.pathname} />
-                    <CreateButton onClick={handleCreateProject}>Create Project</CreateButton>
-                </div>
-                    <h1>Projects</h1>
-                {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
-                    <table className='w-full'>
-                    <thead></thead>
-                    <tbody>
-                        {projects.map((project) =>
-                            <tr key={project.id}>
-                                <td><ProjectBadge project={project}/></td>
-                                <td><small className='text-gray-500'>{project.description}</small></td>
-                                <td>{project.insert_ts}</td>
-                                <td className='text-right'><DeleteButton onClick={() => destroy(project.id)} /></td>
-                            </tr>
-                        )}
-                    </tbody>
-                    </table>}
-            </div>
+        <div className='heading'>
+            <Breadcrumb path={history.location.pathname} />
+            <CreateButton onClick={handleCreateProject}>Create Project</CreateButton>
+        </div>
+        <h1>Projects</h1>
+        {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
+            <table className='w-full'>
+                <thead></thead>
+                <tbody>
+                    {projects.map((project) =>
+                        <tr key={project.id}>
+                            <td><ProjectBadge project={project} /></td>
+                            <td><small className='text-gray-500'>{project.description}</small></td>
+                            <td>{project.insert_ts}</td>
+                            <td className='text-right'><DeleteButton onClick={() => destroy(project.id)} /></td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>}
+    </div>
 }
 
 

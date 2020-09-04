@@ -5,10 +5,13 @@ import useFetch from '../../hooks/useFetch';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
+import ProjectBadge from '../badges/ProjectBadge';
+import DeleteButton from '../ui/buttons/Delete';
+import useDelete from '../../hooks/useDelete';
 
 const TemplatesList = ({ history }) => {
     useSetTitle('Projects templates');
-    const [templates] = useFetch('/projects?isTemplate=1')
+    const [templates, updateTemplates] = useFetch('/projects?isTemplate=1')
 
     const cloneProject = (templateId) => {
         secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST', })
@@ -20,6 +23,8 @@ const TemplatesList = ({ history }) => {
         history.push(`/templates/${templateId}`);
     }
 
+    const destroy = useDelete('/projects/', updateTemplates);
+
     return (
         <>
             <div className='heading'>
@@ -28,20 +33,31 @@ const TemplatesList = ({ history }) => {
             </div>
             <h1>Project templates</h1>
             {!templates ? <Loading /> : templates.length === 0 ? <NoResults /> :
-                <section className='flex flex-wrap gap-4'>
-                    {templates.map((template, index) =>
-                        <article className='card' onClick={() => viewProject(template.id)} key={index}>
-                            <header>
-                                <button onClick={() => cloneProject(template.id)} key={index} title="Create project using this template">Create project</button>
-                            </header>
-                            <h1>{template.name}</h1>
-                            <footer>
-                                <span className='text-red-600'>{template.num_tasks} tasks</span>
-                            </footer>
-                        </article>
-                    )}
-                </section>
-            }
+                <table className='w-full'>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Creation datetime</th>
+                            <th>Number of tasks</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {templates.map((template) =>
+                            <tr key={template.id} onClick={() => viewProject(template.id)}>
+                                <td><ProjectBadge project={template} /></td>
+                                <td><small className='text-gray-500'>{template.name}</small></td>
+                                <td>{template.insert_ts}</td>
+                                <td>{template.num_tasks}</td>
+                                <td className='flex-col flex'>
+                                    <button onClick={() => cloneProject(template.id)} key={template.id} title="Create project using this template">Create project</button>
+                                    <DeleteButton onClick={() => destroy(template.id)} />
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>}
         </>
     )
 }
