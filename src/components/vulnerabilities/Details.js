@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api'
 import RiskBadge from '../badges/RiskBadge'
+import DeleteButton from '../ui/buttons/Delete';
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -24,12 +25,12 @@ class VulnerabilityDetails extends Component {
             });
     }
 
-    handleDelete(id) {
+    handleDelete(vuln) {
         if (window.confirm('Are you sure you want to delete this task?')) {
-            secureApiFetch(`/vulnerabilities/${id}`, {
+            secureApiFetch(`/vulnerabilities/${vuln.id}`, {
                 method: 'DELETE'
             })
-                .then(() => { this.props.history.goBack() })
+                .then(() => { this.props.history.push('/vulnerabilities') })
                 .catch(e => console.log(e))
 
         }
@@ -51,24 +52,28 @@ class VulnerabilityDetails extends Component {
         }
         return (
             <div>
-                <h2>Vulnerability</h2>
-                <h1>{vuln.summary}</h1>
-                <div className='flex items-start gap-4'>
-                    <article className='card w-48'>
-                        <p>{this.state.vulnerability.description}</p>
+                <div className='heading'>
+                    <div>
+                        <h2>Vulnerability</h2>
+                        <h1>{vuln.summary}</h1>
                         <RiskBadge risk={vuln.risk} />
+                    </div>
+                    <div>
+                        {vuln.status === 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as closed</button>}
+                        {vuln.status !== 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as open</button>}
+
+                        <DeleteButton onClick={() => this.handleDelete(vuln)} />
+                    </div>
+                </div>
+                <div>
+                    <article className=''>
+                        <p>{vuln.description}</p>
                         <dl>
                             <dt>Status</dt>
                             <dd>{vuln.status}</dd>
+                            <dt>Creation time</dt>
+                            <dd>{vuln.insert_ts}</dd>
                         </dl>
-                        <h2>Actions</h2>
-
-                        {vuln.status === 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as closed</button>}
-                        {vuln.status !== 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as open</button>}
-                        <footer>
-                            <label>Creation time</label>
-                            <strong>{this.state.vulnerability.insert_ts}</strong>
-                        </footer>
                     </article>
                 </div>
             </div>

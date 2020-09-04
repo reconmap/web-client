@@ -54,22 +54,29 @@ class TaskDetails extends Component {
 
     render() {
         const task = this.state.task;
-        if (!this.state.task) {
+        if (!task) {
             return 'Loading...'
         }
         return (
             <div>
-                <h3 className='heading'>Task {this.state.task.name}</h3>
+                <div className='heading'>
+                    <div>
+                        <h2>Task</h2>
+                        <h1>{task.name}</h1>
+                    </div>
+                    <div>
+                    {task.completed === 1 && <button onClick={() => this.handleToggle(task)}>Mark as incomplete</button>}
+                        {task.completed !== 1 && <button onClick={() => this.handleToggle(task)}>Mark as completed</button>}
+                        <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link>
+                    </div>
+                </div>
+
                 <div className='flex items-start gap-4'>
                     <article className='card'>
                         <p><em>Created on {this.state.task.insert_ts}</em></p>
                         <h2>Instructions</h2>
                         <p>{this.state.task.description}</p>
-                        <h2>Actions</h2>
 
-                        {task.completed === 1 && <button onClick={() => this.handleToggle(task)}>Mark as incompleted</button>}
-                        {task.completed !== 1 && <button onClick={() => this.handleToggle(task)}>Mark as completed</button>}
-                        <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link>
                     </article>
                     <article className='card flex-1'>
                         <h3>Results</h3>

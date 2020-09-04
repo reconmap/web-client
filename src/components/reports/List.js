@@ -35,17 +35,17 @@ const ReportsList = ({ history }) => {
     const deleteReport = useDelete('/reports/', fetchReports);
 
     return <div>
-            <div className='heading'>
+        <div className='heading'>
 
-                <Breadcrumb path={history.location.pathname} />
-            </div>
-            <h1>Saved reports</h1>
+            <Breadcrumb path={history.location.pathname} />
+        </div>
+        <h1>Saved reports</h1>
         {!reports ? <Loading /> : reports.length === 0 ? <NoResults /> :
             <table className='w-full my-4'>
                 <thead>
                     <tr>
                         <th>Project</th>
-                        <th></th>
+                        <th>Format</th>
                         <th>Date/Time</th>
                         <th></th>
                     </tr>
@@ -54,15 +54,15 @@ const ReportsList = ({ history }) => {
                     {reports.map((report, index) => {
                         return (
                             <tr key={index}>
-                                <th><Link to={`/project/${report.project_id}`}>{report.project_name}</Link></th>
+                                <td><Link to={`/project/${report.project_id}`}>{report.project_name}</Link></td>
                                 <td>
-                                <div style={{ width: '43px', height:'56px', borderTopRightRadius:'10px', borderWidth:'3px'}} className='  p-1 rounded text-xs border-gray-700 flex items-center justify-end font-medium flex-col'>
-                                    {report.format ==='pdf' ? <IconDocument size={4}/> : <IconCode size={4} />}
-                                    {report.format}
-                                </div>
+                                    <div style={{ width: '43px', height: '56px', borderTopRightRadius: '10px', borderWidth: '3px' }} className='  p-1 rounded text-xs border-gray-700 flex items-center justify-end font-medium flex-col'>
+                                        {report.format === 'pdf' ? <IconDocument size={4} /> : <IconCode size={4} />}
+                                        {report.format}
+                                    </div>
                                 </td>
                                 <td>{report.insert_ts}</td>
-                                <td  className="  gap-5 flex items-center justify-end  ">
+                                <td className="  gap-5 flex items-center justify-end  ">
                                     <button onClick={() => handleDownload(report.id)}><IconDownloadDocument styling='mr-2' /> Download</button>
                                     <DeleteButton onClick={() => deleteReport(report.id)} />
                                 </td>
