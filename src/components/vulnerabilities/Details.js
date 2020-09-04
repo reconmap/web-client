@@ -46,12 +46,13 @@ class VulnerabilityDetails extends Component {
 
     render() {
         const vuln = this.state.vulnerability;
-        if (!this.state.vulnerability) {
+        if (!vuln) {
             return 'Loading...'
         }
         return (
             <div>
-                <h3 className='heading'>Vulnerability {this.state.vulnerability.name}</h3>
+                <h2>Vulnerability</h2>
+                <h1>{vuln.summary}</h1>
                 <div className='flex items-start gap-4'>
                     <article className='card w-48'>
                         <p>{this.state.vulnerability.description}</p>

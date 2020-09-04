@@ -1,7 +1,7 @@
 import React from 'react'
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -9,21 +9,21 @@ import { useState } from 'react';
 const SearchResults = (props) => {
     useSetTitle('Search results');
 
-    const history = useHistory();    
+    const history = useHistory();
     const [vulnerabilities, setVulnerabilities] = useState([]);
-    
+
     const keywords = decodeURIComponent(props.match.params.keywords);
 
     useEffect(() => {
-    const reloadData = () => {
-        secureApiFetch(`/vulnerabilities?keywords=${keywords}`, { method: 'GET' })
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                setVulnerabilities(data);
-            })
-    }
+        const reloadData = () => {
+            secureApiFetch(`/vulnerabilities?keywords=${keywords}`, { method: 'GET' })
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    setVulnerabilities(data);
+                })
+        }
 
 
         reloadData()
@@ -36,11 +36,11 @@ const SearchResults = (props) => {
             <h2>{vulnerabilities.length} vulnerabilities matched</h2>
             <ul>
                 {
-                vulnerabilities.map((v, i) => 
-                    <li>
-                        {v.summary}
-                    </li>
-                )
+                    vulnerabilities.map((v, i) =>
+                        <li>
+                            <Link to={`/vulnerabilities/${v.id}`}>{v.summary}</Link>
+                        </li>
+                    )
                 }
             </ul>
         </div>
