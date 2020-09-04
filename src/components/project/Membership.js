@@ -19,7 +19,7 @@ const TasksList = ({ match, history }) => {
     const handleOnClick = (e) => {
         e.preventDefault();
         const userId = document.getElementById('userId').value;
-        const userData = {userId: userId};
+        const userData = { userId: userId };
         secureApiFetch(`/projects/${projectId}/users`, {
             method: 'POST',
             body: JSON.stringify(userData)
@@ -41,39 +41,39 @@ const TasksList = ({ match, history }) => {
             <Breadcrumb path={history.location.pathname} />
         </div>
         <h1>Members</h1>
+        <form>
+            <select id="userId">
+                {users && users.map((user, index) =>
+                    <option value={user.id}>{user.name}</option>
+                )}
+            </select>
+            <button onClick={handleOnClick}><IconPlus /> Add selected user as member</button>
+        </form>
 
         {!members ?
             <Loading /> :
             members.length === 0 ?
                 <NoResults /> :
                 <>
-                <form>
-                    <select id="userId">
-                        {users && users.map((user, index) =>
-                            <option value={user.id}>{user.name}</option>
-                        )}
-                    </select>
-                    <button onClick={handleOnClick}><IconPlus /> Add selected user as member</button>
-                </form>
-                <table className="w-full">
-                    <thead>
-                        <tr>
-                            <td>Name</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { users &&
-                            members.map((member, index) =>
-                                <tr>
-                                    <td className='w-16'><UserAvatar size={10} email={users.find((user)=> user.id === member.id).email}/></td>
-                                    <td><Link to={`/user/${member.id}`}>{member.name}</Link></td>
-                                    <td className='text-right'><DeleteButton onClick={() => handleDelete(member)} /></td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
+                    <table className="w-full">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {members &&
+                                members.map((member, index) =>
+                                    <tr>
+                                        <td className='w-16'><UserAvatar size={10} email={member.email} /></td>
+                                        <td><Link to={`/user/${member.id}`}>{member.name}</Link></td>
+                                        <td className='text-right'><DeleteButton onClick={() => handleDelete(member)} /></td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
                 </>
         }
 
