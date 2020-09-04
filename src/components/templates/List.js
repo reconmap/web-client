@@ -24,7 +24,7 @@ const TemplatesList = ({ history }) => {
         <>
             <div className='heading'>
                 <Breadcrumb path={history.location.pathname} />
-                <button>Create Template</button>
+                <button onClick={() => history.push('/templates/import')}>Import Template</button>
             </div>
             <h1>Project templates</h1>
             {!templates ? <Loading /> : templates.length === 0 ? <NoResults /> :

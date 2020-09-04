@@ -3,7 +3,7 @@ import React from 'react'
 import { IconDashboard, IconFolder, IconDocumentDuplicate, IconBriefcase, IconUserGroup, IconReport, IconExtensions, IconClipboardList, IconFlag } from "../../icons";
 
 export default [
-    { title: 'Dashboard', icon: <IconDashboard />, to: '/dashboard' },
+    { title: 'Dashboard', icon: <IconDashboard />, to: '/' },
     { title: 'Vulnerabilities', icon: <IconFlag />, to: '/vulnerabilities' },
     { title: 'Tasks', icon: <IconClipboardList />, to: '/tasks' },
     { title: 'Projects', icon: <IconFolder/>, to: '/projects' },

@@ -35,6 +35,7 @@ import VulnerabilityDetails from './components/vulnerabilities/Details';
 import TargetCreateForm from './components/target/Create';
 import SearchResults from './components/search/Results';
 import ProjectMembership from './components/project/Membership';
+import ImportTemplate from './components/templates/Import';
 
 const App = () => {
   return (
@@ -46,28 +47,29 @@ const App = () => {
           <Dashboard>
             <Switch>
               <ProtectedRoute exact path={`/tasks`} component={TasksList} />
-              <ProtectedRoute exact path={`/tasks/:id`} component={TaskDetails} />
-              <ProtectedRoute exact path={`/tasks/:id/upload`} component={UploadTaskResult} />
+              <ProtectedRoute exact path={`/tasks/:id([0-9]+)`} component={TaskDetails} />
+              <ProtectedRoute exact path={`/tasks/:id([0-9]+)/upload`} component={UploadTaskResult} />
               <ProtectedRoute exact path={`/projects`} component={ProjectsList} />
               <ProtectedRoute exact path={`/projects/create`} component={ProjectCreateForm} />
               <ProtectedRoute path={`/project/:id/report`} component={ProjectReport} />
               <ProtectedRoute path={`/project/:id/membership`} component={ProjectMembership} />
               <ProtectedRoute path={`/project/:id/tasks/create`} component={TaskCreationForm} />
               <ProtectedRoute path={`/project/:id/targets/create`} component={TargetCreateForm} />
-              <ProtectedRoute exact path={`/project/:id`} component={ProjectDetails} />
+              <ProtectedRoute exact path={`/project/:id([0-9]+)`} component={ProjectDetails} />
               <ProtectedRoute path={`/users/create`} component={UserCreationForm} />
               <ProtectedRoute exact path={`/users`} component={UsersList} />
               <ProtectedRoute path={`/user/preferences`} component={UserPreferences} />
-              <ProtectedRoute path={`/user/:id`} component={UserProfile} />
+              <ProtectedRoute path={`/user/:id([0-9]+)`} component={UserProfile} />
               <ProtectedRoute path={`/search/:keywords`} component={SearchResults} />
               <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
               <ProtectedRoute path={`/reports`} component={ReportsList} />
               <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
               <ProtectedRoute exact path={`/templates`} component={TemplatesList} />
-              <ProtectedRoute exact path={`/templates/:id`} component={TemplateDetails} />
+              <ProtectedRoute exact path={`/templates/import`} component={ImportTemplate} />
+              <ProtectedRoute exact path={`/templates/:id([0-9]+)`} component={TemplateDetails} />
               <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList} />
-              <ProtectedRoute path={`/vulnerabilities/:id`} component={VulnerabilityDetails} />
-              <Redirect to={'/'}><PageNotFound /></Redirect>
+              <ProtectedRoute path={`/vulnerabilities/:id([0-9]+)`} component={VulnerabilityDetails} />
+              <Route component={PageNotFound} />
             </Switch>
           </Dashboard>
           <Route component={PageNotFound} />
