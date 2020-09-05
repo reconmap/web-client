@@ -20,10 +20,10 @@ const UsersList = ({ history }) => {
 
     return (<>
         <div className='heading'>
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb path={history.location.pathname} />
             <CreateButton onClick={handleCreate}>Create User</CreateButton>
         </div>
-            <h1>Users</h1>
+        <h1>Users</h1>
         {!users ? <Loading /> : users.length === 0 ? <NoResults /> :
             <table className='w-full'>
                 <thead>
@@ -36,10 +36,10 @@ const UsersList = ({ history }) => {
                 </thead>
                 <tbody>
                     {users.map((user, index) => <tr key={index}>
-                        <th className='w-16'>
+                        <td className='w-16'>
                             <UserAvatar email={user.email} size={10} />
-                        </th>
-                        <th><Link to={`/user/${user.id}`}>{user.name}</Link></th>
+                        </td>
+                        <td><Link to={`/user/${user.id}`}>{user.name}</Link></td>
                         <td > <UserRoleBadge role={user.role} /> </td>
                         <td className='text-right'><DeleteButton onClick={() => destroy(user.id)} /></td>
                     </tr>)}
