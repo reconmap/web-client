@@ -35,6 +35,7 @@ import TargetCreateForm from './components/target/Create';
 import SearchResults from './components/search/Results';
 import ProjectMembership from './components/project/Membership';
 import ImportTemplate from './components/templates/Import';
+import TargetView from './components/target/View';
 
 const App = () => {
   return (
@@ -54,6 +55,7 @@ const App = () => {
               <ProtectedRoute path={`/project/:id([0-9]+)/membership`} component={ProjectMembership} />
               <ProtectedRoute path={`/project/:id([0-9]+)/tasks/create`} component={TaskCreationForm} />
               <ProtectedRoute path={`/project/:id([0-9]+)/targets/create`} component={TargetCreateForm} />
+              <ProtectedRoute path={`/project/:projectId([0-9]+)/targets/:targetId([0-9]+)`} component={TargetView} />
               <ProtectedRoute exact path={`/project/:id([0-9]+)`} component={ProjectDetails} />
               <ProtectedRoute path={`/users/create`} component={UserCreationForm} />
               <ProtectedRoute exact path={`/users`} component={UsersList} />

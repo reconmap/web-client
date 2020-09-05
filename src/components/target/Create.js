@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
+import TargetKinds from '../../models/TargetKinds'
 
 export default function TargetCreateForm({ match, history }) {
     const projectId = match.params.id;
-    const [newTarget, setNewTarget] = useState({ name: null, kind: 'host' })
+    const [newTarget, setNewTarget] = useState({ projectId: projectId, name: null, kind: TargetKinds[0].value })
     const [loading, setLoading] = useState(false)
     const handleCreate = async () => {
         setLoading(true)
-        await secureApiFetch(`/projects/${projectId}/targets`, { method: 'POST', body: JSON.stringify(newTarget) })
-        history.push(`/project/${match.params.id}`)
+        await secureApiFetch(`/targets`, { method: 'POST', body: JSON.stringify(newTarget) })
+        history.push(`/project/${projectId}`)
     }
     const handleFormChange = e => {
         const target = e.target;
@@ -29,9 +30,9 @@ export default function TargetCreateForm({ match, history }) {
                 <input autoFocus type="text" name="name" onChange={handleFormChange} />
                 <label htmlFor='kind'>Kind</label>
                 <select name="kind" onChange={handleFormChange}>
-                    <option value='host'>Host</option>
-                    <option value='webapp'>Webapp</option>
-                    <option value='binary'>Binary</option>
+                    {TargetKinds.map((targetKind, index) =>
+                        <option value={targetKind.value}>{targetKind.description}</option>
+                    )}
                 </select>
 
                 <button onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</button>
