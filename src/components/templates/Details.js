@@ -29,7 +29,10 @@ const TemplateDetails = ({ history, match }) => {
                 <Loading /> :
                 <>
                     <section className='heading' >
-                        <h1>{template.name}</h1>
+                        <div>
+                            <h2>Project template</h2>
+                            <h1>{template.name}</h1>
+                        </div>
                         <div className='flex items-center justify-between gap-4'>
                             {/* <button onClick={() => cloneProject(template.id)}>Create project from template</button> */}
                             <CreateButton onClick={() => cloneProject(template.id)}>Create project from template</CreateButton>

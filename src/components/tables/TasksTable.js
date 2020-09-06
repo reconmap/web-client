@@ -15,7 +15,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                     <th>Status</th>
                     <th>Parser</th>
                     <th>Details</th>
-                    <th>Actions</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

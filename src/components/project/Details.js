@@ -37,6 +37,7 @@ const ProjectDetails = ({ match, history }) => {
             </section>
             {!project ? <Loading /> :
                 <>
+                    <h2>Project</h2>
                     <h1>{project.name}</h1>
                     <ProjectDescription project={project} />
                     <ProjectTeam project={project} users={users} />

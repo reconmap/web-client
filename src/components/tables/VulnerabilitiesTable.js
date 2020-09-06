@@ -14,7 +14,7 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                         <th>Risk</th>
                         <th><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
                         <th>Status</th>
-                        <th>Date/Time</th>
+                        <th>Creation date/time</th>
                         <th></th>
                     </tr>
                 </thead>

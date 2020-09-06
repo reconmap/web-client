@@ -46,7 +46,7 @@ const ReportsList = ({ history }) => {
                     <tr>
                         <th>Project</th>
                         <th>Format</th>
-                        <th>Date/Time</th>
+                        <th>Creation date/time</th>
                         <th></th>
                     </tr>
                 </thead>

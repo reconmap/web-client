@@ -38,8 +38,8 @@ const TemplatesList = ({ history }) => {
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Creation datetime</th>
                             <th>Number of tasks</th>
+                            <th>Creation date/time</th>
                             <th></th>
                         </tr>
                     </thead>

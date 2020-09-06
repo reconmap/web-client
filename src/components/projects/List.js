@@ -24,7 +24,14 @@ const ProjectsList = ({ history }) => {
         <h1>Projects</h1>
         {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
             <table className='w-full'>
-                <thead></thead>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Creation date/time</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 <tbody>
                     {projects.map((project) =>
                         <tr key={project.id}>
