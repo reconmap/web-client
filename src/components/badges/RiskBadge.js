@@ -10,9 +10,9 @@ export default function RiskBadge({ risk }) {
         critical: { color: 'red-500', icon: <IconShieldExclamation size='4' styling='mr-2' /> }
     }
     return (
-        <span  className={`px-2  h-8  flex justify-start items-center rounded-full border-2 border-${RISKS[risk].color} text-${RISKS[risk].color} uppercase text-sm font-medium `}>
+        <span className={`px-2  h-8  flex justify-start items-center rounded-full border-2 border-${RISKS[risk].color} text-${RISKS[risk].color} uppercase text-sm font-medium `}>
             {RISKS[risk].icon}
-            {risk} 
+            {risk}
         </span>
     )
 }

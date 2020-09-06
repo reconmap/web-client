@@ -12,10 +12,10 @@ export default function useFetch(endpoint) {
         } catch (error) {
             setError(error);
         }
-    },[endpoint]);
+    }, [endpoint]);
     React.useEffect(() => {
         fetchData();
     }, [fetchData]);
-    return [response, fetchData, error ];
+    return [response, fetchData, error];
 
 }

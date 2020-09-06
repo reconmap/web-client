@@ -45,10 +45,10 @@ const VulnerabilitiesList = ({ history }) => {
         <div className='heading'>
             <Breadcrumb path={history.location.pathname} />
             <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev} handleNext={handleNext} />
-            <CreateButton>Create Vulnerability</CreateButton>
+            <CreateButton onClick={() => history.push(`/vulnerabilities/create`)}>Create Vulnerability</CreateButton>
         </div>
         <h1>Vulnerabilities</h1>
-        {!vulnerabilities ? <Loading /> : vulnerabilities.length === 0 ? <NoResults /> : <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy}/>
+        {!vulnerabilities ? <Loading /> : vulnerabilities.length === 0 ? <NoResults /> : <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy} />
         }
     </>)
 }

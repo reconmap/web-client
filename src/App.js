@@ -36,6 +36,7 @@ import SearchResults from './components/search/Results';
 import ProjectMembership from './components/project/Membership';
 import ImportTemplate from './components/templates/Import';
 import TargetView from './components/target/View';
+import VulnerabilityCreate from './components/vulnerabilities/Create';
 
 const App = () => {
   return (
@@ -69,6 +70,7 @@ const App = () => {
               <ProtectedRoute exact path={`/templates/import`} component={ImportTemplate} />
               <ProtectedRoute exact path={`/templates/:id([0-9]+)`} component={TemplateDetails} />
               <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList} />
+              <ProtectedRoute exact path={`/vulnerabilities/create`} component={VulnerabilityCreate} />
               <ProtectedRoute path={`/vulnerabilities/:id([0-9]+)`} component={VulnerabilityDetails} />
               <Route component={PageNotFound} />
             </Switch>
