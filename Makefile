@@ -18,6 +18,10 @@ start:
 		--name reconmap-web-frontend \
 		reconmap-web-frontend start
 
+.PHONY: stop
+stop:
+	docker stop reconmap-web-frontend
+
 .PHONY: tests
 tests: prepare
 	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true reconmap-web-frontend test
