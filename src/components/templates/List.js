@@ -48,8 +48,8 @@ const TemplatesList = ({ history }) => {
                             <tr key={template.id} onClick={() => viewProject(template.id)}>
                                 <td><ProjectBadge project={template} /></td>
                                 <td><small className='text-gray-500'>{template.name}</small></td>
-                                <td>{template.insert_ts}</td>
                                 <td>{template.num_tasks}</td>
+                                <td>{template.insert_ts}</td>
                                 <td className='flex-col flex'>
                                     <button onClick={() => cloneProject(template.id)} key={template.id} title="Create project using this template">Create project</button>
                                     <DeleteButton onClick={() => destroy(template.id)} />
