@@ -43,7 +43,7 @@ const ProjectDetails = ({ match, history }) => {
                     <ProjectTeam project={project} users={users} />
                     <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget} />
                     <ProjectTasks tasks={tasks} handleAddTask={handleAddTask} />
-                    <ProjectVulnerabilities vulnerabilities={vulnerabilities} />
+                    <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities} />
                 </>
             }
         </>
