@@ -7,7 +7,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 
 const IntegrationsList = ({history}) => {
     useSetTitle('Integrations');
-    const [integrations, updateIntegrations] = useFetch('/integrations')
+    const [integrations] = useFetch('/integrations')
     return (
         <>
             <div className='heading'>
