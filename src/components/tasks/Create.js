@@ -9,7 +9,7 @@ export default function TaskCreateForm({ match, history }) {
     const handleCreate = async () => {
         setLoading(true)
         await secureApiFetch(`/projects/${projectId}/tasks`, { method: 'POST', body: JSON.stringify(newTask) })
-        history.push(`/project/${projectId}`)
+        history.push(`/projects/${projectId}`)
     }
     const handleFormChange = e => {
         const target = e.target;

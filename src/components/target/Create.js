@@ -10,7 +10,7 @@ export default function TargetCreateForm({ match, history }) {
     const handleCreate = async () => {
         setLoading(true)
         await secureApiFetch(`/targets`, { method: 'POST', body: JSON.stringify(newTarget) })
-        history.push(`/project/${projectId}`)
+        history.push(`/projects/${projectId}`)
     }
     const handleFormChange = e => {
         const target = e.target;

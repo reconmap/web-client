@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
-import { IconSave } from './../icons'
+import { IconSave } from '../icons'
 import Breadcrumb from '../ui/Breadcrumb'
 import CancelButton from '../ui/buttons/Cancel'
 import { getAllTimezones } from 'countries-and-timezones';

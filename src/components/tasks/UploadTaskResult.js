@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api';
-import Breadcrumb from './../ui/Breadcrumb'
+import Breadcrumb from '../ui/Breadcrumb'
 class UploadTaskResult extends Component {
 
     constructor(props) {

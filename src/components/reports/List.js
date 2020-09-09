@@ -54,7 +54,7 @@ const ReportsList = ({ history }) => {
                     {reports.map((report, index) => {
                         return (
                             <tr key={index}>
-                                <td><Link to={`/project/${report.project_id}`}>{report.project_name}</Link></td>
+                                <td><Link to={`/projects/${report.project_id}`}>{report.project_name}</Link></td>
                                 <td>
                                     <div style={{ width: '43px', height: '56px', borderTopRightRadius: '10px', borderWidth: '3px' }} className='  p-1 rounded text-xs border-gray-700 flex items-center justify-end font-medium flex-col'>
                                         {report.format === 'pdf' ? <IconDocument size={4} /> : <IconCode size={4} />}

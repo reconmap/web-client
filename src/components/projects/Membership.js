@@ -67,7 +67,7 @@ const TasksList = ({ match, history }) => {
                                 members.map((member, index) =>
                                     <tr>
                                         <td className='w-16'><UserAvatar size={10} email={member.email} /></td>
-                                        <td><Link to={`/user/${member.id}`}>{member.name}</Link></td>
+                                        <td><Link to={`/users/${member.id}`}>{member.name}</Link></td>
                                         <td className='text-right'><DeleteButton onClick={() => handleDelete(member)} /></td>
                                     </tr>
                                 )

@@ -39,7 +39,7 @@ const UsersList = ({ history }) => {
                         <td className='w-16'>
                             <UserAvatar email={user.email} size={10} />
                         </td>
-                        <td><Link to={`/user/${user.id}`}>{user.name}</Link></td>
+                        <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
                         <td > <UserRoleBadge role={user.role} /> </td>
                         <td className='text-right'><DeleteButton onClick={() => destroy(user.id)} /></td>
                     </tr>)}

@@ -13,8 +13,8 @@ export default function Header() {
   ];
 
   const handleGoHome = () => { history.push('/') }
-  const handleMyProfile = () => { history.push(`/user/${localStorage.getItem('user.id')}`) }
-  const handleOpenPrefs = () => { history.push('/user/preferences') }
+  const handleMyProfile = () => { history.push(`/users/${localStorage.getItem('user.id')}`) }
+  const handleOpenPrefs = () => { history.push('/users/preferences') }
   const handleUserManual = () => {
     window.open("https://reconmap.org/user-manual/", '_blank');
   }

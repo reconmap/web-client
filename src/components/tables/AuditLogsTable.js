@@ -22,7 +22,7 @@ export default function AuditLogsTable({ auditLog }) {
                         <tr key={index}>
                             <td>{entry.insert_ts}</td>
                             <td><Ipv4Link value={entry.client_ip} /></td>
-                            <td><Link to={`/user/${entry.user_id}`}>{entry.name}</Link></td>
+                            <td><Link to={`/users/${entry.user_id}`}>{entry.name}</Link></td>
                             <td><UserRoleBadge role={entry.role} /></td>
                             <td>{entry.action}</td>
                             <td>{entry.object}</td>
