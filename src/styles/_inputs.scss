@@ -1,20 +1,17 @@
 .actions { 
     padding:0 $padding 0 $padding;
     height: 50px;
-
     border-width: $border-width;
     border-color: transparent;
     border-radius: $radius;
     transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
-    background-color: $gray-800;
-    color: $gray-100;
+    background-color: rgba($gray-500,.1);
     font-size: $font-size-action;
-    
 }
 
 .breadcrumb {
     @extend .actions;
-    border:$border-width solid $gray-800;
+    border:$border-width solid rgba($gray-500,.1);
     background-color: transparent;
 }
 
@@ -33,7 +30,7 @@ input, select, textarea {
         box-shadow: 0 0 0px 3px $red-500;
     }
     &:active,  &:focus{
-        background-color: $gray-700;
+        // background-color: $gray-700;
     }
 }
 
@@ -56,29 +53,30 @@ button,.button, .btn {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    &:hover:not([disabled]){ background-color: white; color: $gray-900; }
+    &:hover:not([disabled]){ 
+        background-color: rgba($gray-500,.25);
+    }
 }
 button[type='reset'], button[type='cancel'], button[type='delete']{
     // opacity: .75;
     background-color: transparent;
-    border-color: $gray-800;
+    border-color: rgba($gray-500,.1);
     &:hover{
         background-color: transparent;
-        border-color: white;
-        color:white;
+        border-color: rgba($gray-500,.25);;
+        // color:white;
     }
 }
 
-button[type='menu'], {
+button[type='menu'] {
     // opacity: .75;
     background-color: transparent;
-    border-color: $gray-800;
+    border-color: rgba($gray-500,.1);
     &:hover{
     opacity: 1;
-
         background-color: transparent;
-        border-color: $gray-600;
-        color: white;
+        border-color: rgba($gray-500,.5);
+        // color: white;
     }
 }
 button[disabled] { 
@@ -103,7 +101,7 @@ button[disabled] {
             opacity: 1;
             background-color: transparent;
             border-color: $red-600;
-            color: white;
+            // color: white;
         }
     }
 }

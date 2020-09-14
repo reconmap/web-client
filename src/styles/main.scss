@@ -6,6 +6,17 @@
 @import 'tables';
 @import 'sections';
 
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: $gray-900;
+        color: $gray-100;
+    }
+}
+@media (prefers-color-scheme: light) {
+    body {
+        color: $gray-900;
+        background-color: $gray-100;
+    }}
 .anim-rotate {
     animation-name: spin;
     animation-iteration-count: infinite;

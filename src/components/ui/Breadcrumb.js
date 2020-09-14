@@ -2,11 +2,11 @@ import React from 'react'
 import { IconLeft, IconFolder } from '../icons'
 
 const Breadcrumb = ({ path, goBack }) => {
-    return <div className='text-gray-500  breadcrumb   items-center  inline-flex '>
-        {goBack ? <div onClick={goBack} className='p-1 text-gray-700 hover:text-gray-200 hover:bg-gray-800 rounded cursor-pointer'><IconLeft size={'6'} /></div> :
-            <div className='p-1 text-gray-700 hover:text-gray-200 hover:bg-gray-800 rounded cursor-pointer'><IconFolder size={'6'} /></div>}
+    return <div className='  breadcrumb   items-center  inline-flex '>
+        {goBack ? <div onClick={goBack} className='p-1 hover:text-gray-200 hover:bg-gray-800 rounded cursor-pointer'><IconLeft size={'6'} /></div> :
+            <div className='p-1 hover:text-gray-200 hover:bg-gray-800 rounded cursor-pointer'><IconFolder size={'6'} /></div>}
         {path.split('/').map((route, index) =>
-            route !== '' && route.length > 1 && <span key={index} className=' leading-none capitalize flex-inline font-medium tracking-wide '> <i className='mx-2 text-gray-700 font-bold'>/</i> {route} </span>
+            route !== '' && route.length > 1 && <span key={index} className=' leading-none capitalize flex-inline font-medium tracking-wide '> <i className='mx-2 font-bold'>/</i> {route} </span>
         )} </div>
 }
 export default Breadcrumb

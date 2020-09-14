@@ -5,6 +5,11 @@ module.exports = {
   important: false,
   separator: ':',
   theme: {
+    extend: {
+      screens: {
+        'dark': {'raw': '(prefers-color-scheme: dark)'},
+      }
+    },
     screens: {
       sm: '640px',
       md: '768px',
