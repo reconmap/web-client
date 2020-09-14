@@ -26,14 +26,14 @@ const VulnerabilitiesList = ({history}) => {
         secureApiFetch(`/vulnerabilities?page=${pagination.page}`, {method: 'GET'})
             .then((response) => {
                 if (response.headers.has('X-Page-Count')) {
-                    setPagination({...pagination, total: response.headers.get('X-Page-Count')})
+                    setPagination(pagination => {return {...pagination, total: response.headers.get('X-Page-Count')}})
                 }
                 return response.json()
             })
             .then((data) => {
                 setVulnerabilities(data);
             })
-    }, [pagination]);
+    }, [pagination.page]);
 
     useEffect(() => {
         reloadData()
