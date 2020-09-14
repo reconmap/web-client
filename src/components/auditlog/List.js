@@ -25,7 +25,9 @@ const AuditLogList = ({history}) => {
         secureApiFetch(`/auditlog?page=${pagination.page}`, {method: 'GET'})
             .then((response) => {
                 if (response.headers.has('X-Page-Count')) {
-                    setPagination(pagination=> {return{...pagination, total: response.headers.get('X-Page-Count')}})
+                    setPagination(pagination => {
+                        return {...pagination, total: response.headers.get('X-Page-Count')}
+                    })
                 }
                 return response.json()
             })
@@ -41,9 +43,9 @@ const AuditLogList = ({history}) => {
     const handleExport = () => {
         secureApiFetch(`/auditlog/export`, {method: 'GET'})
             .then(response => {
-                var contentDispositionHeader = response.headers.get('Content-Disposition');
+                const contentDispositionHeader = response.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
-                var filename = filenameRe.exec(contentDispositionHeader)[1]
+                const filename = filenameRe.exec(contentDispositionHeader)[1]
                 return Promise.all([response.blob(), filename]);
             })
             .then((values) => {
