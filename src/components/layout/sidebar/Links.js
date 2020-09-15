@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { IconDashboard, IconFolder, IconDocumentDuplicate, IconBriefcase, IconUserGroup, IconReport, IconExtensions, IconClipboardList, IconFlag } from "../../icons";
+import {  IconFolder, IconDocumentDuplicate, IconBriefcase, IconUserGroup, IconReport, IconExtensions, IconClipboardList, IconFlag } from "../../icons";
 
 export default [
-    { title: 'Dashboard', icon: <IconDashboard size={5}/>, to: '/' },
     { title: 'Vulnerabilities', icon: <IconFlag size={5}/>, to: '/vulnerabilities' },
     { title: 'Tasks', icon: <IconClipboardList size={5}/>, to: '/tasks' },
     { title: 'Projects', icon: <IconFolder size={5}/>, to: '/projects' },
