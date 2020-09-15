@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api'
-import { Link } from 'react-router-dom'
+import BtnSecondary from '../ui/buttons/BtnSecondary'
+import BtnPrimary from '../ui/buttons/BtnPrimary'
+import { IconCheck,  IconUpload,  IconX } from '../icons'
+import Title from './../ui/Title'
 
 class TaskDetails extends Component {
+
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
@@ -59,16 +63,18 @@ class TaskDetails extends Component {
         }
         return (
             <div>
-                <div className='heading'>
-                    <div>
-                        <h2>Task</h2>
-                        <h1>{task.name}</h1>
-                    </div>
-                    <div>
-                    {task.completed === 1 && <button onClick={() => this.handleToggle(task)}>Mark as incomplete</button>}
-                        {task.completed !== 1 && <button onClick={() => this.handleToggle(task)}>Mark as completed</button>}
-                        <Link className=' ml-auto' to={"/tasks/" + task.id + "/upload"}><button>Upload results</button></Link>
-                    </div>
+
+                <Title title={task.name} type='Task'/>
+                <div className='flex space-x-2 my-3'>
+                    {task.completed === 1 && <BtnSecondary onClick={() => this.handleToggle(task)}>
+                        <IconX styling='mr-2'/> Mark as incomplete
+                        </BtnSecondary>}
+                    {task.completed !== 1 && <BtnSecondary onClick={() => this.handleToggle(task)}>
+                        <IconCheck styling='mr-2'/> Mark as completed
+                        </BtnSecondary>}
+                    <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
+                        <IconUpload styling='mr-2'/> Upload results
+                    </BtnPrimary>
                 </div>
 
                 <div className='flex items-start gap-4'>

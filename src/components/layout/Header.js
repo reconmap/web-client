@@ -1,9 +1,10 @@
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { AuthConsumer } from '../../contexts/AuthContext'
 
 import React from 'react'
-import { IconPreferences, IconLogout, IconUser, IconBookOpen } from '../icons';
+import { IconLogout, IconUser} from '../icons';
+import BtnLink from './../ui/buttons/BtnLink'
 export default function Header() {
   const history = useHistory()
 
@@ -12,7 +13,6 @@ export default function Header() {
     { title: "Support", to: { pathname: "https://github.com/reconmap/application/issues" } },
   ];
 
-  const handleGoHome = () => { history.push('/') }
   const handleMyProfile = () => { history.push(`/users/${localStorage.getItem('user.id')}`) }
   const handleOpenPrefs = () => { history.push('/users/preferences') }
   const handleUserManual = () => {
@@ -28,31 +28,20 @@ export default function Header() {
   return <AuthConsumer>
     {
       ({ isAuth, logout }) => (
-        <nav className="flex items-center justify-between w-full   px-2 pb-5 flex-col lg:flex-row ">
-          <h3 className="  lg:mr-5 text-3xl font-bold items-center flex hover:text-gray-400 cursor-pointer " onClick={handleGoHome}>
-            <img src="/logo.svg" height='28px' width='28px' className='mr-2 mt-1' alt="Reconmap logo" /> Recon <span className=' text-red-500'>map</span>
-          </h3>
+        <nav className="flex items-center justify-between w-full  pt-4 px-5 pb-5 flex-col lg:flex-row ">
+          
 
           {isAuth && <input className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0' placeholder="Search..." onKeyDown={handleSearchKeyDown} />}
 
-          <div className="  font-semibold gap-5 flex items-center justify-end py-4 lg:py-0 ">
+          <div className="flex items-center mx-auto  py-4 lg:py-0 ">
 
-            <button type='menu' onClick={handleUserManual}>
-              <IconBookOpen styling='mr-2' />User manual
-            </button>
+            <BtnLink color='gray' onClick={handleUserManual}> User manual </BtnLink>
             {isAuth ? <>
-              <button type='menu' onClick={handleOpenPrefs}>
-                <IconPreferences styling='mr-2' /> Preferences
-              </button>
-              <button onClick={handleMyProfile} type='menu' >
-                <IconUser styling='mr-2' />
-                My Profile
-              </button>
-              <button onClick={logout} >
-                <IconLogout />
-              </button>
+              <BtnLink color='gray' onClick={handleOpenPrefs}> Preferences </BtnLink>
+              <BtnLink color='gray' onClick={handleMyProfile} > <IconUser styling='mr-2' /> </BtnLink>
+              <BtnLink color='gray' onClick={logout} size='sm'> <IconLogout /> </BtnLink>
             </>
-              : LINKS.map((link, index) => (<Link key={index} className={`text-gray-500 py-1 text-sm hover:text-white hover:border-white`} to={link.to} target="_blank"> {link.title} </Link>))}
+              : LINKS.map((link, index) => (<BtnLink key={index} to={link.to.pathname} > {link.title} </BtnLink>))}
           </div>
         </nav>
       )

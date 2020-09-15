@@ -1,8 +1,9 @@
 import React from 'react'
 import RiskBadge from '../badges/RiskBadge'
 import VulnerabilityBadge from '../badges/VulnerabilityBadge'
-import DeleteButton from '../ui/buttons/Delete'
 import CvssScore from '../badges/CvssScore'
+import BtnSecondary from '../ui/buttons/BtnSecondary'
+import { IconX } from '../icons'
 
 export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
     return (
@@ -28,7 +29,12 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                                 <td><CvssScore score={vulnerability.cvss_score}/></td>
                                 <td>{vulnerability.status}</td>
                                 <td>{vulnerability.insert_ts}</td>
-                                <td className='text-right   '>{destroy && <DeleteButton onClick={() => destroy(vulnerability.id)} />}</td>
+                                <td className='text-right   '>{destroy && 
+                                    <BtnSecondary size='xs' onClick={() => destroy(vulnerability.id)}>
+                                        <IconX styling='mr-2' size={4}/>
+                                        Delete
+                                    </BtnSecondary>
+                                }</td>
                             </tr>
                         )})}
                 </tbody>

@@ -1,6 +1,6 @@
 @import 'variables';
 @import 'card';
-@import 'typography';
+// @import 'typography';
 @import 'forms';
 @import 'inputs';
 @import 'tables';
@@ -25,6 +25,10 @@
     .text-invert { color: $gray-900; }
     .border-invert { border-color: $gray-900; }
     .card {
+        background-color: $gray-800;
+        color: white;   
+     }
+     .btn-secondary {
         background-color: $gray-800;
         color: white;   
      }
@@ -62,18 +66,3 @@
     align-items: center;
     margin-bottom: 1rem;
 }
-
-.badge {
-    padding: .25rem 1rem;
-    font-size: $font-size-small;
-    font-weight:600;
-    border-radius: .25rem;
-    margin: auto .2rem;
-}
-.bg {
-    &-red { background-color: $red-900; }
-    &-yellow { background-color: $yellow-900; }
-    &-green { background-color: $green-900; }
-    &-blue { background-color: $blue-900; }
-}
-

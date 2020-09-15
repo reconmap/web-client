@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { IconX } from '../icons'
 import dayjs from 'dayjs'
+import BtnSecondary from '../ui/buttons/BtnSecondary'
 const ProjectCard = ({ project, destroy }) => {
     return <div className=''><Link to={`/projects/${project.id}`}>
                     <article className={`card reactive`}>
@@ -15,9 +16,9 @@ const ProjectCard = ({ project, destroy }) => {
                         </footer>
                     </article>
                 </Link>
-                    <button className='mt-2 text-red-500 w-full text-xs flex justify-between' type='delete' onClick={() => destroy(project.id)}>
-                    Delete project <IconX />  
-                    </button>
+                    <BtnSecondary size='sm' onClick={() => destroy(project.id)}>
+                    Delete project <IconX size={4}/>  
+                    </BtnSecondary>
                 </div>
 }
 

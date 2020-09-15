@@ -2,9 +2,9 @@ import React from 'react'
 import TaskBadge from '../badges/TaskBadge'
 import TaskCompletedBadge from '../badges/TaskCompletedBadge'
 import BadgeOutline from '../badges/BadgeOutline'
-import { Link } from 'react-router-dom'
-import DeleteButton from '../ui/buttons/Delete'
-import { IconUpload } from '../icons'
+import BtnPrimary from '../ui/buttons/BtnPrimary'
+import { IconUpload, IconX } from '../icons'
+import BtnSecondary from '../ui/buttons/BtnSecondary'
 
 export default function TasksTable({ tasks, filter = { project: '', status: '' }, destroy }) {
     return (
@@ -29,9 +29,12 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                             <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
                             <td><small className='text-gray-600 font-mono'>{task.description.slice(0, 40)} </small></td>
                             <td>
-                                <div className='flex-col flex'>
-                                    <Link to={"/tasks/" + task.id + "/upload"}><button className='mb-1 w-full'><IconUpload styling='mr-2' /> Upload results</button></Link>
-                                    <DeleteButton onClick={() => destroy(task.id)} />
+                                <div className='flex space-x-1 justify-end'>
+                                    <BtnPrimary size='xs' to={"/tasks/" + task.id + "/upload"} ><IconUpload styling='mr-2' size={4}/> Upload results</BtnPrimary>
+                                    <BtnSecondary size='xs' onClick={() => destroy(task.id)}>
+                                        <IconX styling='mr-2' size={4}/>
+                                        Delete
+                                    </BtnSecondary>
                                 </div>
                             </td>
                         </tr>

@@ -6,6 +6,7 @@ import NoResults from '../ui/NoResults';
 import useSetTitle from '../../hooks/useSetTitle';
 import {IconSave} from '../icons';
 import Breadcrumb from '../ui/Breadcrumb';
+import BtnSecondary from '../ui/buttons/BtnSecondary';
 import AuditLogsTable from '../tables/AuditLogsTable';
 
 const AuditLogList = ({history}) => {
@@ -65,9 +66,8 @@ const AuditLogList = ({history}) => {
                 <Breadcrumb path={history.location.pathname}/>
                 <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev}
                             handleNext={handleNext}/>
-                <button onClick={handleExport}><IconSave styling='mr-2'/> Export to CSV</button>
+                <BtnSecondary onClick={handleExport}><IconSave styling='mr-2'/> Export to CSV</BtnSecondary>
             </div>
-            <h1>Audit Log</h1>
             {!auditLog ? <Loading/> : auditLog.length === 0 ? <NoResults/> :
                 <AuditLogsTable auditLog={auditLog}/>}
         </>

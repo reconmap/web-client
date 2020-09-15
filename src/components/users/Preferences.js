@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
 import { IconSave } from '../icons'
 import Breadcrumb from '../ui/Breadcrumb'
-import CancelButton from '../ui/buttons/Cancel'
 import { getAllTimezones } from 'countries-and-timezones';
 import secureApiFetch from '../../services/api';
+import BtnPrimary from '../ui/buttons/BtnPrimary'
+import BtnLink from '../ui/buttons/BtnLink'
 
 const UserPreferences = ({ history }) => {
     useSetTitle('Preferences')
@@ -34,7 +35,7 @@ const UserPreferences = ({ history }) => {
         <>
             <Breadcrumb path={history.location.pathname} />
             <h1>Preferences</h1>
-            <form onSubmit={e => e.preventDefault()}>
+            <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
                 <label>Timezone</label>
                 <select onChange={handleChange} defaultValue={user.timezone}>
                     {timezoneKeys.map((key) =>
@@ -42,8 +43,8 @@ const UserPreferences = ({ history }) => {
                     )}
                 </select>
 
-                <button className='flex ' onClick={handleSubmit}><IconSave styling='mr-2' /> Save</button>
-                <CancelButton onClick={() => { history.push("/") }} />
+                <BtnPrimary onClick={handleSubmit}><IconSave styling='mr-2' /> Save</BtnPrimary>
+                <BtnLink onClick={() => { history.push("/") }} >Cancel</BtnLink>
             </form>
         </>
     )

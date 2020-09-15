@@ -38,7 +38,6 @@ const TasksList = ({ history }) => {
                 </select>
             </div>
         </div>
-        <h1>Tasks</h1>
 
         {!tasks ?
             <Loading /> :

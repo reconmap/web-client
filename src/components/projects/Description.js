@@ -1,10 +1,10 @@
 import React from 'react'
 
 const ProjectDescription = ({ project }) => {
-    return <div className='flex items-start justify-between'>
-        <p>{project.description}</p>
-        <p className='text-right'>Created on <time datetime={project.insert_ts}>{project.insert_ts}</time></p>
-    </div>
+    return <p className='mt-4  text-xl leading-7 text-gray-500 lg:mx-auto'>{project.description}. 
+                <small className='text-right'>Created on <time dateTime={project.insert_ts}>{project.insert_ts}</time></small>
+            </p>
+                
 }
 
 

@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
-import DeleteButton from '../ui/buttons/Delete';
 import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import useDelete from '../../hooks/useDelete';
-import CreateButton from '../ui/buttons/Create';
+import BtnPrimary from '../ui/buttons/BtnPrimary';
+import { IconPlusCircle, IconX } from '../icons';
+import BtnSecondary from '../ui/buttons/BtnSecondary';
+import Title from '../ui/Title';
 
 const TemplateDetails = ({ history, match }) => {
     useSetTitle('Projects templates');
@@ -28,18 +30,12 @@ const TemplateDetails = ({ history, match }) => {
             {(!template) ?
                 <Loading /> :
                 <>
-                    <section className='heading' >
-                        <div>
-                            <h2>Project template</h2>
-                            <h1>{template.name}</h1>
-                        </div>
-                        <div className='flex items-center justify-between gap-4'>
-                            {/* <button onClick={() => cloneProject(template.id)}>Create project from template</button> */}
-                            <CreateButton onClick={() => cloneProject(template.id)}>Create project from template</CreateButton>
-
-                            <DeleteButton onClick={() => destroy(template.id)} />
-                        </div>
-                    </section>
+                   <Title title={template.name} type='Project template'/>
+                    <div className='my-3 flex space-x-2 '>
+                        {/* <button onClick={() => cloneProject(template.id)}>Create project from template</button> */}
+                        <BtnSecondary onClick={() => destroy(template.id)} ><IconX styling='mr-2'/>  Delete</BtnSecondary>
+                        <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle styling='mr-2'/> Create project from template</BtnPrimary>
+                    </div>
 
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
                         <div className='card'>

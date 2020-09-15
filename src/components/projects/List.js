@@ -4,10 +4,11 @@ import NoResults from '../ui/NoResults';
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
-import CreateButton from './../ui/buttons/Create'
 import Breadcrumb from '../ui/Breadcrumb';
-import DeleteButton from '../ui/buttons/Delete';
 import ProjectBadge from '../badges/ProjectBadge';
+import BtnPrimary from '../ui/buttons/BtnPrimary';
+import { IconPlus, IconX } from '../icons';
+import BtnSecondary from '../ui/buttons/BtnSecondary';
 
 const ProjectsList = ({ history }) => {
     useSetTitle('Projects');
@@ -19,9 +20,8 @@ const ProjectsList = ({ history }) => {
     return <div>
         <div className='heading'>
             <Breadcrumb path={history.location.pathname} />
-            <CreateButton onClick={handleCreateProject}>Create Project</CreateButton>
+            <BtnPrimary onClick={handleCreateProject}> <IconPlus styling='mr-2' /> Create Project</BtnPrimary>
         </div>
-        <h1>Projects</h1>
         {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
             <table className='w-full'>
                 <thead>
@@ -38,7 +38,11 @@ const ProjectsList = ({ history }) => {
                             <td><ProjectBadge project={project} /></td>
                             <td><small>{project.description}</small></td>
                             <td>{project.insert_ts}</td>
-                            <td className='text-right'><DeleteButton onClick={() => destroy(project.id)} /></td>
+                            <td className='text-right'>
+                                <BtnSecondary size='xs' onClick={() => destroy(project.id)}>
+                                    <IconX styling='mr-2' size={4}/> Delete
+                                </BtnSecondary>
+                            </td>
                         </tr>
                     )}
                 </tbody>

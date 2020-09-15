@@ -2,6 +2,7 @@ import React from 'react'
 import Loading from "../ui/Loading"
 import { IconServer, IconPlus } from '../icons'
 import { useHistory } from 'react-router-dom'
+import BtnSecondary from '../ui/buttons/BtnSecondary'
 
 const ProjectTargets = ({ project, targets, handleAddTarget }) => {
     const history = useHistory()
@@ -9,7 +10,7 @@ const ProjectTargets = ({ project, targets, handleAddTarget }) => {
         <div className='heading'>
             <IconServer styling='text-gray-700' />
             <h2>Target(s)</h2>
-            <button onClick={handleAddTarget}><IconPlus />Add target</button>
+            <BtnSecondary onClick={handleAddTarget} size='sm'><IconPlus size={4} />Add target</BtnSecondary>
         </div>
         <div className='flex flex-wrap gap-4'>
             {targets ?

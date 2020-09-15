@@ -21,7 +21,8 @@
     "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "test:ci": "CI=true react-scripts test --no-watchman --all",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

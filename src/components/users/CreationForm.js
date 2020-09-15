@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
+import BtnLink from '../ui/buttons/BtnLink';
+import BtnPrimary from '../ui/buttons/BtnPrimary';
 
 const UserCreationForm = () => {
     const history = useHistory()
@@ -51,8 +53,8 @@ const UserCreationForm = () => {
                     <input type="checkbox" name="sendEmailToUser" onChange={handleFormChange} />
                 </label>
 
-                <button onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</button>
-                <button onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</button>
+                <BtnPrimary onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
             </form>
         </div>
     )

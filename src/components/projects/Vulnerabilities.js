@@ -3,6 +3,7 @@ import VulnerabilitiesTable from '../tables/VulnerabilitiesTable'
 import Loading from '../ui/Loading'
 import { IconFlag, IconPlus } from '../icons'
 import { useHistory } from 'react-router-dom'
+import BtnSecondary from '../ui/buttons/BtnSecondary'
 
 
 const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
@@ -12,10 +13,10 @@ const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
         <div className='heading'>
             <IconFlag />
             <h2>Vulnerabilities</h2>
-            <button onClick={() => history.push(`/vulnerabilities/create?projectId=${project.id}`)}>
-                <IconPlus />
+            <BtnSecondary size='sm' onClick={() => history.push(`/vulnerabilities/create?projectId=${project.id}`)}>
+                <IconPlus size={4} />
                 Add New Vulnerability
-            </button>
+            </BtnSecondary>
         </div>
         {vulnerabilities ? <VulnerabilitiesTable vulnerabilities={vulnerabilities} />
             : <Loading />}

@@ -1,11 +1,11 @@
 import React from 'react'
 import { IconLeft, IconRight } from '../icons'
-
+import BtnSecondary from './../ui/buttons/BtnSecondary'
 const Pagination = ({ page, total, handleNext, handlePrev }) => {
     return <div className='flex gap-4 items-center'>
-        <button disabled={page+1 <= 1} onClick={handlePrev}><IconLeft /></button>
+        <BtnSecondary size='sm' disabled={page+1 <= 1} onClick={handlePrev}><IconLeft size={4}/></BtnSecondary>
         <label className='text-lg'>{page + 1} <span className='opacity-25'>|</span> {total} </label>
-        <button disabled={page+1 >= total} onClick={handleNext}><IconRight /></button>
+        <BtnSecondary size='sm' disabled={page+1 >= total} onClick={handleNext}><IconRight size={4}/></BtnSecondary>
     </div>
 }
 

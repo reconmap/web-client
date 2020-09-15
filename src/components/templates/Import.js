@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api';
+import { IconUpload } from '../icons';
+import BtnPrimary from '../ui/buttons/BtnPrimary';
+import Title from '../ui/Title';
 import Breadcrumb from './../ui/Breadcrumb'
 
 class ImportTemplate extends Component {
@@ -36,16 +39,12 @@ class ImportTemplate extends Component {
 
             <div>
                 <Breadcrumb path={this.props.history.location.pathname} goBack={() => this.handleGoBack()} />
-                <h1 className='heading'>Import XML</h1>
-                <div className='flex items-start gap-4'>
-                    <article className='card flex-1'>
-                        <h3>XML</h3>
-                        <form>
-                            <input type="file" id="importFile" />
-                            <button onClick={this.handleUploadClick}>Upload XML</button>
-                        </form>
-                    </article>
-                </div>
+
+                <Title type='Import Template' title='Upload XML'/>
+                <form className='flex flex-col space-y-2'>
+                    <input type="file" id="importFile" />
+                    <BtnPrimary onClick={this.handleUploadClick}><IconUpload styling='mr-2'/> Upload XML</BtnPrimary>
+                </form>
             </div>
 
 

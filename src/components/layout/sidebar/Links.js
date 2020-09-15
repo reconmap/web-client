@@ -3,13 +3,13 @@ import React from 'react'
 import { IconDashboard, IconFolder, IconDocumentDuplicate, IconBriefcase, IconUserGroup, IconReport, IconExtensions, IconClipboardList, IconFlag } from "../../icons";
 
 export default [
-    { title: 'Dashboard', icon: <IconDashboard />, to: '/' },
-    { title: 'Vulnerabilities', icon: <IconFlag />, to: '/vulnerabilities' },
-    { title: 'Tasks', icon: <IconClipboardList />, to: '/tasks' },
-    { title: 'Projects', icon: <IconFolder/>, to: '/projects' },
-    { title: 'Templates', icon: <IconDocumentDuplicate />, to: '/templates' },
-    { title: 'Saved reports', icon: <IconBriefcase />, to: '/reports' },
-    { title: 'Audit log', icon: <IconReport />, to: '/auditlog' },
-    { title: 'User and permissions', icon: <IconUserGroup />, to: '/users' },
-    { title: 'Integrations', icon: <IconExtensions />, to: '/integrations' },
+    { title: 'Dashboard', icon: <IconDashboard size={5}/>, to: '/' },
+    { title: 'Vulnerabilities', icon: <IconFlag size={5}/>, to: '/vulnerabilities' },
+    { title: 'Tasks', icon: <IconClipboardList size={5}/>, to: '/tasks' },
+    { title: 'Projects', icon: <IconFolder size={5}/>, to: '/projects' },
+    { title: 'Templates', icon: <IconDocumentDuplicate size={5}/>, to: '/templates' },
+    { title: 'Saved reports', icon: <IconBriefcase size={5}/>, to: '/reports' },
+    { title: 'Audit log', icon: <IconReport size={5}/>, to: '/auditlog' },
+    { title: 'User and permissions', icon: <IconUserGroup size={5}/>, to: '/users' },
+    { title: 'Integrations', icon: <IconExtensions size={5}/>, to: '/integrations' },
   ]

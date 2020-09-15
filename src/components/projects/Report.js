@@ -3,6 +3,7 @@ import secureApiFetch from '../../services/api';
 import './Report.css';
 import Breadcrumb from './../ui/Breadcrumb'
 import { IconSave } from '../icons';
+import BtnSecondary from '../ui/buttons/BtnSecondary';
 
 class ProjectReport extends Component {
     state = {
@@ -67,10 +68,10 @@ class ProjectReport extends Component {
         return (
 
             <>
-                <Breadcrumb path={this.props.history.location.pathname} goBack={() => this.handleGoBack()} />
                 <div className='heading'>
+                    <Breadcrumb path={this.props.history.location.pathname} goBack={() => this.handleGoBack()} />
                     {this.state.project ? <h2>{this.state.project.name}</h2> : '...'}
-                    <button onClick={() => this.handleExport(projectId)}><IconSave styling='mr-2' /> Export to PDF</button>
+                    <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave styling='mr-2' /> Export to PDF</BtnSecondary>
                 </div>
                 <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4' id="report"></div>
             </>

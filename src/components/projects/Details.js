@@ -1,16 +1,17 @@
 import React from 'react'
-import DeleteButton from '../ui/buttons/Delete';
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
-import { IconClipboardCheck } from '../icons';
+import { IconClipboardCheck, IconX } from '../icons';
 import ProjectTargets from './Targets';
 import ProjectTasks from './Tasks';
 import ProjectVulnerabilities from './Vulnerabilities';
 import ProjectDescription from './Description';
 import ProjectTeam from './Team';
+import Title from '../ui/Title';
+import BtnSecondary from '../ui/buttons/BtnSecondary';
 
 const ProjectDetails = ({ match, history }) => {
     useSetTitle('Project');
@@ -30,15 +31,14 @@ const ProjectDetails = ({ match, history }) => {
         <>
             <section className='heading' >
                 <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
-                <div className='flex items-center justify-between gap-4'>
-                    <DeleteButton onClick={() => destroy(project.id)} />
-                    <button onClick={handleGenerateReport}><IconClipboardCheck styling='mr-2' /> Generate Report</button>
+                <div className='flex  justify-end space-x-2'>
+                    <BtnSecondary size='sm' onClick={() => destroy(project.id)} ><IconX size={4} styling='mr-2' /> Delete</BtnSecondary>
+                    <BtnSecondary size='sm' onClick={handleGenerateReport}><IconClipboardCheck size={4} styling='mr-2' /> Generate Report</BtnSecondary>
                 </div>
             </section>
             {!project ? <Loading /> :
                 <>
-                    <h2>Project</h2>
-                    <h1>{project.name}</h1>
+                    <Title title={project.name} type='Project' />
                     <ProjectDescription project={project} />
                     <ProjectTeam project={project} users={users} />
                     <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget} />

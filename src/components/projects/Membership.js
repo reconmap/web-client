@@ -4,11 +4,12 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
-import DeleteButton from '../ui/buttons/Delete';
+import BtnPrimary from '../ui/buttons/BtnPrimary';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
 import { Link } from 'react-router-dom';
-import { IconPlus } from '../icons';
+import { IconPlus, IconX } from '../icons';
+import BtnSecondary from '../ui/buttons/BtnSecondary';
 
 const TasksList = ({ match, history }) => {
     const projectId = match.params.id;
@@ -41,13 +42,13 @@ const TasksList = ({ match, history }) => {
             <Breadcrumb path={history.location.pathname} />
         </div>
         <h1>Members</h1>
-        <form>
+        <form className='flex flex-col space-y-2'>
             <select id="userId">
                 {users && users.map((user, index) =>
                     <option value={user.id}>{user.name}</option>
                 )}
             </select>
-            <button onClick={handleOnClick}><IconPlus /> Add selected user as member</button>
+            <BtnPrimary onClick={handleOnClick} size='sm'><IconPlus styling='mr-2' size={4}/> Add selected user as member</BtnPrimary>
         </form>
 
         {!members ?
@@ -68,7 +69,12 @@ const TasksList = ({ match, history }) => {
                                     <tr>
                                         <td className='w-16'><UserAvatar size={10} email={member.email} /></td>
                                         <td><Link to={`/users/${member.id}`}>{member.name}</Link></td>
-                                        <td className='text-right'><DeleteButton onClick={() => handleDelete(member)} /></td>
+                                        <td className='text-right'>
+                                        <BtnSecondary size='sm' onClick={() => handleDelete(member)} >
+                                            <IconX styling='mr-2' size={4}/>
+                                            Delete
+                                        </BtnSecondary>
+                                        </td>
                                     </tr>
                                 )
                             }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api'
 import RiskBadge from '../badges/RiskBadge'
+import BtnSecondary from '../ui/buttons/BtnSecondary';
 import DeleteButton from '../ui/buttons/Delete';
 
 class VulnerabilityDetails extends Component {
@@ -59,8 +60,8 @@ class VulnerabilityDetails extends Component {
                         <RiskBadge risk={vuln.risk} />
                     </div>
                     <div>
-                        {vuln.status === 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as closed</button>}
-                        {vuln.status !== 'open' && <button onClick={() => this.handleStatus(vuln)}>Mark as open</button>}
+                        {vuln.status === 'open' && <BtnSecondary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as closed</BtnSecondary>}
+                        {vuln.status !== 'open' && <BtnSecondary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as open</BtnSecondary>}
 
                         <DeleteButton onClick={() => this.handleDelete(vuln)} />
                     </div>

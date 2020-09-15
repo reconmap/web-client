@@ -1,5 +1,4 @@
 import React from 'react'
-import DeleteButton from "../../components/ui/buttons/Delete";
 import CreateButton from "../../components/ui/buttons/Create";
 import useSetTitle from '../../hooks/useSetTitle';
 import useFetch from '../../hooks/useFetch';
@@ -10,6 +9,8 @@ import Breadcrumb from '../ui/Breadcrumb';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
 import { Link } from 'react-router-dom';
+import BtnSecondary from '../ui/buttons/BtnSecondary';
+import { IconX } from '../icons';
 
 const UsersList = ({ history }) => {
     useSetTitle('Users');
@@ -23,7 +24,6 @@ const UsersList = ({ history }) => {
             <Breadcrumb path={history.location.pathname} />
             <CreateButton onClick={handleCreate}>Create User</CreateButton>
         </div>
-        <h1>Users</h1>
         {!users ? <Loading /> : users.length === 0 ? <NoResults /> :
             <table className='w-full'>
                 <thead>
@@ -41,7 +41,7 @@ const UsersList = ({ history }) => {
                         </td>
                         <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
                         <td > <UserRoleBadge role={user.role} /> </td>
-                        <td className='text-right'><DeleteButton onClick={() => destroy(user.id)} /></td>
+                        <td className='text-right'><BtnSecondary size='xs' onClick={() => destroy(user.id)} ><IconX size={4}/> Delete</BtnSecondary></td>
                     </tr>)}
                 </tbody>
             </table>

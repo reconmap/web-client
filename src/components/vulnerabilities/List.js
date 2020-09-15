@@ -3,11 +3,12 @@ import useSetTitle from './../../hooks/useSetTitle'
 import NoResults from '../ui/NoResults';
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
-import CreateButton from '../ui/buttons/Create';
 import Breadcrumb from '../ui/Breadcrumb';
 import Pagination from '../layout/Pagination';
 import secureApiFetch from '../../services/api';
 import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
+import BtnPrimary from '../ui/buttons/BtnPrimary';
+import { IconPlus } from '../icons';
 
 const VulnerabilitiesList = ({history}) => {
     useSetTitle('Vulnerabilities')
@@ -43,15 +44,14 @@ const VulnerabilitiesList = ({history}) => {
     }, [reloadData])
 
     const destroy = useDelete('/vulnerabilities/', reloadData);
-
+    const handleCreateVulnerability = () => {history.push(`/vulnerabilities/create`)}
     return (<>
         <div className='heading'>
             <Breadcrumb path={history.location.pathname}/>
             <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev}
                         handleNext={handleNext}/>
-            <CreateButton onClick={() => history.push(`/vulnerabilities/create`)}>Create Vulnerability</CreateButton>
+            <BtnPrimary onClick={handleCreateVulnerability}> <IconPlus styling='mr-2' /> Create Vulnerability</BtnPrimary>
         </div>
-        <h1>Vulnerabilities</h1>
         {!vulnerabilities ? <Loading/> : vulnerabilities.length === 0 ? <NoResults/> :
             <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy}/>
         }

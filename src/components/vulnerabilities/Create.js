@@ -4,6 +4,8 @@ import Breadcrumb from '../ui/Breadcrumb';
 import Risks from '../../models/Risks'
 import useFetch from '../../hooks/useFetch'
 import Loading from '../ui/Loading';
+import BtnPrimary from '../ui/buttons/BtnPrimary';
+import BtnLink from '../ui/buttons/BtnLink';
 
 export default function VulnerabilityCreate({match, history}) {
     const searchParams = new URLSearchParams(history.location.search);
@@ -45,7 +47,7 @@ export default function VulnerabilityCreate({match, history}) {
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname}/>
             <h2>Create</h2>
             <h1>Vulnerability</h1>
-            <form onSubmit={e => e.preventDefault()}>
+            <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
                 <label htmlFor='projectId'>Project</label>
                 <select name="projectId" id="projectId" onChange={handleFormChange}
                         defaultValue={vulnerability.projectId}>
@@ -68,8 +70,8 @@ export default function VulnerabilityCreate({match, history}) {
                 <label htmlFor='cvssScore'>CVSS score</label>
                 <input type="text" name="cvssScore" onChange={handleFormChange} value={vulnerability.cvssScore || ""}/>
 
-                <button onClick={handleCreate} disabled={loading}>{loading ? 'Wait please' : 'Create'}</button>
-                <button onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</button>
+                <BtnPrimary onClick={handleCreate} disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnLink onClick={handleGoBack} disabled={loading} >Cancel</BtnLink>
             </form>
         </div>
     )

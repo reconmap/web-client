@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthConsumer } from "../../contexts/AuthContext";
 import Wrap from "../layout/Wrap";
+import BtnPrimary from "../ui/buttons/BtnPrimary";
 
 const Login = (props) => {
 
@@ -55,9 +56,11 @@ const Login = (props) => {
                   Password
               </label>
                 <input onKeyPress={handleKeyPress} type="password" id="inputPassword" onChange={handlePassword} placeholder="Password" required />
-                <button onClick={() => login(credentials, onOk, onKo)} to="dashboard" className={(!credentials.username || !credentials.password) ? 'opacity-50 hover:bg-gray-800' : ''} disabled={!credentials.username || !credentials.password}>
+                <BtnPrimary
+                  onClick={() => login(credentials, onOk, onKo)} 
+                  disabled={!credentials.username || !credentials.password}>
                   {!loading ? "Sign in" : "Processing..."}
-                </button>
+                </BtnPrimary>
                 {error && <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'>
                   <span className='mx-auto'> Oops... Incorrect username and/or password</span></p>}
               </section>
