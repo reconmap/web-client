@@ -7,12 +7,10 @@
     border-color: transparent;
     border-radius: $radius;
     transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
-    background-color: $gray-800;
-    color: $gray-100;
     overflow: hidden;
     &.outline {
         background-color: transparent;
-        border-color: $gray-800;
+        border-color: rgba($gray-500,.2);
     }
     h1, .card-title{
         font-weight: 900;
@@ -22,14 +20,14 @@
     h2, .card-subtitle { 
         font-weight: 500;
         font-size: 22px;
-        color: #FFFFFF;
+        opacity: .75;
     }
     h3, h4, h5,h6, .card-desc { 
         font-weight: bold;
         font-size: $font-size-card-desc;
         line-height: 23px;
         display: flex;
-        color: $gray-600;
+        opacity: .75;
     }
     
     &:hover {
@@ -42,8 +40,7 @@
         margin-top: -$padding;
         margin-bottom: auto;
         padding: $padding;
-        background-color: $gray-700;
-
+        background-color: rgba($gray-500,.2);
     }
     footer{
         margin-right:  -15px;
@@ -52,8 +49,8 @@
         margin-top: auto;
         padding: $padding 15px;
         font-size: $font-size-small;
-        color:$gray-600;
-        background-color: $gray-900;
+        // color:$gray-600;
+        background-color: rgba($gray-500,.1);
     }
 }
 
@@ -70,7 +67,7 @@
     font-weight: 600;
     font-size: $font-size-card-title;
     line-height: 2rem;
-    color: $gray-200;
+    // color: $gray-200;
     &:not(:first-of-type)  {margin-top: .5em;}
     &:not(:last-child) { margin-bottom: 1rem;}
 }
@@ -79,7 +76,7 @@
     font-weight: 600;
     font-size: $font-size-card-subtitle;
     line-height: 1.8rem;
-    color: $gray-200;
+    // color: $gray-200;
     &:not(:first-child)  {margin-top: .5rem;}
     &:not(:last-child) { margin-bottom: .75rem;}
 
@@ -89,7 +86,7 @@
     font-weight: 600;
     font-size: $font-size-card-desc;
     line-height: 1.4rem;
-    color: $gray-600;
+    // color: $gray-600;
     &:not(:first-child)  {margin-top: .3rem;}
     &:not(:last-child) { margin-bottom: .3rem;}
 

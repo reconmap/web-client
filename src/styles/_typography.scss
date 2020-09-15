@@ -1,6 +1,8 @@
 // Typography
 table th, label, details summary {
-    color: $gray-500;
+    color: $gray-600;
+    font-size: $font-size-small;
+
 }
  label {
     margin-right: $margin;
@@ -8,26 +10,24 @@ table th, label, details summary {
 p a {
     border-bottom: 2px dotted $gray-500;
     &:hover {
-        color: $gray-400;
         border-bottom-color: $red-500;
     }
 }
 h1{
-    font-weight: bold;
+    font-weight: 800;
     font-size: $font-size-title;
     line-height: 49px;
-    color: $red-500;
 }
 
 h2 {
     font-size : $font-size-card-subtitle;
-    color: $gray-600;
     font-weight: 500;
+    color: $gray-600;
 }
+
 p {
     font-style: normal;
     font-weight: 500;
-    color: $gray-600;
     font-size: $font-size-p;
     margin-top: .25rem;
     margin-bottom: .75rem;

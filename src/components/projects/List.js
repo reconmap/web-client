@@ -36,7 +36,7 @@ const ProjectsList = ({ history }) => {
                     {projects.map((project) =>
                         <tr key={project.id}>
                             <td><ProjectBadge project={project} /></td>
-                            <td><small className='text-gray-500'>{project.description}</small></td>
+                            <td><small>{project.description}</small></td>
                             <td>{project.insert_ts}</td>
                             <td className='text-right'><DeleteButton onClick={() => destroy(project.id)} /></td>
                         </tr>

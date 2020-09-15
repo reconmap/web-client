@@ -6,17 +6,43 @@
 @import 'tables';
 @import 'sections';
 
+.text-smoke { color: rgba($gray-500,.1); }
+.border-smoke { border-color: rgba($gray-500,.1); }
+.bg-smoke { background-color: rgba($gray-500,.1); }
+.text-smoke-50 { color: rgba($gray-500,.5); }
+.border-smoke-50 { border-color: rgba($gray-500,.5); }
+.bg-smoke-50 { background-color: rgba($gray-500,.5); }
+.text-smoke-75 { color: rgba($gray-500,.75); }
+.border-smoke-75 { border-color: rgba($gray-500,.75); }
+.bg-smoke-75 { background-color: rgba($gray-500,.75); }
+
 @media (prefers-color-scheme: dark) {
     body {
         background-color: $gray-900;
         color: $gray-100;
     }
+    .bg-invert { background-color: $gray-900; }
+    .text-invert { color: $gray-900; }
+    .border-invert { border-color: $gray-900; }
+    .card {
+        background-color: $gray-800;
+        color: white;   
+     }
+    
 }
 @media (prefers-color-scheme: light) {
     body {
         color: $gray-900;
         background-color: $gray-100;
-    }}
+    }
+    .bg-invert { background-color: white; }
+    .text-invert { color: white; }
+    .border-invert { border-color: white; }
+    .card {
+        background-color: white;
+        color: $gray-800;   
+     }
+}
 .anim-rotate {
     animation-name: spin;
     animation-iteration-count: infinite;
