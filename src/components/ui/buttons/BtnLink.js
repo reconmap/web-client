@@ -16,7 +16,7 @@ export default function BtnLink ({ onClick, children, color = 'red', size = 'bas
         <button
             onClick={onClick || handleOpen}
             disabled={disabled}
-            className={`${disabled && 'opacity-50 text-gray-500'} inline-flex items-center justify-center px-5 py-3 border border-transparent text-${size} ${SIZES[size]} leading-6 font-medium rounded-md text-${color}-600  hover:text-${color}-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out`}>
+            className={`${disabled && 'opacity-50 text-gray-500'} inline-flex items-center justify-center px-5 py-3 border border-transparent text-${size} ${SIZES[size]} leading-6 font-medium rounded-md text-${color}-500  hover:text-${color}-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out`}>
             {children}
         </button>
     )
