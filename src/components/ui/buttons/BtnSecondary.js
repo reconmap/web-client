@@ -16,7 +16,7 @@ export default function BtnSecondary({ onClick, children, color = 'red', size = 
         <button
             onClick={onClick || handleOpen}
             disabled={disabled}
-            className={`${disabled && 'opacity-50 text-gray-500'} btn-secondary shadow inline-flex items-center justify-center ${SIZES[size]} border border-transparent text-${size} leading-6 font-medium rounded-md text-${color}-600 bg-white hover:text-${color}-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out`}>
+            className={`${disabled && 'opacity-50 text-gray-500'} hover:shadow-outline btn-secondary shadow inline-flex items-center justify-center ${SIZES[size]} border border-transparent text-${size} leading-6 font-medium rounded-md text-${color}-600 bg-white hover:text-${color}-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out`}>
             {children}
         </button>
     )

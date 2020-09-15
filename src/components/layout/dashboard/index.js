@@ -4,14 +4,11 @@ import Sidebar from "../sidebar";
 import useSetTitle from "../../../hooks/useSetTitle";
 import useFetch from "../../../hooks/useFetch";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, PieChart, Pie, Cell } from 'recharts';
-import { useContext } from "react";
-import ThemeContext from "../../../contexts/ThemeContext";
 
 function Dashboard({ children }) {
-  const { theme } = useContext(ThemeContext)
   useSetTitle('Dashboard')
   return (
-    <div className={`w-full`}>
+    <>
       <Sidebar />
       <div className="flex flex-col ml-16 md:ml-56 lg:ml-64">
         <Header />
@@ -19,7 +16,7 @@ function Dashboard({ children }) {
           {children || <DashboardPanels />}
         </main>
       </div>
-    </div>
+    </>
   );
 }
 const DashboardPanels = () => {
