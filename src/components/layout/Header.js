@@ -31,7 +31,7 @@ export default function Header() {
   return <AuthConsumer>
     {
       ({ isAuth, logout, user }) => (
-        <nav className={`flex items-center ${ isAuth ? 'justify-end' : 'justify-center' } w-full  space-x-4 pt-4 px-5 pb-5 flex-col lg:flex-row `}>
+        <nav className={`flex items-center ${ isAuth ? 'justify-end' : 'justify-center' } w-full  space-x-4 pt-4 px-5 pb-5 flex-col md:flex-row `}>
           {isAuth ? <>
             <input className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0 w-48 transition duration-150 focus:w-full' placeholder="Search..." onKeyDown={handleSearchKeyDown} />
             <BtnLink color={theme==='light'?'indigo':'gray'} size='sm' onClick={handleSwitchTheme}>{theme==='light'?<IconDark size={4} styling='mr-2'/>: <IconLight size={4} styling='mr-2'/> } {theme==='light'?'Dark':'Light'}</BtnLink>

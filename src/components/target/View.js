@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import secureApiFetch from '../../services/api'
+import Badge from '../badges/Badge';
 import DeleteButton from '../ui/buttons/Delete';
+import Title from '../ui/Title';
 
 class TargetView extends Component {
 
@@ -44,16 +46,22 @@ class TargetView extends Component {
         return (
             <div>
                 <div className='heading'>
-                    <div>
-                        <h2>Target</h2>
-                        <h1>{target.name}</h1>
-                        <p>Kind: {target.kind}</p>
-                    </div>
-                    <div>
-                        <DeleteButton onClick={() => this.handleDelete(target)} />
-                    </div>
+                    <Title type='Target' title={target.name} />
+                    <DeleteButton size='sm' onClick={() => this.handleDelete(target)} />
                 </div>
+                <article className=''>
+                    <table className='w-full'>
+                        <tbody>
+                            <tr> <th>Kind</th> <td><Badge color={target.kind === 'hostname' ? 'green':'blue'}>{target.kind}</Badge></td> </tr>
+                            <tr> <th>Creation time</th> <td>{target.insert_ts}</td> </tr>
+                            <tr> <th>Update time</th> <td>{target.update_ts}</td> </tr>
+                            <tr> <th>Project</th> <td>{target.project_id}</td> </tr>
+                        </tbody>
+                    </table>
+                </article>
             </div>
+
+
         )
     }
 }
