@@ -15,6 +15,7 @@ class AuthProvider extends Component {
     this.logout = this.logout.bind(this)
 
     this.state.isAuth = localStorage.getItem('isAuth');
+    this.state.user = JSON.parse(localStorage.getItem('user'));
   }
 
   login(credentials, onOk, onKo) {
@@ -36,7 +37,7 @@ class AuthProvider extends Component {
         localStorage.setItem('isAuth', true);
         localStorage.setItem('user.id', data.id);
         localStorage.setItem('user', JSON.stringify(data));
-        this.setState({ isAuth: true });
+        this.setState({ isAuth: true, user: data});
         onOk();
       })
       .catch(onKo);
@@ -51,6 +52,7 @@ class AuthProvider extends Component {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('isAuth');
         localStorage.removeItem('user.id');
+        localStorage.removeItem('user');
         this.setState({ isAuth: false })
       });
   }
@@ -60,7 +62,8 @@ class AuthProvider extends Component {
       <AuthContext.Provider value={{
         isAuth: this.state.isAuth,
         login: this.login,
-        logout: this.logout
+        logout: this.logout,
+        user: this.state.user
       }}>
         {this.props.children}
       </AuthContext.Provider>

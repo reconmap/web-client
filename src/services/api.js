@@ -17,6 +17,7 @@ function secureApiFetch(input, init) {
                 window.localStorage.removeItem('accessToken');
                 window.localStorage.removeItem('isAuth');
                 window.localStorage.removeItem('user.id');
+                window.localStorage.removeItem('user');
                 window.location = '/';
             }
 
