@@ -49,10 +49,10 @@ const UserCreationForm = () => {
                     <option value="writer">Writer</option>
                     <option value="creator">Creator</option>
                 </select>
-                <label>
+                <div className='mx-auto'>
                     Send email to user
                     <input type="checkbox" name="sendEmailToUser" onChange={handleFormChange} />
-                </label>
+                </div>
 
                 <BtnPrimary onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
