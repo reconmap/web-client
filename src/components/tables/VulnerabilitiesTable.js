@@ -3,7 +3,8 @@ import RiskBadge from '../badges/RiskBadge'
 import VulnerabilityBadge from '../badges/VulnerabilityBadge'
 import CvssScore from '../badges/CvssScore'
 import BtnSecondary from '../ui/buttons/BtnSecondary'
-import { IconX } from '../icons'
+import { IconCheck, IconX } from '../icons'
+import Badge from '../badges/Badge'
 
 export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
     return (
@@ -25,9 +26,15 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                             <tr key={index}>
                                 <td><VulnerabilityBadge vulnerability={vulnerability}/></td>
                                 <td><small className='text-gray-500'>{vulnerability.description}</small></td>
-                                <td><RiskBadge risk={vulnerability.risk} /></td>
+                                <td><RiskBadge fontSize='text-xs' risk={vulnerability.risk} /></td>
                                 <td><CvssScore score={vulnerability.cvss_score}/></td>
-                                <td>{vulnerability.status}</td>
+                                <td><Badge 
+                                        icon={vulnerability.status === 'open' ? <IconX size={4} styling='mr-2'/>:<IconCheck size={4} styling='mr-2'/>} 
+                                        fontSize='text-xs' 
+                                        color={vulnerability.status === 'open' ? 'green':'blue'}>
+                                        {vulnerability.status}
+                                    </Badge>
+                                </td>
                                 <td>{vulnerability.insert_ts}</td>
                                 <td className='text-right   '>{destroy && 
                                     <BtnSecondary size='xs' onClick={() => destroy(vulnerability.id)}>
