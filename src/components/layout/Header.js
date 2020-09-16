@@ -10,7 +10,6 @@ import { useContext } from 'react';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import UserAvatar from '../badges/UserAvatar';
 import NotificationsBadge from '../badges/NotificationsBadge';
-import { useRef } from 'react';
 
 const LINKS = [
   { title: "Release notes", to: { pathname: "https://github.com/reconmap/application/releases" } },

@@ -1,5 +1,7 @@
 import React from 'react'
 import useSetTitle from '../../hooks/useSetTitle';
+import Title from '../ui/Title';
+import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
 import Breadcrumb from '../ui/Breadcrumb';
 import { useHistory, Link } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
@@ -29,22 +31,11 @@ const SearchResults = (props) => {
         reloadData()
     }, [keywords])
     return <div>
-        <Breadcrumb path={history.location.pathname} />
-        <div>
-            <h1>Search results for <em>{keywords}</em></h1>
-
-            <h2>{vulnerabilities.length} vulnerabilities matched</h2>
-            <ul>
-                {
-                    vulnerabilities.map((v, i) =>
-                        <li>
-                            <Link to={`/vulnerabilities/${v.id}`}>{v.summary}</Link>
-                        </li>
-                    )
-                }
-            </ul>
-        </div>
-    </div>
+                <Breadcrumb path={history.location.pathname} />
+                <Title type='Search results' title={`For ${keywords}`}/>
+                <h2>{vulnerabilities.length} vulnerabilities matched</h2>
+                <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>
+            </div>
 }
 
 export default SearchResults
