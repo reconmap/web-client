@@ -9,8 +9,9 @@ import ProjectBadge from '../badges/ProjectBadge';
 import useDelete from '../../hooks/useDelete';
 import BadgeOutline from '../badges/BadgeOutline';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
-import { IconPlus, IconPlusCircle, IconX } from '../icons';
+import { IconPlus,  IconX } from '../icons';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
+import CreateButton from '../ui/buttons/Create';
 
 const TemplatesList = ({ history }) => {
     useSetTitle('Projects templates');
@@ -32,7 +33,7 @@ const TemplatesList = ({ history }) => {
         <>
             <div className='heading'>
                 <Breadcrumb path={history.location.pathname} />
-                <BtnSecondary onClick={() => history.push('/templates/import')}><IconPlusCircle styling='mr-2'/> Import Template</BtnSecondary>
+                <CreateButton onClick={() => history.push('/templates/import')}>Import Template</CreateButton>
             </div>
             {!templates ? <Loading /> : templates.length === 0 ? <NoResults /> :
                 <table className='w-full'>

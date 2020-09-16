@@ -18,9 +18,9 @@ const ProjectCreate = ({ history }) => {
     return (
         <div>
             <Breadcrumb path={history.location.pathname} goBack={handleGoBack} />
-            <Title title='New Project'/>
 
             <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
+                <Title title='New Project'/>
                 <label htmlFor='name'>Name</label>
                 <input autoFocus type="text" name="name" onChange={handleFormChange} />
                 <label htmlFor='description'>Description</label>

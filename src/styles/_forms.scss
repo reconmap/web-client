@@ -1,7 +1,10 @@
 
 form  {
+    max-width: 500px;
+    margin: 1rem auto;
+
     label, input:not([type='checkbox']), select, button{
-        margin: 1rem auto;
+        margin: .5rem auto ;
         width: 100%;
         max-width: 500px;
         display: flex;

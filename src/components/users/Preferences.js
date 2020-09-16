@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
 import { IconSave } from '../icons'
-import Breadcrumb from '../ui/Breadcrumb'
 import { getAllTimezones } from 'countries-and-timezones';
 import secureApiFetch from '../../services/api';
 import BtnPrimary from '../ui/buttons/BtnPrimary'
 import BtnLink from '../ui/buttons/BtnLink'
+import Title from '../ui/Title';
 
 const UserPreferences = ({ history }) => {
     useSetTitle('Preferences')
@@ -33,9 +33,8 @@ const UserPreferences = ({ history }) => {
 
     return (
         <>
-            <Breadcrumb path={history.location.pathname} />
-            <h1>Preferences</h1>
             <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
+                <Title type='User' title='Preferences'/>
                 <label>Timezone</label>
                 <select onChange={handleChange} defaultValue={user.timezone}>
                     {timezoneKeys.map((key) =>

@@ -42,7 +42,6 @@ const ProjectDetails = ({ match, history }) => {
                 <>
                     <Title title={project.name} type='Project' />
                     <ProjectDescription project={project} />
-                    
                     <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget} />
                     <ProjectTasks tasks={tasks} handleAddTask={handleAddTask} />
                     <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities} />

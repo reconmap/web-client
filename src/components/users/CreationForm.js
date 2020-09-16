@@ -35,8 +35,8 @@ const UserCreationForm = () => {
     return (
         <div>
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
-            <Title title='Create User'/>
             <form onSubmit={e => e.preventDefault()} className='flex flex-col'>
+                <Title title='Create User'/>
                 <label htmlFor='name'>Name</label>
                 <input autoFocus type="text" name="name" onChange={handleFormChange} />
                 <label htmlFor='password'>Password</label>

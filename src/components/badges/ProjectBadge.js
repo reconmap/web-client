@@ -4,17 +4,10 @@ import { IconCollection } from '../icons'
 
 export default function ProjectBadge({project}) {
    
-    return (
-        <Link 
-            className='font-bold  rounded-lg overflow-hidden border-2 border-gray-800 rounded pr-2  flex items-stretch justify-start'  
-            to={`/projects/${project.id}`}>
-        <div className=' py-2 w-8 bg-smoke-50 mr-2 flex items-center justify-center' > 
-            <IconCollection size='5' />
-        </div>
-        <span className='flex-1 flex items-center'>
+    return ( <Link to={`/projects/${project.id}`} className='flex items-center w-56'>
+                <IconCollection styling='text-indigo-800 mr-2' />
+                <span className=' flex-1 text-indigo-500 font-medium '>{project.name}</span>
+            </Link>
 
-        {project.name}
-        </span>
-        </Link>
     )
 }

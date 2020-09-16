@@ -10,6 +10,7 @@ import UserAvatar from '../badges/UserAvatar';
 import { Link } from 'react-router-dom';
 import { IconPlus, IconX } from '../icons';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
+import Title from '../ui/Title';
 
 const TasksList = ({ match, history }) => {
     const projectId = match.params.id;
@@ -41,8 +42,8 @@ const TasksList = ({ match, history }) => {
         <div className='heading'>
             <Breadcrumb path={history.location.pathname} />
         </div>
-        <h1>Members</h1>
         <form className='flex flex-col space-y-2'>
+            <Title title='Members'/>
             <select id="userId">
                 {users && users.map((user, index) =>
                     <option value={user.id}>{user.name}</option>

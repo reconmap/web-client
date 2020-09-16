@@ -9,13 +9,28 @@ const ProjectTeam = ({ project, users }) => {
     const handleOnClick = id => {
         history.push(`/users/${id}`)
     }
+    const handleManageTeam = () => {
+        history.push(`/projects/${project.id}/membership`)
+    }
     return (
 
         <div className='flex px-2 py-2 space-x-2 '>
             { users && users.map((user, index) =>
-                <UserAvatar key={index} email={user.email} size={8} onClick={()=>handleOnClick(user.id)} name={user.name} tooltip/>
+                <UserAvatar 
+                    key={index} 
+                    email={user.email} 
+                    size={8} 
+                    onClick={()=>handleOnClick(user.id)} 
+                    name={user.name} 
+                    tooltip/>
             )}
-            <BtnLink size='xs' color='gray'> Manage Members <IconUserGroup size={4} color='gray' styling='ml-2'/></BtnLink>
+            <BtnLink 
+                    size='xs' 
+                    color='gray' 
+                    onClick={handleManageTeam}> 
+                    Manage Members 
+                    <IconUserGroup size={4} color='gray' styling='ml-2'/>
+            </BtnLink>
         </div>
     )
 }
