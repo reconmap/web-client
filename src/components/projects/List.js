@@ -9,6 +9,7 @@ import ProjectBadge from '../badges/ProjectBadge';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import { IconPlus, IconX } from '../icons';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
+import CreateButton from '../ui/buttons/Create';
 
 const ProjectsList = ({ history }) => {
     useSetTitle('Projects');
@@ -20,7 +21,7 @@ const ProjectsList = ({ history }) => {
     return <div>
         <div className='heading'>
             <Breadcrumb path={history.location.pathname} />
-            <BtnPrimary onClick={handleCreateProject}> <IconPlus styling='mr-2' /> Create Project</BtnPrimary>
+            <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
         </div>
         {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
             <table className='w-full'>

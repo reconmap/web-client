@@ -78,9 +78,21 @@ label, th {
         transform : rotate(-359deg);
     }
 }
-.heading{
+
+section {
+    margin : $margin*2 0px;
+    // padding: $padding 0px;
+    h2{
+        margin-right: auto;
+    }
+}
+.heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom:$margin;
+    svg{
+        margin-right: $margin;
+        color: $red
+    }
 }

@@ -29,13 +29,13 @@ const ProjectDetails = ({ match, history }) => {
 
     return (
         <>
-            <section className='heading' >
+            <div className='heading' >
                 <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
                 <div className='flex  justify-end space-x-2'>
                     <BtnSecondary size='sm' onClick={() => destroy(project.id)} ><IconX size={4} styling='mr-2' /> Delete</BtnSecondary>
                     <BtnSecondary size='sm' onClick={handleGenerateReport}><IconClipboardCheck size={4} styling='mr-2' /> Generate Report</BtnSecondary>
                 </div>
-            </section>
+            </div>
             {!project ? <Loading /> :
                 <>
                     <Title title={project.name} type='Project' />
