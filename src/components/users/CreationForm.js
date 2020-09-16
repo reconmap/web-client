@@ -4,6 +4,7 @@ import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnLink from '../ui/buttons/BtnLink';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
+import Title from '../ui/Title';
 
 const UserCreationForm = () => {
     const history = useHistory()
@@ -34,8 +35,8 @@ const UserCreationForm = () => {
     return (
         <div>
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
-            <h1 className='mr-auto ml-2'>Create User</h1>
-            <form onSubmit={e => e.preventDefault()}>
+            <Title title='Create User'/>
+            <form onSubmit={e => e.preventDefault()} className='flex flex-col'>
                 <label htmlFor='name'>Name</label>
                 <input autoFocus type="text" name="name" onChange={handleFormChange} />
                 <label htmlFor='password'>Password</label>
