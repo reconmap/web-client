@@ -1,30 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { IconUserGroup } from './../icons'
 import UserAvatar from './../badges/UserAvatar'
-import BtnSecondary from '../ui/buttons/BtnSecondary'
+import BtnLink from '../ui/buttons/BtnLink'
 
-const ProjectTeam = ({project, users}) => {
+const ProjectTeam = ({ project, users }) => {
+    const history = useHistory()
+    const handleOnClick = id => {
+        history.push(`/users/${id}`)
+    }
     return (
-        <section className='mb-4'>
-        <div className='heading'>
-            <IconUserGroup />
-            <h2>Team</h2>
-             <BtnSecondary size='sm' to={`/projects/${project.id}/membership`}><IconUserGroup size={4}/> Manage project membership</BtnSecondary>
+
+        <div className='flex px-2 py-2 space-x-2 '>
+            { users && users.map((user, index) =>
+                <UserAvatar key={index} email={user.email} size={8} onClick={()=>handleOnClick(user.id)} name={user.name} tooltip/>
+            )}
+            <BtnLink size='xs' color='gray'> Manage Members <IconUserGroup size={4} color='gray' styling='ml-2'/></BtnLink>
         </div>
-        {users &&  <div className='flex flex-wrap  '>
-       
-                {users.map((user, index) =>
-                    <Link key={index} to={`/users/${user.id}`}>
-                        <div className='flex flex-col text-center rounded border-2 border-transparent hover:border-gray-800 p-2 mx-1 w-32 items-center'>
-                            <UserAvatar email={user.email} size={20} />
-                            <small className='text-gray-500 mt-2'>{user.name}</small>
-                        </div>
-                    </Link>
-                )}
-            
-        </div>}
-        </section>
     )
 }
 

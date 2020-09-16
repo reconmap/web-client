@@ -6,10 +6,9 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import ProjectBadge from '../badges/ProjectBadge';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
-import { IconPlus, IconX } from '../icons';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import CreateButton from '../ui/buttons/Create';
+import { IconX } from '../icons';
 
 const ProjectsList = ({ history }) => {
     useSetTitle('Projects');

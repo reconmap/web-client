@@ -3,7 +3,7 @@ import useSetTitle from '../../hooks/useSetTitle';
 import Title from '../ui/Title';
 import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
 import Breadcrumb from '../ui/Breadcrumb';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory  } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import { useEffect } from 'react';
 import { useState } from 'react';
