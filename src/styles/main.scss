@@ -6,6 +6,13 @@
 @import 'tables';
 @import 'sections';
 
+label, th {
+    margin-right: $margin;
+    opacity: .50;
+    font-weight: 400;
+    font-size: $font-size-small;
+}
+
 .text-smoke { color: rgba($gray-500,.1); }
 .border-smoke { border-color: rgba($gray-500,.1); }
 .bg-smoke { background-color: rgba($gray-500,.1); }
@@ -15,21 +22,26 @@
 .text-smoke-75 { color: rgba($gray-500,.75); }
 .border-smoke-75 { border-color: rgba($gray-500,.75); }
 .bg-smoke-75 { background-color: rgba($gray-500,.75); }
-
     .dark-theme {
         background-color: $gray-900;
         color: $gray-100;
-        .bg-invert { background-color: $gray-900; }
-        .text-invert { color: $gray-900; }
-        .border-invert { border-color: $gray-900; }
+        .bg-invert { background-color: $black; }
+        .text-invert { color: $black; }
+        .border-invert { border-color: $black; }
         .card {
-            background-color: $gray-800;
+            background-color: $black;
             color: white;   
          }
          .btn-secondary {
-            background-color: $gray-800;
+            background-color: rgba($gray-800,.50);
             color: white;   
          }
+         input, select, textarea {
+            background-color: $black;
+         }
+        .breadcrumb {
+            border:$border-width solid $black;
+        }
     }
     
     
@@ -44,6 +56,13 @@
                  background-color: white;
                  color: $gray-800;   
               }
+              input, select,  textarea {
+                background-color: white;
+                box-shadow: 0px 2px 2px rgba(0,0,0,.05);
+             }
+            .breadcrumb {
+                border:$border-width solid white;
+            }
         }
 
 .anim-rotate {

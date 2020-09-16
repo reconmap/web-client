@@ -4,9 +4,7 @@ table th, label, details summary {
     font-size: $font-size-small;
 
 }
- label {
-    margin-right: $margin;
-}
+ 
 p a {
     border-bottom: 2px dotted $gray-500;
     &:hover {

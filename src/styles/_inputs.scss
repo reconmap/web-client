@@ -5,13 +5,13 @@
     border-color: transparent;
     border-radius: $radius;
     transition: background .2s , box-shadow .12s, border .1s, opacity .2s;
-    background-color: rgba($gray-500,.1);
+    // background-color: $black;
     font-size: $font-size-action;
 }
 
 .breadcrumb {
     @extend .actions;
-    border:$border-width solid rgba($gray-500,.1);
+    // border:$border-width solid $black;
     background-color: transparent;
 }
 
