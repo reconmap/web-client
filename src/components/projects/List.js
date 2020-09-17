@@ -6,11 +6,10 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import ProjectBadge from '../badges/ProjectBadge';
-import BtnSecondary from '../ui/buttons/BtnSecondary';
 import CreateButton from '../ui/buttons/Create';
-import { IconX } from '../icons';
+import DeleteButton from "../ui/buttons/Delete";
 
-const ProjectsList = ({ history }) => {
+const ProjectsList = ({history}) => {
     useSetTitle('Projects');
     const [projects, updateProjects] = useFetch('/projects')
     const destroy = useDelete('/projects/', updateProjects);
@@ -19,32 +18,30 @@ const ProjectsList = ({ history }) => {
     }
     return <div>
         <div className='heading'>
-            <Breadcrumb path={history.location.pathname} />
+            <Breadcrumb path={history.location.pathname}/>
             <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
         </div>
-        {!projects ? <Loading /> : projects.length === 0 ? <NoResults /> :
+        {!projects ? <Loading/> : projects.length === 0 ? <NoResults/> :
             <table className='w-full'>
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Creation date/time</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Creation date/time</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                    {projects.map((project) =>
-                        <tr key={project.id}>
-                            <td><ProjectBadge project={project} /></td>
-                            <td><small>{project.description}</small></td>
-                            <td>{project.insert_ts}</td>
-                            <td className='text-right'>
-                                <BtnSecondary size='xs' onClick={() => destroy(project.id)}>
-                                    <IconX styling='mr-2' size={4}/> Delete
-                                </BtnSecondary>
-                            </td>
-                        </tr>
-                    )}
+                {projects.map((project) =>
+                    <tr key={project.id}>
+                        <td><ProjectBadge project={project}/></td>
+                        <td><small>{project.description}</small></td>
+                        <td>{project.insert_ts}</td>
+                        <td className='text-right'>
+                            <DeleteButton onClick={() => destroy(project.id)}/>
+                        </td>
+                    </tr>
+                )}
                 </tbody>
             </table>}
     </div>
