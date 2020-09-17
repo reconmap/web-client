@@ -6,22 +6,22 @@ import Breadcrumb from '../ui/Breadcrumb';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../tables/AuditLogsTable';
-import { IconBookOpen } from '../icons';
+import {IconBookOpen} from '../icons';
 
-const UserProfile = ({ match, history }) => {
+const UserProfile = ({match, history}) => {
     useSetTitle('User');
     const [user] = useFetch(`/users/${match.params.id}`)
     const [auditLog] = useFetch(`/users/${match.params.id}/activity`)
     return (
         <div>
             <Breadcrumb path={history.location.pathname}/>
-        
+
             <div className=' flex flex-col md:flex-row items-center justify-center  max-w-xl mx-auto my-10'>
                 {user && <UserAvatar email={user.email} size={48}/>}
                 {user ? <div className=' flex flex-col flex-1 ml-5'>
                     <h1>{user.name}</h1>
                     <div className='flex flex-row gap-4 my-2 font-semibold text-sm'>
-                        <UserRoleBadge role={user.role} />
+                        <UserRoleBadge role={user.role}/>
                     </div>
                     <dl className='text-gray-600'>
                         <dt>User since</dt>
@@ -30,14 +30,14 @@ const UserProfile = ({ match, history }) => {
                         <dt>Timezone</dt>
                         <dd>{user.timezone}</dd>
                     </dl>
-                </div> : <Loading /> }
+                </div> : <Loading/>}
             </div>
-            <section >
-            <div className='heading'>
-                <IconBookOpen />
-                <h2>Activity</h2>
-            </div>
-                { auditLog ? <AuditLogsTable auditLog={auditLog}/>: <Loading /> }
+            <section>
+                <div className='heading'>
+                    <IconBookOpen/>
+                    <h2>Activity</h2>
+                </div>
+                {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
             </section>
 
         </div>
