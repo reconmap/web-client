@@ -1,16 +1,15 @@
 import React from 'react';
-import { IconId } from '../icons';
+import {IconId} from '../icons';
+import ExternalLink from "./ExternalLink";
 
 const Ipv4Link = (props) => {
-    return <a 
-        href={`https://www.infobyip.com/ip-${props.value}.html`} 
-        target="_blank"
-        rel="noopener noreferrer" 
+    return <ExternalLink
+        href={`https://www.infobyip.com/ip-${props.value}.html`}
         className='font-mono border-b border-transparent  inline-flex items-center gap-1 hover:opacity-75'
         title={`View information about IP ${props.value}`}>
-        <IconId />
+        <IconId/>
         {props.value}
-    </a>
+    </ExternalLink>
 }
 
 export default Ipv4Link
