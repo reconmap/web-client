@@ -5,4 +5,5 @@ RUN apt-get update
 RUN apt-get install -y vim wget unzip
 RUN apt-get install -y nodejs npm
 RUN npm i -g yarn
+RUN npm i -g npm-check-updates
 
