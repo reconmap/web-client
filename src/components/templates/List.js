@@ -35,7 +35,7 @@ const TemplatesList = ({history}) => {
         <>
             <div className='heading'>
                 <Breadcrumb path={history.location.pathname}/>
-                <CreateButton onClick={() => history.push('/templates/import')}>Import Template</CreateButton>
+                <CreateButton onClick={() => history.push('/import-export')}>Import template(s)</CreateButton>
             </div>
             {!templates ? <Loading/> : templates.length === 0 ? <NoResults/> :
                 <table className='w-full'>
@@ -45,7 +45,7 @@ const TemplatesList = ({history}) => {
                         <th>Description</th>
                         <th>Number of tasks</th>
                         <th>Creation date/time</th>
-                        <th></th>
+                        <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>

@@ -1,9 +1,5 @@
-import React from 'react';
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch
-} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import Dashboard from "./components/layout/dashboard";
 import Login from "./components/users/Login";
@@ -29,72 +25,74 @@ import UserProfile from "./components/users/Profile";
 import IntegrationsList from "./components/integrations/List";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
-import { AuthProvider } from './contexts/AuthContext';
+import {AuthProvider} from './contexts/AuthContext';
 import VulnerabilityDetails from './components/vulnerabilities/Details';
 import TargetCreateForm from './components/target/Create';
 import SearchResults from './components/search/Results';
 import ProjectMembership from './components/projects/Membership';
-import ImportTemplate from './components/templates/Import';
+import ImportExportForm from './components/import-export/Form';
 import TargetView from './components/target/View';
 import VulnerabilityCreate from './components/vulnerabilities/Create';
-import { useState } from 'react';
 import ThemeContext from './contexts/ThemeContext';
-import { useEffect } from 'react';
 
 const App = () => {
 
-  const [theme,setTheme] = useState(localStorage.getItem('theme') || 'dark')
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
 
-  useEffect(() => {
-    localStorage.setItem('theme',theme)
-    let rootDiv = document.getElementsByTagName('body')[0]
-    rootDiv.className = ''
-    rootDiv.classList.add(`${theme}-theme`)
-  }, [theme])
+    useEffect(() => {
+        localStorage.setItem('theme', theme)
+        let rootDiv = document.getElementsByTagName('body')[0]
+        rootDiv.className = ''
+        rootDiv.classList.add(`${theme}-theme`)
+    }, [theme])
 
-  return (
-    <Router>
-      <AuthProvider>
-        <ThemeContext.Provider value={{ theme,setTheme}}>
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <ProtectedRoute exact path='/' component={Dashboard} />
-            <Dashboard>
-              <Switch>
-                <ProtectedRoute exact path={`/tasks`} component={TasksList} />
-                <ProtectedRoute exact path={`/tasks/:id([0-9]+)`} component={TaskDetails} />
-                <ProtectedRoute exact path={`/tasks/:id([0-9]+)/upload`} component={UploadTaskResult} />
-                <ProtectedRoute exact path={`/projects`} component={ProjectsList} />
-                <ProtectedRoute exact path={`/projects/create`} component={ProjectCreateForm} />
-                <ProtectedRoute path={`/projects/:id([0-9]+)/report`} component={ProjectReport} />
-                <ProtectedRoute path={`/projects/:id([0-9]+)/membership`} component={ProjectMembership} />
-                <ProtectedRoute path={`/projects/:id([0-9]+)/tasks/create`} component={TaskCreationForm} />
-                <ProtectedRoute path={`/projects/:id([0-9]+)/targets/create`} component={TargetCreateForm} />
-                <ProtectedRoute path={`/projects/:projectId([0-9]+)/targets/:targetId([0-9]+)`} component={TargetView} />
-                <ProtectedRoute exact path={`/projects/:id([0-9]+)`} component={ProjectDetails} />
-                <ProtectedRoute path={`/users/create`} component={UserCreationForm} />
-                <ProtectedRoute exact path={`/users`} component={UsersList} />
-                <ProtectedRoute path={`/users/preferences`} component={UserPreferences} />
-                <ProtectedRoute path={`/users/:id([0-9]+)`} component={UserProfile} />
-                <ProtectedRoute path={`/search/:keywords`} component={SearchResults} />
-                <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
-                <ProtectedRoute path={`/reports`} component={ReportsList} />
-                <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
-                <ProtectedRoute exact path={`/templates`} component={TemplatesList} />
-                <ProtectedRoute exact path={`/templates/import`} component={ImportTemplate} />
-                <ProtectedRoute exact path={`/templates/:id([0-9]+)`} component={TemplateDetails} />
-                <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList} />
-                <ProtectedRoute exact path={`/vulnerabilities/create`} component={VulnerabilityCreate} />
-                <ProtectedRoute path={`/vulnerabilities/:id([0-9]+)`} component={VulnerabilityDetails} />
-                <Route component={PageNotFound} />
-              </Switch>
-            </Dashboard>
-            <Route component={PageNotFound} />
-          </Switch>
-        </ThemeContext.Provider>
-      </AuthProvider>
-    </Router>
-  );
+    return (
+        <Router>
+            <AuthProvider>
+                <ThemeContext.Provider value={{theme, setTheme}}>
+                    <Switch>
+                        <Route exact path="/login" component={Login}/>
+                        <ProtectedRoute exact path='/' component={Dashboard}/>
+                        <Dashboard>
+                            <Switch>
+                                <ProtectedRoute exact path={`/tasks`} component={TasksList}/>
+                                <ProtectedRoute exact path={`/tasks/:id([0-9]+)`} component={TaskDetails}/>
+                                <ProtectedRoute exact path={`/tasks/:id([0-9]+)/upload`} component={UploadTaskResult}/>
+                                <ProtectedRoute exact path={`/projects`} component={ProjectsList}/>
+                                <ProtectedRoute exact path={`/projects/create`} component={ProjectCreateForm}/>
+                                <ProtectedRoute path={`/projects/:id([0-9]+)/report`} component={ProjectReport}/>
+                                <ProtectedRoute path={`/projects/:id([0-9]+)/membership`}
+                                                component={ProjectMembership}/>
+                                <ProtectedRoute path={`/projects/:id([0-9]+)/tasks/create`}
+                                                component={TaskCreationForm}/>
+                                <ProtectedRoute path={`/projects/:id([0-9]+)/targets/create`}
+                                                component={TargetCreateForm}/>
+                                <ProtectedRoute path={`/projects/:projectId([0-9]+)/targets/:targetId([0-9]+)`}
+                                                component={TargetView}/>
+                                <ProtectedRoute exact path={`/projects/:id([0-9]+)`} component={ProjectDetails}/>
+                                <ProtectedRoute path={`/users/create`} component={UserCreationForm}/>
+                                <ProtectedRoute exact path={`/users`} component={UsersList}/>
+                                <ProtectedRoute path={`/users/preferences`} component={UserPreferences}/>
+                                <ProtectedRoute path={`/users/:id([0-9]+)`} component={UserProfile}/>
+                                <ProtectedRoute path={`/search/:keywords`} component={SearchResults}/>
+                                <ProtectedRoute path={`/integrations`} component={IntegrationsList}/>
+                                <ProtectedRoute path={`/reports`} component={ReportsList}/>
+                                <ProtectedRoute path={`/auditlog`} component={AuditLogList}/>
+                                <ProtectedRoute exact path={`/templates`} component={TemplatesList}/>
+                                <ProtectedRoute exact path={`/import-export`} component={ImportExportForm}/>
+                                <ProtectedRoute exact path={`/templates/:id([0-9]+)`} component={TemplateDetails}/>
+                                <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList}/>
+                                <ProtectedRoute exact path={`/vulnerabilities/create`} component={VulnerabilityCreate}/>
+                                <ProtectedRoute path={`/vulnerabilities/:id([0-9]+)`} component={VulnerabilityDetails}/>
+                                <Route component={PageNotFound}/>
+                            </Switch>
+                        </Dashboard>
+                        <Route component={PageNotFound}/>
+                    </Switch>
+                </ThemeContext.Provider>
+            </AuthProvider>
+        </Router>
+    );
 };
 
 export default App;

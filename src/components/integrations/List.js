@@ -4,6 +4,7 @@ import useFetch from '../../hooks/useFetch';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
+import Title from "../ui/Title";
 
 const IntegrationsList = ({history}) => {
     useSetTitle('Integrations');
@@ -13,7 +14,8 @@ const IntegrationsList = ({history}) => {
             <div className='heading'>
                 <Breadcrumb path={history.location.pathname}/>
             </div>
-            {!integrations ? <Loading /> : integrations.length === 0 ? <NoResults /> :
+            <Title type="System Utils" title="Integrations"/>
+            {!integrations ? <Loading/> : integrations.length === 0 ? <NoResults/> :
                 <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {integrations.map((integration, index) =>
                         <article key={index} className='card '>
