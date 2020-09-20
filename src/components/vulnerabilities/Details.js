@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import secureApiFetch from '../../services/api'
-import Badge from '../badges/Badge'
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge'
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import DeleteButton from '../ui/buttons/Delete';
 import Title from '../ui/Title';
 import ExternalLink from "../ui/ExternalLink";
+import VulnerabilityStatusBadge from "./StatusBadge";
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -78,8 +78,12 @@ class VulnerabilityDetails extends Component {
                     <table className='w-full'>
                         <tbody>
                         <tr>
+                            <th>Category</th>
+                            <td>{vuln.category_name || '-'}</td>
+                        </tr>
+                        <tr>
                             <th>Status</th>
-                            <td><Badge color={vuln.status === 'open' ? 'green' : 'blue'}>{vuln.status}</Badge></td>
+                            <td><VulnerabilityStatusBadge status={vuln.status}/></td>
                         </tr>
                         <tr>
                             <th>CVSS score</th>
