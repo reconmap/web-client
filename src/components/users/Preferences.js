@@ -4,10 +4,10 @@ import {IconDark, IconLight, IconSave} from '../icons'
 import {getAllTimezones} from 'countries-and-timezones';
 import secureApiFetch from '../../services/api';
 import BtnPrimary from '../ui/buttons/BtnPrimary'
-import BtnLink from '../ui/buttons/BtnLink'
 import Title from '../ui/Title';
 import ThemeContext from "../../contexts/ThemeContext";
 import BtnSecondary from "../ui/buttons/BtnSecondary";
+import CancelButton from "../ui/buttons/Cancel";
 
 const UserPreferences = ({history}) => {
     useSetTitle('Preferences')
@@ -55,9 +55,9 @@ const UserPreferences = ({history}) => {
                     <IconLight size={4} styling='mr-2'/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
 
                 <BtnPrimary onClick={handleSubmit}><IconSave styling='mr-2'/> Save</BtnPrimary>
-                <BtnLink onClick={() => {
+                <CancelButton onClick={() => {
                     history.push("/")
-                }}>Cancel</BtnLink>
+                }}/>
             </form>
         </>
     )

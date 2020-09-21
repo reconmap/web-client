@@ -5,7 +5,7 @@ import Risks from '../../models/Risks'
 import useFetch from '../../hooks/useFetch'
 import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
-import BtnLink from '../ui/buttons/BtnLink';
+import CancelButton from "../ui/buttons/Cancel";
 
 export default function VulnerabilityCreate({history, location}) {
     const projectId = location.state?.projectId || null
@@ -64,7 +64,7 @@ export default function VulnerabilityCreate({history, location}) {
                 <input type="text" name="cvssScore" onChange={handleFormChange} value={vulnerability.cvssScore || ""}/>
 
                 <BtnPrimary onClick={handleCreate} disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <BtnLink onClick={handleGoBack} disabled={loading} >Cancel</BtnLink>
+                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )
