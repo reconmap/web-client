@@ -19,7 +19,7 @@ const VulnerabilitiesByCategoryStatsWidget = () => {
                     paddingAngle={5}
                     fill="#82ca9d"
                     label={({index}) =>
-                        vulnerabilitiesByCategoryStats[index].category_name
+                        `${vulnerabilitiesByCategoryStats[index].category_name} (${vulnerabilitiesByCategoryStats[index].total})`
                     }
                     labelStyle={{fill: '#ffffff'}}
                 >

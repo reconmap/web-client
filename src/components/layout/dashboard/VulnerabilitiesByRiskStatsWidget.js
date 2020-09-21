@@ -5,12 +5,12 @@ import useFetch from "../../../hooks/useFetch";
 const VulnerabilitiesByRiskStatsWidget = () => {
     const RADIAN = Math.PI / 180;
 
-    const colors = {
-        'none': '#ffffff',
-        'low': '#21B803',
-        'medium': '#FBBC04',
-        'high': '#F66E0B',
-        'critical': '#F41907'
+    const RISKS = {
+        'none': {label: 'None', color: '#ffffff'},
+        'low': {label: 'Low', color: '#21B803'},
+        'medium': {label: 'Medium', color: '#FBBC04'},
+        'high': {label: 'High', color: '#F66E0B'},
+        'critical': {label: 'Critical', color: '#F41907'}
     };
 
     const renderCustomLabel = ({
@@ -22,7 +22,7 @@ const VulnerabilitiesByRiskStatsWidget = () => {
 
         return (
             <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-                {`${vulnerabilitiesByRiskStats[index].risk} ${vulnerabilitiesByRiskStats[index].total}`}
+                {`${RISKS[vulnerabilitiesByRiskStats[index].risk].label} (${vulnerabilitiesByRiskStats[index].total})`}
             </text>
         );
     };
@@ -44,7 +44,7 @@ const VulnerabilitiesByRiskStatsWidget = () => {
                 >
                     {
                         vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) => <Cell
-                            fill={colors[entry.risk]}/>)
+                            fill={RISKS[entry.risk].color}/>)
                     }
                 </Pie>
             </PieChart>
