@@ -5,10 +5,10 @@ import Risks from '../../models/Risks'
 import useFetch from '../../hooks/useFetch'
 import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
-import BtnLink from '../ui/buttons/BtnLink';
+import CancelButton from "../ui/buttons/Cancel";
 
 export default function VulnerabilityCreate({match, history}) {
-    const searchParams =  match.params.search ;
+    const searchParams = match.params.search;
     const [projects] = useFetch('/projects')
     const [vulnerability, setVulnerability] = useState({
         projectId: searchParams || null,
@@ -34,10 +34,12 @@ export default function VulnerabilityCreate({match, history}) {
     }
 
     useEffect(function () {
-        projects && setVulnerability( vulnerability => { return {
-            ...vulnerability,
-            projectId: searchParams || projects[0].id
-        }})
+        projects && setVulnerability(vulnerability => {
+            return {
+                ...vulnerability,
+                projectId: searchParams || projects[0].id
+            }
+        })
     }, [searchParams, projects]);
 
     if (!projects) return <Loading/>
@@ -71,7 +73,7 @@ export default function VulnerabilityCreate({match, history}) {
                 <input type="text" name="cvssScore" onChange={handleFormChange} value={vulnerability.cvssScore || ""}/>
 
                 <BtnPrimary onClick={handleCreate} disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <BtnLink onClick={handleGoBack} disabled={loading} >Cancel</BtnLink>
+                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )
