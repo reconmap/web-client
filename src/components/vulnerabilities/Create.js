@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import Risks from '../../models/Risks'
@@ -7,11 +7,11 @@ import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import BtnLink from '../ui/buttons/BtnLink';
 
-export default function VulnerabilityCreate({match, history}) {
-    const searchParams =  match.params.search ;
+export default function VulnerabilityCreate({history, location}) {
+    const projectId = location.state?.projectId || null
     const [projects] = useFetch('/projects')
     const [vulnerability, setVulnerability] = useState({
-        projectId: searchParams || null,
+        projectId: projectId||null,
         summary: null,
         description: null,
         risk: Risks[0].id,
@@ -33,28 +33,21 @@ export default function VulnerabilityCreate({match, history}) {
         history.goBack()
     }
 
-    useEffect(function () {
-        projects && setVulnerability( vulnerability => { return {
-            ...vulnerability,
-            projectId: searchParams || projects[0].id
-        }})
-    }, [searchParams, projects]);
-
     if (!projects) return <Loading/>
 
     return (
         <div>
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname}/>
-            <h2>Create</h2>
-            <h1>Vulnerability</h1>
             <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
-                <label htmlFor='projectId'>Project</label>
-                <select name="projectId" id="projectId" onChange={handleFormChange}
-                        defaultValue={vulnerability.projectId}>
-                    {projects.map((project, index) =>
-                        <option key={index} value={project.id}>{project.name}</option>
-                    )}
-                </select>
+                {!projectId && <>
+                    <label htmlFor='projectId'>Project</label>
+                    <select name="projectId" id="projectId" onChange={handleFormChange}
+                            defaultValue={vulnerability.projectId}>
+                        {projects.map((project, index) =>
+                            <option key={index} value={project.id}>{project.name}</option>
+                        )}
+                    </select>
+                </>}
                 <label htmlFor='summary'>Summary</label>
                 <input autoFocus type="text" name="summary" onChange={handleFormChange}
                        value={vulnerability.summary || ""}/>

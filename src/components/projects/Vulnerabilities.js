@@ -9,11 +9,14 @@ import BtnSecondary from '../ui/buttons/BtnSecondary'
 const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
     const history = useHistory();
     
+    const handleCreateVulnerability = () => {
+        history.push(`/vulnerabilities/create`,  {projectId: project.id} )
+    }
     return <section>
         <div className='heading'>
             <IconFlag />
             <h2>Vulnerabilities</h2>
-            <BtnSecondary size='sm' onClick={() => history.push(`/vulnerabilities/create?projectId=${project.id}`)}>
+            <BtnSecondary size='sm' onClick={handleCreateVulnerability}>
                 <IconPlus size={4} />
                 Add New Vulnerability
             </BtnSecondary>
