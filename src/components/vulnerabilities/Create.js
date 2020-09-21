@@ -8,10 +8,10 @@ import BtnPrimary from '../ui/buttons/BtnPrimary';
 import BtnLink from '../ui/buttons/BtnLink';
 
 export default function VulnerabilityCreate({match, history}) {
-    const searchParams = new URLSearchParams(history.location.search);
+    const searchParams =  match.params.search ;
     const [projects] = useFetch('/projects')
     const [vulnerability, setVulnerability] = useState({
-        projectId: searchParams.has('projectId') ? searchParams.get('projectId') : null,
+        projectId: searchParams || null,
         summary: null,
         description: null,
         risk: Risks[0].id,
@@ -34,11 +34,11 @@ export default function VulnerabilityCreate({match, history}) {
     }
 
     useEffect(function () {
-        projects && setVulnerability({
+        projects && setVulnerability( vulnerability => { return {
             ...vulnerability,
-            projectId: searchParams.has('projectId') ? searchParams.get('projectId') : projects[0].id
-        })
-    }, [searchParams, vulnerability, projects]);
+            projectId: searchParams || projects[0].id
+        }})
+    }, [searchParams, projects]);
 
     if (!projects) return <Loading/>
 
