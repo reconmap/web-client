@@ -1,18 +1,26 @@
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
-import { IconSave } from '../icons'
-import { getAllTimezones } from 'countries-and-timezones';
+import {IconDark, IconLight, IconSave} from '../icons'
+import {getAllTimezones} from 'countries-and-timezones';
 import secureApiFetch from '../../services/api';
 import BtnPrimary from '../ui/buttons/BtnPrimary'
 import BtnLink from '../ui/buttons/BtnLink'
 import Title from '../ui/Title';
+import ThemeContext from "../../contexts/ThemeContext";
+import BtnSecondary from "../ui/buttons/BtnSecondary";
 
-const UserPreferences = ({ history }) => {
+const UserPreferences = ({history}) => {
     useSetTitle('Preferences')
     const timezones = getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
     const [timezone, setTimezone] = useState(null);
     const user = JSON.parse(localStorage.getItem('user'));
+
+    const {theme, setTheme} = useContext(ThemeContext)
+
+    const handleSwitchTheme = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light')
+    }
 
     const handleChange = (e) => {
         setTimezone(e.target.value);
@@ -21,7 +29,7 @@ const UserPreferences = ({ history }) => {
     const handleSubmit = () => {
         secureApiFetch(`/users/${user.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({ timezone: timezone })
+            body: JSON.stringify({timezone: timezone})
         })
             .then(() => {
                 user.timezone = timezone;
@@ -41,9 +49,15 @@ const UserPreferences = ({ history }) => {
                         <option value={timezones[key].name}>{timezones[key].name}</option>
                     )}
                 </select>
+                <label>Theme</label>
+                <BtnSecondary color={theme === 'light' ? 'indigo' : 'gray'} size='sm'
+                              onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark size={4} styling='mr-2'/> :
+                    <IconLight size={4} styling='mr-2'/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
 
-                <BtnPrimary onClick={handleSubmit}><IconSave styling='mr-2' /> Save</BtnPrimary>
-                <BtnLink onClick={() => { history.push("/") }} >Cancel</BtnLink>
+                <BtnPrimary onClick={handleSubmit}><IconSave styling='mr-2'/> Save</BtnPrimary>
+                <BtnLink onClick={() => {
+                    history.push("/")
+                }}>Cancel</BtnLink>
             </form>
         </>
     )
