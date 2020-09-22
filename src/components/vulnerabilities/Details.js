@@ -7,6 +7,7 @@ import DeleteButton from '../ui/buttons/Delete';
 import Title from '../ui/Title';
 import ExternalLink from "../ui/ExternalLink";
 import VulnerabilityStatusBadge from "./StatusBadge";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -64,14 +65,14 @@ class VulnerabilityDetails extends Component {
             <div>
                 <div className='heading'>
                     <Title type='Vulnerability' title={vuln.summary}/>
-                    <div className='flex justify-end space-x-2'>
+                    <ButtonGroup>
                         {vuln.status === 'open' &&
                         <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as
                             closed</BtnPrimary>}
                         {vuln.status !== 'open' &&
                         <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as open</BtnPrimary>}
                         <DeleteButton size='sm' onClick={() => this.handleDelete(vuln)}/>
-                    </div>
+                    </ButtonGroup>
                 </div>
                 <article className=''>
                     <p>{vuln.description}</p>

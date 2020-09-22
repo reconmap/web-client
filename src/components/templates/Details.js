@@ -10,6 +10,7 @@ import BtnPrimary from '../ui/buttons/BtnPrimary';
 import {IconPlusCircle} from '../icons';
 import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
 
 const TemplateDetails = ({history, match}) => {
     useSetTitle('Projects templates');
@@ -31,12 +32,15 @@ const TemplateDetails = ({history, match}) => {
             <Breadcrumb path={history.location.pathname} goBack={handleGoBack}/>
             {(!template) ?
                 <Loading/> :
-                <>
-                    <Title title={template.name} type='Project template'/>
-                    <div className='my-3 flex space-x-2 '>
-                        <DeleteButton onClick={() => destroy(template.id)}/>
-                        <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle styling='mr-2'/> Create
-                            project from template</BtnPrimary>
+                <div>
+                    <div className="heading">
+                        <Title title={template.name} type='Project template'/>
+                        <ButtonGroup>
+                            <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle
+                                styling='mr-2'/> Create
+                                project from template</BtnPrimary>
+                            <DeleteButton onClick={() => destroy(template.id)}/>
+                        </ButtonGroup>
                     </div>
 
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
@@ -59,7 +63,7 @@ const TemplateDetails = ({history, match}) => {
                             </div>
                         </article>
                     </section>
-                </>}
+                </div>}
         </>
     )
 }

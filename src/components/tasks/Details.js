@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import secureApiFetch from '../../services/api'
 import BtnSecondary from '../ui/buttons/BtnSecondary'
 import BtnPrimary from '../ui/buttons/BtnPrimary'
-import { IconCheck,  IconUpload,  IconX } from '../icons'
+import {IconCheck, IconUpload, IconX} from '../icons'
 import Title from './../ui/Title'
+import ButtonGroup from "../ui/buttons/ButtonGroup";
+import DeleteButton from "../ui/buttons/Delete";
 
 class TaskDetails extends Component {
 
@@ -24,7 +26,7 @@ class TaskDetails extends Component {
         })
             .then((responses) => responses.json())
             .then((task) => {
-                this.setState({ task: task })
+                this.setState({task: task})
                 document.title = `Task ${task.name} | Reconmap`;
             });
         secureApiFetch(`/tasks/${id}/results`, {
@@ -32,16 +34,18 @@ class TaskDetails extends Component {
         })
             .then((responses) => responses.json())
             .then((data) => {
-                this.setState({ results: data })
+                this.setState({results: data})
             });
     }
 
     handleToggle(task) {
         secureApiFetch(`/tasks/${task.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({ completed: task.completed ? '0' : '1' })
+            body: JSON.stringify({completed: task.completed ? '0' : '1'})
         })
-            .then(() => { this.props.history.goBack() })
+            .then(() => {
+                this.props.history.goBack()
+            })
             .catch(e => console.log(e))
     }
 
@@ -50,7 +54,9 @@ class TaskDetails extends Component {
             secureApiFetch(`/tasks/${id}`, {
                 method: 'DELETE'
             })
-                .then(() => { this.props.history.goBack() })
+                .then(() => {
+                    this.props.history.goBack()
+                })
                 .catch(e => console.log(e))
 
         }
@@ -64,17 +70,20 @@ class TaskDetails extends Component {
         return (
             <div>
 
-                <Title title={task.name} type='Task'/>
-                <div className='flex space-x-2 my-3'>
-                    {task.completed === 1 && <BtnSecondary onClick={() => this.handleToggle(task)}>
-                        <IconX styling='mr-2'/> Mark as incomplete
+                <div className="heading">
+                    <Title title={task.name} type='Task'/>
+                    <ButtonGroup>
+                        {task.completed === 1 && <BtnSecondary size='sm' onClick={() => this.handleToggle(task)}>
+                            <IconX styling='mr-2'/> Mark as incomplete
                         </BtnSecondary>}
-                    {task.completed !== 1 && <BtnSecondary onClick={() => this.handleToggle(task)}>
-                        <IconCheck styling='mr-2'/> Mark as completed
+                        {task.completed !== 1 && <BtnSecondary size='sm' onClick={() => this.handleToggle(task)}>
+                            <IconCheck styling='mr-2'/> Mark as completed
                         </BtnSecondary>}
-                    <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
-                        <IconUpload styling='mr-2'/> Upload results
-                    </BtnPrimary>
+                        <BtnPrimary size='sm' to={"/tasks/" + task.id + "/upload"}>
+                            <IconUpload styling='mr-2'/> Upload results
+                        </BtnPrimary>
+                        <DeleteButton onClick={() => this.handleDelete(task.id)}/>
+                    </ButtonGroup>
                 </div>
 
                 <div className='flex items-start gap-4'>
@@ -89,7 +98,7 @@ class TaskDetails extends Component {
                         {this.state.results.map((value, index) =>
                             <div key={index} className='pb-2 border-b mb-2'>
                                 <label>Date: {value.insert_ts}</label>
-                                <textarea readOnly value={value.output} style={{ width: '100%' }} />
+                                <textarea readOnly value={value.output} style={{width: '100%'}}/>
                             </div>
                         )}
                         {this.state.results.length === 0 && <footer> No results </footer>}
