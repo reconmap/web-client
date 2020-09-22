@@ -51,7 +51,7 @@ const ProjectDetails = ({match, history}) => {
                                                                                                styling='mr-2'/> Generate
                         Report</BtnSecondary>
                     <BtnSecondary
-                        size='xs'
+                        size='sm'
                         color='gray'
                         onClick={handleManageTeam}>
                         <IconUserGroup size={4} color='gray' styling='ml-2'/>
