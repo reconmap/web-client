@@ -37,7 +37,7 @@ export default function Header() {
         {
             ({isAuth, logout, user}) => (
                 <nav
-                    className={`flex items-center ${isAuth ? 'justify-end' : 'justify-center'} w-full  space-x-4 pt-4 px-5 pb-5 flex-col md:flex-row `}>
+                    className={`flex flex-wrap items-center ${isAuth ? 'justify-end' : 'justify-center'} w-full  space-x-4 pt-4 px-5 pb-5  md:flex-row `}>
                     {isAuth ? <>
                             <input
                                 className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0 w-48 transition duration-150 focus:w-full'
