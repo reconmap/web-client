@@ -8,7 +8,7 @@ import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CancelButton from "../ui/buttons/Cancel";
 
 export default function VulnerabilityCreate({history, location}) {
-    const projectId = location.state?.projectId || null
+    const projectId = new URLSearchParams(location.search).get('projectId') || null
     const [projects] = useFetch('/projects')
     const [vulnerability, setVulnerability] = useState({
         projectId: projectId||null,

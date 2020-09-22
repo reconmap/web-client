@@ -10,7 +10,7 @@ const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
     const history = useHistory();
     
     const handleCreateVulnerability = () => {
-        history.push(`/vulnerabilities/create`,  {projectId: project.id} )
+        history.push(`/vulnerabilities/create?projectId=${project.id}`)
     }
     return <section>
         <div className='heading'>
