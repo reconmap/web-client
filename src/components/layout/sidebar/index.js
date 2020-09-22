@@ -24,7 +24,7 @@ export default function Sidebar() {
                     className='text-red-500'>map</span></span>
             </h3>
 
-            <Link to={'/'} className={`px-2 py-2 rounded flex items-center w-full text-sm opacity-75 tracking-wide hover:shadow-outline  transition duration-150  
+            <Link to={'/'} className={`px-2 py-2 rounded flex items-center w-full opacity-75 tracking-wide hover:shadow-outline  transition duration-150  
                 ${currentScreen === '/' && theme === 'light' && 'opacity-100 text-black bg-white '}  
                   ${currentScreen === '/' && theme === 'dark' && 'opacity-100 text-white bg-gray-900'} 
       `}>
@@ -35,7 +35,7 @@ export default function Sidebar() {
                 key={index}
                 to={link.to}
                 className={
-                    `px-2 py-2  rounded flex items-center w-full text-sm opacity-75 tracking-wide hover:shadow-outline  transition duration-150  
+                    `px-2 py-2  rounded flex items-center w-full opacity-75 tracking-wide hover:shadow-outline  transition duration-150  
                   ${currentScreen.includes(link.to) && theme === 'light' && 'opacity-100 text-black bg-gray-200 '}  
                   ${currentScreen.includes(link.to) && theme === 'dark' && 'opacity-100 text-white bg-gray-900'} 
                   `}>

@@ -6,6 +6,7 @@ import useFetch from '../../hooks/useFetch'
 import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CancelButton from "../ui/buttons/Cancel";
+import Title from '../ui/Title';
 
 export default function VulnerabilityCreate({history, location}) {
     const projectId = new URLSearchParams(location.search).get('projectId') || null
@@ -38,30 +39,37 @@ export default function VulnerabilityCreate({history, location}) {
     return (
         <div>
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname}/>
-            <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
-                {!projectId && <>
-                    <label htmlFor='projectId'>Project</label>
-                    <select name="projectId" id="projectId" onChange={handleFormChange}
-                            defaultValue={vulnerability.projectId}>
-                        {projects.map((project, index) =>
-                            <option key={index} value={project.id}>{project.name}</option>
-                        )}
-                    </select>
-                </>}
-                <label htmlFor='summary'>Summary</label>
-                <input autoFocus type="text" name="summary" onChange={handleFormChange}
-                       value={vulnerability.summary || ""}/>
-                <label htmlFor='description'>Description</label>
+            <form onSubmit={e => e.preventDefault()}>
+                <Title title="Create Vulnerability"/>
+                {!projectId && 
+                    <label htmlFor='projectId'>
+                        <span>Project</span>
+                        <select name="projectId" id="projectId" onChange={handleFormChange}
+                                defaultValue={vulnerability.projectId}>
+                            {projects.map((project, index) =>
+                                <option key={index} value={project.id}>{project.name}</option>
+                            )}
+                        </select>
+                    </label>}
+                <label htmlFor='summary'>
+                    Summary
+                    <input autoFocus type="text" name="summary" onChange={handleFormChange}
+                        value={vulnerability.summary || ""}/>
+                </label>
+                <label htmlFor='description'>Description
                 <input type="text" name="description" onChange={handleFormChange}
                        value={vulnerability.description || ""}/>
-                <label htmlFor='risk'>Risk</label>
+                       </label>
+                <label htmlFor='risk'>Risk
                 <select name="risk" onChange={handleFormChange} defaultValue={vulnerability.risk}>
                     {Risks.map((risk, index) =>
                         <option key={index} value={risk.id}>{risk.name}</option>
                     )}
                 </select>
-                <label htmlFor='cvssScore'>CVSS score</label>
+                </label>
+                <label htmlFor='cvssScore'>CVSS score
                 <input type="text" name="cvssScore" onChange={handleFormChange} value={vulnerability.cvssScore || ""}/>
+                </label>
 
                 <BtnPrimary onClick={handleCreate} disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <CancelButton onClick={handleGoBack} disabled={loading}/>

@@ -47,9 +47,12 @@ class ImportExportForm extends Component {
             <div>
                 <Breadcrumb path={this.props.history.location.pathname} goBack={() => this.handleGoBack()}/>
 
-                <Title type="System Utils" title="Import/Export"/>
-                <form className='flex flex-col space-y-2'>
-                    <input type="file" id="importFile"/>
+                <form >
+                    <Title type="System Utils" title="Import/Export"/>
+                    <label>
+                        Select file
+                        <input type="file" id="importFile"/>
+                    </label>
                     <BtnPrimary onClick={this.handleUploadClick}><IconUpload styling='mr-2'/> Import</BtnPrimary>
                 </form>
 

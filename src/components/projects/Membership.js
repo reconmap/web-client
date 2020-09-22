@@ -42,15 +42,17 @@ const TasksList = ({match, history}) => {
         <div className='heading'>
             <Breadcrumb path={history.location.pathname}/>
         </div>
-        <form className='flex flex-col space-y-2'>
+        <form>
             <Title title='Members'/>
-            <select id="userId">
-                {users && users.map((user, index) =>
-                    <option value={user.id}>{user.name}</option>
-                )}
-            </select>
-            <BtnPrimary onClick={handleOnClick} size='sm'><IconPlus styling='mr-2' size={4}/> Add selected user as
-                member</BtnPrimary>
+            <label>
+                Select User
+                <select id="userId">
+                    {users && users.map((user, index) =>
+                        <option value={user.id}>{user.name}</option>
+                    )}
+                </select>
+            </label>
+            <BtnPrimary onClick={handleOnClick} ><IconPlus styling='mr-2' size={4}/> Add as member</BtnPrimary>
         </form>
 
         {!members ?

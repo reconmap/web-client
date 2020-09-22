@@ -3,6 +3,7 @@ import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnLink from '../ui/buttons/BtnLink';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
+import Title from '../ui/Title';
 
 export default function TaskCreateForm({ match, history }) {
     const projectId = match.params.id;
@@ -25,19 +26,19 @@ export default function TaskCreateForm({ match, history }) {
     return (
         <div>
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
-            <h1>Create Task</h1>
-            <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
-                <label htmlFor='name'>Name</label>
-                <input autoFocus type="text" name="name" onChange={handleFormChange} />
-                <label htmlFor='description'>Description</label>
-                <input type="description" name="description" onChange={handleFormChange} />
-                <label htmlFor='parser'>Parser</label>
-                <select name="parser" onChange={handleFormChange}>
-                    <option value='none'>none</option>
-                    <option value='sqlmap'>sqlmap</option>
-                    <option value='nmap'>nmap</option>
-                </select>
-
+            <form >
+                <Title title='Create Task'/>
+                <label htmlFor='name'>Name
+                    <input autoFocus type="text" name="name" onChange={handleFormChange} /></label>
+                <label htmlFor='description'>Description
+                    <input type="description" name="description" onChange={handleFormChange} /></label>
+                <label htmlFor='parser'>Parser
+                    <select name="parser" onChange={handleFormChange}>
+                        <option value='none'>none</option>
+                        <option value='sqlmap'>sqlmap</option>
+                        <option value='nmap'>nmap</option>
+                    </select>
+                </label>
                 <BtnPrimary onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
             </form>

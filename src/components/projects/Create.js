@@ -20,13 +20,14 @@ const ProjectCreate = ({history}) => {
     return (
         <div>
             <Breadcrumb path={history.location.pathname} goBack={handleGoBack}/>
-
-            <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
+            <form>
                 <Title title='New Project'/>
-                <label htmlFor='name'>Name</label>
+                <label htmlFor='name'>Name
                 <input autoFocus type="text" name="name" onChange={handleFormChange}/>
-                <label htmlFor='description'>Description</label>
+                </label>
+                <label htmlFor='description'>Description
                 <input type="description" name="description" onChange={handleFormChange}/>
+                </label>
                 <BtnPrimary onClick={handleCreate}
                             disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <CancelButton onClick={handleGoBack} disabled={loading}/>

@@ -4,6 +4,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import TargetKinds from '../../models/TargetKinds'
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import BtnLink from '../ui/buttons/BtnLink';
+import Title from '../ui/Title';
 
 export default function TargetCreateForm({ match, history }) {
     const projectId = match.params.id;
@@ -26,17 +27,17 @@ export default function TargetCreateForm({ match, history }) {
     return (
         <div>
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
-            <h1>Create Target</h1>
-            <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
-                <label htmlFor='name'>Name</label>
-                <input autoFocus type="text" name="name" onChange={handleFormChange} />
-                <label htmlFor='kind'>Kind</label>
+            <Title title='Create Target'/>
+            <form onSubmit={e => e.preventDefault()}>
+                <label htmlFor='name'>Name
+                <input autoFocus type="text" name="name" onChange={handleFormChange} /></label>
+                <label htmlFor='kind'>Kind
                 <select name="kind" onChange={handleFormChange}>
                     {TargetKinds.map((targetKind, index) =>
                         <option value={targetKind.value}>{targetKind.description}</option>
                     )}
                 </select>
-
+                </label>
                 <BtnPrimary onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
             </form>

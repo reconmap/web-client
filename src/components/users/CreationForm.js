@@ -43,24 +43,28 @@ const UserCreationForm = () => {
     return (
         <div>
             <Breadcrumb goBack={handleGoBack} path={history.location.pathname}/>
-            <form onSubmit={e => e.preventDefault()} className='flex flex-col'>
+            <form>
                 <Title title='Create User'/>
-                <label htmlFor='name'>Name</label>
-                <input autoFocus type="text" name="name" onChange={handleFormChange}/>
-                <label htmlFor='password'>Password</label>
-                <input type="password" name="password" onChange={handleFormChange}/>
-                <label htmlFor='email'>Email</label>
-                <input type="email" name="email" onChange={handleFormChange}/>
-                <label htmlFor='role'>Role</label>
-                <select name="role" onChange={handleFormChange}>
-                    <option value="reader">Reader</option>
-                    <option value="writer">Writer</option>
-                    <option value="creator">Creator</option>
-                </select>
-                <div className='mx-auto'>
+                <label htmlFor='name'>Name
+                    <input autoFocus type="text" name="name" onChange={handleFormChange}/>
+                </label>
+                <label htmlFor='password'>Password
+                    <input type="password" name="password" onChange={handleFormChange}/>
+                </label>
+                <label htmlFor='email'>Email
+                    <input type="email" name="email" onChange={handleFormChange}/>
+                </label>
+                <label htmlFor='role'>Role
+                    <select name="role" onChange={handleFormChange}>
+                        <option value="reader">Reader</option>
+                        <option value="writer">Writer</option>
+                        <option value="creator">Creator</option>
+                    </select>
+                </label>
+                <label>
                     Send email to user
                     <input type="checkbox" name="sendEmailToUser" onChange={handleFormChange}/>
-                </div>
+                </label>
 
                 <BtnPrimary onClick={handleCreate}
                             disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>

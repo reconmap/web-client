@@ -41,19 +41,20 @@ const UserPreferences = ({history}) => {
 
     return (
         <>
-            <form onSubmit={e => e.preventDefault()} className='flex flex-col space-y-2'>
+            <form onSubmit={e => e.preventDefault()} >
                 <Title type='User' title='Preferences'/>
-                <label>Timezone</label>
+                <label>Timezone
                 <select onChange={handleChange} defaultValue={user.timezone}>
                     {timezoneKeys.map((key) =>
                         <option value={timezones[key].name}>{timezones[key].name}</option>
                     )}
                 </select>
-                <label>Theme</label>
+                </label>
+                <label>Theme
                 <BtnSecondary color={theme === 'light' ? 'indigo' : 'gray'} size='sm'
                               onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark size={4} styling='mr-2'/> :
                     <IconLight size={4} styling='mr-2'/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
-
+                </label>
                 <BtnPrimary onClick={handleSubmit}><IconSave styling='mr-2'/> Save</BtnPrimary>
                 <CancelButton onClick={() => {
                     history.push("/")
