@@ -10,7 +10,7 @@ const IntegrationsList = ({history}) => {
     useSetTitle('Integrations');
     const [integrations] = useFetch('/integrations')
     return (
-        <>
+        <div>
             <div className='heading'>
                 <Breadcrumb path={history.location.pathname}/>
             </div>
@@ -33,7 +33,7 @@ const IntegrationsList = ({history}) => {
                     )}
                 </section>}
 
-        </>
+        </div>
     )
 }
 

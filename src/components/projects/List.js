@@ -25,6 +25,7 @@ const ProjectsList = ({history}) => {
             <table className='w-full'>
                 <thead>
                 <tr>
+                    <th>Client</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Creation date/time</th>
@@ -34,6 +35,7 @@ const ProjectsList = ({history}) => {
                 <tbody>
                 {projects.map((project) =>
                     <tr key={project.id}>
+                        <td>{project.client_name}</td>
                         <td><ProjectBadge project={project}/></td>
                         <td><small>{project.description}</small></td>
                         <td>{project.insert_ts}</td>
