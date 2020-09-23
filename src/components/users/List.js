@@ -13,6 +13,7 @@ import DeleteButton from "../ui/buttons/Delete";
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
     const [users, updateUsers] = useFetch('/users')
     const destroy = useDelete('/users/', updateUsers);
     const handleCreate = () => {
@@ -42,7 +43,11 @@ const UsersList = ({history}) => {
                         </td>
                         <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
                         <td><UserRoleBadge role={user.role}/></td>
-                        <td className='text-right'><DeleteButton onClick={() => destroy(user.id)}/></td>
+                        <td className='text-right'>
+                            <DeleteButton
+                                onClick={() => destroy(user.id)}
+                                disabled={parseInt(user.id) === loggedInUser.id ? "disabled" : ""}/>
+                        </td>
                     </tr>)}
                     </tbody>
                 </table>
