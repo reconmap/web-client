@@ -52,7 +52,6 @@ const ProjectDetails = ({match, history}) => {
                         Report</BtnSecondary>
                     <BtnSecondary
                         size='sm'
-                        color='gray'
                         onClick={handleManageTeam}>
                         <IconUserGroup size={4} color='gray' styling='ml-2'/>
                         Manage Members

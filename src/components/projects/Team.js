@@ -10,12 +10,12 @@ const ProjectTeam = ({project, users}) => {
 
     return (
 
-        <div className='flex px-2 py-2 space-x-2 '>
+        <div className='flex px-2 py-2 -space-x-3 mr-auto ml-3 '>
             {users && users.map((user, index) =>
                 <UserAvatar
                     key={index}
                     email={user.email}
-                    size={8}
+                    size={12}
                     onClick={() => handleOnClick(user.id)}
                     name={user.name}
                     tooltip/>

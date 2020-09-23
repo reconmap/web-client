@@ -51,7 +51,7 @@ const UserPreferences = ({history}) => {
                 </select>
                 </label>
                 <label>Theme
-                <BtnSecondary color={theme === 'light' ? 'indigo' : 'gray'} size='sm'
+                <BtnSecondary color={theme === 'light' ? 'indigo' : 'gray'} size='base'
                               onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark size={4} styling='mr-2'/> :
                     <IconLight size={4} styling='mr-2'/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
                 </label>
