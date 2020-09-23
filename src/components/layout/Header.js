@@ -20,24 +20,26 @@ export default function Header() {
     const handleMyProfile = () => {
         history.push(`/users/${localStorage.getItem('user.id')}`)
     }
+
     const handleOpenPrefs = () => {
         history.push('/users/preferences')
     }
+
     const handleUserManual = () => {
         window.open("https://reconmap.org/user-manual/", '_blank');
     }
+
     const handleSearchKeyDown = e => {
         if (e.key === 'Enter') {
             history.push('/search/' + encodeURIComponent(e.target.value));
         }
     }
 
-
     return <AuthConsumer>
         {
             ({isAuth, logout, user}) => (
                 <nav
-                    className={`flex flex-wrap items-center ${isAuth ? 'justify-end' : 'justify-center'} w-full  space-x-4 pt-4 px-5 pb-5  md:flex-row `}>
+                    className={`flex flex-wrap items-center justify-end w-full  space-x-4 pt-4 px-5 pb-5  md:flex-row `}>
                     {isAuth ? <>
                             <input
                                 className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0 w-48 transition duration-150 focus:w-full'
