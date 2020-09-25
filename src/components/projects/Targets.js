@@ -15,7 +15,7 @@ const ProjectTargets = ({ project, targets, handleAddTarget }) => {
         <div className='flex flex-wrap gap-4'>
             {targets ?
                 targets.map((target, index) =>
-                    <article key={index} className='card reactive w-64 ' onClick={() => history.push(`/projects/${project.id}/targets/${target.id}`)}>
+                    <article key={index} className='card w-64 ' onClick={() => history.push(`/projects/${project.id}/targets/${target.id}`)}>
                         <h2 style={{ color: 'white' }}>{target.name}</h2>
                         <footer className='flex items-center justify-between'>
                             {target.kind}
