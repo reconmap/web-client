@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import VulnerabilitiesTable from '../tables/VulnerabilitiesTable'
 import Loading from '../ui/Loading'
-import { IconCollection, IconFlag, IconPlus } from '../icons'
+import {  IconFlag, IconPlus } from '../icons'
 import { useHistory } from 'react-router-dom'
 import BtnSecondary from '../ui/buttons/BtnSecondary'
 import ButtonGroup from '../ui/buttons/ButtonGroup'
@@ -31,7 +31,7 @@ const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
         </div>
         {vulnerabilities ? 
                 <VulnerabilitiesTable 
-                    vulnerabilities={vulnerabilities .filter(vuln=> vuln.category_name.includes(category) && vuln.risk.includes(risk)  && vuln.status.includes(status) ) } />
+                    vulnerabilities={vulnerabilities.filter(vuln=> vuln.category_name.includes(category) && vuln.risk.includes(risk)  && vuln.status.includes(status) ) } />
             : <Loading />}
     </section>
 }
