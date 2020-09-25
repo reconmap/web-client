@@ -31,6 +31,9 @@ label, th {
         .card {
             background-color: $black;
             color: white;   
+            footer {
+                background-color: rgba(0,0,0,.2);
+            }
          }
          .btn-secondary {
             background-color: rgba($gray-800,.50);
@@ -62,6 +65,12 @@ label, th {
              .card {
                  background-color: white;
                  color: $gray-800;   
+                 footer {
+                    background-color: $gray-100;
+                 }
+                 border:1px solid $gray-200;
+                 box-shadow: 0px 5px 6px rgba(0,0,0,0.06);
+
               }
               input, select,  textarea {
                 background-color: white;

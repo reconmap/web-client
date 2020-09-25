@@ -16,7 +16,7 @@ export default function Sidebar() {
 
     return (
         <aside
-            className={`bg-invert fixed top-0 bottom-0 w-16 md:w-56 lg:w-64 px-3 flex flex-col space-y-1 lg:py-5 md:py-3 py-3 ${theme === 'light' ? ' text-gray-700' : ' text-gray-500'}  `}>
+            className={`bg-invert fixed top-0 bottom-0 w-16 md:w-56 lg:w-64 px-3 flex flex-col space-y-2 lg:py-5 md:py-3 py-3 ${theme === 'light' ? ' text-gray-700' : ' text-gray-500'}  `}>
             <h3 className=" mb-5 text-2xl font-bold items-center flex text-white transition duration-150 cursor-pointer mx-auto "
                 onClick={handleGoHome}>
                 <img src="/logo.svg" height='32px' width='32px' className='mr-2 mt-1' alt="Reconmap logo"/>
