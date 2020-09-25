@@ -29,20 +29,21 @@ const TemplateDetails = ({history, match}) => {
     }
     return (
         <>
-            <Breadcrumb path={history.location.pathname} goBack={handleGoBack}/>
+            <div className='heading'>
+                <Breadcrumb history={history}/>
+                { template &&
+                    <ButtonGroup>
+                        <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle
+                            styling='mr-2'/> Create
+                            project from template</BtnPrimary>
+                        <DeleteButton onClick={() => destroy(template.id)}/>
+                    </ButtonGroup>
+                }
+            </div>
             {(!template) ?
                 <Loading/> :
-                <div>
-                    <div className="heading">
-                        <Title title={template.name} type='Project template'/>
-                        <ButtonGroup>
-                            <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle
-                                styling='mr-2'/> Create
-                                project from template</BtnPrimary>
-                            <DeleteButton onClick={() => destroy(template.id)}/>
-                        </ButtonGroup>
-                    </div>
-
+                <article>
+                    <Title title={template.name} type='Project template'/>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
                         <div className='card'>
                             <h2>Description</h2>
@@ -50,7 +51,7 @@ const TemplateDetails = ({history, match}) => {
                         </div>
                     </section>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <article className='card'>
+                        <div className='card'>
                             <h2>Tasks</h2>
                             <div className='flex flex-col gap-2 mb-2'>
                                 <ol>
@@ -61,9 +62,9 @@ const TemplateDetails = ({history, match}) => {
                                     )}
                                 </ol>
                             </div>
-                        </article>
+                        </div>
                     </section>
-                </div>}
+                </article>}
         </>
     )
 }

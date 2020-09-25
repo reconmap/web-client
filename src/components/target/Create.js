@@ -26,9 +26,11 @@ export default function TargetCreateForm({ match, history }) {
 
     return (
         <div>
-            <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
-            <Title title='Create Target'/>
+            <div className='heading'>
+                <Breadcrumb history={history} />
+            </div>
             <form onSubmit={e => e.preventDefault()}>
+                <Title title='Create Target'/>
                 <label htmlFor='name'>Name
                 <input autoFocus type="text" name="name" onChange={handleFormChange} /></label>
                 <label htmlFor='kind'>Kind

@@ -17,7 +17,7 @@ const ClientsList = ({history}) => {
     return <>
 
         <div className='heading'>
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb history={history}/>
         </div>
 
         {!clients ?

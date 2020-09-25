@@ -42,7 +42,9 @@ const UserCreationForm = () => {
     const allFieldsFilled = userData.name && userData.password && userData.email && userData.role
     return (
         <div>
-            <Breadcrumb goBack={handleGoBack} path={history.location.pathname}/>
+            <div className='heading'>
+                <Breadcrumb history={history}/>
+            </div>
             <form>
                 <Title title='Create User'/>
                 <label htmlFor='name'>Name

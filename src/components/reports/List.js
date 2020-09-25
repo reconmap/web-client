@@ -38,7 +38,7 @@ const ReportsList = ({history}) => {
     return <div>
         <div className='heading'>
 
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb history={history}/>
         </div>
         {!reports ? <Loading/> : reports.length === 0 ? <NoResults/> :
             <table className='w-full my-4'>

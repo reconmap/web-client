@@ -31,7 +31,7 @@ const SearchResults = (props) => {
         reloadData()
     }, [keywords])
     return <div>
-                <Breadcrumb path={history.location.pathname} />
+                <Breadcrumb history={history} />
                 <Title type='Search results' title={`For ${keywords}`}/>
                 <h2>{vulnerabilities.length} vulnerabilities matched</h2>
                 <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>

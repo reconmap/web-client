@@ -19,7 +19,7 @@ const ProjectCreate = ({history}) => {
 
     return (
         <div>
-            <Breadcrumb path={history.location.pathname} goBack={handleGoBack}/>
+            <Breadcrumb history={history}/>
             <form>
                 <Title title='New Project'/>
                 <label htmlFor='name'>Name

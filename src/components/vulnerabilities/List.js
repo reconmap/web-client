@@ -46,7 +46,7 @@ const VulnerabilitiesList = ({history}) => {
     const handleCreateVulnerability = () => {history.push(`/vulnerabilities/create`)}
     return (<>
         <div className='heading'>
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb history={history}/>
             <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev}
                         handleNext={handleNext}/>
             <CreateButton onClick={handleCreateVulnerability}>Create Vulnerability</CreateButton>

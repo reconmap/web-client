@@ -14,7 +14,7 @@ function Dashboard({children}) {
             <Sidebar/>
             <div className="flex flex-col ml-16 md:ml-56 lg:ml-64">
                 <Header/>
-                <main role="main" className="p-5 w-full">
+                <main role="main" className="px-5 w-full">
                     {children || <DashboardPanels/>}
                 </main>
             </div>

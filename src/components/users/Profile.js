@@ -14,7 +14,7 @@ const UserProfile = ({match, history}) => {
     const [auditLog] = useFetch(`/users/${match.params.id}/activity`)
     return (
         <div>
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb history={history}/>
 
             <div className=' flex flex-col md:flex-row items-center justify-center  max-w-xl mx-auto my-10'>
                 {user && <UserAvatar email={user.email} size={48}/>}

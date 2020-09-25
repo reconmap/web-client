@@ -3,6 +3,7 @@ import secureApiFetch from '../../services/api';
 import { IconUpload } from '../icons';
 import Breadcrumb from '../ui/Breadcrumb'
 import BtnPrimary from '../ui/buttons/BtnPrimary';
+import Title from '../ui/Title';
 class UploadTaskResult extends Component {
 
     constructor(props) {
@@ -35,29 +36,32 @@ class UploadTaskResult extends Component {
     handleGoBack(){ this.props.history.goBack() }
     render() {
         return (
-
             <div>
-                <Breadcrumb path={this.props.history.location.pathname} goBack={()=>this.handleGoBack()}/>
-                <h1 className='heading'>Task: Run port scanner </h1>
-                <div className='flex items-start gap-4'>
-                    <article className='card flex-1'>
-                        <h3>Command</h3>
-                        <code >
-                            <pre className='whitespace-pre-wrap'>
-                                nmap -v -O www.fom
-                                nmap -v -O www.foa
-                                nmap -v -O www.fas
-                            </pre>
-                        </code>
-                    </article>
-                    <article className='card flex-1'>
-                        <h3>Results</h3>
-                        <form>
-                            <input type="file" id="resultFile" />
-                            <BtnPrimary onClick={this.handleUploadClick}><IconUpload styling='mr-2'/> Upload results</BtnPrimary>
-                        </form>                
-                    </article>
+                <div className='heading'>
+                    <Breadcrumb history={this.props.history} />
                 </div>
+                <article>
+                    <Title title='Upload Task Results'/>
+                    <div className='flex items-start gap-4'>
+                        <div className='card flex-1'>
+                            <h3>Command</h3>
+                            <code >
+                                <pre className='whitespace-pre-wrap'>
+                                    nmap -v -O www.fom
+                                    nmap -v -O www.foa
+                                    nmap -v -O www.fas
+                                </pre>
+                            </code>
+                        </div>
+                        <div className='card flex-1'>
+                            <h3>Results</h3>
+                            <form>
+                                <input type="file" id="resultFile" />
+                                <BtnPrimary onClick={this.handleUploadClick}><IconUpload styling='mr-2'/> Upload results</BtnPrimary>
+                            </form>                
+                        </div>
+                    </div>
+                </article>
             </div>
 
 

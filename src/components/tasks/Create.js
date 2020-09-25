@@ -25,7 +25,9 @@ export default function TaskCreateForm({ match, history }) {
 
     return (
         <div>
-            <Breadcrumb goBack={handleGoBack} path={history.location.pathname} />
+            <div className='heading'>
+                <Breadcrumb history={history} />
+            </div>
             <form >
                 <Title title='Create Task'/>
                 <label htmlFor='name'>Name

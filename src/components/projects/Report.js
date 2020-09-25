@@ -69,7 +69,7 @@ class ProjectReport extends Component {
 
             <>
                 <div className='heading'>
-                    <Breadcrumb path={this.props.history.location.pathname} goBack={() => this.handleGoBack()} />
+                    <Breadcrumb history={this.props.history} />
                     {this.state.project ? <h2>{this.state.project.name}</h2> : '...'}
                     <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave styling='mr-2' /> Export to PDF</BtnSecondary>
                 </div>

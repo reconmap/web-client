@@ -8,6 +8,7 @@ import Title from '../ui/Title';
 import ThemeContext from "../../contexts/ThemeContext";
 import BtnSecondary from "../ui/buttons/BtnSecondary";
 import CancelButton from "../ui/buttons/Cancel";
+import Breadcrumb from '../ui/Breadcrumb';
 
 const UserPreferences = ({history}) => {
     useSetTitle('Preferences')
@@ -41,6 +42,10 @@ const UserPreferences = ({history}) => {
 
     return (
         <>
+            <div className='heading'>
+                <Breadcrumb history={history}/>
+            </div>
+
             <form onSubmit={e => e.preventDefault()} >
                 <Title type='User' title='Preferences'/>
                 <label>Timezone

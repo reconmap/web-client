@@ -6,6 +6,8 @@ import {IconCheck, IconUpload, IconX} from '../icons'
 import Title from './../ui/Title'
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
+import Breadcrumb from "../ui/Breadcrumb";
+import Loading from '../ui/Loading'
 
 class TaskDetails extends Component {
 
@@ -64,15 +66,11 @@ class TaskDetails extends Component {
 
     render() {
         const task = this.state.task;
-        if (!task) {
-            return 'Loading...'
-        }
         return (
             <div>
-
                 <div className="heading">
-                    <Title title={task.name} type='Task'/>
-                    <ButtonGroup>
+                    <Breadcrumb history={this.props.history}/>
+                    { task && <ButtonGroup>
                         {task.completed === 1 && <BtnSecondary size='sm' onClick={() => this.handleToggle(task)}>
                             <IconX styling='mr-2'/> Mark as incomplete
                         </BtnSecondary>}
@@ -84,26 +82,31 @@ class TaskDetails extends Component {
                         </BtnPrimary>
                         <DeleteButton onClick={() => this.handleDelete(task.id)}/>
                     </ButtonGroup>
+                    }
                 </div>
+                {!task ? <Loading /> :
+                    <article>
+                        <Title title={task.name} type='Task'/>
+                        <div className='flex items-start gap-4'>
+                            <div className='card'>
+                                <p><em>Created on {this.state.task.insert_ts}</em></p>
+                                <h2>Instructions</h2>
+                                <p>{this.state.task.description}</p>
 
-                <div className='flex items-start gap-4'>
-                    <article className='card'>
-                        <p><em>Created on {this.state.task.insert_ts}</em></p>
-                        <h2>Instructions</h2>
-                        <p>{this.state.task.description}</p>
-
-                    </article>
-                    <article className='card flex-1'>
-                        <h3>Results</h3>
-                        {this.state.results.map((value, index) =>
-                            <div key={index} className='pb-2 border-b mb-2'>
-                                <label>Date: {value.insert_ts}</label>
-                                <textarea readOnly value={value.output} style={{width: '100%'}}/>
                             </div>
-                        )}
-                        {this.state.results.length === 0 && <footer> No results </footer>}
+                            <div className='card flex-1'>
+                                <h3>Results</h3>
+                                {this.state.results.map((value, index) =>
+                                    <div key={index} className='pb-2 border-b mb-2'>
+                                        <label>Date: {value.insert_ts}</label>
+                                        <textarea readOnly value={value.output} style={{width: '100%'}}/>
+                                    </div>
+                                )}
+                                {this.state.results.length === 0 && <footer> No results </footer>}
+                            </div>
+                        </div>
                     </article>
-                </div>
+                }
             </div>
         )
     }

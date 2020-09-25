@@ -33,31 +33,30 @@ const ProjectDetails = ({match, history}) => {
     const handleGenerateReport = () => {
         history.push(`/projects/${project.id}/report`)
     }
-    const handleGoBack = () => {
-        history.goBack()
-    }
+   
     const handleManageTeam = () => {
         history.push(`/projects/${project.id}/membership`)
     }
     return (
         <>
             <div className='heading'>
-                <Breadcrumb goBack={handleGoBack} path={history.location.pathname}/>
-                <ProjectTeam project={project} users={users}/>
+                <Breadcrumb history={history}/>
+                {project&& <>
+                        <ProjectTeam project={project} users={users}/>
 
 
-                <ButtonGroup>
-                    <BtnSecondary size='sm' onClick={handleGenerateReport}><IconClipboardCheck size={4}
-                                                                                               styling='mr-2'/> Generate
-                        Report</BtnSecondary>
-                    <BtnSecondary
-                        size='sm'
-                        onClick={handleManageTeam}>
-                        <IconUserGroup size={4} color='gray' styling='ml-2'/>
-                        Manage Members
-                    </BtnSecondary>
-                    <DeleteButton size="sm" onClick={() => destroy(project.id)}/>
-                </ButtonGroup>
+                        <ButtonGroup>
+                            <BtnSecondary size='sm' onClick={handleGenerateReport}>
+                                <IconClipboardCheck size={4} styling='mr-2'/> 
+                                Generate Report
+                            </BtnSecondary>
+                            <BtnSecondary size='sm' onClick={handleManageTeam}>
+                                <IconUserGroup size={4} color='gray' styling='ml-2'/>
+                                Manage Members
+                            </BtnSecondary>
+                            <DeleteButton size="sm" onClick={() => destroy(project.id)}/>
+                        </ButtonGroup>
+                    </>}
             </div>
             {!project ? <Loading/> :
                 <>

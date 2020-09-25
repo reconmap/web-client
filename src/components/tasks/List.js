@@ -21,7 +21,7 @@ const TasksList = ({ history }) => {
     return <>
 
         <div className='heading'>
-            <Breadcrumb path={history.location.pathname} />
+            <Breadcrumb history={history} />
             <div>
                 <label>Project</label>
                 <select onChange={handleSetProject}>

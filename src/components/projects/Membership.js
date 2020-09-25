@@ -38,9 +38,9 @@ const TasksList = ({match, history}) => {
         })
     }
 
-    return <>
+    return <div>
         <div className='heading'>
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb history={history}/>
         </div>
         <form>
             <Title title='Members'/>
@@ -84,7 +84,7 @@ const TasksList = ({match, history}) => {
                 </>
         }
 
-    </>
+    </div>
 }
 
 export default TasksList

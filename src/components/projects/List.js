@@ -18,7 +18,7 @@ const ProjectsList = ({history}) => {
     }
     return <div>
         <div className='heading'>
-            <Breadcrumb path={history.location.pathname}/>
+            <Breadcrumb history={history}/>
             <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
         </div>
         {!projects ? <Loading/> : projects.length === 0 ? <NoResults/> :

@@ -23,7 +23,7 @@ const UsersList = ({history}) => {
 
     return (<>
             <div className='heading'>
-                <Breadcrumb path={history.location.pathname}/>
+                <Breadcrumb history={history}/>
                 <CreateButton onClick={handleCreate}>Create User</CreateButton>
             </div>
             {!users ? <Loading/> : users.length === 0 ? <NoResults/> :

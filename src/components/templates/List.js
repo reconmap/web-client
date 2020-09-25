@@ -34,7 +34,7 @@ const TemplatesList = ({history}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb path={history.location.pathname}/>
+                <Breadcrumb history={history}/>
                 <CreateButton onClick={() => history.push('/import-export')}>Import template(s)</CreateButton>
             </div>
             {!templates ? <Loading/> : templates.length === 0 ? <NoResults/> :

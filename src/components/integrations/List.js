@@ -12,7 +12,7 @@ const IntegrationsList = ({history}) => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb path={history.location.pathname}/>
+                <Breadcrumb history={history}/>
             </div>
             <Title type="System Utils" title="Integrations"/>
             {!integrations ? <Loading/> : integrations.length === 0 ? <NoResults/> :

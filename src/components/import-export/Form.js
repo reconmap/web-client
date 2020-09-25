@@ -45,7 +45,9 @@ class ImportExportForm extends Component {
         const projectsImported = this.state.projectsImported;
         return (
             <div>
-                <Breadcrumb path={this.props.history.location.pathname} goBack={() => this.handleGoBack()}/>
+                <div className='heading'>
+                    <Breadcrumb history={this.props.history}/>
+                </div>
 
                 <form>
                     <Title type="System Utils" title="Import/Export"/>

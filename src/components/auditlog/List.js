@@ -63,7 +63,7 @@ const AuditLogList = ({history}) => {
     return (<>
 
             <div className='heading'>
-                <Breadcrumb path={history.location.pathname}/>
+                <Breadcrumb history={history}/>
                 <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev}
                             handleNext={handleNext}/>
                 <BtnSecondary onClick={handleExport}><IconSave styling='mr-2'/> Export to CSV</BtnSecondary>
