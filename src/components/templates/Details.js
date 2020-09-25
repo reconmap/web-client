@@ -24,9 +24,6 @@ const TemplateDetails = ({history, match}) => {
 
     const destroy = useDelete('/tasks/', updateTemplate);
 
-    const handleGoBack = () => {
-        history.goBack()
-    }
     return (
         <>
             <div className='heading'>

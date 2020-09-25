@@ -1,13 +1,11 @@
 import React from 'react'
-import { IconLeft, IconFolder } from '../icons'
+import { IconLeft } from '../icons'
 
 const Breadcrumb = ({ history }) => {
     const handleGoBack = () => {
         history.goBack()
     }
-    const handleGoToRoot = () => {
-        history.push('/' + history.location.pathname.split('/')[1])
-    }
+ 
     const handleGoTo = (destination) => {
         if( destination.length >3 ){
             history.push('/' + destination)
