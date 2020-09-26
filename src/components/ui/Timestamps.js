@@ -3,8 +3,13 @@ import React from 'react';
 const Timestamps = ({insertTs, updateTs}) => {
     return <>
         <div>
-            <strong>Creation time:</strong> {insertTs}.
-            {updateTs && <> <strong>Modification time:</strong> {updateTs}</>}
+            <strong>Creation time:</strong>&nbsp;
+            <time dateTime={insertTs}>{insertTs}</time>
+            .
+            {updateTs && <> <strong>Modification time:</strong>
+                &nbsp;
+                <time dateTime={updateTs}>{updateTs}</time>
+            </>}
         </div>
     </>
 }
