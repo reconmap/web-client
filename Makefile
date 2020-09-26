@@ -36,7 +36,7 @@ clean:
 	git clean -fdx
 
 .PHONY: build
-build:
+build: stop
 	docker run --rm -it \
 		-w /var/www/webapp \
 		-v $(PWD):/var/www/webapp \
