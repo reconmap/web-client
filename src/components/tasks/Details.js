@@ -8,6 +8,7 @@ import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from '../ui/Loading'
+import Timestamps from "../ui/Timestamps";
 
 class TaskDetails extends Component {
 
@@ -70,7 +71,7 @@ class TaskDetails extends Component {
             <div>
                 <div className="heading">
                     <Breadcrumb history={this.props.history}/>
-                    { task && <ButtonGroup>
+                    {task && <ButtonGroup>
                         {task.completed === 1 && <BtnSecondary size='sm' onClick={() => this.handleToggle(task)}>
                             <IconX styling='mr-2'/> Mark as incomplete
                         </BtnSecondary>}
@@ -84,14 +85,14 @@ class TaskDetails extends Component {
                     </ButtonGroup>
                     }
                 </div>
-                {!task ? <Loading /> :
+                {!task ? <Loading/> :
                     <article>
                         <Title title={task.name} type='Task'/>
+                        <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
                         <div className='flex items-start gap-4'>
                             <div className='card'>
-                                <p><em>Created on {this.state.task.insert_ts}</em></p>
                                 <h2>Instructions</h2>
-                                <p>{this.state.task.description}</p>
+                                <p>{task.description}</p>
 
                             </div>
                             <div className='card flex-1'>

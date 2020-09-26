@@ -10,6 +10,7 @@ import VulnerabilityStatusBadge from "./StatusBadge";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
+import Timestamps from "../ui/Timestamps";
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -65,19 +66,20 @@ class VulnerabilityDetails extends Component {
                 <div className='heading'>
                     <Breadcrumb history={this.props.history}/>
                     {vuln &&
-                        <ButtonGroup>
-                            {vuln.status === 'open' &&
-                            <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as
-                                closed</BtnPrimary>}
-                            {vuln.status !== 'open' &&
-                            <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as open</BtnPrimary>}
-                            <DeleteButton size='sm' onClick={() => this.handleDelete(vuln)}/>
-                        </ButtonGroup>
+                    <ButtonGroup>
+                        {vuln.status === 'open' &&
+                        <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as
+                            closed</BtnPrimary>}
+                        {vuln.status !== 'open' &&
+                        <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as open</BtnPrimary>}
+                        <DeleteButton size='sm' onClick={() => this.handleDelete(vuln)}/>
+                    </ButtonGroup>
                     }
                 </div>
-                {!vuln ? <Loading /> :
+                {!vuln ? <Loading/> :
                     <article>
                         <Title type='Vulnerability' title={vuln.summary}/>
+                        <Timestamps insertTs={vuln.insert_ts} updateTs={vuln.update_ts}/>
                         <p>{vuln.description}</p>
                         <table className='w-full'>
                             <tbody>
@@ -102,14 +104,6 @@ class VulnerabilityDetails extends Component {
                             <tr>
                                 <th>Risk</th>
                                 <td><RiskBadge risk={vuln.risk}/></td>
-                            </tr>
-                            <tr>
-                                <th>Creation time</th>
-                                <td>{vuln.insert_ts}</td>
-                            </tr>
-                            <tr>
-                                <th>Update time</th>
-                                <td>{vuln.update_ts}</td>
                             </tr>
                             <tr>
                                 <th>Project</th>

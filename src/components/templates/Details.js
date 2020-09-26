@@ -11,6 +11,7 @@ import {IconPlusCircle} from '../icons';
 import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
+import Timestamps from "../ui/Timestamps";
 
 const TemplateDetails = ({history, match}) => {
     useSetTitle('Projects templates');
@@ -28,19 +29,20 @@ const TemplateDetails = ({history, match}) => {
         <>
             <div className='heading'>
                 <Breadcrumb history={history}/>
-                { template &&
-                    <ButtonGroup>
-                        <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle
-                            styling='mr-2'/> Create
-                            project from template</BtnPrimary>
-                        <DeleteButton onClick={() => destroy(template.id)}/>
-                    </ButtonGroup>
+                {template &&
+                <ButtonGroup>
+                    <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle
+                        styling='mr-2'/> Create
+                        project from template</BtnPrimary>
+                    <DeleteButton onClick={() => destroy(template.id)}/>
+                </ButtonGroup>
                 }
             </div>
             {(!template) ?
                 <Loading/> :
                 <article>
                     <Title title={template.name} type='Project template'/>
+                    <Timestamps insertTs={template.insert_ts} updateTs={template.update_ts}/>
                     <section className='grid lg:grid-cols-3 gap-4 my-4'>
                         <div className='card'>
                             <h2>Description</h2>

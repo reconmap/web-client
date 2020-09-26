@@ -7,6 +7,7 @@ import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../tables/AuditLogsTable';
 import {IconBookOpen} from '../icons';
+import Timestamps from "../ui/Timestamps";
 
 const UserProfile = ({match, history}) => {
     useSetTitle('User');
@@ -20,13 +21,11 @@ const UserProfile = ({match, history}) => {
                 {user && <UserAvatar email={user.email} size={48}/>}
                 {user ? <div className=' flex flex-col flex-1 ml-5'>
                     <h1>{user.name}</h1>
+                    <Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/>
                     <div className='flex flex-row gap-4 my-2 font-semibold text-sm'>
                         <UserRoleBadge role={user.role}/>
                     </div>
                     <dl className='text-gray-600'>
-                        <dt>User since</dt>
-                        <dd>{user.insert_ts}</dd>
-
                         <dt>Timezone</dt>
                         <dd>{user.timezone}</dd>
                     </dl>

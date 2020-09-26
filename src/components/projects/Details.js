@@ -14,6 +14,7 @@ import Title from '../ui/Title';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
+import Timestamps from "../ui/Timestamps";
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
@@ -33,7 +34,7 @@ const ProjectDetails = ({match, history}) => {
     const handleGenerateReport = () => {
         history.push(`/projects/${project.id}/report`)
     }
-   
+
     const handleManageTeam = () => {
         history.push(`/projects/${project.id}/membership`)
     }
@@ -41,26 +42,27 @@ const ProjectDetails = ({match, history}) => {
         <>
             <div className='heading'>
                 <Breadcrumb history={history}/>
-                {project&& <>
-                        <ProjectTeam project={project} users={users}/>
+                {project && <>
+                    <ProjectTeam project={project} users={users}/>
 
 
-                        <ButtonGroup>
-                            <BtnSecondary size='sm' onClick={handleGenerateReport}>
-                                <IconClipboardCheck size={4} styling='mr-2'/> 
-                                Generate Report
-                            </BtnSecondary>
-                            <BtnSecondary size='sm' onClick={handleManageTeam}>
-                                <IconUserGroup size={4} color='gray' styling='ml-2'/>
-                                Manage Members
-                            </BtnSecondary>
-                            <DeleteButton size="sm" onClick={() => destroy(project.id)}/>
-                        </ButtonGroup>
-                    </>}
+                    <ButtonGroup>
+                        <BtnSecondary size='sm' onClick={handleGenerateReport}>
+                            <IconClipboardCheck size={4} styling='mr-2'/>
+                            Generate Report
+                        </BtnSecondary>
+                        <BtnSecondary size='sm' onClick={handleManageTeam}>
+                            <IconUserGroup size={4} color='gray' styling='ml-2'/>
+                            Manage Members
+                        </BtnSecondary>
+                        <DeleteButton size="sm" onClick={() => destroy(project.id)}/>
+                    </ButtonGroup>
+                </>}
             </div>
             {!project ? <Loading/> :
                 <>
                     <Title title={project.name} type='Project'/>
+                    <Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/>
                     <ProjectDescription project={project}/>
                     <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>
                     <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>
