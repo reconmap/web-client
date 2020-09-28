@@ -8,6 +8,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import ProjectBadge from '../badges/ProjectBadge';
 import CreateButton from '../ui/buttons/Create';
 import DeleteButton from "../ui/buttons/Delete";
+import {ClientLink} from "../clients/Link";
 
 const ProjectsList = ({history}) => {
     useSetTitle('Projects');
@@ -35,7 +36,7 @@ const ProjectsList = ({history}) => {
                 <tbody>
                 {projects.map((project) =>
                     <tr key={project.id}>
-                        <td>{project.client_name}</td>
+                        <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
                         <td><ProjectBadge project={project}/></td>
                         <td><small>{project.description}</small></td>
                         <td>{project.insert_ts}</td>

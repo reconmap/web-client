@@ -35,6 +35,7 @@ import TargetView from './components/target/View';
 import VulnerabilityCreate from './components/vulnerabilities/Create';
 import ThemeContext from './contexts/ThemeContext';
 import ClientsList from "./components/clients/List";
+import ClientDetails from "./components/clients/Details";
 
 const App = () => {
 
@@ -56,6 +57,7 @@ const App = () => {
                         <ProtectedRoute exact path='/' component={Dashboard}/>
                         <Dashboard>
                             <Switch>
+                                <ProtectedRoute exact path={`/clients/:clientId([0-9]+)`} component={ClientDetails}/>
                                 <ProtectedRoute exact path={`/clients`} component={ClientsList}/>
                                 <ProtectedRoute exact path={`/tasks`} component={TasksList}/>
                                 <ProtectedRoute exact path={`/tasks/:id([0-9]+)`} component={TaskDetails}/>

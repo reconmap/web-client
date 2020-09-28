@@ -7,6 +7,7 @@ import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from "../ui/buttons/Delete";
 import ExternalLink from "../ui/ExternalLink";
+import {ClientLink} from "./Link";
 
 const ClientsList = ({history}) => {
     useSetTitle('Clients');
@@ -38,7 +39,7 @@ const ClientsList = ({history}) => {
                     <tbody>
                     {clients.map((client) =>
                         <tr key={client.id}>
-                            <td>{client.name}</td>
+                            <td><ClientLink clientId={client.id}>{client.name}</ClientLink></td>
                             <td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</td>
                             <td>{client.contact_name || '-'}</td>
                             <td>{client.contact_email || '-'}</td>

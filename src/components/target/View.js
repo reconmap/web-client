@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import secureApiFetch from '../../services/api'
 import Badge from '../badges/Badge';
 import DeleteButton from '../ui/buttons/Delete';
 import Title from '../ui/Title';
+import Timestamps from "../ui/Timestamps";
 
 class TargetView extends Component {
 
@@ -22,7 +23,7 @@ class TargetView extends Component {
         })
             .then((responses) => responses.json())
             .then((data) => {
-                this.setState({ target: data })
+                this.setState({target: data})
                 document.title = `Target ${data.summary} | Reconmap`;
             });
     }
@@ -32,7 +33,9 @@ class TargetView extends Component {
             secureApiFetch(`/targets/${target.id}`, {
                 method: 'DELETE'
             })
-                .then(() => { this.props.history.push('/vulnerabilities') })
+                .then(() => {
+                    this.props.history.push('/vulnerabilities')
+                })
                 .catch(e => console.log(e))
 
         }
@@ -46,22 +49,26 @@ class TargetView extends Component {
         return (
             <div>
                 <div className='heading'>
-                    <Title type='Target' title={target.name} />
-                    <DeleteButton size='sm' onClick={() => this.handleDelete(target)} />
+                    <div><Title type='Target' title={target.name}/>
+                        <Timestamps insertTs={target.insert_ts} updateTs={target.update_ts}/>
+                    </div>
+                    <DeleteButton size='sm' onClick={() => this.handleDelete(target)}/>
                 </div>
                 <article className=''>
                     <table className='w-full'>
                         <tbody>
-                            <tr> <th>Kind</th> <td><Badge color={target.kind === 'hostname' ? 'green':'blue'}>{target.kind}</Badge></td> </tr>
-                            <tr> <th>Creation time</th> <td>{target.insert_ts}</td> </tr>
-                            <tr> <th>Update time</th> <td>{target.update_ts}</td> </tr>
-                            <tr> <th>Project</th> <td>{target.project_id}</td> </tr>
+                        <tr>
+                            <th>Kind</th>
+                            <td><Badge color={target.kind === 'hostname' ? 'green' : 'blue'}>{target.kind}</Badge></td>
+                        </tr>
+                        <tr>
+                            <th>Project</th>
+                            <td>{target.project_id}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </article>
             </div>
-
-
         )
     }
 }
