@@ -13,7 +13,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "recharts": "^1.8.5"
+    "recharts": "^1.8.5",
+    "styled-components": "^5.2.0"
   },
   "scripts": {
     "lint": "eslint . --ext .js",
