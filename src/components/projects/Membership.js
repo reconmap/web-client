@@ -7,10 +7,10 @@ import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
-import {Link} from 'react-router-dom';
 import {IconPlus} from '../icons';
 import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
+import UserLink from "../users/Link";
 
 const TasksList = ({match, history}) => {
     const projectId = match.params.id;
@@ -52,7 +52,7 @@ const TasksList = ({match, history}) => {
                     )}
                 </select>
             </label>
-            <BtnPrimary onClick={handleOnClick} ><IconPlus styling='mr-2' size={4}/> Add as member</BtnPrimary>
+            <BtnPrimary onClick={handleOnClick}><IconPlus styling='mr-2' size={4}/> Add as member</BtnPrimary>
         </form>
 
         {!members ?
@@ -72,7 +72,7 @@ const TasksList = ({match, history}) => {
                         members.map((member, index) =>
                             <tr>
                                 <td className='w-16'><UserAvatar size={10} email={member.email}/></td>
-                                <td><Link to={`/users/${member.id}`}>{member.name}</Link></td>
+                                <td><UserLink userId={member.id}>{member.name}</UserLink></td>
                                 <td className='text-right'>
                                     <DeleteButton onClick={() => handleDelete(member)}/>
                                 </td>

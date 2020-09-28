@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import Ipv4Link from '../ui/Ipv4Link'
 import UserRoleBadge from '../badges/UserRoleBadge'
+import UserLink from "../users/Link";
 
 export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
     return (
@@ -28,7 +28,7 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
                         <td><Ipv4Link value={entry.client_ip}/></td>
                         {!hideUserColumns &&
                         <>
-                            <td><Link to={`/users/${entry.user_id}`}>{entry.name}</Link></td>
+                            <td><UserLink userId={entry.user_id}>{entry.name}</UserLink></td>
                             <td><UserRoleBadge role={entry.role}/></td>
                         </>
                         }

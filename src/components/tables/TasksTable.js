@@ -5,6 +5,7 @@ import BadgeOutline from '../badges/BadgeOutline'
 import BtnPrimary from '../ui/buttons/BtnPrimary'
 import {IconUpload} from '../icons'
 import DeleteButton from "../ui/buttons/Delete";
+import UserLink from "../users/Link";
 
 export default function TasksTable({tasks, filter = {project: '', status: ''}, destroy}) {
     return (
@@ -12,6 +13,7 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Assignee</th>
                 <th>Status</th>
                 <th>Parser</th>
                 <th>Details</th>
@@ -25,6 +27,8 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                 .map((task) =>
                     <tr key={task.id}>
                         <td><TaskBadge task={task}/></td>
+                        <td>{task.assignee_uid ?
+                            <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
                         <td><TaskCompletedBadge completed={task.completed}/></td>
                         <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
                         <td><small className='text-gray-600 font-mono'>{task.description.slice(0, 40)} </small></td>
@@ -40,6 +44,5 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                 )}
             </tbody>
         </table>
-
     )
 }
