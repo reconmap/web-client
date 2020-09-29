@@ -1,27 +1,14 @@
 import React from "react";
-import { IconExternalLink } from "../icons";
-import styled from 'styled-components';
+import {IconExternalLink} from "../icons";
 
-const ExternalLinkWrapper = styled.span`
-    display: inline-flex;
-    align-items:center;
-    justify-content:flex-start;
-    color: tomato;
-    border-bottom: 2px solid tomato;
-    &:hover {
-        color: salmon;
-        border-bottom: 2px solid salmon;
-    }
-`;
-
+import "./ExternalLink.scss"
 
 const ExternalLink
     = (props) => {
-    return <ExternalLinkWrapper><a target="_blank"
-              rel="noopener noreferrer" {...props}>
-              {props.children}</a>
-              <IconExternalLink size={4} styling="ml-2"/>
-            </ExternalLinkWrapper>
+    return <span className="ExternalLinkComponent">
+        <a target="_blank" rel="noopener noreferrer" {...props}>{props.children}</a>
+        <IconExternalLink size={4} styling="ml-2"/>
+    </span>
 }
 
 export default ExternalLink
