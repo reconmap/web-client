@@ -47,16 +47,16 @@ const UserCreationForm = () => {
             </div>
             <form>
                 <Title title='Create User'/>
-                <label htmlFor='name'>Name
+                <label>Name
                     <input autoFocus type="text" name="name" onChange={handleFormChange}/>
                 </label>
-                <label htmlFor='password'>Password
+                <label>Password
                     <input type="password" name="password" onChange={handleFormChange}/>
                 </label>
-                <label htmlFor='email'>Email
+                <label>Email
                     <input type="email" name="email" onChange={handleFormChange}/>
                 </label>
-                <label htmlFor='role'>Role
+                <label>Role
                     <select name="role" onChange={handleFormChange}>
                         <option value="reader">Reader</option>
                         <option value="writer">Writer</option>

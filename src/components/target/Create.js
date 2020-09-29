@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import TargetKinds from '../../models/TargetKinds'
@@ -6,41 +6,44 @@ import BtnPrimary from '../ui/buttons/BtnPrimary';
 import BtnLink from '../ui/buttons/BtnLink';
 import Title from '../ui/Title';
 
-export default function TargetCreateForm({ match, history }) {
+export default function TargetCreateForm({match, history}) {
     const projectId = match.params.id;
-    const [newTarget, setNewTarget] = useState({ projectId: projectId, name: null, kind: TargetKinds[0].value })
+    const [newTarget, setNewTarget] = useState({projectId: projectId, name: null, kind: TargetKinds[0].value})
     const [loading, setLoading] = useState(false)
     const handleCreate = async () => {
         setLoading(true)
-        await secureApiFetch(`/targets`, { method: 'POST', body: JSON.stringify(newTarget) })
+        await secureApiFetch(`/targets`, {method: 'POST', body: JSON.stringify(newTarget)})
         history.push(`/projects/${projectId}`)
     }
     const handleFormChange = e => {
         const target = e.target;
         const name = target.name;
         const value = target.value;
-        setNewTarget({ ...newTarget, [name]: value });
+        setNewTarget({...newTarget, [name]: value});
     };
-    const handleGoBack = () => { history.goBack() }
+    const handleGoBack = () => {
+        history.goBack()
+    }
     const allFieldsFilled = newTarget.name
 
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history} />
+                <Breadcrumb history={history}/>
             </div>
             <form onSubmit={e => e.preventDefault()}>
                 <Title title='Create Target'/>
-                <label htmlFor='name'>Name
-                <input autoFocus type="text" name="name" onChange={handleFormChange} /></label>
-                <label htmlFor='kind'>Kind
-                <select name="kind" onChange={handleFormChange}>
-                    {TargetKinds.map((targetKind, index) =>
-                        <option value={targetKind.value}>{targetKind.description}</option>
-                    )}
-                </select>
+                <label>Name
+                    <input autoFocus type="text" name="name" onChange={handleFormChange}/></label>
+                <label>Kind
+                    <select name="kind" onChange={handleFormChange}>
+                        {TargetKinds.map((targetKind, index) =>
+                            <option value={targetKind.value}>{targetKind.description}</option>
+                        )}
+                    </select>
                 </label>
-                <BtnPrimary onClick={handleCreate} disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnPrimary onClick={handleCreate}
+                            disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
             </form>
         </div>
