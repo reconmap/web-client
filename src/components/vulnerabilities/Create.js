@@ -33,8 +33,7 @@ export default function VulnerabilityCreate({history, location}) {
     const handleGoBack = () => {
         history.goBack()
     }
-
-
+    
     return (
         <div>
             <div className='heading'>
