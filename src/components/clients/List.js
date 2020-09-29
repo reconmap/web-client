@@ -8,17 +8,22 @@ import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from "../ui/buttons/Delete";
 import ExternalLink from "../ui/ExternalLink";
 import {ClientLink} from "./Link";
+import CreateButton from "../ui/buttons/Create";
 
 const ClientsList = ({history}) => {
     useSetTitle('Clients');
     const [clients, updateTasks] = useFetch('/clients')
 
     const destroy = useDelete('/clients/', updateTasks);
-
+    const handleCreateClient = () => {
+        history.push(`/clients/create`)
+    }
     return <>
 
         <div className='heading'>
             <Breadcrumb history={history}/>
+
+            <CreateButton onClick={handleCreateClient}>Create Client</CreateButton>
         </div>
 
         {!clients ?
