@@ -14,11 +14,13 @@ class TaskDetails extends Component {
 
     constructor(props) {
         super(props)
+        this.handleAssigneeChange = this.handleAssigneeChange.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
     }
 
     state = {
         task: null,
+        users: null,
         results: []
     }
 
@@ -38,6 +40,13 @@ class TaskDetails extends Component {
             .then((responses) => responses.json())
             .then((data) => {
                 this.setState({results: data})
+            });
+        secureApiFetch(`/users`, {
+            method: 'GET'
+        })
+            .then((responses) => responses.json())
+            .then((data) => {
+                this.setState({users: data})
             });
     }
 
@@ -65,13 +74,37 @@ class TaskDetails extends Component {
         }
     }
 
+    handleAssigneeChange(event) {
+        const assigneeUid = event.target.value;
+        const task = this.state.task;
+        secureApiFetch(`/tasks/${task.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({assignee_uid: '' === assigneeUid ? null : assigneeUid})
+        })
+            .then(() => {
+                // @todo Show "Updated" toast
+            })
+            .catch(e => console.log(e))
+    }
+
     render() {
         const task = this.state.task;
+        const users = this.state.users;
+
         return (
             <div>
                 <div className="heading">
                     <Breadcrumb history={this.props.history}/>
-                    {task && <ButtonGroup>
+                    {task && users &&
+                    <ButtonGroup>
+                        <label>Assign to&nbsp;
+                            <select onChange={this.handleAssigneeChange} defaultValue={task.assignee_uid}>
+                                <option value="">(nobody)</option>
+                                {users && users.map((user, index) =>
+                                    <option value={user.id}>{user.name}</option>
+                                )}
+                            </select>
+                        </label>
                         {task.completed === 1 && <BtnSecondary size='sm' onClick={() => this.handleToggle(task)}>
                             <IconX styling='mr-2'/> Mark as incomplete
                         </BtnSecondary>}
