@@ -4,7 +4,7 @@ function secureApiFetch(input, init) {
     const headers = {
         Authorization: 'Bearer ' + localStorage.getItem('accessToken')
     }
-    var initWithAuth = init;
+    const initWithAuth = init;
     if (initWithAuth.hasOwnProperty('headers')) {
         Object.assign(initWithAuth.headers, headers);
     } else {
