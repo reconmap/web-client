@@ -191,6 +191,9 @@ form input[type="checkbox"] {
 	height: 24px;
 	border-radius: $radius;
 }
+form input:required{
+	border: 1px solid $red-500;
+}
 
 // responsive
 

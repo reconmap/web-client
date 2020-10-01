@@ -42,10 +42,10 @@ const ProjectCreate = ({history}) => {
                     </select>
                 </label>
                 <label>Name
-                    <input autoFocus type="text" name="name" onChange={handleFormChange}/>
+                    <input autoFocus type="text" name="name" onChange={handleFormChange} required/>
                 </label>
                 <label>Description
-                    <input type="description" name="description" onChange={handleFormChange}/>
+                    <input type="description" name="description" onChange={handleFormChange} required/>
                 </label>
                 <BtnPrimary type="submit" onClick={handleCreate}
                             disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
