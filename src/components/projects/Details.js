@@ -15,10 +15,12 @@ import BtnSecondary from '../ui/buttons/BtnSecondary';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Timestamps from "../ui/Timestamps";
+import secureApiFetch from "../../services/api";
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
     const [project, updateProject] = useFetch(`/projects/${match.params.id}`)
+    const [clients] = useFetch(`/clients`)
     const [tasks] = useFetch(`/projects/${match.params.id}/tasks`)
     const [targets] = useFetch(`/projects/${match.params.id}/targets`)
     const [vulnerabilities] = useFetch(`/projects/${match.params.id}/vulnerabilities`)
@@ -38,6 +40,19 @@ const ProjectDetails = ({match, history}) => {
     const handleManageTeam = () => {
         history.push(`/projects/${project.id}/membership`)
     }
+
+    const handleClientChange = (event) => {
+        const clientId = event.target.value;
+        secureApiFetch(`/projects/${project.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({client_id: '' === clientId ? null : clientId})
+        })
+            .then(() => {
+                // @todo Show "Updated" toast
+            })
+            .catch(e => console.log(e))
+    }
+
     return (
         <>
             <div className='heading'>
@@ -45,8 +60,16 @@ const ProjectDetails = ({match, history}) => {
                 {project && <>
                     <ProjectTeam project={project} users={users}/>
 
-
                     <ButtonGroup>
+                        <label>Belongs to&nbsp;
+                            <select onChange={handleClientChange} defaultValue={project.client_id}>
+                                <option value="">(none)</option>
+                                {clients && clients.map((client, index) =>
+                                    <option value={client.id}>{client.name}</option>
+                                )}
+                            </select>
+                        </label>
+
                         <BtnSecondary size='sm' onClick={handleGenerateReport}>
                             <IconClipboardCheck size={4} styling='mr-2'/>
                             Generate Report

@@ -26,7 +26,7 @@ class ImportExportForm extends Component {
         const resultFileInput = document.getElementById('importFile');
         const formData = new FormData();
         formData.append('importFile', resultFileInput.files[0]);
-        secureApiFetch('/projects', {
+        secureApiFetch('/templates', {
             method: 'POST',
             body: formData
         })
