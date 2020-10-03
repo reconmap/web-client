@@ -350,3 +350,19 @@ table {
 		transform: rotate(-359deg);
 	}
 }
+
+.fadeInUp { 
+	animation-name: fadeInUp;
+	animation-iteration-count: 1;
+	animation-duration: .4s;
+}
+@keyframes fadeInUp {
+	0% {
+		opacity: 0;
+		bottom: 0;
+	}
+	100% {
+		opacity: 1;
+		bottom:10px;
+	}
+}
