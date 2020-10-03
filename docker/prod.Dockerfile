@@ -12,6 +12,9 @@ RUN npm install && npm run build
 
 FROM nginx:1.18.0
 
+RUN rm /etc/nginx/conf.d/default.conf
+COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
+
 COPY --from=builder /opt/reconmap/build /usr/share/nginx/html
 
 EXPOSE 80
