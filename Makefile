@@ -1,7 +1,7 @@
 
 RECONMAP_APP_STAGE ?= dev
-DOCKER_BASE_IMAGE = reconmap/web-frontend:base
-DOCKER_PROD_IMAGE = reconmap/web-frontend:prod
+DOCKER_IMAGE_NAME = reconmap/web-frontend
+DOCKER_BASE_IMAGE = $(DOCKER_IMAGE_NAME):base
 
 .PHONY: prepare
 prepare:
@@ -38,12 +38,14 @@ clean: stop
 	git clean -fdx
 
 .PHONY: build
-build: stop
-	docker build -f docker/prod.Dockerfile -t $(DOCKER_PROD_IMAGE) .
+build:
+	docker build -f docker/prod.Dockerfile \
+		--build-arg RECONMAP_APP_STAGE=$(RECONMAP_APP_STAGE) \
+		-t $(DOCKER_IMAGE_NAME):$(RECONMAP_APP_STAGE) .
 
 .PHONY: push
 push:
-	docker push $(DOCKER_PROD_IMAGE)
+	docker push $(DOCKER_IMAGE_NAME):$(RECONMAP_APP_STAGE)
 
 .PHONY: shell
 shell:
