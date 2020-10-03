@@ -2,9 +2,6 @@ FROM reconmap/web-frontend:base AS builder
 
 ARG RECONMAP_APP_STAGE=dev
 
-WORKDIR /opt/reconmap
-
-ENV PATH /opt/reconmap/node_modules/.bin:$PATH
 ENV REACT_APP_STAGE=${RECONMAP_APP_STAGE}
 
 COPY package.json package-lock.json ./
