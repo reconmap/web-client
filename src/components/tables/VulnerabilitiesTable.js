@@ -7,17 +7,17 @@ import VulnerabilityStatusBadge from "../vulnerabilities/StatusBadge";
 
 export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
     return (
-        <table className='w-full my-4'>
+        <table className='w-full my-4 table-fixed'>
             <thead>
             <tr>
-                <th>Summary</th>
-                <th>Description</th>
-                <th>Risk</th>
-                <th><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
-                <th>Category</th>
-                <th>Status</th>
-                <th>Creation date/time</th>
-                <th>&nbsp;</th>
+                <th className='w-64'>Summary</th>
+                <th className='w-40'>Description</th>
+                <th className='w-32'>Risk</th>
+                <th className='w-32'><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
+                <th className='w-32'>Category</th>
+                <th className='w-24'>Status</th>
+                <th className='w-32'>Creation date/time</th>
+                <th className='w-40'>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                         <td>{vulnerability.category_name || '-'}</td>
                         <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
                         <td>{vulnerability.insert_ts}</td>
-                        <td className='text-right   '>{destroy &&
+                        <td className='text-right'>{destroy &&
                         <DeleteButton onClick={() => destroy(vulnerability.id)}/>
                         }</td>
                     </tr>
