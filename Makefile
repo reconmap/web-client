@@ -1,11 +1,13 @@
 
 RECONMAP_APP_STAGE ?= dev
+DOCKER_BASE_IMAGE = reconmap/web-frontend:base
+DOCKER_PROD_IMAGE = reconmap/web-frontend:prod
 
 .PHONY: prepare
 prepare:
-	docker build -f docker/Dockerfile -t reconmap-web-frontend:base .
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm reconmap-web-frontend install -g npm-check-updates
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm reconmap-web-frontend install
+	docker build -f docker/Dockerfile -t $(DOCKER_BASE_IMAGE) .
+	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm $(DOCKER_BASE_IMAGE) install -g npm-check-updates
+	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm $(DOCKER_BASE_IMAGE) install
 
 .PHONY: start
 start:
@@ -17,7 +19,7 @@ start:
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \
 		--name reconmap-web-frontend \
-		reconmap-web-frontend:base start
+		$(DOCKER_BASE_IMAGE) start
 
 .PHONY: stop
 stop:
@@ -25,11 +27,11 @@ stop:
 
 .PHONY: tests
 tests: prepare
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true reconmap-web-frontend:base test
+	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true $(DOCKER_BASE_IMAGE) test
 
 .PHONY: tests-ci
 tests-ci: prepare
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true reconmap-web-frontend:base test:ci
+	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true $(DOCKER_BASE_IMAGE) test:ci
 
 .PHONY: clean
 clean: stop
@@ -37,11 +39,11 @@ clean: stop
 
 .PHONY: build
 build: stop
-	docker build -f docker/prod.Dockerfile -t reconmap/web-frontend:prod .
+	docker build -f docker/prod.Dockerfile -t $(DOCKER_PROD_IMAGE) .
 
 .PHONY: push
 push:
-	docker push reconmap/web-frontend:prod
+	docker push $(DOCKER_PROD_IMAGE)
 
 .PHONY: shell
 shell:
