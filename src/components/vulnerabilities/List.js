@@ -9,9 +9,10 @@ import secureApiFetch from '../../services/api';
 import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
 import CreateButton from '../ui/buttons/Create';
 
-const VulnerabilitiesList = ({match, history}) => {
-    let {pageNumber} = match.params;
-    pageNumber = pageNumber !== undefined ? parseInt(pageNumber) : 1;
+const VulnerabilitiesList = ({history}) => {
+    const searchParams = new URLSearchParams(history.location.search);
+    let pageNumber = searchParams.get('page');
+    pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const page = pageNumber - 1;
 
     useSetTitle(`Vulnerabilities - Page ${pageNumber}`)
@@ -20,10 +21,10 @@ const VulnerabilitiesList = ({match, history}) => {
     const [numberPages, setNumberPages] = useState(0)
 
     const handlePrev = () => {
-        history.push(`/vulnerabilities/${pageNumber - 1}`);
+        history.push(`/vulnerabilities?page=${pageNumber - 1}`);
     }
     const handleNext = () => {
-        history.push(`/vulnerabilities/${pageNumber + 1}`);
+        history.push(`/vulnerabilities?page=${pageNumber + 1}`);
     }
 
     const reloadData = useCallback(() => {

@@ -9,6 +9,7 @@ import DeleteButton from "../ui/buttons/Delete";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from '../ui/Loading'
 import Timestamps from "../ui/Timestamps";
+import {actionCompletedToast} from "../../utilities/toast";
 
 class TaskDetails extends Component {
 
@@ -82,7 +83,7 @@ class TaskDetails extends Component {
             body: JSON.stringify({assignee_uid: '' === assigneeUid ? null : assigneeUid})
         })
             .then(() => {
-                // @todo Show "Updated" toast
+                actionCompletedToast("The task has been assigned.");
             })
             .catch(e => console.log(e))
     }
