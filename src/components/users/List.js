@@ -13,7 +13,7 @@ import DeleteButton from "../ui/buttons/Delete";
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
-    
+
     const loggedInUser = JSON.parse(localStorage.getItem('user'));
     const [users, updateUsers] = useFetch('/users')
     const destroy = useDelete('/users/', updateUsers);
@@ -30,10 +30,10 @@ const UsersList = ({history}) => {
                 <table className='w-full'>
                     <thead>
                     <tr>
-                        <th></th>
+                        <th>&nbsp;</th>
                         <th>Username</th>
                         <th>Role</th>
-                        <th></th>
+                        <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>

@@ -10,7 +10,7 @@ export default function toast(title, msg) {
             position: 'fixed',
             bottom: '10px',
             right: '10px',
-            maxWidth:'300px',
+            maxWidth: '300px',
         }
     }, <>
         {title && <strong className='text-red-500'>{title}</strong>}
@@ -22,7 +22,7 @@ export default function toast(title, msg) {
 
     // remove toast from DOM 
     setTimeout(() => {
-        let toastEl = document.getElementById('toast')
+        const toastEl = document.getElementById('toast');
         ReactDOM.unmountComponentAtNode(toastEl)
     }, 5000)
 }
