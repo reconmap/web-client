@@ -10,8 +10,6 @@ import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
 import {Link} from 'react-router-dom';
 import DeleteButton from "../ui/buttons/Delete";
-import toast from "../../utilities/toast";
-import BtnPrimary from '../ui/buttons/BtnPrimary';
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
@@ -23,14 +21,9 @@ const UsersList = ({history}) => {
         history.push("/users/create");
     }
 
-    const openToast = () => {
-        toast('New User Created!')
-    }
-
     return (<>
             <div className='heading'>
                 <Breadcrumb history={history}/>
-                <BtnPrimary onClick={openToast}>Open toast </BtnPrimary>
                 <CreateButton onClick={handleCreate}>Create User</CreateButton>
             </div>
             {!users ? <Loading/> : users.length === 0 ? <NoResults/> :

@@ -1,23 +1,28 @@
-import React  from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom';
 
-export default function useToast(msg) {
+export default function toast(title, msg) {
 
-    let timeout = setTimeout(()=>{
+    // create DOM element
+    const toast = React.createElement('div', {
+        className: 'card toast fadeInUp',
+        style: {
+            position: 'fixed',
+            bottom: '10px',
+            right: '10px',
+            maxWidth:'300px',
+        }
+    }, <>
+        {title && <strong className='text-red-500'>{title}</strong>}
+        <div>{msg}</div>
+    </>)
+
+    // render toast into DOM
+    ReactDOM.render(toast, document.getElementById('toast'))
+
+    // remove toast from DOM 
+    setTimeout(() => {
         let toastEl = document.getElementById('toast')
         ReactDOM.unmountComponentAtNode(toastEl)
-    },5000)
-
-    const toast = React.createElement('div',{
-            width: '100px',
-            height: '100px',
-            className: 'card fadeInUp',
-            style: {
-                position:'absolute',
-                bottom: '10px',
-                right: '10px'
-            }
-        },msg)
-
-    ReactDOM.render(toast,document.getElementById('toast'))
+    }, 5000)
 }
