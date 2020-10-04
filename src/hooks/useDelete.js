@@ -1,5 +1,5 @@
 import secureApiFetch from '../services/api'
-import toast from '../utilities/toast'
+import {actionCompletedToast} from '../utilities/toast'
 
 export default function useDelete(endpoint, updateCb) {
 
@@ -8,7 +8,7 @@ export default function useDelete(endpoint, updateCb) {
             try {
                 await secureApiFetch(`${endpoint}${id}`, {method: 'DELETE'})
                 updateCb()
-                toast('Action completed', 'The element has been deleted.')
+                actionCompletedToast('The element has been deleted.');
             } catch (e) {
                 console.log(e)
             }

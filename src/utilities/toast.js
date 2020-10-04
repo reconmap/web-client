@@ -18,11 +18,17 @@ export default function toast(title, msg) {
     </>)
 
     // render toast into DOM
-    ReactDOM.render(toast, document.getElementById('toast'))
+    setTimeout(() => {
+        ReactDOM.render(toast, document.getElementById('toast'))
+    }, 500)
 
     // remove toast from DOM 
     setTimeout(() => {
         const toastEl = document.getElementById('toast');
         ReactDOM.unmountComponentAtNode(toastEl)
     }, 5000)
+}
+
+export function actionCompletedToast(msg) {
+    toast('Action completed', msg);
 }

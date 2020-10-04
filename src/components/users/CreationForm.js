@@ -5,7 +5,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
 import CancelButton from "../ui/buttons/Cancel";
-import toast from './../../utilities/toast'
+import {actionCompletedToast} from './../../utilities/toast'
 
 const UserCreationForm = () => {
     const history = useHistory()
@@ -24,8 +24,7 @@ const UserCreationForm = () => {
             body: JSON.stringify(userData)
         }).then(() => {
             history.push('/users/')
-            toast(null, 'New User Created!')
-
+            actionCompletedToast(`The user "${userData.name}" has been created."`);
         })
             .finally(() => {
                 setLoading(false);
