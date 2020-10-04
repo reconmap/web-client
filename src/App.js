@@ -55,6 +55,8 @@ const App = () => {
                         </Dashboard>
                         <Route component={PageNotFound}/>
                     </Switch>
+                    <div id="toast"></div>
+
                 </ThemeContext.Provider>
             </AuthProvider>
         </Router>

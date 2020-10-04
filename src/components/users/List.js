@@ -13,13 +13,13 @@ import DeleteButton from "../ui/buttons/Delete";
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
+    
     const loggedInUser = JSON.parse(localStorage.getItem('user'));
     const [users, updateUsers] = useFetch('/users')
     const destroy = useDelete('/users/', updateUsers);
     const handleCreate = () => {
         history.push("/users/create");
     }
-
 
     return (<>
             <div className='heading'>

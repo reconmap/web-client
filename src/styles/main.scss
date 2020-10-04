@@ -350,3 +350,22 @@ table {
 		transform: rotate(-359deg);
 	}
 }
+
+.toast {
+	border: $border-width solid $red-500;
+}
+.fadeInUp { 
+	animation-name: fadeInUp;
+	animation-iteration-count: 1;
+	animation-duration: 5s;
+}
+@keyframes fadeInUp {
+	0%,100% {
+		opacity: 0;
+		bottom: 0;
+	}
+	10%, 90% {
+		opacity: 1;
+		bottom:10px;
+	}
+}

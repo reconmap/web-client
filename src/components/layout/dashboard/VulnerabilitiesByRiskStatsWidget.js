@@ -30,7 +30,7 @@ const VulnerabilitiesByRiskStatsWidget = () => {
     const [vulnerabilitiesByRiskStats] = useFetch('/vulnerabilities/stats?groupBy=risk')
 
     return (
-        <article className='card ' style={{width: '410px'}}>
+        <article className='card flex justify-center items-center'>
             <PieChart width={380} height={400}>
                 <Pie
                     data={vulnerabilitiesByRiskStats}

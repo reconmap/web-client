@@ -6,7 +6,7 @@ const VulnerabilitiesByCategoryStatsWidget = () => {
     const [vulnerabilitiesByCategoryStats] = useFetch('/vulnerabilities/stats?groupBy=category')
 
     return (
-        <article className='card ' style={{width: '410px'}}>
+        <article className='card flex justify-center items-center'>
             <PieChart width={380} height={400}>
                 <Pie
                     data={vulnerabilitiesByCategoryStats}

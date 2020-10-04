@@ -6,7 +6,7 @@ const UserActivityStatsWidget = () => {
     const [auditLogStats] = useFetch('/auditlog/stats')
 
     return (
-        <article className='card ' style={{width: '410px'}}>
+        <article className='card flex justify-center items-center'>
             <LineChart width={380} height={200} data={auditLogStats}>
                 <Line type="monotone" dataKey="total" stroke="#8884d8" strokeWidth={3}/>
                 <CartesianGrid stroke="#000"/>
