@@ -123,12 +123,12 @@ class TaskDetails extends Component {
                     <article>
                         <Title title={task.name} type='Task'/>
                         <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
-                        <div className='flex items-start gap-4'>
+                        <div className='items-start gap-4'>
                             <div className='card'>
-                                <h2>Instructions</h2>
+                                <h2>Description</h2>
                                 <p>{task.description}</p>
-
                             </div>
+                            <br/>
                             <div className='card flex-1'>
                                 <h3>Results</h3>
                                 {this.state.results.map((value, index) =>

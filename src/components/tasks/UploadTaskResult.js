@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import secureApiFetch from '../../services/api';
-import { IconUpload } from '../icons';
+import {IconUpload} from '../icons';
 import Breadcrumb from '../ui/Breadcrumb'
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
+
 class UploadTaskResult extends Component {
 
     constructor(props) {
@@ -19,8 +20,8 @@ class UploadTaskResult extends Component {
         e.preventDefault();
         const taskId = this.props.match.params.id;
 
-        var resultFileInput = document.getElementById('resultFile');
-        var formData = new FormData();
+        const resultFileInput = document.getElementById('resultFile');
+        const formData = new FormData();
         formData.append('resultFile', resultFileInput.files[0]);
         formData.append('taskId', taskId);
         secureApiFetch('/tasks/results', {
@@ -33,38 +34,29 @@ class UploadTaskResult extends Component {
             .catch((error) => console.log(error));
     }
 
-    handleGoBack(){ this.props.history.goBack() }
+    handleGoBack() {
+        this.props.history.goBack()
+    }
+
     render() {
         return (
             <div>
                 <div className='heading'>
-                    <Breadcrumb history={this.props.history} />
+                    <Breadcrumb history={this.props.history}/>
                 </div>
                 <article>
                     <Title title='Upload Task Results'/>
-                    <div className='flex items-start gap-4'>
+                    <div className='items-start gap-4'>
                         <div className='card flex-1'>
-                            <h3>Command</h3>
-                            <code >
-                                <pre className='whitespace-pre-wrap'>
-                                    nmap -v -O www.fom
-                                    nmap -v -O www.foa
-                                    nmap -v -O www.fas
-                                </pre>
-                            </code>
-                        </div>
-                        <div className='card flex-1'>
-                            <h3>Results</h3>
+                            <h2>Results</h2>
                             <form>
-                                <input type="file" id="resultFile" />
+                                <input type="file" id="resultFile"/>
                                 <BtnPrimary onClick={this.handleUploadClick}><IconUpload styling='mr-2'/> Upload results</BtnPrimary>
-                            </form>                
+                            </form>
                         </div>
                     </div>
                 </article>
             </div>
-
-
         )
     }
 }

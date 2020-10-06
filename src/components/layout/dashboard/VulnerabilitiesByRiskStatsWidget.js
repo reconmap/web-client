@@ -43,8 +43,9 @@ const VulnerabilitiesByRiskStatsWidget = () => {
                     label={renderCustomLabel}
                 >
                     {
-                        vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) => <Cell
-                            fill={RISKS[entry.risk].color}/>)
+                        vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) =>
+                            <Cell key={index} fill={RISKS[entry.risk].color}/>
+                        )
                     }
                 </Pie>
             </PieChart>
