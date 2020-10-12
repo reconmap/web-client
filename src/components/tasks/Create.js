@@ -9,7 +9,9 @@ export default function TaskCreateForm({match, history}) {
     const projectId = match.params.id;
     const [newTask, setNewTask] = useState({name: null, description: null, parser: 'none', project_id: match.params.id})
     const [loading, setLoading] = useState(false)
-    const handleCreate = async () => {
+    const handleCreate = async (event) => {
+        event.preventDefault();
+
         setLoading(true)
         await secureApiFetch(`/projects/${projectId}/tasks`, {method: 'POST', body: JSON.stringify(newTask)})
         history.push(`/projects/${projectId}`)
@@ -23,28 +25,27 @@ export default function TaskCreateForm({match, history}) {
     const handleGoBack = () => {
         history.goBack()
     }
-    const allFieldsFilled = newTask.name && newTask.description && newTask.parser
 
     return (
         <div>
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <form>
+            <form onSubmit={handleCreate}>
                 <Title title='Create Task'/>
                 <label>Name
-                    <input autoFocus type="text" name="name" onChange={handleFormChange}/></label>
+                    <input type="text" name="name" onChange={handleFormChange} required autoFocus/></label>
                 <label>Description
-                    <input type="description" name="description" onChange={handleFormChange}/></label>
+                    <input type="description" name="description" onChange={handleFormChange} required/></label>
                 <label>Parser
-                    <select name="parser" onChange={handleFormChange}>
+                    <select name="parser" onChange={handleFormChange} required>
                         <option value='none'>none</option>
                         <option value='sqlmap'>sqlmap</option>
                         <option value='nmap'>nmap</option>
                     </select>
                 </label>
-                <BtnPrimary onClick={handleCreate}
-                            disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnPrimary type="submit"
+                            disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
             </form>
         </div>

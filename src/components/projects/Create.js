@@ -26,12 +26,11 @@ const ProjectCreate = ({history}) => {
         await secureApiFetch(`/projects`, {method: 'POST', body: JSON.stringify(newProject)})
         history.push(`/projects`)
     }
-    const allFieldsFilled = newProject.name && newProject.description
 
     return (
         <div>
             <Breadcrumb history={history}/>
-            <form>
+            <form onSubmit={handleCreate}>
                 <Title title='New Project'/>
                 <label>Client
                     <select id="clientId" name="clientId" onChange={handleFormChange}
@@ -42,13 +41,12 @@ const ProjectCreate = ({history}) => {
                     </select>
                 </label>
                 <label>Name
-                    <input autoFocus type="text" name="name" onChange={handleFormChange} required/>
+                    <input type="text" name="name" onChange={handleFormChange} required autoFocus/>
                 </label>
                 <label>Description
                     <input type="description" name="description" onChange={handleFormChange} required/>
                 </label>
-                <BtnPrimary type="submit" onClick={handleCreate}
-                            disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnPrimary type="submit" disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>

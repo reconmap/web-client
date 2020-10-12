@@ -19,10 +19,12 @@ export default function VulnerabilityCreate({history, location}) {
         cvssScore: null
     })
     const [loading, setLoading] = useState(false)
-    const handleCreate = async () => {
+    const handleCreate = (event) => {
+        event.preventDefault();
+        
         setLoading(true)
-        await secureApiFetch(`/vulnerabilities`, {method: 'POST', body: JSON.stringify(vulnerability)})
-        history.push(`/vulnerabilities`)
+        secureApiFetch(`/vulnerabilities`, {method: 'POST', body: JSON.stringify(vulnerability)})
+            .then(r => history.push(`/vulnerabilities`));
     }
     const handleFormChange = e => {
         const target = e.target;
@@ -33,7 +35,7 @@ export default function VulnerabilityCreate({history, location}) {
     const handleGoBack = () => {
         history.goBack()
     }
-    
+
     return (
         <div>
             <div className='heading'>
@@ -41,7 +43,7 @@ export default function VulnerabilityCreate({history, location}) {
             </div>
 
             {!projects ? <Loading/> :
-                <form onSubmit={e => e.preventDefault()}>
+                <form onSubmit={handleCreate}>
                     <Title title="Create Vulnerability"/>
                     {!projectId &&
                     <label>
@@ -55,12 +57,12 @@ export default function VulnerabilityCreate({history, location}) {
                     </label>}
                     <label>
                         Summary
-                        <input autoFocus type="text" name="summary" onChange={handleFormChange}
-                               value={vulnerability.summary || ""}/>
+                        <input type="text" name="summary" onChange={handleFormChange}
+                               value={vulnerability.summary || ""} required autoFocus/>
                     </label>
                     <label>Description
                         <input type="text" name="description" onChange={handleFormChange}
-                               value={vulnerability.description || ""}/>
+                               value={vulnerability.description || ""} required/>
                     </label>
                     <label>Risk
                         <select name="risk" onChange={handleFormChange} defaultValue={vulnerability.risk}>
@@ -74,7 +76,7 @@ export default function VulnerabilityCreate({history, location}) {
                                value={vulnerability.cvssScore || ""}/>
                     </label>
 
-                    <BtnPrimary onClick={handleCreate}
+                    <BtnPrimary type="submit"
                                 disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                     <CancelButton onClick={handleGoBack} disabled={loading}/>
                 </form>

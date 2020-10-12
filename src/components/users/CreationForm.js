@@ -17,7 +17,9 @@ const UserCreationForm = () => {
         sendEmailToUser: false
     })
     const [loading, setLoading] = useState(false)
-    const handleCreate = async () => {
+    const handleCreate = async (event) => {
+        event.preventDefault();
+
         setLoading(true)
         await secureApiFetch(`/users`, {
             method: 'POST',
@@ -41,25 +43,26 @@ const UserCreationForm = () => {
     const handleGoBack = () => {
         history.push('/users/')
     }
-    const allFieldsFilled = userData.name && userData.password && userData.email && userData.role
+
     return (
         <div>
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <form>
+            <form onSubmit={handleCreate}>
                 <Title title='Create User'/>
                 <label>Name
-                    <input autoFocus type="text" name="name" onChange={handleFormChange}/>
+                    <input type="text" name="name" onChange={handleFormChange} autoFocus required/>
                 </label>
                 <label>Password
-                    <input type="password" name="password" onChange={handleFormChange}/>
+                    <input type="password" name="password" onChange={handleFormChange} required/>
                 </label>
                 <label>Email
-                    <input type="email" name="email" onChange={handleFormChange}/>
+                    <input type="email" name="email" onChange={handleFormChange} required/>
                 </label>
                 <label>Role
-                    <select name="role" onChange={handleFormChange}>
+                    <select name="role" onChange={handleFormChange} required>
+                        <option disabled selected>(select an option)</option>
                         <option value="reader">Reader</option>
                         <option value="writer">Writer</option>
                         <option value="creator">Creator</option>
@@ -70,8 +73,8 @@ const UserCreationForm = () => {
                     <input type="checkbox" name="sendEmailToUser" onChange={handleFormChange}/>
                 </label>
 
-                <BtnPrimary onClick={handleCreate}
-                            disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnPrimary type="submit"
+                            disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>

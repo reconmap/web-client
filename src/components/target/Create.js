@@ -10,7 +10,9 @@ export default function TargetCreateForm({match, history}) {
     const projectId = match.params.id;
     const [newTarget, setNewTarget] = useState({projectId: projectId, name: null, kind: TargetKinds[0].value})
     const [loading, setLoading] = useState(false)
-    const handleCreate = async () => {
+    const handleCreate = async (event) => {
+        event.preventDefault();
+
         setLoading(true)
         await secureApiFetch(`/targets`, {method: 'POST', body: JSON.stringify(newTarget)})
         history.push(`/projects/${projectId}`)
@@ -24,17 +26,16 @@ export default function TargetCreateForm({match, history}) {
     const handleGoBack = () => {
         history.goBack()
     }
-    const allFieldsFilled = newTarget.name
 
     return (
         <div>
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <form onSubmit={e => e.preventDefault()}>
+            <form onSubmit={handleCreate}>
                 <Title title='Create Target'/>
                 <label>Name
-                    <input autoFocus type="text" name="name" onChange={handleFormChange}/></label>
+                    <input type="text" name="name" onChange={handleFormChange} required autoFocus/></label>
                 <label>Kind
                     <select name="kind" onChange={handleFormChange}>
                         {TargetKinds.map((targetKind, index) =>
@@ -42,8 +43,8 @@ export default function TargetCreateForm({match, history}) {
                         )}
                     </select>
                 </label>
-                <BtnPrimary onClick={handleCreate}
-                            disabled={loading || !allFieldsFilled}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnPrimary type="submit"
+                            disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
             </form>
         </div>
