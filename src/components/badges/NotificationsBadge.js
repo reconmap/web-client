@@ -35,6 +35,8 @@ export default function NotificationsBadge() {
             console.error('[close] Connection died');
         }
     };
+    // if(ws.readyState == WebSocket.CLOSED) this.connect();
+
     //webSocketServer.close();
 
     return (
@@ -57,13 +59,15 @@ const NotificationsWindow = ({notifications}) => {
     return <div className='bg-invert text-sm rounded-lg shadow-lg p-4 top-0 absolute mt-12 text-left w-48 z-30 '>
         <figure
             className='absolute w-3 h-3 bg-invert absolute top-0 left-0 right-0 mx-auto transform -mt-1 rotate-45'></figure>
-        <ul>
-            {notifications.map((notification, index) =>
-                <li key={index} className='flex justify-between items-center my-1'>
-                    {notification.title}
-                    <span className='text-red-500  rounded-full font-bold text-sm'>{notification.detail}</span>
-                </li>
-            )}
-        </ul>
+        {notifications.length > 0 ?
+            <ul>
+                {notifications.map((notification, index) =>
+                    <li key={index} className='flex justify-between items-center my-1'>
+                        {notification.title}
+                        <span className='text-red-500  rounded-full font-bold text-sm'>{notification.detail}</span>
+                    </li>
+                )}
+            </ul>
+            : <span>No notifications</span>}
     </div>
 }
