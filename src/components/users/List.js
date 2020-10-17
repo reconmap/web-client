@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import CreateButton from "../../components/ui/buttons/Create";
 import useSetTitle from '../../hooks/useSetTitle';
 import useFetch from '../../hooks/useFetch';
@@ -10,6 +10,8 @@ import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
 import {Link} from 'react-router-dom';
 import DeleteButton from "../ui/buttons/Delete";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
+import secureApiFetch from "../../services/api";
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
@@ -21,15 +23,46 @@ const UsersList = ({history}) => {
         history.push("/users/create");
     }
 
+    const [selectedUsers, setSelectedUsers] = useState([]);
+
+    const onTaskCheckboxChange = (event) => {
+        const target = event.target
+        if (target.checked) {
+            setSelectedUsers([...selectedUsers, target.value]);
+        } else {
+            setSelectedUsers(selectedUsers.filter(value => value !== target.value));
+        }
+    }
+
+    const handleBulkDelete = () => {
+        secureApiFetch(`/users`, {
+            method: 'PATCH',
+            headers: {
+                'Bulk-Operation': 'DELETE'
+            },
+            body: JSON.stringify(selectedUsers)
+        })
+            .then(updateUsers)
+            .then(() => {
+                setSelectedUsers([])
+            })
+            .catch(e => console.log(e))
+    }
+
     return (<>
             <div className='heading'>
                 <Breadcrumb history={history}/>
-                <CreateButton onClick={handleCreate}>Create User</CreateButton>
+                <ButtonGroup>
+                    <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>Delete
+                        selected</DeleteButton>
+                    <CreateButton onClick={handleCreate}>Create User</CreateButton>
+                </ButtonGroup>
             </div>
             {!users ? <Loading/> : users.length === 0 ? <NoResults/> :
                 <table className='w-full'>
                     <thead>
                     <tr>
+                        <th>&nbsp;</th>
                         <th>&nbsp;</th>
                         <th>Username</th>
                         <th>Role</th>
@@ -38,6 +71,10 @@ const UsersList = ({history}) => {
                     </thead>
                     <tbody>
                     {users.map((user, index) => <tr key={index}>
+                        <td>
+                            <input type="checkbox" value={user.id} onChange={onTaskCheckboxChange}
+                                   checked={selectedUsers.indexOf(user.id) !== -1}/>
+                        </td>
                         <td className='w-16'>
                             <UserAvatar email={user.email} size={10}/>
                         </td>
