@@ -1,4 +1,3 @@
-import React from "react";
 import { IconPlus } from "../../icons";
 import BtnSecondary from "./BtnSecondary";
 

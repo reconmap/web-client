@@ -11,33 +11,37 @@ export default function NotificationsBadge() {
         }, 60000)
     }
 
-    const webSocketServer = new WebSocket("ws://localhost:8765");
+    try {
+        const webSocketServer = new WebSocket("ws://localhost:8765");
 
-    webSocketServer.onopen = function (e) {
-        console.info("[open] Connection established");
-        webSocketServer.send("jwt.token");
-    };
+        webSocketServer.onopen = function (e) {
+            console.info("[open] Connection established");
+            webSocketServer.send("jwt.token");
+        };
 
-    webSocketServer.onmessage = function (event) {
-        const data = JSON.parse(event.data);
-        setNotifications([...notifications, data]);
-    }
-    webSocketServer.onerror = function (error) {
-        console.error(`[error] ${error.message}`);
-    };
-
-    webSocketServer.onclose = function (event) {
-        if (event.wasClean) {
-            console.error(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-        } else {
-            // e.g. server process killed or network down
-            // event.code is usually 1006 in this case
-            console.error('[close] Connection died');
+        webSocketServer.onmessage = function (event) {
+            const data = JSON.parse(event.data);
+            setNotifications([...notifications, data]);
         }
-    };
-    // if(ws.readyState == WebSocket.CLOSED) this.connect();
+        webSocketServer.onerror = function (error) {
+            console.error(`[error] ${error.message}`);
+        };
 
-    //webSocketServer.close();
+        webSocketServer.onclose = function (event) {
+            if (event.wasClean) {
+                console.error(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                // e.g. server process killed or network down
+                // event.code is usually 1006 in this case
+                console.error('[close] Connection died');
+            }
+        };
+        // if(ws.readyState == WebSocket.CLOSED) this.connect();
+
+        //webSocketServer.close();
+    } catch (e) {
+        console.error(e);
+    }
 
     return (
         <button onClick={handleShowWindow}

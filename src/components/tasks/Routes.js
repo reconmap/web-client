@@ -1,4 +1,3 @@
-import React from "react";
 import ProtectedRoute from "../logic/ProtectedRoute";
 import TasksList from "./List";
 import TaskDetails from "./Details";

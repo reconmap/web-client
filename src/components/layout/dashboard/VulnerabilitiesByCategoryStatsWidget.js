@@ -1,5 +1,4 @@
 import {Pie, PieChart} from "recharts";
-import React from "react";
 import useFetch from "../../../hooks/useFetch";
 
 const VulnerabilitiesByCategoryStatsWidget = () => {

@@ -1,4 +1,3 @@
-import React from "react";
 import ProtectedRoute from "../logic/ProtectedRoute";
 import VulnerabilitiesList from "./List";
 import VulnerabilityCreate from "./Create";

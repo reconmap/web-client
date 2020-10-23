@@ -1,5 +1,4 @@
 import {CartesianGrid, Line, LineChart, XAxis, YAxis} from "recharts";
-import React from "react";
 import useFetch from "../../../hooks/useFetch";
 
 const UserActivityStatsWidget = () => {

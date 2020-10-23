@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function Alert({ title, details, color, icon }) {
   return (

@@ -1,4 +1,3 @@
-import React from "react";
 import ProtectedRoute from "../logic/ProtectedRoute";
 import UserCreationForm from "./CreationForm";
 import UsersList from "./List";

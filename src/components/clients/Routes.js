@@ -1,4 +1,3 @@
-import React from "react";
 import ProtectedRoute from "../logic/ProtectedRoute";
 import ClientCreate from "./Create";
 import ClientDetails from "./Details";
