@@ -1,4 +1,3 @@
-import React from "react";
 import ProtectedRoute from "../logic/ProtectedRoute";
 import TemplatesList from "./List";
 import TemplateDetails from "./Details";

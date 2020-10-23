@@ -1,4 +1,3 @@
-import React from "react";
 import { IconExclamationCircle} from './../../icons'
 
 export default function PageNotFound() {

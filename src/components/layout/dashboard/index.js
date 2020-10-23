@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../Header";
 import Sidebar from "../sidebar";
 import useSetTitle from "../../../hooks/useSetTitle";

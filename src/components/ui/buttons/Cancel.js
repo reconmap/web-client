@@ -1,4 +1,3 @@
-import React from "react";
 import {IconX} from "../../icons";
 import BtnLink from "./BtnLink";
 
