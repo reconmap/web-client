@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconLeft } from '../icons'
 
 const Breadcrumb = ({ history }) => {

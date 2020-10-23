@@ -1,4 +1,3 @@
-import React from 'react'
 import TasksTable from '../tables/TasksTable';
 import Loading from '../ui/Loading';
 import { IconClipboardList, IconPlus } from '../icons';

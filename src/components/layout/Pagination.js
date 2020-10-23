@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconLeft, IconRight } from '../icons'
 import BtnSecondary from './../ui/buttons/BtnSecondary'
 const Pagination = ({ page, total, handleNext, handlePrev }) => {

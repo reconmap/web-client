@@ -1,4 +1,3 @@
-import React from 'react'
 import useSetTitle from '../../hooks/useSetTitle';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';

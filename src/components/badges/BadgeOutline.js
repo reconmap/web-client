@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function BadgeOutline({children, color='gray' , fontSize='text-sm', icon}) {
     return (

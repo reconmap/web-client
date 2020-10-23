@@ -1,4 +1,3 @@
-import React from 'react'
 import {Link} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';

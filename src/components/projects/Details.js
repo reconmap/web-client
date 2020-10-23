@@ -1,4 +1,3 @@
-import React from 'react'
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';

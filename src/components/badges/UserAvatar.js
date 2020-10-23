@@ -1,4 +1,3 @@
-import React from 'react'
 import MD5 from '../../services/md5';
 
 export default function UserAvatar({email, size=32, onClick, name, tooltip}) {

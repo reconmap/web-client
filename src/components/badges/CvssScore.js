@@ -1,4 +1,3 @@
-import React from 'react'
 
 export default function CvssScore({ score, fontSize='text-base' }) {
     const color = Math.floor(score) <= 3 ? 'green' : Math.floor(score) <= 6 ? 'yellow' : 'red'

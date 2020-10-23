@@ -1,4 +1,3 @@
-import React from 'react'
 import {IconBookOpen, IconStar} from '../icons';
 
 export default function UserRoleBadge({role}) {

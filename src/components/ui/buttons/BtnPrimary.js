@@ -1,4 +1,3 @@
-import React from 'react'
 import {useHistory} from 'react-router-dom';
 
 export default function BtnPrimary({type, onClick, children, color = 'red', size = 'base', disabled = false, to, external = false}) {

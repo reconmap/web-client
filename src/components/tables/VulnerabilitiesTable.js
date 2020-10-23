@@ -1,4 +1,3 @@
-import React from 'react'
 import RiskBadge from '../badges/RiskBadge'
 import VulnerabilityBadge from '../badges/VulnerabilityBadge'
 import CvssScore from '../badges/CvssScore'

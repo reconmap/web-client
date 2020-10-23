@@ -1,4 +1,3 @@
-import React from 'react'
 import Ipv4Link from '../ui/Ipv4Link'
 import UserRoleBadge from '../badges/UserRoleBadge'
 import UserLink from "../users/Link";

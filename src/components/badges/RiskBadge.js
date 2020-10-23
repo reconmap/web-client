@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconInformation, IconExclamation, IconShieldExclamation } from '../icons'
 
 export default function RiskBadge({ risk , fontSize='text-sm'}) {

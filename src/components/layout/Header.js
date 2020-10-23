@@ -2,7 +2,6 @@ import {useHistory} from 'react-router-dom'
 
 import {AuthConsumer} from '../../contexts/AuthContext'
 
-import React from 'react'
 import BtnLink from './../ui/buttons/BtnLink'
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import UserAvatar from '../badges/UserAvatar';

@@ -1,4 +1,3 @@
-import React from 'react'
 import TaskBadge from '../badges/TaskBadge'
 import TaskCompletedBadge from '../badges/TaskCompletedBadge'
 import BadgeOutline from '../badges/BadgeOutline'

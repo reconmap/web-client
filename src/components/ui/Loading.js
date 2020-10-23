@@ -1,4 +1,3 @@
-import React from 'react'
 import {  IconRefresh} from '../icons'
 export default function Loading() {
     return (

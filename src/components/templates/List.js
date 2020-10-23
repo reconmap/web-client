@@ -1,4 +1,3 @@
-import React from 'react'
 import secureApiFetch from '../../services/api';
 import useSetTitle from '../../hooks/useSetTitle';
 import useFetch from '../../hooks/useFetch';

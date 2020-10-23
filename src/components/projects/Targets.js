@@ -1,4 +1,3 @@
-import React from 'react'
 import Loading from "../ui/Loading"
 import { IconServer, IconPlus } from '../icons'
 import { useHistory } from 'react-router-dom'

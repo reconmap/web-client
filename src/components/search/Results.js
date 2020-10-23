@@ -1,4 +1,3 @@
-import React from 'react'
 import useSetTitle from '../../hooks/useSetTitle';
 import Title from '../ui/Title';
 import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
