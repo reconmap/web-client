@@ -46,12 +46,12 @@ class UploadTaskResult extends Component {
                 </div>
                 <article>
                     <Title title='Upload Task Results'/>
-                    <div className='items-start gap-4'>
+                    <div className='items-start space-x-2'>
                         <div className='card flex-1'>
                             <h2>Results</h2>
                             <form>
                                 <input type="file" id="resultFile"/>
-                                <BtnPrimary onClick={this.handleUploadClick}><IconUpload styling='mr-2'/> Upload results</BtnPrimary>
+                                <BtnPrimary onClick={this.handleUploadClick}><IconUpload/> Upload results</BtnPrimary>
                             </form>
                         </div>
                     </div>

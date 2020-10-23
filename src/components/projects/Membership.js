@@ -51,7 +51,7 @@ const TasksList = ({match, history}) => {
                     )}
                 </select>
             </label>
-            <BtnPrimary onClick={handleOnClick}><IconPlus styling='mr-2' size={4}/> Add as member</BtnPrimary>
+            <BtnPrimary onClick={handleOnClick}><IconPlus size={4}/> Add as member</BtnPrimary>
         </form>
 
         {!members ?

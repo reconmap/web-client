@@ -68,11 +68,11 @@ class VulnerabilityDetails extends Component {
                     {vuln &&
                     <ButtonGroup>
                         {vuln.status === 'open' &&
-                        <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as
+                        <BtnPrimary  onClick={() => this.handleStatus(vuln)}>Mark as
                             closed</BtnPrimary>}
                         {vuln.status !== 'open' &&
-                        <BtnPrimary size='sm' onClick={() => this.handleStatus(vuln)}>Mark as open</BtnPrimary>}
-                        <DeleteButton size='sm' onClick={() => this.handleDelete(vuln)}/>
+                        <BtnPrimary  onClick={() => this.handleStatus(vuln)}>Mark as open</BtnPrimary>}
+                        <DeleteButton  onClick={() => this.handleDelete(vuln)}/>
                     </ButtonGroup>
                     }
                 </div>

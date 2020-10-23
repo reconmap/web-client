@@ -3,6 +3,8 @@ import VulnerabilityBadge from '../badges/VulnerabilityBadge'
 import CvssScore from '../badges/CvssScore'
 import DeleteButton from "../ui/buttons/Delete";
 import VulnerabilityStatusBadge from "../vulnerabilities/StatusBadge";
+import Timestamps from '../ui/Timestamps';
+import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 
 export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
     return (
@@ -24,12 +26,12 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                 return (
                     <tr key={index}>
                         <td><VulnerabilityBadge vulnerability={vulnerability}/></td>
-                        <td><small className='text-gray-500'>{vulnerability.description || '-'}</small></td>
-                        <td><RiskBadge fontSize='text-xs' risk={vulnerability.risk}/></td>
+                        <td>{vulnerability.description || '-'}</td>
+                        <td><RiskBadge risk={vulnerability.risk}/></td>
                         <td><CvssScore score={vulnerability.cvss_score}/></td>
-                        <td>{vulnerability.category_name || '-'}</td>
+                        <td><VulnerabilityCategoryBadge category={vulnerability.category_name}/></td>
                         <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
-                        <td>{vulnerability.insert_ts}</td>
+                        <td><Timestamps insertTs={vulnerability.insert_ts}/></td>
                         <td className='text-right'>{destroy &&
                         <DeleteButton onClick={() => destroy(vulnerability.id)}/>
                         }</td>

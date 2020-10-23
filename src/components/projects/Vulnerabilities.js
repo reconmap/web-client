@@ -23,7 +23,7 @@ const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
             <h2>Vulnerabilities</h2>
             <ButtonGroup>
                 {vulnerabilities && <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory} setStatus={setStatus}/>}
-                <BtnSecondary size='sm' onClick={handleCreateVulnerability}>
+                <BtnSecondary  onClick={handleCreateVulnerability}>
                     <IconPlus size={4} />
                     Add New Vulnerability
                 </BtnSecondary>
@@ -49,7 +49,7 @@ const VulnerabilityFilters = ({vulnerabilities, setCategory,setRisk, setStatus})
     const handleSetStatus = e => {
         setStatus(e.target.value)
     }
-    return <div className='space-x-5 mx-auto flex items-center '>
+    return <div className='space-x-2 mx-auto flex items-center '>
                 <div>
                     <label>Risk</label>
                     <select  onChange={handleSetRisk}>

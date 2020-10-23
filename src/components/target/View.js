@@ -52,7 +52,7 @@ class TargetView extends Component {
                     <div><Title type='Target' title={target.name}/>
                         <Timestamps insertTs={target.insert_ts} updateTs={target.update_ts}/>
                     </div>
-                    <DeleteButton size='sm' onClick={() => this.handleDelete(target)}/>
+                    <DeleteButton  onClick={() => this.handleDelete(target)}/>
                 </div>
                 <article className=''>
                     <table className='w-full'>

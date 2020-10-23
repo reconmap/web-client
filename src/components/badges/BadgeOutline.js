@@ -1,9 +1,21 @@
 
-export default function BadgeOutline({children, color='gray' , fontSize='text-sm', icon}) {
+export default function BadgeOutline({children, color='silver' , fontSize='fontSizeXsmall', icon}) {
+    const styles = {
+        badge : {
+            color: `var(--${color},white)`,
+            padding: `var(--paddingBox, .3rem .8rem)`,
+            alignItems:'center',
+            display: `inline-flex`,
+            borderRadius: 'var(--borderRadius, 3px)',
+            border: `var(--borderWidth,2px) solid var(--${color})`,
+            fontSize : `var(--${fontSize})`
+        }
+    }
     return (
-        <span className={`px-2 py-1 inline-flex items-center leading-5 font-semibold rounded border-2 border-${color}-500 text-${color}-500 ${fontSize}`}>
+        <span style={styles.badge}>
             {icon}
             {children}
         </span>
     )
 }
+

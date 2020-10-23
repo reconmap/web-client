@@ -55,7 +55,7 @@ class ImportExportForm extends Component {
                         Select file
                         <input type="file" id="importFile" required/>
                     </label>
-                    <BtnPrimary onClick={this.handleUploadClick}><IconUpload styling='mr-2'/> Import</BtnPrimary>
+                    <BtnPrimary onClick={this.handleUploadClick}><IconUpload/> Import</BtnPrimary>
                 </form>
 
                 {projectsImported.length > 0 &&

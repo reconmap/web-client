@@ -30,12 +30,13 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                             <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
                         <td><TaskCompletedBadge completed={task.completed}/></td>
                         <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
-                        <td><small className='text-gray-600 font-mono'>{task.description.slice(0, 40)} </small></td>
+                        <td><code>{task.description.slice(0, 40)} </code></td>
                         <td>
-                            <div className='flex space-x-1 justify-end'>
-                                <BtnPrimary size='xs' to={"/tasks/" + task.id + "/upload"}><IconUpload styling='mr-2'
-                                                                                                       size={4}/> Upload
-                                    results</BtnPrimary>
+                            <div className='flex space-x-2 justify-end'>
+                                <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
+                                    <IconUpload size={4}/> 
+                                    Upload results
+                                </BtnPrimary>
                                 <DeleteButton onClick={() => destroy(task.id)}/>
                             </div>
                         </td>

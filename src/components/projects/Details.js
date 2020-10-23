@@ -69,15 +69,15 @@ const ProjectDetails = ({match, history}) => {
                             </select>
                         </label>
 
-                        <BtnSecondary size='sm' onClick={handleGenerateReport}>
-                            <IconClipboardCheck size={4} styling='mr-2'/>
+                        <BtnSecondary  onClick={handleGenerateReport}>
+                            <IconClipboardCheck size={4}/>
                             Generate Report
                         </BtnSecondary>
-                        <BtnSecondary size='sm' onClick={handleManageTeam}>
-                            <IconUserGroup size={4} color='gray' styling='ml-2'/>
+                        <BtnSecondary  onClick={handleManageTeam}>
+                            <IconUserGroup size={4}/>
                             Manage Members
                         </BtnSecondary>
-                        <DeleteButton size="sm" onClick={() => destroy(project.id)}/>
+                        <DeleteButton  onClick={() => destroy(project.id)}/>
                     </ButtonGroup>
                 </>}
             </div>

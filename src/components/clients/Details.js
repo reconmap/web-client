@@ -53,7 +53,7 @@ class ClientDetails extends Component {
                         <Title type='client' title={client.name}/>
                         <Timestamps insertTs={client.insert_ts} updateTs={client.update_ts}/>
                     </div>
-                    <DeleteButton size='sm' onClick={() => this.handleDelete(client)}/>
+                    <DeleteButton  onClick={() => this.handleDelete(client)}/>
                 </div>
                 <article className=''>
                     <table className='w-full'>

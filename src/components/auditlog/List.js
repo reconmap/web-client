@@ -66,7 +66,7 @@ const AuditLogList = ({history}) => {
                 <Breadcrumb history={history}/>
                 <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev}
                             handleNext={handleNext}/>
-                <BtnSecondary onClick={handleExport}><IconSave styling='mr-2'/> Export to CSV</BtnSecondary>
+                <BtnSecondary onClick={handleExport}><IconSave/> Export to CSV</BtnSecondary>
             </div>
             {!auditLog ? <Loading/> : auditLog.length === 0 ? <NoResults/> :
                 <AuditLogsTable auditLog={auditLog}/>}

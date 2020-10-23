@@ -1,21 +1,29 @@
 import { useHistory } from 'react-router-dom'
 
-export default function BtnLink ({ onClick, children, color = 'red', size = 'base', to, disabled = false, external = false }) {
+export default function BtnLink ({ onClick, children, color = 'red', fontSize = 'fontSizeSmall', to, disabled = false, external = false }) {
     const history = useHistory()
     const handleOpen = () => {
         external ? window.open(to, '_blank') : history.push(to)
     }
-    const SIZES = {
-        'xs': ' px-2 py-1 ',
-        'sm': ' px-3 py-2 ',
-        'base': ' px-5 py-3 ',
-        'lg': ' px-6 py-4 ',
+    const styles = {
+        button :{ 
+            padding: 'var(--paddingBox)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            borderBottomColor : `var(--${color})`,
+            color: `var(--text-color)`,
+            borderBottom: `var(--borderWidth,2px) solid transparent`,
+            fontSize : `var(--${fontSize})`,
+            opacity : disabled ? '.5' : '1'
+        }
     }
+
     return (
         <button
             onClick={onClick || handleOpen}
             disabled={disabled}
-            className={`${disabled && 'opacity-50 text-gray-500'} hover:shadow-outline inline-flex items-center justify-center  border border-transparent text-${size} ${SIZES[size]} leading-6 font-medium rounded-md text-${color}-500  hover:text-${color}-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out`}>
+            style={styles.button}
+            >
             {children}
         </button>
     )

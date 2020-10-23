@@ -56,11 +56,10 @@ const UserPreferences = ({history}) => {
                 </select>
                 </label>
                 <label>Theme
-                <BtnSecondary color={theme === 'light' ? 'indigo' : 'gray'} size='base'
-                              onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark size={4} styling='mr-2'/> :
-                    <IconLight size={4} styling='mr-2'/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
+                <BtnSecondary onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark size={4}/> :
+                    <IconLight size={4}/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
                 </label>
-                <BtnPrimary onClick={handleSubmit}><IconSave styling='mr-2'/> Save</BtnPrimary>
+                <BtnPrimary onClick={handleSubmit}><IconSave/> Save</BtnPrimary>
                 <CancelButton onClick={() => {
                     history.push("/")
                 }}/>

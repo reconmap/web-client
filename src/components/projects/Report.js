@@ -71,7 +71,7 @@ class ProjectReport extends Component {
                 <div className='heading'>
                     <Breadcrumb history={this.props.history} />
                     {this.state.project ? <h2>{this.state.project.name}</h2> : '...'}
-                    <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave styling='mr-2' /> Export to PDF</BtnSecondary>
+                    <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave /> Export to PDF</BtnSecondary>
                 </div>
                 <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4' id="report"></div>
             </>

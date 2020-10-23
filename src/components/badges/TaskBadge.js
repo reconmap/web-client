@@ -2,10 +2,21 @@ import { Link } from 'react-router-dom'
 import { IconTerminal } from '../icons'
 
 export default function TaskBadge({task}) {
+    const styles = {
+        badge : {
+            color: `var(--green)`,
+            alignItems:'center',
+            display: `inline-flex`,
+            borderRadius: 'var(--borderRadius, 3px)',
+            fontWeight : 'var(--fontBold)',
+            gap : `var(--padding)`
+        }
+    }
+
     return (
-        <Link to={"/tasks/" + task.id} className='flex items-center w-56'>
-            <IconTerminal styling='text-teal-800 mr-2' />
-            <span className=' flex-1 text-teal-500 font-medium '>{task.name}</span>
+        <Link to={"/tasks/" + task.id} style={ styles.badge } >
+            <IconTerminal  />
+            {task.name}
         </Link>
     )
 }

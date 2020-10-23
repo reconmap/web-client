@@ -56,8 +56,8 @@ const TemplatesList = ({history}) => {
                             <td><small>{template.insert_ts}</small></td>
                             <td className=''>
                                 <div className=' flex space-x-2'>
-                                    <BtnPrimary size='xs' onClick={() => cloneProject(template.id)} key={template.id}
-                                                title="Create project using this template"><IconPlus styling='mr-2'
+                                    <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
+                                                title="Create project using this template"><IconPlus
                                                                                                      size={4}/> Create
                                         project</BtnPrimary>
                                     <DeleteButton onClick={() => destroy(template.id)}/>

@@ -106,14 +106,14 @@ class TaskDetails extends Component {
                                 )}
                             </select>
                         </label>
-                        {task.completed === 1 && <BtnSecondary size='sm' onClick={() => this.handleToggle(task)}>
-                            <IconX styling='mr-2'/> Mark as incomplete
+                        {task.completed === 1 && <BtnSecondary  onClick={() => this.handleToggle(task)}>
+                            <IconX/> Mark as incomplete
                         </BtnSecondary>}
-                        {task.completed !== 1 && <BtnSecondary size='sm' onClick={() => this.handleToggle(task)}>
-                            <IconCheck styling='mr-2'/> Mark as completed
+                        {task.completed !== 1 && <BtnSecondary  onClick={() => this.handleToggle(task)}>
+                            <IconCheck/> Mark as completed
                         </BtnSecondary>}
-                        <BtnPrimary size='sm' to={"/tasks/" + task.id + "/upload"}>
-                            <IconUpload styling='mr-2'/> Upload results
+                        <BtnPrimary  to={"/tasks/" + task.id + "/upload"}>
+                            <IconUpload/> Upload results
                         </BtnPrimary>
                         <DeleteButton onClick={() => this.handleDelete(task.id)}/>
                     </ButtonGroup>
@@ -123,13 +123,10 @@ class TaskDetails extends Component {
                     <article>
                         <Title title={task.name} type='Task'/>
                         <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
-                        <div className='items-start gap-4'>
-                            <div className='card'>
-                                <h2>Description</h2>
-                                <p>{task.description}</p>
-                            </div>
+                        <div className='items-start space-x-2'>
+                            <code>{task.description}</code>
                             <br/>
-                            <div className='card flex-1'>
+                            <div className='card flex-1 mt-2'>
                                 <h3>Results</h3>
                                 {this.state.results.map((value, index) =>
                                     <div key={index} className='pb-2 border-b mb-2'>

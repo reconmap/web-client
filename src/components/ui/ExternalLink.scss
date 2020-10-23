@@ -2,11 +2,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  color: tomato;
-  border-bottom: 2px solid tomato;
+  color: var(--blue);
+  border-bottom: 2px solid var(--blueDark);
 
   &:hover {
-    color: salmon;
-    border-bottom: 2px solid salmon;
+    border-bottom: 2px solid var(--blue);
   }
 }

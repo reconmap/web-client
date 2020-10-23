@@ -68,9 +68,9 @@ const ReportsList = ({history}) => {
                             </td>
                             <td>{report.insert_ts}</td>
                             <td className="space-x-2 flex  justify-end  ">
-                                <BtnPrimary size='xs' onClick={() => handleDownload(report.id)}><IconDownloadDocument
-                                    styling='mr-2' size={4}/> Download</BtnPrimary>
-                                <DeleteButton size="xs" onClick={() => deleteReport(report.id)}/>
+                                <BtnPrimary onClick={() => handleDownload(report.id)}><IconDownloadDocument
+                                    size={4}/> Download</BtnPrimary>
+                                <DeleteButton  onClick={() => deleteReport(report.id)}/>
                             </td>
                         </tr>
                     )

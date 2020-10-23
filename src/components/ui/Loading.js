@@ -1,9 +1,23 @@
 import {  IconRefresh} from '../icons'
 export default function Loading() {
+    const styles = {
+        loading : {
+            display: 'flex',
+            flexDirection : 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            height: '100%',
+            fontWeight : 'var(--fontBold)',
+            opacity: '.4',
+            gap: 'var(--padding)',
+            color : 'var(--silver)'
+        }
+    }
     return (
-        <div className=' h-64 text-3xl text-smoke-75 flex flex-col items-center justify-center text-center w-full '>
-            <IconRefresh size='32' styling='anim-rotate'/>
-            <small>Loading</small>
+        <div style={styles.loading}>
+            <IconRefresh size='16' styling='anim-rotate'/>
+            Loading
         </div>
     )
 }

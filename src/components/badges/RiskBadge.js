@@ -1,15 +1,29 @@
 import { IconInformation, IconExclamation, IconShieldExclamation } from '../icons'
 
-export default function RiskBadge({ risk , fontSize='text-sm'}) {
+export default function RiskBadge({ risk , fontSize='fontSizeXsmall' }) {
     const RISKS = {
-        none: { color: 'green-500', icon: <IconInformation size='4' styling='mr-2' /> },
-        low: { color: 'green-500', icon: <IconInformation size='4' styling='mr-2' /> },
-        medium: { color: 'yellow-600', icon: <IconExclamation size='4' styling='mr-2' /> },
-        high: { color: 'red-500', icon: <IconShieldExclamation size='4' styling='mr-2' /> },
-        critical: { color: 'red-500', icon: <IconShieldExclamation size='4' styling='mr-2' /> }
+        none: { color: 'green', icon: <IconInformation size='4' /> },
+        low: { color: 'green', icon: <IconInformation size='4' /> },
+        medium: { color: 'yellow', icon: <IconExclamation size='4' /> },
+        high: { color: 'red', icon: <IconShieldExclamation size='4' /> },
+        critical: { color: 'red', icon: <IconShieldExclamation size='4' /> }
     }
+    const styles = {
+        badge : {
+            color: `var(--${RISKS[risk].color},white)`,
+            padding: `var(--paddingBox, .3rem .8rem)`,
+            alignItems:'center',
+            display: `inline-flex`,
+            borderRadius: 'var(--borderRadius, 3px)',
+            border: `var(--borderWidth,2px) solid var(--${RISKS[risk].color}Dark)`,
+            fontSize : `var(--${fontSize})`,
+            fontWeight : 'var(--fontBold)'
+
+        }
+    }
+   
     return (
-        <span className={`px-2 py-1 inline-flex justify-start items-center rounded border-2 border-${RISKS[risk].color} text-${RISKS[risk].color} uppercase ${fontSize} font-medium `}>
+        <span style={ styles.badge }>
             {RISKS[risk].icon}
             {risk}
         </span>

@@ -31,7 +31,7 @@ const TemplateDetails = ({history, match}) => {
                 {template &&
                 <ButtonGroup>
                     <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle
-                        styling='mr-2'/> Create
+                       /> Create
                         project from template</BtnPrimary>
                     <DeleteButton onClick={() => destroy(template.id)}/>
                 </ButtonGroup>

@@ -48,11 +48,7 @@ const ClientsList = ({history}) => {
                             <td>{client.contact_name || '-'}</td>
                             <td>{client.contact_email || '-'}</td>
                             <td>{client.contact_phone || '-'}</td>
-                            <td>
-                                <div className='flex space-x-1 justify-end'>
-                                    <DeleteButton onClick={() => destroy(client.id)}/>
-                                </div>
-                            </td>
+                            <td><DeleteButton onClick={() => destroy(client.id)}/></td>
                         </tr>
                     )}
                     </tbody>
