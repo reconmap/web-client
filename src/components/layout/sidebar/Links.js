@@ -13,7 +13,7 @@ import {
     IconUserGroup
 } from "../../icons";
 
-export default [
+const Links = [
     {title: 'Vulnerabilities', icon: <IconFlag size={5}/>, to: '/vulnerabilities'},
     {title: 'Tasks', icon: <IconClipboardList size={5}/>, to: '/tasks'},
     {title: 'Projects', icon: <IconFolder size={5}/>, to: '/projects'},
@@ -25,3 +25,5 @@ export default [
     {title: 'Import/Export', icon: <IconDownload size={5}/>, to: '/import-export'},
     {title: 'Integrations', icon: <IconExtensions size={5}/>, to: '/integrations'},
 ]
+
+export default Links
