@@ -1,162 +1,191 @@
-@import "variables";
 
+:root {
+	--padding : .2rem;
+	--margin : .3rem;
+	--borderWidth : 3px;
+	--borderRadius: 8px;
+
+	--bg : hsl(221, 23%, 14%);
+	--black : hsl(219, 22%, 18%);
+	--gray : hsl(220, 20%, 23%);
+	--silver : hsl(217, 13%, 52%);
+	--white	: hsl(0, 0%, 100%);
+	--yellow : hsl(43, 74%, 52%);
+	--purple : hsl(292,45%,55%);
+	--blue : hsl(223,56%,63%);
+	--green	: hsl(139, 29%, 48%);
+	--red : hsl(2, 70%, 66%);	
+	--primaryColor : var(--red);	
+	--primaryColorLight : ligthen(var(--red),30%);	
+	--primaryColorDark : darken(var(--red),30%);	
+
+	--fontSizeTitle : 2.1rem;
+	--fontSizeSubtitle : 1.75rem;
+	--fontSizeHeader : 1.5rem;
+	--fontSizeAction : 1.2rem;
+	--fontSizeParagraph : 1rem;
+	--fontSizeBody : 1rem;
+	--fontSizeSmall : .85rem;
+	--fontSizeXsmall : .75rem;
+
+}
 label,
 th {
-	margin-right: $margin;
+	margin-right: var(--margin);
 	font-weight: 400;
-	font-size: $font-size-small;
+	font-size: var(--fontSizeBody);
 }
 
 // Typography
 table th,
 label,
 details summary {
-	font-size: $font-size-small;
+	font-size: var(--fontSizeBody);
 }
 
 p a {
-	border-bottom: 2px dotted $red-500;
+	border-bottom: 2px dotted var(--primaryColor);
 	&:hover {
-		border-bottom-color: $red-400;
+		border-bottom-color: var(--primaryColorLight);
 	}
 }
 h1 {
 	font-weight: 800;
-	font-size: $font-size-title;
+	font-size: var(--fontSizeTitle);
 	line-height: 49px;
 }
 
 h2 {
-	font-size: $font-size-subtitle;
+	font-size: var(--fontSizeSubtitle);
     font-weight: 500;
 }
 
 p {
 	font-style: normal;
 	font-weight: 500;
-	font-size: $font-size-p;
+	font-size: var(--fontSizeParagraph);
 	margin-top: 0.25rem;
 	margin-bottom: 0.75rem;
 }
 small {
-	font-size: $font-size-small;
+	font-size: var(--fontSizeBody);
 }
 
 .text-smoke {
-	color: rgba($gray-500, 0.1);
+	color: rgba(var(--black), 0.1);
 }
 .border-smoke {
-	border-color: rgba($gray-500, 0.1);
+	border-color: rgba(var(--black), 0.1);
 }
 .bg-smoke {
-	background-color: rgba($gray-500, 0.1);
+	background-color: rgba(var(--black), 0.1);
 }
 .text-smoke-50 {
-	color: rgba($gray-500, 0.5);
+	color: rgba(var(--black), 0.5);
 }
 .border-smoke-50 {
-	border-color: rgba($gray-500, 0.5);
+	border-color: rgba(var(--black), 0.5);
 }
 .bg-smoke-50 {
-	background-color: rgba($gray-500, 0.5);
+	background-color: rgba(var(--black), 0.5);
 }
 .text-smoke-75 {
-	color: rgba($gray-500, 0.75);
+	color: rgba(var(--black), 0.75);
 }
 .border-smoke-75 {
-	border-color: rgba($gray-500, 0.75);
+	border-color: rgba(var(--black), 0.75);
 }
 .bg-smoke-75 {
-	background-color: rgba($gray-500, 0.75);
+	background-color: rgba(var(--black), 0.75);
 }
 
 // DARK THEME
 .dark-theme {
-	background-color: $gray-900;
-	color: $gray-100;
+	background-color: var(--bg);
+	color: var(--white);
 	.bg-invert {
-		background-color: $black;
+		background-color: var(--black);
 	}
 	.text-invert {
-		color: $black;
+		color: var(--black);
 	}
 	.border-invert {
-		border-color: $black;
+		border-color: var(--black);
 	}
 	.card {
-		background-color: $black;
+		background-color: var(--black);
 		footer {
 			background-color: rgba(0, 0, 0, 0.2);
 		}
 	}
 	.btn-secondary {
-        background-color: rgba($gray-800, 0.5);
-        color: white;
+        background-color: rgba(var(--black), 0.5);
+        color: var(--white);
 	}
 	input, select, textarea {
-        color: white;
-		background-color: $black;
+        color: var(--white);
+		background-color: var(--black);
 	}
 	.breadcrumb {
-		border: $border-width solid $black;
+		border: var(--borderWidth) solid var(--black);
     }
-    h2 { color: $gray-600; }
-	label, th { color: $gray-600; }
+    h2 { color: var(--silver); }
+	label, th { color: var(--silver); }
 }
 
 // LIGHT THEME
 .light-theme {
-    color: $gray-900;
-    background-color: $gray-100;
+    color: var(--bg);
+    background-color: var(--white);
 	aside {
-		border-right: 1px solid $gray-200;
+		border-right: 1px solid var(--silver);
 		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 	}
 	.bg-invert {
-		background-color: white;
+		background-color: var(--white);
 	}
 	.text-invert {
-		color: white;
+		color: var(--white);
 	}
 	.border-invert {
-		border-color: white;
+		border-color: var(--white);
 	}
 	.card {
-		background-color: white;
+		background-color: var(--white);
 		footer {
-			background-color: $gray-100;
+			background-color: var(--white);
 		}
-		border: 1px solid $gray-200;
+		border: 1px solid var(--silver);
 		box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.06);
     }
     .btn-secondary { 
-        color: black;
+        color: var(--black);
     }
 	input,
 	select,
 	textarea {
         
-        color: black;
-		background-color: white;
-		border: 1px solid $gray-200;
+        color: var(--black);
+		background-color: var(--white);
+		border: 1px solid var(--silver);
 		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
 	}
 	.breadcrumb {
-		border: $border-width solid white;
-		background: #fff;
-		border: 1px solid $gray-200;
+		border: var(--borderWidth) solid var(--white);
+		background: var(--white);
+		border: 1px solid var(--silver);
 		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
 	}
-	h2 { color: $gray-600; }
-	label, th { color: $gray-600; }
+	h2 { color: var(--silver); }
+	label, th { color: var(--silver); }
 }
 
 
 
 section {
-    padding-bottom: $padding*2;
-    border-bottom: $border-width solid rgba(0,0,0,.1);
-	margin: $padding * 2 0px;
+    padding-bottom: var(--padding);
+    border-bottom: var(--borderWidth) solid rgba(0,0,0,.1);
+	margin: var(--padding);
 	h2 {
 		margin-right: auto;
 	}
@@ -165,10 +194,10 @@ section {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: $margin;
+	margin-bottom: var(--margin);
 	svg {
-		margin-right: $margin;
-		color: $red;
+		margin-right: var(--margin);
+		color: var(--primaryColor);
 	}
 }
 
@@ -189,10 +218,10 @@ form input[type="checkbox"] {
 	margin-right: 1rem;
 	width: 24px;
 	height: 24px;
-	border-radius: $radius;
+	border-radius: var(--borderRadius);
 }
 form input:required{
-	border: 1px solid $red-500;
+	border: 1px solid var(--primaryColor);
 }
 
 // responsive
@@ -228,28 +257,28 @@ form input:required{
 .card {
 	display: flex;
 	flex-direction: column;
-	padding: $padding 15px;
-	border-width: $border-width;
+	padding: var(--padding) 15px;
+	border-width: var(--borderWidth);
 	border-color: transparent;
-	border-radius: $radius;
+	border-radius: var(--borderRadius);
 	transition: background 0.2s, box-shadow 0.12s, border 0.1s, opacity 0.2s;
 	overflow: hidden;
 	
 	h1, .card-title {
 		font-weight: 900;
-		font-size: $font-size-card-title;
+		font-size: var(--fontSizeHeader);
         line-height: 2rem;
         margin-bottom: 1rem ;
 	}
 	h2, .card-subtitle h2 {
         font-style: normal;
         font-weight: 600;
-        font-size: $font-size-card-subtitle;
+        font-size: var(--fontSizeAction);
         line-height: 1.8rem;
-        color: $gray-500;
+        color: var(--silver);
     }
     h3 , .card-desc {
-        font-size: $font-size-card-desc;
+        font-size: var(--fontSizeBody);
     }
 
 	&:hover {
@@ -259,29 +288,29 @@ form input:required{
 	header {
 		margin-right: -15px;
 		margin-left: -15px;
-		margin-top: -$padding;
+		margin-top: -var(--padding);
 		margin-bottom: auto;
-		padding: $padding;
+		padding: var(--padding);
 	}
 	footer {
 		margin-right: -15px;
 		margin-left: -15px;
-		margin-bottom: -$padding;
+		margin-bottom: -var(--padding);
 		margin-top: auto;
-		padding: $padding 15px;
-		font-size: $font-size-small;
+		padding: var(--padding) 15px;
+		font-size: var(--fontSizeBody);
 	}
 }
 
 
 
 .actions {
-	padding: $padding;
-	border-width: $border-width;
+	padding: var(--padding);
+	border-width: var(--borderWidth);
 	border-color: transparent;
-	border-radius: $radius;
+	border-radius: var(--borderRadius);
 	transition: background 0.2s, box-shadow 0.12s, border 0.1s, opacity 0.2s;
-	font-size: $font-size-action;
+	font-size: var(--fontSizeAction);
 }
 
 .breadcrumb {
@@ -294,15 +323,15 @@ select,
 textarea {
 	@extend .actions;
 	&.sm {
-		font-size: $font-size-small;
-		padding: $padding/2;
+		font-size: var(--fontSizeBody);
+		padding: var(--padding)/2;
 		svg {
 			width: 14px;
 		}
 	}
 	outline: transparent;
 	&:hover {
-		box-shadow: 0 0 0px 3px $red-500;
+		box-shadow: 0 0 0px 3px var(--primaryColor);
 	}
 
 }
@@ -313,13 +342,13 @@ table {
 	margin: 1rem auto;
     &.striped {
         tr:nth-child(even) {
-            background-color: rgba($gray-500, 0.05);
-            border-radius: $radius;
+            background-color: rgba(var(--silver), 0.05);
+            border-radius: var(--borderRadius);
             overflow: hidden;
         }
     }
 	tbody tr:hover {
-		background-color: rgba($gray-500, 0.05);
+		background-color: rgba(var(--silver), 0.05);
 	}
 	th {
 		text-align: left;
@@ -352,7 +381,7 @@ table {
 }
 
 .toast {
-	border: $border-width solid $red-500;
+	border: var(--borderWidth) solid var(--primaryColor);
 }
 .fadeInUp { 
 	animation-name: fadeInUp;
