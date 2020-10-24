@@ -8,7 +8,7 @@ import UserLink from "../users/Link";
 
 export default function TasksTable({tasks, filter = {project: '', status: ''}, destroy}) {
     return (
-        <table className='w-full'>
+        <table >
             <thead>
             <tr>
                 <th>Name</th>
@@ -32,13 +32,11 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                         <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
                         <td><code>{task.description.slice(0, 40)} </code></td>
                         <td>
-                            <div className='flex space-x-2 justify-end'>
-                                <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
-                                    <IconUpload size={4}/> 
-                                    Upload results
-                                </BtnPrimary>
-                                <DeleteButton onClick={() => destroy(task.id)}/>
-                            </div>
+                            <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
+                                <IconUpload/> 
+                                Upload results
+                            </BtnPrimary>
+                            <DeleteButton onClick={() => destroy(task.id)}/>
                         </td>
                     </tr>
                 )}

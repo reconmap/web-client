@@ -56,7 +56,7 @@ class ClientDetails extends Component {
                     <DeleteButton  onClick={() => this.handleDelete(client)}/>
                 </div>
                 <article className=''>
-                    <table className='w-full'>
+                    <table >
                         <tbody>
                         <tr>
                             <th>Name</th>

@@ -24,7 +24,7 @@ const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
             <ButtonGroup>
                 {vulnerabilities && <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory} setStatus={setStatus}/>}
                 <BtnSecondary  onClick={handleCreateVulnerability}>
-                    <IconPlus size={4} />
+                    <IconPlus />
                     Add New Vulnerability
                 </BtnSecondary>
             </ButtonGroup>

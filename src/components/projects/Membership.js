@@ -51,7 +51,7 @@ const TasksList = ({match, history}) => {
                     )}
                 </select>
             </label>
-            <BtnPrimary onClick={handleOnClick}><IconPlus size={4}/> Add as member</BtnPrimary>
+            <BtnPrimary onClick={handleOnClick}><IconPlus/> Add as member</BtnPrimary>
         </form>
 
         {!members ?
@@ -59,7 +59,7 @@ const TasksList = ({match, history}) => {
             members.length === 0 ?
                 <NoResults/> :
                 <>
-                    <table className="w-full">
+                    <table>
                         <thead>
                         <tr>
                             <th>Name</th>

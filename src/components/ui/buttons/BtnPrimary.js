@@ -21,12 +21,7 @@ export default function BtnPrimary({type, onClick, children, color = 'red', font
     }
 
     return (
-        <button
-            type={type ? type : "button"}
-            onClick={onClick || handleOpen}
-            disabled={disabled}
-            style={styles.button}
-            >
+        <button type={type ? type : "button"} onClick={onClick || handleOpen} disabled={disabled} style={styles.button} >
             {children}
         </button>
     )

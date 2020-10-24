@@ -62,14 +62,14 @@ const ReportsList = ({history}) => {
                                     borderWidth: '3px'
                                 }}
                                      className='  p-1 rounded text-xs border-gray-700 flex items-center justify-end font-medium flex-col'>
-                                    {report.format === 'pdf' ? <IconDocument size={4}/> : <IconCode size={4}/>}
+                                    {report.format === 'pdf' ? <IconDocument/> : <IconCode/>}
                                     {report.format}
                                 </div>
                             </td>
                             <td>{report.insert_ts}</td>
                             <td className="space-x-2 flex  justify-end  ">
                                 <BtnPrimary onClick={() => handleDownload(report.id)}><IconDownloadDocument
-                                    size={4}/> Download</BtnPrimary>
+                                   /> Download</BtnPrimary>
                                 <DeleteButton  onClick={() => deleteReport(report.id)}/>
                             </td>
                         </tr>

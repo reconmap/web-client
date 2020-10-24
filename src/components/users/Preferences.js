@@ -56,8 +56,8 @@ const UserPreferences = ({history}) => {
                 </select>
                 </label>
                 <label>Theme
-                <BtnSecondary onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark size={4}/> :
-                    <IconLight size={4}/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
+                <BtnSecondary onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark/> :
+                    <IconLight/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
                 </label>
                 <BtnPrimary onClick={handleSubmit}><IconSave/> Save</BtnPrimary>
                 <CancelButton onClick={() => {

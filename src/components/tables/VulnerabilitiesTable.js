@@ -11,28 +11,27 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
         <table className='w-full my-4 table-fixed'>
             <thead>
             <tr>
-                <th className='w-64'>Summary</th>
-                <th className='w-40'>Description</th>
-                <th className='w-32'>Risk</th>
-                <th className='w-32'><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
-                <th className='w-32'>Category</th>
-                <th className='w-24'>Status</th>
-                <th className='w-32'>Creation date/time</th>
-                <th className='w-40'>&nbsp;</th>
+                <th style={{ width: '25%'}}>Summary</th>
+                <th style={{ width: '15%'}}>Risk</th>
+                <th style={{ width: '15%'}}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
+                <th style={{ width: '20%'}}>Category</th>
+                <th style={{ width: '15%'}}>Status</th>
+                <th  style={{ width: '10%'}}>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
             {vulnerabilities.map((vulnerability, index) => {
                 return (
                     <tr key={index}>
-                        <td><VulnerabilityBadge vulnerability={vulnerability}/></td>
-                        <td>{vulnerability.description || '-'}</td>
+                        <td>
+                        <VulnerabilityBadge vulnerability={vulnerability}/> 
+                            <p><small>{vulnerability.description} </small> <Timestamps insertTs={vulnerability.insert_ts}/></p>
+                        </td>
                         <td><RiskBadge risk={vulnerability.risk}/></td>
                         <td><CvssScore score={vulnerability.cvss_score}/></td>
                         <td><VulnerabilityCategoryBadge category={vulnerability.category_name}/></td>
                         <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
-                        <td><Timestamps insertTs={vulnerability.insert_ts}/></td>
-                        <td className='text-right'>{destroy &&
+                        <td>{destroy &&
                         <DeleteButton onClick={() => destroy(vulnerability.id)}/>
                         }</td>
                     </tr>

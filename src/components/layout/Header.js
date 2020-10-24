@@ -15,7 +15,9 @@ const LINKS = [
 
 export default function Header() {
     const history = useHistory()
-
+    const handleGoHome = () => {
+           history.push('/')
+       }
     const handleMyProfile = () => {
         history.push(`/users/${localStorage.getItem('user.id')}`)
     }
@@ -37,19 +39,20 @@ export default function Header() {
     return <AuthConsumer>
         {
             ({isAuth, logout, user}) => (
-                <nav
-                    className={`flex flex-wrap items-center justify-end w-full  space-x-2 pt-4 px-5 pb-5  md:flex-row `}>
-                    {isAuth ? <>
-                            <input
-                                className=' mx-auto lg:mx-0 lg:mr-auto my-4 lg:my-0 w-48 transition duration-150 focus:w-full'
-                                placeholder="Search..." onKeyDown={handleSearchKeyDown}/>
+                <nav>
+                    <h3 onClick={handleGoHome} style={{ paddingLeft:'var(--padding)', cursor:'pointer'}}>
+                        {/* <img src="/logo.svg" height='32px' width='32px' className='mr-2 mt-1' alt="Reconmap logo"/> */}
+                        <span>Recon<strong style={{ color : 'var(--primary-color)'}}>map</strong></span>
+                    </h3>
+                    {isAuth ? <div>
+                            <input placeholder="Search..." onKeyDown={handleSearchKeyDown}/>
                             <BtnLink onClick={handleUserManual}>User manual</BtnLink>
                             <BtnLink onClick={handleOpenPrefs}>Preferences</BtnLink>
                             <NotificationsBadge/>
                             {user && <UserAvatar onClick={handleMyProfile} size={8} email={user.email}/>}
                             <span className='w-2'> </span>
                             <BtnSecondary onClick={logout}> Logout</BtnSecondary>
-                        </>
+                        </div>
                         : LINKS.map((link, index) => (
                             <BtnLink  key={index} to={link.to.pathname}> {link.title} </BtnLink>))}
                 </nav>

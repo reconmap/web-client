@@ -55,7 +55,7 @@ class TargetView extends Component {
                     <DeleteButton  onClick={() => this.handleDelete(target)}/>
                 </div>
                 <article className=''>
-                    <table className='w-full'>
+                    <table >
                         <tbody>
                         <tr>
                             <th>Kind</th>

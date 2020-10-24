@@ -29,7 +29,7 @@ const ClientsList = ({history}) => {
             <Loading/> :
             clients.length === 0 ?
                 <NoResults/> :
-                <table className='w-full'>
+                <table >
                     <thead>
                     <tr>
                         <th>Name</th>

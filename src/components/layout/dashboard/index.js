@@ -10,13 +10,13 @@ function Dashboard({children}) {
     useSetTitle('Dashboard')
     return (
         <>
-            <Sidebar/>
-            <div className="flex flex-col ml-16 md:ml-56 lg:ml-64">
-                <Header/>
-                <main role="main" className="px-5 w-full">
+            <Header/>
+            <main role="main" >
+                <Sidebar/>
+                <div id='content'>
                     {children || <DashboardPanels/>}
-                </main>
-            </div>
+                </div>
+            </main>
         </>
     );
 }

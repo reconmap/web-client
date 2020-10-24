@@ -1,9 +1,22 @@
 
 export default function Title({type, title}) {
+    const styles = {
+        container: { 
+            margin : '.75rem 0'
+        },
+        subtitle: {
+            margin: 0,
+            color : 'var(--primary-color)'
+        },
+        title : {
+            margin: 0,
+            color : 'var(--text-color)'
+        }
+    }
     return (
-        <div className='mt-3 mb-4'>
-             {type && <p className='text-sm text-red-500 font-medium tracking-wide uppercase mb-0 '>{type}</p>}
-             <h3 className=' text-3xl leading-8 font-extrabold tracking-tight  sm:text-4xl sm:leading-10'>{title}</h3>
+        <div style={ styles.container }>
+             {type && <p style={styles.subtitle}>{type}</p>}
+             <h2 style={styles.title} >{title}</h2>
         </div>
     )
 }

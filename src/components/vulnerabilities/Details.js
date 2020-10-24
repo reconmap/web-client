@@ -81,7 +81,7 @@ class VulnerabilityDetails extends Component {
                         <Title type='Vulnerability' title={vuln.summary}/>
                         <Timestamps insertTs={vuln.insert_ts} updateTs={vuln.update_ts}/>
                         <p>{vuln.description}</p>
-                        <table className='w-full'>
+                        <table >
                             <tbody>
                             <tr>
                                 <th>Category</th>

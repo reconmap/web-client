@@ -70,11 +70,11 @@ const ProjectDetails = ({match, history}) => {
                         </label>
 
                         <BtnSecondary  onClick={handleGenerateReport}>
-                            <IconClipboardCheck size={4}/>
+                            <IconClipboardCheck/>
                             Generate Report
                         </BtnSecondary>
                         <BtnSecondary  onClick={handleManageTeam}>
-                            <IconUserGroup size={4}/>
+                            <IconUserGroup/>
                             Manage Members
                         </BtnSecondary>
                         <DeleteButton  onClick={() => destroy(project.id)}/>

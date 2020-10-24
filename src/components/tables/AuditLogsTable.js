@@ -4,7 +4,7 @@ import UserLink from "../users/Link";
 
 export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
     return (
-        <table className='w-full'>
+        <table >
             <thead>
             <tr>
                 <th>Date/Time</th>

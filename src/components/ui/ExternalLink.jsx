@@ -11,7 +11,7 @@ const ExternalLink
 
     return <span className="ExternalLinkComponent">
         <a target="_blank" rel="noopener noreferrer" {...props}>{props.children}</a>
-        <IconExternalLink size={4} styling="ml-2"/>
+        <IconExternalLink styling="ml-2"/>
     </span>
 }
 

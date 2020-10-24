@@ -37,7 +37,7 @@ const TemplatesList = ({history}) => {
                 <CreateButton onClick={() => history.push('/import-export')}>Import template(s)</CreateButton>
             </div>
             {!templates ? <Loading/> : templates.length === 0 ? <NoResults/> :
-                <table className='w-full'>
+                <table >
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -58,7 +58,7 @@ const TemplatesList = ({history}) => {
                                 <div className=' flex space-x-2'>
                                     <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
                                                 title="Create project using this template"><IconPlus
-                                                                                                     size={4}/> Create
+                                                                                                    /> Create
                                         project</BtnPrimary>
                                     <DeleteButton onClick={() => destroy(template.id)}/>
                                 </div>

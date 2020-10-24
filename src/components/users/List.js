@@ -59,7 +59,7 @@ const UsersList = ({history}) => {
                 </ButtonGroup>
             </div>
             {!users ? <Loading/> : users.length === 0 ? <NoResults/> :
-                <table className='w-full'>
+                <table >
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
