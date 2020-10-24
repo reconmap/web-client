@@ -42,17 +42,16 @@ export default function Header() {
                 <nav>
                     <h3 onClick={handleGoHome} style={{ paddingLeft:'var(--padding)', cursor:'pointer'}}>
                         {/* <img src="/logo.svg" height='32px' width='32px' className='mr-2 mt-1' alt="Reconmap logo"/> */}
-                        <span>Recon<strong style={{ color : 'var(--primary-color)'}}>map</strong></span>
+                        <strong>Recon<span style={{ color : 'var(--primary-color)'}}>map</span></strong>
                     </h3>
-                    {isAuth ? <div>
+                    {isAuth ? <>
                             <input placeholder="Search..." onKeyDown={handleSearchKeyDown}/>
                             <BtnLink onClick={handleUserManual}>User manual</BtnLink>
                             <BtnLink onClick={handleOpenPrefs}>Preferences</BtnLink>
                             <NotificationsBadge/>
                             {user && <UserAvatar onClick={handleMyProfile} size={8} email={user.email}/>}
-                            <span className='w-2'> </span>
                             <BtnSecondary onClick={logout}> Logout</BtnSecondary>
-                        </div>
+                        </>
                         : LINKS.map((link, index) => (
                             <BtnLink  key={index} to={link.to.pathname}> {link.title} </BtnLink>))}
                 </nav>

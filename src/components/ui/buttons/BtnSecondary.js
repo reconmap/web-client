@@ -10,7 +10,6 @@ export default function BtnSecondary({ onClick, children, color = 'silver', font
             padding: 'var(--paddingBox)',
             display: 'inline-flex',
             alignItems: 'center',
-            // backgroundColor : 'var(--gray)',
             color: `var(--${color},white)`,
             borderRadius: 'var(--borderRadius, 3px)',
             border: `var(--borderWidth,2px) solid var(--gray)`,
