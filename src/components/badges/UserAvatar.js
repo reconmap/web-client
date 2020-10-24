@@ -12,7 +12,6 @@ export default function UserAvatar({email, size='--iconSize', onClick, name, too
             width: `var(${size})`,
             height: `var(${size})`,
             borderRadius: '50%',
-            backgroundColor:'white',
         },
     }
     return (

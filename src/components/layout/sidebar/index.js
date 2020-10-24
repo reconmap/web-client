@@ -7,7 +7,7 @@ export default function Sidebar() {
 
     return (
         <aside>
-            <Link to={'/'} > 
+            <Link to={'/'} data-label='DashBoard' > 
                 <IconDashboard size={5}/> 
                 <span>Dashboard</span> 
             </Link>

@@ -4,6 +4,8 @@
   --padding: 1rem;
   --margin: .5rem;
 
+  --sidebarWidth : 200px;
+
   --paddingBox: 0.3rem 0.8rem;
 
   --borderWidth: 2px;
@@ -76,7 +78,7 @@ body {
 }
 main {
 	display: grid;
-	grid-template-columns: 240px 1fr;
+	grid-template-columns: var(--sidebarWidth) 1fr;
 }
 #content {
   padding : 0 var(--padding);
@@ -101,18 +103,18 @@ aside {
     &:before {
       content: attr(data-label); 
       position: absolute;
-      top:0; bottom: 0; left:30px;
+      top:-6px; bottom: 0; left:24px;
        margin-right: -90px;
-      z-index: 999;
+      z-index: 20;
       align-items: center ;
       border-radius: var(--borderRadius);
-      padding : var(--paddingBox);
+      padding : var(--padding);
       background-color: var(--black);
       color: var(--text-color);
       text-align:left;
       width: max-content;
       transition: var(--transitionTime);
-      font-size: var(--fontSizeSmall);
+      font-size: var(--fontSizeBody);
       display: none; 
     }
   }
@@ -368,6 +370,7 @@ table {
     padding :  var(--padding);
     a {
       padding :  0;
+      margin : var(--margin) 0;
       display: block;
        span {
         display: none;
