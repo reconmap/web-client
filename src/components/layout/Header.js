@@ -49,7 +49,7 @@ export default function Header() {
                             <BtnLink onClick={handleUserManual}>User manual</BtnLink>
                             <BtnLink onClick={handleOpenPrefs}>Preferences</BtnLink>
                             <NotificationsBadge/>
-                            {user && <UserAvatar onClick={handleMyProfile} size={8} email={user.email}/>}
+                            {user && <UserAvatar onClick={handleMyProfile} email={user.email}/>}
                             <BtnSecondary onClick={logout}> Logout</BtnSecondary>
                         </>
                         : LINKS.map((link, index) => (

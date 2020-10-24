@@ -75,8 +75,8 @@ const UsersList = ({history}) => {
                             <input type="checkbox" value={user.id} onChange={onTaskCheckboxChange}
                                    checked={selectedUsers.indexOf(user.id) !== -1}/>
                         </td>
-                        <td className='w-16'>
-                            <UserAvatar email={user.email} size={10}/>
+                        <td>
+                            <UserAvatar email={user.email} size='--iconSize'/>
                         </td>
                         <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
                         <td><UserRoleBadge role={user.role}/></td>

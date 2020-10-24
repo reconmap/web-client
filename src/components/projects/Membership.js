@@ -70,7 +70,7 @@ const TasksList = ({match, history}) => {
                         {members &&
                         members.map((member, index) =>
                             <tr>
-                                <td className='w-16'><UserAvatar size={10} email={member.email}/></td>
+                                <td><UserAvatar size='--iconSizeLarge' email={member.email}/></td>
                                 <td><UserLink userId={member.id}>{member.name}</UserLink></td>
                                 <td className='text-right'>
                                     <DeleteButton onClick={() => handleDelete(member)}/>

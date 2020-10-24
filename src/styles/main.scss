@@ -2,12 +2,17 @@
 
 :root {
   --padding: 1rem;
-  --margin: 1rem;
+  --margin: .5rem;
 
   --paddingBox: 0.3rem 0.8rem;
 
   --borderWidth: 2px;
   --borderRadius: 5px;
+
+  --iconSizeSmall: 20px;
+  --iconSize: 32px;
+  --iconSizeLarge: 48px;
+  --iconSizeXLarge: 64px;
 
   --muted: hsla(217, 13%, 52%, 0.6);
   --smoke: hsla(217, 13%, 52%, 0.3);
@@ -63,6 +68,7 @@
   margin: 0;
   padding: 0;
 }
+button:focus {outline:0;}
 
 body {
   background-color: var(--bg-color);
@@ -91,12 +97,7 @@ aside {
     &:hover, &.active {
       color : var(--text-color);
     }
-    svg {
-      margin: 0 var(--margin) 0 0;
-      width: min(20px);
-      height: min(20px);
-      padding: 0;
-    }
+    
     &:before {
       content: attr(data-label); 
       position: absolute;
@@ -121,7 +122,7 @@ nav {
     margin-right: auto;
   }
 	padding: var(--padding);
-  border-bottom :  1px solid var(--smoke);
+  border-bottom :  var(--borderWidth) solid var(--smoke);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -136,10 +137,12 @@ label,
 small,
 details summary {
   font-size: var(--fontSizeSmall);
+  color: var(--muted);
+
 }
 
 p a {
-  border-bottom: 2px dotted var(--link-color);
+  border-bottom: var(--borderWidth) dotted var(--link-color);
   &:hover {
     border-bottom-color: var(--link-colorLight);
   }
@@ -161,15 +164,11 @@ h3 {
 p {
   font-size: var(--fontSizeParagraph);
   margin-top: 0;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--margin);
 }
 
 
 
-label,
-th {
-  color: var(--silver);
-}
 
 section {
 	// border : 1px dotted pink;
@@ -193,9 +192,6 @@ section {
 }
 
 // FORMS
-
-
-
 form {
 label {
 	display: grid;
@@ -207,15 +203,15 @@ label {
   input:not([type="checkbox"]),
   select,
   button {
-    margin: 0.5rem auto;
+    margin: var(--margin) auto;
     width: 100%;
  } 
 }
 form input[type="checkbox"] {
   float: left;
-  margin-right: 1rem;
-  width: 24px;
-  height: 24px;
+  margin-right: var(--margin);
+  width: var(--iconSizeSmall);
+  height: var(--iconSizeSmall);
   border-radius: var(--borderRadius);
 }
 form input:required {
@@ -241,6 +237,15 @@ form input:required {
   }
 }
 
+a, span, button, input{
+  svg {
+    margin: 0 var(--margin) 0 0;
+    width: var(--iconSizeSmall);
+    height: var(--iconSizeSmall);
+    padding: 0;
+    flex-shrink:0;
+  }
+}
 
 
 input,
@@ -257,23 +262,15 @@ button {
   transition: var(--transitionTime);
   font-size: var(--fontSizeSmall);
   outline: transparent;
-
   &:hover {
     box-shadow: 0 0 0px 3px var(--link-color);
   }
-  svg {
-    margin: 0 var(--margin) 0 0;
-    width: min(20px);
-    height: min(20px);
-    padding: 0;
-  }
 }
 code {
+  display: block;
   padding: var(--paddingBox);
-  border-width: var(--borderWidth);
-  border-color: transparent;
+  border-left: var(--borderWidth) solid var(--link-color);
   background-color: var(--black);
-  // font-size: var(--fontSizeSmall);
   color: var(--silver);
   font-family: monospace;
 }
@@ -301,7 +298,7 @@ table {
     padding: 0.4rem 0.3rem;
   }
   td button, td a {
-	  margin: 0 calc(var(--padding)/2);
+	  margin: calc(var(--padding)/3);
   }
 }
 

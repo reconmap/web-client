@@ -14,7 +14,6 @@ const ProjectTeam = ({project, users}) => {
                 <UserAvatar
                     key={index}
                     email={user.email}
-                    size={12}
                     onClick={() => handleOnClick(user.id)}
                     name={user.name}
                     tooltip/>

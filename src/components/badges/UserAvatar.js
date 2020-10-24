@@ -1,17 +1,23 @@
 import MD5 from '../../services/md5';
 
-export default function UserAvatar({email, size=32, onClick, name, tooltip}) {
+export default function UserAvatar({email, size='--iconSize', onClick, name, tooltip}) {
+    const styles ={
+        figure :{
+            position:'relative',
+            padding: '0',
+            borderRadius: '50%',
+            overflow: 'hidden',
+        },
+        image :{
+            width: `var(${size})`,
+            height: `var(${size})`,
+            borderRadius: '50%',
+            backgroundColor:'white',
+        },
+    }
     return (
-        <figure 
-            onClick={onClick} 
-            className={`w-${size} h-${size} ${onClick && 'cursor-pointer'} group border-2 border-smoke hover:shadow-outline flex bg-invert  shadow rounded-full relative`}>
-
-            {email && <img 
-                        alt={name||'Avatar' }
-                        className='rounded-full' 
-                        src={`https://www.gravatar.com/avatar/${MD5(email)}?s=200&d=robohash`} 
-                        />}
-            {tooltip && <div className='absolute bottom-0 p-1 bg-invert shadow rounded -mb-8 text-xs left-0 right-0 mx-auto hidden group-hover:block'>{name}</div>}
-        </figure>
+        <button onClick={onClick} style={styles.figure} data-tooltip={name}>
+            {email && <img alt={name||'Avatar' } style={styles.image} src={`https://www.gravatar.com/avatar/${MD5(email)}?s=200&d=robohash`} />}
+        </button>
     )
 }
