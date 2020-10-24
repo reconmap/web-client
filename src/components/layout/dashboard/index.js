@@ -5,6 +5,7 @@ import UserActivityStatsWidget from "./UserActivityStatsWidget";
 import VulnerabilitiesByRiskStatsWidget from "./VulnerabilitiesByRiskStatsWidget";
 import VulnerabilitiesByCategoryStatsWidget from "./VulnerabilitiesByCategoryStatsWidget";
 import Title from "../../ui/Title";
+import { IconChartBar } from "../../icons";
 
 function Dashboard({children}) {
     useSetTitle('Dashboard')
@@ -24,7 +25,7 @@ function Dashboard({children}) {
 const DashboardPanels = () => {
 
     return <section>
-        <Title title="Statistics" type="Dashboard"/>
+        <Title title="Statistics" type="Dashboard" icon={<IconChartBar />}/>
         <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3'>
             <UserActivityStatsWidget/>
             <VulnerabilitiesByRiskStatsWidget/>

@@ -6,6 +6,7 @@ import { useHistory  } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { IconSearch } from '../icons';
 
 const SearchResults = (props) => {
     useSetTitle('Search results');
@@ -29,12 +30,14 @@ const SearchResults = (props) => {
 
         reloadData()
     }, [keywords])
-    return <div>
-                <Breadcrumb history={history} />
-                <Title type='Search results' title={`For ${keywords}`}/>
-                <h2>{vulnerabilities.length} vulnerabilities matched</h2>
+    return <>
+                <div className='heading'>
+                    <Breadcrumb history={history}/>
+                </div>
+                <Title type='Search results' title={`For ${keywords}`} icon={<IconSearch />} />
+                <h3>{vulnerabilities.length} vulnerabilities matched</h3>
                 <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>
-            </div>
+            </>
 }
 
 export default SearchResults

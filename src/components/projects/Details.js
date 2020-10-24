@@ -3,11 +3,10 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
-import {IconClipboardCheck, IconUserGroup} from '../icons';
+import {IconClipboardCheck, IconFolder, IconUserGroup} from '../icons';
 import ProjectTargets from './Targets';
 import ProjectTasks from './Tasks';
 import ProjectVulnerabilities from './Vulnerabilities';
-import ProjectDescription from './Description';
 import ProjectTeam from './Team';
 import Title from '../ui/Title';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
@@ -83,9 +82,9 @@ const ProjectDetails = ({match, history}) => {
             </div>
             {!project ? <Loading/> :
                 <>
-                    <Title title={project.name} type='Project'/>
+                    <Title title={project.name} type={project.description} icon={<IconFolder /> } />
+                    <h4>Timestamps</h4>
                     <Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/>
-                    <ProjectDescription project={project}/>
                     <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>
                     <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>
                     <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities}/>

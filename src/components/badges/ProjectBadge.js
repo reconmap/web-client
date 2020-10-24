@@ -9,14 +9,12 @@ export default function ProjectBadge({project}) {
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',
             fontWeight : 'var(--fontBold)',
-            gap : `var(--padding)`
-            
         }
     }
 
     return (<Link to={`/projects/${project.id}`} style={ styles.badge }>
-            <IconCollection />
-            {project.name}
-        </Link>
+                <IconCollection />
+                {project.name}
+            </Link>
     )
 }

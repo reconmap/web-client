@@ -1,6 +1,6 @@
 
 const ButtonGroup = ({children}) => {
-    return <div className='flex justify-end space-x-2'>
+    return <div className='button-group'>
         {children}
     </div>
 }

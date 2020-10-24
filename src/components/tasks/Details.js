@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import secureApiFetch from '../../services/api'
 import BtnSecondary from '../ui/buttons/BtnSecondary'
 import BtnPrimary from '../ui/buttons/BtnPrimary'
-import {IconCheck, IconUpload, IconX} from '../icons'
+import {IconCheck, IconClipboard, IconUpload, IconX} from '../icons'
 import Title from './../ui/Title'
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
@@ -121,22 +121,22 @@ class TaskDetails extends Component {
                 </div>
                 {!task ? <Loading/> :
                     <article>
-                        <Title title={task.name} type='Task'/>
+                        <Title title={task.name} type='Task' icon={<IconClipboard />} />
+                        <h4>Timestamps</h4>
                         <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
-                        <div className='items-start space-x-2'>
-                            <code>{task.description}</code>
-                            <br/>
-                            <div className='card flex-1 mt-2'>
-                                <h3>Results</h3>
-                                {this.state.results.map((value, index) =>
-                                    <div key={index} className='pb-2 border-b mb-2'>
-                                        <label>Date: {value.insert_ts}</label>
-                                        <textarea readOnly value={value.output} style={{width: '100%'}}/>
-                                    </div>
-                                )}
-                                {this.state.results.length === 0 && <footer> No results </footer>}
-                            </div>
-                        </div>
+                        <h4>Description</h4>
+                        <code>{task.description}</code>
+                        <h4>Results</h4>
+                        <code>
+
+                            {this.state.results.map((value, index) =>
+                                <div key={index} className='pb-2 border-b mb-2'>
+                                    <label>Date: {value.insert_ts}</label>
+                                    <textarea readOnly value={value.output} style={{width: '100%'}}/>
+                                </div>
+                            )}
+                            {this.state.results.length === 0 && 'No results'}
+                        </code>
                     </article>
                 }
             </div>

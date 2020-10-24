@@ -18,9 +18,7 @@ const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
     const [risk, setRisk] = useState('')
     const [status, setStatus] = useState('')
     return <section>
-        <div className='heading'>
-            <IconFlag />
-            <h2>Vulnerabilities</h2>
+        <h4><IconFlag /> Vulnerabilities 
             <ButtonGroup>
                 {vulnerabilities && <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory} setStatus={setStatus}/>}
                 <BtnSecondary  onClick={handleCreateVulnerability}>
@@ -28,7 +26,7 @@ const ProjectVulnerabilities = ({ project, vulnerabilities }) => {
                     Add New Vulnerability
                 </BtnSecondary>
             </ButtonGroup>
-        </div>
+        </h4>
         {vulnerabilities ? 
                 <VulnerabilitiesTable 
                     vulnerabilities={vulnerabilities.filter(vuln=> vuln.category_name.includes(category) && vuln.risk.includes(risk)  && vuln.status.includes(status) ) } />

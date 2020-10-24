@@ -9,7 +9,6 @@ export default function TaskBadge({task}) {
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',
             fontWeight : 'var(--fontBold)',
-            gap : `var(--padding)`
         }
     }
 

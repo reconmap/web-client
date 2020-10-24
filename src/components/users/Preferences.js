@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
-import {IconDark, IconLight, IconSave} from '../icons'
+import {IconDark, IconLight, IconPreferences, IconSave} from '../icons'
 import {getAllTimezones} from 'countries-and-timezones';
 import secureApiFetch from '../../services/api';
 import BtnPrimary from '../ui/buttons/BtnPrimary'
@@ -47,7 +47,7 @@ const UserPreferences = ({history}) => {
             </div>
 
             <form onSubmit={e => e.preventDefault()} >
-                <Title type='User' title='Preferences'/>
+                <Title type='User' title='Preferences' icon={<IconPreferences />} />
                 <label>Timezone
                 <select onChange={handleChange} defaultValue={user.timezone}>
                     {timezoneKeys.map((key) =>

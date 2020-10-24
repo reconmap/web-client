@@ -11,6 +11,7 @@ import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
+import { IconFlag } from '../icons';
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ class VulnerabilityDetails extends Component {
                 </div>
                 {!vuln ? <Loading/> :
                     <article>
-                        <Title type='Vulnerability' title={vuln.summary}/>
+                        <Title type='Vulnerability' title={vuln.summary} icon={<IconFlag />} />
                         <Timestamps insertTs={vuln.insert_ts} updateTs={vuln.update_ts}/>
                         <p>{vuln.description}</p>
                         <table >

@@ -5,24 +5,33 @@ import BtnSecondary from '../ui/buttons/BtnSecondary'
 
 const ProjectTargets = ({ project, targets, handleAddTarget }) => {
     const history = useHistory()
+    const styles = {
+        targets : {
+            display:'flex',
+            gap: 'var(--padding)'
+        },
+        bullet : {
+            display:'flex',
+            gap: 'var(--margin)'
+        }
+    }
     return <section>
-        <div className='heading'>
-            <IconServer styling='text-gray-700' />
-            <h2>Target(s)</h2>
+        <h4>
+            <IconServer /> Target(s)
             <BtnSecondary onClick={handleAddTarget} ><IconPlus />Add target</BtnSecondary>
-        </div>
-        <div className='flex flex-wrap gap-4'>
-            {targets ?
-                targets.map((target, index) =>
-                    <article key={index} className='card w-64 ' onClick={() => history.push(`/projects/${project.id}/targets/${target.id}`)}>
-                        <h2 style={{ color: 'white' }}>{target.name}</h2>
-                        <footer className='flex items-center justify-between'>
-                            {target.kind}
-                            <IconServer styling='text-gray-700' />
-                        </footer>
-                    </article>)
-                : <Loading />}
-        </div>
+        </h4>
+        { !targets ? <Loading /> : 
+            <ul style={styles.targets}>
+                {targets.map((target, index) =>
+                    <li key={index} onClick={() => history.push(`/projects/${project.id}/targets/${target.id}`)} >
+                        <button style={styles.bullet}>
+                            <IconServer />
+                            {target.name}
+                            <small>{target.kind}</small> 
+                        </button>
+                    </li>)}
+            </ul>}
+
     </section>
 }
 

@@ -149,16 +149,54 @@ p a {
 }
 h1 { 
 	font-size: var(--fontSizeTitle); 
-	font-weight: var(--fontBold);
+  font-weight: var(--fontBold);
+  color : var(--text-color);
 }
 
 h2 { 
 	font-size: var(--fontSizeSubtitle); 
-	font-weight: var(--fontBold);
+  display: flex;
+  align-items: center;
 	color: var(--silver);
 }
 h3 { 
-	font-size: var(--fontSizeHeader); 
+  font-size: var(--fontSizeHeader); 
+  display: flex;
+  align-items: center;
+	color: var(--silver);
+}
+.button-group {
+  display:flex;
+  column-gap: var(--margin);
+  row-gap: var(--margin);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+h4 { 
+  font-size: var(--fontSizeBody); 
+  display: flex;
+  align-items: center;
+  color: var(--silver);
+  margin: var(--padding) 0 var(--margin) 0;
+  // padding-bottom: var(--padding);
+  // border-bottom: var(--borderWidth) dotted var(--smoke);
+  button, div {
+    margin-left: auto;
+  }
+  label {
+    margin-right: calc(var(--padding)/2);
+  }
+  // column-gap: var(--padding);
+
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--padding) 0 calc(var(--padding)/2) 0;
 }
 
 p {
@@ -179,17 +217,7 @@ section {
     margin-right: auto;
   }
 }
-.heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: var(--padding) 0 calc(var(--padding)/2) 0;
-  label {
-    margin-right: calc(var(--padding)/2);
-  }
-  column-gap: var(--padding);
- 
-}
+
 
 // FORMS
 form {
@@ -237,7 +265,7 @@ form input:required {
   }
 }
 
-a, span, button, input{
+a, span, button, input, h2, h3, h4{
   svg {
     margin: 0 var(--margin) 0 0;
     width: var(--iconSizeSmall);
@@ -247,7 +275,11 @@ a, span, button, input{
   }
 }
 
-
+ a{
+  &:hover {
+    opacity: .8;
+  }
+}
 input,
 select,
 textarea,
@@ -269,10 +301,11 @@ button {
 code {
   display: block;
   padding: var(--paddingBox);
-  border-left: var(--borderWidth) solid var(--link-color);
+  border-left: var(--borderWidth) solid var(--primary-color);
   background-color: var(--black);
   color: var(--silver);
   font-family: monospace;
+  margin: var(--margin) 0; 
 }
 // TABLES
 
