@@ -1,10 +1,13 @@
 import React from 'react'
 import { IconUnlocked } from '../icons'
 import Title from './Title'
-
+import Breadcrumb from './../ui/Breadcrumb'
+import { useHistory } from 'react-router-dom'
 export default function Sandbox() {
+    const history = useHistory()
     return (
         <div>
+            <Breadcrumb history={history}/>
             <Title title='Sandbox' type='UI test page' icon={<IconUnlocked />}/>
 
             <h3>Heading Level 4 can have buttons on the right <button>Press Me</button></h3>

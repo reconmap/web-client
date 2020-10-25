@@ -16,7 +16,7 @@ export default function Loading() {
     }
     return (
         <div style={styles.loading}>
-            <IconRefresh size='16' styling='anim-rotate'/>
+            <IconRefresh />
             Loading
         </div>
     )

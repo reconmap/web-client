@@ -50,7 +50,7 @@ export default function NotificationsBadge() {
 
     return (
         <button style={styles.button} onClick={handleShowWindow} aria-label="Notifications">
-                <IconBell styling='m-0'/>
+                <IconBell styling={{ margin: 0}} />
             {notifications.length > 0 &&
             <div className='w-3 h-3 -m-1 bg-red-500 rounded-full absolute top-0 right-0 animate-pulse'></div>}
             {showWindow && <NotificationsWindow notifications={notifications}/>}

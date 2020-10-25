@@ -1,14 +1,24 @@
+import { Link } from "react-router-dom"
+import { IconUser } from "../icons"
 
 export const ClientLink = ({clientId, children}) => {
     const styles = {
         badge : {
             alignItems:'center',
             display: `inline-flex`,
-            borderRadius: 'var(--borderRadius, 3px)',
+            borderRadius: 'var(--borderRadius)',
             fontWeight : 'var(--fontBold)',
+            fontSize: 'var(--fontSizeSmall)',
+            backgroundColor : 'var(--black)',
+            padding : 'calc(var(--padding)/2) var(--margin)' ,
         }
     }
 
 
-    return <a style={styles.badge} href={`/clients/${clientId}`}>{children}</a>
+    return <Link 
+                style={styles.badge} 
+                to={`/clients/${clientId}`}>
+                <IconUser styling={{ color:'var(--bg-color)' }}/>
+                {children}
+            </Link>
 }

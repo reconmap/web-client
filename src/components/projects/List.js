@@ -8,6 +8,7 @@ import ProjectBadge from '../badges/ProjectBadge';
 import CreateButton from '../ui/buttons/Create';
 import DeleteButton from "../ui/buttons/Delete";
 import {ClientLink} from "../clients/Link";
+import Timestamps from '../ui/Timestamps';
 
 const ProjectsList = ({history}) => {
     useSetTitle('Projects');
@@ -26,7 +27,6 @@ const ProjectsList = ({history}) => {
                 <thead>
                 <tr>
                     <th className='w-56'>Name</th>
-                    <th className='w-48'>Description</th>
                     <th className='w-32'>Client</th>
                     <th className='w-32'>Creation date/time</th>
                     <th className='w-20'></th>
@@ -35,11 +35,14 @@ const ProjectsList = ({history}) => {
                 <tbody>
                 {projects.map((project) =>
                     <tr key={project.id}>
-                        <td><ProjectBadge project={project}/></td>
-                        <td><small>{project.description}</small></td>
+                        <td>
+                        <ProjectBadge project={project}/>
+                        <p>{project.description}</p>
+                        </td>
+                        
                         <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
-                        <td>{project.insert_ts}</td>
-                        <td className='text-right'>
+                        <td><Timestamps insertTs={project.insert_ts} /></td>
+                        <td>
                             <DeleteButton onClick={() => destroy(project.id)}/>
                         </td>
                     </tr>

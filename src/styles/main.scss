@@ -1,15 +1,16 @@
 @import 'animations';
 
 :root {
-  --padding: 1rem;
+  --padding: .8rem;
   --margin: .5rem;
 
   --sidebarWidth : 200px;
 
-  --paddingBox: 0.3rem 0.8rem;
+  --paddingBox: var(--margin) var(--padding);
+  --paddingCell: var(--margin) var(--margin);
 
   --borderWidth: 2px;
-  --borderRadius: 5px;
+  --borderRadius: calc(var(--margin)/2);
 
   --iconSizeSmall: 20px;
   --iconSize: 32px;
@@ -78,7 +79,7 @@ main {
 	grid-template-columns: var(--sidebarWidth) 1fr;
 }
 #content {
-  padding : 0 var(--padding);
+  padding : var(--padding);
 }
 aside {
   padding :  var(--padding);
@@ -193,7 +194,13 @@ h1,h2,h3,h4,h5,h6 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: var(--padding) 0 calc(var(--padding)/2) 0;
+  margin-bottom: calc(var(--padding)/2) ;
+  label {
+    margin-right: calc(var(--padding)/2);
+  }
+  select { 
+    max-width: 200px;
+  }
 }
 
 p {
@@ -232,6 +239,7 @@ label {
     width: 100%;
  } 
 }
+
 form input[type="checkbox"] {
   float: left;
   margin-right: var(--margin);
@@ -300,7 +308,7 @@ button {
   font-size: var(--fontSizeSmall);
   outline: transparent;
   &:hover {
-    box-shadow: 0 0 0px 3px var(--link-color);
+    box-shadow: 0 0 0 var(--borderWidth) var(--link-color);
   }
 }
 code {
@@ -316,27 +324,25 @@ code {
 
 table {
 	width: 100%;
-  margin: 1rem auto;
-  &.striped {
-    tr:nth-child(even) {
-      background-color: rgba(var(--silver), 0.05);
-      border-radius: var(--borderRadius);
-      overflow: hidden;
-    }
-  }
+  margin: var(--padding) auto;
   tbody tr:hover {
-    background-color: rgba(var(--silver), 0.05);
+    box-shadow: 0 0 0 var(--borderWidth) var(--black);
   }
   th {
     text-align: left;
-    letter-spacing: 0.01rem;
-    padding: 0.45rem;
+    padding: var(--paddingCell);
   }
-  td {
-    padding: 0.4rem 0.3rem;
-  }
-  td button, td a {
-	  margin: calc(var(--padding)/3);
+  tbody {
+
+    td {
+      padding: var(--paddingCell);
+    }
+    td button, td a {
+      margin: var(--margin);
+    }
+    td:last-child {
+      // padding-right: var(--margin);
+    }
   }
 }
 

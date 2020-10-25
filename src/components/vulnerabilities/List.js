@@ -8,6 +8,8 @@ import Pagination from '../layout/Pagination';
 import secureApiFetch from '../../services/api';
 import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
 import CreateButton from '../ui/buttons/Create';
+import Title from '../ui/Title';
+import { IconFlag } from '../icons';
 
 const VulnerabilitiesList = ({history}) => {
     const searchParams = new URLSearchParams(history.location.search);
@@ -53,10 +55,10 @@ const VulnerabilitiesList = ({history}) => {
         <>
             <div className='heading'>
                 <Breadcrumb history={history}/>
-                <Pagination page={page} total={numberPages} handlePrev={handlePrev}
-                            handleNext={handleNext}/>
+                <Pagination page={page} total={numberPages} handlePrev={handlePrev} handleNext={handleNext}/>
                 <CreateButton onClick={handleCreateVulnerability}>Create Vulnerability</CreateButton>
             </div>
+            <Title title='Vulnerabilities' icon={<IconFlag />}/>
             {!vulnerabilities ? <Loading/> : vulnerabilities.length === 0 ? <NoResults/> :
                 <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy}/>
             }
