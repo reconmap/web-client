@@ -7,6 +7,7 @@ import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CancelButton from "../ui/buttons/Cancel";
 import Title from '../ui/Title';
+import { IconPlus } from '../icons';
 
 export default function VulnerabilityCreate({history, location}) {
     const projectId = new URLSearchParams(location.search).get('projectId') || null
@@ -41,10 +42,10 @@ export default function VulnerabilityCreate({history, location}) {
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
+            <Title title="Create Vulnerability" icon={<IconPlus />}/>
 
             {!projects ? <Loading/> :
                 <form onSubmit={handleCreate}>
-                    <Title title="Create Vulnerability"/>
                     {!projectId &&
                     <label>
                         <span>Project</span>

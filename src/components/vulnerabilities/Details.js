@@ -11,7 +11,7 @@ import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
-import { IconFlag } from '../icons';
+import { IconCheck, IconFlag } from '../icons';
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -69,8 +69,8 @@ class VulnerabilityDetails extends Component {
                     {vuln &&
                     <ButtonGroup>
                         {vuln.status === 'open' &&
-                        <BtnPrimary  onClick={() => this.handleStatus(vuln)}>Mark as
-                            closed</BtnPrimary>}
+                        <BtnPrimary  onClick={() => this.handleStatus(vuln)}>
+                        <IconCheck /> Mark as closed</BtnPrimary>}
                         {vuln.status !== 'open' &&
                         <BtnPrimary  onClick={() => this.handleStatus(vuln)}>Mark as open</BtnPrimary>}
                         <DeleteButton  onClick={() => this.handleDelete(vuln)}/>

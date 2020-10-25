@@ -2,8 +2,7 @@ const Timestamps = ({insertTs, updateTs}) => {
     const styles = {
         stamp: {
             fontSize: `var(--fontSizeXsmall)`,
-            color: `var(--text-color)`,
-            opacity: '.6',
+            color: `var(--silver)`,
         }
     }
 
@@ -12,10 +11,10 @@ const Timestamps = ({insertTs, updateTs}) => {
             <strong>Creation time:</strong>&nbsp;
             <time dateTime={insertTs}>{insertTs}</time>
             .
-            {updateTs && <> <strong>Modification time:</strong>
+            {updateTs && <div> <strong>Modification time:</strong>
                 &nbsp;
                 <time dateTime={updateTs}>{updateTs}</time>
-            </>}
+            </div>}
         </span>
     </>
 }

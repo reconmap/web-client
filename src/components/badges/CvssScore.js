@@ -5,18 +5,19 @@ export default function CvssScore({ score, fontSize='fontSizeXsmall' }) {
     const styles = {
         badge : {
             color: `var(--${color},white)`,
-            padding: `var(--paddingBox, .3rem .8rem)`,
+            padding: `var(--paddingBadge)`,
             alignItems:'center',
             display: `flex`,
             borderRadius: 'var(--borderRadius, 3px)',
-            border: `var(--borderWidth,2px) dotted var(--smoke)`,
+            border: `var(--borderWidth) dotted var(--smoke)`,
             fontSize : `var(--${fontSize})`,
-            fontWeight : 'var(--fontBold)'
+            fontWeight : 'var(--fontBold)',
+            width: '110px'
         },
         bar : {
             backgroundColor: `var(--${color},white)`,
-            width: '.3rem',
-            height: '1rem',
+            width: 'var(--borderWidth)',
+            height: '1.3rem',
             marginRight: '4px'
         },
         text : {

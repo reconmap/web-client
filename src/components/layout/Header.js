@@ -16,8 +16,8 @@ const LINKS = [
 export default function Header() {
     const history = useHistory()
     const handleGoHome = () => {
-           history.push('/')
-       }
+        history.push('/')
+    }
     const handleMyProfile = () => {
         history.push(`/users/${localStorage.getItem('user.id')}`)
     }

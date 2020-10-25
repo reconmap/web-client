@@ -1,147 +1,116 @@
-import React, {Component} from 'react'
+import React, { useEffect } from 'react'
 import secureApiFetch from '../../services/api'
 import BtnSecondary from '../ui/buttons/BtnSecondary'
 import BtnPrimary from '../ui/buttons/BtnPrimary'
-import {IconCheck, IconClipboard, IconUpload, IconX} from '../icons'
+import { IconCheck, IconClipboard, IconUpload, IconX } from '../icons'
 import Title from './../ui/Title'
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from '../ui/Loading'
 import Timestamps from "../ui/Timestamps";
-import {actionCompletedToast} from "../../utilities/toast";
+import toast, { actionCompletedToast } from "../../utilities/toast";
+import TaskCompletedBadge from '../badges/TaskCompletedBadge'
+import useFetch from './../../hooks/useFetch'
+import useDelete from '../../hooks/useDelete'
 
-class TaskDetails extends Component {
+const TaskDetails = ({ history, match }) => {
 
-    constructor(props) {
-        super(props)
-        this.handleAssigneeChange = this.handleAssigneeChange.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-    }
+    const [task, fetchTask] = useFetch(`/tasks/${match.params.id}`)
+    const [users] = useFetch(`/users`)
+    const [results] = useFetch(`/tasks/${match.params.id}/results`)
+    const destroy = useDelete('/tasks/', fetchTask);
 
-    state = {
-        task: null,
-        users: null,
-        results: []
-    }
+    useEffect(() => {
+        if (task) {
+            document.title = `Task ${task.name} | Reconmap`;
+        }
+    }, [task])
 
-    componentDidMount() {
-        const id = this.props.match.params.id;
-        secureApiFetch(`/tasks/${id}`, {
-            method: 'GET'
-        })
-            .then((responses) => responses.json())
-            .then((task) => {
-                this.setState({task: task})
-                document.title = `Task ${task.name} | Reconmap`;
-            });
-        secureApiFetch(`/tasks/${id}/results`, {
-            method: 'GET'
-        })
-            .then((responses) => responses.json())
-            .then((data) => {
-                this.setState({results: data})
-            });
-        secureApiFetch(`/users`, {
-            method: 'GET'
-        })
-            .then((responses) => responses.json())
-            .then((data) => {
-                this.setState({users: data})
-            });
-    }
-
-    handleToggle(task) {
+    const handleToggle = (task) => {
         secureApiFetch(`/tasks/${task.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({completed: task.completed ? '0' : '1'})
+            body: JSON.stringify({ completed: task.completed ? '0' : '1' })
         })
-            .then(() => {
-                this.props.history.goBack()
-            })
+            .then(() => { 
+                fetchTask()
+                toast('Task','Status changed')
+             })
             .catch(e => console.log(e))
     }
 
-    handleDelete(id) {
-        if (window.confirm('Are you sure you want to delete this task?')) {
-            secureApiFetch(`/tasks/${id}`, {
-                method: 'DELETE'
-            })
-                .then(() => {
-                    this.props.history.goBack()
-                })
-                .catch(e => console.log(e))
-
-        }
+    const handleDelete = () => {
+        destroy(task.id)
+        history.goBack()
     }
 
-    handleAssigneeChange(event) {
+    const handleAssigneeChange = (event) => {
         const assigneeUid = event.target.value;
-        const task = this.state.task;
         secureApiFetch(`/tasks/${task.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({assignee_uid: '' === assigneeUid ? null : assigneeUid})
+            body: JSON.stringify({ assignee_uid: '' === assigneeUid ? null : assigneeUid })
         })
             .then(() => {
                 actionCompletedToast("The task has been assigned.");
+                fetchTask()
             })
             .catch(e => console.log(e))
     }
 
-    render() {
-        const task = this.state.task;
-        const users = this.state.users;
 
-        return (
-            <div>
-                <div className="heading">
-                    <Breadcrumb history={this.props.history}/>
-                    {task && users &&
+    return (
+        <div>
+            <div className="heading">
+                <Breadcrumb history={history} />
+                {task && users &&
                     <ButtonGroup>
                         <label>Assign to&nbsp;
-                            <select onChange={this.handleAssigneeChange} defaultValue={task.assignee_uid}>
+                            <select onChange={handleAssigneeChange} defaultValue={task.assignee_uid}>
                                 <option value="">(nobody)</option>
                                 {users && users.map((user, index) =>
                                     <option value={user.id}>{user.name}</option>
                                 )}
                             </select>
                         </label>
-                        {task.completed === 1 && <BtnSecondary  onClick={() => this.handleToggle(task)}>
-                            <IconX/> Mark as incomplete
+                        {task.completed === 1 && <BtnSecondary onClick={() => handleToggle(task)}>
+                            <IconX /> Mark as incomplete
                         </BtnSecondary>}
-                        {task.completed !== 1 && <BtnSecondary  onClick={() => this.handleToggle(task)}>
-                            <IconCheck/> Mark as completed
+                        {task.completed !== 1 && <BtnSecondary onClick={() => handleToggle(task)}>
+                            <IconCheck /> Mark as completed
                         </BtnSecondary>}
-                        <BtnPrimary  to={"/tasks/" + task.id + "/upload"}>
-                            <IconUpload/> Upload results
+                        <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
+                            <IconUpload /> Upload results
                         </BtnPrimary>
-                        <DeleteButton onClick={() => this.handleDelete(task.id)}/>
+                        <DeleteButton onClick={() => handleDelete(task.id)} />
                     </ButtonGroup>
-                    }
-                </div>
-                {!task ? <Loading/> :
-                    <article>
-                        <Title title={task.name} type='Task' icon={<IconClipboard />} />
-                        <h4>Timestamps</h4>
-                        <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
-                        <h4>Description</h4>
-                        <code>{task.description}</code>
-                        <h4>Results</h4>
-                        <code>
-
-                            {this.state.results.map((value, index) =>
-                                <div key={index} className='pb-2 border-b mb-2'>
-                                    <label>Date: {value.insert_ts}</label>
-                                    <textarea readOnly value={value.output} style={{width: '100%'}}/>
-                                </div>
-                            )}
-                            {this.state.results.length === 0 && 'No results'}
-                        </code>
-                    </article>
                 }
             </div>
-        )
-    }
+            {!task ? <Loading /> :
+                <article>
+                    <Title title={task.name} type='Task' icon={<IconClipboard />} />
+                    <h4>Timestamps</h4>
+                    <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts} />
+                    <h4>Description</h4>
+                    <code>{task.description}</code>
+                    <h4>Status</h4>
+                    <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
+                        <TaskCompletedBadge completed={ String(task.completed) } />
+                        {String(task.completed)  === '1' ? 'Completed' : 'Incomplete'}
+                    </p>
+                    <h4>Results</h4>
+                    <code>
+                        {!results ? <Loading /> : results.map((value, index) =>
+                            <div key={index} className='pb-2 border-b mb-2'>
+                                <label>Date: {value.insert_ts}</label>
+                                <textarea readOnly value={value.output} style={{ width: '100%' }} />
+                            </div>
+                        )}
+                        {results && results.length === 0 && 'No results'}
+                    </code>
+                </article>
+            }
+        </div>
+    )
 }
 
 export default TaskDetails

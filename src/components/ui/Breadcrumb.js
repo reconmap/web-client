@@ -14,6 +14,8 @@ const Breadcrumb = ({ history }) => {
         button : {
             display: 'flex',
             alignSelf: 'center',
+            border: `var(--borderWidth) solid var(--smoke)`,
+            backgroundColor: 'transparent',
         },
         arrow :{
             color : 'var(--primary-color)',

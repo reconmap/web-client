@@ -1,21 +1,23 @@
 import Ipv4Link from '../ui/Ipv4Link'
 import UserRoleBadge from '../badges/UserRoleBadge'
 import UserLink from "../users/Link";
+import Timestamps from '../ui/Timestamps';
+import Badge from '../badges/Badge';
 
 export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
     return (
         <table >
             <thead>
             <tr>
-                <th>Date/Time</th>
+                <th>Action</th>
                 <th>IP address</th>
+                <th>Timestamps</th>
                 {!hideUserColumns &&
                 <>
                     <th>User</th>
                     <th>Role</th>
                 </>
                 }
-                <th>Action</th>
                 <th>Object</th>
             </tr>
             </thead>
@@ -23,7 +25,13 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
             {auditLog.map((entry, index) => {
                 return (
                     <tr key={index}>
-                        <td>{entry.insert_ts}</td>
+                        <td>
+                            <Badge color='blue'>{entry.action}</Badge>
+                        </td>
+                        <td>
+                            <Timestamps insertTs={entry.insert_ts}/>
+                        </td>
+                        
                         <td><Ipv4Link value={entry.client_ip}/></td>
                         {!hideUserColumns &&
                         <>
@@ -31,7 +39,6 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
                             <td><UserRoleBadge role={entry.role}/></td>
                         </>
                         }
-                        <td>{entry.action}</td>
                         <td>{entry.object}</td>
                     </tr>
                 )

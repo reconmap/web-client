@@ -11,7 +11,7 @@ export default function RiskBadge({ risk , fontSize='fontSizeXsmall' }) {
     const styles = {
         badge : {
             color: `var(--${RISKS[risk].color},white)`,
-            padding: `var(--paddingBox, .3rem .8rem)`,
+            padding: `var(--paddingBadge)`,
             alignItems:'center',
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',

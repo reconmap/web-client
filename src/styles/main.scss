@@ -1,11 +1,12 @@
 @import 'animations';
 
 :root {
-  --padding: .8rem;
-  --margin: .5rem;
+  --padding: .9rem;
+  --margin: calc(var(--padding)/2);
 
   --sidebarWidth : 200px;
 
+  --paddingBadge: calc(var(--margin)/2) calc(var(--padding)/2);
   --paddingBox: var(--margin) var(--padding);
   --paddingCell: var(--margin) var(--margin);
 
@@ -24,6 +25,8 @@
   --black: rgb(43, 50, 63);
   --gray: hsla(220, 20%, 23%);
   --silver: hsla(217, 13%, 52%);
+  --silverDark: hsla(217, 13%, 52%,.2);
+  --lightGray: rgb(177, 183, 194);
   --text-color: hsla(0, 0%, 100%);
   --yellow: hsla(43, 74%, 52%);
   --yellowDark: rgba(223, 172, 42, 0.2);
@@ -206,14 +209,12 @@ h1,h2,h3,h4,h5,h6 {
 p {
   font-size: var(--fontSizeSmall);
   margin-top: 0;
+  color : silver;
   margin-bottom: var(--margin);
 }
 
 
-
-
 section {
-	// border : 1px dotted pink;
   padding-bottom: var(--padding);
   border-bottom: var(--borderWidth) solid rgba(0, 0, 0, 0.1);
   margin: var(--padding) 0 ;
@@ -293,6 +294,11 @@ a, span, button, input, h2, h3, h4{
     opacity: .8;
   }
 }
+a[target="_blank"]{
+  color: var(--link-color);
+  // font-size: var(--fontSizeSmall);
+  border-bottom: var(--borderWidth) solid var(--link-color);
+}
 input,
 select,
 textarea,
@@ -310,6 +316,10 @@ button {
   &:hover {
     box-shadow: 0 0 0 var(--borderWidth) var(--link-color);
   }
+}
+button {
+  color: var(--lightGray);
+  display: inline-flex;
 }
 code {
   display: block;
@@ -333,15 +343,11 @@ table {
     padding: var(--paddingCell);
   }
   tbody {
-
     td {
       padding: var(--paddingCell);
     }
     td button, td a {
       margin: var(--margin);
-    }
-    td:last-child {
-      // padding-right: var(--margin);
     }
   }
 }

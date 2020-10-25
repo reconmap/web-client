@@ -3,7 +3,7 @@ export default function BadgeOutline({children, color='silver' , fontSize='fontS
     const styles = {
         badge : {
             color: `var(--${color},white)`,
-            padding: `var(--paddingBox, .3rem .8rem)`,
+            padding: `var(--paddingBadge)`,
             alignItems:'center',
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',
