@@ -11,9 +11,9 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
         <table >
             <thead>
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Assignee</th>
-                <th>Status</th>
                 <th>Parser</th>
                 <th>Details</th>
                 <th>&nbsp;</th>
@@ -25,10 +25,10 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                 .filter(task => task.completed.toString().includes(filter.status))
                 .map((task) =>
                     <tr key={task.id}>
+                        <td><TaskCompletedBadge completed={task.completed}/></td>
                         <td><TaskBadge task={task}/></td>
                         <td>{task.assignee_uid ?
                             <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
-                        <td><TaskCompletedBadge completed={task.completed}/></td>
                         <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
                         <td><code>{task.description.slice(0, 40)} </code></td>
                         <td>

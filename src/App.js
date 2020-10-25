@@ -18,6 +18,7 @@ import TasksRoutes from "./components/tasks/Routes";
 import ProjectsRoutes from "./components/projects/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import TemplatesRoutes from "./components/templates/Routes";
+import Sandbox from './components/ui/Sandbox';
 
 const App = () => {
 
@@ -50,6 +51,7 @@ const App = () => {
                                 <ProtectedRoute path={`/reports`} component={ReportsList}/>
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList}/>
                                 <ProtectedRoute exact path={`/import-export`} component={ImportExportForm}/>
+                                <ProtectedRoute exact path={`/sandbox`} component={Sandbox}/>
                                 <Route component={PageNotFound}/>
                             </Switch>
                         </Dashboard>

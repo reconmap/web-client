@@ -10,22 +10,32 @@ const Breadcrumb = ({ history }) => {
             history.push('/' + destination)
         }
     }
+    const styles = {
+        button : {
+            display: 'flex',
+            alignSelf: 'center',
+        },
+        arrow :{
+            color : 'var(--primary-color)',
 
-    return <div className='  breadcrumb items-center  inline-flex '>
+        },
+        slash :{
+            margin : 'var(--margin)',
+            color : 'var(--muted)',
 
-        {history && history.length > 0 && <div onClick={handleGoBack} className='pr-1 hover:opacity-75 opacity-50 rounded cursor-pointer'>
-            <IconLeft size={'5'} />
-        </div>}
+        }
+    }
 
-        {/* <div onClick={handleGoToRoot} className=' hover:opacity-75 opacity-50 rounded cursor-pointer'><IconFolder size={'5'} /></div> */}
+    return <button style={ styles.button }>
 
+        {history && history.length > 0 && <span onClick={handleGoBack} style={styles.arrow}> <IconLeft  /> </span>}
         {history.location.pathname.split('/').map((route, index) => 
                 route !== '' && 
-                    <span key={index} className='hover:opacity-75 cursor-pointer leading-none capitalize flex-inline font-medium tracking-wide ' onClick={ ()=> handleGoTo(route)}>
-                        <i className='mx-2 font-bold opacity-25'>/</i>
+                    <span key={index} onClick={ ()=> handleGoTo(route)}>
+                        <i style={styles.slash}>/</i>
                         {route}
                     </span>
             )}
-        </div>
+        </button>
 }
 export default Breadcrumb
