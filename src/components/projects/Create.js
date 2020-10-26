@@ -5,6 +5,7 @@ import Title from '../ui/Title'
 import CancelButton from "../ui/buttons/Cancel";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
+import { IconPlus } from '../icons';
 
 const ProjectCreate = ({history}) => {
     const handleGoBack = () => {
@@ -31,7 +32,8 @@ const ProjectCreate = ({history}) => {
         <div>
             <Breadcrumb history={history}/>
             <form onSubmit={handleCreate}>
-                <Title title='New Project'/>
+                <Title title='New Project' icon={<IconPlus />}/>
+
                 <label>Client
                     <select id="clientId" name="clientId" onChange={handleFormChange}
                             defaultValue={newProject.clientId}>

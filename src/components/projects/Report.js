@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import secureApiFetch from '../../services/api';
 import './Report.css';
 import Breadcrumb from './../ui/Breadcrumb'
-import { IconSave } from '../icons';
+import { IconReport, IconSave } from '../icons';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
+import Title from '../ui/Title';
 
 class ProjectReport extends Component {
     state = {
@@ -70,9 +71,9 @@ class ProjectReport extends Component {
             <>
                 <div className='heading'>
                     <Breadcrumb history={this.props.history} />
-                    {this.state.project ? <h2>{this.state.project.name}</h2> : '...'}
                     <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave /> Export to PDF</BtnSecondary>
                 </div>
+                <Title type='Report' title={this.state.project ? this.state.project.name : 'Project'} icon={<IconReport />} />
                 <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4' id="report"></div>
             </>
         )

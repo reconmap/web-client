@@ -7,7 +7,7 @@ import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../tables/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
-import { IconBookOpen } from '../icons';
+import { IconBookOpen, IconDocument } from '../icons';
 
 const UserProfile = ({match, history}) => {
     useSetTitle('User');
@@ -18,23 +18,30 @@ const UserProfile = ({match, history}) => {
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <div style={{ display:'flex', paddingTop:'var(--padding)'}}>
-
+            <div style={{ display:'grid', gridTemplateColumns:'200px 1fr .5fr', gap:'var(--padding)'}}>
                 {user ? <div style={{ display:'flex', width:'200px', flexDirection:'column', alignItems:'flex-start'}}>
                             <UserAvatar email={user.email} size='--iconSizeXLarge'/> 
                             <h1>{user.name}</h1>
-                            <Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/>
-                            <div className='flex flex-row gap-4 my-2 font-semibold text-sm'>
-                                <UserRoleBadge role={user.role}/>
-                            </div>
-                            <dl>
-                                <dt>Timezone</dt>
-                                <dd>{user.timezone}</dd>
-                            </dl>
+                            <UserRoleBadge role={user.role}/>
+
                         </div> : <Loading/>}
                 <div>
                     <Title type='User' title='Activity' icon={<IconBookOpen />}/>
                     {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
+                </div>
+                <div>
+                {user ? 
+                <>
+                <Title type='User' title='Details' icon={<IconDocument />}/>
+
+                <Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/>
+                         
+                            <dl>
+                                <dt>Timezone</dt>
+                                <dd>{user.timezone}</dd>
+                            </dl>
+                </>
+                            : <Loading/>}
                 </div>
 
             </div>

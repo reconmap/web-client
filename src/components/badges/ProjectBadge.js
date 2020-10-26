@@ -4,7 +4,7 @@ import {IconCollection} from '../icons'
 export default function ProjectBadge({project}) {
     const styles = {
         badge : {
-            color: `var(--blue)`,
+            color: `var(--primary-color)`,
             alignItems:'center',
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',

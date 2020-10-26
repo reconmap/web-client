@@ -24,18 +24,19 @@
   --bg-color:         hsl(var(--base-hue), var(--tint), 12%);
   --text-color:       hsl(var(--base-hue), var(--tint), 50%);
   --white :           hsl(var(--base-hue), var(--tint), 90%);
-
-  --red : var(--analog-color);
-  --green : var(--complementary-color);
-  --blue : var(--secondary-color);
+  
+  --red :    var(--analog-color);
+  --green :  var(--complementary-color);
+  --blue :   var(--secondary-color);
   --yellow : var(--third-color);
   --purple : var(--fourth-color);
+  --gray :   var(--text-color);
 
-  --redDark :    hsla(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value),var(--alpha));
-  --greenDark :  hsla(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value),var(--alpha));
-  --blueDark :   hsla(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value),var(--alpha));
-  --yellowDark : hsla(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value),var(--alpha));
-  --purpleDark : hsla(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value),var(--alpha));
+  --redDark :        hsla(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value),var(--alpha));
+  --greenDark :      hsla(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value),var(--alpha));
+  --blueDark :       hsla(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value),var(--alpha));
+  --yellowDark :     hsla(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value),var(--alpha));
+  --purpleDark :     hsla(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value),var(--alpha));
   --text-colorDark : hsla(var(--base-hue), 3%, 50%,var(--alpha));
 
   //spacing
@@ -267,6 +268,7 @@ form input:required {
   padding: var(--paddingBox);
   border-width: var(--borderWidth);
   border-color: transparent;
+  border-left: var(--borderWidth) solid var(--primary-color);
   overflow: hidden;
   color: var(--white);
   footer {
@@ -341,6 +343,12 @@ code {
   color: var(--white);
   font-family: monospace;
   margin: var(--margin) 0; 
+  &:before { 
+    content : ' > ';
+    font-family: monospace;
+    font-weight: var(--fontBold);
+    color : var(--text-color);
+  }
 }
 // TABLES
 
