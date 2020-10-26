@@ -12,6 +12,8 @@ import {Link} from 'react-router-dom';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import secureApiFetch from "../../services/api";
+import Title from '../ui/Title';
+import { IconUserGroup } from '../icons';
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
@@ -58,6 +60,7 @@ const UsersList = ({history}) => {
                     <CreateButton onClick={handleCreate}>Create User</CreateButton>
                 </ButtonGroup>
             </div>
+            <Title title='Users and Permissions' icon={<IconUserGroup />}/>
             {!users ? <Loading/> : users.length === 0 ? <NoResults/> :
                 <table >
                     <thead>

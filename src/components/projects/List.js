@@ -9,6 +9,8 @@ import CreateButton from '../ui/buttons/Create';
 import DeleteButton from "../ui/buttons/Delete";
 import {ClientLink} from "../clients/Link";
 import Timestamps from '../ui/Timestamps';
+import Title from '../ui/Title';
+import { IconFolder } from '../icons';
 
 const ProjectsList = ({history}) => {
     useSetTitle('Projects');
@@ -22,6 +24,7 @@ const ProjectsList = ({history}) => {
             <Breadcrumb history={history}/>
             <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
         </div>
+        <Title title='Projects' icon={<IconFolder />}/>
         {!projects ? <Loading/> : projects.length === 0 ? <NoResults/> :
             <table className='w-full table-fixed'>
                 <thead>

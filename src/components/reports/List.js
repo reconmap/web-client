@@ -6,9 +6,10 @@ import {Link} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import useDelete from '../../hooks/useDelete';
-import {IconCode, IconDocument, IconDownloadDocument} from '../icons';
+import {IconCode, IconDocument, IconDownloadDocument, IconReport} from '../icons';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import DeleteButton from "../ui/buttons/Delete";
+import Title from '../ui/Title';
 
 const ReportsList = ({history}) => {
     useSetTitle('Saved Reports');
@@ -39,6 +40,7 @@ const ReportsList = ({history}) => {
 
             <Breadcrumb history={history}/>
         </div>
+        <Title title='Saved Reports' icon={<IconReport />}/>
         {!reports ? <Loading/> : reports.length === 0 ? <NoResults/> :
             <table className='w-full my-4'>
                 <thead>

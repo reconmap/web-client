@@ -4,6 +4,7 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
 import Title from "../ui/Title";
+import { IconExtensions } from '../icons';
 
 const IntegrationsList = ({history}) => {
     useSetTitle('Integrations');
@@ -13,7 +14,7 @@ const IntegrationsList = ({history}) => {
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <Title type="System Utils" title="Integrations"/>
+            <Title type="System Utils" title="Integrations" icon={<IconExtensions />}/>
             {!integrations ? <Loading/> : integrations.length === 0 ? <NoResults/> :
                 <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {integrations.map((integration, index) =>

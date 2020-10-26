@@ -5,7 +5,9 @@ import NoResults from '../ui/NoResults';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
+import Title from '../ui/Title';
 import TasksTable from '../tables/TasksTable';
+import { IconClipboardList } from '../icons';
 
 const TasksList = ({ history }) => {
     useSetTitle('Tasks');
@@ -38,6 +40,7 @@ const TasksList = ({ history }) => {
                 </select>
             </div>
         </div>
+        <Title title='Tasks' icon={<IconClipboardList />}/>
 
         {!tasks ?
             <Loading /> :

@@ -8,6 +8,8 @@ import DeleteButton from "../ui/buttons/Delete";
 import ExternalLink from "../ui/ExternalLink";
 import {ClientLink} from "./Link";
 import CreateButton from "../ui/buttons/Create";
+import Title from '../ui/Title';
+import { IconBriefcase } from '../icons';
 
 const ClientsList = ({history}) => {
     useSetTitle('Clients');
@@ -24,6 +26,7 @@ const ClientsList = ({history}) => {
 
             <CreateButton onClick={handleCreateClient}>Create Client</CreateButton>
         </div>
+        <Title title='Clients' icon={<IconBriefcase />}/>
 
         {!clients ?
             <Loading/> :

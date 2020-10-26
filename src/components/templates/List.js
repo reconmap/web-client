@@ -7,10 +7,11 @@ import Breadcrumb from '../ui/Breadcrumb';
 import ProjectBadge from '../badges/ProjectBadge';
 import useDelete from '../../hooks/useDelete';
 import BadgeOutline from '../badges/BadgeOutline';
-import {IconPlus} from '../icons';
+import {IconDocumentDuplicate, IconPlus} from '../icons';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CreateButton from '../ui/buttons/Create';
 import DeleteButton from "../ui/buttons/Delete";
+import Title from '../ui/Title';
 
 const TemplatesList = ({history}) => {
     useSetTitle('Projects templates');
@@ -36,6 +37,7 @@ const TemplatesList = ({history}) => {
                 <Breadcrumb history={history}/>
                 <CreateButton onClick={() => history.push('/import-export')}>Import template(s)</CreateButton>
             </div>
+            <Title title='Templates' icon={<IconDocumentDuplicate />}/>
             {!templates ? <Loading/> : templates.length === 0 ? <NoResults/> :
                 <table >
                     <thead>

@@ -1,5 +1,5 @@
 
-export default function Title({type, title, icon}) {
+const Title = ({type, title, icon}) => {
     const styles = {
         container: { 
             margin : 'var(--padding) 0 var(--margin) 0',
@@ -38,3 +38,5 @@ export default function Title({type, title, icon}) {
         </div>
     )
 }
+
+export default Title
