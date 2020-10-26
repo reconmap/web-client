@@ -1,6 +1,6 @@
 import {useHistory} from 'react-router-dom';
 
-export default function BtnPrimary({type, onClick, children, color = 'red', fontSize = 'fontSizeSmall', disabled = false, to, external = false}) {
+export default function BtnPrimary({type, onClick, children, color = 'primary-color', fontSize = 'fontSizeSmall', disabled = false, to, external = false}) {
    
     const history = useHistory()
     const handleOpen = () => {
@@ -8,13 +8,10 @@ export default function BtnPrimary({type, onClick, children, color = 'red', font
     }
     const styles = {
         button :{ 
-            padding: 'var(--paddingBox)',
             display: 'inline-flex',
             alignItems: 'center',
             backgroundColor : `var(--${color})`,
-            color: `var(--text-color)`,
-            borderRadius: 'var(--borderRadius, 3px)',
-            border: `var(--borderWidth,2px) solid transparent`,
+            color: `var(--white)`,
             fontSize : `var(--${fontSize})`,
             opacity : disabled ? '.5' : '1'
         }

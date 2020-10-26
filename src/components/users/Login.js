@@ -70,7 +70,7 @@ const Login = (props) => {
                                 </form>
                             </section>
                             <i data-feather={'lock'}
-                               className=' text-gray-800 order-1 md:order-3 p-5 hidden md:inline'/>
+                               className='  order-1 md:order-3 p-5 hidden md:inline'/>
                         </div>
 
                     </Wrap>

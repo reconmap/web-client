@@ -2,7 +2,8 @@ const Timestamps = ({insertTs, updateTs}) => {
     const styles = {
         stamp: {
             fontSize: `var(--fontSizeXsmall)`,
-            color: `var(--silver)`,
+            color: `var(--text-color)`,
+            opacity: '.6',
         }
     }
 

@@ -23,6 +23,27 @@ export default function Sandbox() {
                 <BtnSecondary>BtnSecondary</BtnSecondary>
                 <BtnLink>BtnLink</BtnLink>
             </p>
+            <p style={{ display:'flex', gap: '10px'}}>
+                <figure style={{ width:'80px', height:'80px', background:'var(--primary-color)'}}>primary</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--complementary-color)'}}>complementary</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--secondary-color)'}}>secondary</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--analog-color)'}}>analog</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--third-color)'}}>third</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--fourth-color)'}}>fourth</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--text-color)'}}>text-color</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--bg-color)'}}>bg-color</figure>
+            </p>
+            <p style={{ display:'flex', gap: '10px'}}>
+                <figure style={{ width:'80px', height:'80px', background:'transparent'}}></figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--green)'}}>green</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--blue)'}}>blue</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--red)'}}>red</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--yellow)'}}>yellow</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--purple)'}}>purple</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--white)'}}>white</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--black)'}}>black</figure>
+                <figure style={{ width:'80px', height:'80px', background:'var(--gray)'}}>gray</figure>
+            </p>
         </div>
     )
 }

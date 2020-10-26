@@ -1,4 +1,4 @@
-export default function Badge ({children, color='silver', fontSize='fontSizeXsmall', icon}) {
+export default function Badge ({children, color='text-color', fontSize='fontSizeXsmall', icon}) {
     const styles = {
         badge : {
             color: `var(--${color})`,

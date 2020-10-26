@@ -1,48 +1,64 @@
 @import 'animations';
 
 :root {
-  --padding: .9rem;
-  --margin: calc(var(--padding)/2);
+  --base-hue : 346; //190
+  --saturation : 50%;
+  --value : 50%;
+  --alpha: 0.15;
+  --tint : 2%;
+  --distance : 60;
+  --distance-analog : calc(var(--distance)/2);
+  --distance-secondary : calc(var(--distance)*-2);
+  --distance-complementary : calc(var(--distance)*3);
+  --distance-third : calc(var(--distance)*-5);
+  --distance-fourth : calc(var(--distance)*5);
 
+  --primary-color :      hsl(var(--base-hue), var(--saturation), var(--value));
+	--complementary-color: hsl(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value));
+	--secondary-color:     hsl(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value));
+	--analog-color:        hsl(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value));
+	--third-color:         hsl(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value));
+	--fourth-color:        hsl(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value));
+  
+  --black :           hsl(var(--base-hue), var(--tint), 5%);
+  --bg-color:         hsl(var(--base-hue), var(--tint), 10%);
+  --text-color:       hsl(var(--base-hue), var(--tint), 50%);
+  --white :           hsl(var(--base-hue), var(--tint), 90%);
+
+  --red : var(--analog-color);
+  --green : var(--complementary-color);
+  --blue : var(--secondary-color);
+  --yellow : var(--third-color);
+  --purple : var(--fourth-color);
+
+  --redDark :    hsla(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value),var(--alpha));
+  --greenDark :  hsla(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value),var(--alpha));
+  --blueDark :   hsla(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value),var(--alpha));
+  --yellowDark : hsla(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value),var(--alpha));
+  --purpleDark : hsla(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value),var(--alpha));
+  --text-colorDark : hsla(var(--base-hue), 3%, 50%,var(--alpha));
+
+  //spacing
+  --space : .9rem;
+  --margin: calc(var(--space)/2);
+	--padding: var(--space);
+  --paddingBox: calc(var(--space)/2) var(--space);
+  --paddingCell: calc(var(--space)/4) calc(var(--space)/2);
+  --paddingBadge: calc(var(--space)/3) calc(var(--space)/2);
+  --marginBox: calc(var(--space)/2) 0;
+  --borderRadius: calc(var(--space)/3);
+  
+  //width
   --sidebarWidth : 200px;
-
-  --paddingBadge: calc(var(--margin)/2) calc(var(--padding)/2);
-  --paddingBox: var(--margin) var(--padding);
-  --paddingCell: var(--margin) var(--margin);
-
   --borderWidth: 2px;
-  --borderRadius: calc(var(--margin)/2);
 
+  //icons
   --iconSizeSmall: 20px;
   --iconSize: 32px;
   --iconSizeLarge: 48px;
   --iconSizeXLarge: 64px;
 
-  --muted: hsla(217, 13%, 52%, 0.6);
-  --smoke: hsla(217, 13%, 52%, 0.3);
-
-  --bg-color: hsla(221, 23%, 14%);
-  --black: rgb(43, 50, 63);
-  --gray: hsla(220, 20%, 23%);
-  --silver: hsla(217, 13%, 52%);
-  --silverDark: hsla(217, 13%, 52%,.2);
-  --lightGray: rgb(177, 183, 194);
-  --text-color: hsla(0, 0%, 100%);
-  --yellow: hsla(43, 74%, 52%);
-  --yellowDark: rgba(223, 172, 42, 0.2);
-  --purple: hsla(292, 45%, 55%);
-  --purpleDark: hsla(292, 45%, 55%, 0.2);
-  --blue: hsla(223, 56%, 63%);
-  --blueDark: hsla(223, 56%, 63%, 0.2);
-  --green: hsla(139, 29%, 48%);
-  --greenDark: hsla(139, 29%, 48%, 0.2);
-  --red: hsla(2, 70%, 66%);
-  --redDark: hsla(2, 70%, 66%, 0.2);
-  --primary-color: var(--red);
-  --link-color: var(--blue);
-
-  --fontBold: 700;
-
+  //typo
   --fontSizeTitle: 2.1rem;
   --fontSizeSubtitle: 1.75rem;
   --fontSizeHeader: 1.5rem;
@@ -51,21 +67,11 @@
   --fontSizeBody: 1rem;
   --fontSizeSmall: 0.85rem;
   --fontSizeXsmall: 0.75rem;
+  --fontBold: 700;
 
+  //transition & animations
   --transitionTime: 0.1s;
 }
-
-
-
-.text-smoke { color: var(--smoke); }
-.border-smoke { border-color: var(--smoke) }
-.bg-smoke { background-color: var(--smoke) }
-.border-smoke-50 { border-color: var(--muted); }
-.bg-smoke-50 { background-color: var(--muted); }
-
-.bg-invert { background-color: var(--text-color); }
-.text-invert { color: var(--bg-color); }
-.border-invert { border-color: var(--bg-color); }
 
 * {
   margin: 0;
@@ -94,11 +100,11 @@ aside {
     position: relative;
     display: flex;
     align-items: center;
-    color: var(--silver);
+    color: var(--text-color);
     border-radius: var(--borderRadius);
     padding : var(--paddingBox);
     &:hover, &.active {
-      color : var(--text-color);
+      color : var(--white);
     }
     
     &:before {
@@ -125,7 +131,7 @@ nav {
     margin-right: auto;
   }
 	padding: var(--padding);
-  border-bottom :  var(--borderWidth) solid var(--smoke);
+  border-bottom :  var(--borderWidth) solid var(--black);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -140,33 +146,36 @@ label,
 small,
 details summary {
   font-size: var(--fontSizeSmall);
-  color: var(--muted);
-
+  color: var(--text-color);
 }
 
 p a {
-  border-bottom: var(--borderWidth) dotted var(--link-color);
+  border-bottom: var(--borderWidth) dotted var(--primary-color);
   &:hover {
-    border-bottom-color: var(--link-colorLight);
+    border-bottom-color: var(--primary-colorLight);
   }
 }
 h1 { 
 	font-size: var(--fontSizeTitle); 
   font-weight: var(--fontBold);
-  color : var(--text-color);
 }
 
 h2 { 
 	font-size: var(--fontSizeSubtitle); 
   display: flex;
   align-items: center;
-	color: var(--silver);
 }
 h3 { 
   font-size: var(--fontSizeHeader); 
   display: flex;
   align-items: center;
-	color: var(--silver);
+}
+
+h4 { 
+  font-size: var(--fontSizeBody); 
+  display: flex;
+  align-items: center;
+  margin: var(--padding) 0 var(--margin) 0;
 }
 .button-group {
   display:flex;
@@ -177,14 +186,9 @@ h3 {
   justify-content: flex-end;
 }
 
-h4 { 
-  font-size: var(--fontSizeBody); 
-  display: flex;
-  align-items: center;
-  color: var(--silver);
-  margin: var(--padding) 0 var(--margin) 0;
-}
 h1,h2,h3,h4,h5,h6 {
+  color: var(--white);
+
   button, div {
     margin-left: auto;
   }
@@ -209,14 +213,14 @@ h1,h2,h3,h4,h5,h6 {
 p {
   font-size: var(--fontSizeSmall);
   margin-top: 0;
-  color : silver;
+  color : var(--text-color);
   margin-bottom: var(--margin);
 }
 
 
 section {
   padding-bottom: var(--padding);
-  border-bottom: var(--borderWidth) solid rgba(0, 0, 0, 0.1);
+  border-bottom: var(--borderWidth) dotted var(--black);
   margin: var(--padding) 0 ;
   h2 {
     margin-right: auto;
@@ -249,27 +253,31 @@ form input[type="checkbox"] {
   border-radius: var(--borderRadius);
 }
 form input:required {
-  border: 1px solid var(--link-color);
+  border: var(--borderWidth) solid var(--primary-color);
 }
 
 // card reconmap components
 .card {
   display:flex;
   flex-direction: column;
-  align-items: stretch;
-  background-color: var(--smoke);
+  // align-items: stretch;
+  // justify-content: stretch;
+  background-color: var(--black);
   border-radius: var(--borderRadius);
   padding: var(--paddingBox);
   border-width: var(--borderWidth);
   border-color: transparent;
   overflow: hidden;
+  color: var(--white);
   footer {
-    background-color: var(--muted);
+    align-self: stretch;
+    background-color: var(--bg-color);
     padding: var(--padding);
     font-size: var(--fontSizeSmall);
     margin: auto calc(var(--padding)*-1) calc(var(--padding)*-.5) calc(var(--padding)*-1);
   }
 }
+
 
 svg {
   margin: 0;
@@ -278,7 +286,10 @@ svg {
   padding: 0;
   flex-shrink:0;
 }
-
+.recharts-wrapper svg {
+  width: initial;
+  height: initial;
+}
 a, span, button, input, h2, h3, h4{
   svg {
     margin: 0 var(--margin) 0 0;
@@ -295,16 +306,18 @@ a, span, button, input, h2, h3, h4{
   }
 }
 a[target="_blank"]{
-  color: var(--link-color);
-  // font-size: var(--fontSizeSmall);
-  border-bottom: var(--borderWidth) solid var(--link-color);
+  color: var(--primary-color);
+  border-bottom: var(--borderWidth) solid var(--primary-color);
+}
+input::placeholder{
+	color: var(--text-color);
 }
 input,
 select,
 textarea,
 .breadcrumb,
 button {
-	color: var(--text-color);
+	color: var(--white);
   padding: var(--paddingBox);
   border-width: var(--borderWidth);
   border-color: transparent;
@@ -314,11 +327,10 @@ button {
   font-size: var(--fontSizeSmall);
   outline: transparent;
   &:hover {
-    box-shadow: 0 0 0 var(--borderWidth) var(--link-color);
+    box-shadow: 0 0 0 var(--borderWidth) var(--primary-color);
   }
 }
 button {
-  color: var(--lightGray);
   display: inline-flex;
 }
 code {
@@ -326,7 +338,7 @@ code {
   padding: var(--paddingBox);
   border-left: var(--borderWidth) solid var(--primary-color);
   background-color: var(--black);
-  color: var(--silver);
+  color: var(--white);
   font-family: monospace;
   margin: var(--margin) 0; 
 }
@@ -340,7 +352,10 @@ table {
   }
   th {
     text-align: left;
-    padding: var(--paddingCell);
+    // font-size: var(--fontSizeXsmall);
+    // font-weight: normal;
+    padding: var(--padding) var(--margin);
+    border-bottom: var(--borderWidth) solid var(--black);
   }
   tbody {
     td {
@@ -362,7 +377,7 @@ table {
 
 // TOAST
 .toast {
-  border: var(--borderWidth) solid var(--link-color);
+  border: var(--borderWidth) solid var(--primary-color);
 }
 .fadeInUp {
   animation-name: fadeInUp;

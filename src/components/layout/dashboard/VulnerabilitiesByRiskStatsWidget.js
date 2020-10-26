@@ -5,17 +5,17 @@ const VulnerabilitiesByRiskStatsWidget = () => {
     const RADIAN = Math.PI / 180;
 
     const RISKS = {
-        'none': {label: 'None', color: '#ffffff'},
-        'low': {label: 'Low', color: '#21B803'},
-        'medium': {label: 'Medium', color: '#FBBC04'},
-        'high': {label: 'High', color: '#F66E0B'},
-        'critical': {label: 'Critical', color: '#F41907'}
+        'none': {label: 'None', color: '#f3f3f3'},
+        'low': {label: 'Low', color: 'var(--green)'},
+        'medium': {label: 'Medium', color: 'var(--yellow)'},
+        'high': {label: 'High', color: 'var(--purple)'},
+        'critical': {label: 'Critical', color: 'var(--primary-color)'}
     };
 
     const renderCustomLabel = ({
                                    cx, cy, midAngle, innerRadius, outerRadius, percent, index,
                                }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 1.1;
+        const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -37,7 +37,10 @@ const VulnerabilitiesByRiskStatsWidget = () => {
                     cx={200}
                     cy={200}
                     labelLine={false}
-                    outerRadius={80}
+                    outerRadius={100}
+                    strokeOpacity='0'
+                    strokeWidth='var(--borderWidth)'
+                    color='var(--bg-color)'
                     fill="#8884d8"
                     label={renderCustomLabel}
                 >

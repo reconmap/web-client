@@ -15,8 +15,8 @@ export default function VulnerabilityStatusBadge({status}) {
     }
     const styles = {
         badge : {
-            color: `var(--${STATUSES[status].color},white)`,
-            backgroundColor: `var(--${STATUSES[status].color}Dark,white)`,
+            color: `var(--${STATUSES[status].color})`,
+            backgroundColor: `var(--${STATUSES[status].color}Dark)`,
             padding: `var(--paddingBadge)`,
             alignItems:'center',
             display: `inline-flex`,

@@ -24,13 +24,13 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                 .filter(task => task.project_id.toString().includes(filter.project))
                 .filter(task => task.completed.toString().includes(filter.status))
                 .map((task) =>
-                    <tr key={task.id}>
+                    <tr key={task.id} style={{ opacity: task.completed==='0'? '1': '.5'}}>
                         <td><TaskCompletedBadge completed={task.completed}/></td>
                         <td><TaskBadge task={task}/></td>
                         <td>{task.assignee_uid ?
                             <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
                         <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
-                        <td><code>{task.description.slice(0, 40)} </code></td>
+                        <td style={{ width:'20%'}}><code>{task.description.slice(0, 40)} </code></td>
                         <td>
                             <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
                                 <IconUpload/> 

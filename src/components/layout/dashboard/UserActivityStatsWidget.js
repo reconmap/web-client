@@ -5,10 +5,10 @@ const UserActivityStatsWidget = () => {
     const [auditLogStats] = useFetch('/auditlog/stats')
 
     return (
-        <article className='card flex justify-center items-center'>
-            <LineChart width={380} height={200} data={auditLogStats}>
-                <Line type="monotone" dataKey="total" stroke="#8884d8" strokeWidth={3}/>
-                <CartesianGrid stroke="#000"/>
+        <article className='card '>
+            <LineChart width={320} height={400} data={auditLogStats}>
+                <Line type="monotone" dataKey="total" stroke="var(--primary-color)" strokeWidth="var(--borderWidth)"/>
+                <CartesianGrid stroke="var(--bg-color)"/>
                 <XAxis dataKey="log_date"/>
                 <YAxis dataKey="total"/>
             </LineChart>

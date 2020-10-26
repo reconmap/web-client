@@ -42,7 +42,7 @@ export default function Header() {
                 <nav>
                     <h3 onClick={handleGoHome} style={{ paddingLeft:'var(--padding)', cursor:'pointer'}}>
                         {/* <img src="/logo.svg" height='32px' width='32px' className='mr-2 mt-1' alt="Reconmap logo"/> */}
-                        <strong style={{ color : 'var(--text-color)'}}>Recon<span style={{ color : 'var(--primary-color)'}}>map</span></strong>
+                        <strong style={{ color : 'var(--white)'}}>Recon<span style={{ color : 'var(--primary-color)'}}>map</span></strong>
                     </h3>
                     {isAuth ? <>
                             <input placeholder="Search..." onKeyDown={handleSearchKeyDown}/>

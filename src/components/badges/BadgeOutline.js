@@ -1,13 +1,13 @@
 
-export default function BadgeOutline({children, color='silver' , fontSize='fontSizeXsmall', icon}) {
+export default function BadgeOutline({children, color='text-color' , fontSize='fontSizeXsmall', icon}) {
     const styles = {
         badge : {
-            color: `var(--${color},white)`,
+            color: `var(--${color})`,
             padding: `var(--paddingBadge)`,
             alignItems:'center',
             display: `inline-flex`,
-            borderRadius: 'var(--borderRadius, 3px)',
-            border: `var(--borderWidth,2px) solid var(--${color})`,
+            borderRadius: 'var(--borderRadius)',
+            border: `var(--borderWidth) solid var(--${color})`,
             fontSize : `var(--${fontSize})`
         }
     }

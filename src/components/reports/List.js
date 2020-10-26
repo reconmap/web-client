@@ -61,7 +61,7 @@ const ReportsList = ({history}) => {
                                     borderTopRightRadius: '10px',
                                     borderWidth: '3px'
                                 }}
-                                     className='  p-1 rounded text-xs border-gray-700 flex items-center justify-end font-medium flex-col'>
+                                     className='  p-1 rounded text-xs  flex items-center justify-end font-medium flex-col'>
                                     {report.format === 'pdf' ? <IconDocument/> : <IconCode/>}
                                     {report.format}
                                 </div>

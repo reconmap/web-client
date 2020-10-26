@@ -26,7 +26,7 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
                 return (
                     <tr key={index}>
                         <td>
-                            <Badge color='blue'>{entry.action}</Badge>
+                            <Badge>{entry.action}</Badge>
                         </td>
                         <td>
                             <Timestamps insertTs={entry.insert_ts}/>

@@ -27,7 +27,7 @@ const UserProfile = ({match, history}) => {
                             <div className='flex flex-row gap-4 my-2 font-semibold text-sm'>
                                 <UserRoleBadge role={user.role}/>
                             </div>
-                            <dl className='text-gray-600'>
+                            <dl>
                                 <dt>Timezone</dt>
                                 <dd>{user.timezone}</dd>
                             </dl>

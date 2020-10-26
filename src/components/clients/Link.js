@@ -18,7 +18,7 @@ export const ClientLink = ({clientId, children}) => {
     return <Link 
                 style={styles.badge} 
                 to={`/clients/${clientId}`}>
-                <IconUser styling={{ color:'var(--bg-color)' }}/>
+                <IconUser styling={{ color:'var(--text-color)' }}/>
                 {children}
             </Link>
 }

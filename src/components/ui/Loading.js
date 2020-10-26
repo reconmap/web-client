@@ -11,7 +11,7 @@ export default function Loading() {
             fontWeight : 'var(--fontBold)',
             opacity: '.4',
             gap: 'var(--padding)',
-            color : 'var(--silver)'
+            color : 'var(--text-color)'
         }
     }
     return (

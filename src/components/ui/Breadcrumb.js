@@ -14,7 +14,7 @@ const Breadcrumb = ({ history }) => {
         button : {
             display: 'flex',
             alignSelf: 'center',
-            border: `var(--borderWidth) solid var(--smoke)`,
+            border: `var(--borderWidth) solid var(--black)`,
             backgroundColor: 'transparent',
         },
         arrow :{
@@ -23,7 +23,7 @@ const Breadcrumb = ({ history }) => {
         },
         slash :{
             margin : 'var(--margin)',
-            color : 'var(--muted)',
+            color : 'var(--text-color)',
 
         }
     }
