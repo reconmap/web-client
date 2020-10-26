@@ -71,7 +71,7 @@
   --fontBold: 700;
 
   //transition & animations
-  --transitionTime: 0.1s;
+  --transitionTime: 0.2s ease-out;
 }
 
 * {
@@ -83,6 +83,7 @@ button:focus {outline:0;}
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
+  // transition: background-color var(--transitionTime) , color  var(--transitionTime) ;
 }
 main {
 	display: grid;

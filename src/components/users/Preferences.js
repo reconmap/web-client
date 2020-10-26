@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, { useContext, useState} from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
 import {IconDark, IconLight, IconPreferences, IconSave} from '../icons'
 import {getAllTimezones} from 'countries-and-timezones';
@@ -18,11 +18,27 @@ const UserPreferences = ({history}) => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     const {theme, setTheme} = useContext(ThemeContext)
+    const style = document.documentElement.style
+    const colorBase = 'hsl(var(--base-hue), var(--tint)'
 
     const handleSwitchTheme = () => {
-        setTheme(theme === 'light' ? 'dark' : 'light')
+        setTheme(theme => {
+            if(theme === 'light') {
+                 style.setProperty('--black',`${colorBase}, 6%)`) 
+                 style.setProperty('--bg-color',`${colorBase}, 12%)`) 
+                 style.setProperty('--text-color',`${colorBase}, 50%)`) 
+                 style.setProperty('--white',`${colorBase}, 90%)`) 
+                 return 'dark' 
+            } else {
+                 style.setProperty('--black',`${colorBase}, 90%)`) 
+                 style.setProperty('--bg-color',`${colorBase}, 100%)`) 
+                 style.setProperty('--text-color',`${colorBase}, 30%)`) 
+                 style.setProperty('--white',`${colorBase}, 12%)`) 
+                 return 'light'
+             }
+         })
     }
-
+   
     const handleChange = (e) => {
         setTimezone(e.target.value);
     }
@@ -56,8 +72,13 @@ const UserPreferences = ({history}) => {
                 </select>
                 </label>
                 <label>Theme
-                <BtnSecondary onClick={handleSwitchTheme}>{theme === 'light' ? <IconDark/> :
-                    <IconLight/>} {theme === 'light' ? 'Dark' : 'Light'}</BtnSecondary>
+                <BtnSecondary onClick={handleSwitchTheme}>
+                    {theme === 'light' ? 
+                        <IconDark/> : <IconLight/>
+                    } 
+                    {theme === 'light' ? 'Dark' : 'Light'}
+                </BtnSecondary>
+
                 </label>
                 <BtnPrimary onClick={handleSubmit}><IconSave/> Save</BtnPrimary>
                 <CancelButton onClick={() => {
