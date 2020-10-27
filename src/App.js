@@ -19,26 +19,14 @@ import ProjectsRoutes from "./components/projects/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import TemplatesRoutes from "./components/templates/Routes";
 import Sandbox from './components/ui/Sandbox';
+import setThemeColors from './utilities/setThemeColors';
 
 const App = () => {
 
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
-
     useEffect(() => {
-        const style = document.documentElement.style
-        const colorBase = 'hsl(var(--base-hue), var(--tint)'
         localStorage.setItem('theme', theme)
-        if(theme === 'light') {
-            style.setProperty('--black',`${colorBase}, 90%)`) 
-            style.setProperty('--bg-color',`${colorBase}, 100%)`) 
-            style.setProperty('--text-color',`${colorBase}, 30%)`) 
-            style.setProperty('--white',`${colorBase}, 12%)`) 
-        } else {
-            style.setProperty('--black',`${colorBase}, 6%)`) 
-            style.setProperty('--bg-color',`${colorBase}, 12%)`) 
-            style.setProperty('--text-color',`${colorBase}, 50%)`) 
-            style.setProperty('--white',`${colorBase}, 90%)`) 
-        }
+        setThemeColors(theme)
     }, [theme])
 
     return (

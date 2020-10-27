@@ -98,15 +98,29 @@ aside {
   display: flex;
   flex-direction: column;
   row-gap: calc(var(--padding)/2);
+  #bottom {
+    width: var(--sidebarWidth);
+    position: fixed;
+    bottom:0;left:0;
+    padding :  var(--padding);
+    // border:1px solid red;
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(var(--padding)/2);
+  
+  }
   a { 
     position: relative;
     display: flex;
     align-items: center;
     color: var(--text-color);
-    border-radius: var(--borderRadius);
+    // border-radius: var(--borderRadius);
+    border-left: var(--borderWidth) solid transparent;
+
     padding : var(--paddingBox);
     &:hover, &.active {
       color : var(--white);
+      border-left: var(--borderWidth) solid var(--primary-color);
     }
     
     &:before {
@@ -132,6 +146,7 @@ nav {
   h3{
     margin-right: auto;
   }
+  position: relative;
 	padding: var(--padding);
   border-bottom :  var(--borderWidth) solid var(--black);
   display: flex;
@@ -141,6 +156,15 @@ nav {
   column-gap: var(--padding);
   row-gap: calc(var(--padding)/2);
   flex-wrap: wrap;
+  #progress{
+    position: absolute;
+    bottom:0;
+    height: var(--borderWidth);
+    background-color: var(--primary-color);
+    width: var(--sidebarWidth);
+    left:0;
+    transition: var(--transitionTime);
+  }
 }
 // Typography
 table th,

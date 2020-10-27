@@ -1,10 +1,20 @@
 import React  from 'react'
 import LINKS from './Links'
-import { Link, NavLink } from 'react-router-dom'
-import {IconDashboard} from '../../icons';
+import { Link, NavLink, useHistory } from 'react-router-dom'
+import {IconBookOpen, IconDashboard, IconPreferences} from '../../icons';
+// import BtnLink from './../../ui/buttons/BtnLink'
+import BtnSecondary from '../../ui/buttons/BtnSecondary';
 
 export default function Sidebar() {
+    const history = useHistory()
 
+    const handleOpenPrefs = () => {
+        history.push('/users/preferences')
+    }
+
+    const handleUserManual = () => {
+        window.open("https://reconmap.org/user-manual/", '_blank');
+    }
     return (
         <aside>
             <Link to={'/'} data-label='DashBoard' > 
@@ -17,6 +27,16 @@ export default function Sidebar() {
                             <span>{link.title}</span>
                        </NavLink>
             })}
+            <div id='bottom'>
+                <BtnSecondary onClick={handleUserManual}>
+                    <IconBookOpen />
+                    User manual
+                </BtnSecondary>
+                <BtnSecondary onClick={handleOpenPrefs}>
+                    <IconPreferences />
+                    Preferences
+                </BtnSecondary>
+            </div>
         </aside>
     )
 }

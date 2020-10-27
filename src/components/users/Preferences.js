@@ -9,6 +9,7 @@ import ThemeContext from "../../contexts/ThemeContext";
 import BtnSecondary from "../ui/buttons/BtnSecondary";
 import CancelButton from "../ui/buttons/Cancel";
 import Breadcrumb from '../ui/Breadcrumb';
+import setThemeColors from '../../utilities/setThemeColors';
 
 const UserPreferences = ({history}) => {
     useSetTitle('Preferences')
@@ -16,26 +17,12 @@ const UserPreferences = ({history}) => {
     const timezoneKeys = Object.keys(timezones).sort();
     const [timezone, setTimezone] = useState(null);
     const user = JSON.parse(localStorage.getItem('user'));
-
     const {theme, setTheme} = useContext(ThemeContext)
-    const style = document.documentElement.style
-    const colorBase = 'hsl(var(--base-hue), var(--tint)'
 
     const handleSwitchTheme = () => {
         setTheme(theme => {
-            if(theme === 'light') {
-                 style.setProperty('--black',`${colorBase}, 6%)`) 
-                 style.setProperty('--bg-color',`${colorBase}, 12%)`) 
-                 style.setProperty('--text-color',`${colorBase}, 50%)`) 
-                 style.setProperty('--white',`${colorBase}, 90%)`) 
-                 return 'dark' 
-            } else {
-                 style.setProperty('--black',`${colorBase}, 90%)`) 
-                 style.setProperty('--bg-color',`${colorBase}, 100%)`) 
-                 style.setProperty('--text-color',`${colorBase}, 30%)`) 
-                 style.setProperty('--white',`${colorBase}, 12%)`) 
-                 return 'light'
-             }
+            setThemeColors(theme)
+            return (theme === 'light') ? 'dark'  : 'light'
          })
     }
    
@@ -44,6 +31,7 @@ const UserPreferences = ({history}) => {
     }
 
     const handleSubmit = () => {
+        
         secureApiFetch(`/users/${user.id}`, {
             method: 'PATCH',
             body: JSON.stringify({timezone: timezone})
@@ -61,9 +49,8 @@ const UserPreferences = ({history}) => {
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-
+            <Title type='User' title='Preferences' icon={<IconPreferences />}/>
             <form onSubmit={e => e.preventDefault()} >
-                <Title type='User' title='Preferences' icon={<IconPreferences />} />
                 <label>Timezone
                 <select onChange={handleChange} defaultValue={user.timezone}>
                     {timezoneKeys.map((key) =>

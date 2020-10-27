@@ -8,12 +8,12 @@ import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
-import {Link} from 'react-router-dom';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import secureApiFetch from "../../services/api";
 import Title from '../ui/Title';
 import { IconUserGroup } from '../icons';
+import UserLink from './Link';
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
@@ -81,7 +81,9 @@ const UsersList = ({history}) => {
                         <td>
                             <UserAvatar email={user.email} size='--iconSize'/>
                         </td>
-                        <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
+                        <td>
+                        <UserLink userId={user.id}>{user.name}</UserLink>
+                        </td>
                         <td><UserRoleBadge role={user.role}/></td>
                         <td className='text-right'>
                             <DeleteButton

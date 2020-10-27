@@ -44,12 +44,11 @@ export default function NotificationsBadge() {
     }
     const styles = {
         button :{
-            position :'relative'
+            position :'relative',
         }
     }
 
-    return (
-        <button style={styles.button} onClick={handleShowWindow} aria-label="Notifications">
+    return ( <button style={styles.button} onClick={handleShowWindow} aria-label="Notifications">
                 <IconBell styling={{ margin: 0}} />
             {notifications.length > 0 &&
             <div className='w-3 h-3 -m-1 bg-red-500 rounded-full absolute top-0 right-0 animate-pulse'></div>}

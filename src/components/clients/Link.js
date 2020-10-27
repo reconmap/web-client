@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { IconUser } from "../icons"
+import { IconBriefcase } from "../icons"
 
 export const ClientLink = ({clientId, children}) => {
     const styles = {
@@ -10,7 +10,7 @@ export const ClientLink = ({clientId, children}) => {
             fontWeight : 'var(--fontBold)',
             fontSize: 'var(--fontSizeSmall)',
             backgroundColor : 'var(--black)',
-            padding : 'calc(var(--padding)/2) var(--margin)' ,
+            padding : 'var(--paddingBadge)' ,
         }
     }
 
@@ -18,7 +18,7 @@ export const ClientLink = ({clientId, children}) => {
     return <Link 
                 style={styles.badge} 
                 to={`/clients/${clientId}`}>
-                <IconUser styling={{ color:'var(--text-color)' }}/>
+                <IconBriefcase styling={{ color:'var(--text-color)' }}/>
                 {children}
             </Link>
 }
