@@ -65,8 +65,8 @@ const UsersList = ({history}) => {
                 <table >
                     <thead>
                     <tr>
-                        <th>&nbsp;</th>
-                        <th>&nbsp;</th>
+                        <th style={{ width:'32px'}}>&nbsp;</th>
+                        <th style={{ width:'64px'}}>&nbsp;</th>
                         <th>Username</th>
                         <th>Role</th>
                         <th>&nbsp;</th>

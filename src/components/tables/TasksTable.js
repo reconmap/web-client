@@ -11,8 +11,8 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
         <table >
             <thead>
             <tr>
-                <th></th>
-                <th>Name</th>
+                <th style={{ width: '32px'}}></th>
+                <th style={{ width: '190px'}}>Name</th>
                 <th>Assignee</th>
                 <th>Parser</th>
                 <th>Details</th>

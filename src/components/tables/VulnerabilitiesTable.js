@@ -11,7 +11,7 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
         <table>
             <thead>
             <tr>
-                <th style={{ width: '25%'}}>Summary</th>
+                <th style={{ width: '190px'}}>Summary</th>
                 <th style={{ width: '120px'}}></th>
                 <th style={{ width: '120px'}}>Risk</th>
                 <th style={{ width: '120px'}}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
@@ -24,8 +24,13 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                 return (
                     <tr key={index} style={{ opacity: vulnerability.status==='open'? '1': '.5'}}>
                         <td>
-                        <VulnerabilityBadge vulnerability={vulnerability}/> 
-                            <p><small>{vulnerability.description} </small> <Timestamps insertTs={vulnerability.insert_ts}/></p>
+                        <VulnerabilityBadge vulnerability={vulnerability}/>
+                            {vulnerability.description && <p>
+                                <small>{vulnerability.description} </small>
+                            </p> }
+                            <p>
+                                <Timestamps insertTs={vulnerability.insert_ts}/>
+                            </p>
                         </td>
                         <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
                         <td><RiskBadge risk={vulnerability.risk}/></td>

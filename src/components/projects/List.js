@@ -26,10 +26,10 @@ const ProjectsList = ({history}) => {
         </div>
         <Title title='Projects' icon={<IconFolder />}/>
         {!projects ? <Loading/> : projects.length === 0 ? <NoResults/> :
-            <table className='w-full table-fixed'>
+            <table>
                 <thead>
                 <tr>
-                    <th className='w-56'>Name</th>
+                    <th style={{ width: '190px'}}>Name</th>
                     <th className='w-32'>Client</th>
                     <th className='w-32'>Creation date/time</th>
                     <th className='w-20'></th>

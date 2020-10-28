@@ -35,7 +35,7 @@ const ClientsList = ({history}) => {
                 <table >
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th style={{ width: '190px'}}>Name</th>
                         <th>URL</th>
                         <th>Contact name</th>
                         <th>Contact email</th>

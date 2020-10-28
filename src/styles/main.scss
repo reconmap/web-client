@@ -422,7 +422,7 @@ table {
     td {
       padding: var(--paddingCell);
     }
-    td > button {
+    td:last-child > button {
       float: right;
     }
     td button, td a {
