@@ -26,11 +26,11 @@ stop:
 	docker stop reconmap-web-frontend || true
 
 .PHONY: tests
-tests: prepare
+tests:
 	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true $(DOCKER_BASE_IMAGE) test
 
 .PHONY: tests-ci
-tests-ci: prepare
+tests-ci:
 	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true $(DOCKER_BASE_IMAGE) test:ci
 
 .PHONY: clean
