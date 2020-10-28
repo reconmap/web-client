@@ -8,7 +8,7 @@ import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 
 export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
     return (
-        <table className='w-full my-4 table-fixed'>
+        <table>
             <thead>
             <tr>
                 <th style={{ width: '25%'}}>Summary</th>
@@ -16,7 +16,7 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                 <th style={{ width: '120px'}}>Risk</th>
                 <th style={{ width: '120px'}}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
                 <th style={{ width: '20%'}}>Category</th>
-                <th style={{ width: '15'}}>&nbsp;</th>
+                <th style={{ width: '15%'}}>&nbsp;</th>
             </tr>
             </thead>
             <tbody>

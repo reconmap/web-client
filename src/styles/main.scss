@@ -405,7 +405,8 @@ code {
 // TABLES
 
 table {
-	width: 100%;
+  table-layout: fixed;
+  width: 100%;
   margin: var(--padding) auto;
   tbody tr:hover {
     box-shadow: 0 0 0 var(--borderWidth) var(--black);
@@ -420,6 +421,9 @@ table {
   tbody {
     td {
       padding: var(--paddingCell);
+    }
+    td > button {
+      float: right;
     }
     td button, td a {
       margin: var(--margin);
