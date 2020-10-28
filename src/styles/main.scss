@@ -85,6 +85,10 @@ body {
   color: var(--text-color);
   // transition: background-color var(--transitionTime) , color  var(--transitionTime) ;
 }
+
+strong {
+  color : var(--white);
+}
 main {
 	display: grid;
 	grid-template-columns: var(--sidebarWidth) 1fr;
@@ -92,9 +96,24 @@ main {
 #content {
   padding : var(--padding);
 }
+div form + aside {
+  h1,h2,h3,h4,h5,h6{
+    color : var(--primary-color);
+  }
+  border-radius: var(--borderRadius);
+}
+div.has-help form {
+}
+div.has-help {
+  max-width: 900px;
+  margin:auto;
+  display: grid;
+  gap: var(--padding);
+  grid-template-columns: minmax(400px,1fr) minmax(120px,300px);
+}
+
 aside {
   padding :  var(--padding);
-  // overflow: hidden;
   display: flex;
   flex-direction: column;
   row-gap: calc(var(--padding)/2);
@@ -256,6 +275,8 @@ section {
 
 // FORMS
 form {
+  max-width: 600px;
+  // margin: auto;
 label {
 	display: grid;
 	align-items: center;
@@ -367,6 +388,7 @@ code {
   background-color: var(--black);
   color: var(--white);
   font-family: monospace;
+  white-space: pre-line;
   margin: var(--margin) 0; 
   &:before { 
     content : ' > ';
@@ -375,6 +397,11 @@ code {
     color : var(--text-color);
   }
 }
+    code + code {
+      margin: calc(var(--margin)*-1) 0; 
+      // line-height: 0;
+    }
+
 // TABLES
 
 table {
@@ -423,18 +450,23 @@ table {
 @media only screen and (max-width: 700px) {
 	form {
 	  label {
-		grid-template-columns: 1fr;
+		  grid-template-columns: 1fr;
 	  }
+  }
+  div.has-help {
+    display: block;
   }
   main{
     grid-template-columns: 40px 1fr;
   }
   aside {
     padding :  var(--padding);
+
     a {
       padding :  0;
-      margin : var(--margin) 0;
+      margin : var(--margin) 0 ;
       display: block;
+      padding-left: 3px;
        span {
         display: none;
       }
