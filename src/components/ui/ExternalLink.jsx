@@ -6,10 +6,15 @@ const ExternalLink
     if (!props.children) {
         return "-"
     }
+    const styles = {
+        link: {
+            display:'inline-flex'
+        }
+    }
 
-    return <a target="_blank" rel="noopener noreferrer" {...props}>
+    return <a target="_blank" rel="noopener noreferrer" {...props} style={styles.link}>
             {props.children}
-            <IconExternalLink styling={{ width: '16px'}}/>
+            <IconExternalLink styling={{ width: '16px', marginLeft: 'var(--margin)'}}/>
         </a>
 }
 
