@@ -65,7 +65,7 @@ const Login = (props) => {
                                     </fieldset>
                                     {error &&
                                     <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'>
-                                        <span className='mx-auto'>Incorrect username or password</span>
+                                        <span className='mx-auto'>{error}</span>
                                     </p>}
                                 </form>
                             </section>

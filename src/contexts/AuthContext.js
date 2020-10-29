@@ -27,8 +27,11 @@ class AuthProvider extends Component {
             body: formData
         })
             .then((response) => {
+                if (response.status === 403) {
+                    throw new Error('Invalid username or password');
+                }
                 if (response.status !== 200) {
-                    throw new Error('Invalid credentials');
+                    throw new Error('Invalid response from the server');
                 }
                 return response.json();
             })
@@ -40,7 +43,9 @@ class AuthProvider extends Component {
                 this.setState({isAuth: true, user: data});
                 onOk();
             })
-            .catch(onKo);
+            .catch((error) => {
+                onKo(error.message);
+            });
 
     }
 
