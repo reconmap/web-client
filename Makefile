@@ -14,7 +14,7 @@ start:
 	docker run --rm -it \
 		-w /var/www/webapp \
 		-v $(PWD):/var/www/webapp \
-		-p 3001:3000 \
+		-p 3001:3001 \
 		-e REACT_APP_STAGE=$(RECONMAP_APP_STAGE) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \
