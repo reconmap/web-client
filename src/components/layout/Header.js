@@ -46,7 +46,7 @@ export default function Header() {
                              </BtnSecondary>
                         </>
                         : LINKS.map((link, index) => (
-                            <BtnLink key={index} to={link.to.pathname}>
+                            <BtnLink external key={index} to={link.to.pathname}>
                                 {link.title} 
                              </BtnLink>))}
 
