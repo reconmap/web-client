@@ -1,6 +1,7 @@
 
 RECONMAP_APP_STAGE ?= dev
-DOCKER_IMAGE_NAME = reconmap/web-frontend
+DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
+DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_BASE_IMAGE = $(DOCKER_IMAGE_NAME):base
 
 .PHONY: prepare
@@ -18,12 +19,12 @@ start:
 		-e REACT_APP_STAGE=$(RECONMAP_APP_STAGE) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \
-		--name reconmap-web-frontend \
+		--name $(DOCKER_CONTAINER_NAME) \
 		$(DOCKER_BASE_IMAGE) start
 
 .PHONY: stop
 stop:
-	docker stop reconmap-web-frontend || true
+	docker stop $(DOCKER_CONTAINER_NAME) || true
 
 .PHONY: tests
 tests:
@@ -49,5 +50,5 @@ push:
 
 .PHONY: shell
 shell:
-	docker exec -it reconmap-web-frontend bash
+	docker exec -it $(DOCKER_CONTAINER_NAME) bash
 
