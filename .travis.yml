@@ -8,7 +8,8 @@ script:
   - make tests-ci
 
 deploy:
-  - provider: script
-    script: docker/push_image.sh
-    on:
-      branch: master
+  skip_cleanup: true
+  provider: script
+  script: docker/push_image.sh
+  on:
+    branch: master
