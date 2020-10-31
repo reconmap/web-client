@@ -1,4 +1,4 @@
-FROM quay.io/reconmap/web-client:base AS builder
+FROM quay.io/reconmap/web-client:master AS builder
 
 ARG RECONMAP_APP_STAGE=dev
 
