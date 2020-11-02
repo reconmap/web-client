@@ -6,7 +6,8 @@ import BtnLink from './../ui/buttons/BtnLink'
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import UserAvatar from '../badges/UserAvatar';
 import NotificationsBadge from '../badges/NotificationsBadge';
-import { IconLogout } from '../icons';
+import {IconLogout} from '../icons';
+import SearchBox from "../search/Box";
 
 const LINKS = [
     {title: "Release notes", to: {pathname: "https://github.com/reconmap/application/releases"}},
@@ -16,39 +17,36 @@ const LINKS = [
 
 export default function Header() {
     const history = useHistory()
+
     const handleGoHome = () => {
         history.push('/')
     }
+    
     const handleMyProfile = () => {
         history.push(`/users/${localStorage.getItem('user.id')}`)
-    }
-    const handleSearchKeyDown = e => {
-        if (e.key === 'Enter') {
-            history.push('/search/' + encodeURIComponent(e.target.value));
-        }
     }
 
     return <AuthConsumer>
         {
             ({isAuth, logout, user}) => (
                 <nav>
-                    <h3 onClick={handleGoHome} style={{ paddingLeft:'var(--padding)', cursor:'pointer'}}>
-                        {/* <img src="/logo.svg" height='32px' width='32px' className='mr-2 mt-1' alt="Reconmap logo"/> */}
-                        <strong style={{ color : 'var(--white)'}}>Recon<span style={{ color : 'var(--primary-color)'}}>map</span></strong>
+                    <h3 onClick={handleGoHome} style={{paddingLeft: 'var(--padding)', cursor: 'pointer'}}>
+                        <strong style={{color: 'var(--white)'}}>Recon<span
+                            style={{color: 'var(--primary-color)'}}>map</span></strong>
                     </h3>
                     {isAuth ? <>
-                            <input placeholder="Search..." onKeyDown={handleSearchKeyDown}/>
+                            <SearchBox/>
                             <NotificationsBadge/>
                             {user && <UserAvatar onClick={handleMyProfile} email={user.email}/>}
                             <BtnSecondary onClick={logout}>
-                                <IconLogout />
+                                <IconLogout/>
                                 Logout
-                             </BtnSecondary>
+                            </BtnSecondary>
                         </>
                         : LINKS.map((link, index) => (
                             <BtnLink external key={index} to={link.to.pathname}>
-                                {link.title} 
-                             </BtnLink>))}
+                                {link.title}
+                            </BtnLink>))}
 
                     <div id='progress'></div>
                 </nav>
