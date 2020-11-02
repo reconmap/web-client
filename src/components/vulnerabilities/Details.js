@@ -11,7 +11,7 @@ import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
-import { IconCheck, IconFlag } from '../icons';
+import {IconCheck, IconFlag} from '../icons';
 
 class VulnerabilityDetails extends Component {
     constructor(props) {
@@ -24,7 +24,6 @@ class VulnerabilityDetails extends Component {
     }
 
     componentDidMount() {
-
         const id = this.props.match.params.id;
         secureApiFetch(`/vulnerabilities/${id}`, {
             method: 'GET'
@@ -37,14 +36,14 @@ class VulnerabilityDetails extends Component {
     }
 
     handleDelete(vuln) {
-        if (window.confirm('Are you sure you want to delete this task?')) {
+        if (window.confirm('Are you sure you want to delete this vulnerability?')) {
             secureApiFetch(`/vulnerabilities/${vuln.id}`, {
                 method: 'DELETE'
             })
                 .then(() => {
                     this.props.history.push('/vulnerabilities')
                 })
-                .catch(e => console.log(e))
+                .catch(e => console.error(e))
 
         }
     }
@@ -61,54 +60,54 @@ class VulnerabilityDetails extends Component {
     }
 
     render() {
-        const vuln = this.state.vulnerability;
+        const vulnerability = this.state.vulnerability;
         return (
             <div>
                 <div className='heading'>
                     <Breadcrumb history={this.props.history}/>
-                    {vuln &&
+                    {vulnerability &&
                     <ButtonGroup>
-                        {vuln.status === 'open' &&
-                        <BtnPrimary  onClick={() => this.handleStatus(vuln)}>
-                        <IconCheck /> Mark as closed</BtnPrimary>}
-                        {vuln.status !== 'open' &&
-                        <BtnPrimary  onClick={() => this.handleStatus(vuln)}>Mark as open</BtnPrimary>}
-                        <DeleteButton  onClick={() => this.handleDelete(vuln)}/>
+                        {vulnerability.status === 'open' &&
+                        <BtnPrimary onClick={() => this.handleStatus(vulnerability)}>
+                            <IconCheck/> Mark as closed</BtnPrimary>}
+                        {vulnerability.status !== 'open' &&
+                        <BtnPrimary onClick={() => this.handleStatus(vulnerability)}>Mark as open</BtnPrimary>}
+                        <DeleteButton onClick={() => this.handleDelete(vulnerability)}/>
                     </ButtonGroup>
                     }
                 </div>
-                {!vuln ? <Loading/> :
+                {!vulnerability ? <Loading/> :
                     <article>
-                        <Title type='Vulnerability' title={vuln.summary} icon={<IconFlag />} />
-                        <Timestamps insertTs={vuln.insert_ts} updateTs={vuln.update_ts}/>
-                        <p>{vuln.description}</p>
-                        <table >
+                        <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag/>}/>
+                        <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts}/>
+                        <p>{vulnerability.description}</p>
+                        <table>
                             <tbody>
                             <tr>
                                 <th>Category</th>
-                                <td>{vuln.category_name || '-'}</td>
+                                <td>{vulnerability.category_name || '-'}</td>
                             </tr>
                             <tr>
                                 <th>Status</th>
-                                <td><VulnerabilityStatusBadge status={vuln.status}/></td>
+                                <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
                             </tr>
                             <tr>
                                 <th>CVSS score</th>
-                                <td><CvssScore score={vuln.cvss_score}/></td>
+                                <td><CvssScore score={vulnerability.cvss_score}/></td>
                             </tr>
                             <tr>
                                 <th>CVSS vector</th>
                                 <td><ExternalLink
-                                    href={`https://www.first.org/cvss/calculator/3.0#${vuln.cvss_vector}`}>{vuln.cvss_vector}</ExternalLink>
+                                    href={`https://www.first.org/cvss/calculator/3.0#${vulnerability.cvss_vector}`}>{vulnerability.cvss_vector}</ExternalLink>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Risk</th>
-                                <td><RiskBadge risk={vuln.risk}/></td>
+                                <td><RiskBadge risk={vulnerability.risk}/></td>
                             </tr>
                             <tr>
                                 <th>Project</th>
-                                <td>{vuln.project_id}</td>
+                                <td>{vulnerability.project_id}</td>
                             </tr>
                             </tbody>
                         </table>

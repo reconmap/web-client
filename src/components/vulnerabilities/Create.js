@@ -7,9 +7,13 @@ import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CancelButton from "../ui/buttons/Cancel";
 import Title from '../ui/Title';
-import { IconPlus } from '../icons';
+import {IconPlus} from '../icons';
+import useSetTitle from "../../hooks/useSetTitle";
 
 export default function VulnerabilityCreate({history, location}) {
+
+    useSetTitle('Create Vulnerability');
+
     const projectId = new URLSearchParams(location.search).get('projectId') || null
     const [projects] = useFetch('/projects')
     const [vulnerability, setVulnerability] = useState({
@@ -17,12 +21,13 @@ export default function VulnerabilityCreate({history, location}) {
         summary: null,
         description: null,
         risk: Risks[0].id,
-        cvssScore: null
+        cvssScore: null,
+        cvssVector: null,
     })
     const [loading, setLoading] = useState(false)
     const handleCreate = (event) => {
         event.preventDefault();
-        
+
         setLoading(true)
         secureApiFetch(`/vulnerabilities`, {method: 'POST', body: JSON.stringify(vulnerability)})
             .then(r => history.push(`/vulnerabilities`));
@@ -42,7 +47,7 @@ export default function VulnerabilityCreate({history, location}) {
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <Title title="Create Vulnerability" icon={<IconPlus />}/>
+            <Title title="Create Vulnerability" icon={<IconPlus/>}/>
 
             {!projects ? <Loading/> :
                 <form onSubmit={handleCreate}>
@@ -73,8 +78,13 @@ export default function VulnerabilityCreate({history, location}) {
                         </select>
                     </label>
                     <label>CVSS score
-                        <input type="text" name="cvssScore" onChange={handleFormChange}
+                        <input type="number" step="0.1" min="0" max="10" name="cvssScore"
+                               onChange={handleFormChange}
                                value={vulnerability.cvssScore || ""}/>
+                    </label>
+                    <label><span>CVSS vector<br/><small>eg: AV:N/AC:L/Au:S/C:P/I:P/A:N</small></span>
+                        <input type="text" name="cvssVector" onChange={handleFormChange}
+                               value={vulnerability.cvssVector || ""}/>
                     </label>
 
                     <BtnPrimary type="submit"
