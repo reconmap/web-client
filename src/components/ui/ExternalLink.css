@@ -1,0 +1,6 @@
+.ExternalLink {
+    display: inline-flex;
+    color: var(--primary-color);
+    border-bottom: var(--borderWidth) solid var(--primary-color);
+    margin-left: 0;
+}
