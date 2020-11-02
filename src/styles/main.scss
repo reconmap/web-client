@@ -384,11 +384,6 @@ a {
   }
 }
 
-a[target="_blank"] {
-  color: var(--primary-color);
-  border-bottom: var(--borderWidth) solid var(--primary-color);
-}
-
 input::placeholder {
   color: var(--text-color);
 }
