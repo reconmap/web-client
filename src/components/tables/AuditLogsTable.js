@@ -31,8 +31,9 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
                         <td>{entry.insert_ts}</td>
                         {!hideUserColumns &&
                         <>
-                            <td><UserLink userId={entry.user_id}>{entry.name}</UserLink></td>
-                            <td><UserRoleBadge role={entry.role}/></td>
+                            <td>{entry.user_name ?
+                                <UserLink userId={entry.user_id}>{entry.user_name}</UserLink> : '-'}</td>
+                            <td><UserRoleBadge role={entry.user_role}/></td>
                         </>
                         }
                         <td>{entry.object}</td>
