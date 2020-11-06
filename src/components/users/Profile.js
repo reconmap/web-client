@@ -4,10 +4,10 @@ import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import UserAvatar from '../badges/UserAvatar';
-import AuditLogsTable from '../tables/AuditLogsTable';
+import AuditLogsTable from '../auditlog/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
-import { IconBookOpen, IconDocument } from '../icons';
+import {IconBookOpen, IconDocument} from '../icons';
 
 const UserProfile = ({match, history}) => {
     useSetTitle('User');
@@ -18,30 +18,31 @@ const UserProfile = ({match, history}) => {
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'200px 1fr .5fr', gap:'var(--padding)'}}>
-                {user ? <div style={{ display:'flex', width:'200px', flexDirection:'column', alignItems:'flex-start'}}>
-                            <UserAvatar email={user.email} size='--iconSizeXLarge'/> 
-                            <h1>{user.name}</h1>
-                            <UserRoleBadge role={user.role}/>
+            <div style={{display: 'grid', gridTemplateColumns: '200px 1fr .5fr', gap: 'var(--padding)'}}>
+                {user ?
+                    <div style={{display: 'flex', width: '200px', flexDirection: 'column', alignItems: 'flex-start'}}>
+                        <UserAvatar email={user.email} size='--iconSizeXLarge'/>
+                        <h1>{user.name}</h1>
+                        <UserRoleBadge role={user.role}/>
 
-                        </div> : <Loading/>}
+                    </div> : <Loading/>}
                 <div>
-                    <Title type='User' title='Activity' icon={<IconBookOpen />}/>
+                    <Title type='User' title='Activity' icon={<IconBookOpen/>}/>
                     {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
                 </div>
                 <div>
-                {user ? 
-                <>
-                <Title type='User' title='Details' icon={<IconDocument />}/>
+                    {user ?
+                        <>
+                            <Title type='User' title='Details' icon={<IconDocument/>}/>
 
-                <Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/>
-                         
+                            <Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/>
+
                             <dl>
                                 <dt>Timezone</dt>
                                 <dd>{user.timezone}</dd>
                             </dl>
-                </>
-                            : <Loading/>}
+                        </>
+                        : <Loading/>}
                 </div>
 
             </div>

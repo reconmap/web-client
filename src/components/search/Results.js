@@ -1,12 +1,11 @@
 import useSetTitle from '../../hooks/useSetTitle';
 import Title from '../ui/Title';
-import VulnerabilitiesTable from '../tables/VulnerabilitiesTable';
+import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable';
 import Breadcrumb from '../ui/Breadcrumb';
-import { useHistory  } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { IconSearch } from '../icons';
+import {useEffect, useState} from 'react';
+import {IconSearch} from '../icons';
 
 const SearchResults = (props) => {
     useSetTitle('Search results');
@@ -18,7 +17,7 @@ const SearchResults = (props) => {
 
     useEffect(() => {
         const reloadData = () => {
-            secureApiFetch(`/vulnerabilities?keywords=${keywords}`, { method: 'GET' })
+            secureApiFetch(`/vulnerabilities?keywords=${keywords}`, {method: 'GET'})
                 .then((response) => {
                     return response.json()
                 })
@@ -31,13 +30,13 @@ const SearchResults = (props) => {
         reloadData()
     }, [keywords])
     return <>
-                <div className='heading'>
-                    <Breadcrumb history={history}/>
-                </div>
-                <Title type='Search results' title={`For ${keywords}`} icon={<IconSearch />} />
-                <h3>{vulnerabilities.length} vulnerabilities matched</h3>
-                <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>
-            </>
+        <div className='heading'>
+            <Breadcrumb history={history}/>
+        </div>
+        <Title type='Search results' title={`For ${keywords}`} icon={<IconSearch/>}/>
+        <h3>{vulnerabilities.length} vulnerabilities matched</h3>
+        <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>
+    </>
 }
 
 export default SearchResults

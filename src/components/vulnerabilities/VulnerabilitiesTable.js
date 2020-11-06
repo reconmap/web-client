@@ -2,7 +2,7 @@ import RiskBadge from '../badges/RiskBadge'
 import VulnerabilityBadge from '../badges/VulnerabilityBadge'
 import CvssScore from '../badges/CvssScore'
 import DeleteButton from "../ui/buttons/Delete";
-import VulnerabilityStatusBadge from "../vulnerabilities/StatusBadge";
+import VulnerabilityStatusBadge from "./StatusBadge";
 import Timestamps from '../ui/Timestamps';
 import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 
@@ -11,23 +11,23 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
         <table>
             <thead>
             <tr>
-                <th style={{ width: '190px'}}>Summary</th>
-                <th style={{ width: '120px'}}></th>
-                <th style={{ width: '120px'}}>Risk</th>
-                <th style={{ width: '120px'}}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
-                <th style={{ width: '20%'}}>Category</th>
-                <th style={{ width: '15%'}}>&nbsp;</th>
+                <th style={{width: '190px'}}>Summary</th>
+                <th style={{width: '120px'}}></th>
+                <th style={{width: '120px'}}>Risk</th>
+                <th style={{width: '120px'}}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
+                <th style={{width: '20%'}}>Category</th>
+                <th style={{width: '15%'}}>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
             {vulnerabilities.map((vulnerability, index) => {
                 return (
-                    <tr key={index} style={{ opacity: vulnerability.status==='open'? '1': '.5'}}>
+                    <tr key={index} style={{opacity: vulnerability.status === 'open' ? '1' : '.5'}}>
                         <td>
-                        <VulnerabilityBadge vulnerability={vulnerability}/>
+                            <VulnerabilityBadge vulnerability={vulnerability}/>
                             {vulnerability.description && <p>
                                 <small>{vulnerability.description} </small>
-                            </p> }
+                            </p>}
                             <p>
                                 <Timestamps insertTs={vulnerability.insert_ts}/>
                             </p>

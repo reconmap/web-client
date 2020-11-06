@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import useSetTitle from '../../hooks/useSetTitle';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
@@ -6,29 +6,34 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import Title from '../ui/Title';
-import TasksTable from '../tables/TasksTable';
-import { IconClipboardList } from '../icons';
+import TasksTable from './TasksTable';
+import {IconClipboardList} from '../icons';
 
-const TasksList = ({ history }) => {
+const TasksList = ({history}) => {
     useSetTitle('Tasks');
     const [tasks, updateTasks] = useFetch('/tasks')
     const [projects] = useFetch('/projects')
-    const [filter, setFilter] = useState({ project: '', user: '', status: '' })
+    const [filter, setFilter] = useState({project: '', user: '', status: ''})
 
-    const handleSetProject = (e) => { setFilter({ ...filter, project: e.target.value }) }
-    const handleSetStatus = (e) => { setFilter({ ...filter, status: e.target.value }) }
+    const handleSetProject = (e) => {
+        setFilter({...filter, project: e.target.value})
+    }
+    const handleSetStatus = (e) => {
+        setFilter({...filter, status: e.target.value})
+    }
 
     const destroy = useDelete('/tasks/', updateTasks);
 
     return <>
 
         <div className='heading'>
-            <Breadcrumb history={history} />
+            <Breadcrumb history={history}/>
             <div>
                 <label>Project</label>
                 <select onChange={handleSetProject}>
                     <option value=''>Any</option>
-                    {projects && projects.map(project => <option value={project.id} key={project.id}>{project.name}</option>)}
+                    {projects && projects.map(project => <option value={project.id}
+                                                                 key={project.id}>{project.name}</option>)}
                 </select>
             </div>
             <div>
@@ -40,13 +45,13 @@ const TasksList = ({ history }) => {
                 </select>
             </div>
         </div>
-        <Title title='Tasks' icon={<IconClipboardList />}/>
+        <Title title='Tasks' icon={<IconClipboardList/>}/>
 
         {!tasks ?
-            <Loading /> :
+            <Loading/> :
             tasks.length === 0 ?
-                <NoResults /> :
-                <TasksTable tasks={tasks} filter={filter} destroy={destroy} />}
+                <NoResults/> :
+                <TasksTable tasks={tasks} filter={filter} destroy={destroy}/>}
 
     </>
 }

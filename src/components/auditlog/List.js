@@ -7,8 +7,8 @@ import useSetTitle from '../../hooks/useSetTitle';
 import {IconEye, IconSave} from '../icons';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
-import AuditLogsTable from '../tables/AuditLogsTable';
 import Title from '../ui/Title';
+import AuditLogsTable from "./AuditLogsTable";
 
 const AuditLogList = ({history}) => {
     useSetTitle('Reports');
@@ -69,7 +69,7 @@ const AuditLogList = ({history}) => {
                             handleNext={handleNext}/>
                 <BtnSecondary onClick={handleExport}><IconSave/> Export to CSV</BtnSecondary>
             </div>
-            <Title title='Audit Log' icon={<IconEye />} />
+            <Title title='Audit Log' icon={<IconEye/>}/>
             {!auditLog ? <Loading/> : auditLog.length === 0 ? <NoResults/> :
                 <AuditLogsTable auditLog={auditLog}/>}
         </>
