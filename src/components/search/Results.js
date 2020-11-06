@@ -26,7 +26,6 @@ const SearchResults = (props) => {
                 })
         }
 
-
         reloadData()
     }, [keywords])
     return <>

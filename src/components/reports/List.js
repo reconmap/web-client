@@ -10,16 +10,22 @@ import {IconCode, IconDocument, IconDownloadDocument, IconReport} from '../ui/Ic
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import DeleteButton from "../ui/buttons/Delete";
 import Title from '../ui/Title';
+import BtnSecondary from "../ui/buttons/BtnSecondary";
 
 const ReportsList = ({history}) => {
     useSetTitle('Saved Reports');
     const [reports, fetchReports] = useFetch('/reports')
+
+    const handleSendByEmail = (reportId) => {
+        history.push(`/report/${reportId}/send`);
+    }
+
     const handleDownload = (reportId) => {
         secureApiFetch(`/reports/${reportId}/download`, {method: 'GET'})
             .then(response => {
-                var contentDispositionHeader = response.headers.get('Content-Disposition');
+                const contentDispositionHeader = response.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
-                var filename = filenameRe.exec(contentDispositionHeader)[1]
+                const filename = filenameRe.exec(contentDispositionHeader)[1]
                 return Promise.all([response.blob(), filename]);
             })
             .then((values) => {
@@ -37,7 +43,6 @@ const ReportsList = ({history}) => {
 
     return <div>
         <div className='heading'>
-
             <Breadcrumb history={history}/>
         </div>
         <Title title='Saved Reports' icon={<IconReport/>}/>
@@ -48,7 +53,7 @@ const ReportsList = ({history}) => {
                     <th>Project</th>
                     <th>Format</th>
                     <th>Creation date/time</th>
-                    <th></th>
+                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -71,7 +76,8 @@ const ReportsList = ({history}) => {
                             <td>{report.insert_ts}</td>
                             <td className="space-x-2 flex  justify-end  ">
                                 <BtnPrimary onClick={() => handleDownload(report.id)}><IconDownloadDocument
-                                /> Download</BtnPrimary>
+                                />Download</BtnPrimary>
+                                <BtnSecondary onClick={() => handleSendByEmail(report.id)}>Send by email</BtnSecondary>
                                 <DeleteButton onClick={() => deleteReport(report.id)}/>
                             </td>
                         </tr>

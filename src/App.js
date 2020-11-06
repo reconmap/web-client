@@ -4,7 +4,6 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Dashboard from "./components/layout/dashboard";
 import Login from "./components/users/Login";
 import AuditLogList from "./components/auditlog/List";
-import ReportsList from "./components/reports/List";
 import IntegrationsList from "./components/integrations/List";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
@@ -20,6 +19,7 @@ import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import TemplatesRoutes from "./components/templates/Routes";
 import Sandbox from './components/ui/Sandbox';
 import setThemeColors from './utilities/setThemeColors';
+import ReportsRoutes from "./components/reports/Routes";
 
 const App = () => {
 
@@ -44,9 +44,9 @@ const App = () => {
                                 {ProjectsRoutes}
                                 {VulnerabilitiesRoutes}
                                 {TemplatesRoutes}
+                                {ReportsRoutes}
                                 <ProtectedRoute path={`/search/:keywords`} component={SearchResults}/>
                                 <ProtectedRoute path={`/integrations`} component={IntegrationsList}/>
-                                <ProtectedRoute path={`/reports`} component={ReportsList}/>
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList}/>
                                 <ProtectedRoute exact path={`/import-export`} component={ImportExportForm}/>
                                 <ProtectedRoute exact path={`/sandbox`} component={Sandbox}/>

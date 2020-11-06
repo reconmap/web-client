@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
-import BtnLink from '../ui/buttons/BtnLink';
 import Title from '../ui/Title';
+import CancelButton from "../ui/buttons/Cancel";
 
 export default function ClientCreate({history}) {
     const [newClient, setNewClient] = useState({
@@ -16,7 +16,7 @@ export default function ClientCreate({history}) {
     const [loading, setLoading] = useState(false)
     const handleCreate = async (event) => {
         event.preventDefault();
-        
+
         setLoading(true)
         await secureApiFetch(`/clients`, {method: 'POST', body: JSON.stringify(newClient)})
         history.push(`/clients`)
@@ -50,7 +50,7 @@ export default function ClientCreate({history}) {
                     <input type="text" name="contactPhone" onChange={handleFormChange}/></label>
                 <BtnPrimary type="submit"
                             disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
+                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

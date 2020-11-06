@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnLink from '../ui/buttons/BtnLink';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
+import CancelButton from "../ui/buttons/Cancel";
 
 export default function TaskCreateForm({match, history}) {
     const projectId = match.params.id;
@@ -46,7 +46,7 @@ export default function TaskCreateForm({match, history}) {
                 </label>
                 <BtnPrimary type="submit"
                             disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <BtnLink onClick={handleGoBack} disabled={loading} type='cancel'>Cancel</BtnLink>
+                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

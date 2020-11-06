@@ -29,7 +29,6 @@ const Breadcrumb = ({history}) => {
     }
 
     return <button style={styles.button}>
-
         {history && history.length > 0 && <span onClick={handleGoBack} style={styles.arrow}> <IconLeft/> </span>}
         {history.location.pathname.split('/').map((route, index) =>
             route !== '' &&
@@ -40,4 +39,5 @@ const Breadcrumb = ({history}) => {
         )}
     </button>
 }
+
 export default Breadcrumb
