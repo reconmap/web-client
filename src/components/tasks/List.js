@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import useSetTitle from '../../hooks/useSetTitle';
 import Loading from '../ui/Loading';
-import NoResults from '../ui/NoResults';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -49,10 +48,8 @@ const TasksList = ({history}) => {
 
         {!tasks ?
             <Loading/> :
-            tasks.length === 0 ?
-                <NoResults/> :
-                <TasksTable tasks={tasks} filter={filter} destroy={destroy}/>}
-
+            <TasksTable tasks={tasks} filter={filter} destroy={destroy}/>
+        }
     </>
 }
 

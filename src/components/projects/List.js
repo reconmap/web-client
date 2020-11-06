@@ -1,5 +1,4 @@
 import useSetTitle from '../../hooks/useSetTitle';
-import NoResults from '../ui/NoResults';
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -11,6 +10,7 @@ import {ClientLink} from "../clients/Link";
 import Timestamps from '../ui/Timestamps';
 import Title from '../ui/Title';
 import {IconFolder} from '../ui/Icons';
+import NoResults from "../ui/NoResults";
 
 const ProjectsList = ({history}) => {
     useSetTitle('Projects');
@@ -25,7 +25,7 @@ const ProjectsList = ({history}) => {
             <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
         </div>
         <Title title='Projects' icon={<IconFolder/>}/>
-        {!projects ? <Loading/> : projects.length === 0 ? <NoResults/> :
+        {!projects ? <Loading/> :
             <table>
                 <thead>
                 <tr>
@@ -36,22 +36,24 @@ const ProjectsList = ({history}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {projects.map((project) =>
-                    <tr key={project.id}>
-                        <td>
-                            <ProjectBadge project={project}/>
-                            <p>{project.description}</p>
-                        </td>
-
-                        <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
-                        <td><Timestamps insertTs={project.insert_ts}/></td>
-                        <td>
-                            <DeleteButton onClick={() => destroy(project.id)}/>
-                        </td>
-                    </tr>
-                )}
+                {projects.length === 0 ?
+                    <td colspan="4"><NoResults/></td> :
+                    projects.map((project) =>
+                        <tr key={project.id}>
+                            <td>
+                                <ProjectBadge project={project}/>
+                                <p>{project.description}</p>
+                            </td>
+                            <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
+                            <td><Timestamps insertTs={project.insert_ts}/></td>
+                            <td>
+                                <DeleteButton onClick={() => destroy(project.id)}/>
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
-            </table>}
+            </table>
+        }
     </div>
 }
 

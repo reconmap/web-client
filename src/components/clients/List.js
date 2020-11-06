@@ -1,6 +1,5 @@
 import useSetTitle from '../../hooks/useSetTitle';
 import Loading from '../ui/Loading';
-import NoResults from '../ui/NoResults';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -10,6 +9,7 @@ import {ClientLink} from "./Link";
 import CreateButton from "../ui/buttons/Create";
 import Title from '../ui/Title';
 import {IconBriefcase} from '../ui/Icons';
+import NoResults from "../ui/NoResults";
 
 const ClientsList = ({history}) => {
     useSetTitle('Clients');
@@ -30,21 +30,21 @@ const ClientsList = ({history}) => {
 
         {!clients ?
             <Loading/> :
-            clients.length === 0 ?
-                <NoResults/> :
-                <table>
-                    <thead>
-                    <tr>
-                        <th style={{width: '190px'}}>Name</th>
-                        <th>URL</th>
-                        <th>Contact name</th>
-                        <th>Contact email</th>
-                        <th>Contact phone</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {clients.map((client) =>
+            <table>
+                <thead>
+                <tr>
+                    <th style={{width: '190px'}}>Name</th>
+                    <th>URL</th>
+                    <th>Contact name</th>
+                    <th>Contact email</th>
+                    <th>Contact phone</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                {clients.length === 0 ?
+                    <td colspan="6"><NoResults/></td> :
+                    clients.map((client) =>
                         <tr key={client.id}>
                             <td><ClientLink clientId={client.id}>{client.name}</ClientLink></td>
                             <td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</td>
@@ -53,10 +53,10 @@ const ClientsList = ({history}) => {
                             <td>{client.contact_phone || '-'}</td>
                             <td><DeleteButton onClick={() => destroy(client.id)}/></td>
                         </tr>
-                    )}
-                    </tbody>
-                </table>
-
+                    )
+                }
+                </tbody>
+            </table>
         }
     </>
 }

@@ -5,6 +5,8 @@ import DeleteButton from "../ui/buttons/Delete";
 import VulnerabilityStatusBadge from "./StatusBadge";
 import Timestamps from '../ui/Timestamps';
 import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
+import NoResults from "../ui/NoResults";
+import React from "react";
 
 export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
     return (
@@ -20,28 +22,30 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
             </tr>
             </thead>
             <tbody>
-            {vulnerabilities.map((vulnerability, index) => {
-                return (
-                    <tr key={index} style={{opacity: vulnerability.status === 'open' ? '1' : '.5'}}>
-                        <td>
-                            <VulnerabilityBadge vulnerability={vulnerability}/>
-                            {vulnerability.description && <p>
-                                <small>{vulnerability.description} </small>
-                            </p>}
-                            <p>
-                                <Timestamps insertTs={vulnerability.insert_ts}/>
-                            </p>
-                        </td>
-                        <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
-                        <td><RiskBadge risk={vulnerability.risk}/></td>
-                        <td><CvssScore score={vulnerability.cvss_score}/></td>
-                        <td><VulnerabilityCategoryBadge category={vulnerability.category_name}/></td>
-                        <td>{destroy &&
-                        <DeleteButton onClick={() => destroy(vulnerability.id)}/>
-                        }</td>
-                    </tr>
-                )
-            })}
+            {vulnerabilities.length === 0 ?
+                <td colspan="6"><NoResults/></td> :
+                vulnerabilities.map((vulnerability, index) => {
+                    return (
+                        <tr key={index} style={{opacity: vulnerability.status === 'open' ? '1' : '.5'}}>
+                            <td>
+                                <VulnerabilityBadge vulnerability={vulnerability}/>
+                                {vulnerability.description && <p>
+                                    <small>{vulnerability.description} </small>
+                                </p>}
+                                <p>
+                                    <Timestamps insertTs={vulnerability.insert_ts}/>
+                                </p>
+                            </td>
+                            <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
+                            <td><RiskBadge risk={vulnerability.risk}/></td>
+                            <td><CvssScore score={vulnerability.cvss_score}/></td>
+                            <td><VulnerabilityCategoryBadge category={vulnerability.category_name}/></td>
+                            <td>{destroy &&
+                            <DeleteButton onClick={() => destroy(vulnerability.id)}/>
+                            }</td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )

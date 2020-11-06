@@ -2,7 +2,6 @@ import secureApiFetch from '../../services/api';
 import useSetTitle from '../../hooks/useSetTitle';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../ui/Loading';
-import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
 import ProjectBadge from '../badges/ProjectBadge';
 import useDelete from '../../hooks/useDelete';
@@ -12,6 +11,7 @@ import CreateButton from '../ui/buttons/Create';
 import Title from '../ui/Title';
 import BtnPrimary from "../ui/buttons/BtnPrimary";
 import DeleteButton from "../ui/buttons/Delete";
+import NoResults from "../ui/NoResults";
 
 const TemplatesList = ({history}) => {
     useSetTitle('Projects templates');
@@ -38,7 +38,7 @@ const TemplatesList = ({history}) => {
                 <CreateButton onClick={() => history.push('/import-export')}>Import template(s)</CreateButton>
             </div>
             <Title title='Templates' icon={<IconDocumentDuplicate/>}/>
-            {!templates ? <Loading/> : templates.length === 0 ? <NoResults/> :
+            {!templates ? <Loading/> :
                 <table>
                     <thead>
                     <tr>
@@ -50,22 +50,27 @@ const TemplatesList = ({history}) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {templates.map((template) =>
-                        <tr key={template.id} onClick={() => viewProject(template.id)}>
-                            <td><ProjectBadge project={template}/></td>
-                            <td width='30%'><small>{template.description}</small></td>
-                            <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
-                            <td><small>{template.insert_ts}</small></td>
-                            <td className="space-x-2 flex  justify-end">
-                                <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
-                                            title="Create project using this template"><IconPlus/>Create
-                                    project</BtnPrimary>
-                                <DeleteButton onClick={() => destroy(template.id)}/>
-                            </td>
-                        </tr>
-                    )}
+                    {templates.length === 0 ?
+                        <td colSpan="5"><NoResults/></td>
+                        :
+                        templates.map((template) =>
+                            <tr key={template.id} onClick={() => viewProject(template.id)}>
+                                <td><ProjectBadge project={template}/></td>
+                                <td width='30%'><small>{template.description}</small></td>
+                                <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
+                                <td><small>{template.insert_ts}</small></td>
+                                <td className="space-x-2 flex  justify-end">
+                                    <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
+                                                title="Create project using this template"><IconPlus/>Create
+                                        project</BtnPrimary>
+                                    <DeleteButton onClick={() => destroy(template.id)}/>
+                                </td>
+                            </tr>
+                        )
+                    }
                     </tbody>
-                </table>}
+                </table>
+            }
         </>
     )
 }

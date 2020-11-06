@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import useSetTitle from './../../hooks/useSetTitle'
-import NoResults from '../ui/NoResults';
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -59,7 +58,7 @@ const VulnerabilitiesList = ({history}) => {
                 <CreateButton onClick={handleCreateVulnerability}>Create Vulnerability</CreateButton>
             </div>
             <Title title='Vulnerabilities' icon={<IconFlag/>}/>
-            {!vulnerabilities ? <Loading/> : vulnerabilities.length === 0 ? <NoResults/> :
+            {!vulnerabilities ? <Loading/> :
                 <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy}/>
             }
         </>
