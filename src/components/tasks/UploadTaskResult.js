@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import secureApiFetch from '../../services/api';
-import {IconUpload} from '../icons';
+import {IconUpload} from '../ui/Icons';
 import Breadcrumb from '../ui/Breadcrumb'
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';

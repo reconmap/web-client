@@ -1,23 +1,23 @@
 import {Link} from 'react-router-dom'
-import {IconCollection} from '../icons'
+import {IconCollection} from '../ui/Icons'
 
 export default function ProjectBadge({project}) {
     const styles = {
-        badge : {
+        badge: {
             color: `var(--primary-color)`,
             backgroundColor: 'var(--black)',
-            alignItems:'center',
+            alignItems: 'center',
             display: `inline-flex`,
             margin: 'var(--margin) 0',
             padding: 'var(--paddingBadge)',
             borderRadius: 'var(--borderRadius, 3px)',
-            fontWeight : 'var(--fontBold)',
+            fontWeight: 'var(--fontBold)',
         }
     }
 
-    return (<Link to={`/projects/${project.id}`} style={ styles.badge }>
-                <IconCollection />
-                {project.name}
-            </Link>
+    return (<Link to={`/projects/${project.id}`} style={styles.badge}>
+            <IconCollection/>
+            {project.name}
+        </Link>
     )
 }

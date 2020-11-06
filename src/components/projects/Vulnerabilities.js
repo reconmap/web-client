@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
 import Loading from '../ui/Loading'
-import {IconFlag, IconPlus} from '../icons'
+import {IconFlag, IconPlus} from '../ui/Icons'
 import {useHistory} from 'react-router-dom'
 import BtnSecondary from '../ui/buttons/BtnSecondary'
 import ButtonGroup from '../ui/buttons/ButtonGroup'

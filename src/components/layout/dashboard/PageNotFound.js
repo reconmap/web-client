@@ -1,4 +1,4 @@
-import { IconExclamationCircle} from './../../icons'
+import {IconExclamationCircle} from '../../ui/Icons'
 
 export default function PageNotFound() {
     return (

@@ -6,7 +6,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
-import {IconPlus} from '../icons';
+import {IconPlus} from '../ui/Icons';
 import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
 import UserLink from "../users/Link";

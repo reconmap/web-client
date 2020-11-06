@@ -7,7 +7,7 @@ import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../auditlog/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
-import {IconBookOpen, IconDocument} from '../icons';
+import {IconBookOpen, IconDocument} from '../ui/Icons';
 
 const UserProfile = ({match, history}) => {
     useSetTitle('User');

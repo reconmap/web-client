@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import secureApiFetch from '../../services/api';
-import {IconDownloadDocument, IconUpload} from '../icons';
+import {IconDownloadDocument, IconUpload} from '../ui/Icons';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
 import Breadcrumb from '../ui/Breadcrumb'
@@ -48,7 +48,7 @@ class ImportExportForm extends Component {
                 <div className='heading'>
                     <Breadcrumb history={this.props.history}/>
                 </div>
-                <Title type="System Utils" title="Import/Export" icon={<IconDownloadDocument />}/>
+                <Title type="System Utils" title="Import/Export" icon={<IconDownloadDocument/>}/>
                 <form>
                     <label>
                         Select file

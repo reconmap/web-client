@@ -9,7 +9,7 @@ import ExternalLink from "../ui/ExternalLink";
 import {ClientLink} from "./Link";
 import CreateButton from "../ui/buttons/Create";
 import Title from '../ui/Title';
-import { IconBriefcase } from '../icons';
+import {IconBriefcase} from '../ui/Icons';
 
 const ClientsList = ({history}) => {
     useSetTitle('Clients');
@@ -26,16 +26,16 @@ const ClientsList = ({history}) => {
 
             <CreateButton onClick={handleCreateClient}>Create Client</CreateButton>
         </div>
-        <Title title='Clients' icon={<IconBriefcase />}/>
+        <Title title='Clients' icon={<IconBriefcase/>}/>
 
         {!clients ?
             <Loading/> :
             clients.length === 0 ?
                 <NoResults/> :
-                <table >
+                <table>
                     <thead>
                     <tr>
-                        <th style={{ width: '190px'}}>Name</th>
+                        <th style={{width: '190px'}}>Name</th>
                         <th>URL</th>
                         <th>Contact name</th>
                         <th>Contact email</th>

@@ -3,7 +3,7 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
-import {IconClipboardCheck, IconFolder, IconUserGroup} from '../icons';
+import {IconClipboardCheck, IconFolder, IconUserGroup} from '../ui/Icons';
 import ProjectTargets from './Targets';
 import ProjectTasks from './Tasks';
 import ProjectVulnerabilities from './Vulnerabilities';
@@ -68,21 +68,21 @@ const ProjectDetails = ({match, history}) => {
                             </select>
                         </label>
 
-                        <BtnSecondary  onClick={handleGenerateReport}>
+                        <BtnSecondary onClick={handleGenerateReport}>
                             <IconClipboardCheck/>
                             Generate Report
                         </BtnSecondary>
-                        <BtnSecondary  onClick={handleManageTeam}>
+                        <BtnSecondary onClick={handleManageTeam}>
                             <IconUserGroup/>
                             Manage Members
                         </BtnSecondary>
-                        <DeleteButton  onClick={() => destroy(project.id)}/>
+                        <DeleteButton onClick={() => destroy(project.id)}/>
                     </ButtonGroup>
                 </>}
             </div>
             {!project ? <Loading/> :
                 <>
-                    <Title title={project.name} type={project.description} icon={<IconFolder /> } />
+                    <Title title={project.name} type={project.description} icon={<IconFolder/>}/>
                     <h4>Timestamps</h4>
                     <Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/>
                     <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>

@@ -1,5 +1,5 @@
 import Loading from '../ui/Loading';
-import {IconClipboardList, IconPlus} from '../icons';
+import {IconClipboardList, IconPlus} from '../ui/Icons';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import TasksTable from "../tasks/TasksTable";
 

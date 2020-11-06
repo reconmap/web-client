@@ -1,4 +1,4 @@
-import {IconPlus} from "../../icons";
+import {IconPlus} from "../Icons";
 import BtnPrimary from "./BtnPrimary";
 
 const CreateButton = ({onClick, children, fontSize}) =>

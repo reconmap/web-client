@@ -1,4 +1,3 @@
-
 import {
     IconBriefcase,
     IconClipboardList,
@@ -10,7 +9,7 @@ import {
     IconFolder,
     IconReport,
     IconUserGroup
-} from "../../icons";
+} from "../../ui/Icons";
 
 const Links = [
     {title: 'Vulnerabilities', icon: <IconFlag size={5}/>, to: '/vulnerabilities'},

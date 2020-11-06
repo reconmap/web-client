@@ -10,7 +10,7 @@ import DeleteButton from "../ui/buttons/Delete";
 import {ClientLink} from "../clients/Link";
 import Timestamps from '../ui/Timestamps';
 import Title from '../ui/Title';
-import { IconFolder } from '../icons';
+import {IconFolder} from '../ui/Icons';
 
 const ProjectsList = ({history}) => {
     useSetTitle('Projects');
@@ -24,12 +24,12 @@ const ProjectsList = ({history}) => {
             <Breadcrumb history={history}/>
             <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
         </div>
-        <Title title='Projects' icon={<IconFolder />}/>
+        <Title title='Projects' icon={<IconFolder/>}/>
         {!projects ? <Loading/> : projects.length === 0 ? <NoResults/> :
             <table>
                 <thead>
                 <tr>
-                    <th style={{ width: '190px'}}>Name</th>
+                    <th style={{width: '190px'}}>Name</th>
                     <th className='w-32'>Client</th>
                     <th className='w-32'>Creation date/time</th>
                     <th className='w-20'></th>
@@ -39,12 +39,12 @@ const ProjectsList = ({history}) => {
                 {projects.map((project) =>
                     <tr key={project.id}>
                         <td>
-                        <ProjectBadge project={project}/>
-                        <p>{project.description}</p>
+                            <ProjectBadge project={project}/>
+                            <p>{project.description}</p>
                         </td>
-                        
+
                         <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
-                        <td><Timestamps insertTs={project.insert_ts} /></td>
+                        <td><Timestamps insertTs={project.insert_ts}/></td>
                         <td>
                             <DeleteButton onClick={() => destroy(project.id)}/>
                         </td>

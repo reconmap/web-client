@@ -4,7 +4,7 @@ import DeleteButton from '../ui/buttons/Delete';
 import Title from '../ui/Title';
 import Timestamps from "../ui/Timestamps";
 import ExternalLink from "../ui/ExternalLink";
-import { IconBriefcase } from '../icons';
+import {IconBriefcase} from '../ui/Icons';
 
 class ClientDetails extends Component {
 
@@ -51,13 +51,13 @@ class ClientDetails extends Component {
             <div>
                 <div className='heading'>
                     <div>
-                        <Title type='Client' title={client.name} icon={<IconBriefcase />}/>
+                        <Title type='Client' title={client.name} icon={<IconBriefcase/>}/>
                         <Timestamps insertTs={client.insert_ts} updateTs={client.update_ts}/>
                     </div>
-                    <DeleteButton  onClick={() => this.handleDelete(client)}/>
+                    <DeleteButton onClick={() => this.handleDelete(client)}/>
                 </div>
                 <article className=''>
-                    <table >
+                    <table>
                         <tbody>
                         <tr>
                             <th>Name</th>

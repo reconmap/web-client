@@ -1,22 +1,23 @@
-import { IconExclamationCircle} from '../icons'
+import {IconExclamationCircle} from './Icons'
+
 export default function NoResults() {
     const styles = {
-        noResults : {
+        noResults: {
             display: 'flex',
-            flexDirection : 'row',
+            flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
             height: '100%',
-            fontWeight : 'var(--fontBold)',
+            fontWeight: 'var(--fontBold)',
             opacity: '.4',
             gap: 'var(--padding)',
-            color : 'var(--text-color)'
+            color: 'var(--text-color)'
         }
     }
     return (
         <div style={styles.noResults}>
-            <IconExclamationCircle />
+            <IconExclamationCircle/>
             No results
         </div>
     )

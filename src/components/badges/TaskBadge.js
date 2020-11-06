@@ -1,20 +1,20 @@
-import { Link } from 'react-router-dom'
-import { IconTerminal } from '../icons'
+import {Link} from 'react-router-dom'
+import {IconTerminal} from '../ui/Icons'
 
 export default function TaskBadge({task}) {
     const styles = {
-        badge : {
+        badge: {
             color: `var(--green)`,
-            alignItems:'center',
+            alignItems: 'center',
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',
-            fontWeight : 'var(--fontBold)',
+            fontWeight: 'var(--fontBold)',
         }
     }
 
     return (
-        <Link to={"/tasks/" + task.id} style={ styles.badge } >
-            <IconTerminal  />
+        <Link to={"/tasks/" + task.id} style={styles.badge}>
+            <IconTerminal/>
             {task.name}
         </Link>
     )

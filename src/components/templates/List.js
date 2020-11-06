@@ -7,7 +7,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import ProjectBadge from '../badges/ProjectBadge';
 import useDelete from '../../hooks/useDelete';
 import BadgeOutline from '../badges/BadgeOutline';
-import {IconDocumentDuplicate, IconPlus} from '../icons';
+import {IconDocumentDuplicate, IconPlus} from '../ui/Icons';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CreateButton from '../ui/buttons/Create';
 import DeleteButton from "../ui/buttons/Delete";
@@ -37,12 +37,12 @@ const TemplatesList = ({history}) => {
                 <Breadcrumb history={history}/>
                 <CreateButton onClick={() => history.push('/import-export')}>Import template(s)</CreateButton>
             </div>
-            <Title title='Templates' icon={<IconDocumentDuplicate />}/>
+            <Title title='Templates' icon={<IconDocumentDuplicate/>}/>
             {!templates ? <Loading/> : templates.length === 0 ? <NoResults/> :
-                <table >
+                <table>
                     <thead>
                     <tr>
-                        <th style={{ width: '190px'}}>Name</th>
+                        <th style={{width: '190px'}}>Name</th>
                         <th>Description</th>
                         <th>Number of tasks</th>
                         <th>Creation date/time</th>
@@ -57,11 +57,11 @@ const TemplatesList = ({history}) => {
                             <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
                             <td><small>{template.insert_ts}</small></td>
                             <td>
-                                    <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
-                                                title="Create project using this template"><IconPlus
-                                                                                                    /> Create
-                                        project</BtnPrimary>
-                                    <DeleteButton onClick={() => destroy(template.id)}/>
+                                <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
+                                            title="Create project using this template"><IconPlus
+                                /> Create
+                                    project</BtnPrimary>
+                                <DeleteButton onClick={() => destroy(template.id)}/>
                             </td>
                         </tr>
                     )}

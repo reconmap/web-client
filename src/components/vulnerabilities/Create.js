@@ -7,7 +7,7 @@ import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CancelButton from "../ui/buttons/Cancel";
 import Title from '../ui/Title';
-import {IconPlus} from '../icons';
+import {IconPlus} from '../ui/Icons';
 import useSetTitle from "../../hooks/useSetTitle";
 
 export default function VulnerabilityCreate({history, location}) {

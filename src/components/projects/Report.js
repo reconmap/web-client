@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import secureApiFetch from '../../services/api';
 import './Report.css';
 import Breadcrumb from './../ui/Breadcrumb'
-import { IconReport, IconSave } from '../icons';
+import {IconReport, IconSave} from '../ui/Icons';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import Title from '../ui/Title';
 
@@ -48,7 +48,7 @@ class ProjectReport extends Component {
         })
             .then((responses) => responses.json())
             .then((data) => {
-                const newState = { project: data };
+                const newState = {project: data};
                 this.setState(newState)
                 document.title = `Report ${newState.project.name} | Reconmap`;
             });
@@ -60,7 +60,10 @@ class ProjectReport extends Component {
                 document.getElementById('report').innerHTML = data;
             });
     }
-    handleGoBack() { this.props.history.goBack() }
+
+    handleGoBack() {
+        this.props.history.goBack()
+    }
 
     render() {
 
@@ -70,10 +73,11 @@ class ProjectReport extends Component {
 
             <>
                 <div className='heading'>
-                    <Breadcrumb history={this.props.history} />
-                    <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave /> Export to PDF</BtnSecondary>
+                    <Breadcrumb history={this.props.history}/>
+                    <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave/> Export to PDF</BtnSecondary>
                 </div>
-                <Title type='Report' title={this.state.project ? this.state.project.name : 'Project'} icon={<IconReport />} />
+                <Title type='Report' title={this.state.project ? this.state.project.name : 'Project'}
+                       icon={<IconReport/>}/>
                 <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4' id="report"></div>
             </>
         )

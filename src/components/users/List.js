@@ -12,7 +12,7 @@ import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import secureApiFetch from "../../services/api";
 import Title from '../ui/Title';
-import { IconUserGroup } from '../icons';
+import {IconUserGroup} from '../ui/Icons';
 import UserLink from './Link';
 
 const UsersList = ({history}) => {
@@ -60,13 +60,13 @@ const UsersList = ({history}) => {
                     <CreateButton onClick={handleCreate}>Create User</CreateButton>
                 </ButtonGroup>
             </div>
-            <Title title='Users and Permissions' icon={<IconUserGroup />}/>
+            <Title title='Users and Permissions' icon={<IconUserGroup/>}/>
             {!users ? <Loading/> : users.length === 0 ? <NoResults/> :
-                <table >
+                <table>
                     <thead>
                     <tr>
-                        <th style={{ width:'32px'}}>&nbsp;</th>
-                        <th style={{ width:'64px'}}>&nbsp;</th>
+                        <th style={{width: '32px'}}>&nbsp;</th>
+                        <th style={{width: '64px'}}>&nbsp;</th>
                         <th>Username</th>
                         <th>Role</th>
                         <th>&nbsp;</th>
@@ -82,7 +82,7 @@ const UsersList = ({history}) => {
                             <UserAvatar email={user.email} size='--iconSize'/>
                         </td>
                         <td>
-                        <UserLink userId={user.id}>{user.name}</UserLink>
+                            <UserLink userId={user.id}>{user.name}</UserLink>
                         </td>
                         <td><UserRoleBadge role={user.role}/></td>
                         <td className='text-right'>

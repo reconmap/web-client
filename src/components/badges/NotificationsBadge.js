@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {IconBell} from './../icons'
+import {IconBell} from '../ui/Icons'
+
 export default function NotificationsBadge() {
     const [notifications, setNotifications] = useState([])
 
@@ -43,13 +44,13 @@ export default function NotificationsBadge() {
         console.error(e);
     }
     const styles = {
-        button :{
-            position :'relative',
+        button: {
+            position: 'relative',
         }
     }
 
-    return ( <button style={styles.button} onClick={handleShowWindow} aria-label="Notifications">
-                <IconBell styling={{ margin: 0}} />
+    return (<button style={styles.button} onClick={handleShowWindow} aria-label="Notifications">
+            <IconBell styling={{margin: 0}}/>
             {notifications.length > 0 &&
             <div className='w-3 h-3 -m-1 bg-red-500 rounded-full absolute top-0 right-0 animate-pulse'></div>}
             {showWindow && <NotificationsWindow notifications={notifications}/>}
@@ -59,33 +60,33 @@ export default function NotificationsBadge() {
 
 const NotificationsWindow = ({notifications}) => {
     const styles = {
-        notificationWindow :{
-            position :'absolute',
-            padding : 'var(--paddingBox)',
-            borderRadius: 'var(--borderRadius)' ,
-            backgroundColor : 'var(--black)',
-            color : 'var(--text-color)',
-            top:'40px',
+        notificationWindow: {
+            position: 'absolute',
+            padding: 'var(--paddingBox)',
+            borderRadius: 'var(--borderRadius)',
+            backgroundColor: 'var(--black)',
+            color: 'var(--text-color)',
+            top: '40px',
             left: '-70px',
-            right:0,
+            right: 0,
             margin: 'auto',
             width: '180px',
             zIndex: 10,
             fontSize: 'var(--fontSizeXsmall'
         },
-       
+
     }
 
-    return <div style={styles.notificationWindow} >
-            {notifications.length > 0 ?
-                <ul>
-                    {notifications.map((notification, index) =>
-                        <li key={index} className='flex justify-between items-center my-1'>
-                            {notification.title}
-                            <span className='text-red-500  rounded-full font-bold text-sm'>{notification.detail}</span>
-                        </li>
-                    )}
-                </ul>
+    return <div style={styles.notificationWindow}>
+        {notifications.length > 0 ?
+            <ul>
+                {notifications.map((notification, index) =>
+                    <li key={index} className='flex justify-between items-center my-1'>
+                        {notification.title}
+                        <span className='text-red-500  rounded-full font-bold text-sm'>{notification.detail}</span>
+                    </li>
+                )}
+            </ul>
             : <span>No notifications</span>}
     </div>
 }

@@ -5,14 +5,14 @@ import UserActivityStatsWidget from "./UserActivityStatsWidget";
 import VulnerabilitiesByRiskStatsWidget from "./VulnerabilitiesByRiskStatsWidget";
 import VulnerabilitiesByCategoryStatsWidget from "./VulnerabilitiesByCategoryStatsWidget";
 import Title from "../../ui/Title";
-import { IconChartBar } from "../../icons";
+import {IconChartBar} from "../../ui/Icons";
 
 function Dashboard({children}) {
     useSetTitle('Dashboard')
     return (
         <>
             <Header/>
-            <main role="main" >
+            <main role="main">
                 <Sidebar/>
                 <div id='content'>
                     {children || <DashboardPanels/>}
@@ -25,7 +25,7 @@ function Dashboard({children}) {
 const DashboardPanels = () => {
 
     return <section>
-        <Title title="Statistics" type="Dashboard" icon={<IconChartBar />}/>
+        <Title title="Statistics" type="Dashboard" icon={<IconChartBar/>}/>
         <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3'>
             <UserActivityStatsWidget/>
             <VulnerabilitiesByRiskStatsWidget/>

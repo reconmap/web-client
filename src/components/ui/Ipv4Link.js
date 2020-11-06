@@ -1,4 +1,4 @@
-import {IconId} from '../icons';
+import {IconId} from './Icons';
 import ExternalLink from "./ExternalLink";
 
 const Ipv4Link = (props) => {

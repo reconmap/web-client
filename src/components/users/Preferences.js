@@ -1,6 +1,6 @@
-import React, { useContext, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import useSetTitle from '../../hooks/useSetTitle'
-import {IconDark, IconLight, IconPreferences, IconSave} from '../icons'
+import {IconDark, IconLight, IconPreferences, IconSave} from '../ui/Icons'
 import {getAllTimezones} from 'countries-and-timezones';
 import secureApiFetch from '../../services/api';
 import BtnPrimary from '../ui/buttons/BtnPrimary'
@@ -22,16 +22,16 @@ const UserPreferences = ({history}) => {
     const handleSwitchTheme = () => {
         setTheme(theme => {
             setThemeColors(theme)
-            return (theme === 'light') ? 'dark'  : 'light'
-         })
+            return (theme === 'light') ? 'dark' : 'light'
+        })
     }
-   
+
     const handleChange = (e) => {
         setTimezone(e.target.value);
     }
 
     const handleSubmit = () => {
-        
+
         secureApiFetch(`/users/${user.id}`, {
             method: 'PATCH',
             body: JSON.stringify({timezone: timezone})
@@ -49,22 +49,22 @@ const UserPreferences = ({history}) => {
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <Title type='User' title='Preferences' icon={<IconPreferences />}/>
-            <form onSubmit={e => e.preventDefault()} >
+            <Title type='User' title='Preferences' icon={<IconPreferences/>}/>
+            <form onSubmit={e => e.preventDefault()}>
                 <label>Timezone
-                <select onChange={handleChange} defaultValue={user.timezone}>
-                    {timezoneKeys.map((key) =>
-                        <option value={timezones[key].name}>{timezones[key].name}</option>
-                    )}
-                </select>
+                    <select onChange={handleChange} defaultValue={user.timezone}>
+                        {timezoneKeys.map((key) =>
+                            <option value={timezones[key].name}>{timezones[key].name}</option>
+                        )}
+                    </select>
                 </label>
                 <label>Theme
-                <BtnSecondary onClick={handleSwitchTheme}>
-                    {theme === 'light' ? 
-                        <IconDark/> : <IconLight/>
-                    } 
-                    {theme === 'light' ? 'Dark' : 'Light'}
-                </BtnSecondary>
+                    <BtnSecondary onClick={handleSwitchTheme}>
+                        {theme === 'light' ?
+                            <IconDark/> : <IconLight/>
+                        }
+                        {theme === 'light' ? 'Dark' : 'Light'}
+                    </BtnSecondary>
 
                 </label>
                 <BtnPrimary onClick={handleSubmit}><IconSave/> Save</BtnPrimary>

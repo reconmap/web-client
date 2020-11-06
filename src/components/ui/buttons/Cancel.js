@@ -1,4 +1,4 @@
-import {IconX} from "../../icons";
+import {IconX} from "../Icons";
 import BtnLink from "./BtnLink";
 
 const CancelButton = ({onClick, children}) => <BtnLink onClick={onClick} type="cancel" className="flex">

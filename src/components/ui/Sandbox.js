@@ -1,12 +1,13 @@
 import React from 'react'
-import { IconUnlocked } from '../icons'
+import {IconUnlocked} from './Icons'
 import Title from './Title'
 import Breadcrumb from './../ui/Breadcrumb'
-import { useHistory } from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import Help from './../ui/Help'
 import BtnPrimary from './../ui/buttons/BtnPrimary'
 import BtnSecondary from './buttons/BtnSecondary'
 import BtnLink from './buttons/BtnLink'
+
 export default function Sandbox() {
     const history = useHistory()
     const colors = [
@@ -30,10 +31,11 @@ export default function Sandbox() {
     return (
         <div>
             <Breadcrumb history={history}/>
-            <Title title='Sandbox' type='UI test page' icon={<IconUnlocked />}/>
+            <Title title='Sandbox' type='UI test page' icon={<IconUnlocked/>}/>
             <Help title='This is the help'>
                 <p>
-                    Excepteur exercitation incididunt quis commodo sint do pariatur labore velit do commodo voluptate minim Lorem.
+                    Excepteur exercitation incididunt quis commodo sint do pariatur labore velit do commodo voluptate
+                    minim Lorem.
                 </p>
             </Help>
             <div>
@@ -48,15 +50,22 @@ export default function Sandbox() {
                 vim .env
             </code>
             <h4>Heading Level 4 can have buttons on the right <button>Press Me</button></h4>
-            <p>This  is a paragraph.</p>
-            <div className='button-group' style={{ margin: 'var(--margin) 0'}}>
+            <p>This is a paragraph.</p>
+            <div className='button-group' style={{margin: 'var(--margin) 0'}}>
                 <BtnPrimary>BtnPrimary</BtnPrimary>
                 <BtnSecondary>BtnSecondary</BtnSecondary>
                 <BtnLink>BtnLink</BtnLink>
             </div>
-           
-            <p style={{ display:'flex', gap: '10px', flexWrap:'wrap', fontSize:'var(--fontSizeXsmall)', color:'white'}}>
-                {colors.map( color => <figure style={{ width:'80px', height:'80px', background:`var(${color})`}}>{color}</figure>)}
+
+            <p style={{
+                display: 'flex',
+                gap: '10px',
+                flexWrap: 'wrap',
+                fontSize: 'var(--fontSizeXsmall)',
+                color: 'white'
+            }}>
+                {colors.map(color => <figure
+                    style={{width: '80px', height: '80px', background: `var(${color})`}}>{color}</figure>)}
             </p>
         </div>
     )

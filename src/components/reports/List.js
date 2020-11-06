@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import useDelete from '../../hooks/useDelete';
-import {IconCode, IconDocument, IconDownloadDocument, IconReport} from '../icons';
+import {IconCode, IconDocument, IconDownloadDocument, IconReport} from '../ui/Icons';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import DeleteButton from "../ui/buttons/Delete";
 import Title from '../ui/Title';
@@ -40,7 +40,7 @@ const ReportsList = ({history}) => {
 
             <Breadcrumb history={history}/>
         </div>
-        <Title title='Saved Reports' icon={<IconReport />}/>
+        <Title title='Saved Reports' icon={<IconReport/>}/>
         {!reports ? <Loading/> : reports.length === 0 ? <NoResults/> :
             <table className='w-full my-4'>
                 <thead>
@@ -71,8 +71,8 @@ const ReportsList = ({history}) => {
                             <td>{report.insert_ts}</td>
                             <td className="space-x-2 flex  justify-end  ">
                                 <BtnPrimary onClick={() => handleDownload(report.id)}><IconDownloadDocument
-                                   /> Download</BtnPrimary>
-                                <DeleteButton  onClick={() => deleteReport(report.id)}/>
+                                /> Download</BtnPrimary>
+                                <DeleteButton onClick={() => deleteReport(report.id)}/>
                             </td>
                         </tr>
                     )

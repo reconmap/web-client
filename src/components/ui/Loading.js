@@ -1,22 +1,23 @@
-import {  IconRefresh} from '../icons'
+import {IconRefresh} from './Icons'
+
 export default function Loading() {
     const styles = {
-        loading : {
+        loading: {
             display: 'flex',
-            flexDirection : 'row',
+            flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
             height: '100%',
-            fontWeight : 'var(--fontBold)',
+            fontWeight: 'var(--fontBold)',
             opacity: '.4',
             gap: 'var(--padding)',
-            color : 'var(--text-color)'
+            color: 'var(--text-color)'
         }
     }
     return (
         <div style={styles.loading}>
-            <IconRefresh />
+            <IconRefresh/>
             Loading
         </div>
     )

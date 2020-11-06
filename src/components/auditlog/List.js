@@ -4,7 +4,7 @@ import secureApiFetch from '../../services/api';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import useSetTitle from '../../hooks/useSetTitle';
-import {IconEye, IconSave} from '../icons';
+import {IconEye, IconSave} from '../ui/Icons';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import Title from '../ui/Title';

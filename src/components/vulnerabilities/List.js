@@ -9,7 +9,7 @@ import secureApiFetch from '../../services/api';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 import CreateButton from '../ui/buttons/Create';
 import Title from '../ui/Title';
-import {IconFlag} from '../icons';
+import {IconFlag} from '../ui/Icons';
 
 const VulnerabilitiesList = ({history}) => {
     const searchParams = new URLSearchParams(history.location.search);

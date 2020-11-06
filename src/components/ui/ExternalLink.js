@@ -1,5 +1,5 @@
 import React from "react";
-import {IconExternalLink} from "../icons";
+import {IconExternalLink} from "./Icons";
 import "./ExternalLink.css";
 
 const ExternalLink

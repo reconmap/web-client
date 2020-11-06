@@ -11,7 +11,7 @@ import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
-import {IconCheck, IconFlag} from '../icons';
+import {IconCheck, IconFlag} from '../ui/Icons';
 
 class VulnerabilityDetails extends Component {
     constructor(props) {

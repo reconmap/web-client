@@ -5,7 +5,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import {useHistory} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import {useEffect, useState} from 'react';
-import {IconSearch} from '../icons';
+import {IconSearch} from '../ui/Icons';
 
 const SearchResults = (props) => {
     useSetTitle('Search results');

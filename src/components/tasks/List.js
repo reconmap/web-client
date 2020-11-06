@@ -7,7 +7,7 @@ import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import Title from '../ui/Title';
 import TasksTable from './TasksTable';
-import {IconClipboardList} from '../icons';
+import {IconClipboardList} from '../ui/Icons';
 
 const TasksList = ({history}) => {
     useSetTitle('Tasks');

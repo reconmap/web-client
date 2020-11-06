@@ -6,7 +6,7 @@ import BtnLink from './../ui/buttons/BtnLink'
 import BtnSecondary from '../ui/buttons/BtnSecondary';
 import UserAvatar from '../badges/UserAvatar';
 import NotificationsBadge from '../badges/NotificationsBadge';
-import {IconLogout} from '../icons';
+import {IconLogout} from '../ui/Icons';
 import SearchBox from "../search/Box";
 
 const LINKS = [
@@ -21,7 +21,7 @@ export default function Header() {
     const handleGoHome = () => {
         history.push('/')
     }
-    
+
     const handleMyProfile = () => {
         history.push(`/users/${localStorage.getItem('user.id')}`)
     }

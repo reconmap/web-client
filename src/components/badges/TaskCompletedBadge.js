@@ -1,23 +1,23 @@
-import { IconCheck,  IconX } from "../icons"
+import {IconCheck, IconX} from "../ui/Icons"
 
-export default function TaskCompletedBadge({ completed }) {
+export default function TaskCompletedBadge({completed}) {
     const styles = {
-        badge : {
+        badge: {
             // width: 'var(--iconSizeSmall)',
             // height: 'var(--iconSizeSmall)',
             display: 'inline-flex',
-            flexShrink:0,
+            flexShrink: 0,
             padding: 'calc(var(--margin)/2)',
             borderRadius: '50%',
-            color: completed === '1' ? 'var(--black)':'var(--text-color)',
-            backgroundColor : completed === '1' ? 'var(--green)':'var(--black)',
+            color: completed === '1' ? 'var(--black)' : 'var(--text-color)',
+            backgroundColor: completed === '1' ? 'var(--green)' : 'var(--black)',
             alignItems: 'center',
             justifyContent: 'center',
         }
     }
     return (
         <div style={styles.badge}>
-            {completed === '1' ? <IconCheck/> : <IconX/> }
+            {completed === '1' ? <IconCheck/> : <IconX/>}
         </div>
     )
 }
