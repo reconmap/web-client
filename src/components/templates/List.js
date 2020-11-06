@@ -8,10 +8,10 @@ import ProjectBadge from '../badges/ProjectBadge';
 import useDelete from '../../hooks/useDelete';
 import BadgeOutline from '../badges/BadgeOutline';
 import {IconDocumentDuplicate, IconPlus} from '../ui/Icons';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
 import CreateButton from '../ui/buttons/Create';
-import DeleteButton from "../ui/buttons/Delete";
 import Title from '../ui/Title';
+import BtnPrimary from "../ui/buttons/BtnPrimary";
+import DeleteButton from "../ui/buttons/Delete";
 
 const TemplatesList = ({history}) => {
     useSetTitle('Projects templates');
@@ -56,10 +56,9 @@ const TemplatesList = ({history}) => {
                             <td width='30%'><small>{template.description}</small></td>
                             <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
                             <td><small>{template.insert_ts}</small></td>
-                            <td>
+                            <td className="space-x-2 flex  justify-end">
                                 <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
-                                            title="Create project using this template"><IconPlus
-                                /> Create
+                                            title="Create project using this template"><IconPlus/>Create
                                     project</BtnPrimary>
                                 <DeleteButton onClick={() => destroy(template.id)}/>
                             </td>

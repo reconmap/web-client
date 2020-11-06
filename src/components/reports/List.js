@@ -74,7 +74,7 @@ const ReportsList = ({history}) => {
                                 </div>
                             </td>
                             <td>{report.insert_ts}</td>
-                            <td className="space-x-2 flex  justify-end  ">
+                            <td className="space-x-2 flex  justify-end">
                                 <BtnPrimary onClick={() => handleDownload(report.id)}><IconDownloadDocument
                                 />Download</BtnPrimary>
                                 <BtnSecondary onClick={() => handleSendByEmail(report.id)}>Send by email</BtnSecondary>
