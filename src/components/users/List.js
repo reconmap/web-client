@@ -55,9 +55,9 @@ const UsersList = ({history}) => {
             <div className='heading'>
                 <Breadcrumb history={history}/>
                 <ButtonGroup>
+                    <CreateButton onClick={handleCreate}>Create User</CreateButton>
                     <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>Delete
                         selected</DeleteButton>
-                    <CreateButton onClick={handleCreate}>Create User</CreateButton>
                 </ButtonGroup>
             </div>
             <Title title='Users and Permissions' icon={<IconUserGroup/>}/>
