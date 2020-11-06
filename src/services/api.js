@@ -1,9 +1,8 @@
 import configuration from '../Configuration';
 
 function secureApiFetch(input, init) {
-    const headers = {
-        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-    }
+    const accessToken = localStorage.getItem('accessToken');
+    const headers = accessToken !== null ? {Authorization: 'Bearer ' + accessToken} : {};
     const initWithAuth = init;
     if (initWithAuth.hasOwnProperty('headers')) {
         Object.assign(initWithAuth.headers, headers);
