@@ -15,7 +15,7 @@ const VulnerabilitiesList = ({history}) => {
     const searchParams = new URLSearchParams(history.location.search);
     let pageNumber = searchParams.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
-    const page = pageNumber - 1;
+    const apiPageNumber = pageNumber - 1;
 
     useSetTitle(`Vulnerabilities - Page ${pageNumber}`)
 
@@ -30,7 +30,7 @@ const VulnerabilitiesList = ({history}) => {
     }
 
     const reloadData = useCallback(() => {
-        secureApiFetch(`/vulnerabilities?page=${page}`, {method: 'GET'})
+        secureApiFetch(`/vulnerabilities?page=${apiPageNumber}`, {method: 'GET'})
             .then((response) => {
                 if (response.headers.has('X-Page-Count')) {
                     setNumberPages(response.headers.get('X-Page-Count'))
@@ -40,7 +40,7 @@ const VulnerabilitiesList = ({history}) => {
             .then((data) => {
                 setVulnerabilities(data);
             })
-    }, [page]);
+    }, [apiPageNumber]);
 
     useEffect(() => {
         reloadData()
@@ -55,7 +55,7 @@ const VulnerabilitiesList = ({history}) => {
         <>
             <div className='heading'>
                 <Breadcrumb history={history}/>
-                <Pagination page={page} total={numberPages} handlePrev={handlePrev} handleNext={handleNext}/>
+                <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext}/>
                 <CreateButton onClick={handleCreateVulnerability}>Create Vulnerability</CreateButton>
             </div>
             <Title title='Vulnerabilities' icon={<IconFlag/>}/>

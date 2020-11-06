@@ -11,32 +11,35 @@ import Title from '../ui/Title';
 import AuditLogsTable from "./AuditLogsTable";
 
 const AuditLogList = ({history}) => {
-    useSetTitle('Reports');
+    const searchParams = new URLSearchParams(history.location.search);
+    let pageNumber = searchParams.get('page');
+    pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
+    const apiPageNumber = pageNumber - 1;
+
+    useSetTitle(`Audit log - Page ${pageNumber}`)
 
     const [auditLog, setAuditLog] = useState([])
-    const [pagination, setPagination] = useState({page: 0, total: 0})
+    const [numberPages, setNumberPages] = useState(0)
 
     const handlePrev = () => {
-        setPagination({...pagination, page: pagination.page - 1})
+        history.push(`/auditlog?page=${pageNumber - 1}`);
     }
     const handleNext = () => {
-        setPagination({...pagination, page: pagination.page + 1})
+        history.push(`/auditlog?page=${pageNumber + 1}`);
     }
 
     const reloadData = useCallback(() => {
-        secureApiFetch(`/auditlog?page=${pagination.page}`, {method: 'GET'})
+        secureApiFetch(`/auditlog?page=${apiPageNumber}`, {method: 'GET'})
             .then((response) => {
                 if (response.headers.has('X-Page-Count')) {
-                    setPagination(pagination => {
-                        return {...pagination, total: response.headers.get('X-Page-Count')}
-                    })
+                    setNumberPages(response.headers.get('X-Page-Count'))
                 }
                 return response.json()
             })
             .then((data) => {
                 setAuditLog(data);
             })
-    }, [pagination.page]);
+    }, [apiPageNumber]);
 
     useEffect(() => {
         reloadData()
@@ -61,12 +64,11 @@ const AuditLogList = ({history}) => {
             })
     }
 
-    return (<>
-
+    return (
+        <>
             <div className='heading'>
                 <Breadcrumb history={history}/>
-                <Pagination page={pagination.page} total={pagination.total} handlePrev={handlePrev}
-                            handleNext={handleNext}/>
+                <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext}/>
                 <BtnSecondary onClick={handleExport}><IconSave/> Export to CSV</BtnSecondary>
             </div>
             <Title title='Audit Log' icon={<IconEye/>}/>
