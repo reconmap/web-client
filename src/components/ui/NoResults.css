@@ -1,0 +1,12 @@
+.NoResults {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-weight: var(--fontBold);
+    opacity: .4;
+    gap: var(--padding);
+    color: var(--text-color);
+}
