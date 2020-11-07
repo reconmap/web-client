@@ -25,11 +25,13 @@ const ProjectDetails = ({match, history}) => {
     const [users] = useFetch(`/projects/${match.params.id}/users`)
     const destroy = useDelete(`/projects/`, updateProject);
 
+    const projectId = match.params.id;
+
     const handleAddTask = () => {
-        history.push(`/projects/${match.params.id}/tasks/create`)
+        history.push(`/tasks/create?projectId=${projectId}`)
     }
     const handleAddTarget = () => {
-        history.push(`/projects/${match.params.id}/targets/create`)
+        history.push(`/projects/${projectId}/targets/create`)
     }
     const handleGenerateReport = () => {
         history.push(`/projects/${project.id}/report`)

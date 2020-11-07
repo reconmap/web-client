@@ -1,7 +1,7 @@
 import Loading from '../ui/Loading';
-import {IconClipboardList, IconPlus} from '../ui/Icons';
-import BtnSecondary from '../ui/buttons/BtnSecondary';
+import {IconClipboardList} from '../ui/Icons';
 import TasksTable from "../tasks/TasksTable";
+import CreateButton from "../ui/buttons/Create";
 
 const ProjectTasks = ({tasks, handleAddTask}) => {
     return <section>
@@ -9,7 +9,7 @@ const ProjectTasks = ({tasks, handleAddTask}) => {
             <IconClipboardList/> Task(s) <small>({tasks && tasks.reduce(function (total, task) {
             return task.completed ? total + 1 : total;
         }, 0)}/{tasks && tasks.length} completed)</small>
-            <BtnSecondary onClick={handleAddTask}><IconPlus/>Add task</BtnSecondary>
+            <CreateButton onClick={handleAddTask}>Add task</CreateButton>
         </h4>
 
         {tasks ? <TasksTable tasks={tasks}/> : <Loading/>}

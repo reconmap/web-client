@@ -15,7 +15,7 @@ export default function VulnerabilityCreate({history, location}) {
     useSetTitle('Create Vulnerability');
 
     const projectId = new URLSearchParams(location.search).get('projectId') || null
-    const [projects] = useFetch('/projects')
+    const [projects] = useFetch('/projects');
     const [vulnerability, setVulnerability] = useState({
         projectId: projectId || null,
         summary: null,
@@ -53,14 +53,15 @@ export default function VulnerabilityCreate({history, location}) {
                 <form onSubmit={handleCreate}>
                     {!projectId &&
                     <label>
-                        <span>Project</span>
+                        Project
                         <select name="projectId" id="projectId" onChange={handleFormChange}
                                 defaultValue={vulnerability.projectId}>
                             {projects.map((project, index) =>
                                 <option key={index} value={project.id}>{project.name}</option>
                             )}
                         </select>
-                    </label>}
+                    </label>
+                    }
                     <label>
                         Summary
                         <input type="text" name="summary" onChange={handleFormChange}

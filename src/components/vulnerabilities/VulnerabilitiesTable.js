@@ -23,7 +23,9 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
             </thead>
             <tbody>
             {vulnerabilities.length === 0 ?
-                <td colspan="6"><NoResults/></td> :
+                <tr>
+                    <td colSpan="6"><NoResults/></td>
+                </tr> :
                 vulnerabilities.map((vulnerability, index) => {
                     return (
                         <tr key={index} style={{opacity: vulnerability.status === 'open' ? '1' : '.5'}}>

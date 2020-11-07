@@ -11,7 +11,7 @@ const ProjectVulnerabilities = ({project, vulnerabilities}) => {
     const history = useHistory();
 
     const handleCreateVulnerability = () => {
-        history.push(`/vulnerabilities/create?projectId=${project.id}=1`)
+        history.push(`/vulnerabilities/create?projectId=${project.id}`)
     }
 
     const [category, setCategory] = useState('')

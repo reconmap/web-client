@@ -10,7 +10,7 @@ import Breadcrumb from "../ui/Breadcrumb";
 import Loading from '../ui/Loading'
 import Timestamps from "../ui/Timestamps";
 import toast, {actionCompletedToast} from "../../utilities/toast";
-import TaskCompletedBadge from '../badges/TaskCompletedBadge'
+import TaskStatusBadge from '../badges/TaskStatusBadge'
 import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'
 
@@ -94,7 +94,7 @@ const TaskDetails = ({history, match}) => {
                     <code>{task.description}</code>
                     <h4>Status</h4>
                     <p style={{display: 'flex', alignItems: 'center', columnGap: 'var(--margin)'}}>
-                        <TaskCompletedBadge completed={String(task.completed)}/>
+                        <TaskStatusBadge completed={String(task.completed)}/>
                         {String(task.completed) === '1' ? 'Completed' : 'Incomplete'}
                     </p>
                     <h4>Results</h4>
