@@ -1,13 +1,11 @@
-import {useHistory} from 'react-router-dom'
+import {Link } from 'react-router-dom'
 
 import {AuthConsumer} from '../../contexts/AuthContext'
 
 import BtnLink from './../ui/buttons/BtnLink'
-import BtnSecondary from '../ui/buttons/BtnSecondary';
-import UserAvatar from '../badges/UserAvatar';
 import NotificationsBadge from '../badges/NotificationsBadge';
-import {IconLogout} from '../ui/Icons';
 import SearchBox from "../search/Box";
+import HeaderUserMenu from '../ui/HeaderUserMenu';
 
 const LINKS = [
     {title: "Release notes", to: {pathname: "https://github.com/reconmap/application/releases"}},
@@ -16,32 +14,20 @@ const LINKS = [
 ];
 
 export default function Header() {
-    const history = useHistory()
-
-    const handleGoHome = () => {
-        history.push('/')
-    }
-
-    const handleMyProfile = () => {
-        history.push(`/users/${localStorage.getItem('user.id')}`)
-    }
-
+   
     return <AuthConsumer>
         {
-            ({isAuth, logout, user}) => (
+            ({isAuth, user}) => (
                 <nav>
-                    <h3 onClick={handleGoHome} style={{paddingLeft: 'var(--padding)', cursor: 'pointer'}}>
+                    <Link to='/' style={{paddingLeft: 'var(--padding)', cursor: 'pointer', marginRight:'auto'}}><h3 >
                         <strong style={{color: 'var(--white)'}}>Recon<span
                             style={{color: 'var(--primary-color)'}}>map</span></strong>
                     </h3>
+                    </Link>
                     {isAuth ? <>
                             <SearchBox/>
                             <NotificationsBadge/>
-                            {user && <UserAvatar onClick={handleMyProfile} email={user.email}/>}
-                            <BtnSecondary onClick={logout}>
-                                <IconLogout/>
-                                Logout
-                            </BtnSecondary>
+                            {user && <HeaderUserMenu email={user.email}/>}
                         </>
                         : LINKS.map((link, index) => (
                             <BtnLink external key={index} to={link.to.pathname}>
