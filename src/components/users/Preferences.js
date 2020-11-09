@@ -31,7 +31,6 @@ const UserPreferences = ({history}) => {
     }
 
     const handleSubmit = () => {
-
         secureApiFetch(`/users/${user.id}`, {
             method: 'PATCH',
             body: JSON.stringify({timezone: timezone})
@@ -41,7 +40,7 @@ const UserPreferences = ({history}) => {
                 localStorage.setItem('user', JSON.stringify(user));
                 history.push('/');
             })
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 
     return (
