@@ -1,16 +1,10 @@
 import React from 'react'
 import LINKS from './Links'
-import {Link, NavLink, useHistory} from 'react-router-dom'
-import {IconBookOpen, IconDashboard, IconPreferences} from '../../ui/Icons';
+import {Link, NavLink} from 'react-router-dom'
+import {IconBookOpen, IconDashboard} from '../../ui/Icons';
 import BtnSecondary from '../../ui/buttons/BtnSecondary';
 
 export default function Sidebar() {
-    const history = useHistory()
-
-    const handleOpenPrefs = () => {
-        history.push('/users/preferences')
-    }
-
     const handleUserManual = () => {
         window.open("https://reconmap.org/user-manual/", '_blank');
     }
@@ -30,10 +24,6 @@ export default function Sidebar() {
                 <BtnSecondary onClick={handleUserManual}>
                     <IconBookOpen/>
                     User manual
-                </BtnSecondary>
-                <BtnSecondary onClick={handleOpenPrefs}>
-                    <IconPreferences/>
-                    Preferences
                 </BtnSecondary>
             </div>
         </aside>
