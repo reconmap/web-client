@@ -9,8 +9,8 @@ export default function useDelete(endpoint, updateCb) {
                 await secureApiFetch(`${endpoint}${id}`, {method: 'DELETE'})
                 updateCb()
                 actionCompletedToast('The element has been deleted.');
-            } catch (e) {
-                console.log(e)
+            } catch (err) {
+                console.error(err)
             }
         }
     }
