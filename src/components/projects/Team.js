@@ -8,7 +8,6 @@ const ProjectTeam = ({project, users}) => {
     }
 
     return (
-
         <div className='flex px-2 py-2 -space-x-2 mr-auto ml-3 '>
             {users && users.map((user, index) =>
                 <UserAvatar

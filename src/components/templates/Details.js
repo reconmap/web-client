@@ -54,7 +54,7 @@ const TemplateDetails = ({history, match}) => {
                             <div className='flex flex-col gap-2 mb-2'>
                                 <ol>
                                     {tasks && tasks.map((task, index) =>
-                                        <li>
+                                        <li key={index}>
                                             <Link to={"/tasks/" + task.id}>{task.name}</Link>
                                         </li>
                                     )}

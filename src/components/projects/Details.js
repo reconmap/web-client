@@ -65,7 +65,7 @@ const ProjectDetails = ({match, history}) => {
                             <select onChange={handleClientChange} defaultValue={project.client_id}>
                                 <option value="">(none)</option>
                                 {clients && clients.map((client, index) =>
-                                    <option value={client.id}>{client.name}</option>
+                                    <option key={index} value={client.id}>{client.name}</option>
                                 )}
                             </select>
                         </label>

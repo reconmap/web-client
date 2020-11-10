@@ -39,7 +39,7 @@ export default function TargetCreateForm({match, history}) {
                 <label>Kind
                     <select name="kind" onChange={handleFormChange}>
                         {TargetKinds.map((targetKind, index) =>
-                            <option value={targetKind.value}>{targetKind.description}</option>
+                            <option key={index} value={targetKind.value}>{targetKind.description}</option>
                         )}
                     </select>
                 </label>

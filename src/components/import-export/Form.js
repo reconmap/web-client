@@ -61,7 +61,7 @@ class ImportExportForm extends Component {
                 <>
                     <h2>{projectsImported.length} projects imported</h2>
                     <ul id="projectsImported">
-                        {projectsImported.map((project, index) => <li>{project.name}</li>)}
+                        {projectsImported.map((project, index) => <li key={index}>{project.name}</li>)}
                     </ul>
                 </>
                 }

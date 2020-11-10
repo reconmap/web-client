@@ -47,7 +47,7 @@ const TasksList = ({match, history}) => {
                 Select User
                 <select id="userId">
                     {users && users.map((user, index) =>
-                        <option value={user.id}>{user.name}</option>
+                        <option key={index} value={user.id}>{user.name}</option>
                     )}
                 </select>
             </label>
@@ -69,7 +69,7 @@ const TasksList = ({match, history}) => {
                         <tbody>
                         {members &&
                         members.map((member, index) =>
-                            <tr>
+                            <tr key={index}>
                                 <td><UserAvatar size='--iconSizeLarge' email={member.email}/></td>
                                 <td><UserLink userId={member.id}>{member.name}</UserLink></td>
                                 <td className='text-right'>

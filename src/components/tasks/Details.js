@@ -68,7 +68,7 @@ const TaskDetails = ({history, match}) => {
                         <select onChange={handleAssigneeChange} defaultValue={task.assignee_uid}>
                             <option value="">(nobody)</option>
                             {users && users.map((user, index) =>
-                                <option value={user.id}>{user.name}</option>
+                                <option key={index} value={user.id}>{user.name}</option>
                             )}
                         </select>
                     </label>

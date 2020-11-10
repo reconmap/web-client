@@ -64,8 +64,10 @@ export default function Sandbox() {
                 fontSize: 'var(--fontSizeXsmall)',
                 color: 'white'
             }}>
-                {colors.map(color => <figure
-                    style={{width: '80px', height: '80px', background: `var(${color})`}}>{color}</figure>)}
+                {colors.map((color, index) =>
+                    <figure key={index}
+                            style={{width: '80px', height: '80px', background: `var(${color})`}}>{color}</figure>
+                )}
             </p>
         </div>
     )

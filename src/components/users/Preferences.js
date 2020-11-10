@@ -52,8 +52,8 @@ const UserPreferences = ({history}) => {
             <form onSubmit={e => e.preventDefault()}>
                 <label>Timezone
                     <select onChange={handleChange} defaultValue={user.timezone}>
-                        {timezoneKeys.map((key) =>
-                            <option value={timezones[key].name}>{timezones[key].name}</option>
+                        {timezoneKeys.map((key, index) =>
+                            <option key={index} value={timezones[key].name}>{timezones[key].name}</option>
                         )}
                     </select>
                 </label>
