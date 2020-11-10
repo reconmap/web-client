@@ -33,6 +33,12 @@ const Login = (props) => {
         setError(err)
     }
 
+    const handleSubmit = (event,login) => {
+        setLoading(true);
+        event.preventDefault();
+        login(credentials, onOk, onKo);
+    }
+
     let redirectTo
     try {
         redirectTo = props.location.state.from.pathname
@@ -48,10 +54,7 @@ const Login = (props) => {
                         <div className='flex justify-between items-center  w-full flex-col md:flex-row'>
 
                             <section className="flex flex-col w-full sm:w-1/2 max-w-md gap-2 mx-auto text-center">
-                                <form onSubmit={event => {
-                                    event.preventDefault();
-                                    login(credentials, onOk, onKo);
-                                }}>
+                                <form onSubmit={ e => handleSubmit(e,login)}>
                                     <fieldset>
                                         <legend className="text-5xl font-bold mb-10">Login</legend>
                                         <label htmlFor="inputUsername" className="sr-only">Username</label>
