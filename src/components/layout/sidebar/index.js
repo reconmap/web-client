@@ -2,7 +2,6 @@ import React from 'react'
 import LINKS from './Links'
 import {Link, NavLink, useHistory} from 'react-router-dom'
 import {IconBookOpen, IconDashboard, IconPreferences} from '../../ui/Icons';
-// import BtnLink from './../../ui/buttons/BtnLink'
 import BtnSecondary from '../../ui/buttons/BtnSecondary';
 
 export default function Sidebar() {

@@ -11,18 +11,17 @@ import {AuthProvider} from './contexts/AuthContext';
 import SearchResults from './components/search/Results';
 import ImportExportForm from './components/import-export/Form';
 import ThemeContext from './contexts/ThemeContext';
+import Sandbox from './components/ui/Sandbox';
+import setThemeColors from './utilities/setThemeColors';
 import ClientsRoutes from "./components/clients/Routes";
 import UsersRoutes from "./components/users/Routes";
 import TasksRoutes from "./components/tasks/Routes";
 import ProjectsRoutes from "./components/projects/Routes";
-import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
-import TemplatesRoutes from "./components/templates/Routes";
-import Sandbox from './components/ui/Sandbox';
-import setThemeColors from './utilities/setThemeColors';
 import ReportsRoutes from "./components/reports/Routes";
+import TemplatesRoutes from "./components/templates/Routes";
+import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 
 const App = () => {
-
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
     useEffect(() => {
         localStorage.setItem('theme', theme)
@@ -38,13 +37,18 @@ const App = () => {
                         <ProtectedRoute exact path='/' component={Dashboard}/>
                         <Dashboard>
                             <Switch>
-                                {ClientsRoutes}
-                                {UsersRoutes}
-                                {TasksRoutes}
-                                {ProjectsRoutes}
-                                {VulnerabilitiesRoutes}
-                                {TemplatesRoutes}
-                                {ReportsRoutes}
+                                {
+                                    [
+                                        ...ClientsRoutes,
+                                        ...UsersRoutes,
+                                        ...TasksRoutes,
+                                        ...ProjectsRoutes,
+                                        ...VulnerabilitiesRoutes,
+                                        ...TemplatesRoutes,
+                                        ...ReportsRoutes
+                                    ]
+                                        .map((value, index) => React.cloneElement(value, {key: index}))
+                                }
                                 <ProtectedRoute path={`/search/:keywords`} component={SearchResults}/>
                                 <ProtectedRoute path={`/integrations`} component={IntegrationsList}/>
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList}/>
@@ -56,7 +60,6 @@ const App = () => {
                         <Route component={PageNotFound}/>
                     </Switch>
                     <div id="toast"></div>
-
                 </ThemeContext.Provider>
             </AuthProvider>
         </Router>
