@@ -14,13 +14,13 @@ import Timestamps from "../ui/Timestamps";
 import {IconCheck, IconFlag} from '../ui/Icons';
 
 class VulnerabilityDetails extends Component {
+    state = {
+        vulnerability: null,
+    }
+
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
-    }
-
-    state = {
-        vulnerability: null,
     }
 
     componentDidMount() {

@@ -33,7 +33,7 @@ const Login = (props) => {
         setError(err)
     }
 
-    const handleSubmit = (event,login) => {
+    const handleSubmit = (event, login) => {
         setLoading(true);
         event.preventDefault();
         login(credentials, onOk, onKo);
@@ -54,7 +54,7 @@ const Login = (props) => {
                         <div className='flex justify-between items-center  w-full flex-col md:flex-row'>
 
                             <section className="flex flex-col w-full sm:w-1/2 max-w-md gap-2 mx-auto text-center">
-                                <form onSubmit={ e => handleSubmit(e,login)}>
+                                <form onSubmit={e => handleSubmit(e, login)}>
                                     <fieldset>
                                         <legend className="text-5xl font-bold mb-10">Login</legend>
                                         <label htmlFor="inputUsername" className="sr-only">Username</label>

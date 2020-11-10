@@ -7,13 +7,13 @@ import Timestamps from "../ui/Timestamps";
 
 class TargetView extends Component {
 
+    state = {
+        target: null,
+    }
+
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
-    }
-
-    state = {
-        target: null,
     }
 
     componentDidMount() {
@@ -52,10 +52,10 @@ class TargetView extends Component {
                     <div><Title type='Target' title={target.name}/>
                         <Timestamps insertTs={target.insert_ts} updateTs={target.update_ts}/>
                     </div>
-                    <DeleteButton  onClick={() => this.handleDelete(target)}/>
+                    <DeleteButton onClick={() => this.handleDelete(target)}/>
                 </div>
                 <article className=''>
-                    <table >
+                    <table>
                         <tbody>
                         <tr>
                             <th>Kind</th>

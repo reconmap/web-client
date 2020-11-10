@@ -8,13 +8,13 @@ import {IconBriefcase} from '../ui/Icons';
 
 class ClientDetails extends Component {
 
+    state = {
+        client: null,
+    }
+
     constructor(props) {
         super(props)
         this.handleDelete = this.handleDelete.bind(this)
-    }
-
-    state = {
-        client: null,
     }
 
     componentDidMount() {

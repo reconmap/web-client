@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthConsumer } from '../../contexts/AuthContext'
+import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
+import {AuthConsumer} from '../../contexts/AuthContext'
 import UserAvatar from './../badges/UserAvatar'
+
 export default function HeaderUserMenu({email}) {
 
     const [showWindow, setShowWindow] = useState(false)
@@ -13,17 +14,17 @@ export default function HeaderUserMenu({email}) {
     }
 
     return (
-        <div style={{ position: 'relative' }}>
-        
-        <UserAvatar onClick={handleShowWindow} email={email}/>
-                    {showWindow && <UserMenu />}
+        <div style={{position: 'relative'}}>
+
+            <UserAvatar onClick={handleShowWindow} email={email}/>
+            {showWindow && <UserMenu/>}
         </div>
     )
 }
 
 
 const UserMenu = () => {
-  
+
     const styles = {
         useMenu: {
             position: 'absolute',
@@ -39,23 +40,23 @@ const UserMenu = () => {
             zIndex: 10,
             fontSize: 'var(--fontSizeSmall)',
             display: 'flex',
-            rowGap : 'var(--margin)',
+            rowGap: 'var(--margin)',
             flexDirection: 'column',
-            textAlign:'right'
+            textAlign: 'right'
 
         },
 
     }
 
     return <AuthConsumer>
-                {({logout}) => 
-                    <div style={styles.useMenu}>
-                        <Link to={`/users/${localStorage.getItem('user.id')}`}>My profile</Link>
-                        <Link to='/users/preferences'>Preferences</Link>
-                        <Link to='/users/password-change'>Change password</Link>
-                        <hr style={{ borderColor:'var(--bg-color)' }}/>
-                        <Link to='/' onClick={logout}>Logout</Link>
-                    </div>
-                }
-            </AuthConsumer>
+        {({logout}) =>
+            <div style={styles.useMenu}>
+                <Link to={`/users/${localStorage.getItem('user.id')}`}>My profile</Link>
+                <Link to='/users/preferences'>Preferences</Link>
+                <Link to='/users/password-change'>Change password</Link>
+                <hr style={{borderColor: 'var(--bg-color)'}}/>
+                <Link to='/' onClick={logout}>Logout</Link>
+            </div>
+        }
+    </AuthConsumer>
 }

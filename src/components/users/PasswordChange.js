@@ -30,7 +30,7 @@ const UserPasswordChange = () => {
                 if (resp.status !== 200) {
                     throw new Error('Invalid response from server');
                 }
-                
+
                 actionCompletedToast(`Your password has been changed.`);
                 history.push('/users');
             })

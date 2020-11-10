@@ -12,7 +12,7 @@ const Timestamps = ({insertTs, updateTs}) => {
             <strong>Creation time:</strong>&nbsp;
             <time dateTime={insertTs}>{insertTs}</time>
             .
-            {updateTs && <div> <strong>Modification time:</strong>
+            {updateTs && <div><strong>Modification time:</strong>
                 &nbsp;
                 <time dateTime={updateTs}>{updateTs}</time>
             </div>}

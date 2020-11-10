@@ -1,9 +1,9 @@
-let { useEffect } = require('react');
+let {useEffect} = require('react');
 
-const useSetTitle = (title)  => {
+const useSetTitle = (title) => {
 
-  useEffect(() => {
-    document.title = title? title+ ' | Reconmap' : 'Reconmap';
-  }, [title]);
+    useEffect(() => {
+        document.title = title ? title + ' | Reconmap' : 'Reconmap';
+    }, [title]);
 }
 export default useSetTitle

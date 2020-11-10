@@ -1,4 +1,4 @@
-import {Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import {AuthConsumer} from '../../contexts/AuthContext'
 
@@ -14,12 +14,12 @@ const LINKS = [
 ];
 
 export default function Header() {
-   
+
     return <AuthConsumer>
         {
             ({isAuth, user}) => (
                 <nav>
-                    <Link to='/' style={{paddingLeft: 'var(--padding)', cursor: 'pointer', marginRight:'auto'}}><h3 >
+                    <Link to='/' style={{paddingLeft: 'var(--padding)', cursor: 'pointer', marginRight: 'auto'}}><h3>
                         <strong style={{color: 'var(--white)'}}>Recon<span
                             style={{color: 'var(--primary-color)'}}>map</span></strong>
                     </h3>

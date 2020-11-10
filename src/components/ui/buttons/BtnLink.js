@@ -1,18 +1,18 @@
-import { useHistory } from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
-export default function BtnLink ({ onClick, children, color = 'black', fontSize = 'fontSizeSmall', to, disabled = false, external = false }) {
+export default function BtnLink({onClick, children, color = 'black', fontSize = 'fontSizeSmall', to, disabled = false, external = false}) {
     const history = useHistory()
     const handleOpen = () => {
         external ? window.open(to, '_blank') : history.push(to)
     }
     const styles = {
-        button :{ 
+        button: {
             padding: 'var(--paddingBox)',
             display: 'inline-flex',
             alignItems: 'center',
             color: `var(--white)`,
-            fontSize : `var(--${fontSize})`,
-            opacity : disabled ? '.5' : '1',
+            fontSize: `var(--${fontSize})`,
+            opacity: disabled ? '.5' : '1',
             border: `var(--borderWidth) solid var(--${color})`,
             backgroundColor: 'transparent',
         }
@@ -23,7 +23,7 @@ export default function BtnLink ({ onClick, children, color = 'black', fontSize 
             onClick={onClick || handleOpen}
             disabled={disabled}
             style={styles.button}
-            >
+        >
             {children}
         </button>
     )
