@@ -1,8 +1,7 @@
 FROM quay.io/reconmap/web-client:master AS builder
 
-ARG RECONMAP_APP_STAGE=dev
-
-ENV REACT_APP_STAGE=${RECONMAP_APP_STAGE}
+ARG RECONMAP_APP_GIT_COMMIT_HASH
+ENV REACT_APP_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
 COPY package.json package-lock.json ./
 COPY public ./public

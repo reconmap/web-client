@@ -1,4 +1,4 @@
-import configuration from '../Configuration';
+import Configuration from '../Configuration';
 
 function secureApiFetch(input, init) {
     const accessToken = localStorage.getItem('accessToken');
@@ -10,7 +10,7 @@ function secureApiFetch(input, init) {
         initWithAuth.headers = headers;
     }
 
-    return fetch(configuration.api.baseUrl + input, init)
+    return fetch(Configuration.apiEndpoint + input, init)
         .then((response) => {
             if (response.status === 401) {
                 window.localStorage.removeItem('accessToken');

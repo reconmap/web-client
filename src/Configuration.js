@@ -1,16 +1,6 @@
-const StageConfigurations = {
-    dev: {
-        api: {
-            baseUrl: 'http://localhost:8080'
-        }
-    },
-    prod: {
-        api: {
-            baseUrl: 'https://api.reconmap.org'
-        }
-    },
-}
-
-const Configuration = StageConfigurations[process.env.REACT_APP_STAGE === 'prod' ? 'prod' : 'dev'];
+const Configuration = {
+    apiEndpoint: window.env.REACT_APP_API_ENDPOINT,
+    wsEndpoint: window.env.REACT_APP_WS_ENDPOINT,
+};
 
 export default Configuration;

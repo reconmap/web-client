@@ -10,3 +10,4 @@ yarn-error.log*
 /.changelog
 .npm/
 yarn.lock
+public/environment.js

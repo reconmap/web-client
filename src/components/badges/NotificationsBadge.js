@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {IconBell} from '../ui/Icons'
+import Configuration from "../../Configuration";
 
 export default function NotificationsBadge() {
     const [notifications, setNotifications] = useState([])
@@ -13,7 +14,7 @@ export default function NotificationsBadge() {
     }
 
     try {
-        const webSocketServer = new WebSocket("ws://localhost:8765");
+        const webSocketServer = new WebSocket(Configuration.wsEndpoint);
 
         webSocketServer.onopen = function (e) {
             console.info("[open] Connection established");

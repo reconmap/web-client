@@ -1,8 +1,9 @@
 
-RECONMAP_APP_STAGE ?= dev
 DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
-DOCKER_DEFAULT_TAG = $(DOCKER_IMAGE_NAME):master
+DOCKER_DEFAULT_TAG = $(DOCKER_IMAGE_NAME)
+GIT_BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD)
+GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
 prepare:
@@ -15,8 +16,9 @@ start:
 	docker run --rm -it \
 		-w /var/www/webapp \
 		-v $(PWD):/var/www/webapp \
+		-v $(PWD)/environment.local.js:/var/www/webapp/public/environment.js \
 		-p 3001:3001 \
-		-e REACT_APP_STAGE=$(RECONMAP_APP_STAGE) \
+		-e REACT_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \
 		--name $(DOCKER_CONTAINER_NAME) \
@@ -41,12 +43,12 @@ clean: stop
 .PHONY: build
 build:
 	docker build -f docker/prod.Dockerfile \
-		--build-arg RECONMAP_APP_STAGE=$(RECONMAP_APP_STAGE) \
-		-t $(DOCKER_IMAGE_NAME):$(RECONMAP_APP_STAGE) .
+		--build-arg RECONMAP_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
+		-t $(DOCKER_IMAGE_NAME):$(GIT_BRANCH_NAME) .
 
 .PHONY: push
 push:
-	docker push $(DOCKER_IMAGE_NAME):$(RECONMAP_APP_STAGE)
+	docker push $(DOCKER_IMAGE_NAME):$(GIT_BRANCH_NAME)
 
 .PHONY: shell
 shell:
