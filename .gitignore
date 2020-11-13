@@ -11,3 +11,4 @@ yarn-error.log*
 .npm/
 yarn.lock
 public/environment.js
+environment.*.js

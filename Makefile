@@ -1,4 +1,5 @@
 
+ENV_FILE_NAME ?= environment.local.js
 DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_DEFAULT_TAG = $(DOCKER_IMAGE_NAME)
@@ -16,7 +17,7 @@ start:
 	docker run --rm -it \
 		-w /var/www/webapp \
 		-v $(PWD):/var/www/webapp \
-		-v $(PWD)/environment.local.js:/var/www/webapp/public/environment.js \
+		-v $(PWD)/$(ENV_FILE_NAME):/var/www/webapp/public/environment.js \
 		-p 3001:3001 \
 		-e REACT_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
