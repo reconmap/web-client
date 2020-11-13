@@ -8,9 +8,8 @@ import SearchBox from "../search/Box";
 import HeaderUserMenu from '../ui/HeaderUserMenu';
 
 const LINKS = [
-    {title: "Release notes", to: {pathname: "https://github.com/reconmap/application/releases"}},
-    {title: "Support", to: {pathname: "https://github.com/reconmap/application/issues"}},
     {title: "User Manual", to: {pathname: "https://reconmap.org/user-manual/"}},
+    {title: "Support", to: {pathname: "https://github.com/reconmap/application/issues"}},
 ];
 
 export default function Header() {

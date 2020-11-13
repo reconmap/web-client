@@ -1,12 +1,16 @@
 import React from 'react'
 import LINKS from './Links'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, useHistory} from 'react-router-dom'
 import {IconBookOpen, IconDashboard} from '../../ui/Icons';
 import BtnSecondary from '../../ui/buttons/BtnSecondary';
 
 export default function Sidebar() {
+    const history = useHistory();
     const handleUserManual = () => {
         window.open("https://reconmap.org/user-manual/", '_blank');
+    }
+    const onSupportButtonClick = () => {
+        history.push('/support');
     }
     return (
         <aside>
@@ -21,10 +25,8 @@ export default function Sidebar() {
                 </NavLink>
             })}
             <div id='bottom'>
-                <BtnSecondary onClick={handleUserManual}>
-                    <IconBookOpen/>
-                    User manual
-                </BtnSecondary>
+                <BtnSecondary onClick={handleUserManual}><IconBookOpen/>User manual</BtnSecondary>
+                <BtnSecondary onClick={onSupportButtonClick}>Support</BtnSecondary>
             </div>
         </aside>
     )

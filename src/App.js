@@ -20,6 +20,7 @@ import ProjectsRoutes from "./components/projects/Routes";
 import ReportsRoutes from "./components/reports/Routes";
 import TemplatesRoutes from "./components/templates/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
+import SupportForm from "./components/support/Form";
 
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
@@ -54,6 +55,7 @@ const App = () => {
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList}/>
                                 <ProtectedRoute exact path={`/import-export`} component={ImportExportForm}/>
                                 <ProtectedRoute exact path={`/sandbox`} component={Sandbox}/>
+                                <ProtectedRoute exact path={`/support`} component={SupportForm}/>
                                 <Route component={PageNotFound}/>
                             </Switch>
                         </Dashboard>
