@@ -31,11 +31,17 @@ stop:
 
 .PHONY: tests
 tests:
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true $(DOCKER_DEFAULT_TAG) test
+	docker run --rm -it -w /var/www/webapp \
+		-v $(PWD):/var/www/webapp \
+		-v $(PWD)/$(ENV_FILE_NAME):/var/www/webapp/public/environment.js \
+		--entrypoint yarn -e CI=true $(DOCKER_DEFAULT_TAG) test
 
 .PHONY: tests-ci
 tests-ci:
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint yarn -e CI=true $(DOCKER_DEFAULT_TAG) test:ci
+	docker run --rm -it -w /var/www/webapp \
+		-v $(PWD):/var/www/webapp \
+		-v $(PWD)/$(ENV_FILE_NAME):/var/www/webapp/public/environment.js \
+		--entrypoint yarn -e CI=true $(DOCKER_DEFAULT_TAG) test:ci
 
 .PHONY: clean
 clean: stop
