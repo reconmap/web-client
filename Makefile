@@ -3,7 +3,13 @@ ENV_FILE_NAME ?= environment.local.js
 DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_DEFAULT_TAG = $(DOCKER_IMAGE_NAME)
+
+ifdef $$TRAVIS_BRANCH
+GIT_BRANCH_NAME = $TRAVIS_BRANCH
+else
 GIT_BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD)
+endif
+
 GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
