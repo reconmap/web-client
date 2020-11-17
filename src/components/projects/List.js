@@ -37,7 +37,7 @@ const ProjectsList = ({history}) => {
                 <tr>
                     <th style={{width: '190px'}}>Name</th>
                     <th className='w-32'>Client</th>
-                    <th className='w-32'>Creation date/time</th>
+                    <th className='w-32'>Timestamps</th>
                     <th className='w-20'></th>
                 </tr>
                 </thead>
@@ -51,7 +51,7 @@ const ProjectsList = ({history}) => {
                                 <p>{project.description}</p>
                             </td>
                             <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
-                            <td><Timestamps insertTs={project.insert_ts}/></td>
+                            <td><Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/></td>
                             <td>
                                 <EditButton onClick={(ev) => onEditButtonClick(ev, project)}/>
                                 <DeleteButton onClick={() => destroy(project.id)}/>

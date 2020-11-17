@@ -22,7 +22,7 @@ it("renders time element for creation time", () => {
     });
 
     expect(container.innerHTML).toEqual(expect.stringContaining('<time datetime="2020-10-15 13:13:13">2020-10-15 13:13:13</time>'));
-    expect(container.innerHTML).not.toEqual(expect.stringContaining('<strong>Modification time:</strong>'));
+    expect(container.innerHTML).not.toEqual(expect.stringContaining('<strong>Modified at</strong>'));
 });
 
 it("renders time element for creation and modification times", () => {
@@ -31,6 +31,6 @@ it("renders time element for creation and modification times", () => {
     });
 
     expect(container.innerHTML).toEqual(expect.stringContaining('<time datetime="2020-10-15 13:13:13">2020-10-15 13:13:13</time>'));
-    expect(container.innerHTML).toEqual(expect.stringContaining('<strong>Modification time:</strong>'));
+    expect(container.innerHTML).toEqual(expect.stringContaining('<strong>Modified at</strong>'));
     expect(container.innerHTML).toEqual(expect.stringContaining('<time datetime="2021-12-15 13:13:13">2021-12-15 13:13:13</time>'));
 });

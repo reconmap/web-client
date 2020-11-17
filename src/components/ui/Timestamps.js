@@ -9,12 +9,12 @@ const Timestamps = ({insertTs, updateTs}) => {
 
     return <>
         <span style={styles.stamp}>
-            <strong>Creation time:</strong>&nbsp;
-            <time dateTime={insertTs}>{insertTs}</time>
-            .
-            {updateTs && <div><strong>Modification time:</strong>
+            <strong>Created at</strong>&nbsp;
+            <time dateTime={insertTs}>{insertTs}</time>.
+            {updateTs && <div><strong>Modified at</strong>
                 &nbsp;
                 <time dateTime={updateTs}>{updateTs}</time>
+                .
             </div>}
         </span>
     </>
