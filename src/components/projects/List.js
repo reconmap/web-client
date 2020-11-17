@@ -11,6 +11,7 @@ import Timestamps from '../ui/Timestamps';
 import Title from '../ui/Title';
 import {IconFolder} from '../ui/Icons';
 import NoResults from "../ui/NoResults";
+import EditButton from "../ui/buttons/Edit";
 
 const ProjectsList = ({history}) => {
     useSetTitle('Projects');
@@ -19,6 +20,11 @@ const ProjectsList = ({history}) => {
     const handleCreateProject = () => {
         history.push('/projects/create')
     }
+    const onEditButtonClick = (ev, project) => {
+        ev.preventDefault();
+
+        history.push(`/projects/${project.id}/edit`);
+    };
     return <div>
         <div className='heading'>
             <Breadcrumb history={history}/>
@@ -47,6 +53,7 @@ const ProjectsList = ({history}) => {
                             <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
                             <td><Timestamps insertTs={project.insert_ts}/></td>
                             <td>
+                                <EditButton onClick={(ev) => onEditButtonClick(ev, project)}/>
                                 <DeleteButton onClick={() => destroy(project.id)}/>
                             </td>
                         </tr>

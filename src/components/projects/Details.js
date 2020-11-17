@@ -13,12 +13,11 @@ import BtnSecondary from '../ui/buttons/BtnSecondary';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Timestamps from "../ui/Timestamps";
-import secureApiFetch from "../../services/api";
+import EditButton from "../ui/buttons/Edit";
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
     const [project, updateProject] = useFetch(`/projects/${match.params.id}`)
-    const [clients] = useFetch(`/clients`)
     const [tasks] = useFetch(`/projects/${match.params.id}/tasks`)
     const [targets] = useFetch(`/projects/${match.params.id}/targets`)
     const [vulnerabilities] = useFetch(`/projects/${match.params.id}/vulnerabilities`)
@@ -41,17 +40,11 @@ const ProjectDetails = ({match, history}) => {
         history.push(`/projects/${project.id}/membership`)
     }
 
-    const handleClientChange = (event) => {
-        const clientId = event.target.value;
-        secureApiFetch(`/projects/${project.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({client_id: '' === clientId ? null : clientId})
-        })
-            .then(() => {
-                // @todo Show "Updated" toast
-            })
-            .catch(e => console.log(e))
-    }
+    const onEditButtonClick = (ev, project) => {
+        ev.preventDefault();
+
+        history.push(`/projects/${project.id}/edit`);
+    };
 
     return (
         <>
@@ -61,15 +54,7 @@ const ProjectDetails = ({match, history}) => {
                     <ProjectTeam project={project} users={users}/>
 
                     <ButtonGroup>
-                        <label>Belongs to&nbsp;
-                            <select onChange={handleClientChange} defaultValue={project.client_id}>
-                                <option value="">(none)</option>
-                                {clients && clients.map((client, index) =>
-                                    <option key={index} value={client.id}>{client.name}</option>
-                                )}
-                            </select>
-                        </label>
-
+                        <EditButton onClick={(ev) => onEditButtonClick(ev, project)}/>
                         <BtnSecondary onClick={handleGenerateReport}>
                             <IconClipboardCheck/>
                             Generate Report

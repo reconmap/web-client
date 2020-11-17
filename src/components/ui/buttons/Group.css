@@ -1,0 +1,8 @@
+.button-group {
+  display: flex;
+  column-gap: var(--margin);
+  row-gap: var(--margin);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}

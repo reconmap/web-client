@@ -9,7 +9,7 @@ import {IconPlus} from '../ui/Icons';
 
 const ProjectCreate = ({history}) => {
     const handleGoBack = () => {
-        history.goBack()
+        history.push('/projects');
     }
     const [loading, setLoading] = useState(false)
     const [clients] = useFetch('/clients')
@@ -25,7 +25,7 @@ const ProjectCreate = ({history}) => {
 
         setLoading(true)
         await secureApiFetch(`/projects`, {method: 'POST', body: JSON.stringify(newProject)})
-        history.push(`/projects`)
+        history.push('/projects');
     }
 
     return (
@@ -46,7 +46,7 @@ const ProjectCreate = ({history}) => {
                     <input type="text" name="name" onChange={handleFormChange} required autoFocus/>
                 </label>
                 <label>Description
-                    <input type="description" name="description" onChange={handleFormChange} required/>
+                    <input type="text" name="description" onChange={handleFormChange} required/>
                 </label>
                 <BtnPrimary type="submit" disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <CancelButton onClick={handleGoBack} disabled={loading}/>
