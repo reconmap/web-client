@@ -52,7 +52,7 @@ const ProjectsList = ({history}) => {
                             </td>
                             <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
                             <td><Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/></td>
-                            <td>
+                            <td style={{ display: 'flex' }}>
                                 <EditButton onClick={(ev) => onEditButtonClick(ev, project)}/>
                                 <DeleteButton onClick={() => destroy(project.id)}/>
                             </td>
