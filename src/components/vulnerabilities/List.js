@@ -45,7 +45,7 @@ const VulnerabilitiesList = ({history}) => {
         reloadData()
     }, [reloadData])
 
-    const destroy = useDelete('/vulnerabilities/', reloadData);
+    const destroy = useDelete('/vulnerabilities/', reloadData, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
     const handleCreateVulnerability = () => {
         history.push(`/vulnerabilities/create`)
     }
