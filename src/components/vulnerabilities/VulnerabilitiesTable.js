@@ -14,7 +14,7 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
             <thead>
             <tr>
                 <th style={{width: '190px'}}>Summary</th>
-                <th style={{width: '120px'}}></th>
+                <th style={{width: '120px'}}>Status</th>
                 <th style={{width: '120px'}}>Risk</th>
                 <th style={{width: '120px'}}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
                 <th style={{width: '20%'}}>Category</th>

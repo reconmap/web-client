@@ -12,6 +12,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
 import {IconCheck, IconFlag} from '../ui/Icons';
+import {actionCompletedToast} from "../../utilities/toast";
 
 class VulnerabilityDetails extends Component {
     state = {
@@ -43,20 +44,21 @@ class VulnerabilityDetails extends Component {
                 .then(() => {
                     this.props.history.push('/vulnerabilities')
                 })
-                .catch(e => console.error(e))
-
+                .catch(err => console.error(err))
         }
     }
 
     handleStatus(vuln) {
+        const newStatus = vuln.status === 'open' ? 'closed' : 'open';
         secureApiFetch(`/vulnerabilities/${vuln.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({status: vuln.status === 'open' ? 'closed' : 'open'})
+            body: JSON.stringify({status: newStatus})
         })
             .then(() => {
-                this.props.history.goBack()
+                this.setState({vulnerability: {...vuln, status: newStatus}});
+                actionCompletedToast('The task has been updated.');
             })
-            .catch(e => console.log(e))
+            .catch(err => console.error(err))
     }
 
     render() {
