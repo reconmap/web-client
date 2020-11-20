@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
+import {useHistory, useLocation} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import Risks from '../../models/Risks'
@@ -10,37 +11,51 @@ import Title from '../ui/Title';
 import {IconPlus} from '../ui/Icons';
 import useSetTitle from "../../hooks/useSetTitle";
 
-export default function VulnerabilityCreate({history, location}) {
+export default function VulnerabilityCreate() {
 
     useSetTitle('Create Vulnerability');
 
-    const projectId = new URLSearchParams(location.search).get('projectId') || null
+    const history = useHistory();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const urlProjectId = useRef(searchParams.get('projectId') || "");
     const [projects] = useFetch('/projects');
     const [vulnerability, setVulnerability] = useState({
-        projectId: projectId || null,
-        summary: null,
-        description: null,
+        projectId: urlProjectId.current,
+        summary: "",
+        description: "",
         risk: Risks[0].id,
         cvssScore: null,
         cvssVector: null,
     })
     const [loading, setLoading] = useState(false)
-    const handleCreate = (event) => {
-        event.preventDefault();
 
-        setLoading(true)
-        secureApiFetch(`/vulnerabilities`, {method: 'POST', body: JSON.stringify(vulnerability)})
-            .then(r => history.push(`/vulnerabilities`));
-    }
-    const handleFormChange = e => {
-        const target = e.target;
+    const handleGoBack = () => {
+        history.push(`/vulnerabilities`);
+    };
+
+    const handleFormChange = ev => {
+        const target = ev.target;
         const name = target.name;
         const value = target.value;
         setVulnerability({...vulnerability, [name]: value});
     };
-    const handleGoBack = () => {
-        history.goBack()
-    }
+
+    const handleCreate = ev => {
+        ev.preventDefault();
+
+        setLoading(true)
+        secureApiFetch(`/vulnerabilities`, {method: 'POST', body: JSON.stringify(vulnerability)})
+            .then(r => history.push(`/vulnerabilities`));
+    };
+
+    useEffect(() => {
+        if (urlProjectId.current === "" && projects !== null) {
+            setVulnerability((vulnerability) => ({
+                ...vulnerability, projectId: projects[0].id
+            }))
+        }
+    }, [urlProjectId, projects]);
 
     return (
         <div>
@@ -51,28 +66,26 @@ export default function VulnerabilityCreate({history, location}) {
 
             {!projects ? <Loading/> :
                 <form onSubmit={handleCreate}>
-                    {!projectId &&
                     <label>
                         Project
                         <select name="projectId" id="projectId" onChange={handleFormChange}
-                                defaultValue={vulnerability.projectId}>
+                                value={vulnerability.projectId}>
                             {projects.map((project, index) =>
                                 <option key={index} value={project.id}>{project.name}</option>
                             )}
                         </select>
                     </label>
-                    }
                     <label>
                         Summary
                         <input type="text" name="summary" onChange={handleFormChange}
-                               value={vulnerability.summary || ""} required autoFocus/>
+                               value={vulnerability.summary} required autoFocus/>
                     </label>
                     <label>Description
                         <input type="text" name="description" onChange={handleFormChange}
-                               value={vulnerability.description || ""} required/>
+                               value={vulnerability.description} required/>
                     </label>
                     <label>Risk
-                        <select name="risk" onChange={handleFormChange} defaultValue={vulnerability.risk}>
+                        <select name="risk" onChange={handleFormChange} value={vulnerability.risk}>
                             {Risks.map((risk, index) =>
                                 <option key={index} value={risk.id}>{risk.name}</option>
                             )}
