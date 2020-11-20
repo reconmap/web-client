@@ -28,8 +28,8 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                 </tr> :
                 vulnerabilities.map((vulnerability, index) => {
                     return (
-                        <tr key={index} style={{opacity: vulnerability.status === 'open' ? '1' : '.5'}}>
-                            <td>
+                        <tr key={index}>
+                            <td style={{opacity: vulnerability.status === 'open' ? '1' : '.5'}}>
                                 <VulnerabilityBadge vulnerability={vulnerability}/>
                                 {vulnerability.description && <p>
                                     <small>{vulnerability.description} </small>

@@ -31,7 +31,7 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                     .filter(task => task.project_id.toString().includes(filter.project))
                     .filter(task => task.completed.toString().includes(filter.status))
                     .map((task) =>
-                        <tr key={task.id} style={{opacity: task.completed === '0' ? '1' : '.5'}}>
+                        <tr key={task.id}>
                             <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
                             <td><TaskBadge task={task}/></td>
                             <td>{task.assignee_uid ?
