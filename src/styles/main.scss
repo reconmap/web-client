@@ -448,6 +448,20 @@ table {
     }
   }
 }
+.table-details {
+    max-width: 500px;
+    margin-left: 0;
+    margin-right: auto;
+    tbody {
+        th {
+            width: 18ch;
+        }
+        td, td:last-child {
+            padding-left: var(--space);
+            text-align: left;
+        }
+    }
+}
 
 // ANIMATIONS
 .anim-rotate {

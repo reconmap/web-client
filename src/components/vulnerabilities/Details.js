@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { useEffect} from 'react'
 import secureApiFetch from '../../services/api'
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge'
@@ -13,69 +13,51 @@ import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
 import {IconCheck, IconFlag} from '../ui/Icons';
 import {actionCompletedToast} from "../../utilities/toast";
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import useFetch from './../../hooks/useFetch'
+import useDelete from './../../hooks/useDelete'
 
-class VulnerabilityDetails extends Component {
-    state = {
-        vulnerability: null,
+
+const VulnerabilityDetails = () => {
+    const history = useHistory()
+    const { params: { id } }= useRouteMatch()
+    const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${id}`)
+    const destroy = useDelete(`/vulnerabilities/${id}`)
+
+    useEffect(()=>{
+        if(vulnerability) document.title = `Vulnerability ${vulnerability.summary} | Reconmap`;
+    },[vulnerability])
+
+    const handleDelete = () => {
+        destroy()
+            .then(() => { history.push('/vulnerabilities') })
     }
 
-    constructor(props) {
-        super(props)
-        this.handleDelete = this.handleDelete.bind(this)
-    }
-
-    componentDidMount() {
-        const id = this.props.match.params.id;
-        secureApiFetch(`/vulnerabilities/${id}`, {
-            method: 'GET'
-        })
-            .then((responses) => responses.json())
-            .then((data) => {
-                this.setState({vulnerability: data})
-                document.title = `Vulnerability ${data.summary} | Reconmap`;
-            });
-    }
-
-    handleDelete(vuln) {
-        if (window.confirm('Are you sure you want to delete this vulnerability?')) {
-            secureApiFetch(`/vulnerabilities/${vuln.id}`, {
-                method: 'DELETE'
-            })
-                .then(() => {
-                    this.props.history.push('/vulnerabilities')
-                })
-                .catch(err => console.error(err))
-        }
-    }
-
-    handleStatus(vuln) {
-        const newStatus = vuln.status === 'open' ? 'closed' : 'open';
-        secureApiFetch(`/vulnerabilities/${vuln.id}`, {
+    const handleStatus = () => {
+        const newStatus = vulnerability.status === 'open' ? 'closed' : 'open';
+        secureApiFetch(`/vulnerabilities/${vulnerability.id}`, {
             method: 'PATCH',
             body: JSON.stringify({status: newStatus})
         })
             .then(() => {
-                this.setState({vulnerability: {...vuln, status: newStatus}});
+                updateVulnerability()
                 actionCompletedToast('The task has been updated.');
             })
             .catch(err => console.error(err))
     }
 
-    render() {
-        const vulnerability = this.state.vulnerability;
-        return (
-            <div>
+        return <div>
                 <div className='heading'>
-                    <Breadcrumb history={this.props.history}/>
+                    <Breadcrumb history={history}/>
                     {vulnerability &&
-                    <ButtonGroup>
-                        {vulnerability.status === 'open' &&
-                        <BtnPrimary onClick={() => this.handleStatus(vulnerability)}>
-                            <IconCheck/> Mark as closed</BtnPrimary>}
-                        {vulnerability.status !== 'open' &&
-                        <BtnPrimary onClick={() => this.handleStatus(vulnerability)}>Mark as open</BtnPrimary>}
-                        <DeleteButton onClick={() => this.handleDelete(vulnerability)}/>
-                    </ButtonGroup>
+                        <ButtonGroup>
+                            {vulnerability.status === 'open' &&
+                                <BtnPrimary onClick={handleStatus}>
+                                <IconCheck/> Mark as closed</BtnPrimary>}
+                            {vulnerability.status !== 'open' &&
+                                <BtnPrimary onClick={handleStatus}>Mark as open</BtnPrimary>}
+                            <DeleteButton onClick={handleDelete}/>
+                        </ButtonGroup>
                     }
                 </div>
                 {!vulnerability ? <Loading/> :
@@ -83,7 +65,7 @@ class VulnerabilityDetails extends Component {
                         <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag/>}/>
                         <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts}/>
                         <p>{vulnerability.description}</p>
-                        <table>
+                        <table className='table-details'>
                             <tbody>
                             <tr>
                                 <th>Category</th>
@@ -116,8 +98,6 @@ class VulnerabilityDetails extends Component {
                     </article>
                 }
             </div>
-        )
-    }
 }
 
 export default VulnerabilityDetails
