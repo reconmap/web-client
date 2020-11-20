@@ -58,7 +58,9 @@ const ReportsList = ({history}) => {
                 </thead>
                 <tbody>
                 {reports.length === 0 ?
-                    <td colspan="4"><NoResults/></td> :
+                    <tr>
+                        <td colSpan="4"><NoResults/></td>
+                    </tr> :
                     reports.map((report, index) => {
                         return (
                             <tr key={index}>

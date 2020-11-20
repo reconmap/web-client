@@ -25,7 +25,7 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
             <tbody>
             {tasks.length === 0 ?
                 <tr>
-                    <td colspan="6"><NoResults/></td>
+                    <td colSpan="6"><NoResults/></td>
                 </tr> :
                 tasks
                     .filter(task => task.project_id.toString().includes(filter.project))

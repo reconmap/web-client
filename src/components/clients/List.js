@@ -43,7 +43,9 @@ const ClientsList = ({history}) => {
                 </thead>
                 <tbody>
                 {clients.length === 0 ?
-                    <td colspan="6"><NoResults/></td> :
+                    <tr>
+                        <td colSpan="6"><NoResults/></td>
+                    </tr> :
                     clients.map((client) =>
                         <tr key={client.id}>
                             <td><ClientLink clientId={client.id}>{client.name}</ClientLink></td>

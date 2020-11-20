@@ -43,7 +43,9 @@ const ProjectsList = ({history}) => {
                 </thead>
                 <tbody>
                 {projects.length === 0 ?
-                    <td colspan="4"><NoResults/></td> :
+                    <tr>
+                        <td colSpan="4"><NoResults/></td>
+                    </tr> :
                     projects.map((project) =>
                         <tr key={project.id}>
                             <td>
@@ -52,7 +54,7 @@ const ProjectsList = ({history}) => {
                             </td>
                             <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
                             <td><Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/></td>
-                            <td style={{ display: 'flex' }}>
+                            <td style={{display: 'flex'}}>
                                 <EditButton onClick={(ev) => onEditButtonClick(ev, project)}/>
                                 <DeleteButton onClick={() => destroy(project.id)}/>
                             </td>
