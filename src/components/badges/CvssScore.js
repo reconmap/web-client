@@ -24,6 +24,10 @@ export default function CvssScore({score, fontSize = 'fontSizeXsmall'}) {
         }
     }
 
+    if (score === null) {
+        return '-';
+    }
+
     return (
         <div style={styles.badge}>
             {Array.from({length: Math.floor(score)}).map((s, index) =>
