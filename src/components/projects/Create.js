@@ -46,7 +46,7 @@ const ProjectCreate = ({history}) => {
                     <input type="text" name="name" onChange={handleFormChange} required autoFocus/>
                 </label>
                 <label>Description
-                    <input type="text" name="description" onChange={handleFormChange} required/>
+                    <textarea name="description" onChange={handleFormChange} required/>
                 </label>
                 <BtnPrimary type="submit" disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
                 <CancelButton onClick={handleGoBack} disabled={loading}/>

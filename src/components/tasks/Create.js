@@ -75,8 +75,8 @@ const CreateTask = ({history}) => {
                 <label>Name
                     <input type="text" name="name" onChange={handleFormChange} required autoFocus value={newTask.name}/></label>
                 <label>Description
-                    <input type="description" name="description" onChange={handleFormChange} required
-                           value={newTask.description}/></label>
+                    <textarea name="description" onChange={handleFormChange} required
+                              value={newTask.description}/></label>
                 <label>Parser
                     <select name="parser" onChange={handleFormChange} required value={newTask.parser}>
                         <option value='none'>none</option>
