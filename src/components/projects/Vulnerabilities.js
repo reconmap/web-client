@@ -31,7 +31,7 @@ const ProjectVulnerabilities = ({project, vulnerabilities}) => {
         </h4>
         {vulnerabilities ?
             <VulnerabilitiesTable
-                vulnerabilities={vulnerabilities.filter(vuln => vuln.category_name.includes(category) && vuln.risk.includes(risk) && vuln.status.includes(status))}/>
+                vulnerabilities={vulnerabilities.filter(vuln => vuln.category_name && vuln.category_name.includes(category) && vuln.risk.includes(risk) && vuln.status.includes(status))}/>
             : <Loading/>}
     </section>
 }
