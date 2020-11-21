@@ -291,7 +291,7 @@ form {
   label {
     display: grid;
     align-items: center;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 220px 1fr;
     grid-column-gap: 1rem;
   }
 
@@ -448,19 +448,22 @@ table {
     }
   }
 }
+
 .table-details {
-    max-width: 500px;
-    margin-left: 0;
-    margin-right: auto;
-    tbody {
-        th {
-            width: 18ch;
-        }
-        td, td:last-child {
-            padding-left: var(--space);
-            text-align: left;
-        }
+  max-width: 500px;
+  margin-left: 0;
+  margin-right: auto;
+
+  tbody {
+    th {
+      width: 18ch;
     }
+
+    td, td:last-child {
+      padding-left: var(--space);
+      text-align: left;
+    }
+  }
 }
 
 // ANIMATIONS

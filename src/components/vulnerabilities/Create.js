@@ -11,7 +11,7 @@ import Title from '../ui/Title';
 import {IconPlus} from '../ui/Icons';
 import useSetTitle from "../../hooks/useSetTitle";
 
-export default function VulnerabilityCreate() {
+const VulnerabilityCreate = () => {
 
     useSetTitle('Create Vulnerability');
 
@@ -20,11 +20,13 @@ export default function VulnerabilityCreate() {
     const searchParams = new URLSearchParams(location.search);
     const urlProjectId = useRef(searchParams.get('projectId') || "");
     const [projects] = useFetch('/projects');
+    const [categories] = useFetch('/vulnerabilities/categories');
     const [vulnerability, setVulnerability] = useState({
         projectId: urlProjectId.current,
         summary: "",
         description: "",
         risk: Risks[0].id,
+        categoryId: null,
         cvssScore: null,
         cvssVector: null,
     })
@@ -53,9 +55,16 @@ export default function VulnerabilityCreate() {
         if (urlProjectId.current === "" && projects !== null) {
             setVulnerability((vulnerability) => ({
                 ...vulnerability, projectId: projects[0].id
-            }))
+            }));
         }
     }, [urlProjectId, projects]);
+    useEffect(() => {
+        if (categories !== null) {
+            setVulnerability((vulnerability) => ({
+                ...vulnerability, categoryId: categories[0].id
+            }));
+        }
+    }, [categories]);
 
     return (
         <div>
@@ -64,7 +73,7 @@ export default function VulnerabilityCreate() {
             </div>
             <Title title="Create Vulnerability" icon={<IconPlus/>}/>
 
-            {!projects ? <Loading/> :
+            {!projects || !categories ? <Loading/> :
                 <form onSubmit={handleCreate}>
                     <label>
                         Project
@@ -81,13 +90,20 @@ export default function VulnerabilityCreate() {
                                value={vulnerability.summary} required autoFocus/>
                     </label>
                     <label>Description
-                        <input type="text" name="description" onChange={handleFormChange}
-                               value={vulnerability.description} required/>
+                        <textarea name="description" onChange={handleFormChange}
+                                  value={vulnerability.description} required/>
                     </label>
                     <label>Risk
                         <select name="risk" onChange={handleFormChange} value={vulnerability.risk}>
                             {Risks.map((risk, index) =>
                                 <option key={index} value={risk.id}>{risk.name}</option>
+                            )}
+                        </select>
+                    </label>
+                    <label>Category
+                        <select name="categoryId" onChange={handleFormChange} value={vulnerability.categoryId || ""}>
+                            {categories.map((category, index) =>
+                                <option key={index} value={category.id}>{category.name}</option>
                             )}
                         </select>
                     </label>
@@ -108,4 +124,6 @@ export default function VulnerabilityCreate() {
             }
         </div>
     )
-}
+};
+
+export default VulnerabilityCreate;
