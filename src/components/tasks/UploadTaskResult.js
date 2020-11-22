@@ -31,7 +31,7 @@ class UploadTaskResult extends Component {
             .then((response) => {
                 this.props.history.push('/tasks/' + taskId);
             })
-            .catch((error) => console.log(error));
+            .catch((err) => console.error(err));
     }
 
     handleGoBack() {

@@ -34,7 +34,7 @@ class ImportExportForm extends Component {
             .then((response) => {
                 this.setState({projectsImported: response.projectsImported});
             })
-            .catch((error) => console.log(error));
+            .catch((err) => console.error(err));
     }
 
     handleGoBack() {

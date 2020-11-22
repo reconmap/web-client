@@ -36,7 +36,7 @@ const TaskDetails = ({history, match}) => {
                 fetchTask()
                 toast('Task', 'Status changed')
             })
-            .catch(e => console.log(e))
+            .catch(err => console.error(err))
     }
 
     const handleDelete = () => {
@@ -54,7 +54,7 @@ const TaskDetails = ({history, match}) => {
                 actionCompletedToast("The task has been assigned.");
                 fetchTask()
             })
-            .catch(e => console.log(e))
+            .catch(err => console.error(err))
     }
 
 
