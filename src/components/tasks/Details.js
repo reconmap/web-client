@@ -91,7 +91,7 @@ const TaskDetails = ({history, match}) => {
                     <h4>Timestamps</h4>
                     <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
                     <h4>Description</h4>
-                    <code>{task.description}</code>
+                    <p>{task.description}</p>
                     <h4>Status</h4>
                     <p style={{display: 'flex', alignItems: 'center', columnGap: 'var(--margin)'}}>
                         <TaskStatusBadge completed={String(task.completed)}/>
