@@ -21,19 +21,20 @@ const UsersList = ({history}) => {
 
     const loggedInUser = JSON.parse(localStorage.getItem('user'));
     const [users, updateUsers] = useFetch('/users')
-    const destroy = useDelete('/users/', updateUsers);
+    const deleteUser = useDelete('/users/', updateUsers);
     const handleCreate = () => {
         history.push("/users/create");
     }
 
     const [selectedUsers, setSelectedUsers] = useState([]);
 
-    const onTaskCheckboxChange = (event) => {
-        const target = event.target
+    const onTaskCheckboxChange = (ev) => {
+        const target = ev.target;
+        const targetUserId = parseInt(target.value);
         if (target.checked) {
-            setSelectedUsers([...selectedUsers, target.value]);
+            setSelectedUsers([...selectedUsers, targetUserId]);
         } else {
-            setSelectedUsers(selectedUsers.filter(value => value !== target.value));
+            setSelectedUsers(selectedUsers.filter(value => value !== targetUserId));
         }
     }
 
@@ -50,10 +51,10 @@ const UsersList = ({history}) => {
                 setSelectedUsers([]);
                 actionCompletedToast('All selected users were deleted.');
             })
-            .catch(e => console.log(e))
+            .catch(err => console.error(err))
     }
     const handleDelete = (id) => {
-        destroy(id);
+        deleteUser(id);
         updateUsers();
     }
 
