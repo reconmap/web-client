@@ -1,4 +1,4 @@
-FROM node:12.18.4-stretch
+FROM node:14.15.1-stretch
 
 WORKDIR /opt/reconmap
 
