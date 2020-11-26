@@ -57,11 +57,12 @@ clean: stop
 build:
 	docker build -f docker/app.Dockerfile \
 		--build-arg RECONMAP_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
-		-t $(DOCKER_IMAGE_NAME):$(GIT_BRANCH_NAME) .
+		-t $(DOCKER_IMAGE_NAME):$(GIT_BRANCH_NAME) -t $(DOCKER_IMAGE_NAME):latest .
 
 .PHONY: push
 push:
 	docker push $(DOCKER_IMAGE_NAME):$(GIT_BRANCH_NAME)
+	docker push $(DOCKER_IMAGE_NAME):latest
 
 .PHONY: shell
 shell:
