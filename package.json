@@ -5,7 +5,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@testing-library/user-event": "^12.2.0",
     "countries-and-timezones": "^2.3.1",
     "dayjs": "^1.9.4",
     "node-sass": "^4.14.1",
