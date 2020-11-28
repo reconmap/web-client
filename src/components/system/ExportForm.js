@@ -12,10 +12,13 @@ const ExportForm = () => {
         {key: 'users', name: 'Users'},
     ];
 
+    const [exportButtonDisabled, setExportButtonDisabled] = useState(true);
+
     const [entitiesToExport, setEntitiesToExport] = useState([]);
 
     const onEntitiesSelectionChange = (ev) => {
         const selectedEntities = Array.from(ev.target.selectedOptions, option => option.value);
+        setExportButtonDisabled(selectedEntities.length === 0);
         setEntitiesToExport(selectedEntities);
     };
 
@@ -52,7 +55,8 @@ const ExportForm = () => {
                 {entities.map((entity, index) => <option key={index} value={entity.key}>{entity.name}</option>)}
             </select>
             <br/>
-            <BtnPrimary onClick={onExportButtonClick}><IconDownload/> Export</BtnPrimary>
+            <BtnPrimary disabled={exportButtonDisabled}
+                        onClick={onExportButtonClick}><IconDownload/> Export</BtnPrimary>
         </fieldset>
     </div>
 };
