@@ -9,7 +9,6 @@ import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
 import {AuthProvider} from './contexts/AuthContext';
 import SearchResults from './components/search/Results';
-import ImportExportForm from './components/import-export/Form';
 import ThemeContext from './contexts/ThemeContext';
 import Sandbox from './components/ui/Sandbox';
 import setThemeColors from './utilities/setThemeColors';
@@ -21,6 +20,7 @@ import ReportsRoutes from "./components/reports/Routes";
 import TemplatesRoutes from "./components/templates/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import SupportForm from "./components/support/Form";
+import SystemRoutes from "./components/system/Routes";
 
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
@@ -46,14 +46,14 @@ const App = () => {
                                         ...ProjectsRoutes,
                                         ...VulnerabilitiesRoutes,
                                         ...TemplatesRoutes,
-                                        ...ReportsRoutes
+                                        ...ReportsRoutes,
+                                        ...SystemRoutes
                                     ]
                                         .map((value, index) => React.cloneElement(value, {key: index}))
                                 }
                                 <ProtectedRoute path={`/search/:keywords`} component={SearchResults}/>
                                 <ProtectedRoute path={`/integrations`} component={IntegrationsList}/>
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList}/>
-                                <ProtectedRoute exact path={`/import-export`} component={ImportExportForm}/>
                                 <ProtectedRoute exact path={`/sandbox`} component={Sandbox}/>
                                 <ProtectedRoute exact path={`/support`} component={SupportForm}/>
                                 <Route component={PageNotFound}/>

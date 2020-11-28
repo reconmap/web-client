@@ -7,14 +7,16 @@ import Title from "../ui/Title";
 import {IconExtensions} from '../ui/Icons';
 
 const IntegrationsList = ({history}) => {
+    const [integrations] = useFetch('/system/integrations')
+
     useSetTitle('Integrations');
-    const [integrations] = useFetch('/integrations')
+
     return (
         <div>
             <div className='heading'>
                 <Breadcrumb history={history}/>
             </div>
-            <Title type="System Utils" title="Integrations" icon={<IconExtensions/>}/>
+            <Title type="System" title="Integrations" icon={<IconExtensions/>}/>
             {!integrations ? <Loading/> : integrations.length === 0 ? <NoResults/> :
                 <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {integrations.map((integration, index) =>

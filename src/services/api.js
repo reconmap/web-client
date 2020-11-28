@@ -8,7 +8,7 @@ function resetSessionStorageAndRedirect() {
     window.location = '/';
 }
 
-function secureApiFetch(input, init) {
+function secureApiFetch(url, init) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = accessToken !== null ? {Authorization: 'Bearer ' + accessToken} : {};
     const initWithAuth = init;
@@ -18,7 +18,7 @@ function secureApiFetch(input, init) {
         initWithAuth.headers = headers;
     }
 
-    return fetch(Configuration.apiEndpoint + input, init)
+    return fetch(Configuration.apiEndpoint + url, init)
         .then((response) => {
             if (response.status === 401) {
                 resetSessionStorageAndRedirect();

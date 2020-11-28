@@ -20,7 +20,7 @@ const Links = [
     {title: 'Clients', icon: <IconBriefcase size={5}/>, to: '/clients'},
     {title: 'Audit log', icon: <IconEye size={5}/>, to: '/auditlog'},
     {title: 'Users and Permissions', icon: <IconUserGroup size={5}/>, to: '/users'},
-    {title: 'Import/Export', icon: <IconDownload size={5}/>, to: '/import-export'},
+    {title: 'System Data', icon: <IconDownload size={5}/>, to: '/system-data'},
     {title: 'Integrations', icon: <IconExtensions size={5}/>, to: '/integrations'},
 ]
 
