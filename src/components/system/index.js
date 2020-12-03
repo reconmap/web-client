@@ -14,7 +14,7 @@ const SystemIndexPage = () => {
         </div>
         <Title type="System" title="Data" icon={<IconDownloadDocument/>}/>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4">
             <div><ImportForm/></div>
             <div><ExportForm/></div>
         </div>
