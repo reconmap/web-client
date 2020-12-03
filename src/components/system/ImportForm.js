@@ -1,11 +1,9 @@
 import React, {Component} from 'react'
 import secureApiFetch from '../../services/api';
-import {IconDownloadDocument, IconUpload} from '../ui/Icons';
+import {IconUpload} from '../ui/Icons';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
-import Title from '../ui/Title';
-import Breadcrumb from '../ui/Breadcrumb'
 
-class ImportExportForm extends Component {
+class ImportForm extends Component {
 
     constructor(props) {
         super(props)
@@ -20,13 +18,13 @@ class ImportExportForm extends Component {
         document.title = 'Import/Export | Reconmap';
     }
 
-    handleUploadClick(e) {
-        e.preventDefault();
+    handleUploadClick(ev) {
+        ev.preventDefault();
 
         const resultFileInput = document.getElementById('importFile');
         const formData = new FormData();
         formData.append('importFile', resultFileInput.files[0]);
-        secureApiFetch('/templates', {
+        secureApiFetch('/system/data', {
             method: 'POST',
             body: formData
         })
@@ -45,10 +43,7 @@ class ImportExportForm extends Component {
         const projectsImported = this.state.projectsImported;
         return (
             <div>
-                <div className='heading'>
-                    <Breadcrumb history={this.props.history}/>
-                </div>
-                <Title type="System Utils" title="Import/Export" icon={<IconDownloadDocument/>}/>
+                <h3>Import system data</h3>
                 <form>
                     <label>
                         Select file
@@ -71,4 +66,4 @@ class ImportExportForm extends Component {
     }
 }
 
-export default ImportExportForm
+export default ImportForm
