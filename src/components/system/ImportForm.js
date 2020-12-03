@@ -6,16 +6,14 @@ import BtnPrimary from '../ui/buttons/BtnPrimary';
 class ImportForm extends Component {
 
     constructor(props) {
-        super(props)
-        this.handleUploadClick = this.handleUploadClick.bind(this)
+        super(props);
+        this.handleUploadClick = this.handleUploadClick.bind(this);
+        this.onImportFileChange = this.onImportFileChange.bind(this)
 
         this.state = {
-            projectsImported: []
+            projectsImported: [],
+            importButtonDisabled: true
         }
-    }
-
-    componentDidMount() {
-        document.title = 'Import/Export | Reconmap';
     }
 
     handleUploadClick(ev) {
@@ -35,21 +33,30 @@ class ImportForm extends Component {
             .catch((err) => console.error(err));
     }
 
+    onImportFileChange(ev) {
+        ev.preventDefault();
+        const selectedFiles = ev.target.files;
+        this.setState({importButtonDisabled: selectedFiles.length === 0});
+    }
+
     handleGoBack() {
         this.props.history.goBack()
     }
 
     render() {
         const projectsImported = this.state.projectsImported;
+        const importButtonDisabled = this.state.importButtonDisabled;
+
         return (
             <div>
                 <h3>Import system data</h3>
                 <form>
                     <label>
                         Select file
-                        <input type="file" id="importFile" required/>
+                        <input type="file" id="importFile" onChange={this.onImportFileChange} required/>
                     </label>
-                    <BtnPrimary onClick={this.handleUploadClick}><IconUpload/> Import</BtnPrimary>
+                    <BtnPrimary disabled={importButtonDisabled}
+                                onClick={this.handleUploadClick}><IconUpload/> Import</BtnPrimary>
                 </form>
 
                 {projectsImported.length > 0 &&
