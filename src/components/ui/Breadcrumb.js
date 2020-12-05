@@ -17,8 +17,8 @@ const Breadcrumb = (props) => {
 
     let links = [];
     if (history.length > 0) {
-        links.push(<span><a className="Arrow" href="/" title="Go back"
-                            onClick={onGoBackClicked}><IconLeft/></a></span>);
+        links.push(<span className="Arrow"><a href="/" title="Go back"
+                                              onClick={onGoBackClicked}><IconLeft/></a></span>);
         if (childrenCount > 0) {
             links.push(<span className="Slash">/</span>)
         }
