@@ -7,7 +7,6 @@ import BtnPrimary from '../ui/buttons/BtnPrimary'
 import Title from '../ui/Title';
 import ThemeContext from "../../contexts/ThemeContext";
 import BtnSecondary from "../ui/buttons/BtnSecondary";
-import CancelButton from "../ui/buttons/Cancel";
 import Breadcrumb from '../ui/Breadcrumb';
 import setThemeColors from '../../utilities/setThemeColors';
 
@@ -67,9 +66,6 @@ const UserPreferences = ({history}) => {
 
                 </label>
                 <BtnPrimary onClick={handleSubmit}><IconSave/> Save</BtnPrimary>
-                <CancelButton onClick={() => {
-                    history.push("/")
-                }}/>
             </form>
         </>
     )

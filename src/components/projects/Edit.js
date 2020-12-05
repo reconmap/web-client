@@ -6,7 +6,6 @@ import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import {IconPlus} from "../ui/Icons";
 import BtnPrimary from "../ui/buttons/BtnPrimary";
-import CancelButton from "../ui/buttons/Cancel";
 import Loading from "../ui/Loading";
 import {actionCompletedToast} from "../../utilities/toast";
 
@@ -17,14 +16,11 @@ const ProjectEdit = ({history}) => {
     const [savedProject] = useFetch(`/projects/${projectId}`);
     const [updatedProject, setProject] = useState(null);
 
-    const onCancelButtonClick = () => {
-        history.push('/projects');
+    const onFormChange = ev => {
+        setProject({...updatedProject, [ev.target.name]: ev.target.value});
     };
-    const onFormChange = e => {
-        setProject({...updatedProject, [e.target.name]: e.target.value});
-    };
-    const onFormSubmit = async (event) => {
-        event.preventDefault();
+    const onFormSubmit = async (ev) => {
+        ev.preventDefault();
 
         setLoading(true)
         await secureApiFetch(`/projects/${projectId}`, {method: 'PUT', body: JSON.stringify(updatedProject)})
@@ -67,7 +63,6 @@ const ProjectEdit = ({history}) => {
                            required/>
                 </label>
                 <BtnPrimary type="submit" disabled={loading}>{loading ? 'Updating...' : 'Update'}</BtnPrimary>
-                <CancelButton onClick={onCancelButtonClick} disabled={loading}/>
             </form>
         </div>
     )

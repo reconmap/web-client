@@ -6,7 +6,7 @@ import React from "react";
 import ExportForm from "./ExportForm";
 
 const SystemIndexPage = () => {
-    return <section>
+    return <div>
         <div className='heading'>
             <Breadcrumb/>
         </div>
@@ -17,7 +17,7 @@ const SystemIndexPage = () => {
             <div><ExportForm/></div>
         </div>
 
-    </section>
+    </div>
 };
 
 export default SystemIndexPage;

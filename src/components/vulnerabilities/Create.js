@@ -6,7 +6,6 @@ import Risks from '../../models/Risks'
 import useFetch from '../../hooks/useFetch'
 import Loading from '../ui/Loading';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
-import CancelButton from "../ui/buttons/Cancel";
 import Title from '../ui/Title';
 import {IconPlus} from '../ui/Icons';
 import useSetTitle from "../../hooks/useSetTitle";
@@ -31,10 +30,6 @@ const VulnerabilityCreate = () => {
         cvssVector: null,
     })
     const [loading, setLoading] = useState(false)
-
-    const handleGoBack = () => {
-        history.push(`/vulnerabilities`);
-    };
 
     const handleFormChange = ev => {
         const target = ev.target;
@@ -121,7 +116,6 @@ const VulnerabilityCreate = () => {
 
                     <BtnPrimary type="submit"
                                 disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                    <CancelButton onClick={handleGoBack} disabled={loading}/>
                 </form>
             }
         </div>

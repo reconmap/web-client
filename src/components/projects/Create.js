@@ -2,25 +2,22 @@ import React, {useState} from 'react'
 import Breadcrumb from '../ui/Breadcrumb'
 import BtnPrimary from '../ui/buttons/BtnPrimary'
 import Title from '../ui/Title'
-import CancelButton from "../ui/buttons/Cancel";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import {IconPlus} from '../ui/Icons';
 import {Link} from "react-router-dom";
 
 const ProjectCreate = ({history}) => {
-    const handleGoBack = () => {
-        history.push('/projects');
-    }
+
     const [loading, setLoading] = useState(false)
     const [clients] = useFetch('/clients')
 
     const [newProject, setNewProject] = useState({clientId: null, name: null, description: null})
-    const handleFormChange = e => {
-        setNewProject({...newProject, [e.target.name]: e.target.value});
+    const handleFormChange = ev => {
+        setNewProject({...newProject, [ev.target.name]: ev.target.value});
     };
-    const handleCreate = async (event) => {
-        event.preventDefault();
+    const handleCreate = async (ev) => {
+        ev.preventDefault();
 
         newProject.clientId = document.getElementById('clientId').value;
 
@@ -54,7 +51,6 @@ const ProjectCreate = ({history}) => {
                     <textarea name="description" onChange={handleFormChange} required/>
                 </label>
                 <BtnPrimary type="submit" disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

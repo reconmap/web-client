@@ -4,7 +4,6 @@ import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
-import CancelButton from "../ui/buttons/Cancel";
 import {actionCompletedToast} from './../../utilities/toast'
 
 const UserCreationForm = () => {
@@ -40,9 +39,6 @@ const UserCreationForm = () => {
             ...userData, [name]: value
         });
     };
-    const handleGoBack = () => {
-        history.push('/users/')
-    }
 
     return (
         <div>
@@ -77,7 +73,6 @@ const UserCreationForm = () => {
 
                 <BtnPrimary type="submit"
                             disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

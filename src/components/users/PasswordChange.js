@@ -1,6 +1,5 @@
 import Title from "../ui/Title";
 import BtnPrimary from "../ui/buttons/BtnPrimary";
-import CancelButton from "../ui/buttons/Cancel";
 import {useHistory} from 'react-router-dom';
 import {useEffect, useState} from "react";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -46,9 +45,6 @@ const UserPasswordChange = () => {
         const value = target.value;
         setPasswords({...passwords, [name]: value});
     };
-    const handleGoBack = () => {
-        history.push('/users/')
-    }
 
     useEffect(() => {
         setSubmitButtonDisabled(passwords.newPassword !== passwords.newPasswordConfirmation);
@@ -75,7 +71,6 @@ const UserPasswordChange = () => {
                 </label>
                 <BtnPrimary type="submit"
                             disabled={submitButtonDisabled}>Update</BtnPrimary>
-                <CancelButton onClick={handleGoBack} disabled={submitButtonDisabled}/>
             </form>
         </div>
     )
