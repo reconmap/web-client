@@ -41,12 +41,12 @@ const TaskDetails = ({history, match}) => {
     }
 
     const handleDelete = () => {
-        destroy(task.id)
-        history.goBack()
+        destroy(task.id);
+        history.push('/tasks');
     }
 
-    const handleAssigneeChange = (event) => {
-        const assigneeUid = event.target.value;
+    const handleAssigneeChange = (ev) => {
+        const assigneeUid = ev.target.value;
         secureApiFetch(`/tasks/${task.id}`, {
             method: 'PATCH',
             body: JSON.stringify({assignee_uid: '' === assigneeUid ? null : assigneeUid})

@@ -3,7 +3,6 @@ import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
-import CancelButton from "../ui/buttons/Cancel";
 import useFetch from "../../hooks/useFetch";
 import {Link, useLocation} from 'react-router-dom';
 import Loading from "../ui/Loading";
@@ -38,10 +37,6 @@ const CreateTask = ({history}) => {
         const value = target.value;
         setNewTask({...newTask, [name]: value});
     };
-
-    const handleGoBack = () => {
-        history.goBack()
-    }
 
     useEffect(() => {
         if (projects !== null && projectIdParam.current === defaultProjectId) {
@@ -88,7 +83,6 @@ const CreateTask = ({history}) => {
                 </label>
                 <BtnPrimary type="submit"
                             disabled={loading}>{loading ? 'Creating...' : 'Create'}</BtnPrimary>
-                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

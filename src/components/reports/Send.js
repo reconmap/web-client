@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
-import CancelButton from "../ui/buttons/Cancel";
 import useSetTitle from "../../hooks/useSetTitle";
 import secureApiFetch from "../../services/api";
 import {useParams} from 'react-router-dom';
@@ -20,24 +19,20 @@ const SendReport = ({history}) => {
     })
 
     const [loading, setLoading] = useState(false)
-    const handleSend = async (event) => {
-        event.preventDefault();
+    const handleSend = async (ev) => {
+        ev.preventDefault();
 
         setLoading(true)
         await secureApiFetch(`/reports/${reportId}/send`, {method: 'POST', body: JSON.stringify(deliverySettings)})
         history.push(`/reports`)
     }
 
-    const handleFormChange = e => {
-        const target = e.target;
+    const handleFormChange = ev => {
+        const target = ev.target;
         const name = target.name;
         const value = target.value;
         setDeliverySettings({...deliverySettings, [name]: value});
     };
-
-    const handleGoBack = () => {
-        history.goBack()
-    }
 
     return (
         <div>
@@ -60,7 +55,6 @@ const SendReport = ({history}) => {
                 </label>
                 <BtnPrimary type="submit"
                             disabled={loading}>{loading ? 'Sending...' : 'Send'}</BtnPrimary>
-                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

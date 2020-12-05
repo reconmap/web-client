@@ -60,16 +60,10 @@ class ProjectReport extends Component {
             });
     }
 
-    handleGoBack() {
-        this.props.history.goBack()
-    }
-
     render() {
-
         const projectId = this.projectId;
 
         return (
-
             <>
                 <div className='heading'>
                     <Breadcrumb/>

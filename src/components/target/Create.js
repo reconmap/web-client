@@ -4,7 +4,6 @@ import Breadcrumb from '../ui/Breadcrumb';
 import TargetKinds from '../../models/TargetKinds'
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
-import CancelButton from "../ui/buttons/Cancel";
 
 export default function TargetCreateForm({match, history}) {
     const projectId = match.params.id;
@@ -17,15 +16,12 @@ export default function TargetCreateForm({match, history}) {
         await secureApiFetch(`/targets`, {method: 'POST', body: JSON.stringify(newTarget)})
         history.push(`/projects/${projectId}`)
     }
-    const handleFormChange = e => {
-        const target = e.target;
+    const handleFormChange = ev => {
+        const target = ev.target;
         const name = target.name;
         const value = target.value;
         setNewTarget({...newTarget, [name]: value});
     };
-    const handleGoBack = () => {
-        history.goBack()
-    }
 
     return (
         <div>
@@ -45,7 +41,6 @@ export default function TargetCreateForm({match, history}) {
                 </label>
                 <BtnPrimary type="submit"
                             disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

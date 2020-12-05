@@ -3,7 +3,6 @@ import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
-import CancelButton from "../ui/buttons/Cancel";
 import {Link} from "react-router-dom";
 
 export default function ClientCreate({history}) {
@@ -28,9 +27,6 @@ export default function ClientCreate({history}) {
         const value = target.value;
         setNewClient({...newClient, [name]: value});
     };
-    const handleGoBack = () => {
-        history.goBack()
-    }
 
     return (
         <div>
@@ -53,7 +49,6 @@ export default function ClientCreate({history}) {
                     <input type="text" name="contactPhone" onChange={handleFormChange}/></label>
                 <BtnPrimary type="submit"
                             disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
-                <CancelButton onClick={handleGoBack} disabled={loading}/>
             </form>
         </div>
     )

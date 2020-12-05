@@ -39,10 +39,6 @@ class ImportForm extends Component {
         this.setState({importButtonDisabled: selectedFiles.length === 0});
     }
 
-    handleGoBack() {
-        this.props.history.goBack()
-    }
-
     render() {
         const projectsImported = this.state.projectsImported;
         const importButtonDisabled = this.state.importButtonDisabled;

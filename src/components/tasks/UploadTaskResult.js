@@ -34,10 +34,6 @@ class UploadTaskResult extends Component {
             .catch((err) => console.error(err));
     }
 
-    handleGoBack() {
-        this.props.history.goBack()
-    }
-
     render() {
         return (
             <div>

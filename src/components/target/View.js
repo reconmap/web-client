@@ -19,7 +19,7 @@ const TargetView = ({match, history}) => {
     const handleDelete = () => {
         destroy()
             .then(() => {
-                history.goBack()
+                history.push('/projects');
             })
             .catch((err) => console.error(err))
     }
@@ -32,7 +32,7 @@ const TargetView = ({match, history}) => {
             </div>
             <DeleteButton onClick={handleDelete}/>
         </div>
-        <article className=''>
+        <article>
             <table>
                 <tbody>
                 <tr>
