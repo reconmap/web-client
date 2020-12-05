@@ -26,8 +26,8 @@ const UserPreferences = ({history}) => {
         })
     }
 
-    const handleChange = (e) => {
-        setTimezone(e.target.value);
+    const handleChange = (ev) => {
+        setTimezone(ev.target.value);
     }
 
     const handleSubmit = () => {
@@ -46,7 +46,7 @@ const UserPreferences = ({history}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
             </div>
             <Title type='User' title='Preferences' icon={<IconPreferences/>}/>
             <form onSubmit={e => e.preventDefault()}>

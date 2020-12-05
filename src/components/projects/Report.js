@@ -19,7 +19,6 @@ class ProjectReport extends Component {
         this.projectId = this.props.match.params.id;
     }
 
-
     handleExport(projectId) {
         secureApiFetch(`/projects/${projectId}/report?format=pdf`, {
             method: 'GET'
@@ -73,7 +72,7 @@ class ProjectReport extends Component {
 
             <>
                 <div className='heading'>
-                    <Breadcrumb history={this.props.history}/>
+                    <Breadcrumb/>
                     <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave/> Export to PDF</BtnSecondary>
                 </div>
                 <Title type='Report' title={this.state.project ? this.state.project.name : 'Project'}

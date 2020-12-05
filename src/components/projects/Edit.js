@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Breadcrumb from '../ui/Breadcrumb'
 import Title from '../ui/Title'
 import useFetch from "../../hooks/useFetch";
@@ -42,7 +42,11 @@ const ProjectEdit = ({history}) => {
 
     return (
         <div>
-            <Breadcrumb history={history}/>
+            <div className="heading">
+                <Breadcrumb>
+                    <Link to="/projects">Projects</Link>
+                </Breadcrumb>
+            </div>
             <form onSubmit={onFormSubmit}>
                 <Title title={`Edit Project ${savedProject.name}`} icon={<IconPlus/>}/>
 

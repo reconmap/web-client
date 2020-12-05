@@ -14,6 +14,7 @@ import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Timestamps from "../ui/Timestamps";
 import EditButton from "../ui/buttons/Edit";
+import {Link} from "react-router-dom";
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
@@ -49,7 +50,9 @@ const ProjectDetails = ({match, history}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/projects">Projects</Link>
+                </Breadcrumb>
                 {project && <>
                     <ProjectTeam project={project} users={users}/>
 

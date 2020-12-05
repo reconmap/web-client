@@ -13,6 +13,7 @@ import toast, {actionCompletedToast} from "../../utilities/toast";
 import TaskStatusBadge from '../badges/TaskStatusBadge'
 import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'
+import {Link} from "react-router-dom";
 
 const TaskDetails = ({history, match}) => {
 
@@ -61,7 +62,9 @@ const TaskDetails = ({history, match}) => {
     return (
         <div>
             <div className="heading">
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/tasks">Tasks</Link>
+                </Breadcrumb>
                 {task && users &&
                 <ButtonGroup>
                     <label>Assign to&nbsp;

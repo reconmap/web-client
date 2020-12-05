@@ -4,10 +4,11 @@ import Title from '../ui/Title';
 import Timestamps from "../ui/Timestamps";
 import ExternalLink from "../ui/ExternalLink";
 import {IconBriefcase} from '../ui/Icons';
-import {useHistory, useRouteMatch} from 'react-router-dom';
+import {Link, useHistory, useRouteMatch} from 'react-router-dom';
 import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'
 import Loading from './../ui/Loading'
+import Breadcrumb from "../ui/Breadcrumb";
 
 const ClientDetails = () => {
     const {params: {clientId}} = useRouteMatch()
@@ -31,13 +32,16 @@ const ClientDetails = () => {
     }
     return <div>
         <div className='heading'>
-            <div>
-                <Title type='Client' title={client.name} icon={<IconBriefcase/>}/>
-                <Timestamps insertTs={client.insert_ts} updateTs={client.update_ts}/>
-            </div>
+            <Breadcrumb>
+                <Link to="/clients">Clients</Link>
+            </Breadcrumb>
             <DeleteButton onClick={handleDelete}/>
         </div>
         <article>
+            <div>
+                <Title type='Client' title={client.name} icon={<IconBriefcase/>}/>
+            </div>
+            <Timestamps insertTs={client.insert_ts} updateTs={client.update_ts}/>
             <table className="table-details">
                 <tbody>
                 <tr>

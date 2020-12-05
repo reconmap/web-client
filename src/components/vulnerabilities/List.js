@@ -2,13 +2,13 @@ import React, {useCallback, useEffect, useState} from 'react'
 import useSetTitle from './../../hooks/useSetTitle'
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
-import Breadcrumb from '../ui/Breadcrumb';
 import Pagination from '../layout/Pagination';
 import secureApiFetch from '../../services/api';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 import CreateButton from '../ui/buttons/Create';
 import Title from '../ui/Title';
 import {IconFlag} from '../ui/Icons';
+import Breadcrumb from "../ui/Breadcrumb";
 
 const VulnerabilitiesList = ({history}) => {
     const searchParams = new URLSearchParams(history.location.search);
@@ -53,7 +53,7 @@ const VulnerabilitiesList = ({history}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
                 <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext}/>
                 <CreateButton onClick={handleCreateVulnerability}>Create Vulnerability</CreateButton>
             </div>

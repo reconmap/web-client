@@ -39,7 +39,7 @@ const TasksList = ({match, history}) => {
 
     return <div>
         <div className='heading'>
-            <Breadcrumb history={history}/>
+            <Breadcrumb/>
         </div>
         <form>
             <Title title='Members'/>

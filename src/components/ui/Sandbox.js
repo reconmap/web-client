@@ -2,14 +2,12 @@ import React from 'react'
 import {IconUnlocked} from './Icons'
 import Title from './Title'
 import Breadcrumb from './../ui/Breadcrumb'
-import {useHistory} from 'react-router-dom'
 import Help from './../ui/Help'
 import BtnPrimary from './../ui/buttons/BtnPrimary'
 import BtnSecondary from './buttons/BtnSecondary'
 import BtnLink from './buttons/BtnLink'
 
 export default function Sandbox() {
-    const history = useHistory()
     const colors = [
         '--primary-color',
         '--complementary-color',
@@ -30,7 +28,7 @@ export default function Sandbox() {
     ]
     return (
         <div>
-            <Breadcrumb history={history}/>
+            <Breadcrumb/>
             <Title title='Sandbox' type='UI test page' icon={<IconUnlocked/>}/>
             <Help title='This is the help'>
                 <p>

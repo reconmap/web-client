@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
@@ -17,8 +17,8 @@ const UserCreationForm = () => {
         sendEmailToUser: false
     })
     const [loading, setLoading] = useState(false)
-    const handleCreate = async (event) => {
-        event.preventDefault();
+    const handleCreate = async (ev) => {
+        ev.preventDefault();
 
         setLoading(true)
         await secureApiFetch(`/users`, {
@@ -32,8 +32,8 @@ const UserCreationForm = () => {
                 setLoading(false);
             })
     }
-    const handleFormChange = e => {
-        const target = e.target;
+    const handleFormChange = ev => {
+        const target = ev.target;
         const name = target.name;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         setUserData({
@@ -47,7 +47,9 @@ const UserCreationForm = () => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/users">Users</Link>
+                </Breadcrumb>
             </div>
             <form onSubmit={handleCreate}>
                 <Title title='Create User'/>

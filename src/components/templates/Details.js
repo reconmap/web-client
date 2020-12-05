@@ -27,7 +27,9 @@ const TemplateDetails = ({history, match}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/templates">Templates</Link>
+                </Breadcrumb>
                 {template &&
                 <ButtonGroup>
                     <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle

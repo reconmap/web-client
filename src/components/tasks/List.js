@@ -30,7 +30,7 @@ const TasksList = ({history}) => {
 
     return <>
         <div className='heading'>
-            <Breadcrumb history={history}/>
+            <Breadcrumb/>
             <ButtonGroup>
                 <div>
                     <label>Project</label>

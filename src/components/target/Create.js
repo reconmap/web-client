@@ -30,7 +30,7 @@ export default function TargetCreateForm({match, history}) {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
             </div>
             <form onSubmit={handleCreate}>
                 <Title title='Create Target'/>

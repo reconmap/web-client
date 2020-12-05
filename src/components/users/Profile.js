@@ -8,15 +8,18 @@ import AuditLogsTable from '../auditlog/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
 import {IconBookOpen, IconDocument} from '../ui/Icons';
+import {Link} from "react-router-dom";
 
-const UserProfile = ({match, history}) => {
+const UserProfile = ({match}) => {
     useSetTitle('User');
     const [user] = useFetch(`/users/${match.params.id}`)
     const [auditLog] = useFetch(`/users/${match.params.id}/activity`)
     return (
         <>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/users">Users</Link>
+                </Breadcrumb>
             </div>
             <div style={{display: 'grid', gridTemplateColumns: '200px 1fr .5fr', gap: 'var(--padding)'}}>
                 {user ?

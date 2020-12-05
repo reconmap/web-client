@@ -14,7 +14,7 @@ const IntegrationsList = ({history}) => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
             </div>
             <Title type="System" title="Integrations" icon={<IconExtensions/>}/>
             {!integrations ? <Loading/> : integrations.length === 0 ? <NoResults/> :

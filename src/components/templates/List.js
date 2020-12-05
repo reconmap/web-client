@@ -34,7 +34,7 @@ const TemplatesList = ({history}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
                 <CreateButton onClick={() => history.push('/system-data')}>Import template(s)</CreateButton>
             </div>
             <Title title='Templates' icon={<IconDocumentDuplicate/>}/>

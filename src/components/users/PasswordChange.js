@@ -57,7 +57,7 @@ const UserPasswordChange = () => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
             </div>
             <form onSubmit={handleCreate}>
                 <Title title="User Password Change"/>

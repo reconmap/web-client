@@ -43,7 +43,7 @@ const ReportsList = ({history}) => {
 
     return <div>
         <div className='heading'>
-            <Breadcrumb history={history}/>
+            <Breadcrumb/>
         </div>
         <Title title='Saved Reports' icon={<IconReport/>}/>
         {!reports ? <Loading/> :

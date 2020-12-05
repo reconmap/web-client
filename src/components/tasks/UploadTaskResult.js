@@ -42,7 +42,7 @@ class UploadTaskResult extends Component {
         return (
             <div>
                 <div className='heading'>
-                    <Breadcrumb history={this.props.history}/>
+                    <Breadcrumb/>
                 </div>
                 <article>
                     <Title title='Upload Task Results'/>

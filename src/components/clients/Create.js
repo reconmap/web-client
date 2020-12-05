@@ -4,6 +4,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
 import CancelButton from "../ui/buttons/Cancel";
+import {Link} from "react-router-dom";
 
 export default function ClientCreate({history}) {
     const [newClient, setNewClient] = useState({
@@ -14,15 +15,15 @@ export default function ClientCreate({history}) {
         contactPhone: null
     })
     const [loading, setLoading] = useState(false)
-    const handleCreate = async (event) => {
-        event.preventDefault();
+    const handleCreate = async (ev) => {
+        ev.preventDefault();
 
         setLoading(true)
         await secureApiFetch(`/clients`, {method: 'POST', body: JSON.stringify(newClient)})
         history.push(`/clients`)
     }
-    const handleFormChange = e => {
-        const target = e.target;
+    const handleFormChange = ev => {
+        const target = ev.target;
         const name = target.name;
         const value = target.value;
         setNewClient({...newClient, [name]: value});
@@ -34,7 +35,9 @@ export default function ClientCreate({history}) {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/clients">Clients</Link>
+                </Breadcrumb>
             </div>
             <form onSubmit={handleCreate}>
                 <Title title='Create Client'/>

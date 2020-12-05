@@ -19,10 +19,10 @@ const ClientsList = ({history}) => {
     const handleCreateClient = () => {
         history.push(`/clients/create`)
     }
-    return <>
 
+    return <>
         <div className='heading'>
-            <Breadcrumb history={history}/>
+            <Breadcrumb/>
 
             <CreateButton onClick={handleCreateClient}>Create Client</CreateButton>
         </div>

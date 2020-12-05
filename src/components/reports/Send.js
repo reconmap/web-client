@@ -42,7 +42,7 @@ const SendReport = ({history}) => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
             </div>
             <form onSubmit={handleSend}>
                 <Title title='Send report'/>

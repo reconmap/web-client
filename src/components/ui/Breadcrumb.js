@@ -1,43 +1,35 @@
 import {IconLeft} from './Icons'
+import React from 'react';
+import {useHistory} from 'react-router-dom';
+import './Breadcrumb.scss';
 
-const Breadcrumb = ({history}) => {
-    const handleGoBack = () => {
-        history.goBack()
+const Breadcrumb = (props) => {
+    const history = useHistory();
+
+    const childrenCount = React.Children.count(props.children);
+    const children = React.Children.toArray(props.children);
+
+    const onGoBackClicked = ev => {
+        ev.preventDefault();
+
+        history.goBack();
     }
 
-    const handleGoTo = (destination) => {
-        if (destination.length > 3) {
-            history.push('/' + destination)
+    let links = [];
+    if (history.length > 0) {
+        links.push(<span><a className="Arrow" href="/" title="Go back"
+                            onClick={onGoBackClicked}><IconLeft/></a></span>);
+        if (childrenCount > 0) {
+            links.push(<span className="Slash">/</span>)
         }
-    }
-    const styles = {
-        button: {
-            display: 'flex',
-            alignSelf: 'center',
-            border: `var(--borderWidth) solid var(--black)`,
-            backgroundColor: 'transparent',
-        },
-        arrow: {
-            color: 'var(--primary-color)',
-
-        },
-        slash: {
-            margin: 'var(--margin)',
-            color: 'var(--text-color)',
-
-        }
+        children.forEach((child, index) => {
+            links.push(child);
+            if (index < childrenCount - 1)
+                links.push(<span className="Slash">/</span>)
+        })
     }
 
-    return <button style={styles.button}>
-        {history && history.length > 0 && <span onClick={handleGoBack} style={styles.arrow}> <IconLeft/> </span>}
-        {history && history.location.pathname.split('/').map((route, index) =>
-            route !== '' &&
-            <span key={index} onClick={() => handleGoTo(route)}>
-                        <i style={styles.slash}>/</i>
-                {route}
-                    </span>
-        )}
-    </button>
+    return <div className="Breadcrumb">{links}</div>
 }
 
-export default Breadcrumb
+export default Breadcrumb;

@@ -13,7 +13,7 @@ import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
 import {IconCheck, IconFlag} from '../ui/Icons';
 import {actionCompletedToast} from "../../utilities/toast";
-import {useHistory, useRouteMatch} from 'react-router-dom';
+import {Link, useHistory, useRouteMatch} from 'react-router-dom';
 import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'
 
@@ -46,10 +46,13 @@ const VulnerabilityDetails = () => {
             .catch(err => console.error(err))
     }
 
+    if (!vulnerability) return <Loading/>
+
     return <div>
         <div className='heading'>
-            <Breadcrumb history={history}/>
-            {vulnerability &&
+            <Breadcrumb>
+                <Link to="/vulnerabilities">Vulnerabilities</Link>
+            </Breadcrumb>
             <ButtonGroup>
                 {vulnerability.status === 'open' &&
                 <BtnPrimary onClick={handleStatus}>
@@ -58,46 +61,43 @@ const VulnerabilityDetails = () => {
                 <BtnPrimary onClick={handleStatus}>Mark as open</BtnPrimary>}
                 <DeleteButton onClick={handleDelete}/>
             </ButtonGroup>
-            }
         </div>
-        {!vulnerability ? <Loading/> :
-            <article>
-                <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag/>}/>
-                <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts}/>
-                <p>{vulnerability.description}</p>
-                <table className='table-details'>
-                    <tbody>
-                    <tr>
-                        <td>Status</td>
-                        <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
-                    </tr>
-                    <tr>
-                        <td>Project</td>
-                        <td>{vulnerability.project_id ?
-                            <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</td>
-                    </tr>
-                    <tr>
-                        <td>Risk</td>
-                        <td><RiskBadge risk={vulnerability.risk}/></td>
-                    </tr>
-                    <tr>
-                        <td>Category</td>
-                        <td>{vulnerability.category_name || '-'}</td>
-                    </tr>
-                    <tr>
-                        <td>CVSS score</td>
-                        <td><CvssScore score={vulnerability.cvss_score}/></td>
-                    </tr>
-                    <tr>
-                        <td>CVSS vector</td>
-                        <td><ExternalLink
-                            href={`https://www.first.org/cvss/calculator/3.0#${vulnerability.cvss_vector}`}>{vulnerability.cvss_vector}</ExternalLink>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </article>
-        }
+        <article>
+            <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag/>}/>
+            <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts}/>
+            <p>{vulnerability.description}</p>
+            <table className='table-details'>
+                <tbody>
+                <tr>
+                    <td>Status</td>
+                    <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
+                </tr>
+                <tr>
+                    <td>Project</td>
+                    <td>{vulnerability.project_id ?
+                        <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</td>
+                </tr>
+                <tr>
+                    <td>Risk</td>
+                    <td><RiskBadge risk={vulnerability.risk}/></td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td>{vulnerability.category_name || '-'}</td>
+                </tr>
+                <tr>
+                    <td>CVSS score</td>
+                    <td><CvssScore score={vulnerability.cvss_score}/></td>
+                </tr>
+                <tr>
+                    <td>CVSS vector</td>
+                    <td><ExternalLink
+                        href={`https://www.first.org/cvss/calculator/3.0#${vulnerability.cvss_vector}`}>{vulnerability.cvss_vector}</ExternalLink>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
     </div>
 }
 

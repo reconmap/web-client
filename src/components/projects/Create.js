@@ -6,6 +6,7 @@ import CancelButton from "../ui/buttons/Cancel";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import {IconPlus} from '../ui/Icons';
+import {Link} from "react-router-dom";
 
 const ProjectCreate = ({history}) => {
     const handleGoBack = () => {
@@ -30,7 +31,11 @@ const ProjectCreate = ({history}) => {
 
     return (
         <div>
-            <Breadcrumb history={history}/>
+            <div className="heading">
+                <Breadcrumb>
+                    <Link to="/projects">Projects</Link>
+                </Breadcrumb>
+            </div>
             <form onSubmit={handleCreate}>
                 <Title title='New Project' icon={<IconPlus/>}/>
 

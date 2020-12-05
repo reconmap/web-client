@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {useHistory, useLocation} from 'react-router-dom';
+import {Link, useHistory, useLocation} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import Risks from '../../models/Risks'
@@ -69,7 +69,9 @@ const VulnerabilityCreate = () => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/vulnerabilities">Vulnerabilities</Link>
+                </Breadcrumb>
             </div>
             <Title title="Create Vulnerability" icon={<IconPlus/>}/>
 

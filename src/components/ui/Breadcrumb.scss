@@ -1,0 +1,15 @@
+div.Breadcrumb {
+  display: flex;
+  alignSelf: center;
+  border: var(--borderWidth) solid var(--black);
+  backgroundColor: transparent;
+
+  .Arrow {
+    color: var(--primary-color);
+  }
+
+  .Slash {
+    margin: var(--margin);
+    color: var(--text-color);
+  }
+}

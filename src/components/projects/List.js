@@ -27,7 +27,7 @@ const ProjectsList = ({history}) => {
     };
     return <div>
         <div className='heading'>
-            <Breadcrumb history={history}/>
+            <Breadcrumb/>
             <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
         </div>
         <Title title='Projects' icon={<IconFolder/>}/>

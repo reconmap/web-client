@@ -60,7 +60,7 @@ const UsersList = ({history}) => {
 
     return (<>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb/>
                 <ButtonGroup>
                     <CreateButton onClick={handleCreate}>Create User</CreateButton>
                     <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>Delete

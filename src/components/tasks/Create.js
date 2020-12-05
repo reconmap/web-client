@@ -5,7 +5,7 @@ import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
 import CancelButton from "../ui/buttons/Cancel";
 import useFetch from "../../hooks/useFetch";
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import Loading from "../ui/Loading";
 
 const CreateTask = ({history}) => {
@@ -32,8 +32,8 @@ const CreateTask = ({history}) => {
         history.push(`/tasks?projectId=${newTask.projectId}`)
     }
 
-    const handleFormChange = e => {
-        const target = e.target;
+    const handleFormChange = ev => {
+        const target = ev.target;
         const name = target.name;
         const value = target.value;
         setNewTask({...newTask, [name]: value});
@@ -57,7 +57,9 @@ const CreateTask = ({history}) => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb history={history}/>
+                <Breadcrumb>
+                    <Link to="/tasks">Tasks</Link>
+                </Breadcrumb>
             </div>
             <form onSubmit={handleCreate}>
                 <Title title='Create Task'/>
