@@ -5,7 +5,7 @@ import Breadcrumb from './../ui/Breadcrumb'
 import Help from './../ui/Help'
 import BtnPrimary from './../ui/buttons/BtnPrimary'
 import BtnSecondary from './buttons/BtnSecondary'
-import BtnLink from './buttons/BtnLink'
+import LinkButton from './buttons/Link'
 
 export default function Sandbox() {
     const colors = [
@@ -52,7 +52,7 @@ export default function Sandbox() {
             <div className='button-group' style={{margin: 'var(--margin) 0'}}>
                 <BtnPrimary>BtnPrimary</BtnPrimary>
                 <BtnSecondary>BtnSecondary</BtnSecondary>
-                <BtnLink>BtnLink</BtnLink>
+                <LinkButton>BtnLink</LinkButton>
             </div>
 
             <p style={{

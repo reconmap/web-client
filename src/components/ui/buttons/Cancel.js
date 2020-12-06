@@ -1,9 +1,9 @@
 import {IconX} from "../Icons";
-import BtnLink from "./BtnLink";
+import LinkButton from "./LinkButton";
 
-const CancelButton = ({onClick, children}) => <BtnLink onClick={onClick} type="cancel" className="flex">
+const CancelButton = ({onClick, children}) => <LinkButton onClick={onClick} type="cancel" className="flex">
     <IconX/>
     {children || "Cancel"}
-</BtnLink>
+</LinkButton>
 
 export default CancelButton

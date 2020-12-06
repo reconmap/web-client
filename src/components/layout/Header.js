@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 
 import {AuthConsumer} from '../../contexts/AuthContext'
 
-import BtnLink from './../ui/buttons/BtnLink'
+import LinkButton from '../ui/buttons/Link'
 import NotificationsBadge from '../badges/NotificationsBadge';
 import SearchBox from "../search/Box";
 import HeaderUserMenu from '../ui/HeaderUserMenu';
@@ -29,9 +29,9 @@ export default function Header() {
                             {user && <HeaderUserMenu email={user.email}/>}
                         </>
                         : LINKS.map((link, index) => (
-                            <BtnLink external key={index} to={link.to.pathname}>
+                            <LinkButton external key={index} to={link.to.pathname}>
                                 {link.title}
-                            </BtnLink>))}
+                            </LinkButton>))}
 
                     <div id='progress'></div>
                 </nav>

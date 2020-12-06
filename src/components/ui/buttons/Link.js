@@ -1,6 +1,14 @@
 import {useHistory} from 'react-router-dom'
 
-export default function BtnLink({onClick, children, color = 'black', fontSize = 'fontSizeSmall', to, disabled = false, external = false}) {
+export default function LinkButton({
+                                       onClick,
+                                       children,
+                                       color = 'black',
+                                       fontSize = 'fontSizeSmall',
+                                       to,
+                                       disabled = false,
+                                       external = false
+                                   }) {
     const history = useHistory()
     const handleOpen = () => {
         external ? window.open(to, '_blank') : history.push(to)
