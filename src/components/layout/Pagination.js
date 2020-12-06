@@ -11,10 +11,12 @@ const Pagination = ({page, total, handleNext, handlePrev}) => {
         if (isInputElement(document.activeElement)) {
             return;
         }
-        ev.preventDefault();
+
         if (previousEnabled && ev.key === 'p') {
+            ev.preventDefault();
             handlePrev();
         } else if (nextEnabled && ev.key === 'n') {
+            ev.preventDefault();
             handleNext();
         }
     }, [previousEnabled, nextEnabled, handlePrev, handleNext]);

@@ -9,17 +9,20 @@ const KeyboardShortcuts = () => {
         if (isInputElement(document.activeElement)) {
             return;
         }
-        ev.preventDefault();
 
         if (ev.key === '?') {
+            ev.preventDefault();
+
             if (divRef.current.classList.contains('KeyboardShortcutsHidden')) {
                 divRef.current.classList.remove('KeyboardShortcutsHidden');
             } else {
                 divRef.current.classList.add('KeyboardShortcutsHidden');
             }
         } else if (ev.key === 'Escape') {
-            if (divRef.current.classList.contains('KeyboardShortcutsHidden')) {
-                divRef.current.classList.remove('KeyboardShortcutsHidden');
+            ev.preventDefault();
+
+            if (!divRef.current.classList.contains('KeyboardShortcutsHidden')) {
+                divRef.current.classList.add('KeyboardShortcutsHidden');
             }
         }
     }, [divRef]);
