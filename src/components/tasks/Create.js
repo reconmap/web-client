@@ -23,8 +23,8 @@ const CreateTask = ({history}) => {
 
     const [loading, setLoading] = useState(false);
 
-    const handleCreate = async (event) => {
-        event.preventDefault();
+    const handleCreate = async (ev) => {
+        ev.preventDefault();
 
         setLoading(true)
         await secureApiFetch(`/tasks`, {method: 'POST', body: JSON.stringify(newTask)})

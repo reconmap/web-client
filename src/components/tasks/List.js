@@ -16,13 +16,13 @@ const TasksList = ({history}) => {
     const [projects] = useFetch('/projects')
     const [filter, setFilter] = useState({project: '', user: '', status: ''})
 
-    const handleSetProject = (e) => {
-        setFilter({...filter, project: e.target.value})
+    const handleSetProject = (ev) => {
+        setFilter({...filter, project: ev.target.value})
     }
-    const handleSetStatus = (e) => {
-        setFilter({...filter, status: e.target.value})
+    const handleSetStatus = (ev) => {
+        setFilter({...filter, status: ev.target.value})
     }
-    const handleCreateTask = (e) => {
+    const handleCreateTask = () => {
         history.push(`/tasks/create`);
     }
 

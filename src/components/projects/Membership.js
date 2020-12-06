@@ -17,8 +17,8 @@ const TasksList = ({match, history}) => {
     const [users] = useFetch(`/users`)
     const [members, updateMembers] = useFetch(`/projects/${projectId}/users`)
 
-    const handleOnClick = (e) => {
-        e.preventDefault();
+    const handleOnClick = (ev) => {
+        ev.preventDefault();
         const userId = document.getElementById('userId').value;
         const userData = {userId: userId};
         secureApiFetch(`/projects/${projectId}/users`, {

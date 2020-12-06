@@ -9,8 +9,8 @@ export default function useFetch(endpoint) {
             const response = await secureApiFetch(endpoint, {method: 'GET'})
             const responseJSON = await response.json()
             setResponse(responseJSON)
-        } catch (error) {
-            setError(error);
+        } catch (err) {
+            setError(err);
         }
     }, [endpoint]);
     useEffect(() => {

@@ -18,11 +18,11 @@ const Login = (props) => {
         }, 4000)
     }, [error])
 
-    const handleUsername = e => {
-        setCredentials({...credentials, username: e.target.value})
+    const handleUsername = ev => {
+        setCredentials({...credentials, username: ev.target.value})
     }
-    const handlePassword = e => {
-        setCredentials({...credentials, password: e.target.value})
+    const handlePassword = ev => {
+        setCredentials({...credentials, password: ev.target.value})
     }
 
     const onOk = () => {
@@ -33,9 +33,9 @@ const Login = (props) => {
         setError(err)
     }
 
-    const handleSubmit = (event, login) => {
+    const handleSubmit = (ev, login) => {
         setLoading(true);
-        event.preventDefault();
+        ev.preventDefault();
         login(credentials, onOk, onKo);
     }
 

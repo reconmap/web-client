@@ -40,14 +40,14 @@ export default ProjectVulnerabilities
 
 
 const VulnerabilityFilters = ({vulnerabilities, setCategory, setRisk, setStatus}) => {
-    const handleSetCategory = e => {
-        setCategory(e.target.value)
+    const handleSetCategory = ev => {
+        setCategory(ev.target.value)
     }
-    const handleSetRisk = e => {
-        setRisk(e.target.value)
+    const handleSetRisk = ev => {
+        setRisk(ev.target.value)
     }
-    const handleSetStatus = e => {
-        setStatus(e.target.value)
+    const handleSetStatus = ev => {
+        setStatus(ev.target.value)
     }
     return <div className='space-x-2 mx-auto flex items-center '>
         <div>

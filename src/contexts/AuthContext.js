@@ -43,8 +43,8 @@ class AuthProvider extends Component {
                 this.setState({isAuth: true, user: data});
                 onOk();
             })
-            .catch((error) => {
-                onKo(error.message);
+            .catch((err) => {
+                onKo(err.message);
             });
 
     }

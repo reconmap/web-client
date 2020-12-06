@@ -16,33 +16,33 @@ export default function NotificationsBadge() {
     try {
         const webSocketServer = new WebSocket(Configuration.wsEndpoint);
 
-        webSocketServer.onopen = function (e) {
+        webSocketServer.onopen = function (ev) {
             console.info("[open] Connection established");
             webSocketServer.send("jwt.token");
         };
 
-        webSocketServer.onmessage = function (event) {
-            const data = JSON.parse(event.data);
+        webSocketServer.onmessage = function (ev) {
+            const data = JSON.parse(ev.data);
             setNotifications([...notifications, data]);
         }
-        webSocketServer.onerror = function (error) {
-            console.error(`[error] ${error.message}`);
+        webSocketServer.onerror = function (err) {
+            console.error(`[error] ${err.message}`);
         };
 
-        webSocketServer.onclose = function (event) {
-            if (event.wasClean) {
-                console.error(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+        webSocketServer.onclose = function (ev) {
+            if (ev.wasClean) {
+                console.error(`[close] Connection closed cleanly, code=${ev.code} reason=${ev.reason}`);
             } else {
                 // e.g. server process killed or network down
-                // event.code is usually 1006 in this case
+                // ev.code is usually 1006 in this case
                 console.error('[close] Connection died');
             }
         };
         // if(ws.readyState == WebSocket.CLOSED) this.connect();
 
         //webSocketServer.close();
-    } catch (e) {
-        console.error(e);
+    } catch (err) {
+        console.error(err);
     }
     const styles = {
         button: {

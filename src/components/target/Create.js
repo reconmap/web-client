@@ -9,8 +9,8 @@ export default function TargetCreateForm({match, history}) {
     const projectId = match.params.id;
     const [newTarget, setNewTarget] = useState({projectId: projectId, name: null, kind: TargetKinds[0].value})
     const [loading, setLoading] = useState(false)
-    const handleCreate = async (event) => {
-        event.preventDefault();
+    const handleCreate = async (ev) => {
+        ev.preventDefault();
 
         setLoading(true)
         await secureApiFetch(`/targets`, {method: 'POST', body: JSON.stringify(newTarget)})

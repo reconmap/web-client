@@ -39,7 +39,7 @@ const UserPreferences = ({history}) => {
                 localStorage.setItem('user', JSON.stringify(user));
                 history.push('/');
             })
-            .catch(e => console.error(e))
+            .catch(err => console.error(err))
     }
 
     return (

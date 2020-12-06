@@ -16,8 +16,8 @@ class UploadTaskResult extends Component {
         document.title = 'Upload Task | Reconmap';
     }
 
-    handleUploadClick(e) {
-        e.preventDefault();
+    handleUploadClick(ev) {
+        ev.preventDefault();
         const taskId = this.props.match.params.id;
 
         const resultFileInput = document.getElementById('resultFile');
