@@ -7,12 +7,16 @@
   position: absolute;
   top: 0px;
   left: 0px;
+  z-index: 100;
 }
 
 .KeyboardShortcutsPopup {
+  z-index: 101;
+  border-radius: 10px;
+  box-shadow: 4px 4px 2px #bbb;
   position: absolute;
   top: 10%;
-  width: 400px;
+  width: 60%;
   opacity: 100%;
   background-color: white;
   padding: 20px;
@@ -20,6 +24,8 @@
 
   strong {
     color: black;
+    width: 40%;
+    display: inline-block;
   }
 
   h2, h3 {

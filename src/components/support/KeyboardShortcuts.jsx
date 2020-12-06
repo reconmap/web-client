@@ -38,14 +38,14 @@ const KeyboardShortcuts = () => {
 
             <h3>General</h3>
             <ul>
-                <li><strong>Show/Hide keyboard shortcuts</strong>: ?</li>
-                <li><strong>Search</strong>: /</li>
+                <li><strong>Show/Hide keyboard shortcuts</strong>?</li>
+                <li><strong>Search</strong>/</li>
             </ul>
 
             <h3>Pagination</h3>
             <ul>
-                <li><strong>Previous page</strong>: p</li>
-                <li><strong>Next page</strong>: n</li>
+                <li><strong>Previous page</strong>p</li>
+                <li><strong>Next page</strong>n</li>
             </ul>
         </div>
     </div>
