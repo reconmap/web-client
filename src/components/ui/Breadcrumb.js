@@ -16,17 +16,18 @@ const Breadcrumb = (props) => {
     }
 
     let links = [];
+    let linkIndex = 0;
     if (history && history.length > 0) {
-        links.push(<span className="Arrow"><a href="/" title="Go back"
-                                              onClick={onGoBackClicked}><IconLeft/></a></span>);
+        links.push(<span key={linkIndex++} className="Arrow"><a href="/" title="Go back"
+                                                                onClick={onGoBackClicked}><IconLeft/></a></span>);
     }
     if (childrenCount > 0) {
-        links.push(<span className="Slash">/</span>)
+        links.push(<span key={linkIndex++} className="Slash">/</span>)
     }
     children.forEach((child, index) => {
-        links.push(child);
+        links.push(React.cloneElement(child, {key: linkIndex++}));
         if (index < childrenCount - 1)
-            links.push(<span className="Slash">/</span>)
+            links.push(<span key={linkIndex++} className="Slash">/</span>)
     })
 
     return <div className="Breadcrumb">{links}</div>
