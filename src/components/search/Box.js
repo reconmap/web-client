@@ -1,12 +1,13 @@
 import {useHistory} from 'react-router-dom'
 import {createRef, useCallback, useEffect} from "react";
+import isInputElement from "../../utilities/domUtils";
 
 const SearchBox = () => {
     const history = useHistory();
     const inputRef = createRef();
 
     const onKeyDownListener = useCallback((ev) => {
-        if (ev.key === '/' && document.activeElement !== inputRef.current) {
+        if (!isInputElement(document.activeElement) && ev.key === '/') {
             ev.preventDefault();
 
             inputRef.current.select();

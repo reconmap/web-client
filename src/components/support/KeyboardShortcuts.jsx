@@ -1,11 +1,12 @@
 import {createRef, useCallback, useEffect} from "react";
 import './KeyboardShortcuts.scss';
+import isInputElement from "../../utilities/domUtils";
 
 const KeyboardShortcuts = () => {
     const divRef = createRef();
 
     const onKeyDownListener = useCallback((ev) => {
-        if (ev.key === '?') {
+        if (!isInputElement(document.activeElement) && ev.key === '?') {
             ev.preventDefault();
 
             if (divRef.current.classList.contains('KeyboardShortcutsHidden')) {
@@ -27,7 +28,7 @@ const KeyboardShortcuts = () => {
         <h2>Keyboard shortcuts</h2>
 
         <ul>
-            <li><strong>Help</strong>: ?</li>
+            <li><strong>Show/Hide keyboard shortcuts</strong>: ?</li>
             <li><strong>Search</strong>: /</li>
         </ul>
     </div>
