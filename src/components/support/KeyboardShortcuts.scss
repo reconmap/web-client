@@ -1,0 +1,23 @@
+
+.KeyboardShortcuts {
+  position: absolute;
+  top: 10%;
+  width: 400px;
+  background-color: white;
+  padding: 20px;
+  color: black;
+
+  strong {
+    color: black;
+  }
+
+  h2 {
+    color: black;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+  }
+}
+
+.KeyboardShortcutsHidden {
+  display: none;
+}

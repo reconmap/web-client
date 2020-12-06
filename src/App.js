@@ -21,6 +21,7 @@ import TemplatesRoutes from "./components/templates/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import SupportForm from "./components/support/Form";
 import SystemRoutes from "./components/system/Routes";
+import KeyboardShortcuts from "./components/support/KeyboardShortcuts";
 
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
@@ -58,6 +59,7 @@ const App = () => {
                                 <ProtectedRoute exact path={`/support`} component={SupportForm}/>
                                 <Route component={PageNotFound}/>
                             </Switch>
+                            <KeyboardShortcuts/>
                         </Dashboard>
                         <Route component={PageNotFound}/>
                     </Switch>
