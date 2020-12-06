@@ -1,8 +1,19 @@
 
 .KeyboardShortcuts {
+  opacity: 60%;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.KeyboardShortcutsPopup {
   position: absolute;
   top: 10%;
   width: 400px;
+  opacity: 100%;
   background-color: white;
   padding: 20px;
   color: black;
@@ -11,7 +22,7 @@
     color: black;
   }
 
-  h2 {
+  h2, h3 {
     color: black;
     border-bottom: 1px solid black;
     margin-bottom: 20px;

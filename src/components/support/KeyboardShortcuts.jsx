@@ -6,13 +6,20 @@ const KeyboardShortcuts = () => {
     const divRef = createRef();
 
     const onKeyDownListener = useCallback((ev) => {
-        if (!isInputElement(document.activeElement) && ev.key === '?') {
-            ev.preventDefault();
+        if (isInputElement(document.activeElement)) {
+            return;
+        }
+        ev.preventDefault();
 
+        if (ev.key === '?') {
             if (divRef.current.classList.contains('KeyboardShortcutsHidden')) {
                 divRef.current.classList.remove('KeyboardShortcutsHidden');
             } else {
                 divRef.current.classList.add('KeyboardShortcutsHidden');
+            }
+        } else if (ev.key === 'Escape') {
+            if (divRef.current.classList.contains('KeyboardShortcutsHidden')) {
+                divRef.current.classList.remove('KeyboardShortcutsHidden');
             }
         }
     }, [divRef]);
@@ -24,15 +31,24 @@ const KeyboardShortcuts = () => {
         };
     }, [onKeyDownListener]);
 
-    return <div ref={divRef} className="KeyboardShortcuts KeyboardShortcutsHidden">
-        <h2>Keyboard shortcuts</h2>
+    return <div ref={divRef} className="KeyboardShortcutsHidden">
+        <div className="KeyboardShortcuts"></div>
+        <div className="KeyboardShortcutsPopup">
+            <h2>Keyboard shortcuts</h2>
 
-        <ul>
-            <li><strong>Show/Hide keyboard shortcuts</strong>: ?</li>
-            <li><strong>Search</strong>: /</li>
-        </ul>
+            <h3>General</h3>
+            <ul>
+                <li><strong>Show/Hide keyboard shortcuts</strong>: ?</li>
+                <li><strong>Search</strong>: /</li>
+            </ul>
+
+            <h3>Pagination</h3>
+            <ul>
+                <li><strong>Previous page</strong>: p</li>
+                <li><strong>Next page</strong>: n</li>
+            </ul>
+        </div>
     </div>
 };
 
 export default KeyboardShortcuts;
-
