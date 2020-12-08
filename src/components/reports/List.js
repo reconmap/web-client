@@ -5,8 +5,7 @@ import {Link} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import useDelete from '../../hooks/useDelete';
-import {IconCode, IconDocument, IconDownloadDocument, IconReport} from '../ui/Icons';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import {IconCode, IconDocument, IconReport} from '../ui/Icons';
 import DeleteButton from "../ui/buttons/Delete";
 import Title from '../ui/Title';
 import BtnSecondary from "../ui/buttons/BtnSecondary";
@@ -20,8 +19,8 @@ const ReportsList = ({history}) => {
         history.push(`/report/${reportId}/send`);
     }
 
-    const handleDownload = (reportId) => {
-        secureApiFetch(`/reports/${reportId}/download`, {method: 'GET'})
+    const handleDownload = (reportId, contentType) => {
+        secureApiFetch(`/reports/${reportId}`, {method: 'GET', headers: {'Content-Type': contentType}})
             .then(response => {
                 const contentDispositionHeader = response.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
@@ -51,7 +50,8 @@ const ReportsList = ({history}) => {
                 <thead>
                 <tr>
                     <th>Project</th>
-                    <th>Format</th>
+                    <th>Version</th>
+                    <th>Downloads</th>
                     <th>Creation date/time</th>
                     <th>&nbsp;</th>
                 </tr>
@@ -65,22 +65,34 @@ const ReportsList = ({history}) => {
                         return (
                             <tr key={index}>
                                 <td><Link to={`/projects/${report.project_id}`}>{report.project_name}</Link></td>
+                                <td>{report.version_name} - {report.version_description}</td>
                                 <td>
-                                    <div style={{
-                                        width: '43px',
-                                        height: '56px',
-                                        borderTopRightRadius: '10px',
-                                        borderWidth: '3px'
-                                    }}
-                                         className='  p-1 rounded text-xs  flex items-center justify-end font-medium flex-col'>
-                                        {report.format === 'pdf' ? <IconDocument/> : <IconCode/>}
-                                        {report.format}
-                                    </div>
+                                    <Link onClick={() => handleDownload(report.id, 'text/html')}>
+                                        <div style={{
+                                            width: '43px',
+                                            height: '56px',
+                                            borderTopRightRadius: '10px',
+                                            borderWidth: '3px'
+                                        }}
+                                             className='  p-1 rounded text-xs  flex items-center justify-end font-medium flex-col'>
+                                            <IconCode/> HTML
+                                        </div>
+                                    </Link>
+
+                                    <Link onClick={() => handleDownload(report.id, 'application/pdf')}>
+                                        <div style={{
+                                            width: '43px',
+                                            height: '56px',
+                                            borderTopRightRadius: '10px',
+                                            borderWidth: '3px'
+                                        }}
+                                             className='  p-1 rounded text-xs  flex items-center justify-end font-medium flex-col'>
+                                            <IconDocument/> PDF
+                                        </div>
+                                    </Link>
                                 </td>
                                 <td>{report.insert_ts}</td>
                                 <td className="space-x-2 flex  justify-end">
-                                    <BtnPrimary onClick={() => handleDownload(report.id)}><IconDownloadDocument
-                                    />Download</BtnPrimary>
                                     <BtnSecondary onClick={() => handleSendByEmail(report.id)}>Send by
                                         email</BtnSecondary>
                                     <DeleteButton onClick={() => deleteReport(report.id)}/>

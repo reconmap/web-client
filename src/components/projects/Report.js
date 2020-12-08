@@ -1,80 +1,120 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 import secureApiFetch from '../../services/api';
 import './Report.css';
 import Breadcrumb from './../ui/Breadcrumb'
-import {IconReport, IconSave} from '../ui/Icons';
-import BtnSecondary from '../ui/buttons/BtnSecondary';
+import {IconReport} from '../ui/Icons';
 import Title from '../ui/Title';
+import {Link, useRouteMatch} from "react-router-dom";
+import Loading from "../ui/Loading";
+import BtnPrimary from "../ui/buttons/BtnPrimary";
+import useFetch from "../../hooks/useFetch";
 
-class ProjectReport extends Component {
-    state = {
-        project: null
-    }
+const ProjectReport = () => {
+    const {params: {id: projectId}} = useRouteMatch();
+    const [project, setProject] = useState(null);
+    const [preview, setPreview] = useState("");
+    const [reports, updateReports] = useFetch(`/reports?projectId=${projectId}`);
+    const [formValues, setFormValues] = useState({name: "", description: ""});
 
-    projectId = null;
-
-    constructor(props) {
-        super(props)
-
-        this.projectId = this.props.match.params.id;
-    }
-
-    handleExport(projectId) {
-        secureApiFetch(`/projects/${projectId}/report?format=pdf`, {
-            method: 'GET'
-        })
-            .then(response => {
-                var contentDispositionHeader = response.headers.get('Content-Disposition');
-                const filenameRe = new RegExp(/filename="(.*)"/)
-                var filename = filenameRe.exec(contentDispositionHeader)[1]
-                return Promise.all([response.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                a.click();
-            })
-    }
-
-    componentDidMount() {
-        const id = this.props.match.params.id;
-        secureApiFetch(`/projects/${id}`, {
+    useEffect(() => {
+        secureApiFetch(`/projects/${projectId}`, {
             method: 'GET',
         })
-            .then((responses) => responses.json())
-            .then((data) => {
-                const newState = {project: data};
-                this.setState(newState)
-                document.title = `Report ${newState.project.name} | Reconmap`;
+            .then(resp => resp.json())
+            .then(json => {
+                setProject(json);
+                document.title = `Report ${json.name} | Reconmap`;
             });
-        secureApiFetch(`/projects/${id}/report`, {
+    }, [projectId, setProject]);
+
+    useEffect(() => {
+        secureApiFetch(`/reports/preview?projectId=${projectId}`, {
             method: 'GET',
         })
-            .then((responses) => responses.text())
-            .then((data) => {
-                document.getElementById('report').innerHTML = data;
+            .then(resp => resp.text())
+            .then(text => {
+                setPreview(text);
             });
+    }, [projectId, reports]);
+
+    const onSaveVersionSubmit = ev => {
+        ev.preventDefault();
+
+        const params = {
+            projectId: projectId,
+            name: formValues.name,
+            description: formValues.description
+        };
+        secureApiFetch(`/reports`, {
+            method: 'POST',
+            body: JSON.stringify(params)
+        })
+            .then(resp => {
+                updateReports();
+            })
+            .catch(err => console.error(err));
+    };
+
+    const onFormValueChange = ev => {
+        ev.preventDefault();
+
+        setFormValues({...formValues, [ev.target.name]: ev.target.value});
+    };
+
+    if (!project || !reports) {
+        return <Loading/>
     }
 
-    render() {
-        const projectId = this.projectId;
+    return (
+        <>
+            <div className='heading'>
+                <Breadcrumb>
+                    <Link to="/projects">Projects</Link>
+                    <Link to={`/projects/${projectId}`}>{project.name}</Link>
+                </Breadcrumb>
+            </div>
+            <Title type="Project reporting" title="Preview report"
+                   icon={<IconReport/>}/>
 
-        return (
-            <>
-                <div className='heading'>
-                    <Breadcrumb/>
-                    <BtnSecondary onClick={() => this.handleExport(projectId)}><IconSave/> Export to PDF</BtnSecondary>
+            <div className="grid grid-cols-2 gap-4">
+                <div>
+                    <form onSubmit={onSaveVersionSubmit}>
+                        <fieldset>
+                            <legend>Report version</legend>
+
+                            <label>Name</label>
+                            <input type="text" name="name" value={formValues.name} onChange={onFormValueChange}
+                                   placeholder="eg 1.0, 202103" required/>
+                            <label>Description</label>
+                            <input type="text" name="description" value={formValues.description}
+                                   onChange={onFormValueChange}
+                                   placeholder="eg Initial version, Draft"
+                                   required/>
+                        </fieldset>
+                        <BtnPrimary type="submit">Save version</BtnPrimary>
+                    </form>
+
+                    <table>
+                        <caption>Report versions</caption>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                        {reports.map((report, index) =>
+                            <tr key={index}>
+                                <td>{report.version_name}</td>
+                                <td>{report.version_description}</td>
+                            </tr>
+                        )}
+                        </thead>
+                    </table>
                 </div>
-                <Title type='Report' title={this.state.project ? this.state.project.name : 'Project'}
-                       icon={<IconReport/>}/>
-                <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4' id="report"></div>
-            </>
-        )
-    }
+                <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4'
+                     id="report" dangerouslySetInnerHTML={{__html: preview}}></div>
+            </div>
+        </>
+    )
 }
 
-export default ProjectReport
+export default ProjectReport;
