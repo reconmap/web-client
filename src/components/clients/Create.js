@@ -48,7 +48,7 @@ export default function ClientCreate({history}) {
                 <label>Contact phone
                     <input type="text" name="contactPhone" onChange={handleFormChange}/></label>
                 <BtnPrimary type="submit"
-                            disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                            disabled={loading}>Create</BtnPrimary>
             </form>
         </div>
     )

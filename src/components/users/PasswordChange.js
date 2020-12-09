@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import Breadcrumb from "../ui/Breadcrumb";
 import secureApiFetch from "../../services/api";
 import toast, {actionCompletedToast} from "../../utilities/toast";
+import {IconPreferences} from "../ui/Icons";
 
 const UserPasswordChange = () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -56,7 +57,7 @@ const UserPasswordChange = () => {
                 <Breadcrumb/>
             </div>
             <form onSubmit={handleCreate}>
-                <Title title="User Password Change"/>
+                <Title title="Password Change" type="User" icon={<IconPreferences/>}/>
                 <label>Current password
                     <input type="password" name="currentPassword" value={passwords.currentPassword}
                            onChange={handleFormChange} autoFocus required/>

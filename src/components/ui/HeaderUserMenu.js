@@ -15,7 +15,6 @@ export default function HeaderUserMenu({email}) {
 
     return (
         <div style={{position: 'relative'}}>
-
             <UserAvatar onClick={handleShowWindow} email={email}/>
             {showWindow && <UserMenu/>}
         </div>
@@ -33,7 +32,6 @@ const UserMenu = () => {
             backgroundColor: 'var(--black)',
             color: 'var(--text-color)',
             top: '40px',
-            // left: '-70px',
             right: 0,
             margin: 'auto',
             width: '180px',
@@ -43,17 +41,19 @@ const UserMenu = () => {
             rowGap: 'var(--margin)',
             flexDirection: 'column',
             textAlign: 'right'
-
         },
-
     }
 
     return <AuthConsumer>
         {({logout}) =>
             <div style={styles.useMenu}>
-                <Link to={`/users/${localStorage.getItem('user.id')}`}>My profile</Link>
+                <h5>User</h5>
+                <Link to={`/users/${localStorage.getItem('user.id')}`}>Your profile</Link>
                 <Link to='/users/preferences'>Preferences</Link>
                 <Link to='/users/password-change'>Change password</Link>
+                <hr style={{borderColor: 'var(--bg-color)'}}/>
+                <h5>Organisation</h5>
+                <Link to='/organisation'>Settings</Link>
                 <hr style={{borderColor: 'var(--bg-color)'}}/>
                 <Link to='/' onClick={logout}>Logout</Link>
             </div>

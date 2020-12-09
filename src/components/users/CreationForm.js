@@ -72,7 +72,7 @@ const UserCreationForm = () => {
                 </label>
 
                 <BtnPrimary type="submit"
-                            disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                            disabled={loading}>Create</BtnPrimary>
             </form>
         </div>
     )

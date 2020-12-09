@@ -50,7 +50,7 @@ const ProjectCreate = ({history}) => {
                 <label>Description
                     <textarea name="description" onChange={handleFormChange} required/>
                 </label>
-                <BtnPrimary type="submit" disabled={loading}>{loading ? 'Wait please' : 'Create'}</BtnPrimary>
+                <BtnPrimary type="submit" disabled={loading}>Create</BtnPrimary>
             </form>
         </div>
     )
