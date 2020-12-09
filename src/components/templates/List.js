@@ -56,7 +56,7 @@ const TemplatesList = ({history}) => {
                         templates.map((template) =>
                             <tr key={template.id} onClick={() => viewProject(template.id)}>
                                 <td><ProjectBadge project={template}/></td>
-                                <td width='30%'><small>{template.description}</small></td>
+                                <td width='30%'>{template.description}</td>
                                 <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
                                 <td><small>{template.insert_ts}</small></td>
                                 <td className="space-x-2 flex  justify-end">
