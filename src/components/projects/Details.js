@@ -30,9 +30,11 @@ const ProjectDetails = ({match, history}) => {
     const handleAddTask = () => {
         history.push(`/tasks/create?projectId=${projectId}`)
     }
+
     const handleAddTarget = () => {
         history.push(`/projects/${projectId}/targets/create`)
     }
+
     const handleGenerateReport = () => {
         history.push(`/projects/${project.id}/report`)
     }
@@ -72,9 +74,9 @@ const ProjectDetails = ({match, history}) => {
             </div>
             {!project ? <Loading/> :
                 <>
-                    <Title title={project.name} type={project.description} icon={<IconFolder/>}/>
-                    <h4>Timestamps</h4>
+                    <Title title={project.name} type="Project" icon={<IconFolder/>}/>
                     <Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/>
+                    <div>{project.description}</div>
                     <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>
                     <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>
                     <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities}/>
@@ -84,4 +86,4 @@ const ProjectDetails = ({match, history}) => {
     )
 }
 
-export default ProjectDetails
+export default ProjectDetails;
