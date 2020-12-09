@@ -10,15 +10,18 @@ import {IconPlus} from '../ui/Icons';
 import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
 import UserLink from "../users/Link";
+import {Link} from "react-router-dom";
 
-const TasksList = ({match, history}) => {
+const TasksList = ({match}) => {
     const projectId = match.params.id;
     useSetTitle('Project membership');
     const [users] = useFetch(`/users`)
     const [members, updateMembers] = useFetch(`/projects/${projectId}/users`)
+    const [savedProject] = useFetch(`/projects/${projectId}`);
 
     const handleOnClick = (ev) => {
         ev.preventDefault();
+
         const userId = document.getElementById('userId').value;
         const userData = {userId: userId};
         secureApiFetch(`/projects/${projectId}/users`, {
@@ -27,6 +30,10 @@ const TasksList = ({match, history}) => {
         }).then(() => {
             updateMembers()
         })
+    }
+
+    if (!savedProject) {
+        return <Loading/>
     }
 
     const handleDelete = (member) => {
@@ -38,8 +45,11 @@ const TasksList = ({match, history}) => {
     }
 
     return <div>
-        <div className='heading'>
-            <Breadcrumb/>
+        <div className="heading">
+            <Breadcrumb>
+                <Link to="/projects">Projects</Link>
+                <Link to={`/projects/${savedProject.id}`}>{savedProject.name}</Link>
+            </Breadcrumb>
         </div>
         <form>
             <Title title='Members'/>

@@ -15,6 +15,7 @@ const ProjectReport = () => {
     const [preview, setPreview] = useState("");
     const [reports, updateReports] = useFetch(`/reports?projectId=${projectId}`);
     const [formValues, setFormValues] = useState({name: "", description: ""});
+    const [saveVersionButtonDisabled, setSaveVersionButtonDisabled] = useState(true);
 
     useEffect(() => {
         secureApiFetch(`/projects/${projectId}`, {
@@ -61,6 +62,10 @@ const ProjectReport = () => {
         setFormValues({...formValues, [ev.target.name]: ev.target.value});
     };
 
+    useEffect(() => {
+        setSaveVersionButtonDisabled(formValues.name.length === 0);
+    }, [formValues.name]);
+
     if (!project || !reports) {
         return <Loading/>
     }
@@ -91,7 +96,7 @@ const ProjectReport = () => {
                                    placeholder="eg Initial version, Draft"
                                    required/>
                         </fieldset>
-                        <BtnPrimary type="submit">Save version</BtnPrimary>
+                        <BtnPrimary type="submit" disabled={saveVersionButtonDisabled}>Save version</BtnPrimary>
                     </form>
 
                     <table>

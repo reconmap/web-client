@@ -4,7 +4,7 @@ import BtnPrimary from '../ui/buttons/BtnPrimary';
 import Title from '../ui/Title';
 import useSetTitle from "../../hooks/useSetTitle";
 import secureApiFetch from "../../services/api";
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 const SendReport = ({history}) => {
     useSetTitle("Send report")
@@ -37,7 +37,9 @@ const SendReport = ({history}) => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb/>
+                <Breadcrumb>
+                    <Link to="/reports">Saved Reports</Link>
+                </Breadcrumb>
             </div>
             <form onSubmit={handleSend}>
                 <Title title='Send report'/>

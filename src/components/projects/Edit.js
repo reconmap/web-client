@@ -41,6 +41,7 @@ const ProjectEdit = ({history}) => {
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
+                    <Link to={`/projects/${savedProject.id}`}>{savedProject.name}</Link>
                 </Breadcrumb>
             </div>
             <form onSubmit={onFormSubmit}>
