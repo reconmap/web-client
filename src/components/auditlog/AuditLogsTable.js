@@ -2,8 +2,10 @@ import Ipv4Link from '../ui/Ipv4Link'
 import UserRoleBadge from '../badges/UserRoleBadge'
 import UserLink from "../users/Link";
 import Badge from '../badges/Badge';
+import NoResults from "../ui/NoResults";
 
 export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
+    const numColumns = hideUserColumns ? 4 : 6;
     return (
         <table>
             <thead>
@@ -21,6 +23,9 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
             </tr>
             </thead>
             <tbody>
+            {auditLog.length === 0 && <tr>
+                <td colSpan={numColumns}><NoResults/></td>
+            </tr>}
             {auditLog.map((entry, index) => {
                 return (
                     <tr key={index}>
