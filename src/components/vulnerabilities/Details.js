@@ -12,7 +12,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import Loading from '../ui/Loading';
 import Timestamps from "../ui/Timestamps";
 import {IconCheck, IconFlag} from '../ui/Icons';
-import {actionCompletedToast} from "../../utilities/toast";
+import {actionCompletedToast} from "../ui/toast";
 import {Link, useHistory, useRouteMatch} from 'react-router-dom';
 import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'

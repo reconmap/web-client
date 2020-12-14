@@ -14,7 +14,7 @@ import secureApiFetch from "../../services/api";
 import Title from '../ui/Title';
 import {IconUserGroup} from '../ui/Icons';
 import UserLink from './Link';
-import {actionCompletedToast} from "../../utilities/toast";
+import {actionCompletedToast} from "../ui/toast";
 
 const UsersList = ({history}) => {
     useSetTitle('Users');

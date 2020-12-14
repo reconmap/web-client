@@ -7,7 +7,7 @@ import secureApiFetch from "../../services/api";
 import {IconPlus} from "../ui/Icons";
 import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
-import {actionCompletedToast} from "../../utilities/toast";
+import {actionCompletedToast} from "../ui/toast";
 
 const ProjectEdit = ({history}) => {
     const {projectId} = useParams();

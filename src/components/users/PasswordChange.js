@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {useEffect, useState} from "react";
 import Breadcrumb from "../ui/Breadcrumb";
 import secureApiFetch from "../../services/api";
-import toast, {actionCompletedToast} from "../../utilities/toast";
+import toast, {actionCompletedToast} from "../ui/toast";
 import {IconPreferences} from "../ui/Icons";
 
 const UserPasswordChange = () => {

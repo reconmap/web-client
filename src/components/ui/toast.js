@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './toast.css';
 
 export default function toast(title, msg) {
 
     // create DOM element
     const toast = React.createElement('div', {
-        className: 'card toast fadeInUp',
+        className: 'card Toast fadeInUp',
         style: {
             position: 'fixed',
             bottom: '10px',
@@ -22,7 +23,7 @@ export default function toast(title, msg) {
         ReactDOM.render(toast, document.getElementById('toast'))
     }, 500)
 
-    // remove toast from DOM 
+    // remove toast from DOM
     setTimeout(() => {
         const toastEl = document.getElementById('toast');
         ReactDOM.unmountComponentAtNode(toastEl)

@@ -9,7 +9,7 @@ import DeleteButton from "../ui/buttons/Delete";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from '../ui/Loading'
 import Timestamps from "../ui/Timestamps";
-import toast, {actionCompletedToast} from "../../utilities/toast";
+import toast, {actionCompletedToast} from "../ui/toast";
 import TaskStatusBadge from '../badges/TaskStatusBadge'
 import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'

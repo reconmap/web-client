@@ -1,5 +1,5 @@
 import secureApiFetch from '../services/api'
-import {actionCompletedToast} from '../utilities/toast'
+import {actionCompletedToast} from '../components/ui/toast'
 
 export default function useDelete(endpoint, successCallback = null, confirmationMessage = `Do you really want to delete this item?`, deleteMessage = 'The item has been deleted.') {
 

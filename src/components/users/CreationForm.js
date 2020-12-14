@@ -4,7 +4,7 @@ import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
-import {actionCompletedToast} from './../../utilities/toast'
+import {actionCompletedToast} from '../ui/toast'
 
 const UserCreationForm = () => {
     const history = useHistory()
