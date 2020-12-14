@@ -5,7 +5,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import Risks from '../../models/Risks'
 import useFetch from '../../hooks/useFetch'
 import Loading from '../ui/Loading';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import Primary from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import {IconPlus} from '../ui/Icons';
 import useSetTitle from "../../hooks/useSetTitle";
@@ -114,8 +114,8 @@ const VulnerabilityCreate = () => {
                                value={vulnerability.cvssVector || ""}/>
                     </label>
 
-                    <BtnPrimary type="submit"
-                                disabled={loading}>Create</BtnPrimary>
+                    <Primary type="submit"
+                                disabled={loading}>Create</Primary>
                 </form>
             }
         </div>

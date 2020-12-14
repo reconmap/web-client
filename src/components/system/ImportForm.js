@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import secureApiFetch from '../../services/api';
 import {IconUpload} from '../ui/Icons';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 
 class ImportForm extends Component {
 
@@ -51,8 +51,8 @@ class ImportForm extends Component {
                         Select file
                         <input type="file" id="importFile" onChange={this.onImportFileChange} required/>
                     </label>
-                    <BtnPrimary disabled={importButtonDisabled}
-                                onClick={this.handleUploadClick}><IconUpload/> Import</BtnPrimary>
+                    <PrimaryButton disabled={importButtonDisabled}
+                                   onClick={this.handleUploadClick}><IconUpload/> Import</PrimaryButton>
                 </form>
 
                 {projectsImported.length > 0 &&

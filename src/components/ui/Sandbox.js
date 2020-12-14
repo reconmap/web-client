@@ -3,8 +3,8 @@ import {IconUnlocked} from './Icons'
 import Title from './Title'
 import Breadcrumb from './../ui/Breadcrumb'
 import Help from './../ui/Help'
-import BtnPrimary from './../ui/buttons/BtnPrimary'
-import BtnSecondary from './buttons/BtnSecondary'
+import PrimaryButton from './../ui/buttons/Primary'
+import SecondaryButton from './buttons/Secondary'
 import LinkButton from './buttons/Link'
 
 export default function Sandbox() {
@@ -50,8 +50,8 @@ export default function Sandbox() {
             <h4>Heading Level 4 can have buttons on the right <button>Press Me</button></h4>
             <p>This is a paragraph.</p>
             <div className='button-group' style={{margin: 'var(--margin) 0'}}>
-                <BtnPrimary>BtnPrimary</BtnPrimary>
-                <BtnSecondary>BtnSecondary</BtnSecondary>
+                <PrimaryButton>Primary</PrimaryButton>
+                <SecondaryButton>BtnSecondary</SecondaryButton>
                 <LinkButton>BtnLink</LinkButton>
             </div>
 

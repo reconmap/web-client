@@ -3,7 +3,7 @@ import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
 import Loading from '../ui/Loading'
 import {IconFlag, IconPlus} from '../ui/Icons'
 import {useHistory} from 'react-router-dom'
-import BtnSecondary from '../ui/buttons/BtnSecondary'
+import SecondaryButton from '../ui/buttons/Secondary'
 import ButtonGroup from '../ui/buttons/ButtonGroup'
 
 
@@ -23,10 +23,10 @@ const ProjectVulnerabilities = ({project, vulnerabilities}) => {
                 {vulnerabilities &&
                 <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
                                       setStatus={setStatus}/>}
-                <BtnSecondary onClick={handleCreateVulnerability}>
+                <SecondaryButton onClick={handleCreateVulnerability}>
                     <IconPlus/>
                     Add New Vulnerability
-                </BtnSecondary>
+                </SecondaryButton>
             </ButtonGroup>
         </h4>
         {vulnerabilities ?

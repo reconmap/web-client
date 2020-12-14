@@ -2,7 +2,7 @@ import React from 'react'
 import LINKS from './Links'
 import {Link, NavLink, useHistory} from 'react-router-dom'
 import {IconBookOpen, IconDashboard} from '../../ui/Icons';
-import BtnSecondary from '../../ui/buttons/BtnSecondary';
+import SecondaryButton from '../../ui/buttons/Secondary';
 
 export default function Sidebar() {
     const history = useHistory();
@@ -25,8 +25,8 @@ export default function Sidebar() {
                 </NavLink>
             })}
             <div id='bottom'>
-                <BtnSecondary onClick={handleUserManual}><IconBookOpen/>User manual</BtnSecondary>
-                <BtnSecondary onClick={onSupportButtonClick}>Support</BtnSecondary>
+                <SecondaryButton onClick={handleUserManual}><IconBookOpen/>User manual</SecondaryButton>
+                <SecondaryButton onClick={onSupportButtonClick}>Support</SecondaryButton>
             </div>
         </aside>
     )

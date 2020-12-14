@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import secureApiFetch from '../../services/api'
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge'
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import DeleteButton from '../ui/buttons/Delete';
 import Title from '../ui/Title';
 import ExternalLink from "../ui/ExternalLink";
@@ -55,10 +55,10 @@ const VulnerabilityDetails = () => {
             </Breadcrumb>
             <ButtonGroup>
                 {vulnerability.status === 'open' &&
-                <BtnPrimary onClick={handleStatus}>
-                    <IconCheck/> Mark as closed</BtnPrimary>}
+                <PrimaryButton onClick={handleStatus}>
+                    <IconCheck/> Mark as closed</PrimaryButton>}
                 {vulnerability.status !== 'open' &&
-                <BtnPrimary onClick={handleStatus}>Mark as open</BtnPrimary>}
+                <PrimaryButton onClick={handleStatus}>Mark as open</PrimaryButton>}
                 <DeleteButton onClick={handleDelete}/>
             </ButtonGroup>
         </div>

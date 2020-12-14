@@ -1,10 +1,10 @@
 import {IconPlus} from "../Icons";
-import BtnPrimary from "./BtnPrimary";
+import PrimaryButton from "./Primary";
 
 const CreateButton = ({onClick, children, fontSize}) =>
-    <BtnPrimary onClick={onClick} fontSize={fontSize}>
+    <PrimaryButton onClick={onClick} fontSize={fontSize}>
         <IconPlus/>
         {children || "Create"}
-    </BtnPrimary>
+    </PrimaryButton>
 
 export default CreateButton

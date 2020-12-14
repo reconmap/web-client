@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import useSetTitle from "../../hooks/useSetTitle";
 import secureApiFetch from "../../services/api";
@@ -55,8 +55,8 @@ const SendReport = ({history}) => {
                     <textarea name="body" onChange={handleFormChange} required
                               value={deliverySettings.body}/>
                 </label>
-                <BtnPrimary type="submit"
-                            disabled={loading}>{loading ? 'Sending...' : 'Send'}</BtnPrimary>
+                <PrimaryButton type="submit"
+                               disabled={loading}>{loading ? 'Sending...' : 'Send'}</PrimaryButton>
             </form>
         </div>
     )

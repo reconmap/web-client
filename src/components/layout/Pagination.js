@@ -1,5 +1,5 @@
 import {IconLeft, IconRight} from '../ui/Icons'
-import BtnSecondary from './../ui/buttons/BtnSecondary'
+import SecondaryButton from './../ui/buttons/Secondary'
 import isInputElement from "../../utilities/domUtils";
 import {useCallback, useEffect} from 'react';
 
@@ -29,9 +29,9 @@ const Pagination = ({page, total, handleNext, handlePrev}) => {
     }, [onKeyDownListener]);
 
     return <div className='flex space-x-2 items-center'>
-        <BtnSecondary disabled={!previousEnabled} onClick={handlePrev}><IconLeft/></BtnSecondary>
+        <SecondaryButton disabled={!previousEnabled} onClick={handlePrev}><IconLeft/></SecondaryButton>
         <label>{page + 1} <span className='opacity-25'>|</span> {total} </label>
-        <BtnSecondary disabled={!nextEnabled} onClick={handleNext}><IconRight/></BtnSecondary>
+        <SecondaryButton disabled={!nextEnabled} onClick={handleNext}><IconRight/></SecondaryButton>
     </div>
 }
 

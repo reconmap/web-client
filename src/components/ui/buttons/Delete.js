@@ -1,9 +1,9 @@
 import {IconX} from "../Icons";
-import BtnSecondary from './../buttons/BtnSecondary'
+import SecondaryButton from './../buttons/Secondary'
 
-const DeleteButton = (props) => <BtnSecondary onClick={props.onClick} {...props}>
+const DeleteButton = (props) => <SecondaryButton onClick={props.onClick} {...props}>
     <IconX/>
     {props.children || "Delete"}
-</BtnSecondary>
+</SecondaryButton>
 
 export default DeleteButton

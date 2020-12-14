@@ -9,7 +9,7 @@ import BadgeOutline from '../badges/BadgeOutline';
 import {IconDocumentDuplicate, IconPlus} from '../ui/Icons';
 import CreateButton from '../ui/buttons/Create';
 import Title from '../ui/Title';
-import BtnPrimary from "../ui/buttons/BtnPrimary";
+import PrimaryButton from "../ui/buttons/Primary";
 import DeleteButton from "../ui/buttons/Delete";
 import NoResults from "../ui/NoResults";
 
@@ -60,9 +60,9 @@ const TemplatesList = ({history}) => {
                                 <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
                                 <td><small>{template.insert_ts}</small></td>
                                 <td className="space-x-2 flex  justify-end">
-                                    <BtnPrimary onClick={() => cloneProject(template.id)} key={template.id}
-                                                title="Create project using this template"><IconPlus/>Create
-                                        project</BtnPrimary>
+                                    <PrimaryButton onClick={() => cloneProject(template.id)} key={template.id}
+                                                   title="Create project using this template"><IconPlus/>Create
+                                        project</PrimaryButton>
                                     <DeleteButton onClick={() => destroy(template.id)}/>
                                 </td>
                             </tr>

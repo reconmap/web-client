@@ -3,10 +3,10 @@ import useSetTitle from '../../hooks/useSetTitle'
 import {IconDark, IconLight, IconPreferences, IconSave} from '../ui/Icons'
 import {getAllTimezones} from 'countries-and-timezones';
 import secureApiFetch from '../../services/api';
-import BtnPrimary from '../ui/buttons/BtnPrimary'
+import Primary from '../ui/buttons/Primary'
 import Title from '../ui/Title';
 import ThemeContext from "../../contexts/ThemeContext";
-import BtnSecondary from "../ui/buttons/BtnSecondary";
+import SecondaryButton from "../ui/buttons/Secondary";
 import Breadcrumb from '../ui/Breadcrumb';
 import setThemeColors from '../../utilities/setThemeColors';
 
@@ -57,15 +57,15 @@ const UserPreferences = ({history}) => {
                     </select>
                 </label>
                 <label>Theme
-                    <BtnSecondary onClick={handleSwitchTheme}>
+                    <SecondaryButton onClick={handleSwitchTheme}>
                         {theme === 'light' ?
                             <IconDark/> : <IconLight/>
                         }
                         {theme === 'light' ? 'Dark' : 'Light'}
-                    </BtnSecondary>
+                    </SecondaryButton>
 
                 </label>
-                <BtnPrimary onClick={handleSubmit}><IconSave/> Save</BtnPrimary>
+                <Primary onClick={handleSubmit}><IconSave/> Save</Primary>
             </form>
         </>
     )

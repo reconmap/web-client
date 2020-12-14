@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import {IconPreferences} from "../ui/Icons";
 import useFetch from "../../hooks/useFetch";
@@ -72,8 +72,8 @@ export default function OrganisationForm({history}) {
                 <label>Contact phone
                     <input type="text" name="contactPhone" value={organisation.contactPhone}
                            onChange={handleFormChange}/></label>
-                <BtnPrimary type="submit"
-                            disabled={loading}>Update</BtnPrimary>
+                <PrimaryButton type="submit"
+                               disabled={loading}>Update</PrimaryButton>
             </form>
         </div>
     )

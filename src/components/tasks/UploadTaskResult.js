@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import secureApiFetch from '../../services/api';
 import {IconUpload} from '../ui/Icons';
 import Breadcrumb from '../ui/Breadcrumb'
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
 class UploadTaskResult extends Component {
@@ -47,7 +47,8 @@ class UploadTaskResult extends Component {
                             <h2>Results</h2>
                             <form>
                                 <input type="file" id="resultFile"/>
-                                <BtnPrimary onClick={this.handleUploadClick}><IconUpload/> Upload results</BtnPrimary>
+                                <PrimaryButton onClick={this.handleUploadClick}><IconUpload/> Upload
+                                    results</PrimaryButton>
                             </form>
                         </div>
                     </div>

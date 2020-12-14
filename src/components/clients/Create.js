@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import {Link} from "react-router-dom";
 
@@ -47,8 +47,8 @@ export default function ClientCreate({history}) {
                     <input type="email" name="contactEmail" onChange={handleFormChange} required/></label>
                 <label>Contact phone
                     <input type="text" name="contactPhone" onChange={handleFormChange}/></label>
-                <BtnPrimary type="submit"
-                            disabled={loading}>Create</BtnPrimary>
+                <PrimaryButton type="submit"
+                               disabled={loading}>Create</PrimaryButton>
             </form>
         </div>
     )

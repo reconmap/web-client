@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import secureApiFetch from '../../services/api'
-import BtnSecondary from '../ui/buttons/BtnSecondary'
-import BtnPrimary from '../ui/buttons/BtnPrimary'
+import SecondaryButton from '../ui/buttons/Secondary'
+import PrimaryButton from '../ui/buttons/Primary'
 import {IconCheck, IconClipboard, IconUpload, IconX} from '../ui/Icons'
 import Title from './../ui/Title'
 import ButtonGroup from "../ui/buttons/ButtonGroup";
@@ -75,15 +75,15 @@ const TaskDetails = ({history, match}) => {
                             )}
                         </select>
                     </label>
-                    {task.completed === 1 && <BtnSecondary onClick={() => handleToggle(task)}>
+                    {task.completed === 1 && <SecondaryButton onClick={() => handleToggle(task)}>
                         <IconX/> Mark as incomplete
-                    </BtnSecondary>}
-                    {task.completed !== 1 && <BtnSecondary onClick={() => handleToggle(task)}>
+                    </SecondaryButton>}
+                    {task.completed !== 1 && <SecondaryButton onClick={() => handleToggle(task)}>
                         <IconCheck/> Mark as completed
-                    </BtnSecondary>}
-                    <BtnPrimary to={"/tasks/" + task.id + "/upload"}>
+                    </SecondaryButton>}
+                    <PrimaryButton to={"/tasks/" + task.id + "/upload"}>
                         <IconUpload/> Upload results
-                    </BtnPrimary>
+                    </PrimaryButton>
                     <DeleteButton onClick={() => handleDelete(task.id)}/>
                 </ButtonGroup>
                 }

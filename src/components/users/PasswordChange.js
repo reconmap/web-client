@@ -1,5 +1,5 @@
 import Title from "../ui/Title";
-import BtnPrimary from "../ui/buttons/BtnPrimary";
+import PrimaryButton from "../ui/buttons/Primary";
 import {useHistory} from 'react-router-dom';
 import {useEffect, useState} from "react";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -70,8 +70,8 @@ const UserPasswordChange = () => {
                     <input type="password" name="newPasswordConfirmation" value={passwords.newPasswordConfirmation}
                            onChange={handleFormChange} required/>
                 </label>
-                <BtnPrimary type="submit"
-                            disabled={submitButtonDisabled}>Update</BtnPrimary>
+                <PrimaryButton type="submit"
+                               disabled={submitButtonDisabled}>Update</PrimaryButton>
             </form>
         </div>
     )

@@ -1,5 +1,5 @@
 import {IconDownload} from "../ui/Icons";
-import BtnPrimary from "../ui/buttons/BtnPrimary";
+import PrimaryButton from "../ui/buttons/Primary";
 import React, {useState} from "react";
 import secureApiFetch from "../../services/api";
 
@@ -55,8 +55,8 @@ const ExportForm = () => {
                 {entities.map((entity, index) => <option key={index} value={entity.key}>{entity.name}</option>)}
             </select>
             <br/>
-            <BtnPrimary disabled={exportButtonDisabled}
-                        onClick={onExportButtonClick}><IconDownload/> Export</BtnPrimary>
+            <PrimaryButton disabled={exportButtonDisabled}
+                           onClick={onExportButtonClick}><IconDownload/> Export</PrimaryButton>
         </fieldset>
     </div>
 };

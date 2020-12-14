@@ -1,6 +1,15 @@
 import {useHistory} from 'react-router-dom';
 
-export default function BtnPrimary({type, onClick, children, color = 'primary-color', fontSize = 'fontSizeSmall', disabled = false, to, external = false}) {
+export default function PrimaryButton({
+                                          type,
+                                          onClick,
+                                          children,
+                                          color = 'primary-color',
+                                          fontSize = 'fontSizeSmall',
+                                          disabled = false,
+                                          to,
+                                          external = false
+                                      }) {
 
     const history = useHistory()
     const handleOpen = () => {

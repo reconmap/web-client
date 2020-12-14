@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import TargetKinds from '../../models/TargetKinds'
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
 export default function TargetCreateForm({match, history}) {
@@ -39,8 +39,8 @@ export default function TargetCreateForm({match, history}) {
                         )}
                     </select>
                 </label>
-                <BtnPrimary type="submit"
-                            disabled={loading}>Create</BtnPrimary>
+                <PrimaryButton type="submit"
+                               disabled={loading}>Create</PrimaryButton>
             </form>
         </div>
     )

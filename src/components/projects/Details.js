@@ -9,7 +9,7 @@ import ProjectTasks from './Tasks';
 import ProjectVulnerabilities from './Vulnerabilities';
 import ProjectTeam from './Team';
 import Title from '../ui/Title';
-import BtnSecondary from '../ui/buttons/BtnSecondary';
+import SecondaryButton from '../ui/buttons/Secondary';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Timestamps from "../ui/Timestamps";
@@ -60,14 +60,14 @@ const ProjectDetails = ({match, history}) => {
 
                     <ButtonGroup>
                         <EditButton onClick={(ev) => onEditButtonClick(ev, project)}/>
-                        <BtnSecondary onClick={handleGenerateReport}>
+                        <SecondaryButton onClick={handleGenerateReport}>
                             <IconClipboardCheck/>
                             Generate Report
-                        </BtnSecondary>
-                        <BtnSecondary onClick={handleManageTeam}>
+                        </SecondaryButton>
+                        <SecondaryButton onClick={handleManageTeam}>
                             <IconUserGroup/>
                             Manage Members
-                        </BtnSecondary>
+                        </SecondaryButton>
                         <DeleteButton onClick={() => destroy(project.id)}/>
                     </ButtonGroup>
                 </>}

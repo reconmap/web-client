@@ -1,6 +1,6 @@
 import {useHistory} from 'react-router-dom'
 
-export default function BtnSecondary({onClick, children, to, disabled = false, external = false}) {
+export default function SecondaryButton({onClick, children, to, disabled = false, external = false}) {
     const history = useHistory()
     const handleOpen = () => {
         external ? window.open(to, '_blank') : history.push(to)

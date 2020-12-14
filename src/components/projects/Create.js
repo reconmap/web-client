@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Breadcrumb from '../ui/Breadcrumb'
-import BtnPrimary from '../ui/buttons/BtnPrimary'
+import PrimaryButton from '../ui/buttons/Primary'
 import Title from '../ui/Title'
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
@@ -50,7 +50,7 @@ const ProjectCreate = ({history}) => {
                 <label>Description
                     <textarea name="description" onChange={handleFormChange} required/>
                 </label>
-                <BtnPrimary type="submit" disabled={loading}>Create</BtnPrimary>
+                <PrimaryButton type="submit" disabled={loading}>Create</PrimaryButton>
             </form>
         </div>
     )

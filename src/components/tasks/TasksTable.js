@@ -1,7 +1,7 @@
 import TaskBadge from '../badges/TaskBadge'
 import TaskStatusBadge from '../badges/TaskStatusBadge'
 import BadgeOutline from '../badges/BadgeOutline'
-import BtnPrimary from '../ui/buttons/BtnPrimary'
+import PrimaryButton from '../ui/buttons/Primary'
 import {IconUpload} from '../ui/Icons'
 import UserLink from "../users/Link";
 import NoResults from "../ui/NoResults";
@@ -40,10 +40,10 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                             <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
                             <td style={{width: '20%'}}><code>{task.description.slice(0, 40)} </code></td>
                             <td>
-                                <BtnPrimary to={`/tasks/${task.id}/upload`}>
+                                <PrimaryButton to={`/tasks/${task.id}/upload`}>
                                     <IconUpload/>
                                     Upload results
-                                </BtnPrimary>
+                                </PrimaryButton>
                                 <DeleteButton onClick={() => destroy(task.id)}/>
                             </td>
                         </tr>

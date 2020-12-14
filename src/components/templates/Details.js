@@ -5,7 +5,7 @@ import Loading from '../ui/Loading';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import useDelete from '../../hooks/useDelete';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import {IconPlusCircle} from '../ui/Icons';
 import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
@@ -32,9 +32,9 @@ const TemplateDetails = ({history, match}) => {
                 </Breadcrumb>
                 {template &&
                 <ButtonGroup>
-                    <BtnPrimary onClick={() => cloneProject(template.id)}><IconPlusCircle
+                    <PrimaryButton onClick={() => cloneProject(template.id)}><IconPlusCircle
                     /> Create
-                        project from template</BtnPrimary>
+                        project from template</PrimaryButton>
                     <DeleteButton onClick={() => destroy(template.id)}/>
                 </ButtonGroup>
                 }

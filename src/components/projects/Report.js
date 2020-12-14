@@ -6,7 +6,7 @@ import {IconReport} from '../ui/Icons';
 import Title from '../ui/Title';
 import {Link, useRouteMatch} from "react-router-dom";
 import Loading from "../ui/Loading";
-import BtnPrimary from "../ui/buttons/BtnPrimary";
+import PrimaryButton from "../ui/buttons/Primary";
 import useFetch from "../../hooks/useFetch";
 
 const ProjectReport = () => {
@@ -96,7 +96,7 @@ const ProjectReport = () => {
                                    placeholder="eg Initial version, Draft"
                                    required/>
                         </fieldset>
-                        <BtnPrimary type="submit" disabled={saveVersionButtonDisabled}>Save version</BtnPrimary>
+                        <PrimaryButton type="submit" disabled={saveVersionButtonDisabled}>Save version</PrimaryButton>
                     </form>
 
                     <table>

@@ -1,7 +1,7 @@
 import Loading from "../ui/Loading"
 import {IconPlus, IconServer} from '../ui/Icons'
 import {useHistory} from 'react-router-dom'
-import BtnSecondary from '../ui/buttons/BtnSecondary'
+import SecondaryButton from '../ui/buttons/Secondary'
 
 const ProjectTargets = ({project, targets, handleAddTarget}) => {
     const history = useHistory()
@@ -18,7 +18,7 @@ const ProjectTargets = ({project, targets, handleAddTarget}) => {
     return <section>
         <h4>
             <IconServer/> Target(s)
-            <BtnSecondary onClick={handleAddTarget}><IconPlus/>Add target</BtnSecondary>
+            <SecondaryButton onClick={handleAddTarget}><IconPlus/>Add target</SecondaryButton>
         </h4>
         {!targets ? <Loading/> :
             <ul style={styles.targets}>

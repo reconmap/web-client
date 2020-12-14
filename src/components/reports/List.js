@@ -8,7 +8,7 @@ import useDelete from '../../hooks/useDelete';
 import {IconCode, IconDocument, IconReport} from '../ui/Icons';
 import DeleteButton from "../ui/buttons/Delete";
 import Title from '../ui/Title';
-import BtnSecondary from "../ui/buttons/BtnSecondary";
+import BtnSecondary from "../ui/buttons/Secondary";
 import NoResults from "../ui/NoResults";
 
 const ReportsList = ({history}) => {

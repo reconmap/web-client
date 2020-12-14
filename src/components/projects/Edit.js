@@ -5,7 +5,7 @@ import Title from '../ui/Title'
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import {IconPlus} from "../ui/Icons";
-import BtnPrimary from "../ui/buttons/BtnPrimary";
+import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
 import {actionCompletedToast} from "../../utilities/toast";
 
@@ -63,7 +63,7 @@ const ProjectEdit = ({history}) => {
                     <input type="text" name="description" value={updatedProject.description} onChange={onFormChange}
                            required/>
                 </label>
-                <BtnPrimary type="submit" disabled={loading}>{loading ? 'Updating...' : 'Update'}</BtnPrimary>
+                <PrimaryButton type="submit" disabled={loading}>{loading ? 'Updating...' : 'Update'}</PrimaryButton>
             </form>
         </div>
     )

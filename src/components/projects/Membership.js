@@ -3,7 +3,7 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
 import {IconPlus} from '../ui/Icons';
@@ -61,7 +61,7 @@ const TasksList = ({match}) => {
                     )}
                 </select>
             </label>
-            <BtnPrimary onClick={handleOnClick}><IconPlus/> Add as member</BtnPrimary>
+            <PrimaryButton onClick={handleOnClick}><IconPlus/> Add as member</PrimaryButton>
         </form>
 
         {!members ?

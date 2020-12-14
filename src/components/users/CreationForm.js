@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Link, useHistory} from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import {actionCompletedToast} from './../../utilities/toast'
 
@@ -71,8 +71,8 @@ const UserCreationForm = () => {
                     <input type="checkbox" name="sendEmailToUser" onChange={handleFormChange}/>
                 </label>
 
-                <BtnPrimary type="submit"
-                            disabled={loading}>Create</BtnPrimary>
+                <PrimaryButton type="submit"
+                               disabled={loading}>Create</PrimaryButton>
             </form>
         </div>
     )

@@ -6,7 +6,7 @@ import NoResults from '../ui/NoResults';
 import useSetTitle from '../../hooks/useSetTitle';
 import {IconEye, IconSave} from '../ui/Icons';
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnSecondary from '../ui/buttons/BtnSecondary';
+import SecondaryButton from '../ui/buttons/Secondary';
 import Title from '../ui/Title';
 import AuditLogsTable from "./AuditLogsTable";
 
@@ -69,7 +69,7 @@ const AuditLogList = ({history}) => {
             <div className='heading'>
                 <Breadcrumb/>
                 <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext}/>
-                <BtnSecondary onClick={handleExport}><IconSave/> Export to CSV</BtnSecondary>
+                <SecondaryButton onClick={handleExport}><IconSave/> Export to CSV</SecondaryButton>
             </div>
             <Title title='Audit Log' icon={<IconEye/>}/>
             {!auditLog ? <Loading/> : auditLog.length === 0 ? <NoResults/> :

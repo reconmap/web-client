@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import BtnPrimary from '../ui/buttons/BtnPrimary';
+import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import useFetch from "../../hooks/useFetch";
 import {Link, useLocation} from 'react-router-dom';
@@ -81,8 +81,8 @@ const CreateTask = ({history}) => {
                         <option value='nmap'>nmap</option>
                     </select>
                 </label>
-                <BtnPrimary type="submit"
-                            disabled={loading}>{loading ? 'Creating...' : 'Create'}</BtnPrimary>
+                <PrimaryButton type="submit"
+                               disabled={loading}>{loading ? 'Creating...' : 'Create'}</PrimaryButton>
             </form>
         </div>
     )

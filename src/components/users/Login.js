@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 
 import {AuthConsumer} from "../../contexts/AuthContext";
 import Wrap from "../layout/Wrap";
-import BtnPrimary from "../ui/buttons/BtnPrimary";
+import PrimaryButton from "../ui/buttons/Primary";
 
 const Login = (props) => {
 
@@ -64,7 +64,8 @@ const Login = (props) => {
                                         <label htmlFor="inputPassword" className="sr-only">Password</label>
                                         <input type="password" id="inputPassword" onChange={handlePassword}
                                                placeholder="Password" required/>
-                                        <BtnPrimary type="submit">{!loading ? "Sign in" : "Processing..."}</BtnPrimary>
+                                        <PrimaryButton
+                                            type="submit">{!loading ? "Sign in" : "Processing..."}</PrimaryButton>
                                     </fieldset>
                                     {error &&
                                     <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'>
