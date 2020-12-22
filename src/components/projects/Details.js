@@ -8,13 +8,14 @@ import ProjectTargets from './Targets';
 import ProjectTasks from './Tasks';
 import ProjectVulnerabilities from './Vulnerabilities';
 import ProjectTeam from './Team';
+import ProjectDetailsTab from './DetailsTab';
 import Title from '../ui/Title';
 import SecondaryButton from '../ui/buttons/Secondary';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
-import Timestamps from "../ui/Timestamps";
 import EditButton from "../ui/buttons/Edit";
 import {Link} from "react-router-dom";
+import { useState } from 'react';
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
@@ -24,6 +25,7 @@ const ProjectDetails = ({match, history}) => {
     const [vulnerabilities] = useFetch(`/projects/${match.params.id}/vulnerabilities`)
     const [users] = useFetch(`/projects/${match.params.id}/users`)
     const destroy = useDelete(`/projects/`, updateProject);
+    const [currentTab, setCurrentTab] = useState('details')
 
     const projectId = match.params.id;
 
@@ -49,6 +51,9 @@ const ProjectDetails = ({match, history}) => {
         history.push(`/projects/${project.id}/edit`);
     };
 
+    const handleChangeTab = (e) => {
+        setCurrentTab(e.target.name)
+    }
     return (
         <>
             <div className='heading'>
@@ -75,11 +80,18 @@ const ProjectDetails = ({match, history}) => {
             {!project ? <Loading/> :
                 <>
                     <Title title={project.name} type="Project" icon={<IconFolder/>}/>
-                    <Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/>
-                    <div>{project.description}</div>
-                    <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>
-                    <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>
-                    <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities}/>
+                    
+                    <div className='flex gap-sm mt tabs' >
+                        <button className={currentTab === 'details' && 'active'} name='details' onClick={handleChangeTab}>Details</button>
+                        <button className={currentTab === 'targets' && 'active'} name='targets' onClick={handleChangeTab}>Targets</button>
+                        <button className={currentTab === 'tasks' && 'active'} name='tasks' onClick={handleChangeTab}>Tasks</button>
+                        <button className={currentTab === 'vulnerabilities' && 'active'} name='vulnerabilities' onClick={handleChangeTab}>Vulnerabilities</button>
+                    </div>
+                    
+                    { currentTab === 'details' && <ProjectDetailsTab  project={project} />}
+                    { currentTab === 'targets' && <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>}
+                    { currentTab === 'tasks' && <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>}
+                    { currentTab === 'vulnerabilities' && <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities}/>}
                 </>
             }
         </>

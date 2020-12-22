@@ -1,3 +1,5 @@
+@import 'utilities';
+
 :root {
   --base-hue: 336; //190
   --saturation: 50%;
@@ -52,6 +54,7 @@
 
   //spacing
   --space: .9rem;
+  --space-sm:  calc(var(--space) / 2);
   --margin: calc(var(--space) / 2);
   --padding: var(--space);
   --paddingBox: calc(var(--space) / 2) var(--space);
@@ -506,5 +509,20 @@ table {
 
       }
     }
+  }
+}
+
+
+.tabs {
+  button {
+    border: none;
+    border-bottom : var(--borderWidth)  solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-gray-light);
+  }
+  button.active { 
+    border-color : var(--primary-color); 
+    color: var(--white);
   }
 }
