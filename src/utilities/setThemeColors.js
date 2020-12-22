@@ -1,17 +1,16 @@
 const setThemeColors = (theme) => {
     const style = document.documentElement.style
-    const colorBase = 'hsl(var(--base-hue), var(--tint)'
 
     if (theme === 'light') {
-        style.setProperty('--black', `${colorBase}, 90%)`)
-        style.setProperty('--bg-color', `${colorBase}, 100%)`)
-        style.setProperty('--text-color', `${colorBase}, 40%)`)
-        style.setProperty('--white', `${colorBase}, 6%)`)
+        style.setProperty('--black', `var(--color-gray-lightest)`)
+        style.setProperty('--bg-color', `#fff`)
+        style.setProperty('--text-color', `var(--color-gray)`)
+        style.setProperty('--white', `var(--color-black)`)
     } else {
-        style.setProperty('--black', `${colorBase}, 6%)`)
-        style.setProperty('--bg-color', `${colorBase}, 12%)`)
-        style.setProperty('--text-color', `${colorBase}, 50%)`)
-        style.setProperty('--white', `${colorBase}, 90%)`)
+        style.setProperty('--black', `var(--color-black)`)
+        style.setProperty('--bg-color', `var(--color-gray-dark)`)
+        style.setProperty('--text-color', `var(--color-gray-light)`)
+        style.setProperty('--white', `#fff`)
     }
 }
 

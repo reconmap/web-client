@@ -19,6 +19,7 @@ export default function Header() {
             ({isAuth, user}) => (
                 <nav>
                     <Link to='/' style={{paddingLeft: 'var(--padding)', cursor: 'pointer', marginRight: 'auto'}}><h3>
+                    <img alt='logo' src="/logo.svg" style={{ paddingRight:'var(--padding)' , width: 'var(--iconSizeLarge)'}}/>
                         <strong style={{color: 'var(--white)'}}>Recon<span
                             style={{color: 'var(--primary-color)'}}>map</span></strong>
                     </h3>

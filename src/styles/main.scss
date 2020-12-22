@@ -1,7 +1,7 @@
 :root {
-  --base-hue: 346; //190
+  --base-hue: 336; //190
   --saturation: 50%;
-  --value: 50%;
+  --value: 55%;
   --alpha: 0.15;
   --tint: 2%;
   --distance: 60;
@@ -11,17 +11,30 @@
   --distance-third: calc(var(--distance) * -5);
   --distance-fourth: calc(var(--distance) * 5);
 
-  --primary-color: hsl(var(--base-hue), var(--saturation), var(--value));
+  // --primary-color: hsl(var(--base-hue), var(--saturation), var(--value));
   --complementary-color: hsl(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value));
   --secondary-color: hsl(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value));
   --analog-color: hsl(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value));
   --third-color: hsl(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value));
   --fourth-color: hsl(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value));
 
-  --black: hsl(var(--base-hue), var(--tint), 6%);
-  --bg-color: hsl(var(--base-hue), var(--tint), 12%);
-  --text-color: hsl(var(--base-hue), var(--tint), 50%);
-  --white: hsl(var(--base-hue), var(--tint), 90%);
+
+  --color-black: #141820;
+  --color-gray-dark: #1b202b;
+  --color-gray: #2f3747;
+  --color-gray-light: #748094;
+  --color-gray-lightest: hsl(240, 1%, 94%);
+
+  --color-white: #fff;
+  --alpha: 0.7;
+
+  --primary-color: #e56e6a;
+
+
+  --black: var(--color-black);
+  --bg-color: var(--color-gray-dark);
+  --text-color: var(--color-gray-light);
+  --white: #fff;
 
   --red: var(--analog-color);
   --green: var(--complementary-color);
@@ -30,12 +43,12 @@
   --purple: var(--fourth-color);
   --gray: var(--text-color);
 
-  --redDark: hsla(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value), var(--alpha));
-  --greenDark: hsla(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value), var(--alpha));
-  --blueDark: hsla(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value), var(--alpha));
-  --yellowDark: hsla(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value), var(--alpha));
-  --purpleDark: hsla(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value), var(--alpha));
-  --text-colorDark: hsla(var(--base-hue), 3%, 50%, var(--alpha));
+  --redDark: hsla(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value),.25);
+  --greenDark: hsla(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value),.25);
+  --blueDark: hsla(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value),.25);
+  --yellowDark: hsla(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value),.25);
+  --purpleDark: hsla(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value),.25);
+  --text-colorDark: hsla(var(--base-hue), 3%, 50%,.25);
 
   //spacing
   --space: .9rem;
