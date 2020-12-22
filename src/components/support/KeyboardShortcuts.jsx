@@ -27,6 +27,10 @@ const KeyboardShortcuts = () => {
         }
     }, [divRef]);
 
+    const closeShortcutsPopup = () => {
+        divRef.current.classList.add('KeyboardShortcutsHidden');
+    }
+    
     useEffect(() => {
         document.addEventListener('keydown', onKeyDownListener);
         return () => {
@@ -35,20 +39,34 @@ const KeyboardShortcuts = () => {
     }, [onKeyDownListener]);
 
     return <div ref={divRef} className="KeyboardShortcutsHidden">
-        <div className="KeyboardShortcuts"></div>
+        <div className="KeyboardShortcuts" onClick={closeShortcutsPopup}></div>
         <div className="KeyboardShortcutsPopup">
-            <h2>Keyboard shortcuts</h2>
+            <h3>Keyboard shortcuts</h3>
+            <hr />
 
-            <h3>General</h3>
+            <h4>General</h4>
             <ul>
-                <li><strong>Show/Hide keyboard shortcuts</strong>?</li>
-                <li><strong>Search</strong>/</li>
+                <li>
+                    Show/Hide keyboard shortcuts
+                    <kbd>?</kbd>
+                </li>
+                <li>
+                    Search
+                    <kbd>/</kbd>
+                </li>
             </ul>
+            <hr />
 
-            <h3>Pagination</h3>
+            <h4>Pagination</h4>
             <ul>
-                <li><strong>Previous page</strong>p</li>
-                <li><strong>Next page</strong>n</li>
+                <li>
+                    Previous page
+                    <kbd>p</kbd>
+                </li>
+                <li>
+                    Next page
+                    <kbd>n</kbd>
+                </li>
             </ul>
         </div>
     </div>

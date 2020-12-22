@@ -1,4 +1,5 @@
 @import 'utilities';
+@import 'animations';
 
 :root {
   --base-hue: 336; //190
@@ -55,6 +56,8 @@
   //spacing
   --space: .9rem;
   --space-sm:  calc(var(--space) / 2);
+  --space-lg: calc(var(--space) * 2);
+
   --margin: calc(var(--space) / 2);
   --padding: var(--space);
   --paddingBox: calc(var(--space) / 2) var(--space);
@@ -359,7 +362,11 @@ svg {
   padding: 0;
   flex-shrink: 0;
 }
-
+hr {
+  border-top-width: var(--borderWidth);
+  margin: var(--space) auto;
+  border-color: var(--bg-color);
+}
 .recharts-wrapper svg {
   width: initial;
   height: initial;
@@ -526,3 +533,12 @@ table {
     color: var(--white);
   }
 }
+
+kbd {
+  background-color: var(--bg-color);   
+  display: inline-block;
+  text-transform: uppercase;
+  border-radius: var(--borderRadius);
+  width: max-content;
+  padding : var(--space-sm) var(--space);
+  color: var(--white);}
