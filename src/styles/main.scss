@@ -332,6 +332,9 @@ form input[type="checkbox"] {
 form input:required {
   border: var(--borderWidth) solid var(--primary-color);
 }
+ input:focus {
+  border: var(--borderWidth) solid var(--gray);
+}
 
 // card reconmap components
 .card {
