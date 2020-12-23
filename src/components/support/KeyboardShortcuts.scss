@@ -30,12 +30,13 @@
   width: 90%;
   max-width: 500px;
   height: max-content;
-  bottom:0;
-  left:0;
-  right:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   margin: auto;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, .5);
   padding: var(--space-lg);
+
   li {
     display: flex;
     justify-content: space-between;
@@ -44,9 +45,19 @@
     margin-bottom: var(--space-sm);
 
   }
- 
+
 }
 
 .KeyboardShortcutsHidden {
   display: none;
+}
+
+kbd {
+  background-color: var(--bg-color);
+  display: inline-block;
+  text-transform: uppercase;
+  border-radius: var(--borderRadius);
+  width: max-content;
+  padding: var(--space-sm) var(--space);
+  color: var(--white);
 }

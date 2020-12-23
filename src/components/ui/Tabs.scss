@@ -1,0 +1,14 @@
+.tabs {
+  button {
+    border: none;
+    border-bottom: var(--borderWidth) solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-gray-light);
+  }
+
+  button.active {
+    border-color: var(--primary-color);
+    color: var(--white);
+  }
+}

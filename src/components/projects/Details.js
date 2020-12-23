@@ -15,7 +15,8 @@ import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import EditButton from "../ui/buttons/Edit";
 import {Link} from "react-router-dom";
-import { useState } from 'react';
+import {useState} from 'react';
+import Tabs from "../ui/Tabs";
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
@@ -80,18 +81,28 @@ const ProjectDetails = ({match, history}) => {
             {!project ? <Loading/> :
                 <>
                     <Title title={project.name} type="Project" icon={<IconFolder/>}/>
-                    
-                    <div className='flex gap-sm mt tabs' >
-                        <button className={currentTab === 'details' && 'active'} name='details' onClick={handleChangeTab}>Details</button>
-                        <button className={currentTab === 'targets' && 'active'} name='targets' onClick={handleChangeTab}>Targets</button>
-                        <button className={currentTab === 'tasks' && 'active'} name='tasks' onClick={handleChangeTab}>Tasks</button>
-                        <button className={currentTab === 'vulnerabilities' && 'active'} name='vulnerabilities' onClick={handleChangeTab}>Vulnerabilities</button>
-                    </div>
-                    
-                    { currentTab === 'details' && <ProjectDetailsTab  project={project} />}
-                    { currentTab === 'targets' && <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>}
-                    { currentTab === 'tasks' && <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>}
-                    { currentTab === 'vulnerabilities' && <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities}/>}
+
+                    <Tabs>
+                        <button className={currentTab === 'details' && 'active'} name='details'
+                                onClick={handleChangeTab}>Details
+                        </button>
+                        <button className={currentTab === 'targets' && 'active'} name='targets'
+                                onClick={handleChangeTab}>Targets
+                        </button>
+                        <button className={currentTab === 'tasks' && 'active'} name='tasks'
+                                onClick={handleChangeTab}>Tasks
+                        </button>
+                        <button className={currentTab === 'vulnerabilities' && 'active'} name='vulnerabilities'
+                                onClick={handleChangeTab}>Vulnerabilities
+                        </button>
+                    </Tabs>
+
+                    {currentTab === 'details' && <ProjectDetailsTab project={project}/>}
+                    {currentTab === 'targets' &&
+                    <ProjectTargets project={project} targets={targets} handleAddTarget={handleAddTarget}/>}
+                    {currentTab === 'tasks' && <ProjectTasks tasks={tasks} handleAddTask={handleAddTask}/>}
+                    {currentTab === 'vulnerabilities' &&
+                    <ProjectVulnerabilities project={project} vulnerabilities={vulnerabilities}/>}
                 </>
             }
         </>

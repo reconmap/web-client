@@ -46,16 +46,16 @@
   --purple: var(--fourth-color);
   --gray: var(--text-color);
 
-  --redDark: hsla(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value),.25);
-  --greenDark: hsla(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value),.25);
-  --blueDark: hsla(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value),.25);
-  --yellowDark: hsla(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value),.25);
-  --purpleDark: hsla(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value),.25);
-  --text-colorDark: hsla(var(--base-hue), 3%, 50%,.25);
+  --redDark: hsla(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value), .25);
+  --greenDark: hsla(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value), .25);
+  --blueDark: hsla(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value), .25);
+  --yellowDark: hsla(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value), .25);
+  --purpleDark: hsla(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value), .25);
+  --text-colorDark: hsla(var(--base-hue), 3%, 50%, .25);
 
   //spacing
   --space: .9rem;
-  --space-sm:  calc(var(--space) / 2);
+  --space-sm: calc(var(--space) / 2);
   --space-lg: calc(var(--space) * 2);
 
   --margin: calc(var(--space) / 2);
@@ -332,7 +332,8 @@ form input[type="checkbox"] {
 form input:required {
   border: var(--borderWidth) solid var(--primary-color);
 }
- input:focus {
+
+input:focus {
   border: var(--borderWidth) solid var(--gray);
 }
 
@@ -365,11 +366,13 @@ svg {
   padding: 0;
   flex-shrink: 0;
 }
+
 hr {
   border-top-width: var(--borderWidth);
   margin: var(--space) auto;
   border-color: var(--bg-color);
 }
+
 .recharts-wrapper svg {
   width: initial;
   height: initial;
@@ -521,27 +524,3 @@ table {
     }
   }
 }
-
-
-.tabs {
-  button {
-    border: none;
-    border-bottom : var(--borderWidth)  solid transparent;
-    border-radius: 0;
-    background: transparent;
-    color: var(--color-gray-light);
-  }
-  button.active { 
-    border-color : var(--primary-color); 
-    color: var(--white);
-  }
-}
-
-kbd {
-  background-color: var(--bg-color);   
-  display: inline-block;
-  text-transform: uppercase;
-  border-radius: var(--borderRadius);
-  width: max-content;
-  padding : var(--space-sm) var(--space);
-  color: var(--white);}
