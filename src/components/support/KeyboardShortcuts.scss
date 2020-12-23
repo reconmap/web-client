@@ -1,38 +1,50 @@
 
 .KeyboardShortcuts {
-  opacity: 0.6;
-  background-color: black;
+  background-color: var(--bg-color);
   width: 100%;
+  opacity: 0;
   height: 100%;
   position: absolute;
   top: 0px;
   left: 0px;
   z-index: 100;
+  animation-name: fadeInBackdrop;
+  animation-duration: .2s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .KeyboardShortcutsPopup {
+  opacity: 0;
+  animation-name: fadeInPopup;
+  animation-duration: .5s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   z-index: 101;
-  border-radius: 10px;
-  box-shadow: 4px 4px 2px #bbb;
+  border-radius: var(--borderRadius);
   position: absolute;
-  top: 10%;
-  width: 60%;
-  opacity: 1.0;
-  background-color: white;
-  padding: 20px;
-  color: black;
+  backdrop-filter: blur(10px);
+  top: 0;
+  width: 90%;
+  max-width: 500px;
+  height: max-content;
+  bottom:0;
+  left:0;
+  right:0;
+  margin: auto;
+  background-color: rgba(0,0,0,.5);
+  padding: var(--space-lg);
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space);
+    margin-bottom: var(--space-sm);
 
-  strong {
-    color: black;
-    width: 40%;
-    display: inline-block;
   }
-
-  h2, h3 {
-    color: black;
-    border-bottom: 1px solid black;
-    margin-bottom: 20px;
-  }
+ 
 }
 
 .KeyboardShortcutsHidden {
