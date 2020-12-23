@@ -1,4 +1,5 @@
 import Configuration from '../Configuration';
+import toast from "../components/ui/toast";
 
 function resetSessionStorageAndRedirect() {
     window.localStorage.removeItem('accessToken');
@@ -28,7 +29,8 @@ function secureApiFetch(url, init) {
         })
         .catch(err => {
             if (err.message.toLowerCase().indexOf('network') !== -1) {
-                resetSessionStorageAndRedirect();
+                console.error(err.message);
+                toast('Network error', 'Please check connectivity with the API.');
             }
             return Promise.reject(err);
         });

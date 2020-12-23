@@ -17,14 +17,17 @@ const ProjectsList = ({history}) => {
     useSetTitle('Projects');
     const [projects, updateProjects] = useFetch('/projects')
     const destroy = useDelete('/projects/', updateProjects);
+
     const handleCreateProject = () => {
         history.push('/projects/create')
     }
+
     const onEditButtonClick = (ev, project) => {
         ev.preventDefault();
 
         history.push(`/projects/${project.id}/edit`);
     };
+
     return <div>
         <div className='heading'>
             <Breadcrumb/>

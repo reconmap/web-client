@@ -16,10 +16,11 @@ import {actionCompletedToast} from "../ui/toast";
 import {Link, useHistory, useRouteMatch} from 'react-router-dom';
 import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'
+import EditButton from "../ui/buttons/Edit";
 
 const VulnerabilityDetails = () => {
     const history = useHistory()
-    const {params: {id: vulnerabilityId}} = useRouteMatch()
+    const {params: {vulnerabilityId}} = useRouteMatch()
     const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`)
     const deleteVulnerability = useDelete(`/vulnerabilities/`)
 
@@ -36,7 +37,7 @@ const VulnerabilityDetails = () => {
     const handleStatus = () => {
         const newStatus = vulnerability.status === 'open' ? 'closed' : 'open';
         secureApiFetch(`/vulnerabilities/${vulnerability.id}`, {
-            method: 'PATCH',
+            method: 'PUT',
             body: JSON.stringify({status: newStatus})
         })
             .then(() => {
@@ -54,6 +55,10 @@ const VulnerabilityDetails = () => {
                 <Link to="/vulnerabilities">Vulnerabilities</Link>
             </Breadcrumb>
             <ButtonGroup>
+                <EditButton onClick={(ev) => {
+                    ev.preventDefault();
+                    history.push(`/vulnerabilities/${vulnerability.id}/edit`)
+                }}>Edit</EditButton>
                 {vulnerability.status === 'open' &&
                 <PrimaryButton onClick={handleStatus}>
                     <IconCheck/> Mark as closed</PrimaryButton>}

@@ -25,7 +25,8 @@ const ProjectEdit = ({history}) => {
         setLoading(true)
         await secureApiFetch(`/projects/${projectId}`, {method: 'PUT', body: JSON.stringify(updatedProject)})
         actionCompletedToast(`Project "${updatedProject.name}" updated.`);
-        history.push('/projects');
+
+        history.push(`/projects/${projectId}`);
     };
 
     useEffect(() => {
@@ -63,7 +64,7 @@ const ProjectEdit = ({history}) => {
                     <input type="text" name="description" value={updatedProject.description} onChange={onFormChange}
                            required/>
                 </label>
-                <PrimaryButton type="submit" disabled={loading}>{loading ? 'Updating...' : 'Update'}</PrimaryButton>
+                <PrimaryButton type="submit" disabled={loading}>Update</PrimaryButton>
             </form>
         </div>
     )
