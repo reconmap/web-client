@@ -1,4 +1,4 @@
-import './Group.css';
+import './ButtonGroup.css';
 
 const ButtonGroup = ({children}) => {
     return <div className='button-group'>

@@ -1,0 +1,10 @@
+.link-button {
+  padding: var(--paddingBox);
+  display: inline-flex;
+  align-items: center;
+  color: var(--white);
+  font-size: var(--fontSizeSmall);
+  /* opacity: disabled ? .5: 1;*/
+  border: var(--borderWidth) solid var(--black);
+  background-color: transparent;
+}

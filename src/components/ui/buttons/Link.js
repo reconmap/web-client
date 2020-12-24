@@ -1,38 +1,22 @@
-import {useHistory} from 'react-router-dom'
+import './Link.css';
+import {useHistory} from 'react-router-dom';
 
-export default function LinkButton({
-                                       onClick,
-                                       children,
-                                       color = 'black',
-                                       fontSize = 'fontSizeSmall',
-                                       to,
-                                       disabled = false,
-                                       external = false
-                                   }) {
-    const history = useHistory()
-    const handleOpen = () => {
-        external ? window.open(to, '_blank') : history.push(to)
-    }
-    const styles = {
-        button: {
-            padding: 'var(--paddingBox)',
-            display: 'inline-flex',
-            alignItems: 'center',
-            color: `var(--white)`,
-            fontSize: `var(--${fontSize})`,
-            opacity: disabled ? '.5' : '1',
-            border: `var(--borderWidth) solid var(--${color})`,
-            backgroundColor: 'transparent',
+const LinkButton = ({children, external = false, ...props}) => {
+    const history = useHistory();
+
+    const onAnchorClick = ev => {
+        if (!external) {
+            ev.preventDefault();
+
+            history.push(ev.target.pathname);
         }
     }
 
     return (
-        <button
-            onClick={onClick || handleOpen}
-            disabled={disabled}
-            style={styles.button}
-        >
+        <a {...props} target={external ? "_blank" : ""} onClick={onAnchorClick} className="link-button">
             {children}
-        </button>
+        </a>
     )
 }
+
+export default LinkButton;

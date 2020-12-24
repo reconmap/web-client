@@ -7,18 +7,9 @@ import Timestamps from '../ui/Timestamps';
 import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 import NoResults from "../ui/NoResults";
 import React from "react";
-import EditButton from "../ui/buttons/Edit";
-import {useHistory} from 'react-router-dom';
+import LinkButton from "../ui/buttons/Link";
 
 export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
-    const history = useHistory();
-
-    const onEditButtonClick = (ev, vulnerability) => {
-        ev.preventDefault();
-
-        history.push(`/vulnerabilities/${vulnerability.id}/edit`);
-    };
-
     return (
         <table>
             <thead>
@@ -53,7 +44,7 @@ export default function VulnerabilitiesTable({vulnerabilities, destroy}) {
                             <td><CvssScore score={vulnerability.cvss_score}/></td>
                             <td><VulnerabilityCategoryBadge category={vulnerability.category_name}/></td>
                             <td style={{display: 'flex'}}>
-                                <EditButton onClick={(ev) => onEditButtonClick(ev, vulnerability)}/>
+                                <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                                 {destroy &&
                                 <DeleteButton onClick={() => destroy(vulnerability.id)}/>
                                 }</td>
