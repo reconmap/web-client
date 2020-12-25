@@ -19,7 +19,6 @@ const VulnerabilityEdit = () => {
 
     const [projects] = useFetch('/projects');
     const [categories] = useFetch('/vulnerabilities/categories');
-    const [targets] = useFetch('/targets');
 
     const [serverVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`);
     const [clientVulnerability, setClientVulnerability] = useState(null);
@@ -59,7 +58,6 @@ const VulnerabilityEdit = () => {
             <Title title="Edit Vulnerability" icon={<IconPlus/>}/>
             {!clientVulnerability ? <Loading/> :
                 <VulnerabilityForm vulnerability={clientVulnerability} projects={projects} categories={categories}
-                                   targets={targets}
                                    onFormSubmit={onFormSubmit} onFormChange={handleFormChange}/>
             }
         </div>

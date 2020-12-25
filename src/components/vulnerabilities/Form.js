@@ -1,12 +1,38 @@
 import Risks from "../../models/Risks";
 import Primary from "../ui/buttons/Primary";
+import {useCallback, useEffect, useState} from 'react';
+import secureApiFetch from "../../services/api";
 
-const VulnerabilityForm = ({onFormSubmit, onFormChange, vulnerability, projects, categories, targets}) => {
+const VulnerabilityForm = ({onFormSubmit, onFormChange, vulnerability, projects, categories}) => {
     const isUpdateForm = vulnerability.id;
+
+    const [targets, setTargets] = useState([]);
+
+    const updateTargets = useCallback(() => {
+        secureApiFetch(`/targets?projectId=${vulnerability.project_id}`, {method: 'GET'})
+            .then(resp => resp.json())
+            .then(data => {
+                setTargets(data);
+            });
+    }, [vulnerability])
+
+    const onProjectChange = ev => {
+        ev.preventDefault();
+
+        onFormChange(ev);
+
+        updateTargets();
+    }
+
+    useEffect(() => {
+        if (vulnerability !== null) {
+            updateTargets();
+        }
+    }, [vulnerability, updateTargets])
 
     return <form onSubmit={onFormSubmit}>
         <label>Project
-            <select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
+            <select name="project_id" value={vulnerability.project_id} onChange={onProjectChange} required>
                 {projects && projects.map((project, index) =>
                     <option key={index} value={project.id}>{project.name}</option>
                 )}

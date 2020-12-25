@@ -100,6 +100,10 @@ const VulnerabilityDetails = () => {
                         href={`https://www.first.org/cvss/calculator/3.0#${vulnerability.cvss_vector}`}>{vulnerability.cvss_vector}</ExternalLink>
                     </td>
                 </tr>
+                <tr>
+                    <td>Affected targets</td>
+                    <td>{vulnerability.target_id || '-'}</td>
+                </tr>
                 </tbody>
             </table>
         </article>

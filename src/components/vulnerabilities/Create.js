@@ -19,7 +19,6 @@ const VulnerabilityCreate = () => {
     const urlProjectId = useRef(searchParams.get('projectId') || "");
 
     const [projects] = useFetch('/projects');
-    const [targets] = useFetch('/targets');
     const [categories] = useFetch('/vulnerabilities/categories');
 
     const [vulnerability, setVulnerability] = useState({
@@ -30,6 +29,7 @@ const VulnerabilityCreate = () => {
         category_id: null,
         cvss_score: null,
         cvss_vector: null,
+        target_id: null,
     })
 
     const handleFormChange = ev => {
@@ -71,7 +71,6 @@ const VulnerabilityCreate = () => {
             <Title title="Add vulnerability" icon={<IconPlus/>}/>
 
             <VulnerabilityForm vulnerability={vulnerability} projects={projects} categories={categories}
-                               targets={targets}
                                onFormSubmit={onFormSubmit}
                                onFormChange={handleFormChange}/>
         </div>
