@@ -20,7 +20,7 @@ const ProjectTargets = ({project}) => {
         }
     }
 
-    const [targets] = useFetch(`/projects/${project.id}/targets`)
+    const [targets] = useFetch(`/targets?projectId=${project.id}`)
 
     const handleAddTarget = () => {
         history.push(`/projects/${project.id}/targets/create`)

@@ -4,7 +4,6 @@ import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import Risks from '../../models/Risks'
 import useFetch from '../../hooks/useFetch'
-import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import {IconPlus} from '../ui/Icons';
 import useSetTitle from "../../hooks/useSetTitle";
@@ -12,14 +11,17 @@ import VulnerabilityForm from "./Form";
 
 const VulnerabilityCreate = () => {
 
-    useSetTitle('Create Vulnerability');
+    useSetTitle('Add vulnerability');
 
     const history = useHistory();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const urlProjectId = useRef(searchParams.get('projectId') || "");
+
     const [projects] = useFetch('/projects');
+    const [targets] = useFetch('/targets');
     const [categories] = useFetch('/vulnerabilities/categories');
+
     const [vulnerability, setVulnerability] = useState({
         project_id: urlProjectId.current,
         summary: "",
@@ -66,13 +68,12 @@ const VulnerabilityCreate = () => {
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
             </div>
-            <Title title="Create Vulnerability" icon={<IconPlus/>}/>
+            <Title title="Add vulnerability" icon={<IconPlus/>}/>
 
-            {!projects || !categories ? <Loading/> :
-                <VulnerabilityForm vulnerability={vulnerability} projects={projects} categories={categories}
-                                   onFormSubmit={onFormSubmit}
-                                   onFormChange={handleFormChange}/>
-            }
+            <VulnerabilityForm vulnerability={vulnerability} projects={projects} categories={categories}
+                               targets={targets}
+                               onFormSubmit={onFormSubmit}
+                               onFormChange={handleFormChange}/>
         </div>
     )
 };
