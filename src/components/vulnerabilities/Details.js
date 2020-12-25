@@ -101,8 +101,8 @@ const VulnerabilityDetails = () => {
                     </td>
                 </tr>
                 <tr>
-                    <td>Affected targets</td>
-                    <td>{vulnerability.target_id || '-'}</td>
+                    <td>Affected target</td>
+                    <td>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</td>
                 </tr>
                 </tbody>
             </table>

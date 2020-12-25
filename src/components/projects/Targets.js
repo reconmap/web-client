@@ -3,22 +3,10 @@ import {IconPlus, IconServer} from '../ui/Icons'
 import {useHistory} from 'react-router-dom'
 import SecondaryButton from '../ui/buttons/Secondary'
 import useFetch from "../../hooks/useFetch";
-import NoResults from "../ui/NoResults";
 import React from "react";
 
 const ProjectTargets = ({project}) => {
     const history = useHistory()
-
-    const styles = {
-        targets: {
-            display: 'flex',
-            gap: 'var(--padding)'
-        },
-        bullet: {
-            display: 'flex',
-            gap: 'var(--margin)'
-        }
-    }
 
     const [targets] = useFetch(`/targets?projectId=${project.id}`)
 
@@ -32,19 +20,30 @@ const ProjectTargets = ({project}) => {
             <SecondaryButton onClick={handleAddTarget}><IconPlus/>Add target</SecondaryButton>
         </h4>
         {!targets ? <Loading/> :
-            <ul style={styles.targets}>
-                {targets.length === 0 && <NoResults/>}
+            <table>
+                <thead>
+                <tr>
+                    <th>Kind</th>
+                    <th>Name</th>
+                    <th>Vulnerable?</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
                 {targets.map((target, index) =>
-                    <li key={index} onClick={() => history.push(`/projects/${project.id}/targets/${target.id}`)}>
-                        <button style={styles.bullet}>
-                            <IconServer/>
-                            {target.name}
-                            <small>{target.kind}</small>
-                        </button>
-                    </li>)}
-            </ul>}
-
+                    <tr key={index}>
+                        <td><IconServer/> {target.kind}</td>
+                        <td><a
+                            onClick={() => history.push(`/projects/${project.id}/targets/${target.id}`)}>{target.name}</a>
+                        </td>
+                        <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
+                        <td></td>
+                    </tr>
+                )}
+                </tbody>
+            </table>
+        }
     </section>
 }
 
-export default ProjectTargets
+export default ProjectTargets;
