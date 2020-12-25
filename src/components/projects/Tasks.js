@@ -1,9 +1,19 @@
 import Loading from '../ui/Loading';
 import {IconClipboardList} from '../ui/Icons';
 import TasksTable from "../tasks/TasksTable";
+import useFetch from "../../hooks/useFetch";
+import {useHistory} from 'react-router-dom';
 import CreateButton from "../ui/buttons/Create";
 
-const ProjectTasks = ({tasks, handleAddTask}) => {
+const ProjectTasks = ({project}) => {
+    const history = useHistory();
+    const [tasks] = useFetch(`/projects/${project.id}/tasks`)
+
+    const handleAddTask = ev => {
+        ev.preventDefault();
+        history.push(`/tasks/create?projectId=${project.id}`);
+    }
+
     return <section>
         <h4>
             <IconClipboardList/> Task(s) <small>({tasks && tasks.reduce(function (total, task) {

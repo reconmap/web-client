@@ -5,10 +5,12 @@ import {IconFlag, IconPlus} from '../ui/Icons'
 import {useHistory} from 'react-router-dom'
 import SecondaryButton from '../ui/buttons/Secondary'
 import ButtonGroup from '../ui/buttons/ButtonGroup'
+import useFetch from "../../hooks/useFetch";
 
-
-const ProjectVulnerabilities = ({project, vulnerabilities}) => {
+const ProjectVulnerabilities = ({project}) => {
     const history = useHistory();
+
+    const [vulnerabilities] = useFetch(`/projects/${project.id}/vulnerabilities`)
 
     const handleCreateVulnerability = () => {
         history.push(`/vulnerabilities/create?projectId=${project.id}`)
@@ -18,7 +20,7 @@ const ProjectVulnerabilities = ({project, vulnerabilities}) => {
     const [risk, setRisk] = useState('')
     const [status, setStatus] = useState('')
     return <section>
-        <h4><IconFlag/> Vulnerabilities
+        <h4><IconFlag/>Vulnerabilities
             <ButtonGroup>
                 {vulnerabilities &&
                 <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
