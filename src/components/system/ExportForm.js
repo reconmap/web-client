@@ -29,11 +29,11 @@ const ExportForm = () => {
             entities: entitiesToExport
         }).toString();
         secureApiFetch(url, {method: 'GET'})
-            .then(response => {
-                const contentDispositionHeader = response.headers.get('Content-Disposition');
+            .then(resp => {
+                const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
                 const filename = filenameRe.exec(contentDispositionHeader)[1]
-                return Promise.all([response.blob(), filename]);
+                return Promise.all([resp.blob(), filename]);
             })
             .then((values) => {
                 const blob = values[0];

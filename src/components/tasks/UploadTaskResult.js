@@ -28,10 +28,10 @@ class UploadTaskResult extends Component {
             method: 'POST',
             body: formData
         })
-            .then((response) => {
+            .then(resp => {
                 this.props.history.push('/tasks/' + taskId);
             })
-            .catch((err) => console.error(err));
+            .catch(err => console.error(err));
     }
 
     render() {

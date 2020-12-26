@@ -26,11 +26,11 @@ class ImportForm extends Component {
             method: 'POST',
             body: formData
         })
-            .then(response => response.json())
-            .then((response) => {
-                this.setState({projectsImported: response.projectsImported});
+            .then(resp => resp.json())
+            .then(resp => {
+                this.setState({projectsImported: resp.projectsImported});
             })
-            .catch((err) => console.error(err));
+            .catch(err => console.error(err));
     }
 
     onImportFileChange(ev) {

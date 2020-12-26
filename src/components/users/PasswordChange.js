@@ -26,7 +26,7 @@ const UserPasswordChange = () => {
             method: 'PATCH',
             body: JSON.stringify(passwords)
         })
-            .then((resp) => {
+            .then(resp => {
                 if (resp.status !== 200) {
                     throw new Error('Invalid response from server');
                 }

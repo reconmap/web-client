@@ -30,11 +30,11 @@ const AuditLogList = ({history}) => {
 
     const reloadData = useCallback(() => {
         secureApiFetch(`/auditlog?page=${apiPageNumber}`, {method: 'GET'})
-            .then((response) => {
-                if (response.headers.has('X-Page-Count')) {
-                    setNumberPages(response.headers.get('X-Page-Count'))
+            .then(resp => {
+                if (resp.headers.has('X-Page-Count')) {
+                    setNumberPages(resp.headers.get('X-Page-Count'))
                 }
-                return response.json()
+                return resp.json()
             })
             .then((data) => {
                 setAuditLog(data);
@@ -47,11 +47,11 @@ const AuditLogList = ({history}) => {
 
     const handleExport = () => {
         secureApiFetch(`/auditlog/export`, {method: 'GET'})
-            .then(response => {
-                const contentDispositionHeader = response.headers.get('Content-Disposition');
+            .then(resp => {
+                const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
                 const filename = filenameRe.exec(contentDispositionHeader)[1]
-                return Promise.all([response.blob(), filename]);
+                return Promise.all([resp.blob(), filename]);
             })
             .then((values) => {
                 const blob = values[0];

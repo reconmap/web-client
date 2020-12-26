@@ -19,7 +19,7 @@ const TemplatesList = ({history}) => {
 
     const cloneProject = (templateId) => {
         secureApiFetch(`/projects/${templateId}/clone`, {method: 'POST',})
-            .then((response) => response.json())
+            .then(resp => resp.json())
             .then(() => {
                 history.push('/projects');
             });

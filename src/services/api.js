@@ -20,12 +20,12 @@ function secureApiFetch(url, init) {
     }
 
     return fetch(Configuration.apiEndpoint + url, init)
-        .then((response) => {
-            if (response.status === 401) {
+        .then(resp => {
+            if (resp.status === 401) {
                 resetSessionStorageAndRedirect();
             }
 
-            return response;
+            return resp;
         })
         .catch(err => {
             if (err.message.toLowerCase().indexOf('network') !== -1) {

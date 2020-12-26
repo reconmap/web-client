@@ -26,14 +26,14 @@ class AuthProvider extends Component {
             method: 'POST',
             body: formData
         })
-            .then((response) => {
-                if (response.status === 403) {
+            .then(resp => {
+                if (resp.status === 403) {
                     throw new Error('Invalid username or password');
                 }
-                if (response.status !== 200) {
+                if (resp.status !== 200) {
                     throw new Error('Invalid response from the server');
                 }
-                return response.json();
+                return resp.json();
             })
             .then((data) => {
                 localStorage.setItem("accessToken", data.access_token);
