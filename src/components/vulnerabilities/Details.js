@@ -17,6 +17,7 @@ import {Link, useHistory, useRouteMatch} from 'react-router-dom';
 import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'
 import EditButton from "../ui/buttons/Edit";
+import TextBlock from "../ui/TextBlock";
 
 const VulnerabilityDetails = () => {
     const history = useHistory()
@@ -70,7 +71,9 @@ const VulnerabilityDetails = () => {
         <article>
             <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag/>}/>
             <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts}/>
-            <p>{vulnerability.description}</p>
+            <h4>Description</h4>
+            <TextBlock value={vulnerability.description}/>
+            <h4>Details</h4>
             <table className='table-details'>
                 <tbody>
                 <tr>

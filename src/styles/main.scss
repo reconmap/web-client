@@ -191,31 +191,6 @@ aside {
   }
 }
 
-nav {
-  h3 {
-    margin-right: auto;
-  }
-
-  position: relative;
-  padding: var(--padding);
-  border-bottom: var(--borderWidth) solid var(--black);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  column-gap: var(--padding);
-  row-gap: calc(var(--padding) / 2);
-  flex-wrap: wrap;
-
-  #progress {
-    position: absolute;
-    bottom: 0;
-    height: var(--borderWidth);
-    background-color: var(--primary-color);
-    width: var(--sidebarWidth);
-    left: 0;
-    transition: var(--transitionTime);
-  }
-}
 
 // Typography
 table th,
@@ -477,17 +452,11 @@ table {
 }
 
 .table-details {
-  max-width: 500px;
+  max-width: 80%;
   margin-left: 0;
-  margin-right: auto;
 
   tbody {
-    th {
-      width: 18ch;
-    }
-
-    td, td:last-child {
-      padding-left: var(--space);
+    td:last-child {
       text-align: left;
     }
   }

@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom'
-
 import {AuthConsumer} from '../../contexts/AuthContext'
 
 import LinkButton from '../ui/buttons/Link'
 import NotificationsBadge from '../badges/NotificationsBadge';
 import SearchBox from "../search/Box";
 import HeaderUserMenu from '../ui/HeaderUserMenu';
+import './Header.scss';
 
 const LINKS = [
     {title: "User Manual", to: {pathname: "https://reconmap.org/user-manual/"}},

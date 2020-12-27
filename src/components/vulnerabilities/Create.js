@@ -22,10 +22,10 @@ const VulnerabilityCreate = () => {
         summary: "",
         description: "",
         risk: Risks[0].id,
-        category_id: null,
+        category_id: 0,
         cvss_score: null,
         cvss_vector: null,
-        target_id: null,
+        target_id: 0,
     })
 
     const onFormSubmit = ev => {
