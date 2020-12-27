@@ -91,7 +91,6 @@ const TaskDetails = ({history, match}) => {
             {!task ? <Loading/> :
                 <article>
                     <Title title={task.name} type='Task' icon={<IconClipboard/>}/>
-                    <h4>Timestamps</h4>
                     <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
                     <h4>Description</h4>
                     <p>{task.description}</p>

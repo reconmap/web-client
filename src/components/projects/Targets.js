@@ -34,7 +34,11 @@ const ProjectTargets = ({project}) => {
                     <tr key={index}>
                         <td><IconServer/> {target.kind}</td>
                         <td><a
-                            onClick={() => history.push(`/projects/${project.id}/targets/${target.id}`)}>{target.name}</a>
+                            href="/"
+                            onClick={(ev) => {
+                                ev.preventDefault();
+                                history.push(`/projects/${project.id}/targets/${target.id}`)
+                            }}>{target.name}</a>
                         </td>
                         <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
                         <td></td>

@@ -7,7 +7,7 @@ import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../auditlog/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
-import {IconBookOpen, IconDocument} from '../ui/Icons';
+import {IconBookOpen} from '../ui/Icons';
 import {Link} from "react-router-dom";
 
 const UserProfile = ({match}) => {
@@ -21,29 +21,27 @@ const UserProfile = ({match}) => {
                     <Link to="/users">Users</Link>
                 </Breadcrumb>
             </div>
-            <div style={{display: 'grid', gridTemplateColumns: '200px 1fr .5fr', gap: 'var(--padding)'}}>
-                {user ?
-                    <div style={{display: 'flex', width: '200px', flexDirection: 'column', alignItems: 'flex-start'}}>
-                        <UserAvatar email={user.email} size='--iconSizeXLarge'/>
-                        <h1>{user.name}</h1>
-                        <UserRoleBadge role={user.role}/>
-
-                    </div> : <Loading/>}
-                <div>
-                    <Title type='User' title='Activity' icon={<IconBookOpen/>}/>
-                    {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
-                </div>
+            <div>
                 <div>
                     {user ?
                         <>
-                            <Title type='User' title='Details' icon={<IconDocument/>}/>
-
+                            <Title type='User' title='Profile'
+                                   icon={<UserAvatar email={user.email} size='--iconSizeXLarge'/>}/>
+                            <h1>{user.name}</h1>
+                            <UserRoleBadge role={user.role}/><br/>
                             <Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/>
 
+                            <h4>Details</h4>
                             <dl>
                                 <dt>Timezone</dt>
                                 <dd>{user.timezone}</dd>
                             </dl>
+
+                            <div>
+                                <Title type='User' title='Activity' icon={<IconBookOpen/>}/>
+                                {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
+                            </div>
+
                         </>
                         : <Loading/>}
                 </div>

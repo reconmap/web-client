@@ -5,7 +5,7 @@ import secureApiFetch from "../../services/api";
 import {unstable_batchedUpdates} from "react-dom";
 
 const VulnerabilityForm = ({
-                               isEditForm: isEditForm = false,
+                               isEditForm = false,
                                vulnerability,
                                vulnerabilitySetter: setVulnerability,
                                onFormSubmit

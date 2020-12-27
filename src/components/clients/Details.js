@@ -42,6 +42,7 @@ const ClientDetails = () => {
                 <Title type='Client' title={client.name} icon={<IconBriefcase/>}/>
             </div>
             <Timestamps insertTs={client.insert_ts} updateTs={client.update_ts}/>
+            <h4>Details</h4>
             <table className="table-details">
                 <tbody>
                 <tr>

@@ -5,7 +5,6 @@
   --base-hue: 336; //190
   --saturation: 50%;
   --value: 55%;
-  --alpha: 0.15;
   --tint: 2%;
   --distance: 60;
   --distance-analog: calc(var(--distance) / 2);
@@ -439,6 +438,7 @@ table {
   tbody {
     td {
       padding: var(--paddingCell);
+      padding-left: 0;
     }
 
     td:last-child {
