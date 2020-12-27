@@ -18,7 +18,7 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                 <th style={{width: '190px'}}>Project</th>
                 <th>Assignee</th>
                 <th style={{width: '100px'}}>Status</th>
-                <th>Parser</th>
+                <th>Command parser</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
@@ -38,7 +38,7 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                             <td>{task.assignee_uid ?
                                 <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
                             <td><TaskStatusBadge completed={task.completed}/></td>
-                            <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
+                            <td>{task.command_parser && <BadgeOutline>{task.command_parser}</BadgeOutline>}</td>
                             <td>
                                 <PrimaryButton to={`/tasks/${task.id}/upload`}>
                                     <IconUpload/>
