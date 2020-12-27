@@ -37,18 +37,23 @@ const VulnerabilityForm = ({
                             setTargets(targets);
                             if (!isEditForm) { // Create
                                 setVulnerability(prevVulnerability => {
-                                    return {
-                                        ...prevVulnerability,
-                                        project_id: projects[0].id,
-                                        category_id: categories[0].id
+                                    let updatedVulnerability = {...prevVulnerability, category_id: categories[0].id};
+                                    if (prevVulnerability.project_id === 0 || !idExists(projects, prevVulnerability.project_id)) {
+                                        updatedVulnerability.project_id = projects[0].id;
                                     }
+                                    return updatedVulnerability;
                                 })
                             } else { // Edit
-                                if (!idExists(targets, vulnerability.target_id)) {
-                                    setVulnerability(prevVulnerability => {
-                                        return {...prevVulnerability, target_id: 0}
-                                    });
-                                }
+                                setVulnerability(prevVulnerability => {
+                                    let updatedVulnerability = prevVulnerability;
+                                    if (!idExists(projects, prevVulnerability.project_id)) {
+                                        updatedVulnerability.project_id = projects[0].id;
+                                    }
+                                    if (!idExists(targets, vulnerability.target_id)) {
+                                        updatedVulnerability.target_id = null;
+                                    }
+                                    return updatedVulnerability;
+                                });
                             }
                             setInitialised(true);
                         });
@@ -68,7 +73,7 @@ const VulnerabilityForm = ({
                     if (isEditForm) { // Edit
                         if (!idExists(targets, vulnerability.target_id)) {
                             setVulnerability(prevVulnerability => {
-                                return {...prevVulnerability, target_id: 0}
+                                return {...prevVulnerability, target_id: null}
                             });
                         }
                     }
