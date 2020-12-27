@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import secureApiFetch from '../../services/api'
 import SecondaryButton from '../ui/buttons/Secondary'
 import PrimaryButton from '../ui/buttons/Primary'
@@ -17,17 +17,12 @@ import {Link} from "react-router-dom";
 import ShellCommand from "../ui/ShellCommand";
 
 const TaskDetails = ({history, match}) => {
-
-    const [task, fetchTask] = useFetch(`/tasks/${match.params.id}`)
+    const taskId = match.params.id;
+    const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
     const [users] = useFetch(`/users`)
-    const [results] = useFetch(`/tasks/${match.params.id}/results`)
+    const [results] = useFetch(`/tasks/${taskId}/results`)
+    const [project, setProject] = useState(null);
     const destroy = useDelete('/tasks/', fetchTask);
-
-    useEffect(() => {
-        if (task) {
-            document.title = `Task ${task.name} | Reconmap`;
-        }
-    }, [task])
 
     const handleToggle = (task) => {
         secureApiFetch(`/tasks/${task.id}`, {
@@ -59,12 +54,25 @@ const TaskDetails = ({history, match}) => {
             .catch(err => console.error(err))
     }
 
+    useEffect(() => {
+        if (task) {
+            document.title = `Task ${task.name} | Reconmap`;
+
+            secureApiFetch(`/projects/${task.project_id}`, {method: 'GET'})
+                .then(resp => resp.json())
+                .then(project => {
+                    setProject(project);
+                })
+                .catch(err => console.error(err))
+        }
+    }, [task])
 
     return (
         <div>
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/tasks">Tasks</Link>
+                    {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
                 </Breadcrumb>
                 {task && users &&
                 <ButtonGroup>
