@@ -72,7 +72,7 @@ const VulnerabilityDetails = () => {
             <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag/>}/>
             <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts}/>
             <h4>Description</h4>
-            <TextBlock value={vulnerability.description}/>
+            <TextBlock value={vulnerability.description || "(empty)"}/>
             <h4>Details</h4>
             <table className='table-details'>
                 <tbody>

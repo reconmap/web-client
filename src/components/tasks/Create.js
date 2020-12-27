@@ -5,7 +5,6 @@ import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import useFetch from "../../hooks/useFetch";
 import {Link, useLocation} from 'react-router-dom';
-import Loading from "../ui/Loading";
 
 const CreateTask = ({history}) => {
     const location = useLocation();
@@ -15,7 +14,7 @@ const CreateTask = ({history}) => {
     const [projects] = useFetch('/projects');
 
     const [newTask, setNewTask] = useState({
-        projectId: projectIdParam.current,
+        project_id: projectIdParam.current,
         name: null,
         description: null,
         parser: "",
@@ -25,7 +24,7 @@ const CreateTask = ({history}) => {
         ev.preventDefault();
 
         await secureApiFetch(`/tasks`, {method: 'POST', body: JSON.stringify(newTask)})
-        history.push(`/tasks?projectId=${newTask.projectId}`)
+        history.push(`/tasks?projectId=${newTask.project_id}`)
     }
 
     const onFormChange = ev => {
@@ -42,10 +41,6 @@ const CreateTask = ({history}) => {
         }
     }, [projectIdParam, projects]);
 
-    if (!projects) {
-        return <Loading/>
-    }
-
     return (
         <div>
             <div className='heading'>
@@ -59,7 +54,7 @@ const CreateTask = ({history}) => {
                 <label>
                     Project
                     <select name="project_id" onChange={onFormChange}
-                            value={newTask.projectId}>
+                            value={newTask.project_id} required>
                         {projects && projects.map((project, index) =>
                             <option key={index} value={project.id}>{project.name}</option>
                         )}

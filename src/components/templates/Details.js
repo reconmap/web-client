@@ -11,6 +11,7 @@ import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Timestamps from "../ui/Timestamps";
+import TextBlock from "../ui/TextBlock";
 
 const TemplateDetails = ({history, match}) => {
     useSetTitle('Projects templates');
@@ -44,26 +45,16 @@ const TemplateDetails = ({history, match}) => {
                 <article>
                     <Title title={template.name} type='Project template'/>
                     <Timestamps insertTs={template.insert_ts} updateTs={template.update_ts}/>
-                    <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <div className='card'>
-                            <h2>Description</h2>
-                            <p>{template.description}</p>
-                        </div>
-                    </section>
-                    <section className='grid lg:grid-cols-3 gap-4 my-4'>
-                        <div className='card'>
-                            <h2>Tasks</h2>
-                            <div className='flex flex-col gap-2 mb-2'>
-                                <ol>
-                                    {tasks && tasks.map((task, index) =>
-                                        <li key={index}>
-                                            <Link to={"/tasks/" + task.id}>{task.name}</Link>
-                                        </li>
-                                    )}
-                                </ol>
-                            </div>
-                        </div>
-                    </section>
+                    <h4>Description</h4>
+                    <TextBlock value={template.description}/>
+                    <h4>Tasks</h4>
+                    <ol>
+                        {tasks && tasks.map((task, index) =>
+                            <li key={index}>
+                                <Link to={"/tasks/" + task.id}>{task.name}</Link>
+                            </li>
+                        )}
+                    </ol>
                 </article>}
         </>
     )

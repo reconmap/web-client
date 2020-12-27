@@ -15,6 +15,7 @@ import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'
 import {Link} from "react-router-dom";
 import ShellCommand from "../ui/ShellCommand";
+import TextBlock from "../ui/TextBlock";
 
 const TaskDetails = ({history, match}) => {
     const taskId = match.params.id;
@@ -102,7 +103,7 @@ const TaskDetails = ({history, match}) => {
                     <Title title={task.name} type='Task' icon={<IconClipboard/>}/>
                     <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts}/>
                     <h4>Description</h4>
-                    <p>{task.description}</p>
+                    <TextBlock value={task.description || "(empty)"}/>
                     <h4>Status</h4>
                     <p style={{display: 'flex', alignItems: 'center', columnGap: 'var(--margin)'}}>
                         <TaskStatusBadge completed={String(task.completed)}/>
