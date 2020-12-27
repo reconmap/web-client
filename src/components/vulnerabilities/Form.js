@@ -1,48 +1,109 @@
 import Risks from "../../models/Risks";
 import Primary from "../ui/buttons/Primary";
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import secureApiFetch from "../../services/api";
+import {unstable_batchedUpdates} from "react-dom";
 
-const VulnerabilityForm = ({onFormSubmit, onFormChange, vulnerability, projects, categories}) => {
-    const isUpdateForm = vulnerability.id;
-
-    const [targets, setTargets] = useState([]);
-
-    const updateTargets = useCallback(() => {
-        secureApiFetch(`/targets?projectId=${vulnerability.project_id}`, {method: 'GET'})
-            .then(resp => resp.json())
-            .then(data => {
-                setTargets(data);
-            });
-    }, [vulnerability])
-
-    const onProjectChange = ev => {
-        ev.preventDefault();
-
-        onFormChange(ev);
-
-        updateTargets();
-    }
+const VulnerabilityForm = ({
+                               isEditForm: isEditForm = false,
+                               vulnerability,
+                               vulnerabilitySetter: setVulnerability,
+                               onFormSubmit
+                           }) => {
+    const [initialised, setInitialised] = useState(false);
+    const [projects, setProjects] = useState(null);
+    const [categories, setCategories] = useState(null);
+    const [targets, setTargets] = useState(null);
 
     useEffect(() => {
-        if (vulnerability !== null) {
-            updateTargets();
+        if (initialised) return;
+
+        Promise.all([
+            secureApiFetch(`/projects`, {method: 'GET'}),
+            secureApiFetch(`/vulnerabilities/categories`, {method: 'GET'}),
+        ])
+            .then(resp => {
+                const [respA, respB] = resp;
+                return Promise.all([respA.json(), respB.json()]);
+            })
+            .then(([projects, categories]) => {
+                const projectId = isEditForm ? vulnerability.project_id : projects[0].id;
+                secureApiFetch(`/targets?projectId=${projectId}`, {method: 'GET'})
+                    .then(resp => resp.json())
+                    .then(targets => {
+                        unstable_batchedUpdates(() => {
+                            setProjects(projects);
+                            setCategories(categories);
+                            setTargets(targets);
+                            if (!isEditForm) { // Create
+                                setVulnerability(prevVulnerability => {
+                                    return {
+                                        ...prevVulnerability,
+                                        project_id: projects[0].id,
+                                        category_id: categories[0].id
+                                    }
+                                })
+                            } else { // Edit
+                                if (!idExists(targets, vulnerability.target_id)) {
+                                    setVulnerability(prevVulnerability => {
+                                        return {...prevVulnerability, target_id: 0}
+                                    });
+                                }
+                            }
+                            setInitialised(true);
+                        });
+                    })
+            });
+    }, [initialised, isEditForm, setProjects, setCategories, setTargets, setVulnerability, vulnerability.target_id, vulnerability.project_id]);
+
+    useEffect(() => {
+        if (!initialised) return;
+
+        const projectId = vulnerability.project_id;
+        secureApiFetch(`/targets?projectId=${projectId}`, {method: 'GET'})
+            .then(resp => resp.json())
+            .then(targets => {
+                unstable_batchedUpdates(() => {
+                    setTargets(targets);
+                    if (isEditForm) { // Edit
+                        if (!idExists(targets, vulnerability.target_id)) {
+                            setVulnerability(prevVulnerability => {
+                                return {...prevVulnerability, target_id: 0}
+                            });
+                        }
+                    }
+                });
+            })
+    }, [initialised, isEditForm, setTargets, setVulnerability, vulnerability.target_id, vulnerability.project_id]);
+
+    const idExists = (elements, id) => {
+        for (const el of elements) {
+            if (el.id === parseInt(id)) return true;
         }
-    }, [vulnerability, updateTargets])
+        return false;
+    }
+
+    const onFormChange = ev => {
+        const target = ev.target;
+        const name = target.name;
+        const value = target.value;
+
+        setVulnerability({...vulnerability, [name]: value});
+    };
 
     return <form onSubmit={onFormSubmit}>
         <label>Project
-            <select name="project_id" value={vulnerability.project_id} onChange={onProjectChange} required>
+            <select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
                 {projects && projects.map((project, index) =>
                     <option key={index} value={project.id}>{project.name}</option>
                 )}
             </select>
         </label>
         <label>Summary
-            <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus/>
+            <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} autoFocus/>
         </label>
         <label>Description
-            <textarea name="description" value={vulnerability.description} onChange={onFormChange} required/>
+            <textarea name="description" value={vulnerability.description} onChange={onFormChange}/>
         </label>
         <label>Risk
             <select name="risk" value={vulnerability.risk} onChange={onFormChange} required>
@@ -52,7 +113,7 @@ const VulnerabilityForm = ({onFormSubmit, onFormChange, vulnerability, projects,
             </select>
         </label>
         <label>Category
-            <select name="category_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
+            <select name="category_id" value={vulnerability.category_id} onChange={onFormChange} required>
                 {categories && categories.map((category, index) =>
                     <option key={index} value={category.id}>{category.name}</option>
                 )}
@@ -66,14 +127,15 @@ const VulnerabilityForm = ({onFormSubmit, onFormChange, vulnerability, projects,
             <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange}/>
         </label>
         <label>Affected target
-            <select name="target_id" value={vulnerability.target_id || ""} onChange={onFormChange}>
+            <select name="target_id" value={vulnerability.target_id} onChange={onFormChange}>
+                <option value="0">(none)</option>
                 {targets && targets.map((target, index) =>
                     <option key={index} value={target.id}>{target.name}</option>
                 )}
             </select>
         </label>
 
-        <Primary type="submit">{isUpdateForm ? "Update" : "Create"}</Primary>
+        <Primary type="submit">{isEditForm ? "Update" : "Create"}</Primary>
     </form>
 }
 

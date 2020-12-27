@@ -17,18 +17,8 @@ const VulnerabilityEdit = () => {
 
     const history = useHistory();
 
-    const [projects] = useFetch('/projects');
-    const [categories] = useFetch('/vulnerabilities/categories');
-
     const [serverVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`);
     const [clientVulnerability, setClientVulnerability] = useState(null);
-
-    const handleFormChange = ev => {
-        const target = ev.target;
-        const name = target.name;
-        const value = target.value;
-        setClientVulnerability({...clientVulnerability, [name]: value});
-    };
 
     const onFormSubmit = async ev => {
         ev.preventDefault();
@@ -57,8 +47,9 @@ const VulnerabilityEdit = () => {
             </div>
             <Title title="Edit Vulnerability" icon={<IconPlus/>}/>
             {!clientVulnerability ? <Loading/> :
-                <VulnerabilityForm vulnerability={clientVulnerability} projects={projects} categories={categories}
-                                   onFormSubmit={onFormSubmit} onFormChange={handleFormChange}/>
+                <VulnerabilityForm isEditForm={true} vulnerability={clientVulnerability}
+                                   vulnerabilitySetter={setClientVulnerability}
+                                   onFormSubmit={onFormSubmit}/>
             }
         </div>
     )

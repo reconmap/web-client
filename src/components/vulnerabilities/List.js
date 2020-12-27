@@ -30,11 +30,11 @@ const VulnerabilitiesList = ({history}) => {
 
     const reloadData = useCallback(() => {
         secureApiFetch(`/vulnerabilities?page=${apiPageNumber}`, {method: 'GET'})
-            .then((response) => {
-                if (response.headers.has('X-Page-Count')) {
-                    setNumberPages(response.headers.get('X-Page-Count'))
+            .then(resp => {
+                if (resp.headers.has('X-Page-Count')) {
+                    setNumberPages(resp.headers.get('X-Page-Count'))
                 }
-                return response.json()
+                return resp.json()
             })
             .then((data) => {
                 setVulnerabilities(data);
