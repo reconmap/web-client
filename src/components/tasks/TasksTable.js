@@ -13,12 +13,12 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
         <table>
             <thead>
             <tr>
-                <th style={{width: '190px'}}>Project</th>
                 <th style={{width: '190px'}}>Name</th>
+                <th>Description</th>
+                <th style={{width: '190px'}}>Project</th>
                 <th>Assignee</th>
                 <th style={{width: '100px'}}>Status</th>
                 <th>Parser</th>
-                <th>Details</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
@@ -32,13 +32,13 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                     .filter(task => task.completed.toString().includes(filter.status))
                     .map((task) =>
                         <tr key={task.id}>
-                            <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
                             <td><TaskBadge task={task}/></td>
+                            <td style={{width: '20%'}}>{task.description.slice(0, 40)}</td>
+                            <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
                             <td>{task.assignee_uid ?
                                 <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
                             <td><TaskStatusBadge completed={task.completed}/></td>
                             <td>{task.parser && <BadgeOutline>{task.parser}</BadgeOutline>}</td>
-                            <td style={{width: '20%'}}><code>{task.description.slice(0, 40)} </code></td>
                             <td>
                                 <PrimaryButton to={`/tasks/${task.id}/upload`}>
                                     <IconUpload/>

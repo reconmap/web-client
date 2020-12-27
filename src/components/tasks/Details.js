@@ -14,6 +14,7 @@ import TaskStatusBadge from '../badges/TaskStatusBadge'
 import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'
 import {Link} from "react-router-dom";
+import ShellCommand from "../ui/ShellCommand";
 
 const TaskDetails = ({history, match}) => {
 
@@ -99,8 +100,11 @@ const TaskDetails = ({history, match}) => {
                         <TaskStatusBadge completed={String(task.completed)}/>
                         {String(task.completed) === '1' ? 'Completed' : 'Incomplete'}
                     </p>
-                    <h4>Results</h4>
-                    <code>
+                    <h4>Command</h4>
+                    {task.command &&
+                    <>
+                        <ShellCommand>{task.command}</ShellCommand>
+                        <h5>Results</h5>
                         {!results ? <Loading/> : results.map((value, index) =>
                             <div key={index} className='pb-2 border-b mb-2'>
                                 <label>Date: {value.insert_ts}</label>
@@ -108,11 +112,15 @@ const TaskDetails = ({history, match}) => {
                             </div>
                         )}
                         {results && results.length === 0 && 'No results'}
-                    </code>
+                    </>
+                    }
+                    {!task.command &&
+                    <p>No command defined for this task.</p>
+                    }
                 </article>
             }
         </div>
     )
 }
 
-export default TaskDetails
+export default TaskDetails;

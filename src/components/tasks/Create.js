@@ -18,20 +18,17 @@ const CreateTask = ({history}) => {
         projectId: projectIdParam.current,
         name: null,
         description: null,
-        parser: 'none',
+        parser: "",
     })
 
-    const [loading, setLoading] = useState(false);
-
-    const handleCreate = async (ev) => {
+    const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        setLoading(true)
         await secureApiFetch(`/tasks`, {method: 'POST', body: JSON.stringify(newTask)})
         history.push(`/tasks?projectId=${newTask.projectId}`)
     }
 
-    const handleFormChange = ev => {
+    const onFormChange = ev => {
         const target = ev.target;
         const name = target.name;
         const value = target.value;
@@ -56,12 +53,12 @@ const CreateTask = ({history}) => {
                     <Link to="/tasks">Tasks</Link>
                 </Breadcrumb>
             </div>
-            <form onSubmit={handleCreate}>
+            <form onSubmit={onFormSubmit}>
                 <Title title='Create Task'/>
                 {projectIdParam.current === defaultProjectId &&
                 <label>
                     Project
-                    <select name="projectId" onChange={handleFormChange}
+                    <select name="project_id" onChange={onFormChange}
                             value={newTask.projectId}>
                         {projects && projects.map((project, index) =>
                             <option key={index} value={project.id}>{project.name}</option>
@@ -70,19 +67,21 @@ const CreateTask = ({history}) => {
                 </label>
                 }
                 <label>Name
-                    <input type="text" name="name" onChange={handleFormChange} required autoFocus value={newTask.name}/></label>
+                    <input type="text" name="name" onChange={onFormChange} required autoFocus
+                           value={newTask.name}/></label>
                 <label>Description
-                    <textarea name="description" onChange={handleFormChange} required
+                    <textarea name="description" onChange={onFormChange} required
                               value={newTask.description}/></label>
-                <label>Parser
-                    <select name="parser" onChange={handleFormChange} required value={newTask.parser}>
-                        <option value='none'>none</option>
-                        <option value='sqlmap'>sqlmap</option>
-                        <option value='nmap'>nmap</option>
+                <label>Command
+                    <input type="text" name="command" onChange={onFormChange} value={newTask.command}/></label>
+                <label>Command parser
+                    <select name="command_parser" onChange={onFormChange} value={newTask.command_parser}>
+                        <option value="">none</option>
+                        <option value="sqlmap">sqlmap</option>
+                        <option value="nmap">nmap</option>
                     </select>
                 </label>
-                <PrimaryButton type="submit"
-                               disabled={loading}>{loading ? 'Creating...' : 'Create'}</PrimaryButton>
+                <PrimaryButton type="submit">Create</PrimaryButton>
             </form>
         </div>
     )

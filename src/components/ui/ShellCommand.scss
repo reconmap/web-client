@@ -1,0 +1,22 @@
+
+code {
+  display: block;
+  padding: var(--paddingBox);
+  border-left: var(--borderWidth) solid var(--primary-color);
+  background-color: var(--black);
+  color: var(--white);
+  font-family: monospace;
+  white-space: pre-line;
+  margin: var(--margin) 0;
+
+  &:before {
+    content: '$ ';
+    font-family: monospace;
+    font-weight: var(--fontBold);
+    color: var(--text-color);
+  }
+}
+
+code + code {
+  margin: calc(var(--margin) * -1) 0;
+}

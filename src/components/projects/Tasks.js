@@ -16,7 +16,7 @@ const ProjectTasks = ({project}) => {
 
     return <section>
         <h4>
-            <IconClipboardList/> Task(s) <small>({tasks && tasks.reduce(function (total, task) {
+            <IconClipboardList/> Tasks <small>({tasks && tasks.reduce(function (total, task) {
             return task.completed ? total + 1 : total;
         }, 0)}/{tasks && tasks.length} completed)</small>
             <CreateButton onClick={handleAddTask}>Add task</CreateButton>
