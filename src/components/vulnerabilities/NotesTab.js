@@ -8,10 +8,10 @@ import {actionCompletedToast} from "../ui/toast";
 import NotesForm from "../notes/Form";
 import NotesTable from "../notes/Table";
 
-const ProjectNotesTab = ({project}) => {
-    const [notes, reloadNotes] = useFetch(`/notes?parentType=project&parentId=${project.id}`)
+const VulnerabilitiesNotesTab = ({vulnerability}) => {
+    const [notes, reloadNotes] = useFetch(`/notes?parentType=vulnerability&parentId=${vulnerability.id}`)
     const deleteNoteById = useDelete('/notes/', reloadNotes)
-    const emptyNote = {visibility: 'private', content: '', parentType: 'project', parentId: project.id};
+    const emptyNote = {visibility: 'private', content: '', parentType: 'vulnerability', parentId: vulnerability.id};
     const [newNote, updateNewNote] = useState(emptyNote)
 
     const onDeleteButtonClick = (ev, note) => {
@@ -42,15 +42,15 @@ const ProjectNotesTab = ({project}) => {
     return (
         <section>
             <h4>
-                <IconDocument/>New project note
+                <IconDocument/>New vulnerability note
             </h4>
             <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote}/>
             <h4>
-                <IconDocument/>Project notes
+                <IconDocument/>Vulnerability notes
             </h4>
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick}/>
         </section>
     )
 }
 
-export default ProjectNotesTab;
+export default VulnerabilitiesNotesTab;

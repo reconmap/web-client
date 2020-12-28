@@ -18,6 +18,7 @@ import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'
 import EditButton from "../ui/buttons/Edit";
 import TextBlock from "../ui/TextBlock";
+import VulnerabilitiesNotesTab from "./NotesTab";
 
 const VulnerabilityDetails = () => {
     const history = useHistory()
@@ -110,6 +111,8 @@ const VulnerabilityDetails = () => {
                 </tbody>
             </table>
         </article>
+
+        <VulnerabilitiesNotesTab vulnerability={vulnerability}/>
     </div>
 }
 
