@@ -19,7 +19,7 @@ const VulnerabilitiesList = ({history}) => {
     useSetTitle(`Vulnerabilities - Page ${pageNumber}`)
 
     const [vulnerabilities, setVulnerabilities] = useState([]);
-    const [numberPages, setNumberPages] = useState(0)
+    const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
         history.push(`/vulnerabilities?page=${pageNumber - 1}`);

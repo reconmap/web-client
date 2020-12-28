@@ -18,8 +18,8 @@ const AuditLogList = ({history}) => {
 
     useSetTitle(`Audit log - Page ${pageNumber}`)
 
-    const [auditLog, setAuditLog] = useState([])
-    const [numberPages, setNumberPages] = useState(0)
+    const [auditLog, setAuditLog] = useState([]);
+    const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
         history.push(`/auditlog?page=${pageNumber - 1}`);
