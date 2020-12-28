@@ -1,10 +1,10 @@
 {
   "name": "reconmap-web-client",
-  "version": "0.7.0",
+  "version": "0.7.5",
   "private": true,
   "dependencies": {
     "countries-and-timezones": "^2.3.1",
-    "dayjs": "^1.9.7",
+    "dayjs": "^1.9.8",
     "node-sass": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -15,8 +15,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.5.0",
-    "npm-check-updates": "^10.2.2"
+    "@testing-library/user-event": "^12.6.0",
+    "npm-check-updates": "^10.2.5"
   },
   "scripts": {
     "lint": "eslint . --ext .js",
