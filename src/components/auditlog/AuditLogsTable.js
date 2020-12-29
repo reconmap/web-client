@@ -35,7 +35,7 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
                             <Badge>{entry.action}</Badge>
                         </td>
                         <td><Ipv4Link value={entry.client_ip}/></td>
-                        <td><UserAgentLabel userAgent={entry.user_agent}/></td>
+                        <td>{entry.user_agent ? <UserAgentLabel userAgent={entry.user_agent}/> : '-'}</td>
                         <td>{entry.insert_ts}</td>
                         {!hideUserColumns &&
                         <>
