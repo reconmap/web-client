@@ -67,6 +67,7 @@
 
   //width
   --sidebarWidth: 200px;
+  --sidebarCollapsedWidth: 64px;
   --borderWidth: 2px;
 
   //icons
@@ -111,7 +112,11 @@ strong {
 main {
   padding-top: 72px;
   display: grid;
+  transition: grid-template-columns .2s;
   grid-template-columns: var(--sidebarWidth) 1fr;
+  &.collapsed { 
+    grid-template-columns: var(--sidebarCollapsedWidth) 1fr;
+  }
 }
 
 #content {

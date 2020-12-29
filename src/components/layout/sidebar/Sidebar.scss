@@ -1,9 +1,41 @@
+.collapsed .sidebar {
+  a span {
+    color: transparent;
+  }
+  a svg:last-child {
+    color: transparent;
+  }
+  a.sublink {
+    padding-left: var(--space-sm); 
+  }
+}
+
 aside.sidebar {
+  position: relative;
+  #collapse--button{
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0px;
+    margin:auto;
+    height: 100px;
+    width: 6px;
+    cursor: ew-resize;
+    border-radius: var(--borderRadius);
+    background-color: var(--redDark);
+    z-index: 20;
+    &:hover {
+      background-color: var(--primary-color);
+
+    }
+  }
   padding: var(--padding);
   display: flex;
   flex-direction: column;
   row-gap: calc(var(--padding) / 2);
-
+  // border:1px solid red;
+  overflow: hidden;
+  
   #bottom {
     width: var(--sidebarWidth);
     position: fixed;
@@ -23,7 +55,8 @@ aside.sidebar {
     justify-content: flex-start;
     color: var(--text-color);
     border-left: var(--borderWidth) solid transparent;
-    padding: var(--paddingBox);
+    padding: var(--space-sm);
+    padding-right: 0;
     span {
       margin-right: var(--space-sm);
     }
@@ -32,6 +65,7 @@ aside.sidebar {
       opacity: .4;
       width: 16px;
       height: 16px;
+      margin-right: 0;
       transition: transform .1s;
     }
     &:hover, &.active {

@@ -6,14 +6,16 @@ import VulnerabilitiesByRiskStatsWidget from "./VulnerabilitiesByRiskStatsWidget
 import VulnerabilitiesByCategoryStatsWidget from "./VulnerabilitiesByCategoryStatsWidget";
 import Title from "../../ui/Title";
 import {IconChartBar} from "../../ui/Icons";
+import { useState } from "react";
 
 function Dashboard({children}) {
     useSetTitle('Dashboard')
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     return (
         <>
             <Header/>
-            <main role="main">
-                <Sidebar/>
+            <main role="main" className={sidebarCollapsed ? 'collapsed' : ''}>
+                <Sidebar sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed} />
                 <div id='content'>
                     {children || <DashboardPanels/>}
                 </div>

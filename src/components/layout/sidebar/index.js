@@ -5,7 +5,8 @@ import {IconBookOpen, IconDashboard, IconChevronDown} from '../../ui/Icons';
 import SecondaryButton from '../../ui/buttons/Secondary';
 import './Sidebar.scss';
 
-export default function Sidebar() {
+export default function Sidebar(props) {
+    const { setSidebarCollapsed, sidebarCollapsed } = props
     const history = useHistory();
 
     const defaultSectionStatuses = Object.assign({}, ...Links.map(link => ({[link.title]: false})));
@@ -26,7 +27,8 @@ export default function Sidebar() {
     }
 
     return (
-        <aside className="sidebar">
+        <aside className="sidebar ">
+            <span id='collapse--button' onClick={()=>setSidebarCollapsed(!sidebarCollapsed)}></span>
             <Link to={'/'} data-label='DashBoard'>
                 <IconDashboard size={5}/>
                 <span>Dashboard</span>
