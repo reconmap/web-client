@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Links from './Links'
 import {Link, NavLink, useHistory} from 'react-router-dom'
-import {IconBookOpen, IconDashboard, IconChevronDown} from '../../ui/Icons';
+import {IconBookOpen, IconDashboard, IconChevronDown, IconSupport} from '../../ui/Icons';
 import SecondaryButton from '../../ui/buttons/Secondary';
 import './Sidebar.scss';
 
@@ -57,8 +57,8 @@ export default function Sidebar(props) {
 
             })}
             <div id='bottom'>
-                <SecondaryButton onClick={handleUserManual}><IconBookOpen/>User manual</SecondaryButton>
-                <SecondaryButton onClick={onSupportButtonClick}>Support</SecondaryButton>
+                <SecondaryButton onClick={handleUserManual}><IconBookOpen/><span>User manual</span></SecondaryButton>
+                <SecondaryButton onClick={onSupportButtonClick}><IconSupport /> <span>Support</span></SecondaryButton>
             </div>
         </aside>
     )

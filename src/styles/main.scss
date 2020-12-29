@@ -398,29 +398,29 @@ table {
   div.has-help {
     display: block;
   }
-  main {
-    grid-template-columns: 40px 1fr;
-  }
-  aside {
-    padding: var(--padding);
+  // main {
+  //   grid-template-columns: 40px 1fr;
+  // }
+  // aside {
+  //   padding: var(--padding);
 
-    a {
-      margin: var(--margin) 0;
-      display: block;
-      padding: 0 0 0 3px;
+  //   a {
+  //     margin: var(--margin) 0;
+  //     display: block;
+  //     padding: 0 0 0 3px;
 
-      span {
-        display: none;
-      }
+  //     span {
+  //       display: none;
+  //     }
 
-      &.sublink {
-        display: none;
-      }
+  //     &.sublink {
+  //       display: none;
+  //     }
 
-      &:hover:before {
-        display: flex;
+  //     &:hover:before {
+  //       display: flex;
 
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
 }
