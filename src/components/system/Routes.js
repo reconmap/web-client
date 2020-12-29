@@ -1,8 +1,10 @@
 import ProtectedRoute from "../logic/ProtectedRoute";
-import SystemIndexPage from "./index";
+import ExportPage from "./ExportPage";
+import ImportPage from "./ImportPage";
 
 const SystemRoutes = [
-    <ProtectedRoute exact path={`/system-data`} component={SystemIndexPage}/>,
+    <ProtectedRoute exact path={`/system-data/export`} component={ExportPage}/>,
+    <ProtectedRoute exact path={`/system-data/import`} component={ImportPage}/>,
 ]
 
 export default SystemRoutes

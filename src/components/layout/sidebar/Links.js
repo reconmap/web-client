@@ -69,7 +69,7 @@ const Links = [
     {
         title: 'System Data',
         icon: <IconDatabase size={5}/>,
-        to: '/system-data',
+        to: '#',
         sublinks: [
             {
                 title: 'Import',
