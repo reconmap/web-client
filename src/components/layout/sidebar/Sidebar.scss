@@ -20,11 +20,20 @@ aside.sidebar {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     color: var(--text-color);
     border-left: var(--borderWidth) solid transparent;
-
     padding: var(--paddingBox);
-
+    span {
+      margin-right: var(--space-sm);
+    }
+    svg:last-child {
+      margin-left: auto;
+      opacity: .4;
+      width: 16px;
+      height: 16px;
+      transition: transform .1s;
+    }
     &:hover, &.active {
       color: var(--white);
       border-left: var(--borderWidth) solid var(--primary-color);
