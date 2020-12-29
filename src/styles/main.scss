@@ -136,65 +136,6 @@ div.has-help {
   grid-template-columns: minmax(400px, 1fr) minmax(120px, 300px);
 }
 
-aside {
-  padding: var(--padding);
-  display: flex;
-  flex-direction: column;
-  row-gap: calc(var(--padding) / 2);
-
-  #bottom {
-    width: var(--sidebarWidth);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    padding: var(--padding);
-    display: flex;
-    flex-direction: column;
-    row-gap: calc(var(--padding) / 2);
-
-  }
-
-  a {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: var(--text-color);
-    border-left: var(--borderWidth) solid transparent;
-
-    padding: var(--paddingBox);
-
-    &:hover, &.active {
-      color: var(--white);
-      border-left: var(--borderWidth) solid var(--primary-color);
-    }
-
-    &:before {
-      content: attr(data-label);
-      position: absolute;
-      top: -6px;
-      bottom: 0;
-      left: 24px;
-      margin-right: -90px;
-      z-index: 20;
-      align-items: center;
-      border-radius: var(--borderRadius);
-      padding: var(--padding);
-      background-color: var(--black);
-      color: var(--text-color);
-      text-align: left;
-      width: max-content;
-      transition: var(--transitionTime);
-      font-size: var(--fontSizeBody);
-      display: none;
-    }
-  }
-  a.sublink {
-    padding-left: calc( var(--space) * 2.5 );
-    font-size: var(--fontSizeSmall);
-  }
-}
-
-
 // Typography
 table th,
 label,
@@ -465,9 +406,11 @@ table {
       span {
         display: none;
       }
+
       &.sublink {
         display: none;
       }
+
       &:hover:before {
         display: flex;
 
