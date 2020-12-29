@@ -188,6 +188,10 @@ aside {
       display: none;
     }
   }
+  a.sublink {
+    padding-left: calc( var(--space) * 2.5 );
+    font-size: var(--fontSizeSmall);
+  }
 }
 
 
@@ -461,7 +465,9 @@ table {
       span {
         display: none;
       }
-
+      &.sublink {
+        display: none;
+      }
       &:hover:before {
         display: flex;
 

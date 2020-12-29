@@ -19,10 +19,19 @@ export default function Sidebar() {
                 <span>Dashboard</span>
             </Link>
             {LINKS.map((link, index) => {
-                return <NavLink key={index} to={link.to} data-label={link.title} activeClassName='active'>
-                    {link.icon}
-                    <span>{link.title}</span>
-                </NavLink>
+                return <React.Fragment key={index}>
+                    <NavLink to={link.to} data-label={link.title} activeClassName='active' exact>
+                        {link.icon}
+                        <span>{link.title}</span>
+                    </NavLink>
+                    {link.sublinks && link.sublinks.map( sublink => 
+                        <NavLink to={sublink.to} data-label={sublink.title} activeClassName='active' className='sublink' exact>
+                            {sublink.icon}
+                            <span>{sublink.title}</span>
+                        </NavLink>
+                    )}
+                </React.Fragment>
+                
             })}
             <div id='bottom'>
                 <SecondaryButton onClick={handleUserManual}><IconBookOpen/>User manual</SecondaryButton>
