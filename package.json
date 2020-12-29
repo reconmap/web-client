@@ -10,7 +10,8 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "recharts": "^1.8.5"
+    "recharts": "^1.8.5",
+    "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.6",

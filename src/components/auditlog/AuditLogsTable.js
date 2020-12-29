@@ -3,6 +3,7 @@ import UserRoleBadge from '../badges/UserRoleBadge'
 import UserLink from "../users/Link";
 import Badge from '../badges/Badge';
 import NoResults from "../ui/NoResults";
+import UserAgentLabel from "../ui/UserAgentLabel";
 
 export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
     const numColumns = hideUserColumns ? 4 : 6;
@@ -12,6 +13,7 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
             <tr>
                 <th>Action</th>
                 <th>IP address</th>
+                <th>User agent</th>
                 <th>Date/Time</th>
                 {!hideUserColumns &&
                 <>
@@ -33,6 +35,7 @@ export default function AuditLogsTable({auditLog, hideUserColumns = false}) {
                             <Badge>{entry.action}</Badge>
                         </td>
                         <td><Ipv4Link value={entry.client_ip}/></td>
+                        <td>{entry.user_agent ? <UserAgentLabel userAgent={entry.user_agent}/> : '-'}</td>
                         <td>{entry.insert_ts}</td>
                         {!hideUserColumns &&
                         <>
