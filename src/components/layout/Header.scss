@@ -3,16 +3,18 @@ nav {
   h3 {
     margin-right: auto;
   }
-
-  position: relative;
+  position: fixed;
+  width: 100%;
   padding: var(--padding);
   border-bottom: var(--borderWidth) solid var(--black);
+  background-color: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: flex-end;
   column-gap: var(--padding);
   row-gap: calc(var(--padding) / 2);
   flex-wrap: wrap;
+  z-index: 12;
 
   #progress {
     position: absolute;

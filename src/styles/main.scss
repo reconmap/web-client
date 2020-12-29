@@ -109,6 +109,7 @@ strong {
 }
 
 main {
+  padding-top: 72px;
   display: grid;
   grid-template-columns: var(--sidebarWidth) 1fr;
 }
