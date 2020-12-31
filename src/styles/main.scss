@@ -114,7 +114,8 @@ main {
   display: grid;
   transition: grid-template-columns .2s;
   grid-template-columns: var(--sidebarWidth) 1fr;
-  &.collapsed { 
+
+  &.collapsed {
     grid-template-columns: var(--sidebarCollapsedWidth) 1fr;
   }
 }
@@ -398,29 +399,4 @@ table {
   div.has-help {
     display: block;
   }
-  // main {
-  //   grid-template-columns: 40px 1fr;
-  // }
-  // aside {
-  //   padding: var(--padding);
-
-  //   a {
-  //     margin: var(--margin) 0;
-  //     display: block;
-  //     padding: 0 0 0 3px;
-
-  //     span {
-  //       display: none;
-  //     }
-
-  //     &.sublink {
-  //       display: none;
-  //     }
-
-  //     &:hover:before {
-  //       display: flex;
-
-  //     }
-  //   }
-  // }
 }
