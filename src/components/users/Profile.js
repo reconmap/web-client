@@ -7,13 +7,13 @@ import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../auditlog/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
-import {IconBookOpen} from '../ui/Icons';
 import {Link} from "react-router-dom";
 
 const UserProfile = ({match}) => {
     useSetTitle('User');
-    const [user] = useFetch(`/users/${match.params.id}`)
-    const [auditLog] = useFetch(`/users/${match.params.id}/activity`)
+    const userId = match.params.id;
+    const [user] = useFetch(`/users/${userId}`)
+    const [auditLog] = useFetch(`/users/${userId}/activity`)
     return (
         <>
             <div className='heading'>
@@ -37,11 +37,8 @@ const UserProfile = ({match}) => {
                                 <dd>{user.timezone}</dd>
                             </dl>
 
-                            <div>
-                                <Title type='User' title='Activity' icon={<IconBookOpen/>}/>
-                                {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
-                            </div>
-
+                            <h4>Activity</h4>
+                            {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
                         </>
                         : <Loading/>}
                 </div>
