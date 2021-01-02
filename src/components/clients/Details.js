@@ -9,6 +9,8 @@ import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'
 import Loading from './../ui/Loading'
 import Breadcrumb from "../ui/Breadcrumb";
+import EditButton from "../ui/buttons/Edit";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
 
 const ClientDetails = () => {
     const {params: {clientId}} = useRouteMatch()
@@ -35,7 +37,13 @@ const ClientDetails = () => {
             <Breadcrumb>
                 <Link to="/clients">Clients</Link>
             </Breadcrumb>
-            <DeleteButton onClick={handleDelete}/>
+            <ButtonGroup>
+                <EditButton onClick={(ev) => {
+                    ev.preventDefault();
+                    history.push(`/clients/${client.id}/edit`)
+                }}>Edit</EditButton>
+                <DeleteButton onClick={handleDelete}/>
+            </ButtonGroup>
         </div>
         <article>
             <div>

@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {IconPlus} from "../ui/Icons";
 import ClientForm from "./Form";
 
-export default function ClientCreate({history}) {
+const ClientCreate = ({history}) => {
     const [newClient, setNewClient] = useState({
         name: null,
         url: null,
@@ -36,3 +36,5 @@ export default function ClientCreate({history}) {
         </div>
     )
 }
+
+export default ClientCreate;
