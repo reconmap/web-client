@@ -3,11 +3,11 @@ import ProjectsList from "./List";
 import ProjectCreateForm from "./Create";
 import ProjectReport from "./Report";
 import ProjectMembership from "./Membership";
-import TaskCreationForm from "../tasks/Create";
 import TargetCreateForm from "../target/Create";
 import TargetView from "../target/View";
 import ProjectDetails from "./Details";
 import ProjectEdit from "./Edit";
+import TaskCreationPage from "../tasks/CreationPage";
 
 const ProjectsRoutes = [
     <ProtectedRoute exact path={`/projects`} component={ProjectsList}/>,
@@ -17,7 +17,7 @@ const ProjectsRoutes = [
     <ProtectedRoute path={`/projects/:id([0-9]+)/membership`}
                     component={ProjectMembership}/>,
     <ProtectedRoute path={`/projects/:id([0-9]+)/tasks/create`}
-                    component={TaskCreationForm}/>,
+                    component={TaskCreationPage}/>,
     <ProtectedRoute path={`/projects/:id([0-9]+)/targets/create`}
                     component={TargetCreateForm}/>,
     <ProtectedRoute path={`/projects/:projectId([0-9]+)/targets/:targetId([0-9]+)`}

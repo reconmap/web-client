@@ -5,8 +5,9 @@ import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import {actionCompletedToast} from '../ui/toast'
+import {IconPlus} from "../ui/Icons";
 
-const UserCreationForm = () => {
+const UserCreationPage = () => {
     const history = useHistory()
     const [userData, setUserData] = useState({
         name: null,
@@ -47,8 +48,10 @@ const UserCreationForm = () => {
                     <Link to="/users">Users</Link>
                 </Breadcrumb>
             </div>
+
+            <Title title="New user details" icon={<IconPlus/>}/>
+
             <form onSubmit={handleCreate}>
-                <Title title='Create User'/>
                 <label>Name
                     <input type="text" name="name" onChange={handleFormChange} autoFocus required/>
                 </label>
@@ -78,4 +81,5 @@ const UserCreationForm = () => {
     )
 }
 
-export default UserCreationForm
+export default UserCreationPage;
+

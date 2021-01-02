@@ -33,9 +33,8 @@ const ProjectCreate = ({history}) => {
                     <Link to="/projects">Projects</Link>
                 </Breadcrumb>
             </div>
+            <Title title="New project details" icon={<IconPlus/>}/>
             <form onSubmit={handleCreate}>
-                <Title title='New Project' icon={<IconPlus/>}/>
-
                 <label>Client
                     <select id="clientId" name="clientId" onChange={handleFormChange}
                             defaultValue={newProject.clientId}>

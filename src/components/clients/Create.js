@@ -4,6 +4,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import {Link} from "react-router-dom";
+import {IconPlus} from "../ui/Icons";
 
 export default function ClientCreate({history}) {
     const [newClient, setNewClient] = useState({
@@ -35,8 +36,10 @@ export default function ClientCreate({history}) {
                     <Link to="/clients">Clients</Link>
                 </Breadcrumb>
             </div>
+
+            <Title title="New client details" icon={<IconPlus/>}/>
+
             <form onSubmit={handleCreate}>
-                <Title title='Create Client'/>
                 <label>Name
                     <input type="text" name="name" onChange={handleFormChange} required autoFocus/></label>
                 <label>URL

@@ -42,7 +42,7 @@ const VulnerabilityCreate = () => {
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
             </div>
-            <Title title="Add vulnerability" icon={<IconPlus/>}/>
+            <Title title="New vulnerability details" icon={<IconPlus/>}/>
 
             <VulnerabilityForm vulnerability={vulnerability} vulnerabilitySetter={setVulnerability}
                                onFormSubmit={onFormSubmit}/>

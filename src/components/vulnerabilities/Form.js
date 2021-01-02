@@ -133,7 +133,7 @@ const VulnerabilityForm = ({
             </select>
         </label>
 
-        <Primary type="submit">{isEditForm ? "Update" : "Create"}</Primary>
+        <Primary type="submit">{isEditForm ? "Save" : "Add"}</Primary>
     </form>
 }
 

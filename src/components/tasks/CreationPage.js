@@ -5,8 +5,9 @@ import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 import useFetch from "../../hooks/useFetch";
 import {Link, useLocation} from 'react-router-dom';
+import {IconPlus} from "../ui/Icons";
 
-const CreateTask = ({history}) => {
+const TaskCreationPage = ({history}) => {
     const location = useLocation();
     const defaultProjectId = "";
     const projectIdParam = useRef(new URLSearchParams(location.search).get('projectId') || defaultProjectId);
@@ -48,8 +49,10 @@ const CreateTask = ({history}) => {
                     <Link to="/tasks">Tasks</Link>
                 </Breadcrumb>
             </div>
+
+            <Title title="New task details" icon={<IconPlus/>}/>
+
             <form onSubmit={onFormSubmit}>
-                <Title title='Create Task'/>
                 {projectIdParam.current === defaultProjectId &&
                 <label>
                     Project
@@ -82,4 +85,4 @@ const CreateTask = ({history}) => {
     )
 }
 
-export default CreateTask
+export default TaskCreationPage;

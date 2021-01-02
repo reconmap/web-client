@@ -18,7 +18,7 @@ const Links = [
     {
         title: 'Vulnerabilities', icon: <IconFlag size={5}/>, to: '/vulnerabilities', sublinks: [
             {
-                title: 'Create',
+                title: 'Add',
                 icon: <IconPlus size={5}/>,
                 to: '/vulnerabilities/create',
             }

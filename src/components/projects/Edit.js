@@ -46,7 +46,7 @@ const ProjectEdit = ({history}) => {
                 </Breadcrumb>
             </div>
             <form onSubmit={onFormSubmit}>
-                <Title title={`Edit Project ${savedProject.name}`} icon={<IconPlus/>}/>
+                <Title title="Project details" icon={<IconPlus/>}/>
 
                 <label>Client
                     <select id="clientId" name="client_id" onChange={onFormChange}
@@ -64,7 +64,7 @@ const ProjectEdit = ({history}) => {
                     <input type="text" name="description" value={updatedProject.description} onChange={onFormChange}
                            required/>
                 </label>
-                <PrimaryButton type="submit" disabled={loading}>Update</PrimaryButton>
+                <PrimaryButton type="submit" disabled={loading}>Save</PrimaryButton>
             </form>
         </div>
     )

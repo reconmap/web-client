@@ -45,7 +45,7 @@ const VulnerabilityEdit = () => {
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
             </div>
-            <Title title="Edit Vulnerability" icon={<IconPlus/>}/>
+            <Title title="Vulnerability details" icon={<IconPlus/>}/>
             {!clientVulnerability ? <Loading/> :
                 <VulnerabilityForm isEditForm={true} vulnerability={clientVulnerability}
                                    vulnerabilitySetter={setClientVulnerability}
