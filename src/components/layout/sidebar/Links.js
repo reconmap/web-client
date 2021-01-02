@@ -1,7 +1,6 @@
 import {
     IconBriefcase,
     IconClipboardList,
-    IconDatabase,
     IconDocumentDuplicate,
     IconDownload,
     IconExtensions,
@@ -9,6 +8,7 @@ import {
     IconFlag,
     IconFolder,
     IconPlus,
+    IconPreferences,
     IconReport,
     IconUpload,
     IconUserGroup
@@ -42,10 +42,14 @@ const Links = [
                 title: 'Create',
                 icon: <IconPlus size={5}/>,
                 to: '/projects/create',
+            },
+            {
+                title: 'Templates',
+                icon: <IconDocumentDuplicate size={5}/>,
+                to: '/templates',
             }
         ]
     },
-    {title: 'Templates', icon: <IconDocumentDuplicate size={5}/>, to: '/templates'},
     {title: 'Saved Reports', icon: <IconReport size={5}/>, to: '/reports'},
     {
         title: 'Clients', icon: <IconBriefcase size={5}/>, to: '/clients', sublinks: [
@@ -58,7 +62,7 @@ const Links = [
     },
     {title: 'Audit log', icon: <IconEye size={5}/>, to: '/auditlog'},
     {
-        title: 'Users and Permissions', icon: <IconUserGroup size={5}/>, to: '/users', sublinks: [
+        title: 'Users', icon: <IconUserGroup size={5}/>, to: '/users', sublinks: [
             {
                 title: 'Create',
                 icon: <IconPlus size={5}/>,
@@ -67,23 +71,27 @@ const Links = [
         ]
     },
     {
-        title: 'System Data',
-        icon: <IconDatabase size={5}/>,
+        title: 'System',
+        icon: <IconPreferences size={5}/>,
         to: '#',
         sublinks: [
             {
-                title: 'Import',
+                title: 'Import data',
                 icon: <IconUpload size={5}/>,
                 to: '/system-data/import',
             },
             {
-                title: 'Export',
+                title: 'Export data',
                 icon: <IconDownload size={5}/>,
                 to: '/system-data/export',
             },
+            {
+                title: 'Integrations',
+                icon: <IconExtensions size={5}/>,
+                to: '/integrations',
+            },
         ]
-    },
-    {title: 'Integrations', icon: <IconExtensions size={5}/>, to: '/integrations'},
+    }
 ]
 
 export default Links
