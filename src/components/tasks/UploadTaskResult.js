@@ -13,7 +13,7 @@ const UploadTaskResult = () => {
     const routeParams = useParams();
     const history = useHistory();
 
-    const taskId = routeParams.id;
+    const taskId = routeParams.taskId;
 
     const [task] = useFetch(`/tasks/${taskId}`);
     const [uploadButtonDisabled, setUploadButtonDisabled] = useState(true);

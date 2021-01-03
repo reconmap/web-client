@@ -15,7 +15,6 @@ const EditClientPage = ({history}) => {
     const [serverClient] = useFetch(`/clients/${clientId}`);
     const [clientClient, setClientClient] = useState(null);
 
-
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 

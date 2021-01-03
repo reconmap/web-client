@@ -7,7 +7,7 @@ import TargetCreateForm from "../target/Create";
 import TargetView from "../target/View";
 import ProjectDetails from "./Details";
 import ProjectEdit from "./Edit";
-import TaskCreationPage from "../tasks/CreationPage";
+import TaskCreationPage from "../tasks/Create";
 
 const ProjectsRoutes = [
     <ProtectedRoute exact path={`/projects`} component={ProjectsList}/>,

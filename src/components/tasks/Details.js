@@ -18,7 +18,7 @@ import ShellCommand from "../ui/ShellCommand";
 import TextBlock from "../ui/TextBlock";
 
 const TaskDetails = ({history, match}) => {
-    const taskId = match.params.id;
+    const taskId = match.params.taskId;
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
     const [users] = useFetch(`/users`)
     const [results] = useFetch(`/tasks/${taskId}/results`)
@@ -77,6 +77,7 @@ const TaskDetails = ({history, match}) => {
                 </Breadcrumb>
                 {task && users &&
                 <ButtonGroup>
+                    <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
                     <label>Assign to&nbsp;
                         <select onChange={handleAssigneeChange} defaultValue={task.assignee_uid}>
                             <option value="">(nobody)</option>
@@ -91,7 +92,7 @@ const TaskDetails = ({history, match}) => {
                     {task.completed !== 1 && <SecondaryButton onClick={() => handleToggle(task)}>
                         <IconCheck/> Mark as completed
                     </SecondaryButton>}
-                    <PrimaryButton to={"/tasks/" + task.id + "/upload"}>
+                    <PrimaryButton to={`/tasks/${task.id}/upload`}>
                         <IconUpload/> Upload results
                     </PrimaryButton>
                     <DeleteButton onClick={() => handleDelete(task.id)}/>
