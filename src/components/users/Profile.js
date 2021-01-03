@@ -7,19 +7,38 @@ import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../auditlog/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
+import DeleteButton from "../ui/buttons/Delete";
+import useDelete from "../../hooks/useDelete";
 
 const UserProfile = ({match}) => {
     useSetTitle('User');
+
+    const history = useHistory();
+
     const userId = match.params.id;
     const [user] = useFetch(`/users/${userId}`)
     const [auditLog] = useFetch(`/users/${userId}/activity`)
+    const deleteUser = useDelete('/users/');
+
+    const onDeleteButtonClick = ev => {
+        ev.preventDefault();
+
+        deleteUser(userId).then(() => {
+            history.push('/users');
+        })
+    }
+
     return (
         <>
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
                 </Breadcrumb>
+                <ButtonGroup>
+                    <DeleteButton onClick={onDeleteButtonClick}/>
+                </ButtonGroup>
             </div>
             <div>
                 <div>
