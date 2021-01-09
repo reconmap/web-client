@@ -1,5 +1,7 @@
 @import 'utilities';
 @import 'animations';
+@import 'forms';
+@import 'tables';
 
 :root {
   --base-hue: 336; //190
@@ -13,13 +15,11 @@
   --distance-third: calc(var(--distance) * -5);
   --distance-fourth: calc(var(--distance) * 5);
 
-  // --primary-color: hsl(var(--base-hue), var(--saturation), var(--value));
   --complementary-color: hsl(calc(var(--base-hue) + var(--distance-complementary)), var(--saturation), var(--value));
   --secondary-color: hsl(calc(var(--base-hue) + var(--distance-secondary)), var(--saturation), var(--value));
   --analog-color: hsl(calc(var(--base-hue) + var(--distance-analog)), var(--saturation), var(--value));
   --third-color: hsl(calc(var(--base-hue) + var(--distance-third)), var(--saturation), var(--value));
   --fourth-color: hsl(calc(var(--base-hue) + var(--distance-fourth)), var(--saturation), var(--value));
-
 
   --color-black: #141820;
   --color-gray-dark: #1b202b;
@@ -132,17 +132,6 @@ div form + aside {
   border-radius: var(--borderRadius);
 }
 
-div.has-help form {
-}
-
-div.has-help {
-  max-width: 900px;
-  margin: auto;
-  display: grid;
-  gap: var(--padding);
-  grid-template-columns: minmax(400px, 1fr) minmax(120px, 300px);
-}
-
 // Typography
 table th,
 label,
@@ -225,38 +214,6 @@ section {
   h2 {
     margin-right: auto;
   }
-}
-
-// FORMS
-form {
-  max-width: 600px;
-
-  label {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 220px 1fr;
-    grid-column-gap: 1rem;
-  }
-
-  label,
-  input:not([type="checkbox"]),
-  select,
-  button {
-    margin: var(--margin) auto;
-    width: 100%;
-  }
-}
-
-form input[type="checkbox"] {
-  float: left;
-  margin-right: var(--margin);
-  width: var(--iconSizeSmall);
-  height: var(--iconSizeSmall);
-  border-radius: var(--borderRadius);
-}
-
-form input:required {
-  border: var(--borderWidth) solid var(--primary-color);
 }
 
 input:focus {
@@ -348,54 +305,15 @@ button {
   display: inline-flex;
 }
 
-table {
-  table-layout: fixed;
-  width: 100%;
-  margin: var(--padding) auto;
-
-  tbody tr:hover {
-    box-shadow: 0 0 0 var(--borderWidth) var(--black);
-  }
-
-  th {
-    text-align: left;
-    padding: var(--padding) var(--margin);
-    border-bottom: var(--borderWidth) solid var(--black);
-  }
-
-  tbody {
-    td {
-      padding: var(--paddingCell);
-      padding-left: 0;
-    }
-
-    td:last-child {
-      text-align: right;
-    }
-
-    td button, td a {
-      margin: var(--margin);
-    }
-  }
-}
-
-.table-details {
-  max-width: 80%;
-  margin-left: 0;
-
-  tbody {
-    td:last-child {
-      text-align: left;
-    }
-  }
+div.has-help {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  gap: var(--padding);
+  grid-template-columns: minmax(400px, 1fr) minmax(120px, 300px);
 }
 
 @media only screen and (max-width: 700px) {
-  form {
-    label {
-      grid-template-columns: 1fr;
-    }
-  }
   div.has-help {
     display: block;
   }

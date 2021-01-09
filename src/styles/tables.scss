@@ -1,0 +1,42 @@
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  margin: var(--padding) auto;
+
+  tbody tr:hover {
+    box-shadow: 0 0 0 var(--borderWidth) var(--black);
+  }
+
+  th {
+    text-align: left;
+    padding: var(--padding) var(--margin);
+    border-bottom: var(--borderWidth) solid var(--black);
+  }
+
+  tbody {
+    td {
+      padding: var(--paddingCell);
+      padding-left: 0;
+    }
+
+    td:last-child {
+      text-align: right;
+    }
+
+    td button, td a {
+      margin: var(--margin);
+    }
+  }
+}
+
+.table-details {
+  max-width: 80%;
+  margin-left: 0;
+
+  tbody {
+    td:last-child {
+      text-align: left;
+    }
+  }
+}
