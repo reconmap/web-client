@@ -1,6 +1,5 @@
 import React from 'react'
-import { IconDocument } from '../ui/Icons'
-import Timestamps from '../ui/Timestamps'
+import {IconDocument} from '../ui/Icons'
 
 function ProjectDetailsTab({project}) {
     return (
@@ -8,7 +7,6 @@ function ProjectDetailsTab({project}) {
             <h4>
                 <IconDocument/> Project Details
             </h4>
-            <Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/>
             <div>{project.description}</div>
         </section>
     )

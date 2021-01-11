@@ -14,10 +14,11 @@ import SecondaryButton from '../ui/buttons/Secondary';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import {Link} from "react-router-dom";
-import {useState} from 'react';
 import Tabs from "../ui/Tabs";
 import ProjectNotesTab from "./NotesTab";
 import LinkButton from "../ui/buttons/Link";
+import Tab from "../ui/Tab";
+import Timestamps from "../ui/Timestamps";
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
@@ -27,7 +28,6 @@ const ProjectDetails = ({match, history}) => {
     const [project, updateProject] = useFetch(`/projects/${projectId}`)
     const [users] = useFetch(`/projects/${projectId}/users`)
     const destroy = useDelete(`/projects/`, updateProject);
-    const [currentTab, setCurrentTab] = useState('details')
 
     const handleGenerateReport = () => {
         history.push(`/projects/${project.id}/report`)
@@ -35,10 +35,6 @@ const ProjectDetails = ({match, history}) => {
 
     const handleManageTeam = () => {
         history.push(`/projects/${project.id}/membership`)
-    }
-
-    const handleChangeTab = (ev) => {
-        setCurrentTab(ev.target.name)
     }
 
     return (
@@ -67,33 +63,15 @@ const ProjectDetails = ({match, history}) => {
             {!project ? <Loading/> :
                 <>
                     <Title title={project.name} type="Project" icon={<IconFolder/>}/>
+                    <Timestamps insertTs={project.insert_ts} updateTs={project.update_ts}/>
 
                     <Tabs>
-                        <button className={currentTab === 'details' && 'active'} name='details'
-                                onClick={handleChangeTab}>Details
-                        </button>
-                        <button className={currentTab === 'targets' && 'active'} name='targets'
-                                onClick={handleChangeTab}>Targets
-                        </button>
-                        <button className={currentTab === 'tasks' && 'active'} name='tasks'
-                                onClick={handleChangeTab}>Tasks
-                        </button>
-                        <button className={currentTab === 'vulnerabilities' && 'active'} name='vulnerabilities'
-                                onClick={handleChangeTab}>Vulnerabilities
-                        </button>
-                        <button className={currentTab === 'notes' && 'active'} name='notes'
-                                onClick={handleChangeTab}>Notes
-                        </button>
+                        <Tab name="Details"><ProjectDetailsTab project={project}/></Tab>
+                        <Tab name="Targets"><ProjectTargets project={project}/></Tab>
+                        <Tab name="Tasks"><ProjectTasks project={project}/></Tab>
+                        <Tab name="Vulnerabilities"><ProjectVulnerabilities project={project}/></Tab>
+                        <Tab name="Notes"><ProjectNotesTab project={project}/></Tab>
                     </Tabs>
-
-                    {currentTab === 'details' && <ProjectDetailsTab project={project}/>}
-                    {currentTab === 'targets' &&
-                    <ProjectTargets project={project}/>}
-                    {currentTab === 'tasks' && <ProjectTasks project={project}/>}
-                    {currentTab === 'vulnerabilities' &&
-                    <ProjectVulnerabilities project={project}/>}
-                    {currentTab === 'notes' &&
-                    <ProjectNotesTab project={project}/>}
                 </>
             }
         </>

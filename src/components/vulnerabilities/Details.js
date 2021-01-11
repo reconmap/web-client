@@ -19,6 +19,8 @@ import useDelete from './../../hooks/useDelete'
 import EditButton from "../ui/buttons/Edit";
 import TextBlock from "../ui/TextBlock";
 import VulnerabilitiesNotesTab from "./NotesTab";
+import Tab from "../ui/Tab";
+import Tabs from "../ui/Tabs";
 
 const VulnerabilityDetails = () => {
     const history = useHistory()
@@ -72,47 +74,52 @@ const VulnerabilityDetails = () => {
         <article>
             <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag/>}/>
             <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts}/>
-            <h4>Description</h4>
-            <TextBlock value={vulnerability.description || "(empty)"}/>
-            <h4>Details</h4>
-            <table className='table-details'>
-                <tbody>
-                <tr>
-                    <td>Status</td>
-                    <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
-                </tr>
-                <tr>
-                    <td>Project</td>
-                    <td>{vulnerability.project_id ?
-                        <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</td>
-                </tr>
-                <tr>
-                    <td>Risk</td>
-                    <td><RiskBadge risk={vulnerability.risk}/></td>
-                </tr>
-                <tr>
-                    <td>Category</td>
-                    <td>{vulnerability.category_name || '-'}</td>
-                </tr>
-                <tr>
-                    <td>CVSS score</td>
-                    <td><CvssScore score={vulnerability.cvss_score}/></td>
-                </tr>
-                <tr>
-                    <td>CVSS vector</td>
-                    <td><ExternalLink
-                        href={`https://www.first.org/cvss/calculator/3.0#${vulnerability.cvss_vector}`}>{vulnerability.cvss_vector}</ExternalLink>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Affected target</td>
-                    <td>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</td>
-                </tr>
-                </tbody>
-            </table>
+
+            <Tabs>
+                <Tab name="Details">
+                    <h4>Description</h4>
+                    <TextBlock value={vulnerability.description || "(empty)"}/>
+                    <h4>Details</h4>
+                    <table className='table-details'>
+                        <tbody>
+                        <tr>
+                            <td>Status</td>
+                            <td><VulnerabilityStatusBadge status={vulnerability.status}/></td>
+                        </tr>
+                        <tr>
+                            <td>Project</td>
+                            <td>{vulnerability.project_id ?
+                                <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</td>
+                        </tr>
+                        <tr>
+                            <td>Risk</td>
+                            <td><RiskBadge risk={vulnerability.risk}/></td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td>{vulnerability.category_name || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td>CVSS score</td>
+                            <td><CvssScore score={vulnerability.cvss_score}/></td>
+                        </tr>
+                        <tr>
+                            <td>CVSS vector</td>
+                            <td><ExternalLink
+                                href={`https://www.first.org/cvss/calculator/3.0#${vulnerability.cvss_vector}`}>{vulnerability.cvss_vector}</ExternalLink>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Affected target</td>
+                            <td>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </Tab>
+                <Tab name="Notes"><VulnerabilitiesNotesTab vulnerability={vulnerability}/></Tab>
+            </Tabs>
         </article>
 
-        <VulnerabilitiesNotesTab vulnerability={vulnerability}/>
     </div>
 }
 
