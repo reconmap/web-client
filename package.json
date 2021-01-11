@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "countries-and-timezones": "^2.3.1",
-    "dayjs": "^1.9.8",
+    "dayjs": "^1.10.3",
     "node-sass": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -14,8 +14,8 @@
     "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
     "npm-check-updates": "^10.2.5"
   },

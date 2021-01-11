@@ -3,7 +3,7 @@ import UsersList from "./List";
 import UserPreferences from "./Preferences";
 import UserProfile from "./Profile";
 import UserPasswordChange from "./PasswordChange";
-import UserCreationPage from "./CreationPage";
+import UserCreationPage from "./Create";
 
 const UsersRoutes = [
     <ProtectedRoute path={`/users`} component={UsersList} exact/>,
