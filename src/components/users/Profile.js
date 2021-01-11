@@ -44,11 +44,10 @@ const UserProfile = ({match}) => {
                 <div>
                     {user ?
                         <>
-                            <Title type='User' title='Profile'
+                            <Title type='User profile' title={user.name}
                                    icon={<UserAvatar email={user.email} size='--iconSizeXLarge'/>}/>
-                            <h1>{user.name}</h1>
+                            <div><Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/></div>
                             <UserRoleBadge role={user.role}/><br/>
-                            <Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/>
 
                             <h4>Details</h4>
                             <dl>
