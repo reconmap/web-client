@@ -17,7 +17,7 @@ const ProjectForm = ({isEdit = false, project, projectSetter: setProject, onForm
     return <form onSubmit={onFormSubmit} className="crud">
 
         <fieldset>
-            <legend>Basic details</legend>
+            <legend>Basic information</legend>
 
             <label>Client
                 <select name="client_id" onChange={handleFormChange} value={project.client_id}>

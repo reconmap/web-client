@@ -98,7 +98,7 @@ const VulnerabilityForm = ({
             </select>
         </label>
         <label>Summary
-            <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} autoFocus/>
+            <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus/>
         </label>
         <label>Description
             <textarea name="description" value={vulnerability.description} onChange={onFormChange}/>
