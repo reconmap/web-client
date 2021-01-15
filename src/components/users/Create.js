@@ -8,7 +8,7 @@ import {IconPlus} from "../ui/Icons";
 import UserForm from "./Form";
 import UserRoles from "../../models/UserRoles";
 
-const UserCreationPage = () => {
+const CreateUserPage = () => {
     const history = useHistory()
     const [userData, setUserData] = useState({
         name: null,
@@ -45,5 +45,5 @@ const UserCreationPage = () => {
     )
 }
 
-export default UserCreationPage;
+export default CreateUserPage;
 

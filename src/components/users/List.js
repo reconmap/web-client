@@ -15,6 +15,7 @@ import Title from '../ui/Title';
 import {IconUserGroup} from '../ui/Icons';
 import UserLink from './Link';
 import {actionCompletedToast} from "../ui/toast";
+import LinkButton from "../ui/buttons/Link";
 
 const UsersList = ({history}) => {
     useSetTitle('Users');
@@ -74,6 +75,7 @@ const UsersList = ({history}) => {
                     <tr>
                         <th style={{width: '32px'}}>&nbsp;</th>
                         <th style={{width: '64px'}}>&nbsp;</th>
+                        <th>Full name</th>
                         <th>Username</th>
                         <th>Role</th>
                         <th>&nbsp;</th>
@@ -88,11 +90,13 @@ const UsersList = ({history}) => {
                         <td>
                             <UserAvatar email={user.email} size='--iconSize'/>
                         </td>
+                        <td>{user.full_name}</td>
                         <td>
-                            <UserLink userId={user.id}>{user.name}</UserLink>
+                            <UserLink userId={user.id}>{user.username}</UserLink>
                         </td>
                         <td><UserRoleBadge role={user.role}/></td>
-                        <td className='text-right'>
+                        <td style={{display: "flex"}}>
+                            <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
                             <DeleteButton
                                 onClick={() => handleDelete(user.id)}
                                 disabled={parseInt(user.id) === loggedInUser.id ? "disabled" : ""}/>

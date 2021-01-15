@@ -11,13 +11,14 @@ import {Link, useHistory} from "react-router-dom";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
 import useDelete from "../../hooks/useDelete";
+import LinkButton from "../ui/buttons/Link";
 
 const UserProfile = ({match}) => {
     useSetTitle('User');
 
     const history = useHistory();
 
-    const userId = match.params.id;
+    const userId = match.params.userId;
     const [user] = useFetch(`/users/${userId}`)
     const [auditLog] = useFetch(`/users/${userId}/activity`)
     const deleteUser = useDelete('/users/');
@@ -30,6 +31,8 @@ const UserProfile = ({match}) => {
         })
     }
 
+    if (!user) return <Loading/>
+
     return (
         <>
             <div className='heading'>
@@ -37,6 +40,7 @@ const UserProfile = ({match}) => {
                     <Link to="/users">Users</Link>
                 </Breadcrumb>
                 <ButtonGroup>
+                    <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
                     <DeleteButton onClick={onDeleteButtonClick}/>
                 </ButtonGroup>
             </div>
