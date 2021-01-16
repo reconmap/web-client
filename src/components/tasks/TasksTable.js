@@ -1,12 +1,11 @@
 import TaskBadge from '../badges/TaskBadge'
 import TaskStatusBadge from '../badges/TaskStatusBadge'
 import BadgeOutline from '../badges/BadgeOutline'
-import PrimaryButton from '../ui/buttons/Primary'
-import {IconUpload} from '../ui/Icons'
 import UserLink from "../users/Link";
 import NoResults from "../ui/NoResults";
 import React from "react";
 import DeleteButton from "../ui/buttons/Delete";
+import LinkButton from "../ui/buttons/Link";
 
 export default function TasksTable({tasks, filter = {project: '', status: ''}, destroy}) {
     return (
@@ -39,11 +38,8 @@ export default function TasksTable({tasks, filter = {project: '', status: ''}, d
                                 <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
                             <td><TaskStatusBadge completed={task.completed}/></td>
                             <td>{task.command_parser && <BadgeOutline>{task.command_parser}</BadgeOutline>}</td>
-                            <td>
-                                <PrimaryButton to={`/tasks/${task.id}/upload`}>
-                                    <IconUpload/>
-                                    Upload results
-                                </PrimaryButton>
+                            <td style={{display: "flex"}}>
+                                <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
                                 <DeleteButton onClick={() => destroy(task.id)}/>
                             </td>
                         </tr>

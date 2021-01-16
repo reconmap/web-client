@@ -10,6 +10,7 @@ import CreateButton from "../ui/buttons/Create";
 import Title from '../ui/Title';
 import {IconBriefcase} from '../ui/Icons';
 import NoResults from "../ui/NoResults";
+import LinkButton from "../ui/buttons/Link";
 
 const ClientsList = ({history}) => {
     useSetTitle('Clients');
@@ -53,7 +54,10 @@ const ClientsList = ({history}) => {
                             <td>{client.contact_name || '-'}</td>
                             <td>{client.contact_email || '-'}</td>
                             <td>{client.contact_phone || '-'}</td>
-                            <td><DeleteButton onClick={() => destroy(client.id)}/></td>
+                            <td style={{display: "flex"}}>
+                                <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
+                                <DeleteButton onClick={() => destroy(client.id)}/>
+                            </td>
                         </tr>
                     )
                 }

@@ -24,7 +24,7 @@ const EditUserPage = () => {
             body: JSON.stringify(clientUser)
         }).then(() => {
             history.push(`/users/${userId}`)
-            actionCompletedToast(`The user "${clientUser.name}" has been created."`);
+            actionCompletedToast(`The user "${clientUser.full_name}" has been updated.`);
         })
     }
 

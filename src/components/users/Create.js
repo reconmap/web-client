@@ -26,7 +26,7 @@ const CreateUserPage = () => {
             body: JSON.stringify(userData)
         }).then(() => {
             history.push('/users/')
-            actionCompletedToast(`The user "${userData.name}" has been created."`);
+            actionCompletedToast(`The user "${userData.full_name}" has been created.`);
         })
     }
 
