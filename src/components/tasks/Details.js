@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from 'react'
 import secureApiFetch from '../../services/api'
-import SecondaryButton from '../ui/buttons/Secondary'
 import PrimaryButton from '../ui/buttons/Primary'
-import {IconCheck, IconClipboard, IconUpload, IconX} from '../ui/Icons'
+import {IconClipboard, IconUpload} from '../ui/Icons'
 import Title from './../ui/Title'
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from '../ui/Loading'
 import Timestamps from "../ui/Timestamps";
-import toast, {actionCompletedToast} from "../ui/toast";
-import TaskStatusBadge from '../badges/TaskStatusBadge'
+import {actionCompletedToast} from "../ui/toast";
 import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'
 import {Link} from "react-router-dom";
 import ShellCommand from "../ui/ShellCommand";
 import TextBlock from "../ui/TextBlock";
+import TaskStatusFormatter from "./TaskStatusFormatter";
+import TaskStatuses from "../../models/TaskStatuses";
 
 const TaskDetails = ({history, match}) => {
     const taskId = match.params.taskId;
@@ -25,24 +25,12 @@ const TaskDetails = ({history, match}) => {
     const [project, setProject] = useState(null);
     const destroy = useDelete('/tasks/', fetchTask);
 
-    const handleToggle = (task) => {
-        secureApiFetch(`/tasks/${task.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({completed: task.completed ? '0' : '1'})
-        })
-            .then(() => {
-                fetchTask()
-                toast('Task', 'Status changed')
-            })
-            .catch(err => console.error(err))
-    }
-
     const handleDelete = () => {
         destroy(task.id);
         history.push('/tasks');
     }
 
-    const handleAssigneeChange = (ev) => {
+    const onAssigneeChange = ev => {
         const assigneeUid = ev.target.value;
         secureApiFetch(`/tasks/${task.id}`, {
             method: 'PATCH',
@@ -50,6 +38,19 @@ const TaskDetails = ({history, match}) => {
         })
             .then(() => {
                 actionCompletedToast("The task has been assigned.");
+                fetchTask()
+            })
+            .catch(err => console.error(err))
+    }
+
+    const onStatusChange = ev => {
+        const status = ev.target.value;
+        secureApiFetch(`/tasks/${task.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({status: status})
+        })
+            .then(() => {
+                actionCompletedToast("The status has been transitioned.");
                 fetchTask()
             })
             .catch(err => console.error(err))
@@ -79,19 +80,20 @@ const TaskDetails = ({history, match}) => {
                 <ButtonGroup>
                     <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
                     <label>Assign to&nbsp;
-                        <select onChange={handleAssigneeChange} defaultValue={task.assignee_uid}>
+                        <select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
                             <option value="">(nobody)</option>
                             {users && users.map((user, index) =>
-                                <option key={index} value={user.id}>{user.name}</option>
+                                <option key={index} value={user.id}>{user.full_name}</option>
                             )}
                         </select>
                     </label>
-                    {task.completed === 1 && <SecondaryButton onClick={() => handleToggle(task)}>
-                        <IconX/> Mark as incomplete
-                    </SecondaryButton>}
-                    {task.completed !== 1 && <SecondaryButton onClick={() => handleToggle(task)}>
-                        <IconCheck/> Mark as completed
-                    </SecondaryButton>}
+                    <label>Transition to&nbsp;
+                        <select onChange={onStatusChange} value={task.status}>
+                            {TaskStatuses.map((status, index) =>
+                                <option key={index} value={status.id}>{status.name}</option>
+                            )}
+                        </select>
+                    </label>
                     <PrimaryButton to={`/tasks/${task.id}/upload`}>
                         <IconUpload/> Upload results
                     </PrimaryButton>
@@ -107,8 +109,7 @@ const TaskDetails = ({history, match}) => {
                     <TextBlock value={task.description || "(empty)"}/>
                     <h4>Status</h4>
                     <p style={{display: 'flex', alignItems: 'center', columnGap: 'var(--margin)'}}>
-                        <TaskStatusBadge completed={String(task.completed)}/>
-                        {String(task.completed) === '1' ? 'Completed' : 'Incomplete'}
+                        <TaskStatusFormatter task={task}/>
                     </p>
                     <h4>Command</h4>
                     {task.command &&

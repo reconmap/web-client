@@ -9,6 +9,7 @@ import TasksTable from './TasksTable';
 import {IconClipboardList} from '../ui/Icons';
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import CreateButton from "../ui/buttons/Create";
+import TaskStatuses from "../../models/TaskStatuses";
 
 const TasksList = ({history}) => {
     useSetTitle('Tasks');
@@ -35,7 +36,7 @@ const TasksList = ({history}) => {
                 <div>
                     <label>Project</label>
                     <select onChange={handleSetProject}>
-                        <option value=''>Any</option>
+                        <option value="">Any</option>
                         {projects && projects.map(project => <option value={project.id}
                                                                      key={project.id}>{project.name}</option>)}
                     </select>
@@ -43,9 +44,8 @@ const TasksList = ({history}) => {
                 <div>
                     <label>Status</label>
                     <select onChange={handleSetStatus}>
-                        <option value=''>Any</option>
-                        <option value='0'>Open</option>
-                        <option value='1'>Closed</option>
+                        <option value="">(any)</option>
+                        {TaskStatuses.map((status, index) => <option value={status.id}>{status.name}</option>)}
                     </select>
                 </div>
                 <CreateButton onClick={handleCreateTask}>Create task</CreateButton>

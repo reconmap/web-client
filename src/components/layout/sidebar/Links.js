@@ -47,10 +47,14 @@ const Links = [
                 title: 'Templates',
                 icon: <IconDocumentDuplicate size={5}/>,
                 to: '/templates',
+            },
+            {
+                title: 'Saved Reports',
+                icon: <IconReport size={5}/>,
+                to: '/reports'
             }
         ]
     },
-    {title: 'Saved Reports', icon: <IconReport size={5}/>, to: '/reports'},
     {
         title: 'Clients', icon: <IconBriefcase size={5}/>, to: '/clients', sublinks: [
             {
