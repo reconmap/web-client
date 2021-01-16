@@ -1,6 +1,6 @@
-import NoResults from "../ui/NoResults";
 import DeleteButton from "../ui/buttons/Delete";
 import React from "react";
+import NoResultsTableRow from "../ui/NoResultsTableRow";
 
 const NotesTable = ({notes, onDeleteButtonClick}) => {
     return <table>
@@ -14,9 +14,7 @@ const NotesTable = ({notes, onDeleteButtonClick}) => {
         </tr>
         </thead>
         <tbody>
-        {notes.length === 0 && <tr>
-            <td colSpan="5"><NoResults/></td>
-        </tr>}
+        {notes.length === 0 && <NoResultsTableRow numColumns={5}/>}
         {notes.map((note, index) =>
             <tr>
                 <td>{note.insert_ts}</td>
