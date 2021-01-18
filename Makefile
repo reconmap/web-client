@@ -1,3 +1,9 @@
+SHELL := bash
+.SHELLFLAGS := -eu -o pipefail -c
+.ONESHELL:
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
 
 ENV_FILE_NAME ?= environment.local.js
 DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
