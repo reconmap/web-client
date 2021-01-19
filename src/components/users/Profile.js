@@ -7,13 +7,13 @@ import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../auditlog/AuditLogsTable';
 import Timestamps from "../ui/Timestamps";
 import Title from '../ui/Title';
-import {Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
 import useDelete from "../../hooks/useDelete";
 import LinkButton from "../ui/buttons/Link";
 
-const UserProfile = ({match}) => {
+const UserProfile = ({ match }) => {
     useSetTitle('User');
 
     const history = useHistory();
@@ -31,7 +31,7 @@ const UserProfile = ({match}) => {
         })
     }
 
-    if (!user) return <Loading/>
+    if (!user) return <Loading />
 
     return (
         <>
@@ -41,17 +41,17 @@ const UserProfile = ({match}) => {
                 </Breadcrumb>
                 <ButtonGroup>
                     <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
-                    <DeleteButton onClick={onDeleteButtonClick}/>
+                    <DeleteButton onClick={onDeleteButtonClick} />
                 </ButtonGroup>
             </div>
             <div>
                 <div>
                     {user ?
                         <>
-                            <Title type='User profile' title={user.name}
-                                   icon={<UserAvatar email={user.email} size='--iconSizeXLarge'/>}/>
-                            <div><Timestamps insertTs={user.insert_ts} updateTs={user.update_ts}/></div>
-                            <UserRoleBadge role={user.role}/><br/>
+                            <Title type='User profile' title={user.full_name}
+                                icon={<UserAvatar email={user.email} size='--iconSizeXLarge' />} />
+                            <div><Timestamps insertTs={user.insert_ts} updateTs={user.update_ts} /></div>
+                            <UserRoleBadge role={user.role} /><br />
 
                             <h4>Details</h4>
                             <dl>
@@ -60,9 +60,9 @@ const UserProfile = ({match}) => {
                             </dl>
 
                             <h4>Activity</h4>
-                            {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true"/> : <Loading/>}
+                            {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true" /> : <Loading />}
                         </>
-                        : <Loading/>}
+                        : <Loading />}
                 </div>
 
             </div>
