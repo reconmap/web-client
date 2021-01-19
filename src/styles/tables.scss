@@ -5,7 +5,8 @@ table {
   margin: var(--padding) auto;
 
   tbody tr:hover {
-    box-shadow: 0 0 0 var(--borderWidth) var(--black);
+    border-left: 1px solid darkgray;
+    border-right: 1px solid darkgray;
   }
 
   th {
