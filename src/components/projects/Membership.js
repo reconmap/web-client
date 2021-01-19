@@ -1,29 +1,30 @@
 import useSetTitle from '../../hooks/useSetTitle';
 import Loading from '../ui/Loading';
-import NoResults from '../ui/NoResults';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
-import {IconPlus} from '../ui/Icons';
+import { IconPlus } from '../ui/Icons';
 import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
 import UserLink from "../users/Link";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import NoResultsTableRow from '../ui/NoResultsTableRow';
 
-const TasksList = ({match}) => {
+const TasksList = ({ match }) => {
+
     const projectId = match.params.id;
     useSetTitle('Project membership');
     const [users] = useFetch(`/users`)
     const [members, updateMembers] = useFetch(`/projects/${projectId}/users`)
     const [savedProject] = useFetch(`/projects/${projectId}`);
 
-    const handleOnClick = (ev) => {
+    const handleOnClick = ev => {
         ev.preventDefault();
 
         const userId = document.getElementById('userId').value;
-        const userData = {userId: userId};
+        const userData = { userId: userId };
         secureApiFetch(`/projects/${projectId}/users`, {
             method: 'POST',
             body: JSON.stringify(userData)
@@ -33,7 +34,7 @@ const TasksList = ({match}) => {
     }
 
     if (!savedProject) {
-        return <Loading/>
+        return <Loading />
     }
 
     const handleDelete = (member) => {
@@ -52,48 +53,44 @@ const TasksList = ({match}) => {
             </Breadcrumb>
         </div>
         <form>
-            <Title title='Members'/>
+            <Title title='Members' />
             <label>
                 Select User
                 <select id="userId">
                     {users && users.map((user, index) =>
-                        <option key={index} value={user.id}>{user.name}</option>
+                        <option key={index} value={user.id}>{user.full_name}</option>
                     )}
                 </select>
             </label>
-            <PrimaryButton onClick={handleOnClick}><IconPlus/> Add as member</PrimaryButton>
+            <PrimaryButton onClick={handleOnClick}><IconPlus /> Add as member</PrimaryButton>
         </form>
 
         {!members ?
-            <Loading/> :
-            members.length === 0 ?
-                <NoResults/> :
-                <>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>&nbsp;</th>
+            <Loading /> :
+            <table>
+                <thead>
+                    <tr>
+                        <th style={{ width: '80px' }}>&nbsp;</th>
+                        <th>Name</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {members.length === 0 && <NoResultsTableRow colSpan={3} />}
+                    {members && members.map((member, index) =>
+                        <tr key={index}>
+                            <td><UserAvatar size='--iconSizeLarge' email={member.email} /></td>
+                            <td><UserLink userId={member.id}>{member.full_name}</UserLink></td>
+                            <td className='text-right'>
+                                <DeleteButton onClick={() => handleDelete(member)} />
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        {members &&
-                        members.map((member, index) =>
-                            <tr key={index}>
-                                <td><UserAvatar size='--iconSizeLarge' email={member.email}/></td>
-                                <td><UserLink userId={member.id}>{member.name}</UserLink></td>
-                                <td className='text-right'>
-                                    <DeleteButton onClick={() => handleDelete(member)}/>
-                                </td>
-                            </tr>
-                        )
-                        }
-                        </tbody>
-                    </table>
-                </>
+                    )
+                    }
+                </tbody>
+            </table>
         }
-
     </div>
 }
 
-export default TasksList
+export default TasksList;
