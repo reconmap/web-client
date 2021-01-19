@@ -27,8 +27,8 @@
 }
 
 aside.sidebar {
-  position: relative;
-  // border:1px solid red;
+  position: sticky;
+  top: 72px;
   height: min-content;
   #collapse--button{
     position: absolute;
