@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb'
 import Title from '../ui/Title';
-import {Link, useHistory, useParams} from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
-import {IconUpload} from "../ui/Icons";
+import { IconUpload } from "../ui/Icons";
 
 const UploadTaskResult = () => {
 
@@ -31,7 +31,7 @@ const UploadTaskResult = () => {
         const formData = new FormData();
         formData.append('resultFile', resultFileInput.files[0]);
         formData.append('taskId', taskId);
-        secureApiFetch('/tasks/results', {
+        secureApiFetch('/commands/outputs', {
             method: 'POST',
             body: formData
         })
@@ -45,7 +45,7 @@ const UploadTaskResult = () => {
         document.title = 'Upload Task | Reconmap';
     }, []);
 
-    if (!task) return <Loading/>
+    if (!task) return <Loading />
 
     return (
         <div>
@@ -56,14 +56,14 @@ const UploadTaskResult = () => {
                 </Breadcrumb>
             </div>
             <article>
-                <Title title={`${task.name} results`}/>
+                <Title title={`${task.name} results`} />
                 <div className='items-start space-x-2'>
                     <div className='card flex-1'>
                         <h2>Upload {task.command_parser} output</h2>
                         <form>
-                            <input type="file" id="resultFile" onChange={onFileSelect}/>
+                            <input type="file" id="resultFile" onChange={onFileSelect} />
                             <PrimaryButton disabled={uploadButtonDisabled}
-                                           onClick={handleUploadClick}><IconUpload/> Upload
+                                onClick={handleUploadClick}><IconUpload /> Upload
                                 results</PrimaryButton>
                         </form>
                     </div>
