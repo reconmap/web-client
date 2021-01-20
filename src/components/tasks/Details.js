@@ -126,9 +126,13 @@ const TaskDetails = ({ history, match }) => {
                         <TaskStatusFormatter task={task} />
                     </p>
                     <h4>Command</h4>
-                    {task.command &&
+                    {task.command_id &&
                         <>
-                            <ShellCommand>{task.command}</ShellCommand>
+                            <div>
+                                To run the task execute:
+                                <ShellCommand>rmap run-command -id {task.command_id}</ShellCommand>
+                                This will invoke the <strong>{task.command_short_name}</strong> command with the following arguments: <strong>{task.command_container_args}</strong>
+                            </div>
                             <h5>Results</h5>
                             {!results ? <Loading /> :
 
@@ -161,7 +165,7 @@ const TaskDetails = ({ history, match }) => {
                             }
                         </>
                     }
-                    {!task.command &&
+                    {!task.command_id &&
                         <p>No command defined for this task.</p>
                     }
                 </article>
