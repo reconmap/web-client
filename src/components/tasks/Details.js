@@ -18,6 +18,7 @@ import TaskStatusFormatter from "./TaskStatusFormatter";
 import TaskStatuses from "../../models/TaskStatuses";
 import NoResultsTableRow from '../ui/NoResultsTableRow'
 import SecondaryButton from '../ui/buttons/Secondary'
+import FileSizeSpan from '../ui/FileSizeSpan'
 
 const TaskDetails = ({ history, match }) => {
     const taskId = match.params.taskId;
@@ -147,7 +148,7 @@ const TaskDetails = ({ history, match }) => {
                                                 <td>{result.insert_ts}</td>
                                                 <td>{result.submitter_name}</td>
                                                 <td>{result.file_name}</td>
-                                                <td>{result.file_size}</td>
+                                                <td><FileSizeSpan fileSize={result.file_size} /></td>
                                                 <td>{result.file_mimetype}</td>
                                                 <td style={{ display: "flex" }}>
                                                     <SecondaryButton disabled>Download</SecondaryButton>
