@@ -1,4 +1,4 @@
-export default function CvssScore({score, fontSize = 'fontSizeXsmall'}) {
+export default function CvssScore({ score, fontSize = 'fontSizeXsmall' }) {
     const color = Math.floor(score) <= 3 ? 'green' : Math.floor(score) <= 6 ? 'yellow' : 'red'
 
     const styles = {
@@ -8,7 +8,7 @@ export default function CvssScore({score, fontSize = 'fontSizeXsmall'}) {
             alignItems: 'center',
             display: `flex`,
             borderRadius: 'var(--borderRadius, 3px)',
-            border: `var(--borderWidth) dashed var(--${color}Dark)`,
+            border: `var(--borderWidth) solid var(--${color}Dark)`,
             fontSize: `var(--${fontSize})`,
             fontWeight: 'var(--fontBold)',
             width: '110px'
@@ -30,7 +30,7 @@ export default function CvssScore({score, fontSize = 'fontSizeXsmall'}) {
 
     return (
         <div style={styles.badge}>
-            {Array.from({length: Math.floor(score)}).map((s, index) =>
+            {Array.from({ length: Math.floor(score) }).map((s, index) =>
                 <span key={index} style={styles.bar}></span>
             )}
             <span style={styles.text}>{score}</span>

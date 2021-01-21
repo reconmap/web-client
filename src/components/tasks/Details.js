@@ -40,7 +40,7 @@ const TaskDetails = ({ history, match }) => {
             body: JSON.stringify({ assignee_uid: '' === assigneeUid ? null : assigneeUid })
         })
             .then(() => {
-                actionCompletedToast("The task has been assigned.");
+                actionCompletedToast("The assignee has been updated.");
                 fetchTask()
             })
             .catch(err => console.error(err))
@@ -70,6 +70,8 @@ const TaskDetails = ({ history, match }) => {
             .catch(err => console.error(err))
     }
 
+    const [dynamicArgs, setDynamicArgs] = useState('');
+
     useEffect(() => {
         if (task) {
             document.title = `Task ${task.name} | Reconmap`;
@@ -80,8 +82,38 @@ const TaskDetails = ({ history, match }) => {
                     setProject(project);
                 })
                 .catch(err => console.error(err))
+
+            const argRegex = /{{{(.+?)}}}/g;
+            const commandArguments = task.command_container_args.match(argRegex);
+            const argMap = commandArguments.reduce((accumulator, current) => {
+                const tokens = current.replaceAll('{{{', '').replaceAll('}}}', '').split('|||');
+                accumulator[tokens[0]] = {
+                    name: tokens[0],
+                    placeholder: tokens[1]
+                };
+                return accumulator;
+            }, {});
+
+            setContainerArgs(argMap);
         }
     }, [task])
+
+    const onArgUpdate = ev => {
+        setContainerArgs({ ...containerArgs, [ev.target.name]: { name: ev.target.name, placeholder: ev.target.value } });
+    };
+
+    const [containerArgs, setContainerArgs] = useState(null);
+
+    useEffect(() => {
+        if (containerArgs) {
+            var aa = '';
+            Object.keys(containerArgs).forEach((key) => {
+                let a = containerArgs[key];
+                aa += `-var ${a.name}=${a.placeholder}`;
+            });
+            setDynamicArgs(aa);
+        }
+    }, [containerArgs]);
 
     return (
         <div>
@@ -93,14 +125,6 @@ const TaskDetails = ({ history, match }) => {
                 {task && users &&
                     <ButtonGroup>
                         <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
-                        <label>Assign to&nbsp;
-                        <select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
-                                <option value="">(nobody)</option>
-                                {users && users.map((user, index) =>
-                                    <option key={index} value={user.id}>{user.full_name}</option>
-                                )}
-                            </select>
-                        </label>
                         <label>Transition to&nbsp;
                         <select onChange={onStatusChange} value={task.status}>
                                 {TaskStatuses.map((status, index) =>
@@ -108,9 +132,6 @@ const TaskDetails = ({ history, match }) => {
                                 )}
                             </select>
                         </label>
-                        <PrimaryButton to={`/tasks/${task.id}/upload`}>
-                            <IconUpload /> Upload results
-                    </PrimaryButton>
                         <DeleteButton onClick={() => handleDelete(task.id)} />
                     </ButtonGroup>
                 }
@@ -119,21 +140,58 @@ const TaskDetails = ({ history, match }) => {
                 <article>
                     <Title title={task.name} type='Task' icon={<IconClipboard />} />
                     <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts} />
-                    <h4>Description</h4>
-                    <TextBlock value={task.description || "(empty)"} />
-                    <h4>Status</h4>
-                    <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
-                        <TaskStatusFormatter task={task} />
-                    </p>
+                    <div className="two-columns">
+                        <div>
+                            <h4>Description</h4>
+                            <TextBlock value={task.description || "(empty)"} />
+                            <h4>Status</h4>
+                            <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
+                                <TaskStatusFormatter task={task} />
+                            </p>
+                        </div>
+                        <div>
+                            <h4>People</h4>
+                            <dl>
+                                <dt>Created by</dt>
+                                <dd>{task.creator_full_name}</dd>
+
+                                <dt>Assigned to</dt>
+                                <dd>
+                                    <select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
+                                        <option value="">(nobody)</option>
+                                        {users && users.map((user, index) =>
+                                            <option key={index} value={user.id}>{user.full_name}</option>
+                                        )}
+                                    </select>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
                     <h4>Command</h4>
                     {task.command_id &&
                         <>
+                            <h5>1. Fill in the arguments</h5>
+                            {containerArgs !== null &&
+                                Object.keys(containerArgs).map((key) =>
+                                    <p>
+                                        {containerArgs[key].name}<br />
+                                        <input name={containerArgs[key].name} value={containerArgs[key].placeholder} onChange={onArgUpdate} />
+                                    </p>
+                                )
+                            }
+                            <h5>2. Run this command</h5>
                             <div>
                                 To run the task execute:
-                                <ShellCommand>rmap run-command -id {task.command_id}</ShellCommand>
-                                This will invoke the <strong>{task.command_short_name}</strong> command with the following arguments: <strong>{task.command_container_args}</strong>
+                                <ShellCommand>./rmap run-command -id {task.command_id} {dynamicArgs}</ShellCommand>
+                                <p style={{ fontSize: "small" }}>(this will invoke the <strong>{task.command_short_name}</strong> application on a docker container)</p>
                             </div>
-                            <h5>Results</h5>
+                            <h4>
+                                <h5>Results</h5>
+                                <PrimaryButton to={`/tasks/${task.id}/upload`}>
+                                    <IconUpload /> Upload results
+                                </PrimaryButton>
+                            </h4>
                             {!results ? <Loading /> :
 
                                 <table>
@@ -170,7 +228,7 @@ const TaskDetails = ({ history, match }) => {
                     }
                 </article>
             }
-        </div>
+        </div >
     )
 }
 
