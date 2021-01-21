@@ -8,7 +8,21 @@ code {
   font-family: monospace;
   white-space: pre-line;
   margin: var(--margin) 0;
-
+  position: relative;
+  button {
+    position: absolute;
+    top: 0;
+    margin : auto;
+    bottom: 0;
+    height: min-content;
+    right: 5px;
+    padding : var(--space-xs);
+    opacity: .3;
+    &:hover { 
+      opacity: 1;
+    }
+    svg { margin : 0;}
+  }
   &:before {
     content: '$ ';
     font-family: monospace;
