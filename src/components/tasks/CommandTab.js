@@ -43,19 +43,20 @@ const TaskCommandTab = ({ task }) => {
     }, [containerArgs]);
 
     useEffect(() => {
-        const argRegex = /{{{(.+?)}}}/g;
-        const commandArguments = task.command_container_args.match(argRegex);
-        const argMap = commandArguments.reduce((accumulator, current) => {
-            const tokens = current.replaceAll('{{{', '').replaceAll('}}}', '').split('|||');
-            accumulator[tokens[0]] = {
-                name: tokens[0],
-                placeholder: tokens[1]
-            };
-            return accumulator;
-        }, {});
+        if (task && task.command_container_args) {
+            const argRegex = /{{{(.+?)}}}/g;
+            const commandArguments = task.command_container_args.match(argRegex);
+            const argMap = commandArguments.reduce((accumulator, current) => {
+                const tokens = current.replaceAll('{{{', '').replaceAll('}}}', '').split('|||');
+                accumulator[tokens[0]] = {
+                    name: tokens[0],
+                    placeholder: tokens[1]
+                };
+                return accumulator;
+            }, {});
 
-        setContainerArgs(argMap);
-
+            setContainerArgs(argMap);
+        }
     }, [task]);
 
     return <>
