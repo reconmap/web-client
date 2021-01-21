@@ -1,13 +1,19 @@
 import React from 'react'
-import {IconDocument} from '../ui/Icons'
+import { IconDocument } from '../ui/Icons'
 
-function ProjectDetailsTab({project}) {
+function ProjectDetailsTab({ project }) {
     return (
         <section>
             <h4>
-                <IconDocument/> Project Details
+                <IconDocument /> Project Details
             </h4>
-            <div>{project.description}</div>
+            <dl>
+                <dt>Client</dt>
+                <dd>{project.client_name ?? '-'}</dd>
+
+                <dt>Description</dt>
+                <dd>{project.description}</dd>
+            </dl>
         </section>
     )
 }

@@ -51,10 +51,12 @@ const UserProfile = ({ match }) => {
                             <Title type='User profile' title={user.full_name}
                                 icon={<UserAvatar email={user.email} size='--iconSizeXLarge' />} />
                             <div><Timestamps insertTs={user.insert_ts} updateTs={user.update_ts} /></div>
-                            <UserRoleBadge role={user.role} /><br />
 
                             <h4>Details</h4>
                             <dl>
+                                <dt>Role</dt>
+                                <dd><UserRoleBadge role={user.role} /><br /></dd>
+
                                 <dt>Timezone</dt>
                                 <dd>{user.timezone}</dd>
                             </dl>

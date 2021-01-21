@@ -35,7 +35,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                                 <td style={{ width: '20%' }}>{task.description.slice(0, 40)}</td>
                                 <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
                                 <td>{task.assignee_uid ?
-                                    <UserLink userId={task.assignee_uid}>{task.assignee_name}</UserLink> : '(nobody)'}</td>
+                                    <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
                                 <td><TaskStatusFormatter task={task} /></td>
                                 <td>{task.command_short_name ? <BadgeOutline>{task.command_short_name}</BadgeOutline> : '-'}</td>
                                 <td style={{ display: "flex" }}>

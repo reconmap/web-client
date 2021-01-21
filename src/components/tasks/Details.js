@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import secureApiFetch from '../../services/api'
 import PrimaryButton from '../ui/buttons/Primary'
-import { IconClipboard, IconUpload } from '../ui/Icons'
+import { IconClipboard } from '../ui/Icons'
 import Title from './../ui/Title'
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
@@ -12,19 +12,17 @@ import { actionCompletedToast } from "../ui/toast";
 import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'
 import { Link } from "react-router-dom";
-import ShellCommand from "../ui/ShellCommand";
 import TextBlock from "../ui/TextBlock";
 import TaskStatusFormatter from "./TaskStatusFormatter";
 import TaskStatuses from "../../models/TaskStatuses";
-import NoResultsTableRow from '../ui/NoResultsTableRow'
-import SecondaryButton from '../ui/buttons/Secondary'
-import FileSizeSpan from '../ui/FileSizeSpan'
+import Tabs from '../ui/Tabs'
+import Tab from '../ui/Tab'
+import TaskCommandTab from './CommandTab'
 
 const TaskDetails = ({ history, match }) => {
     const taskId = match.params.taskId;
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
     const [users] = useFetch(`/users`)
-    const [results, updateCommandOutputs] = useFetch(`/commands/outputs?taskId=${taskId}`)
     const [project, setProject] = useState(null);
     const destroy = useDelete('/tasks/', fetchTask);
 
@@ -40,7 +38,7 @@ const TaskDetails = ({ history, match }) => {
             body: JSON.stringify({ assignee_uid: '' === assigneeUid ? null : assigneeUid })
         })
             .then(() => {
-                actionCompletedToast("The task has been assigned.");
+                actionCompletedToast("The assignee has been updated.");
                 fetchTask()
             })
             .catch(err => console.error(err))
@@ -55,17 +53,6 @@ const TaskDetails = ({ history, match }) => {
             .then(() => {
                 actionCompletedToast("The status has been transitioned.");
                 fetchTask()
-            })
-            .catch(err => console.error(err))
-    }
-
-    const onOutputButtonClick = (ev, outputId) => {
-        ev.preventDefault();
-
-        secureApiFetch(`/commands/outputs/${outputId}`, { method: 'DELETE' })
-            .then(() => {
-                actionCompletedToast("The output has been deleted.");
-                updateCommandOutputs();
             })
             .catch(err => console.error(err))
     }
@@ -93,14 +80,6 @@ const TaskDetails = ({ history, match }) => {
                 {task && users &&
                     <ButtonGroup>
                         <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
-                        <label>Assign to&nbsp;
-                        <select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
-                                <option value="">(nobody)</option>
-                                {users && users.map((user, index) =>
-                                    <option key={index} value={user.id}>{user.full_name}</option>
-                                )}
-                            </select>
-                        </label>
                         <label>Transition to&nbsp;
                         <select onChange={onStatusChange} value={task.status}>
                                 {TaskStatuses.map((status, index) =>
@@ -108,9 +87,6 @@ const TaskDetails = ({ history, match }) => {
                                 )}
                             </select>
                         </label>
-                        <PrimaryButton to={`/tasks/${task.id}/upload`}>
-                            <IconUpload /> Upload results
-                    </PrimaryButton>
                         <DeleteButton onClick={() => handleDelete(task.id)} />
                     </ButtonGroup>
                 }
@@ -119,58 +95,43 @@ const TaskDetails = ({ history, match }) => {
                 <article>
                     <Title title={task.name} type='Task' icon={<IconClipboard />} />
                     <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts} />
-                    <h4>Description</h4>
-                    <TextBlock value={task.description || "(empty)"} />
-                    <h4>Status</h4>
-                    <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
-                        <TaskStatusFormatter task={task} />
-                    </p>
-                    <h4>Command</h4>
-                    {task.command_id &&
-                        <>
-                            <div>
-                                To run the task execute:
-                                <ShellCommand>rmap run-command -id {task.command_id}</ShellCommand>
-                                This will invoke the <strong>{task.command_short_name}</strong> command with the following arguments: <strong>{task.command_container_args}</strong>
-                            </div>
-                            <h5>Results</h5>
-                            {!results ? <Loading /> :
+                    <Tabs>
+                        <Tab name="Details">
+                            <div className="two-columns">
+                                <div>
+                                    <h4>Description</h4>
+                                    <TextBlock value={task.description || "(empty)"} />
+                                    <h4>Status</h4>
+                                    <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
+                                        <TaskStatusFormatter task={task} />
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4>People</h4>
+                                    <dl>
+                                        <dt>Created by</dt>
+                                        <dd>{task.creator_full_name}</dd>
 
-                                <table>
-                                    <thead>
-                                        <th>Upload date</th>
-                                        <th>Uploaded by</th>
-                                        <th>Filename</th>
-                                        <th>File size</th>
-                                        <th>Mimetype</th>
-                                        <th>&nbsp;</th>
-                                    </thead>
-                                    <tbody>
-                                        {results.length === 0 && <NoResultsTableRow numColumns={5} />}
-                                        {results.map((result, index) =>
-                                            <tr key={index}>
-                                                <td>{result.insert_ts}</td>
-                                                <td>{result.submitter_name}</td>
-                                                <td>{result.file_name}</td>
-                                                <td><FileSizeSpan fileSize={result.file_size} /></td>
-                                                <td>{result.file_mimetype}</td>
-                                                <td style={{ display: "flex" }}>
-                                                    <SecondaryButton disabled>Download</SecondaryButton>
-                                                    <DeleteButton onClick={ev => onOutputButtonClick(ev, result.id)} />
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            }
-                        </>
-                    }
-                    {!task.command_id &&
-                        <p>No command defined for this task.</p>
-                    }
+                                        <dt>Assigned to</dt>
+                                        <dd>
+                                            <select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
+                                                <option value="">(nobody)</option>
+                                                {users && users.map((user, index) =>
+                                                    <option key={index} value={user.id}>{user.full_name}</option>
+                                                )}
+                                            </select>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </Tab>
+                        <Tab name="Command">
+                            <TaskCommandTab task={task} />
+                        </Tab>
+                    </Tabs>
                 </article>
             }
-        </div>
+        </div >
     )
 }
 

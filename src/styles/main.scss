@@ -316,3 +316,17 @@ div.has-help {
     display: block;
   }
 }
+
+dt {
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+dd {
+    margin-left: 20px;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
