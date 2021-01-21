@@ -32,6 +32,17 @@ const TaskCommandTab = ({ task }) => {
     };
 
     useEffect(() => {
+        if (containerArgs) {
+            let dynamicArgs = '';
+            Object.keys(containerArgs).forEach((key) => {
+                let containerArg = containerArgs[key];
+                dynamicArgs += `-var ${containerArg.name}=${containerArg.placeholder}`;
+            });
+            setCommandVars(dynamicArgs);
+        }
+    }, [containerArgs]);
+
+    useEffect(() => {
         const argRegex = /{{{(.+?)}}}/g;
         const commandArguments = task.command_container_args.match(argRegex);
         const argMap = commandArguments.reduce((accumulator, current) => {
@@ -45,15 +56,7 @@ const TaskCommandTab = ({ task }) => {
 
         setContainerArgs(argMap);
 
-        if (containerArgs) {
-            let dynamicArgs = '';
-            Object.keys(containerArgs).forEach((key) => {
-                let containerArg = containerArgs[key];
-                dynamicArgs += `-var ${containerArg.name}=${containerArg.placeholder}`;
-            });
-            setCommandVars(dynamicArgs);
-        }
-    }, [containerArgs, task]);
+    }, [task]);
 
     return <>
         <h4>Command</h4>
