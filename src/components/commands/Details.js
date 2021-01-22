@@ -19,7 +19,7 @@ const CommandDetails = () => {
     const deleteClient = useDelete(`/commands/`)
 
     useEffect(() => {
-        if (command) document.title = `${command.name} - Command | Reconmap`;
+        if (command) document.title = `${command.short_name} - Command | Reconmap`;
     }, [command])
 
     const handleDelete = async () => {
