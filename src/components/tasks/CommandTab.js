@@ -8,8 +8,8 @@ import DeleteButton from "../ui/buttons/Delete";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 import { actionCompletedToast } from "../ui/toast";
-import useFetch from "../../hooks/useFetch";
-import secureApiFetch from "../../services/api";
+import secureApiFetch from "services/api";
+import useFetch from "hooks/useFetch";
 
 const TaskCommandTab = ({ task }) => {
     const [commandVars, setCommandVars] = useState('');
