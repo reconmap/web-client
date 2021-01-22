@@ -10,6 +10,7 @@ import {
     IconPlus,
     IconPreferences,
     IconReport,
+    IconTerminal,
     IconUpload,
     IconUserGroup
 } from "../../ui/Icons";
@@ -21,6 +22,15 @@ const Links = [
                 title: 'Add',
                 icon: <IconPlus size={5} />,
                 to: '/vulnerabilities/create',
+            }
+        ]
+    },
+    {
+        title: 'Commands', icon: <IconTerminal size={5} />, to: '/commands', sublinks: [
+            {
+                title: 'Add',
+                icon: <IconPlus size={5} />,
+                to: '/commands/add',
             }
         ]
     },
@@ -76,7 +86,7 @@ const Links = [
     {
         title: 'System',
         icon: <IconPreferences size={5} />,
-        to: '#',
+        to: '/system',
         sublinks: [
             {
                 title: 'Audit log',
@@ -86,12 +96,12 @@ const Links = [
             {
                 title: 'Import data',
                 icon: <IconUpload size={5} />,
-                to: '/system-data/import',
+                to: '/system/import-data',
             },
             {
                 title: 'Export data',
                 icon: <IconDownload size={5} />,
-                to: '/system-data/export',
+                to: '/system/export-data',
             },
             {
                 title: 'Integrations',

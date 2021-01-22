@@ -1,21 +1,16 @@
-import ImportForm from "./ImportForm";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
-import {IconDownloadDocument} from "../ui/Icons";
+import { IconDownloadDocument } from "../ui/Icons";
 import React from "react";
-import ExportForm from "./ExportForm";
 
 const SystemIndexPage = () => {
     return <div>
         <div className='heading'>
-            <Breadcrumb/>
+            <Breadcrumb />
         </div>
-        <Title type="System" title="Data" icon={<IconDownloadDocument/>}/>
+        <Title title="System" icon={<IconDownloadDocument />} />
 
-        <div className="grid grid-cols-2 gap-4">
-            <div><ImportForm/></div>
-            <div><ExportForm/></div>
-        </div>
+        <p>Click on one of the items on the left.</p>
 
     </div>
 };

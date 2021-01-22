@@ -1,17 +1,19 @@
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
-import {IconDownloadDocument} from "../ui/Icons";
+import { IconDownloadDocument } from "../ui/Icons";
 import React from "react";
 import ImportForm from "./ImportForm";
 
 const ImportPage = () => {
     return <div>
         <div className='heading'>
-            <Breadcrumb/>
+            <Breadcrumb>
+                <div>System</div>
+            </Breadcrumb>
         </div>
-        <Title type="System Data" title="Import" icon={<IconDownloadDocument/>}/>
+        <Title title="Data Import" icon={<IconDownloadDocument />} />
 
-        <ImportForm/>
+        <ImportForm />
     </div>
 };
 

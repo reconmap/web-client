@@ -4,9 +4,9 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Breadcrumb from '../ui/Breadcrumb';
 import Title from "../ui/Title";
-import {IconExtensions} from '../ui/Icons';
+import { IconExtensions } from '../ui/Icons';
 
-const IntegrationsList = ({history}) => {
+const IntegrationsList = ({ history }) => {
     const [integrations] = useFetch('/system/integrations')
 
     useSetTitle('Integrations');
@@ -14,10 +14,12 @@ const IntegrationsList = ({history}) => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb/>
+                <Breadcrumb>
+                    <div>System</div>
+                </Breadcrumb>
             </div>
-            <Title type="System" title="Integrations" icon={<IconExtensions/>}/>
-            {!integrations ? <Loading/> : integrations.length === 0 ? <NoResults/> :
+            <Title title="Integrations" icon={<IconExtensions />} />
+            {!integrations ? <Loading /> : integrations.length === 0 ? <NoResults /> :
                 <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {integrations.map((integration, index) =>
                         <article key={index} className='card '>

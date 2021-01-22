@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import useSetTitle from './../../hooks/useSetTitle'
 import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
@@ -7,10 +7,10 @@ import secureApiFetch from '../../services/api';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 import CreateButton from '../ui/buttons/Create';
 import Title from '../ui/Title';
-import {IconFlag} from '../ui/Icons';
+import { IconFlag } from '../ui/Icons';
 import Breadcrumb from "../ui/Breadcrumb";
 
-const VulnerabilitiesList = ({history}) => {
+const VulnerabilitiesList = ({ history }) => {
     const searchParams = new URLSearchParams(history.location.search);
     let pageNumber = searchParams.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
@@ -29,7 +29,7 @@ const VulnerabilitiesList = ({history}) => {
     }
 
     const reloadData = useCallback(() => {
-        secureApiFetch(`/vulnerabilities?page=${apiPageNumber}`, {method: 'GET'})
+        secureApiFetch(`/vulnerabilities?page=${apiPageNumber}`, { method: 'GET' })
             .then(resp => {
                 if (resp.headers.has('X-Page-Count')) {
                     setNumberPages(resp.headers.get('X-Page-Count'))
@@ -53,13 +53,13 @@ const VulnerabilitiesList = ({history}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb/>
-                <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext}/>
-                <CreateButton onClick={handleCreateVulnerability}>Create Vulnerability</CreateButton>
+                <Breadcrumb />
+                <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
+                <CreateButton onClick={handleCreateVulnerability}>Add vulnerability</CreateButton>
             </div>
-            <Title title='Vulnerabilities' icon={<IconFlag/>}/>
-            {!vulnerabilities ? <Loading/> :
-                <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy}/>
+            <Title title='Vulnerabilities' icon={<IconFlag />} />
+            {!vulnerabilities ? <Loading /> :
+                <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy} />
             }
         </>
     )
