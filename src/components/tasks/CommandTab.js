@@ -4,12 +4,12 @@ import SecondaryButton from '../ui/buttons/Secondary'
 import FileSizeSpan from '../ui/FileSizeSpan'
 import { IconUpload } from "../ui/Icons";
 import { useEffect, useState } from "react";
-import secureApiFetch from "src/services/api";
 import DeleteButton from "../ui/buttons/Delete";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 import { actionCompletedToast } from "../ui/toast";
-import useFetch from "src/hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
+import secureApiFetch from "../../services/api";
 
 const TaskCommandTab = ({ task }) => {
     const [commandVars, setCommandVars] = useState('');
