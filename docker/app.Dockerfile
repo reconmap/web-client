@@ -3,7 +3,7 @@ FROM quay.io/reconmap/web-client AS builder
 ARG RECONMAP_APP_GIT_COMMIT_HASH
 ENV REACT_APP_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
-COPY package.json package-lock.json ./
+COPY jsconfig.json package.json package-lock.json ./
 COPY public ./public
 COPY src ./src
 
