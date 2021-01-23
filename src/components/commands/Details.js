@@ -10,6 +10,7 @@ import Loading from '../ui/Loading'
 import Breadcrumb from "../ui/Breadcrumb";
 import EditButton from "../ui/buttons/Edit";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
+import ReactMarkdown from 'react-markdown';
 
 const CommandDetails = () => {
     const { params: { commandId } } = useRouteMatch()
@@ -57,7 +58,7 @@ const CommandDetails = () => {
                         <dd>{command.short_name}</dd>
 
                         <dt>Description</dt>
-                        <dd>{command.description}}</dd>
+                        <dd><ReactMarkdown>{command.description}</ReactMarkdown></dd>
 
                         <dt>Docker image</dt>
                         <dd>{command.docker_image}</dd>

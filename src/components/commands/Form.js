@@ -19,10 +19,9 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
             <input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image}
                 required /></label>
         <label>Container arguments
-            <input type="text" name="container_args" onChange={onFormChange} value={command.container_args}
-                required /></label>
+            <input type="text" name="container_args" onChange={onFormChange} value={command.container_args} /></label>
         <label>JSON configuration
-            <textarea name="configuration" onChange={onFormChange} value={command.configuration} required />
+            <textarea name="configuration" onChange={onFormChange} value={command.configuration} />
         </label>
 
         <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
