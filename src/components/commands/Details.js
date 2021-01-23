@@ -50,8 +50,8 @@ const CommandDetails = () => {
                 <Title type='Command' title={command.name} icon={<IconBriefcase />} />
             </div>
             <Timestamps insertTs={command.insert_ts} updateTs={command.update_ts} />
-            <div className="two-columns">
-                <div>
+            <div className="grid md:grid-cols-3">
+                <div className="col-span-2">
                     <h4>Details</h4>
                     <dl>
                         <dt>Short name</dt>
