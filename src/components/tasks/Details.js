@@ -18,6 +18,7 @@ import TaskStatuses from "../../models/TaskStatuses";
 import Tabs from '../ui/Tabs'
 import Tab from '../ui/Tab'
 import TaskCommandTab from './CommandTab'
+import UserLink from 'components/users/Link'
 
 const TaskDetails = ({ history, match }) => {
     const taskId = match.params.taskId;
@@ -110,7 +111,7 @@ const TaskDetails = ({ history, match }) => {
                                     <h4>People</h4>
                                     <dl>
                                         <dt>Created by</dt>
-                                        <dd>{task.creator_full_name}</dd>
+                                        <dd><UserLink userId={task.creator_uid}>{task.creator_full_name}</UserLink></dd>
 
                                         <dt>Assigned to</dt>
                                         <dd>

@@ -11,6 +11,7 @@ import Loading from './../ui/Loading'
 import Breadcrumb from "../ui/Breadcrumb";
 import EditButton from "../ui/buttons/Edit";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
+import UserLink from 'components/users/Link';
 
 const ClientDetails = () => {
     const { params: { clientId } } = useRouteMatch()
@@ -74,7 +75,7 @@ const ClientDetails = () => {
                     <h4>People</h4>
                     <dl>
                         <dt>Created by</dt>
-                        <dd>{client.creator_full_name}</dd>
+                        <dd><UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink></dd>
                     </dl>
                 </div>
             </div>

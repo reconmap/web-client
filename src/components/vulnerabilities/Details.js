@@ -21,6 +21,7 @@ import TextBlock from "../ui/TextBlock";
 import VulnerabilitiesNotesTab from "./NotesTab";
 import Tab from "../ui/Tab";
 import Tabs from "../ui/Tabs";
+import UserLink from 'components/users/Link';
 
 const VulnerabilityDetails = () => {
     const history = useHistory()
@@ -86,10 +87,6 @@ const VulnerabilityDetails = () => {
                                 <dt>Status</dt>
                                 <dd><VulnerabilityStatusBadge status={vulnerability.status} /></dd>
 
-                                <dt>Project</dt>
-                                <dd>{vulnerability.project_id ?
-                                    <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</dd>
-
                                 <dt>Risk</dt>
                                 <dd><RiskBadge risk={vulnerability.risk} /></dd>
 
@@ -103,17 +100,21 @@ const VulnerabilityDetails = () => {
                                 <dd><ExternalLink
                                     href={`https://www.first.org/cvss/calculator/3.0#${vulnerability.cvss_vector}`}>{vulnerability.cvss_vector}</ExternalLink>
                                 </dd>
-
-                                <dt>Affected target</dt>
-                                <dd>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</dd>
                             </dl>
                         </div>
                         <div>
-                            <h4>People</h4>
+                            <h4>Relations</h4>
 
                             <dl>
+                                <dt>Project</dt>
+                                <dd>{vulnerability.project_id ?
+                                    <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</dd>
+
+                                <dt>Affected target</dt>
+                                <dd>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</dd>
+
                                 <dt>Created by</dt>
-                                <dd>{vulnerability.creator_full_name}</dd>
+                                <dd><UserLink userId={vulnerability.creator_uid}>{vulnerability.creator_full_name}</UserLink></dd>
                             </dl>
                         </div>
                     </div>

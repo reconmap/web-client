@@ -11,6 +11,7 @@ import Breadcrumb from "../ui/Breadcrumb";
 import EditButton from "../ui/buttons/Edit";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import ReactMarkdown from 'react-markdown';
+import UserLink from 'components/users/Link';
 
 const CommandDetails = () => {
     const { params: { commandId } } = useRouteMatch()
@@ -68,10 +69,10 @@ const CommandDetails = () => {
                     </dl>
                 </div>
                 <div>
-                    <h4>People</h4>
+                    <h4>Relations</h4>
                     <dl>
                         <dt>Created by</dt>
-                        <dd>{command.creator_full_name}</dd>
+                        <dd><UserLink userId={command.creator_uid}>{command.creator_full_name}</UserLink></dd>
                     </dl>
                 </div>
             </div>
