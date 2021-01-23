@@ -3,15 +3,20 @@
   "version": "0.8.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.0.0",
+    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "autoprefixer": "^9.8.6",
     "countries-and-timezones": "^2.3.1",
     "dayjs": "^1.10.3",
     "node-sass": "^4.0.0",
+    "postcss": "^7.0.35",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-markdown": "^5.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "recharts": "^1.8.5",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {
@@ -22,12 +27,12 @@
   },
   "scripts": {
     "lint": "eslint . --ext .js",
-    "start": "yarn lint && REACT_APP_VERSION=$npm_package_version PORT=3001 BROWSER=none react-scripts start",
-    "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
-    "test": "react-scripts test --verbose",
-    "test:ci": "CI=true react-scripts test --no-watchman --all --verbose",
+    "start": "yarn lint && REACT_APP_VERSION=$npm_package_version PORT=3001 BROWSER=none craco start",
+    "build": "REACT_APP_VERSION=$npm_package_version craco build",
+    "test": "craco test --verbose",
+    "test:ci": "CI=true craco test --no-watchman --all --verbose",
     "eject": "react-scripts eject",
-    "watch": "react-scripts start"
+    "watch": "craco start"
   },
   "eslintConfig": {
     "extends": "react-app"
