@@ -72,7 +72,7 @@ const ClientDetails = () => {
                     </dl>
                 </div>
                 <div>
-                    <h4>People</h4>
+                    <h4>Relations</h4>
                     <dl>
                         <dt>Created by</dt>
                         <dd><UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink></dd>
