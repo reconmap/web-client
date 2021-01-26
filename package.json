@@ -7,7 +7,7 @@
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9.8.6",
     "countries-and-timezones": "^2.3.1",
-    "dayjs": "^1.10.3",
+    "dayjs": "^1.10.4",
     "node-sass": "^4.0.0",
     "postcss": "^7.0.35",
     "react": "^17.0.1",
@@ -20,10 +20,10 @@
     "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.0",
-    "npm-check-updates": "^10.2.5"
+    "@testing-library/user-event": "^12.6.2",
+    "npm-check-updates": "^11.1.1"
   },
   "scripts": {
     "lint": "eslint . --ext .js",
