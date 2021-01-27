@@ -7,7 +7,7 @@
     color: transparent;
   }
   a.sublink {
-    padding-left: var(--space-sm); 
+    padding-left: var(--space-sm);
   }
   #collapse--button{
     cursor: e-resize;
@@ -16,7 +16,7 @@
     display: inline;
     width: min-content;
     padding : var(--space-sm);
-    svg{ 
+    svg{
       margin: 0; padding: 0;
     }
     span {
@@ -38,11 +38,11 @@ aside.sidebar {
     width: calc(var(--borderWidth) * 2 );
     cursor: w-resize;
     border-radius: var(--borderRadius);
-    background-color: var(--color-gray);
+    background-color: var(--black);
     z-index: 11;
+    transition: background-color .2s;
     &:hover {
-      background-color: var(--color-black);
-
+      background-color: var(--primary-color);
     }
   }
   padding: var(--padding);
@@ -51,7 +51,7 @@ aside.sidebar {
   row-gap: calc(var(--padding) / 2);
   // border:1px solid red;
   // overflow: hidden;
-  
+
   #bottom {
     width: var(--sidebarWidth);
     position: fixed;
