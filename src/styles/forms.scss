@@ -3,7 +3,7 @@ form {
         display: grid;
         align-items: center;
         grid-template-columns: 220px 1fr;
-        grid-column-gap: 1rem;
+        grid-column-gap: var(--space);
     }
 
     label,
@@ -26,11 +26,16 @@ form input[type="checkbox"] {
 form input:required {
     border: var(--borderWidth) solid var(--primary-color);
 }
-
+fieldset{
+    border: 0;
+}
+form legend {
+    color: var(--white);
+}
 form.crud fieldset legend {
-    border-bottom: 1px solid white;
+    border-bottom: var(--borderWidth) solid var(--black);
     width: 100%;
-    padding-bottom: 5px;
+    padding-bottom: var(--space-sm);
 }
 
 @media only screen and (max-width: 700px) {

@@ -17,7 +17,7 @@ table {
 
   tbody {
     td {
-      padding-left: 10px;
+      padding: var(--space-sm);
     }
 
     td:last-child {

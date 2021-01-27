@@ -393,3 +393,11 @@ dt {
 dd {
     margin-left: 20px;
 }
+
+
+dl {
+    dt {
+        color :var(--white);
+        font-weight: normal;
+    }
+}

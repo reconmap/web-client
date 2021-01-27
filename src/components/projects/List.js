@@ -32,23 +32,24 @@ const ProjectsList = ({ history }) => {
                 <thead>
                     <tr>
                         <th style={{ width: '190px' }}>Name</th>
-                        <th className='w-32'>Client</th>
-                        <th className='w-32'>Rules of engagement</th>
-                        <th className='w-20'></th>
+                        <th>Client</th>
+                        <th>Description</th>
+                        <th>Rules of engagement</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {projects.length === 0 ?
                         <tr>
-                            <td colSpan="4"><NoResults /></td>
+                            <td colSpan="5"><NoResults /></td>
                         </tr> :
                         projects.map((project) =>
                             <tr key={project.id}>
                                 <td>
                                     <ProjectBadge project={project} />
-                                    <p>{project.description}</p>
                                 </td>
                                 <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
+                                <td>{project.description}</td>
                                 <td>Type: {project.engagement_type ?? '(undefined)'}</td>
                                 <td style={{ display: 'flex' }}>
                                     <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>

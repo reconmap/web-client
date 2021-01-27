@@ -2,6 +2,7 @@ import {IconLeft, IconRight} from '../ui/Icons'
 import SecondaryButton from './../ui/buttons/Secondary'
 import isInputElement from "../../utilities/domUtils";
 import {useCallback, useEffect} from 'react';
+import './Pagination.scss'
 
 const Pagination = ({page, total, handleNext, handlePrev}) => {
     const previousEnabled = page + 1 > 1;
@@ -28,7 +29,7 @@ const Pagination = ({page, total, handleNext, handlePrev}) => {
         };
     }, [onKeyDownListener]);
 
-    return <div className='flex space-x-2 items-center'>
+    return <div className='pagination'>
         <SecondaryButton disabled={!previousEnabled} onClick={handlePrev}><IconLeft/></SecondaryButton>
         <label>{page + 1} <span className='opacity-25'>|</span> {total} </label>
         <SecondaryButton disabled={!nextEnabled} onClick={handleNext}><IconRight/></SecondaryButton>
