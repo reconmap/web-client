@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.0.0",
-    "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9.8.6",
     "countries-and-timezones": "^2.3.1",
     "dayjs": "^1.10.4",
@@ -16,7 +15,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "recharts": "^2.0.3",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "ua-parser-js": "^0.7.23"
   },
   "devDependencies": {

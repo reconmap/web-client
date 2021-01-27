@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Redirect} from "react-router-dom";
 
 import {AuthConsumer} from "../../contexts/AuthContext";
-import Wrap from "../layout/Wrap";
+import LoginContainer from "../layout/LoginContainer";
 import PrimaryButton from "../ui/buttons/Primary";
+import './Login.scss'
 
 const Login = (props) => {
 
@@ -49,14 +50,12 @@ const Login = (props) => {
         <AuthConsumer>
             {
                 ({isAuth, login}) => (
-                    <Wrap>
+                    <LoginContainer>
                         {isAuth && <Redirect to={redirectTo}/>}
-                        <div className='flex justify-between items-center  w-full flex-col md:flex-row'>
-
-                            <section className="flex flex-col w-full sm:w-1/2 max-w-md gap-2 mx-auto text-center">
+                            <section className="login__form">
                                 <form onSubmit={e => handleSubmit(e, login)}>
                                     <fieldset>
-                                        <legend className="text-5xl font-bold mb-10">Login</legend>
+                                        <legend>Login</legend>
                                         <label htmlFor="inputUsername" className="sr-only">Username</label>
                                         <input type="text" id="inputUsername" onChange={handleUsername}
                                                placeholder="Username"
@@ -73,11 +72,7 @@ const Login = (props) => {
                                     </p>}
                                 </form>
                             </section>
-                            <i data-feather={'lock'}
-                               className='  order-1 md:order-3 p-5 hidden md:inline'/>
-                        </div>
-
-                    </Wrap>
+                    </LoginContainer>
                 )
             }
         </AuthConsumer>
