@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {AuthConsumer} from '../../contexts/AuthContext'
 import UserAvatar from './../badges/UserAvatar'
-
+import './HeaderUserMenu.scss'
 export default function HeaderUserMenu({email}) {
 
     const [showWindow, setShowWindow] = useState(false)
@@ -23,30 +23,9 @@ export default function HeaderUserMenu({email}) {
 
 
 const UserMenu = () => {
-
-    const styles = {
-        useMenu: {
-            position: 'absolute',
-            padding: 'var(--paddingBox)',
-            borderRadius: 'var(--borderRadius)',
-            backgroundColor: 'var(--black)',
-            color: 'var(--text-color)',
-            top: '40px',
-            right: 0,
-            margin: 'auto',
-            width: '180px',
-            zIndex: 10,
-            fontSize: 'var(--fontSizeSmall)',
-            display: 'flex',
-            rowGap: 'var(--margin)',
-            flexDirection: 'column',
-            textAlign: 'right'
-        },
-    }
-
     return <AuthConsumer>
         {({logout}) =>
-            <div style={styles.useMenu}>
+            <div className='HeaderUserMenu'>
                 <h5>User</h5>
                 <Link to={`/users/${localStorage.getItem('user.id')}`}>Your profile</Link>
                 <Link to='/users/preferences'>Preferences</Link>
