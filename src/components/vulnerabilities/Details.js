@@ -79,7 +79,7 @@ const VulnerabilityDetails = () => {
             <Tabs>
                 <Tab name="Details">
                     <div className="flex">
-                        <div>
+                        <div className='half'>
                             <h4>Description</h4>
                             <TextBlock value={vulnerability.description || "(empty)"} />
                             <h4>Details</h4>

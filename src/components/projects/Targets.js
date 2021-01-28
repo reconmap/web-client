@@ -52,7 +52,7 @@ const ProjectTargets = ({ project }) => {
                                     history.push(`/projects/${project.id}/targets/${target.id}`)
                                 }}>{target.name}</a>
                             </td>
-                            <td><IconServer /> {target.kind}</td>
+                            <td>{target.kind}</td>
                             <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
                             <td>
                                 <DeleteButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
