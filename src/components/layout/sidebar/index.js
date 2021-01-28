@@ -1,13 +1,24 @@
-import React, {useState} from 'react'
+import React, {useLayoutEffect, useState, useCallback} from 'react'
 import Links from './Links'
 import {Link, NavLink, useHistory} from 'react-router-dom'
 import {IconBookOpen, IconDashboard, IconChevronDown, IconSupport} from '../../ui/Icons';
 import SecondaryButton from '../../ui/buttons/Secondary';
+import IconCollapse from './../../../images/icons/collapse'
 import './Sidebar.scss';
 
 export default function Sidebar(props) {
     const { setSidebarCollapsed, sidebarCollapsed } = props
-    const history = useHistory();
+    const {push} = useHistory();
+
+    const watchClientWidth = useCallback( e =>{
+        if( e.target.innerWidth < 800 ) setSidebarCollapsed(true)
+    },[setSidebarCollapsed])
+
+    useLayoutEffect(()=>{
+        if( window.innerWidth < 800 ) setSidebarCollapsed(true)
+        window.addEventListener('resize', watchClientWidth);
+        return () => { window.removeEventListener('resize',watchClientWidth) }
+    },[watchClientWidth, setSidebarCollapsed])
 
     const defaultSectionStatuses = Object.assign({}, ...Links.map(link => ({[link.title]: false})));
     const [sectionStatuses, updateSectionStatuses] = useState(defaultSectionStatuses);
@@ -16,19 +27,15 @@ export default function Sidebar(props) {
         window.open("https://reconmap.org/user-manual/", '_blank');
     }
 
-    const onSupportButtonClick = () => {
-        history.push('/support');
-    }
+    const onSupportButtonClick = () => { push('/support'); }
 
     const onParentClick = (ev, link) => {
         ev.preventDefault();
-
         updateSectionStatuses({...sectionStatuses, [link.title]: !sectionStatuses[link.title]})
     }
 
     return (
         <aside className="sidebar ">
-            <span id='collapse--button' onClick={()=>setSidebarCollapsed(!sidebarCollapsed)}></span>
             <Link to={'/'} data-label='DashBoard'>
                 <IconDashboard size={5}/>
                 <span>Dashboard</span>
@@ -56,6 +63,13 @@ export default function Sidebar(props) {
                 </React.Fragment>
 
             })}
+            <button
+                onClick={()=>setSidebarCollapsed(!sidebarCollapsed)}>
+                <span style={{height: '20px', width:'20px', margin:0, padding:0, transformOrigin:'center center', transform: sidebarCollapsed ? `rotate(180deg)` : `rotate(0deg)`, display:'block'}}>
+                    <IconCollapse />
+                </span>
+                {!sidebarCollapsed && <span style={{ marginLeft:'var(--space-sm)'}}>Collapse</span>}
+            </button>
             <div id='bottom'>
                 <SecondaryButton onClick={handleUserManual}><IconBookOpen/><span>User manual</span></SecondaryButton>
                 <SecondaryButton onClick={onSupportButtonClick}><IconSupport /> <span>Support</span></SecondaryButton>
