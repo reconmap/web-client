@@ -17,7 +17,7 @@ export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
                     <th style={{ width: '120px' }}>Status</th>
                     <th style={{ width: '120px' }}>Risk</th>
                     <th style={{ width: '120px' }}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
-                    <th style={{ width: '20%' }}>Category</th>
+                    <th className='only-desktop' style={{ width: '20%' }}>Category</th>
                     <th style={{ width: '15%' }}>&nbsp;</th>
                 </tr>
             </thead>
@@ -38,8 +38,8 @@ export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
                                 <td><VulnerabilityStatusBadge status={vulnerability.status} /></td>
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td><CvssScore score={vulnerability.cvss_score} /></td>
-                                <td><VulnerabilityCategoryBadge category={vulnerability.category_name} /></td>
-                                <td style={{ display: 'flex' }}>
+                                <td className='only-desktop'><VulnerabilityCategoryBadge category={vulnerability.category_name} /></td>
+                                <td className='flex'>
                                     <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                                     {destroy &&
                                         <DeleteButton onClick={() => destroy(vulnerability.id)} />

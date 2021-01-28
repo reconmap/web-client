@@ -33,7 +33,7 @@ const ProjectsList = ({ history }) => {
                     <tr>
                         <th style={{ width: '190px' }}>Name</th>
                         <th>Client</th>
-                        <th>Description</th>
+                        <th className='only-desktop'>Description</th>
                         <th>Rules of engagement</th>
                         <th></th>
                     </tr>
@@ -49,7 +49,7 @@ const ProjectsList = ({ history }) => {
                                     <ProjectBadge project={project} />
                                 </td>
                                 <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
-                                <td>{project.description}</td>
+                                <td className='only-desktop'>{project.description}</td>
                                 <td>Type: {project.engagement_type ?? '(undefined)'}</td>
                                 <td style={{ display: 'flex' }}>
                                     <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>

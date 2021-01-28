@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import secureApiFetch from '../../services/api';
-import './Report.css';
+import './Report.scss';
 import Breadcrumb from './../ui/Breadcrumb'
 import {IconReport} from '../ui/Icons';
 import Title from '../ui/Title';
@@ -81,8 +81,8 @@ const ProjectReport = () => {
             <Title type="Project reporting" title="Preview report"
                    icon={<IconReport/>}/>
 
-            <div className="grid grid-cols-2 gap-4">
-                <div>
+            <div className="flex">
+                <div className='half'>
                     <form onSubmit={onSaveVersionSubmit}>
                         <fieldset>
                             <legend>Report version</legend>
@@ -115,8 +115,7 @@ const ProjectReport = () => {
                         </thead>
                     </table>
                 </div>
-                <div className='text-sm mx-auto max-w-xl rounded overflow-auto shadow my-4'
-                     id="report" dangerouslySetInnerHTML={{__html: preview}}></div>
+                <div className='half' id="report" dangerouslySetInnerHTML={{__html: preview}}></div>
             </div>
         </>
     )

@@ -13,7 +13,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
             <thead>
                 <tr>
                     <th style={{ width: '190px' }}>Name</th>
-                    <th>Description</th>
+                    <th className='only-desktop'>Description</th>
                     <th style={{ width: '190px' }}>Project</th>
                     <th>Assignee</th>
                     <th style={{ width: '100px' }}>Status</th>
@@ -32,7 +32,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                         .map((task) =>
                             <tr key={task.id}>
                                 <td><TaskBadge task={task} /></td>
-                                <td style={{ width: '20%' }}>{task.description.slice(0, 40)}</td>
+                                <td className='only-desktop' style={{ width: '20%' }}>{task.description.slice(0, 40)}</td>
                                 <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
                                 <td>{task.assignee_uid ?
                                     <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>

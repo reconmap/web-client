@@ -4,6 +4,10 @@
 @import "tables";
 
 :root {
+
+    --tablet : 600px;
+    --desktop: 1200px;
+
     --base-hue: 336; //190
     --saturation: 50%;
     --value: 55%;
@@ -234,7 +238,7 @@ h4,
 h5,
 h6 {
     color: var(--white);
-
+    font-weight: 500;
     button,
     div {
         margin-left: auto;
@@ -279,36 +283,8 @@ input:focus {
     border: var(--borderWidth) solid var(--gray);
 }
 
-// card reconmap components
-.card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--black);
-    border-radius: var(--borderRadius);
-    padding: var(--paddingBox);
-    border-width: var(--borderWidth);
-    border-color: transparent;
-    border-left: var(--borderWidth) solid var(--primary-color);
-    overflow: hidden;
-    color: var(--white);
 
-    footer {
-        align-self: stretch;
-        background-color: var(--bg-color);
-        padding: var(--padding);
-        font-size: var(--fontSizeSmall);
-        margin: auto calc(var(--padding) * -1) calc(var(--padding) * -0.5)
-            calc(var(--padding) * -1);
-    }
-}
 
-svg {
-    margin: 0;
-    width: var(--iconSizeSmall);
-    height: var(--iconSizeSmall);
-    padding: 0;
-    flex-shrink: 0;
-}
 
 hr {
     border-top-width: var(--borderWidth);
@@ -325,6 +301,7 @@ a,
 span,
 button,
 input,
+figure,
 h2,
 h3,
 h4 {
@@ -336,6 +313,7 @@ h4 {
         flex-shrink: 0;
     }
 }
+figure svg { margin: 0; }
 
 a {
     &:hover {
@@ -399,6 +377,39 @@ dd {
 dl {
     dt {
         color :var(--white);
-        font-weight: normal;
+        letter-spacing: 0.04rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        font-size: var(--fontSizeSmall);
+        // opacity: .5;
+        margin-top: var(--space-lg);
+        margin-bottom: var(--space-sm);
+        padding-bottom: var(--space-sm);
+        border-bottom: var(--borderWidth) solid var(--black);
+    }
+}
+
+.message__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-weight: var(--fontBold);
+    opacity: .4;
+    gap: var(--padding);
+    color: var(--text-color);
+}
+
+.card {
+    padding : var(--padding);
+    background-color: var(--black);
+    border-radius: 0 var(--borderRadius) var(--borderRadius) 0  ;
+    border-left: var(--borderWidth) solid var(--text-color);
+    dl {
+        dt {
+            border-bottom-color: var(--bg-color);
+        }
     }
 }

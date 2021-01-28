@@ -18,5 +18,7 @@
 }
 
 .Toast {
+  padding: var(--paddingBox);
+  border-radius: var(--borderRadius);
   border: var(--borderWidth) solid var(--primary-color);
 }

@@ -34,7 +34,7 @@ const CommandsListPage = () => {
                 <thead>
                     <tr>
                         <th>Short name</th>
-                        <th>Description</th>
+                        <th className='only-desktop'>Description</th>
                         <th>Docker image</th>
                         <th></th>
                     </tr>
@@ -47,7 +47,7 @@ const CommandsListPage = () => {
                         commands.map(command =>
                             <tr key={command.id}>
                                 <td><Link to={`/commands/${command.id}`}>{command.short_name}</Link></td>
-                                <td>{command.description}</td>
+                                <td className='only-desktop'>{command.description}</td>
                                 <td>{command.docker_image}</td>
                                 <td style={{ display: 'flex' }}>
                                     <DeleteButton onClick={() => destroy(command.id)} />

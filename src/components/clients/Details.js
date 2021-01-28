@@ -51,8 +51,8 @@ const ClientDetails = () => {
                 <Title type='Client' title={client.name} icon={<IconBriefcase />} />
             </div>
             <Timestamps insertTs={client.insert_ts} updateTs={client.update_ts} />
-            <div className="grid md:grid-cols-3">
-                <div className="col-span-2">
+            <div className="flex">
+                <div className="half">
                     <h4>Details</h4>
                     <dl>
                         <dt>Name</dt>

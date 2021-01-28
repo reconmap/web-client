@@ -78,8 +78,8 @@ const VulnerabilityDetails = () => {
 
             <Tabs>
                 <Tab name="Details">
-                    <div className="grid md:grid-cols-3">
-                        <div className="col-span-2">
+                    <div className="flex">
+                        <div>
                             <h4>Description</h4>
                             <TextBlock value={vulnerability.description || "(empty)"} />
                             <h4>Details</h4>

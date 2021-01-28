@@ -3,9 +3,9 @@ import './NoResults.css';
 
 export default function NoResults() {
     return (
-        <div className="NoResults">
+        <figure className="NoResults message__container">
             <IconExclamationCircle/>
             No results
-        </div>
+        </figure>
     )
 }

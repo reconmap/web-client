@@ -20,15 +20,12 @@ const IntegrationsList = ({ history }) => {
             </div>
             <Title title="Integrations" icon={<IconExtensions />} />
             {!integrations ? <Loading /> : integrations.length === 0 ? <NoResults /> :
-                <section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                <section className='flex'>
                     {integrations.map((integration, index) =>
-                        <article key={index} className='card '>
-                            <h2 className='mb-2'>
-                                {integration.name}
-                            </h2>
-                            <p className='mb-2'>{integration.description}</p>
-                            <dl>
-                                <dt>External URL</dt>
+                        <article key={index} className='card'>
+                            <h2> {integration.name} </h2>
+                            <p>{integration.description}</p>
+                            <dl> <dt>External URL</dt>
                                 <dd><a href={integration.externalUrl}>{integration.externalUrl}</a></dd>
                                 <dt>Configured</dt>
                                 <dd>{integration.configured ? 'Yes' : 'No'}</dd>

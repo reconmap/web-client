@@ -4,8 +4,8 @@ import { IconDocument } from '../ui/Icons'
 
 function ProjectDetailsTab({ project }) {
     return (
-        <section className="grid md:grid-cols-3">
-            <div className="col-span-2">
+        <section className="flex">
+            <div className="half">
                 <h4>
                     <IconDocument /> Project Details
                 </h4>

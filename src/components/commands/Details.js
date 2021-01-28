@@ -51,8 +51,8 @@ const CommandDetails = () => {
                 <Title type='Command' title={command.name} icon={<IconBriefcase />} />
             </div>
             <Timestamps insertTs={command.insert_ts} updateTs={command.update_ts} />
-            <div className="grid md:grid-cols-3">
-                <div className="col-span-2">
+            <div className="flex">
+                <div className="half">
                     <h4>Details</h4>
                     <dl>
                         <dt>Short name</dt>
@@ -65,7 +65,9 @@ const CommandDetails = () => {
                         <dd>{command.docker_image}</dd>
 
                         <dt>Container args</dt>
-                        <dd>{command.container_args}</dd>
+                        <dd>
+                            <code>{command.container_args}</code>
+                        </dd>
                     </dl>
                 </div>
                 <div>

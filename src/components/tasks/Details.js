@@ -98,8 +98,8 @@ const TaskDetails = ({ history, match }) => {
                     <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts} />
                     <Tabs>
                         <Tab name="Details">
-                            <div className="grid md:grid-cols-3">
-                                <div className="col-span-2">
+                            <div className="flex">
+                                <div className="half">
                                     <h4>Description</h4>
                                     <TextBlock value={task.description || "(empty)"} />
                                     <h4>Status</h4>

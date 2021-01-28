@@ -11,7 +11,7 @@ const Title = ({type, title, icon}) => {
             color: 'var(--primary-color)'
         },
         title: {
-            margin: 0,
+            marginTop: 'var(--space-sm)',
             color: 'var(--text-color)'
         },
         icon: {
