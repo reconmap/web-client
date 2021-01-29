@@ -49,7 +49,6 @@ const TemplatesList = ({ history }) => {
                             <th style={{ width: '190px' }}>Name</th>
                             <th>Description</th>
                             <th>Number of tasks</th>
-                            <th>Creation date/time</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -62,7 +61,6 @@ const TemplatesList = ({ history }) => {
                                     <td><ProjectBadge project={template} /></td>
                                     <td width='30%'>{template.description}</td>
                                     <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
-                                    <td><small>{template.insert_ts}</small></td>
                                     <td className="space-x-2 flex  justify-end">
                                         <PrimaryButton onClick={() => cloneProject(template.id)} key={template.id}
                                             title="Create project using this template"><IconPlus />Create

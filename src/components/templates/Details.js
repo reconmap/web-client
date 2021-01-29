@@ -11,7 +11,7 @@ import Title from '../ui/Title';
 import DeleteButton from "../ui/buttons/Delete";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import Timestamps from "../ui/Timestamps";
-import TextBlock from "../ui/TextBlock";
+import ReactMarkdown from 'react-markdown';
 
 const TemplateDetails = ({history, match}) => {
     useSetTitle('Projects templates');
@@ -46,7 +46,7 @@ const TemplateDetails = ({history, match}) => {
                     <Title title={template.name} type='Project template'/>
                     <Timestamps insertTs={template.insert_ts} updateTs={template.update_ts}/>
                     <h4>Description</h4>
-                    <TextBlock value={template.description}/>
+                    <ReactMarkdown>{template.description}</ReactMarkdown>
                     <h4>Tasks</h4>
                     <ol>
                         {tasks && tasks.map((task, index) =>
