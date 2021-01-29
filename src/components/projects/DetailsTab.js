@@ -1,5 +1,6 @@
 import UserLink from 'components/users/Link'
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
 import { IconDocument } from '../ui/Icons'
 
 function ProjectDetailsTab({ project }) {
@@ -11,7 +12,7 @@ function ProjectDetailsTab({ project }) {
                 </h4>
                 <dl>
                     <dt>Description</dt>
-                    <dd>{project.description}</dd>
+                    <dd><ReactMarkdown>{project.description}</ReactMarkdown></dd>
                 </dl>
             </div>
             <div>

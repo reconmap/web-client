@@ -17,11 +17,11 @@ import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import useFetch from './../../hooks/useFetch'
 import useDelete from './../../hooks/useDelete'
 import EditButton from "../ui/buttons/Edit";
-import TextBlock from "../ui/TextBlock";
 import VulnerabilitiesNotesTab from "./NotesTab";
 import Tab from "../ui/Tab";
 import Tabs from "../ui/Tabs";
 import UserLink from 'components/users/Link';
+import ReactMarkdown from 'react-markdown';
 
 const VulnerabilityDetails = () => {
     const history = useHistory()
@@ -81,7 +81,7 @@ const VulnerabilityDetails = () => {
                     <div className="flex">
                         <div className='half'>
                             <h4>Description</h4>
-                            <TextBlock value={vulnerability.description || "(empty)"} />
+                            <ReactMarkdown>{vulnerability.description || "_(empty)_"}</ReactMarkdown>
                             <h4>Details</h4>
                             <dl>
                                 <dt>Status</dt>

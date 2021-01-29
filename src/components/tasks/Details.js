@@ -12,13 +12,13 @@ import { actionCompletedToast } from "../ui/toast";
 import useFetch from './../../hooks/useFetch'
 import useDelete from '../../hooks/useDelete'
 import { Link } from "react-router-dom";
-import TextBlock from "../ui/TextBlock";
 import TaskStatusFormatter from "./TaskStatusFormatter";
 import TaskStatuses from "../../models/TaskStatuses";
 import Tabs from '../ui/Tabs'
 import Tab from '../ui/Tab'
 import TaskCommandTab from './CommandTab'
 import UserLink from 'components/users/Link'
+import ReactMarkdown from 'react-markdown'
 
 const TaskDetails = ({ history, match }) => {
     const taskId = match.params.taskId;
@@ -101,7 +101,7 @@ const TaskDetails = ({ history, match }) => {
                             <div className="flex">
                                 <div className="half">
                                     <h4>Description</h4>
-                                    <TextBlock value={task.description || "(empty)"} />
+                                    <ReactMarkdown>{task.description || "_(empty)_"}</ReactMarkdown>
                                     <h4>Status</h4>
                                     <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
                                         <TaskStatusFormatter task={task} />

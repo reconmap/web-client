@@ -1,6 +1,7 @@
 import DeleteButton from "../ui/buttons/Delete";
 import React from "react";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
+import ReactMarkdown from "react-markdown";
 
 const NotesTable = ({notes, onDeleteButtonClick}) => {
     return <table>
@@ -20,7 +21,7 @@ const NotesTable = ({notes, onDeleteButtonClick}) => {
                 <td>{note.insert_ts}</td>
                 <td>{note.user_name}</td>
                 <td>{note.visibility}</td>
-                <td>{note.content}</td>
+                <td><ReactMarkdown>{note.content}</ReactMarkdown></td>
                 <td><DeleteButton onClick={ev => onDeleteButtonClick(ev, note)}/></td>
             </tr>
         )}
