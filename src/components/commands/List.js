@@ -9,6 +9,7 @@ import { IconFolder } from '../ui/Icons';
 import NoResults from "../ui/NoResults";
 import CreateButton from 'components/ui/buttons/Create';
 import { Link, useHistory } from 'react-router-dom';
+import LinkButton from 'components/ui/buttons/Link';
 
 const CommandsListPage = () => {
     const history = useHistory();
@@ -50,6 +51,7 @@ const CommandsListPage = () => {
                                 <td className='only-desktop'>{command.description}</td>
                                 <td>{command.docker_image}</td>
                                 <td style={{ display: 'flex' }}>
+                                    <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
                                     <DeleteButton onClick={() => destroy(command.id)} />
                                 </td>
                             </tr>
