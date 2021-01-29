@@ -4,21 +4,23 @@ const SupportForm = () => {
 
     const user = JSON.parse(localStorage.getItem('user'));
 
-    const systemInfo = `### User ###
+    const systemInfo = `User
+----
 ID: ${user.id}
-Name: ${user.name}
+Name: ${user.full_name}
 
-### User agent ###
+Client
+------
+URL: ${document.location.protocol + "//" + document.location.host}
 User agent: ${navigator.userAgent}
+Version: ${process.env.REACT_APP_VERSION}
+Build: ${process.env.REACT_APP_GIT_COMMIT_HASH}
 
-### URLs ###
-Client URL: ${document.location.protocol + "//" + document.location.host}
+Server
+------
 API URL: ${window.env.REACT_APP_API_ENDPOINT}
 WebSocket URL: ${window.env.REACT_APP_WS_ENDPOINT}
 
-### Build ###
-Client version: ${process.env.REACT_APP_VERSION}
-Version hash: ${process.env.REACT_APP_GIT_COMMIT_HASH}
 `;
 
     const onCopyToClipboardClick = (ev) => {
