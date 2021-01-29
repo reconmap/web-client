@@ -121,8 +121,8 @@ const VulnerabilityForm = ({
             <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
                    onChange={onFormChange}/>
         </label>
-        <label><span>CVSS vector<br/><small>eg: AV:N/AC:L/Au:S/C:P/I:P/A:N</small></span>
-            <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange}/>
+        <label><span>CVSS vector</span>
+            <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N"/>
         </label>
         <label>Affected target
             <select name="target_id" value={vulnerability.target_id} onChange={onFormChange}>
