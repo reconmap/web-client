@@ -1,10 +1,8 @@
 import {IconExclamationCircle} from '../../ui/Icons'
 
 export default function PageNotFound() {
-    return (
-        <div className='h-full text-3xl  flex flex-col items-center justify-center text-center w-full '>
-            <IconExclamationCircle size='32'/>
-            <small>Page Not Found</small>
-        </div>
-    )
+    return <div style={{fontSize: 'x-large', textAlign: 'center'}}>
+        <figure><IconExclamationCircle styling={{width: '128px'}}/></figure>
+        Page Not Found
+    </div>
 }
