@@ -1,3 +1,8 @@
-.login__form{
-
+.loginform{
+    width: 90%;
+    max-width: 300px;
+    &__error {
+        color: var(--primary-color) ;
+        text-align:center;
+    }
 }

@@ -52,7 +52,7 @@ const Login = (props) => {
                 ({isAuth, login}) => (
                     <LoginContainer>
                         {isAuth && <Redirect to={redirectTo}/>}
-                            <section className="login__form">
+                            <section className="loginform">
                                 <form onSubmit={e => handleSubmit(e, login)}>
                                     <fieldset>
                                         <legend>Login</legend>
@@ -67,9 +67,7 @@ const Login = (props) => {
                                             type="submit">{!loading ? "Sign in" : "Processing..."}</PrimaryButton>
                                     </fieldset>
                                     {error &&
-                                    <p className='flex items-center justify-between border border-red-600 p-3 rounded  text-red-600 text-center'>
-                                        <span className='mx-auto'>{error}</span>
-                                    </p>}
+                                    <p className="loginform__error">{error} </p>}
                                 </form>
                             </section>
                     </LoginContainer>

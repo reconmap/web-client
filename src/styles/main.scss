@@ -132,6 +132,7 @@
     --fontSizeBody: 1rem;
     --fontSizeSmall: 0.85rem;
     --fontSizeXsmall: 0.75rem;
+    --fontSizeXxsmall: 0.65rem;
     --fontBold: 700;
     --transitionTime: 0.2s ease-out;
 }
@@ -359,6 +360,25 @@ button {
 button {
     display: inline-flex;
     align-items: center;
+    cursor: pointer;
+    position: relative;
+    &[title]:hover:after{
+        content : attr(title);        
+        position: absolute;
+        display: block;
+        padding: var(--space-sm);
+        font-size: var(--fontSizeXsmall);
+        opacity: .8;
+        top: 130%;
+        left : -35%; 
+        right: -35%;
+        margin:auto;
+        // width:max-content;
+        background-color: var(--black);
+        border-radius: var(--borderRadius);
+        color : var(--text-color);
+        animation: fadeInDown .1s ease;
+    }
 }
 
 div.has-help {

@@ -37,7 +37,7 @@ export default function Sidebar(props) {
     return (
         <aside className="sidebar " style={{ paddingTop: sidebarCollapsed ? 'calc(var(--space) * 4)' : 'var(--space)'}}>
             <button onClick={()=>setSidebarCollapsed(!sidebarCollapsed)} 
-            style={{ cursor:'pointer' , padding: '5px', position:'absolute',  top: 'var(--space)', display: 'inline', zIndex: '10', right:sidebarCollapsed ? 'var(--space)': 0,  margin:'auto'}}>
+            style={{ padding: '5px', position:'absolute',  top: 'var(--space)', display: 'inline', zIndex: '10', right:sidebarCollapsed ? 'var(--space)': 0,  margin:'auto'}}>
                 <span style={{height: '20px', width:'20px', margin:0, padding:0, transformOrigin:'center center', transform: sidebarCollapsed ? `rotate(180deg)` : `rotate(0deg)`, display:'block'}}>
                     <IconCollapse />
                 </span>
