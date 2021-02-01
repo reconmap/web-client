@@ -1,17 +1,17 @@
-import Loading from '../ui/Loading';
+import TimestampsSection from "components/ui/TimestampsSection";
+import { Link, useHistory } from "react-router-dom";
+import useDelete from "../../hooks/useDelete";
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
-import Breadcrumb from '../ui/Breadcrumb';
-import UserRoleBadge from '../badges/UserRoleBadge';
-import UserAvatar from '../badges/UserAvatar';
 import AuditLogsTable from '../auditlog/AuditLogsTable';
-import Timestamps from "../ui/Timestamps";
-import Title from '../ui/Title';
-import { Link, useHistory } from "react-router-dom";
+import UserAvatar from '../badges/UserAvatar';
+import UserRoleBadge from '../badges/UserRoleBadge';
+import Breadcrumb from '../ui/Breadcrumb';
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
-import useDelete from "../../hooks/useDelete";
 import LinkButton from "../ui/buttons/Link";
+import Loading from '../ui/Loading';
+import Title from '../ui/Title';
 
 const UserProfile = ({ match }) => {
     useSetTitle('User');
@@ -45,28 +45,32 @@ const UserProfile = ({ match }) => {
                 </ButtonGroup>
             </div>
             <div>
-                <div>
-                    {user ?
-                        <>
-                            <Title type='User profile' title={user.full_name}
-                                icon={<UserAvatar email={user.email} size='--iconSizeXLarge' />} />
-                            <div><Timestamps insertTs={user.insert_ts} updateTs={user.update_ts} /></div>
+                {user ?
+                    <>
+                        <Title type='User profile' title={user.full_name}
+                            icon={<UserAvatar email={user.email} size='--iconSizeXLarge' />} />
 
-                            <h4>Details</h4>
-                            <dl>
-                                <dt>Role</dt>
-                                <dd><UserRoleBadge role={user.role} /><br /></dd>
+                        <div className="flex">
+                            <div className="half">
+                                <h4>Details</h4>
+                                <dl>
+                                    <dt>Role</dt>
+                                    <dd><UserRoleBadge role={user.role} /><br /></dd>
 
-                                <dt>Timezone</dt>
-                                <dd>{user.timezone}</dd>
-                            </dl>
+                                    <dt>Timezone</dt>
+                                    <dd>{user.timezone}</dd>
+                                </dl>
+                            </div>
 
-                            <h4>Activity</h4>
-                            {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true" /> : <Loading />}
-                        </>
-                        : <Loading />}
-                </div>
+                            <div class="push-right">
+                                <TimestampsSection entity={user} />
+                            </div>
+                        </div>
 
+                        <h4>Activity</h4>
+                        {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true" /> : <Loading />}
+                    </>
+                    : <Loading />}
             </div>
         </>
     )

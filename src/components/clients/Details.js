@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
+import TimestampsSection from 'components/ui/TimestampsSection';
+import UserLink from 'components/users/Link';
+import React, { useEffect } from 'react';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import Breadcrumb from "../ui/Breadcrumb";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from '../ui/buttons/Delete';
-import Title from '../ui/Title';
-import Timestamps from "../ui/Timestamps";
+import EditButton from "../ui/buttons/Edit";
 import ExternalLink from "../ui/ExternalLink";
 import { IconBriefcase } from '../ui/Icons';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import useFetch from './../../hooks/useFetch'
-import useDelete from './../../hooks/useDelete'
-import Loading from './../ui/Loading'
-import Breadcrumb from "../ui/Breadcrumb";
-import EditButton from "../ui/buttons/Edit";
-import ButtonGroup from "../ui/buttons/ButtonGroup";
-import UserLink from 'components/users/Link';
+import Title from '../ui/Title';
+import useDelete from './../../hooks/useDelete';
+import useFetch from './../../hooks/useFetch';
+import Loading from './../ui/Loading';
 
 const ClientDetails = () => {
     const { params: { clientId } } = useRouteMatch()
@@ -50,7 +50,7 @@ const ClientDetails = () => {
             <div>
                 <Title type='Client' title={client.name} icon={<IconBriefcase />} />
             </div>
-            <Timestamps insertTs={client.insert_ts} updateTs={client.update_ts} />
+
             <div className="flex">
                 <div className="half">
                     <h4>Details</h4>
@@ -71,12 +71,15 @@ const ClientDetails = () => {
                         <dd><a href={`tel:${client.contact_phone}`}>{client.contact_phone}</a></dd>
                     </dl>
                 </div>
-                <div>
+
+                <div className="push-right">
                     <h4>Relations</h4>
                     <dl>
                         <dt>Created by</dt>
                         <dd><UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink></dd>
                     </dl>
+
+                    <TimestampsSection entity={client} />
                 </div>
             </div>
         </article>

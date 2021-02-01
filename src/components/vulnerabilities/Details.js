@@ -1,8 +1,8 @@
+import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import ReactTimeAgo from 'react-time-ago';
 import secureApiFetch from '../../services/api';
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
@@ -101,7 +101,8 @@ const VulnerabilityDetails = () => {
                                 </dd>
                             </dl>
                         </div>
-                        <div>
+
+                        <div className="push-right">
                             <h4>Relations</h4>
                             <dl>
                                 <dt>Project</dt>
@@ -115,14 +116,7 @@ const VulnerabilityDetails = () => {
                                 <dd><UserLink userId={vulnerability.creator_uid}>{vulnerability.creator_full_name}</UserLink></dd>
                             </dl>
 
-                            <h4>Dates</h4>
-                            <dl>
-                                <dt>Created</dt>
-                                <dd><ReactTimeAgo date={vulnerability.insert_ts} /></dd>
-
-                                <dt>Updated</dt>
-                                <dd><ReactTimeAgo date={vulnerability.update_ts} /></dd>
-                            </dl>
+                            <TimestampsSection entity={vulnerability} />
                         </div>
                     </div>
                 </Tab>

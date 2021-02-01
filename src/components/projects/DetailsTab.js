@@ -1,3 +1,4 @@
+import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -15,7 +16,8 @@ function ProjectDetailsTab({ project }) {
                     <dd><ReactMarkdown>{project.description}</ReactMarkdown></dd>
                 </dl>
             </div>
-            <div>
+
+            <div className="push-right">
                 <h4>Relations</h4>
                 <dl>
                     <dt>Client</dt>
@@ -24,6 +26,8 @@ function ProjectDetailsTab({ project }) {
                     <dt>Created by</dt>
                     <dd><UserLink userId={project.creator_uid}>{project.creator_full_name}</UserLink></dd>
                 </dl>
+
+                <TimestampsSection entity={project} />
             </div>
         </section>
     )

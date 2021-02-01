@@ -1,24 +1,24 @@
+import TimestampsSection from 'components/ui/TimestampsSection'
+import UserLink from 'components/users/Link'
 import React, { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import { Link } from "react-router-dom"
+import useDelete from '../../hooks/useDelete'
+import TaskStatuses from "../../models/TaskStatuses"
 import secureApiFetch from '../../services/api'
+import Breadcrumb from "../ui/Breadcrumb"
+import ButtonGroup from "../ui/buttons/ButtonGroup"
+import DeleteButton from "../ui/buttons/Delete"
 import PrimaryButton from '../ui/buttons/Primary'
 import { IconClipboard } from '../ui/Icons'
-import Title from './../ui/Title'
-import ButtonGroup from "../ui/buttons/ButtonGroup";
-import DeleteButton from "../ui/buttons/Delete";
-import Breadcrumb from "../ui/Breadcrumb";
 import Loading from '../ui/Loading'
-import Timestamps from "../ui/Timestamps";
-import { actionCompletedToast } from "../ui/toast";
-import useFetch from './../../hooks/useFetch'
-import useDelete from '../../hooks/useDelete'
-import { Link } from "react-router-dom";
-import TaskStatusFormatter from "./TaskStatusFormatter";
-import TaskStatuses from "../../models/TaskStatuses";
-import Tabs from '../ui/Tabs'
 import Tab from '../ui/Tab'
+import Tabs from '../ui/Tabs'
+import { actionCompletedToast } from "../ui/toast"
+import useFetch from './../../hooks/useFetch'
+import Title from './../ui/Title'
 import TaskCommandTab from './CommandTab'
-import UserLink from 'components/users/Link'
-import ReactMarkdown from 'react-markdown'
+import TaskStatusFormatter from "./TaskStatusFormatter"
 
 const TaskDetails = ({ history, match }) => {
     const taskId = match.params.taskId;
@@ -95,7 +95,7 @@ const TaskDetails = ({ history, match }) => {
             {!task ? <Loading /> :
                 <article>
                     <Title title={task.name} type='Task' icon={<IconClipboard />} />
-                    <Timestamps insertTs={task.insert_ts} updateTs={task.update_ts} />
+
                     <Tabs>
                         <Tab name="Details">
                             <div className="flex">
@@ -107,7 +107,8 @@ const TaskDetails = ({ history, match }) => {
                                         <TaskStatusFormatter task={task} />
                                     </p>
                                 </div>
-                                <div>
+
+                                <div class="push-right">
                                     <h4>People</h4>
                                     <dl>
                                         <dt>Created by</dt>
@@ -123,6 +124,8 @@ const TaskDetails = ({ history, match }) => {
                                             </select>
                                         </dd>
                                     </dl>
+
+                                    <TimestampsSection entity={task} />
                                 </div>
                             </div>
                         </Tab>

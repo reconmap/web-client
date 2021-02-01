@@ -3,6 +3,10 @@
     flex-direction: column;
     gap: var(--space);
 }
+.push-right {
+    margin-left: auto;
+    padding-right: 60px;
+}
 @media (min-width: 600px) {
     .flex {
         flex-direction: row;

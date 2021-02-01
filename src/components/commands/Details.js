@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
-import DeleteButton from '../ui/buttons/Delete';
-import Title from '../ui/Title';
-import Timestamps from "../ui/Timestamps";
-import { IconBriefcase } from '../ui/Icons';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch'
-import useDelete from '../../hooks/useDelete'
-import Loading from '../ui/Loading'
-import Breadcrumb from "../ui/Breadcrumb";
-import EditButton from "../ui/buttons/Edit";
-import ButtonGroup from "../ui/buttons/ButtonGroup";
-import ReactMarkdown from 'react-markdown';
+import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
+import React, { useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import useDelete from '../../hooks/useDelete';
+import useFetch from '../../hooks/useFetch';
+import Breadcrumb from "../ui/Breadcrumb";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
+import DeleteButton from '../ui/buttons/Delete';
+import EditButton from "../ui/buttons/Edit";
+import { IconBriefcase } from '../ui/Icons';
+import Loading from '../ui/Loading';
+import Title from '../ui/Title';
 
 const CommandDetails = () => {
     const { params: { commandId } } = useRouteMatch()
@@ -50,7 +50,7 @@ const CommandDetails = () => {
             <div>
                 <Title type='Command' title={command.name} icon={<IconBriefcase />} />
             </div>
-            <Timestamps insertTs={command.insert_ts} updateTs={command.update_ts} />
+
             <div className="flex">
                 <div className="half">
                     <h4>Details</h4>
@@ -70,12 +70,15 @@ const CommandDetails = () => {
                         </dd>
                     </dl>
                 </div>
-                <div>
+
+                <div className="push-right">
                     <h4>Relations</h4>
                     <dl>
                         <dt>Created by</dt>
                         <dd><UserLink userId={command.creator_uid}>{command.creator_full_name}</UserLink></dd>
                     </dl>
+
+                    <TimestampsSection entity={command} />
                 </div>
             </div>
         </article>
