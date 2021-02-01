@@ -50,6 +50,7 @@ class AuthProvider extends Component {
     }
 
     logout() {
+        this.setState({isAuth: false})
         secureApiFetch(`/users/logout`, {
             method: 'POST',
         })
@@ -58,7 +59,6 @@ class AuthProvider extends Component {
                 localStorage.removeItem('isAuth');
                 localStorage.removeItem('user.id');
                 localStorage.removeItem('user');
-                this.setState({isAuth: false})
             });
     }
 

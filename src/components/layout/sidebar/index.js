@@ -35,7 +35,14 @@ export default function Sidebar(props) {
     }
 
     return (
-        <aside className="sidebar ">
+        <aside className="sidebar " style={{ paddingTop: sidebarCollapsed ? 'calc(var(--space) * 4)' : 'var(--space)'}}>
+            <button onClick={()=>setSidebarCollapsed(!sidebarCollapsed)} 
+            style={{ cursor:'pointer' , padding: '5px', position:'absolute',  top: 'var(--space)', display: 'inline', zIndex: '10', right:sidebarCollapsed ? 'var(--space)': 0,  margin:'auto'}}>
+                <span style={{height: '20px', width:'20px', margin:0, padding:0, transformOrigin:'center center', transform: sidebarCollapsed ? `rotate(180deg)` : `rotate(0deg)`, display:'block'}}>
+                    <IconCollapse />
+                </span>
+            </button>
+
             <Link to={'/'} data-label='DashBoard'>
                 <IconDashboard size={5}/>
                 <span>Dashboard</span>
@@ -63,13 +70,7 @@ export default function Sidebar(props) {
                 </React.Fragment>
 
             })}
-            <button
-                onClick={()=>setSidebarCollapsed(!sidebarCollapsed)}>
-                <span style={{height: '20px', width:'20px', margin:0, padding:0, transformOrigin:'center center', transform: sidebarCollapsed ? `rotate(180deg)` : `rotate(0deg)`, display:'block'}}>
-                    <IconCollapse />
-                </span>
-                {!sidebarCollapsed && <span style={{ marginLeft:'var(--space-sm)'}}>Collapse</span>}
-            </button>
+           
             <div id='bottom'>
                 <SecondaryButton onClick={handleUserManual}><IconBookOpen/><span>User manual</span></SecondaryButton>
                 <SecondaryButton onClick={onSupportButtonClick}><IconSupport /> <span>Support</span></SecondaryButton>
