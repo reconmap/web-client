@@ -1,27 +1,27 @@
-import React, { useEffect } from 'react'
-import secureApiFetch from '../../services/api'
-import CvssScore from '../badges/CvssScore';
-import RiskBadge from '../badges/RiskBadge'
-import PrimaryButton from '../ui/buttons/Primary';
-import DeleteButton from '../ui/buttons/Delete';
-import Title from '../ui/Title';
-import ExternalLink from "../ui/ExternalLink";
-import VulnerabilityStatusBadge from "./StatusBadge";
-import ButtonGroup from "../ui/buttons/ButtonGroup";
-import Breadcrumb from '../ui/Breadcrumb';
-import Loading from '../ui/Loading';
-import Timestamps from "../ui/Timestamps";
-import { IconCheck, IconFlag } from '../ui/Icons';
-import { actionCompletedToast } from "../ui/toast";
+import UserLink from 'components/users/Link';
+import React, { useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import useFetch from './../../hooks/useFetch'
-import useDelete from './../../hooks/useDelete'
+import ReactTimeAgo from 'react-time-ago';
+import secureApiFetch from '../../services/api';
+import CvssScore from '../badges/CvssScore';
+import RiskBadge from '../badges/RiskBadge';
+import Breadcrumb from '../ui/Breadcrumb';
+import ButtonGroup from "../ui/buttons/ButtonGroup";
+import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
-import VulnerabilitiesNotesTab from "./NotesTab";
+import PrimaryButton from '../ui/buttons/Primary';
+import ExternalLink from "../ui/ExternalLink";
+import { IconCheck, IconFlag } from '../ui/Icons';
+import Loading from '../ui/Loading';
 import Tab from "../ui/Tab";
 import Tabs from "../ui/Tabs";
-import UserLink from 'components/users/Link';
-import ReactMarkdown from 'react-markdown';
+import Title from '../ui/Title';
+import { actionCompletedToast } from "../ui/toast";
+import useDelete from './../../hooks/useDelete';
+import useFetch from './../../hooks/useFetch';
+import VulnerabilitiesNotesTab from "./NotesTab";
+import VulnerabilityStatusBadge from "./StatusBadge";
 
 const VulnerabilityDetails = () => {
     const history = useHistory()
@@ -74,7 +74,6 @@ const VulnerabilityDetails = () => {
         </div>
         <article>
             <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag />} />
-            <Timestamps insertTs={vulnerability.insert_ts} updateTs={vulnerability.update_ts} />
 
             <Tabs>
                 <Tab name="Details">
@@ -104,7 +103,6 @@ const VulnerabilityDetails = () => {
                         </div>
                         <div>
                             <h4>Relations</h4>
-
                             <dl>
                                 <dt>Project</dt>
                                 <dd>{vulnerability.project_id ?
@@ -115,6 +113,15 @@ const VulnerabilityDetails = () => {
 
                                 <dt>Created by</dt>
                                 <dd><UserLink userId={vulnerability.creator_uid}>{vulnerability.creator_full_name}</UserLink></dd>
+                            </dl>
+
+                            <h4>Dates</h4>
+                            <dl>
+                                <dt>Created</dt>
+                                <dd><ReactTimeAgo date={vulnerability.insert_ts} /></dd>
+
+                                <dt>Updated</dt>
+                                <dd><ReactTimeAgo date={vulnerability.update_ts} /></dd>
                             </dl>
                         </div>
                     </div>

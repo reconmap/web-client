@@ -2,6 +2,7 @@ import DeleteButton from "components/ui/buttons/Delete";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import FileSizeSpan from "components/ui/FileSizeSpan";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import ReactTimeAgo from 'react-time-ago';
 
 const AttachmentsTable = ({ attachments, onDeleteAttachmentClick }) => {
 
@@ -18,7 +19,7 @@ const AttachmentsTable = ({ attachments, onDeleteAttachmentClick }) => {
             {attachments.length === 0 && <NoResultsTableRow numColumns={5} />}
             {attachments.map((attachment, index) =>
                 <tr key={index}>
-                    <td>{attachment.insert_ts}</td>
+                    <td><ReactTimeAgo date={attachment.insert_ts} /></td>
                     <td>{attachment.submitter_name}</td>
                     <td>{attachment.client_file_name}</td>
                     <td><FileSizeSpan fileSize={attachment.file_size} /></td>
