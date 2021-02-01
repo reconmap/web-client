@@ -19,6 +19,7 @@ import ProjectNotesTab from "./NotesTab";
 import LinkButton from "../ui/buttons/Link";
 import Tab from "../ui/Tab";
 import Timestamps from "../ui/Timestamps";
+import ProjectAttachmentsTab from './AttachmentsTab';
 
 const ProjectDetails = ({match, history}) => {
     useSetTitle('Project');
@@ -71,6 +72,7 @@ const ProjectDetails = ({match, history}) => {
                         <Tab name="Tasks"><ProjectTasks project={project}/></Tab>
                         <Tab name="Vulnerabilities"><ProjectVulnerabilities project={project}/></Tab>
                         <Tab name="Notes"><ProjectNotesTab project={project}/></Tab>
+                        <Tab name="Attachments"><ProjectAttachmentsTab project={project}/></Tab>
                     </Tabs>
                 </>
             }
