@@ -1,10 +1,10 @@
-import TaskBadge from '../badges/TaskBadge'
-import BadgeOutline from '../badges/BadgeOutline'
-import UserLink from "../users/Link";
-import NoResults from "../ui/NoResults";
 import React from "react";
+import BadgeOutline from '../badges/BadgeOutline';
+import TaskBadge from '../badges/TaskBadge';
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
+import NoResults from "../ui/NoResults";
+import UserLink from "../users/Link";
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
 export default function TasksTable({ tasks, filter = { project: '', status: '' }, destroy }) {
@@ -32,7 +32,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                         .map((task) =>
                             <tr key={task.id}>
                                 <td><TaskBadge task={task} /></td>
-                                <td className='only-desktop truncate' >{task.description.slice(0, 40)}</td>
+                                <td className='only-desktop truncate' >{task.description}</td>
                                 <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
                                 <td  >{task.assignee_uid ?
                                     <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
