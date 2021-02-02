@@ -15,7 +15,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                     <th style={{ width: '190px' }}>Name</th>
                     <th className='only-desktop'>Description</th>
                     <th style={{ width: '190px' }}>Project</th>
-                    <th>Assignee</th>
+                    <th style={{ width: '12ch' }}>Assignee</th>
                     <th style={{ width: '100px' }}>Status</th>
                     <th>Command</th>
                     <th>&nbsp;</th>
@@ -32,13 +32,13 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                         .map((task) =>
                             <tr key={task.id}>
                                 <td><TaskBadge task={task} /></td>
-                                <td className='only-desktop' style={{ width: '20%' }}>{task.description.slice(0, 40)}</td>
+                                <td className='only-desktop truncate' >{task.description.slice(0, 40)}</td>
                                 <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
-                                <td>{task.assignee_uid ?
+                                <td  >{task.assignee_uid ?
                                     <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
                                 <td><TaskStatusFormatter task={task} /></td>
                                 <td>{task.command_short_name ? <BadgeOutline>{task.command_short_name}</BadgeOutline> : '-'}</td>
-                                <td style={{ display: "flex" }}>
+                                <td className='flex justify-end'>
                                     <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
                                     <DeleteButton onClick={() => destroy(task.id)} />
                                 </td>

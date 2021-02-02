@@ -34,7 +34,7 @@ export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td><CvssScore score={vulnerability.cvss_score} /></td>
                                 <td className='only-desktop'><VulnerabilityCategoryBadge category={vulnerability.category_name} /></td>
-                                <td className='flex'>
+                                <td className='flex justify-end'>
                                     <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                                     {destroy &&
                                         <DeleteButton onClick={() => destroy(vulnerability.id)} />

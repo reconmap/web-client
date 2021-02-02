@@ -51,7 +51,7 @@ const ProjectsList = ({ history }) => {
                                 <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
                                 <td className='only-desktop truncate'>{project.description}</td>
                                 <td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</td>
-                                <td style={{ display: 'flex' }}>
+                                <td className='flex justify-end'>
                                     <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
                                     <DeleteButton onClick={() => destroy(project.id)} />
                                 </td>

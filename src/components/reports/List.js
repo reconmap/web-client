@@ -68,33 +68,17 @@ const ReportsList = ({ history }) => {
                                 <tr key={index}>
                                     <td><Link to={`/projects/${report.project_id}`}>{report.project_name}</Link></td>
                                     <td>{report.version_name} - {report.version_description}</td>
-                                    <td>
-                                        <Link onClick={() => handleDownload(report.id, 'text/html')}>
-                                            <div style={{
-                                                width: '43px',
-                                                height: '56px',
-                                                borderTopRightRadius: '10px',
-                                                borderWidth: '3px'
-                                            }}
-                                                className='  p-1 rounded text-xs  flex items-center justify-end font-medium flex-col'>
+                                    <td className='flex'>
+                                        <BtnSecondary onClick={() => handleDownload(report.id, 'text/html')}>
                                                 <IconCode /> HTML
-                                        </div>
-                                        </Link>
+                                        </BtnSecondary>
 
-                                        <Link onClick={() => handleDownload(report.id, 'application/pdf')}>
-                                            <div style={{
-                                                width: '43px',
-                                                height: '56px',
-                                                borderTopRightRadius: '10px',
-                                                borderWidth: '3px'
-                                            }}
-                                                className='  p-1 rounded text-xs  flex items-center justify-end font-medium flex-col'>
-                                                <IconDocument /> PDF
-                                        </div>
-                                        </Link>
+                                        <BtnSecondary onClick={() => handleDownload(report.id, 'application/pdf')}>
+                                            <IconDocument /> PDF
+                                        </BtnSecondary>
                                     </td>
                                     <td>{report.insert_ts}</td>
-                                    <td className="space-x-2 flex  justify-end">
+                                    <td className='flex justify-end'>
                                         <BtnSecondary onClick={() => handleSendByEmail(report.id)}>Send by
                                         email</BtnSecondary>
                                         <DeleteButton onClick={() => deleteReport(report.id)} />

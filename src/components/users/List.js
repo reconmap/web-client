@@ -128,7 +128,7 @@ const UsersList = ({ history }) => {
                                 <td>
                                     <UserRoleBadge role={user.role} />
                                 </td>
-                                <td style={{ display: "flex" }}>
+                                <td className='flex justify-end'>
                                     <LinkButton href={`/users/${user.id}/edit`}>
                                         Edit
                                     </LinkButton>

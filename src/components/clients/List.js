@@ -54,7 +54,7 @@ const ClientsList = ({history}) => {
                             <td>{client.contact_name || '-'}</td>
                             <td>{client.contact_email || '-'}</td>
                             <td>{client.contact_phone || '-'}</td>
-                            <td style={{display: "flex"}}>
+                            <td className='flex justify-end'>
                                 <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
                                 <DeleteButton onClick={() => destroy(client.id)}/>
                             </td>

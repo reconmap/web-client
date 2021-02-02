@@ -48,7 +48,7 @@ const TemplatesList = ({ history }) => {
                         <tr>
                             <th style={{ width: '190px' }}>Name</th>
                             <th>Description</th>
-                            <th>Number of tasks</th>
+                            <th  style={{ width: '16ch'}}>Number of tasks</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -59,9 +59,9 @@ const TemplatesList = ({ history }) => {
                             templates.map((template) =>
                                 <tr key={template.id} onClick={() => viewProject(template.id)}>
                                     <td><ProjectBadge project={template} /></td>
-                                    <td width='30%'>{template.description}</td>
+                                    <td className='truncate'>{template.description}</td>
                                     <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
-                                    <td className="space-x-2 flex  justify-end">
+                                    <td className='flex justify-end'>
                                         <PrimaryButton onClick={() => cloneProject(template.id)} key={template.id}
                                             title="Create project using this template"><IconPlus />Create
                                         project</PrimaryButton>
