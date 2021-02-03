@@ -108,7 +108,7 @@ const TaskDetails = ({ history, match }) => {
                                     </p>
                                 </div>
 
-                                <div class="push-right">
+                                <div className="push-right">
                                     <h4>People</h4>
                                     <dl>
                                         <dt>Created by</dt>

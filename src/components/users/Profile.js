@@ -62,7 +62,7 @@ const UserProfile = ({ match }) => {
                                 </dl>
                             </div>
 
-                            <div class="push-right">
+                            <div className="push-right">
                                 <TimestampsSection entity={user} />
                             </div>
                         </div>

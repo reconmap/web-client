@@ -46,7 +46,7 @@ const TemplateDetails = ({ history, match }) => {
                     <Title title={template.name} type='Project template' />
 
                     <div className="flex">
-                        <div class="half">
+                        <div className="half">
                             <h4>Description</h4>
                             <ReactMarkdown>{template.description}</ReactMarkdown>
                             <h4>Tasks</h4>
@@ -59,7 +59,7 @@ const TemplateDetails = ({ history, match }) => {
                             </ol>
                         </div>
 
-                        <div class="push-right">
+                        <div className="push-right">
                             <TimestampsSection entity={template} />
                         </div>
                     </div>

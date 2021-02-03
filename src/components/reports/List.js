@@ -1,15 +1,15 @@
-import useSetTitle from '../../hooks/useSetTitle';
-import Loading from '../ui/Loading';
-import useFetch from '../../hooks/useFetch';
 import { Link } from 'react-router-dom';
+import useDelete from '../../hooks/useDelete';
+import useFetch from '../../hooks/useFetch';
+import useSetTitle from '../../hooks/useSetTitle';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import useDelete from '../../hooks/useDelete';
-import { IconCode, IconDocument, IconReport } from '../ui/Icons';
 import DeleteButton from "../ui/buttons/Delete";
-import Title from '../ui/Title';
-import BtnSecondary from "../ui/buttons/Secondary";
+import SecondaryButton from "../ui/buttons/Secondary";
+import { IconCode, IconDocument, IconReport } from '../ui/Icons';
+import Loading from '../ui/Loading';
 import NoResults from "../ui/NoResults";
+import Title from '../ui/Title';
 
 const ReportsList = ({ history }) => {
     useSetTitle('Saved Reports');
@@ -69,18 +69,18 @@ const ReportsList = ({ history }) => {
                                     <td><Link to={`/projects/${report.project_id}`}>{report.project_name}</Link></td>
                                     <td>{report.version_name} - {report.version_description}</td>
                                     <td className='flex'>
-                                        <BtnSecondary onClick={() => handleDownload(report.id, 'text/html')}>
-                                                <IconCode /> HTML
-                                        </BtnSecondary>
+                                        <SecondaryButton onClick={() => handleDownload(report.id, 'text/html')}>
+                                            <IconCode /> HTML
+                                        </SecondaryButton>
 
-                                        <BtnSecondary onClick={() => handleDownload(report.id, 'application/pdf')}>
+                                        <SecondaryButton onClick={() => handleDownload(report.id, 'application/pdf')}>
                                             <IconDocument /> PDF
-                                        </BtnSecondary>
+                                        </SecondaryButton>
                                     </td>
                                     <td>{report.insert_ts}</td>
                                     <td className='flex justify-end'>
-                                        <BtnSecondary onClick={() => handleSendByEmail(report.id)}>Send by
-                                        email</BtnSecondary>
+                                        <SecondaryButton onClick={() => handleSendByEmail(report.id)}>Send by
+                                        email</SecondaryButton>
                                         <DeleteButton onClick={() => deleteReport(report.id)} />
                                     </td>
                                 </tr>

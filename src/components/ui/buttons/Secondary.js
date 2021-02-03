@@ -1,12 +1,12 @@
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-export default function SecondaryButton({onClick, children, to, disabled = false, external = false, tooltip}) {
+const SecondaryButton = ({ onClick, children, to, disabled = false, external = false, tooltip }) => {
     const history = useHistory()
     const handleOpen = () => {
         external ? window.open(to, '_blank') : history.push(to)
     }
     const styles = {
-        button: {opacity: disabled ? '.5' : '1'}
+        button: { opacity: disabled ? '.5' : '1' }
     }
 
     return (
@@ -17,3 +17,5 @@ export default function SecondaryButton({onClick, children, to, disabled = false
         </button>
     )
 }
+
+export default SecondaryButton;

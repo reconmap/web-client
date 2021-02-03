@@ -1,21 +1,52 @@
-import React, {useEffect, useState} from 'react'
-import secureApiFetch from '../../services/api';
-import './Report.scss';
-import Breadcrumb from './../ui/Breadcrumb'
-import {IconReport} from '../ui/Icons';
-import Title from '../ui/Title';
-import {Link, useRouteMatch} from "react-router-dom";
-import Loading from "../ui/Loading";
-import PrimaryButton from "../ui/buttons/Primary";
+import DeleteButton from 'components/ui/buttons/Delete';
+import Tab from 'components/ui/Tab';
+import Tabs from 'components/ui/Tabs';
+import useDelete from 'hooks/useDelete';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo';
 import useFetch from "../../hooks/useFetch";
+import secureApiFetch from '../../services/api';
+import PrimaryButton from "../ui/buttons/Primary";
+import SecondaryButton from "../ui/buttons/Secondary";
+import { IconCode, IconDocument, IconReport } from '../ui/Icons';
+import Loading from "../ui/Loading";
+import Title from '../ui/Title';
+import Breadcrumb from './../ui/Breadcrumb';
+import './Report.scss';
 
 const ProjectReport = () => {
-    const {params: {id: projectId}} = useRouteMatch();
+    const history = useHistory();
+
+    const { params: { id: projectId } } = useRouteMatch();
     const [project, setProject] = useState(null);
     const [preview, setPreview] = useState("");
     const [reports, updateReports] = useFetch(`/reports?projectId=${projectId}`);
-    const [formValues, setFormValues] = useState({name: "", description: ""});
+    const [formValues, setFormValues] = useState({ name: "", description: "" });
     const [saveVersionButtonDisabled, setSaveVersionButtonDisabled] = useState(true);
+
+    const handleSendByEmail = (reportId) => {
+        history.push(`/report/${reportId}/send`);
+    }
+
+    const handleDownload = (reportId, contentType) => {
+        secureApiFetch(`/reports/${reportId}`, { method: 'GET', headers: { 'Content-Type': contentType } })
+            .then(resp => {
+                const contentDispositionHeader = resp.headers.get('Content-Disposition');
+                const filenameRe = new RegExp(/filename="(.*)";/)
+                const filename = filenameRe.exec(contentDispositionHeader)[1]
+                return Promise.all([resp.blob(), filename]);
+            })
+            .then((values) => {
+                const blob = values[0];
+                const filename = values[1];
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+            })
+    }
 
     useEffect(() => {
         secureApiFetch(`/projects/${projectId}`, {
@@ -59,15 +90,17 @@ const ProjectReport = () => {
     const onFormValueChange = ev => {
         ev.preventDefault();
 
-        setFormValues({...formValues, [ev.target.name]: ev.target.value});
+        setFormValues({ ...formValues, [ev.target.name]: ev.target.value });
     };
+
+    const deleteReport = useDelete('/reports/', updateReports);
 
     useEffect(() => {
         setSaveVersionButtonDisabled(formValues.name.length === 0);
     }, [formValues.name]);
 
     if (!project || !reports) {
-        return <Loading/>
+        return <Loading />
     }
 
     return (
@@ -78,23 +111,27 @@ const ProjectReport = () => {
                     <Link to={`/projects/${projectId}`}>{project.name}</Link>
                 </Breadcrumb>
             </div>
-            <Title type="Project reporting" title="Preview report"
-                   icon={<IconReport/>}/>
+            <Title type="Project reporting" title="Project report"
+                icon={<IconReport />} />
 
-            <div className="flex">
-                <div className='half'>
-                    <form onSubmit={onSaveVersionSubmit}>
+            <Tabs>
+                <Tab name="Preview">
+                    <div style={{ width: '50%', margin: '20px auto' }} id="report" dangerouslySetInnerHTML={{ __html: preview }}></div>
+                </Tab>
+
+                <Tab name="Revisions">
+                    <form onSubmit={onSaveVersionSubmit} className="crud" style={{ marginTop: '20px' }}>
                         <fieldset>
-                            <legend>Report version</legend>
+                            <legend>New report version</legend>
 
                             <label>Name</label>
                             <input type="text" name="name" value={formValues.name} onChange={onFormValueChange}
-                                   placeholder="eg 1.0, 202103" required/>
+                                placeholder="eg 1.0, 202103" required />
                             <label>Description</label>
                             <input type="text" name="description" value={formValues.description}
-                                   onChange={onFormValueChange}
-                                   placeholder="eg Initial version, Draft"
-                                   required/>
+                                onChange={onFormValueChange}
+                                placeholder="eg Initial version, Draft"
+                                required />
                         </fieldset>
                         <PrimaryButton type="submit" disabled={saveVersionButtonDisabled}>Save version</PrimaryButton>
                     </form>
@@ -102,21 +139,39 @@ const ProjectReport = () => {
                     <table>
                         <caption>Report versions</caption>
                         <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                        </tr>
-                        {reports.map((report, index) =>
-                            <tr key={index}>
-                                <td>{report.version_name}</td>
-                                <td>{report.version_description}</td>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Datetime</th>
+                                <th>Downloads</th>
+                                <th>&nbsp;</th>
                             </tr>
-                        )}
+                            {reports.map((report, index) =>
+                                <tr key={index}>
+                                    <td>{report.version_name}</td>
+                                    <td>{report.version_description}</td>
+                                    <td><ReactTimeAgo date={report.insert_ts} /></td>
+                                    <td>
+                                        <SecondaryButton onClick={() => handleDownload(report.id, 'text/html')}>
+                                            <IconCode /> HTML
+                                        </SecondaryButton>
+                                        &nbsp;
+                                        <SecondaryButton onClick={() => handleDownload(report.id, 'application/pdf')}>
+                                            <IconDocument /> PDF
+                                        </SecondaryButton>
+                                    </td>
+                                    <td className="flex justify-end">
+                                        <SecondaryButton onClick={() => handleSendByEmail(report.id)}>Send by email</SecondaryButton>
+
+                                        <DeleteButton onClick={() => deleteReport(report.id)} />
+                                    </td>
+                                </tr>
+                            )}
                         </thead>
                     </table>
-                </div>
-                <div className='half' id="report" dangerouslySetInnerHTML={{__html: preview}}></div>
-            </div>
+                </Tab>
+            </Tabs>
+
         </>
     )
 }
