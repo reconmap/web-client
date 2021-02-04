@@ -1,6 +1,7 @@
 import DeleteButton from 'components/ui/buttons/Delete';
 import Tab from 'components/ui/Tab';
 import Tabs from 'components/ui/Tabs';
+import Configuration from 'Configuration';
 import useDelete from 'hooks/useDelete';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
@@ -20,7 +21,6 @@ const ProjectReport = () => {
 
     const { params: { id: projectId } } = useRouteMatch();
     const [project, setProject] = useState(null);
-    const [preview, setPreview] = useState("");
     const [reports, updateReports] = useFetch(`/reports?projectId=${projectId}`);
     const [formValues, setFormValues] = useState({ name: "", description: "" });
     const [saveVersionButtonDisabled, setSaveVersionButtonDisabled] = useState(true);
@@ -58,16 +58,6 @@ const ProjectReport = () => {
                 document.title = `Report ${json.name} | Reconmap`;
             });
     }, [projectId, setProject]);
-
-    useEffect(() => {
-        secureApiFetch(`/reports/preview?projectId=${projectId}`, {
-            method: 'GET',
-        })
-            .then(resp => resp.text())
-            .then(text => {
-                setPreview(text);
-            });
-    }, [projectId, reports]);
 
     const onSaveVersionSubmit = ev => {
         ev.preventDefault();
@@ -116,7 +106,7 @@ const ProjectReport = () => {
 
             <Tabs>
                 <Tab name="Preview">
-                    <div style={{ width: '50%', margin: '20px auto' }} id="report" dangerouslySetInnerHTML={{ __html: preview }}></div>
+                    <iframe title="Report preview" style={{ width: '50%', margin: '20px auto' }} id="report" src={Configuration.apiEndpoint + `/reports/preview?projectId=${projectId}&accessToken=${localStorage.getItem('accessToken')}`}></iframe>
                 </Tab>
 
                 <Tab name="Revisions">
@@ -140,16 +130,14 @@ const ProjectReport = () => {
                         <caption>Report versions</caption>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
+                                <th>Name (Description)</th>
                                 <th>Datetime</th>
                                 <th>Downloads</th>
                                 <th>&nbsp;</th>
                             </tr>
                             {reports.map((report, index) =>
                                 <tr key={index}>
-                                    <td>{report.version_name}</td>
-                                    <td>{report.version_description}</td>
+                                    <td>{report.version_name} ({report.version_description})</td>
                                     <td><ReactTimeAgo date={report.insert_ts} /></td>
                                     <td>
                                         <SecondaryButton onClick={() => handleDownload(report.id, 'text/html')}>
@@ -169,6 +157,35 @@ const ProjectReport = () => {
                             )}
                         </thead>
                     </table>
+                </Tab>
+
+                <Tab name="Configuration">
+                    <form className="crud">
+                        <fieldset>
+                            <legend>Optional sections</legend>
+
+                            <label><input type="checkbox" /> Include table of contents</label>
+                            <label><input type="checkbox" /> Include revisions table</label>
+                            <label><input type="checkbox" /> Include team bios</label>
+                            <label><input type="checkbox" /> Include findings overview</label>
+                            <label><input type="checkbox" /> Include page header</label>
+                            <label><input type="checkbox" /> Include page footer</label>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Custom content</legend>
+                            <h4>Header (HTML)</h4>
+                            <textarea />
+
+                            <h4>Footer (HTML)</h4>
+                            <textarea />
+
+                            <h4>Custom styles (CSS)</h4>
+                            <textarea />
+                        </fieldset>
+
+                        <PrimaryButton>Save configuration</PrimaryButton>
+                    </form>
                 </Tab>
             </Tabs>
 
