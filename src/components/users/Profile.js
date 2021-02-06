@@ -67,7 +67,7 @@ const UserProfile = ({ match }) => {
                             </div>
                         </div>
 
-                        <h4>Activity</h4>
+                        <h4>Activity (<Link to="/auditlog">view full audit log</Link>)</h4>
                         {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true" /> : <Loading />}
                     </>
                     : <Loading />}

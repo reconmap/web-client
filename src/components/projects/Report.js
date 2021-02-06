@@ -186,12 +186,15 @@ const ReportRevisions = ({ projectId }) => {
 }
 
 const ReportConfigurationForm = ({ projectId }) => {
-    const [clientConfiguration, updateClientConfiguration] = useState({ optional_sections: {} });
+
+    const [serverConfiguration] = useFetch(`/reports/${projectId}/configuration`);
+
+    const [clientConfiguration, updateClientConfiguration] = useState(null);
 
     const onConfigurationFormSubmit = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/reports/${projectId}`, {
+        secureApiFetch(`/reports/${projectId}/configuration`, {
             method: 'PUT',
             body: JSON.stringify(clientConfiguration)
         })
@@ -207,17 +210,32 @@ const ReportConfigurationForm = ({ projectId }) => {
         updateClientConfiguration({ ...clientConfiguration, [ev.target.name]: value });
     }
 
+    const onOptionalSectionsChange = (ev) => {
+        ev.preventDefault();
+
+        updateClientConfiguration({ ...clientConfiguration, optional_sections: { ...clientConfiguration.optional_sections, [ev.target.name]: ev.target.checked } });
+    }
+
+    useEffect(() => {
+        if (serverConfiguration) {
+            console.dir(JSON.parse(serverConfiguration.optional_sections));
+            updateClientConfiguration({ ...serverConfiguration, optional_sections: JSON.parse(serverConfiguration.optional_sections) });
+        }
+    }, [serverConfiguration]);
+
+    if (!clientConfiguration) return <Loading />
+
     return <>
         <form onSubmit={onConfigurationFormSubmit} className="crud">
             <fieldset>
                 <legend>Optional sections</legend>
 
-                <label><input name="toc" type="checkbox" onChange={onFormChange} value={clientConfiguration.optional_sections.toc} /> Include table of contents</label>
-                <label><input name="revisions" type="checkbox" onChange={onFormChange} value={clientConfiguration.optional_sections.revisions} /> Include revisions table</label>
-                <label><input name="bios" type="checkbox" onChange={onFormChange} value={clientConfiguration.optional_sections.bios} /> Include team bios</label>
-                <label><input name="overview" type="checkbox" onChange={onFormChange} value={clientConfiguration.optional_sections.overview} /> Include findings overview</label>
-                <label><input name="header" type="checkbox" onChange={onFormChange} value={clientConfiguration.optional_sections.header} /> Include page header</label>
-                <label><input name="footer" type="checkbox" onChange={onFormChange} value={clientConfiguration.optional_sections.footer} /> Include page footer</label>
+                <label><input name="toc" type="checkbox" onChange={onOptionalSectionsChange} checked={clientConfiguration.optional_sections.toc} /> Include table of contents</label>
+                <label><input name="revisions" type="checkbox" onChange={onOptionalSectionsChange} checked={clientConfiguration.optional_sections.revisions} /> Include revisions table</label>
+                <label><input name="bios" type="checkbox" onChange={onOptionalSectionsChange} checked={clientConfiguration.optional_sections.bios} /> Include team bios</label>
+                <label><input name="overview" type="checkbox" onChange={onOptionalSectionsChange} checked={clientConfiguration.optional_sections.overview} /> Include findings overview</label>
+                <label><input name="header" type="checkbox" onChange={onOptionalSectionsChange} checked={clientConfiguration.optional_sections.header} /> Include page header</label>
+                <label><input name="footer" type="checkbox" onChange={onOptionalSectionsChange} checked={clientConfiguration.optional_sections.footer} /> Include page footer</label>
             </fieldset>
 
             <fieldset>
