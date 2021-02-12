@@ -54,6 +54,11 @@ const UserProfile = ({ match }) => {
                             <div className="half">
                                 <h4>Details</h4>
                                 <dl>
+                                    {user.short_bio && <>
+                                        <dt>Short bio</dt>
+                                        <dd>{user.short_bio}</dd>
+                                    </>}
+
                                     <dt>Role</dt>
                                     <dd><UserRoleBadge role={user.role} /><br /></dd>
 
