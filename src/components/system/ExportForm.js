@@ -50,15 +50,21 @@ const ExportForm = () => {
     return <div>
         <h3>Export system data</h3>
 
-        <fieldset>
-            <label>Select entities to export</label><br />
-            <select multiple style={{ width: 200, height: 150 }} onChange={onEntitiesSelectionChange}>
-                {entities.map((entity, index) => <option key={index} value={entity.key}>{entity.name}</option>)}
-            </select>
-            <br />
-            <PrimaryButton disabled={exportButtonDisabled}
-                onClick={onExportButtonClick}><IconDownload /> Export</PrimaryButton>
-        </fieldset>
+        <div style={{ marginTop: '5px', marginBottom: '5px' }}>
+            Notes:
+            <ul>
+                <li>Select one or more entities to export.</li>
+                <li>The data will be returned in JSON format.</li>
+                <li>This operation can take up to one minute to complete depending on the size of your database.</li>
+            </ul>
+        </div>
+
+        <select multiple style={{ width: '80%', height: 150, marginTop: '5px', marginBottom: '5px' }} onChange={onEntitiesSelectionChange}>
+            {entities.map((entity, index) => <option key={index} value={entity.key}>{entity.name}</option>)}
+        </select>
+        <br />
+        <PrimaryButton disabled={exportButtonDisabled}
+            onClick={onExportButtonClick}><IconDownload /> Export</PrimaryButton>
     </div>
 };
 
