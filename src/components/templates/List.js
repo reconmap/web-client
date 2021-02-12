@@ -1,18 +1,18 @@
-import secureApiFetch from '../../services/api';
-import useSetTitle from '../../hooks/useSetTitle';
-import useFetch from '../../hooks/useFetch';
-import Loading from '../ui/Loading';
-import Breadcrumb from '../ui/Breadcrumb';
-import ProjectBadge from '../badges/ProjectBadge';
-import useDelete from '../../hooks/useDelete';
-import BadgeOutline from '../badges/BadgeOutline';
-import { IconDocumentDuplicate, IconPlus } from '../ui/Icons';
-import CreateButton from '../ui/buttons/Create';
-import Title from '../ui/Title';
-import PrimaryButton from "../ui/buttons/Primary";
-import DeleteButton from "../ui/buttons/Delete";
-import NoResults from "../ui/NoResults";
 import { Link } from 'react-router-dom';
+import useDelete from '../../hooks/useDelete';
+import useFetch from '../../hooks/useFetch';
+import useSetTitle from '../../hooks/useSetTitle';
+import secureApiFetch from '../../services/api';
+import BadgeOutline from '../badges/BadgeOutline';
+import ProjectBadge from '../badges/ProjectBadge';
+import Breadcrumb from '../ui/Breadcrumb';
+import CreateButton from '../ui/buttons/Create';
+import DeleteButton from "../ui/buttons/Delete";
+import PrimaryButton from "../ui/buttons/Primary";
+import { IconDocumentDuplicate, IconPlus } from '../ui/Icons';
+import Loading from '../ui/Loading';
+import NoResults from "../ui/NoResults";
+import Title from '../ui/Title';
 
 const TemplatesList = ({ history }) => {
     useSetTitle('Projects templates');
@@ -39,7 +39,7 @@ const TemplatesList = ({ history }) => {
                     <Link to="/projects">Projects</Link>
                 </Breadcrumb>
 
-                <CreateButton onClick={() => history.push('/system-data/import')}>Import template(s)</CreateButton>
+                <CreateButton onClick={() => history.push('/system/import-data')}>Import template(s)</CreateButton>
             </div>
             <Title title='Templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :
@@ -48,7 +48,7 @@ const TemplatesList = ({ history }) => {
                         <tr>
                             <th style={{ width: '190px' }}>Name</th>
                             <th>Description</th>
-                            <th  style={{ width: '16ch'}}>Number of tasks</th>
+                            <th style={{ width: '16ch' }}>Number of tasks</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
