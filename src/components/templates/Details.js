@@ -19,8 +19,11 @@ const TemplateDetails = ({ history, match }) => {
     const [tasks] = useFetch(`/projects/${match.params.id}/tasks`)
 
     const cloneProject = async (templateId) => {
-        await secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
-        history.push('/projects')
+        secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
+            .then(resp => resp.json())
+            .then(data => {
+                history.push(`/projects/${data.projectId}/edit`);
+            });
     }
 
     const destroy = useDelete('/tasks/', updateTemplate);

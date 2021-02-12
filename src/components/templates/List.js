@@ -19,10 +19,10 @@ const TemplatesList = ({ history }) => {
     const [templates, updateTemplates] = useFetch('/projects?isTemplate=1')
 
     const cloneProject = (templateId) => {
-        secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST', })
+        secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
-            .then(() => {
-                history.push('/projects');
+            .then(data => {
+                history.push(`/projects/${data.projectId}/edit`);
             });
     }
 
