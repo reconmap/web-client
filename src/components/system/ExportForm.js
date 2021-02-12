@@ -1,15 +1,16 @@
-import {IconDownload} from "../ui/Icons";
-import PrimaryButton from "../ui/buttons/Primary";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import secureApiFetch from "../../services/api";
+import PrimaryButton from "../ui/buttons/Primary";
+import { IconDownload } from "../ui/Icons";
 
 const ExportForm = () => {
     const entities = [
-        {key: 'vulnerabilities', name: 'Vulnerabilities'},
-        {key: 'tasks', name: 'Tasks'},
-        {key: 'projects', name: 'Projects'},
-        {key: 'clients', name: 'Clients'},
-        {key: 'users', name: 'Users'},
+        { key: 'clients', name: 'Clients' },
+        { key: 'commands', name: 'Commands' },
+        { key: 'projects', name: 'Projects' },
+        { key: 'tasks', name: 'Tasks' },
+        { key: 'users', name: 'Users' },
+        { key: 'vulnerabilities', name: 'Vulnerabilities' },
     ];
 
     const [exportButtonDisabled, setExportButtonDisabled] = useState(true);
@@ -28,7 +29,7 @@ const ExportForm = () => {
         const url = `/system/data?` + new URLSearchParams({
             entities: entitiesToExport
         }).toString();
-        secureApiFetch(url, {method: 'GET'})
+        secureApiFetch(url, { method: 'GET' })
             .then(resp => {
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
@@ -50,13 +51,13 @@ const ExportForm = () => {
         <h3>Export system data</h3>
 
         <fieldset>
-            <label>Select entities to export</label><br/>
-            <select multiple style={{width: 200, height: 150}} onChange={onEntitiesSelectionChange}>
+            <label>Select entities to export</label><br />
+            <select multiple style={{ width: 200, height: 150 }} onChange={onEntitiesSelectionChange}>
                 {entities.map((entity, index) => <option key={index} value={entity.key}>{entity.name}</option>)}
             </select>
-            <br/>
+            <br />
             <PrimaryButton disabled={exportButtonDisabled}
-                           onClick={onExportButtonClick}><IconDownload/> Export</PrimaryButton>
+                onClick={onExportButtonClick}><IconDownload /> Export</PrimaryButton>
         </fieldset>
     </div>
 };
