@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
-import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
-import Loading from '../ui/Loading'
-import {IconFlag, IconPlus} from '../ui/Icons'
-import {useHistory} from 'react-router-dom'
-import SecondaryButton from '../ui/buttons/Secondary'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import useFetch from "../../hooks/useFetch"
 import ButtonGroup from '../ui/buttons/ButtonGroup'
-import useFetch from "../../hooks/useFetch";
+import SecondaryButton from '../ui/buttons/Secondary'
+import { IconFlag, IconPlus } from '../ui/Icons'
+import Loading from '../ui/Loading'
+import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
 
-const ProjectVulnerabilities = ({project}) => {
+const ProjectVulnerabilities = ({ project }) => {
     const history = useHistory();
 
     const [vulnerabilities] = useFetch(`/projects/${project.id}/vulnerabilities`)
@@ -19,29 +19,30 @@ const ProjectVulnerabilities = ({project}) => {
     const [category, setCategory] = useState('')
     const [risk, setRisk] = useState('')
     const [status, setStatus] = useState('')
+
     return <section>
-        <h4><IconFlag/>Vulnerabilities
+        <h4><IconFlag />Vulnerabilities
             <ButtonGroup>
                 {vulnerabilities &&
-                <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
-                                      setStatus={setStatus}/>}
+                    <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
+                        setStatus={setStatus} />}
                 <SecondaryButton onClick={handleCreateVulnerability}>
-                    <IconPlus/>
+                    <IconPlus />
                     Add New Vulnerability
                 </SecondaryButton>
             </ButtonGroup>
         </h4>
         {vulnerabilities ?
             <VulnerabilitiesTable
-                vulnerabilities={vulnerabilities.filter(vuln => vuln.category_name && vuln.category_name.includes(category) && vuln.risk.includes(risk) && vuln.status.includes(status))}/>
-            : <Loading/>}
+                vulnerabilities={vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))} />
+            : <Loading />}
     </section>
 }
 
 export default ProjectVulnerabilities
 
 
-const VulnerabilityFilters = ({vulnerabilities, setCategory, setRisk, setStatus}) => {
+const VulnerabilityFilters = ({ vulnerabilities, setCategory, setRisk, setStatus }) => {
     const handleSetCategory = ev => {
         setCategory(ev.target.value)
     }
@@ -57,7 +58,7 @@ const VulnerabilityFilters = ({vulnerabilities, setCategory, setRisk, setStatus}
             <select onChange={handleSetRisk}>
                 <option value=''>Any</option>
                 {[...new Set(vulnerabilities.map(vuln => vuln.risk))]
-                    .map((risk, index) => <option value={risk} key={index}>{risk.toUpperCase()}</option>)}
+                    .map((risk, index) => <option value={risk} key={index}>{risk.charAt(0).toUpperCase() + risk.slice(1)}</option>)}
             </select>
         </div>
 
@@ -65,7 +66,7 @@ const VulnerabilityFilters = ({vulnerabilities, setCategory, setRisk, setStatus}
             <label>Category</label>
             <select onChange={handleSetCategory}>
                 <option value=''>Any</option>
-                {[...new Set(vulnerabilities.map(vuln => vuln.category_name))]
+                {[...new Set(vulnerabilities.filter(vuln => vuln.category_name).map(vuln => vuln.category_name))]
                     .map((cat, index) => <option value={cat} key={index}>{cat}</option>)}
             </select>
         </div>
