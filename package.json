@@ -17,7 +17,7 @@
     "react-scripts": "4.0.1",
     "react-time-ago": "^6.2.2",
     "recharts": "^2.0.3",
-    "ua-parser-js": "^0.7.23"
+    "ua-parser-js": "^0.7.24"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",
