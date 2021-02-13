@@ -1,22 +1,23 @@
+import RestrictedComponent from "components/logic/RestrictedComponent";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import CreateButton from "../../components/ui/buttons/Create";
-import useSetTitle from "../../hooks/useSetTitle";
-import useFetch from "../../hooks/useFetch";
 import useDelete from "../../hooks/useDelete";
+import useFetch from "../../hooks/useFetch";
+import useSetTitle from "../../hooks/useSetTitle";
+import secureApiFetch from "../../services/api";
+import UserAvatar from "../badges/UserAvatar";
+import UserRoleBadge from "../badges/UserRoleBadge";
+import Breadcrumb from "../ui/Breadcrumb";
+import ButtonGroup from "../ui/buttons/ButtonGroup";
+import DeleteButton from "../ui/buttons/Delete";
+import LinkButton from "../ui/buttons/Link";
+import { IconUserGroup } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import NoResults from "../ui/NoResults";
-import Breadcrumb from "../ui/Breadcrumb";
-import UserRoleBadge from "../badges/UserRoleBadge";
-import UserAvatar from "../badges/UserAvatar";
-import DeleteButton from "../ui/buttons/Delete";
-import ButtonGroup from "../ui/buttons/ButtonGroup";
-import secureApiFetch from "../../services/api";
 import Title from "../ui/Title";
-import { IconUserGroup } from "../ui/Icons";
-import UserLink from "./Link";
 import { actionCompletedToast } from "../ui/toast";
-import LinkButton from "../ui/buttons/Link";
-import { Link } from "react-router-dom";
+import UserLink from "./Link";
 
 const UsersList = ({ history }) => {
     useSetTitle("Users");
@@ -70,12 +71,14 @@ const UsersList = ({ history }) => {
                     <CreateButton onClick={handleCreate}>
                         Create User
                     </CreateButton>
-                    <DeleteButton
-                        onClick={handleBulkDelete}
-                        disabled={selectedUsers.length === 0}
-                    >
-                        Delete selected
+                    <RestrictedComponent roles={['administrator']}>
+                        <DeleteButton
+                            onClick={handleBulkDelete}
+                            disabled={selectedUsers.length === 0}
+                        >
+                            Delete selected
                     </DeleteButton>
+                    </RestrictedComponent>
                 </ButtonGroup>
             </div>
             <Title title="Users and Permissions" icon={<IconUserGroup />} />
@@ -84,69 +87,69 @@ const UsersList = ({ history }) => {
             ) : users.length === 0 ? (
                 <NoResults />
             ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th style={{ width: "32px" }}>&nbsp;</th>
-                            <th style={{ width: "64px" }}>&nbsp;</th>
-                            <th>Full name</th>
-                            <th>Username</th>
-                            <th>Role</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map((user, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <input
-                                        type="checkbox"
-                                        value={user.id}
-                                        onChange={onTaskCheckboxChange}
-                                        checked={
-                                            selectedUsers.indexOf(user.id) !==
-                                            -1
-                                        }
-                                    />
-                                </td>
-                                <td>
-                                    <UserAvatar
-                                        email={user.email}
-                                        size="--iconSize"
-                                    />
-                                </td>
-                                <td>
-                                    <Link to={`/users/${user.id}`}>
-                                        {user.full_name}
-                                    </Link>
-                                </td>
-                                <td>
-                                    <UserLink userId={user.id}>
-                                        {user.username}
-                                    </UserLink>
-                                </td>
-                                <td>
-                                    <UserRoleBadge role={user.role} />
-                                </td>
-                                <td className='flex justify-end'>
-                                    <LinkButton href={`/users/${user.id}/edit`}>
-                                        Edit
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ width: "32px" }}>&nbsp;</th>
+                                    <th style={{ width: "64px" }}>&nbsp;</th>
+                                    <th>Full name</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map((user, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                value={user.id}
+                                                onChange={onTaskCheckboxChange}
+                                                checked={
+                                                    selectedUsers.indexOf(user.id) !==
+                                                    -1
+                                                }
+                                            />
+                                        </td>
+                                        <td>
+                                            <UserAvatar
+                                                email={user.email}
+                                                size="--iconSize"
+                                            />
+                                        </td>
+                                        <td>
+                                            <Link to={`/users/${user.id}`}>
+                                                {user.full_name}
+                                            </Link>
+                                        </td>
+                                        <td>
+                                            <UserLink userId={user.id}>
+                                                {user.username}
+                                            </UserLink>
+                                        </td>
+                                        <td>
+                                            <UserRoleBadge role={user.role} />
+                                        </td>
+                                        <td className='flex justify-end'>
+                                            <LinkButton href={`/users/${user.id}/edit`}>
+                                                Edit
                                     </LinkButton>
-                                    <DeleteButton
-                                        onClick={() => handleDelete(user.id)}
-                                        disabled={
-                                            parseInt(user.id) ===
-                                            loggedInUser.id
-                                                ? "disabled"
-                                                : ""
-                                        }
-                                    />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+                                            <DeleteButton
+                                                onClick={() => handleDelete(user.id)}
+                                                disabled={
+                                                    parseInt(user.id) ===
+                                                        loggedInUser.id
+                                                        ? "disabled"
+                                                        : ""
+                                                }
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
         </>
     );
 };

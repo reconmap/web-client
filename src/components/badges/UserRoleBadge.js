@@ -1,9 +1,10 @@
-export default function UserRoleBadge({role}) {
+const UserRoleBadge = ({ role }) => {
 
     const roles = {
-        'creator': 'red',
-        'writer': 'blue',
-        'reader': 'green',
+        'administrator': 'red',
+        'superuser': 'blue',
+        'user': 'green',
+        'client': 'yellow',
     }
 
     const color = roles.hasOwnProperty(role) ? roles[role] : 'yellow';
@@ -20,3 +21,5 @@ export default function UserRoleBadge({role}) {
 
     return <span style={styles}>{role}</span>
 }
+
+export default UserRoleBadge;
