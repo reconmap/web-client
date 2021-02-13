@@ -32,6 +32,12 @@ const TemplatesList = ({ history }) => {
 
     const destroy = useDelete('/projects/', updateTemplates);
 
+    const deleteTemplate = (ev, templateId) => {
+        ev.stopPropagation();
+
+        destroy(templateId);
+    }
+
     return (
         <>
             <div className='heading'>
@@ -65,7 +71,7 @@ const TemplatesList = ({ history }) => {
                                         <PrimaryButton onClick={() => cloneProject(template.id)} key={template.id}
                                             title="Create project using this template"><IconPlus />Create
                                         project</PrimaryButton>
-                                        <DeleteButton onClick={() => destroy(template.id)} />
+                                        <DeleteButton onClick={ev => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>
                             )
