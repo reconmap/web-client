@@ -1,3 +1,4 @@
+import UserRoleBadge from "components/badges/UserRoleBadge";
 import { Link } from "react-router-dom";
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
@@ -82,7 +83,7 @@ const TasksList = ({ match }) => {
                         <tr key={index}>
                             <td><UserAvatar size='--iconSizeLarge' email={member.email} /></td>
                             <td><UserLink userId={member.id}>{member.full_name}</UserLink></td>
-                            <td>{member.role}</td>
+                            <td><UserRoleBadge role={member.role} /></td>
                             <td className='text-right'>
                                 <DeleteButton onClick={() => handleDelete(member)} />
                             </td>
