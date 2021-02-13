@@ -1,16 +1,16 @@
-import useSetTitle from '../../hooks/useSetTitle';
-import Loading from '../ui/Loading';
+import { Link } from "react-router-dom";
 import useFetch from '../../hooks/useFetch';
-import Breadcrumb from '../ui/Breadcrumb';
-import PrimaryButton from '../ui/buttons/Primary';
+import useSetTitle from '../../hooks/useSetTitle';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
-import { IconPlus } from '../ui/Icons';
-import Title from '../ui/Title';
+import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from "../ui/buttons/Delete";
-import UserLink from "../users/Link";
-import { Link } from "react-router-dom";
+import PrimaryButton from '../ui/buttons/Primary';
+import { IconPlus } from '../ui/Icons';
+import Loading from '../ui/Loading';
 import NoResultsTableRow from '../ui/NoResultsTableRow';
+import Title from '../ui/Title';
+import UserLink from "../users/Link";
 
 const TasksList = ({ match }) => {
 
@@ -72,6 +72,7 @@ const TasksList = ({ match }) => {
                     <tr>
                         <th style={{ width: '80px' }}>&nbsp;</th>
                         <th>Name</th>
+                        <th>Role</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -81,6 +82,7 @@ const TasksList = ({ match }) => {
                         <tr key={index}>
                             <td><UserAvatar size='--iconSizeLarge' email={member.email} /></td>
                             <td><UserLink userId={member.id}>{member.full_name}</UserLink></td>
+                            <td>{member.role}</td>
                             <td className='text-right'>
                                 <DeleteButton onClick={() => handleDelete(member)} />
                             </td>
