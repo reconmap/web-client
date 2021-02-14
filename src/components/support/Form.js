@@ -8,6 +8,7 @@ const SupportForm = () => {
 ----
 ID: ${user.id}
 Name: ${user.full_name}
+Role: ${user.role}
 
 Client
 ------
@@ -45,7 +46,7 @@ WebSocket URL: ${window.env.REACT_APP_WS_ENDPOINT}
             href="https://github.com/Reconmap/web-client/issues">here</a>. Include the information below in the ticket
             if possible as this could accelerate its resolution.</p>
 
-        <textarea id="systemInfoControl" value={systemInfo} readOnly/>
+        <textarea id="systemInfoControl" value={systemInfo} readOnly />
         <button onClick={onCopyToClipboardClick}>Copy to clipboard</button>
     </div>
 }
