@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 import secureApiFetch from '../../services/api';
-import {IconUpload} from '../ui/Icons';
 import PrimaryButton from '../ui/buttons/Primary';
+import { IconUpload } from '../ui/Icons';
 
 const ImportForm = () => {
 
-    const [projectsImported, setProjectsImported] = useState([]);
+    const [importResponse, setImportResponse] = useState([]);
     const [importButtonDisabled, setImportButtonDisabled] = useState(true);
 
     const handleUploadClick = ev => {
@@ -20,7 +20,7 @@ const ImportForm = () => {
         })
             .then(resp => resp.json())
             .then(resp => {
-                setProjectsImported(resp.projectsImported);
+                setImportResponse(resp);
             })
             .catch(err => console.error(err));
     }
@@ -36,23 +36,34 @@ const ImportForm = () => {
         <div>
             <h3>Import system data</h3>
             <form>
+                <p>
+                    Notes:
+                    <ul>
+                        <li>Everything on the file will be attempted to be imported.</li>
+                        <li>If there is an error the import process will continue resulting on a partial import.</li>
+                        <li>If there are missing attributes, Reconmap will attempt to use defaults instead.</li>
+                    </ul>
+                </p>
                 <label>
                     Select file
-                    <input type="file" id="importFile" onChange={onImportFileChange} required/>
+                    <input type="file" id="importFile" onChange={onImportFileChange} required accept=".json,.js,application/json,text/json" />
                 </label>
                 <PrimaryButton disabled={importButtonDisabled}
-                               onClick={handleUploadClick}><IconUpload/> Import</PrimaryButton>
+                    onClick={handleUploadClick}><IconUpload /> Import</PrimaryButton>
             </form>
 
-            {projectsImported.length > 0 &&
-            <>
-                <h2>{projectsImported.length} projects imported</h2>
-                <ul id="projectsImported">
-                    {projectsImported.map((project, index) => <li key={index}>{project.name}</li>)}
-                </ul>
-            </>
-            }
+            {importResponse.length > 0 &&
+                <div>
+                    <h4>Import finished!</h4>
 
+                    <p>The number of imports per category are:</p>
+                    <ul>
+                        {importResponse.map(entityResult => {
+                            return <li>{entityResult.count} {entityResult.name}</li>
+                        })}
+                    </ul>
+                </div>
+            }
         </div>
     )
 }

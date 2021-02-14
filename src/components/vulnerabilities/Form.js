@@ -1,15 +1,15 @@
+import { useEffect, useState } from 'react';
+import { unstable_batchedUpdates } from "react-dom";
 import Risks from "../../models/Risks";
-import Primary from "../ui/buttons/Primary";
-import {useEffect, useState} from 'react';
 import secureApiFetch from "../../services/api";
-import {unstable_batchedUpdates} from "react-dom";
+import Primary from "../ui/buttons/Primary";
 
 const VulnerabilityForm = ({
-                               isEditForm = false,
-                               vulnerability,
-                               vulnerabilitySetter: setVulnerability,
-                               onFormSubmit
-                           }) => {
+    isEditForm = false,
+    vulnerability,
+    vulnerabilitySetter: setVulnerability,
+    onFormSubmit
+}) => {
     const [initialised, setInitialised] = useState(false);
     const [projects, setProjects] = useState(null);
     const [categories, setCategories] = useState(null);
@@ -19,16 +19,17 @@ const VulnerabilityForm = ({
         if (initialised) return;
 
         Promise.all([
-            secureApiFetch(`/projects`, {method: 'GET'}),
-            secureApiFetch(`/vulnerabilities/categories`, {method: 'GET'}),
+            secureApiFetch(`/projects`, { method: 'GET' }),
+            secureApiFetch(`/vulnerabilities/categories`, { method: 'GET' }),
         ])
             .then(resp => {
                 const [respA, respB] = resp;
                 return Promise.all([respA.json(), respB.json()]);
             })
             .then(([projects, categories]) => {
-                const projectId = isEditForm ? vulnerability.project_id : projects[0].id;
-                secureApiFetch(`/targets?projectId=${projectId}`, {method: 'GET'})
+                const defaultProjectId = projects.length ? projects[0].id : 0;
+                const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
+                secureApiFetch(`/targets?projectId=${projectId}`, { method: 'GET' })
                     .then(resp => resp.json())
                     .then(targets => {
                         unstable_batchedUpdates(() => {
@@ -38,7 +39,7 @@ const VulnerabilityForm = ({
                             setVulnerability(prevVulnerability => {
                                 let updatedVulnerability = prevVulnerability;
                                 if (!idExists(projects, prevVulnerability.project_id)) {
-                                    updatedVulnerability.project_id = projects[0].id;
+                                    updatedVulnerability.project_id = defaultProjectId;
                                 }
                                 if (!idExists(categories, prevVulnerability.category_id)) {
                                     updatedVulnerability.category_id = categories[0].id;
@@ -58,7 +59,7 @@ const VulnerabilityForm = ({
         if (!initialised) return;
 
         const projectId = vulnerability.project_id;
-        secureApiFetch(`/targets?projectId=${projectId}`, {method: 'GET'})
+        secureApiFetch(`/targets?projectId=${projectId}`, { method: 'GET' })
             .then(resp => resp.json())
             .then(targets => {
                 unstable_batchedUpdates(() => {
@@ -66,7 +67,7 @@ const VulnerabilityForm = ({
                     if (isEditForm) { // Edit
                         if (!idExists(targets, vulnerability.target_id)) {
                             setVulnerability(prevVulnerability => {
-                                return {...prevVulnerability, target_id: 0}
+                                return { ...prevVulnerability, target_id: 0 }
                             });
                         }
                     }
@@ -86,7 +87,7 @@ const VulnerabilityForm = ({
         const name = target.name;
         const value = target.value;
 
-        setVulnerability({...vulnerability, [name]: value});
+        setVulnerability({ ...vulnerability, [name]: value });
     };
 
     return <form onSubmit={onFormSubmit}>
@@ -98,10 +99,10 @@ const VulnerabilityForm = ({
             </select>
         </label>
         <label>Summary
-            <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus/>
+            <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus />
         </label>
         <label>Description
-            <textarea name="description" value={vulnerability.description} onChange={onFormChange}/>
+            <textarea name="description" value={vulnerability.description} onChange={onFormChange} />
         </label>
         <label>Risk
             <select name="risk" value={vulnerability.risk} onChange={onFormChange} required>
@@ -119,10 +120,10 @@ const VulnerabilityForm = ({
         </label>
         <label>CVSS score
             <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
-                   onChange={onFormChange}/>
+                onChange={onFormChange} />
         </label>
         <label><span>CVSS vector</span>
-            <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N"/>
+            <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
         </label>
         <label>Affected target
             <select name="target_id" value={vulnerability.target_id} onChange={onFormChange}>

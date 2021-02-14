@@ -53,13 +53,9 @@ const TemplateDetails = ({ history, match }) => {
                             <h4>Description</h4>
                             <ReactMarkdown>{template.description}</ReactMarkdown>
                             <h4>Tasks</h4>
-                            <ol>
-                                {tasks && tasks.map((task, index) =>
-                                    <li key={index}>
-                                        <Link to={"/tasks/" + task.id}>{task.name}</Link>
-                                    </li>
-                                )}
-                            </ol>
+                            {tasks && tasks.map((task, index) =>
+                                <>&#10003; {task.name}<br /></>
+                            )}
                         </div>
 
                         <div className="push-right">
@@ -71,4 +67,4 @@ const TemplateDetails = ({ history, match }) => {
     )
 }
 
-export default TemplateDetails
+export default TemplateDetails;

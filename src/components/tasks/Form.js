@@ -1,7 +1,7 @@
-import PrimaryButton from "../ui/buttons/Primary";
-import useFetch from "../../hooks/useFetch";
-import { useEffect } from 'react';
 import Loading from "components/ui/Loading";
+import { useEffect } from 'react';
+import useFetch from "../../hooks/useFetch";
+import PrimaryButton from "../ui/buttons/Primary";
 
 const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask }) => {
 
@@ -16,7 +16,7 @@ const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask 
     };
 
     useEffect(() => {
-        if (projects !== null && task.project_id === "") {
+        if (projects !== null && projects.length && task.project_id === "") {
             const newProjectId = projects[0].id;
             setTask(prevTask => ({ ...prevTask, project_id: newProjectId }));
         }
