@@ -59,7 +59,7 @@ const ImportForm = () => {
                     <p>The number of imports per category are:</p>
                     <ul>
                         {importResponse.map(entityResult => {
-                            return <li>{entityResult.count} {entityResult.name}</li>
+                            return <li>{entityResult.count} {entityResult.name} ({entityResult.errors.length} errors)</li>
                         })}
                     </ul>
                 </div>
