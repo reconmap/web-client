@@ -3,6 +3,7 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import { IconCode, IconDocument } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
+import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import useDelete from "hooks/useDelete";
 import useFetch from "hooks/useFetch";
 import { useEffect, useState } from "react";
@@ -15,7 +16,8 @@ const ReportRevisions = ({ projectId }) => {
     const [reports, updateReports] = useFetch(`/reports?projectId=${projectId}`);
 
     const [saveVersionButtonDisabled, setSaveVersionButtonDisabled] = useState(true);
-    const [formValues, setFormValues] = useState({ name: "", description: "" });
+    const defaultFormValues = { name: "", description: "" };
+    const [formValues, setFormValues] = useState(defaultFormValues);
 
     const deleteReport = useDelete('/reports/', updateReports);
 
@@ -66,6 +68,7 @@ const ReportRevisions = ({ projectId }) => {
         })
             .then(resp => {
                 updateReports();
+                setFormValues(defaultFormValues);
             })
             .catch(err => console.error(err));
     };
@@ -98,6 +101,7 @@ const ReportRevisions = ({ projectId }) => {
                     <th>Downloads</th>
                     <th>&nbsp;</th>
                 </tr>
+                {reports.length === 0 && <NoResultsTableRow numColumns={4} />}
                 {reports.map((report, index) =>
                     <tr key={index}>
                         <td>{report.version_name} ({report.version_description})</td>
