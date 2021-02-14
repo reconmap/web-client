@@ -23,7 +23,8 @@ const Links = [
                 icon: <IconPlus size={5} />,
                 to: '/vulnerabilities/create',
             }
-        ]
+        ],
+        permissions: 'vulnerabilities.*'
     },
     {
         title: 'Commands', icon: <IconTerminal size={5} />, to: '/commands', sublinks: [
@@ -32,7 +33,8 @@ const Links = [
                 icon: <IconPlus size={5} />,
                 to: '/commands/add',
             }
-        ]
+        ],
+        permissions: 'commands.*'
     },
     {
         title: 'Tasks',
@@ -44,7 +46,8 @@ const Links = [
                 icon: <IconPlus size={5} />,
                 to: '/tasks/create',
             }
-        ]
+        ],
+        permissions: 'tasks.create'
     },
     {
         title: 'Projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
@@ -52,16 +55,19 @@ const Links = [
                 title: 'Create',
                 icon: <IconPlus size={5} />,
                 to: '/projects/create',
+                permissions: 'projects.create'
             },
             {
                 title: 'Templates',
                 icon: <IconDocumentDuplicate size={5} />,
                 to: '/templates',
+                permissions: 'projects.templates'
             },
             {
                 title: 'Saved Reports',
                 icon: <IconReport size={5} />,
-                to: '/reports'
+                to: '/reports',
+                permissions: 'projects.reports'
             }
         ]
     },
@@ -72,7 +78,8 @@ const Links = [
                 icon: <IconPlus size={5} />,
                 to: '/clients/create',
             }
-        ]
+        ],
+        permissions: 'clients.*'
     },
     {
         title: 'Users', icon: <IconUserGroup size={5} />, to: '/users', sublinks: [
@@ -81,7 +88,8 @@ const Links = [
                 icon: <IconPlus size={5} />,
                 to: '/users/create',
             }
-        ]
+        ],
+        permissions: 'users.*'
     },
     {
         title: 'System',
@@ -108,7 +116,8 @@ const Links = [
                 icon: <IconExtensions size={5} />,
                 to: '/integrations',
             },
-        ]
+        ],
+        permissions: 'system.*'
     }
 ]
 
