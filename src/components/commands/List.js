@@ -1,15 +1,16 @@
-import useSetTitle from '../../hooks/useSetTitle';
-import Loading from '../ui/Loading';
+import CreateButton from 'components/ui/buttons/Create';
+import LinkButton from 'components/ui/buttons/Link';
+import { useHistory } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
+import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from "../ui/buttons/Delete";
-import Title from '../ui/Title';
 import { IconFolder } from '../ui/Icons';
+import Loading from '../ui/Loading';
 import NoResults from "../ui/NoResults";
-import CreateButton from 'components/ui/buttons/Create';
-import { Link, useHistory } from 'react-router-dom';
-import LinkButton from 'components/ui/buttons/Link';
+import Title from '../ui/Title';
+import CommandBadge from './Badge';
 
 const CommandsListPage = () => {
     const history = useHistory();
@@ -34,7 +35,7 @@ const CommandsListPage = () => {
             <table>
                 <thead>
                     <tr>
-                        <th  style={{width: '190px'}}>Short name</th>
+                        <th style={{ width: '190px' }}>Short name</th>
                         <th className='only-desktop'>Description</th>
                         <th>Docker image</th>
                         <th></th>
@@ -47,7 +48,7 @@ const CommandsListPage = () => {
                         </tr> :
                         commands.map(command =>
                             <tr key={command.id}>
-                                <td ><Link to={`/commands/${command.id}`}>{command.short_name}</Link></td>
+                                <td ><CommandBadge command={command} /></td>
                                 <td className='only-desktop truncate'>{command.description}</td>
                                 <td>{command.docker_image}</td>
                                 <td className='flex justify-end'>

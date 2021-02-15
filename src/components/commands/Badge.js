@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { IconClipboardCheck } from '../ui/Icons'
+import { IconTerminal } from '../ui/Icons'
 
-const TaskBadge = ({ task }) => {
+const CommandBadge = ({ command }) => {
     const styles = {
         badge: {
-            color: `var(--yellow)`,
+            color: `var(--green)`,
             alignItems: 'center',
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',
@@ -13,11 +13,11 @@ const TaskBadge = ({ task }) => {
     }
 
     return (
-        <Link to={"/tasks/" + task.id} style={styles.badge}>
-            <IconClipboardCheck />
-            {task.name}
+        <Link to={"/commands/" + command.id} style={styles.badge}>
+            <IconTerminal />
+            {command.short_name}
         </Link>
     )
 }
 
-export default TaskBadge;
+export default CommandBadge;
