@@ -1,8 +1,12 @@
+import ShellCommand from 'components/ui/ShellCommand';
+import Tab from 'components/ui/Tab';
+import Tabs from 'components/ui/Tabs';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import CommandService from 'services/command';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from "../ui/Breadcrumb";
@@ -12,6 +16,7 @@ import EditButton from "../ui/buttons/Edit";
 import { IconBriefcase } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
+import CommandInstructions from './Instructions';
 
 const CommandDetails = () => {
     const { params: { commandId } } = useRouteMatch()
@@ -33,6 +38,7 @@ const CommandDetails = () => {
     if (!command) {
         return <Loading />
     }
+
     return <div>
         <div className='heading'>
             <Breadcrumb>
@@ -48,39 +54,40 @@ const CommandDetails = () => {
         </div>
         <article>
             <div>
-                <Title type='Command' title={command.name} icon={<IconBriefcase />} />
+                <Title type='Command' title={command.short_name} icon={<IconBriefcase />} />
             </div>
 
-            <div className="flex">
-                <div className="half">
-                    <h4>Details</h4>
-                    <dl>
-                        <dt>Short name</dt>
-                        <dd>{command.short_name}</dd>
+            <Tabs>
+                <Tab name="Details">
+                    <div className="flex">
+                        <div className="half">
+                            <h4>Details</h4>
+                            <dl>
+                                <dt>Description</dt>
+                                <dd><ReactMarkdown>{command.description}</ReactMarkdown></dd>
 
-                        <dt>Description</dt>
-                        <dd><ReactMarkdown>{command.description}</ReactMarkdown></dd>
+                                <dt>Command line example</dt>
+                                <dd>
+                                    <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
+                                </dd>
+                            </dl>
+                        </div>
 
-                        <dt>Docker image</dt>
-                        <dd>{command.docker_image}</dd>
+                        <div className="push-right">
+                            <h4>Relations</h4>
+                            <dl>
+                                <dt>Created by</dt>
+                                <dd><UserLink userId={command.creator_uid}>{command.creator_full_name}</UserLink></dd>
+                            </dl>
 
-                        <dt>Container args</dt>
-                        <dd>
-                            <code>{command.container_args}</code>
-                        </dd>
-                    </dl>
-                </div>
-
-                <div className="push-right">
-                    <h4>Relations</h4>
-                    <dl>
-                        <dt>Created by</dt>
-                        <dd><UserLink userId={command.creator_uid}>{command.creator_full_name}</UserLink></dd>
-                    </dl>
-
-                    <TimestampsSection entity={command} />
-                </div>
-            </div>
+                            <TimestampsSection entity={command} />
+                        </div>
+                    </div>
+                </Tab>
+                <Tab name="Run instructions">
+                    <CommandInstructions command={command} />
+                </Tab>
+            </Tabs>
         </article>
     </div>
 }

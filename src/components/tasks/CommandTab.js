@@ -1,19 +1,17 @@
-import ShellCommand from "../ui/ShellCommand";
-import NoResultsTableRow from '../ui/NoResultsTableRow'
-import SecondaryButton from '../ui/buttons/Secondary'
-import FileSizeSpan from '../ui/FileSizeSpan'
-import { IconUpload } from "../ui/Icons";
-import { useEffect, useState } from "react";
-import DeleteButton from "../ui/buttons/Delete";
-import Loading from "../ui/Loading";
-import PrimaryButton from "../ui/buttons/Primary";
-import { actionCompletedToast } from "../ui/toast";
-import secureApiFetch from "services/api";
+import CommandInstructions from "components/commands/Instructions";
+import DeleteButton from "components/ui/buttons/Delete";
+import PrimaryButton from "components/ui/buttons/Primary";
+import SecondaryButton from "components/ui/buttons/Secondary";
+import FileSizeSpan from "components/ui/FileSizeSpan";
+import { IconUpload } from "components/ui/Icons";
+import Loading from "components/ui/Loading";
+import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import useFetch from "hooks/useFetch";
+import secureApiFetch from "services/api";
+import { actionCompletedToast } from "../ui/toast";
 
 const TaskCommandTab = ({ task }) => {
-    const [commandVars, setCommandVars] = useState('');
-    const [containerArgs, setContainerArgs] = useState(null);
+    const [command] = useFetch(`/commands/${task.command_id}`)
     const [commandOutputs, updateCommandOutputs] = useFetch(`/commands/outputs?taskId=${task.id}`)
 
     const onDeleteOutputClick = (ev, outputId) => {
@@ -27,62 +25,17 @@ const TaskCommandTab = ({ task }) => {
             .catch(err => console.error(err))
     }
 
-    const onArgUpdate = ev => {
-        setContainerArgs({ ...containerArgs, [ev.target.name]: { name: ev.target.name, placeholder: ev.target.value } });
-    };
-
-    useEffect(() => {
-        if (containerArgs) {
-            let dynamicArgs = '';
-            Object.keys(containerArgs).forEach((key) => {
-                let containerArg = containerArgs[key];
-                dynamicArgs += `-var ${containerArg.name}=${containerArg.placeholder}`;
-            });
-            setCommandVars(dynamicArgs);
-        }
-    }, [containerArgs]);
-
-    useEffect(() => {
-        if (task && task.command_container_args) {
-            const argRegex = /{{{(.+?)}}}/g;
-            const commandArguments = task.command_container_args.match(argRegex);
-            const argMap = commandArguments.reduce((accumulator, current) => {
-                const tokens = current.replaceAll('{{{', '').replaceAll('}}}', '').split('|||');
-                accumulator[tokens[0]] = {
-                    name: tokens[0],
-                    placeholder: tokens[1]
-                };
-                return accumulator;
-            }, {});
-
-            setContainerArgs(argMap);
-        }
-    }, [task]);
+    if (!command) return <Loading />
 
     return <>
-        <h4>Command</h4>
         {task.command_id &&
             <>
-                <h5>1. Fill in the arguments</h5>
-                {containerArgs !== null &&
-                    Object.keys(containerArgs).map((key) =>
-                        <p>
-                            {containerArgs[key].name}<br />
-                            <input name={containerArgs[key].name} value={containerArgs[key].placeholder} onChange={onArgUpdate} />
-                        </p>
-                    )
-                }
-                <h5>2. Run this command</h5>
-                <div>
-                    To run the task execute:
-                                <ShellCommand>./rmap run-command -id {task.command_id} {commandVars}</ShellCommand>
-                    <p style={{ fontSize: "small" }}>(this will invoke the <strong>{task.command_short_name}</strong> application on a docker container)</p>
-                </div>
+                <CommandInstructions command={command} />
                 <h4>
                     <h5>Results</h5>
                     <PrimaryButton to={`/tasks/${task.id}/upload`}>
                         <IconUpload /> Upload results
-                                </PrimaryButton>
+                    </PrimaryButton>
                 </h4>
                 {!commandOutputs ? <Loading /> :
 

@@ -1,13 +1,13 @@
 import { useRef } from 'react';
+import { actionCompletedToast } from '../../components/ui/toast';
 import { IconDocumentDuplicate } from './Icons';
 import './ShellCommand.scss';
-import {actionCompletedToast} from '../../components/ui/toast'
 
-const ShellCommand = ({children}) => {
+const ShellCommand = ({ children, showPrompt = true }) => {
     const codeRef = useRef()
     const handleCopy = () => {
         const code = codeRef.current.innerText
-        
+
         var textField = document.createElement('textarea')
         textField.innerText = code
         document.body.appendChild(textField)
@@ -15,14 +15,14 @@ const ShellCommand = ({children}) => {
         document.execCommand('copy')
         textField.remove()
         actionCompletedToast('Copied to clipboard');
-    
+
     }
-    return <code ref={codeRef}>
-            {children}
-            <button onClick={handleCopy}>
-                <IconDocumentDuplicate />
-            </button>
-        </code>
+    return <code className={showPrompt ? 'prompt' : ''} ref={codeRef}>
+        {children}
+        <button onClick={handleCopy}>
+            <IconDocumentDuplicate />
+        </button>
+    </code>
 }
 
 export default ShellCommand;

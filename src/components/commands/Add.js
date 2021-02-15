@@ -1,19 +1,14 @@
-import React, { useState } from 'react'
+import Command from 'models/Command';
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import Title from '../ui/Title';
-import { Link } from "react-router-dom";
 import { IconPlus } from "../ui/Icons";
+import Title from '../ui/Title';
 import CommandForm from './Form';
 
 const AddCommandPage = ({ history }) => {
-    const [newCommand, setNewCommand] = useState({
-        short_name: null,
-        description: null,
-        docker_image: null,
-        container_args: null,
-        configuration: null
-    });
+    const [newCommand, setNewCommand] = useState(Command);
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();

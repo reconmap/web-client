@@ -129,7 +129,7 @@ const TaskDetails = ({ history, match }) => {
                                 </div>
                             </div>
                         </Tab>
-                        <Tab name="Command">
+                        <Tab name="Command instructions">
                             <TaskCommandTab task={task} />
                         </Tab>
                     </Tabs>

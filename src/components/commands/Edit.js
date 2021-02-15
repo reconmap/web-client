@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import Title from '../ui/Title';
-import { Link, useParams } from "react-router-dom";
 import { IconPlus } from "../ui/Icons";
-import useFetch from "../../hooks/useFetch";
-import { actionCompletedToast } from "../ui/toast";
 import Loading from "../ui/Loading";
+import Title from '../ui/Title';
+import { actionCompletedToast } from "../ui/toast";
 import CommandForm from './Form';
 
 const EditCommandPage = ({ history }) => {

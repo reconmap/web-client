@@ -18,17 +18,20 @@ code {
     right: 5px;
     padding : var(--space-xs);
     opacity: .3;
-    &:hover { 
+    &:hover {
       opacity: 1;
     }
     svg { margin : 0;}
   }
-  &:before {
-    content: '$ ';
-    font-family: monospace;
-    font-weight: var(--fontBold);
-    color: var(--text-color);
-  }
+}
+
+code.prompt {
+    &:before {
+        content: '$ ';
+        font-family: monospace;
+        font-weight: var(--fontBold);
+        color: var(--text-color);
+      }
 }
 
 code + code {
