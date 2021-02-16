@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import './Tabs.scss'
+import React, { useState } from 'react';
+import './Tabs.scss';
 
-const Tabs = ({children}) => {
+const Tabs = ({ children }) => {
     const [currentTab, setCurrentTab] = useState(0)
 
     const handleChangeTab = (ev, tabIndex) => {
@@ -13,8 +13,10 @@ const Tabs = ({children}) => {
     let buttons = [];
 
     childrenArray.forEach((child, index) => {
-        buttons.push(<button onClick={ev => handleChangeTab(ev, index)}
-                             className={currentTab === index ? "active" : ""}>{child.props.name}</button>);
+        if (child instanceof Object) {
+            buttons.push(<button onClick={ev => handleChangeTab(ev, index)}
+                className={currentTab === index ? "active" : ""}>{child.props.name}</button>);
+        }
     })
 
     return <div>
