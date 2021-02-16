@@ -44,13 +44,13 @@ const TargetView = ({ match, history }) => {
             <div>
                 <Title type='Target' title={target.name} />
 
-                <div className="flex">
-                    <div className="half">
+                <div className="grid grid-two">
+                    <div>
                         <h4>Kind</h4>
                         <Badge color={target.kind === 'hostname' ? 'green' : 'blue'}>{target.kind}</Badge>
                     </div>
 
-                    <div className="push-right">
+                    <div>
                         <TimestampsSection entity={target} />
                     </div>
                 </div>

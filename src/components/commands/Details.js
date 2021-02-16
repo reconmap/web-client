@@ -59,8 +59,8 @@ const CommandDetails = () => {
 
             <Tabs>
                 <Tab name="Details">
-                    <div className="flex">
-                        <div className="half">
+                    <div className="grid grid-two">
+                        <div>
                             <h4>Details</h4>
                             <dl>
                                 <dt>Description</dt>
@@ -73,7 +73,7 @@ const CommandDetails = () => {
                             </dl>
                         </div>
 
-                        <div className="push-right">
+                        <div>
                             <h4>Relations</h4>
                             <dl>
                                 <dt>Created by</dt>

@@ -8,26 +8,26 @@ const baseStyle = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '20px',
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: '#eeeeee',
+    borderWidth: 'var(--borderWidth)',
+    borderRadius: 'var(--borderRadius)',
+    borderColor: 'var(--color-gray)',
     borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
+    backgroundColor: 'var(--black)',
+    color: 'var(--text-color)',
     outline: 'none',
     transition: 'border .24s ease-in-out'
 };
 
 const activeStyle = {
-    borderColor: '#2196f3'
+    borderColor: 'var(--yellow)'
 };
 
 const acceptStyle = {
-    borderColor: '#00e676'
+    borderColor: 'var(--green)'
 };
 
 const rejectStyle = {
-    borderColor: '#ff1744'
+    borderColor: 'var(--red)'
 };
 
 const AttachmentsDropzone = ({ onUploadButtonClick, acceptedFilesSetter }) => {

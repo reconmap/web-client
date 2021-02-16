@@ -1,5 +1,5 @@
 import React from 'react'
-import {IconUnlocked} from './Icons'
+import { IconUnlocked } from './Icons'
 import Title from './Title'
 import Breadcrumb from './../ui/Breadcrumb'
 import Help from './../ui/Help'
@@ -27,46 +27,53 @@ export default function Sandbox() {
         '--purple',
     ]
     return (
-        <div>
-            <Breadcrumb/>
-            <Title title='Sandbox' type='UI test page' icon={<IconUnlocked/>}/>
-            <Help title='This is the help'>
-                <p>
-                    Excepteur exercitation incididunt quis commodo sint do pariatur labore velit do commodo voluptate
-                    minim Lorem.
-                </p>
-            </Help>
+        <div className='grid grid-two'>
             <div>
+            <Breadcrumb />
+            <Title title='Sandbox' type='UI test page' icon={<IconUnlocked />} />
 
-                <form>
+                <Help title='This is the help'>
+                    <p>
+                        Excepteur exercitation incididunt quis commodo sint do pariatur labore velit do commodo voluptate
+                        minim Lorem.
+                </p>
+                </Help>
+                <div>
 
-                </form>
-            </div>
-            <h3>Heading Level 3 can have buttons on the right <button>Press Me</button></h3>
-            <p>Consequat aliqua aliqua sit dolore minim dolore excepteur do qui exercitation.</p>
-            <code>
-                vim .env
+                    <form>
+
+                    </form>
+                </div>
+                <h3>Heading Level 3 can have buttons on the right <button>Press Me</button></h3>
+                <p>Consequat aliqua aliqua sit dolore minim dolore excepteur do qui exercitation.</p>
+                <code>
+                    vim .env
             </code>
-            <h4>Heading Level 4 can have buttons on the right <button>Press Me</button></h4>
-            <p>This is a paragraph.</p>
-            <div className='button-group' style={{margin: 'var(--margin) 0'}}>
-                <PrimaryButton>Primary</PrimaryButton>
-                <SecondaryButton>BtnSecondary</SecondaryButton>
-                <LinkButton>BtnLink</LinkButton>
-            </div>
+                <h4>Heading Level 4 can have buttons on the right <button>Press Me</button></h4>
+                <p>This is a paragraph.</p>
+                <div className='button-group' style={{ margin: 'var(--margin) 0' }}>
+                    <PrimaryButton>Primary</PrimaryButton>
+                    <SecondaryButton>BtnSecondary</SecondaryButton>
+                    <LinkButton>BtnLink</LinkButton>
+                </div>
 
-            <p style={{
-                display: 'flex',
-                gap: '10px',
-                flexWrap: 'wrap',
-                fontSize: 'var(--fontSizeXsmall)',
-                color: 'white'
-            }}>
-                {colors.map((color, index) =>
-                    <figure key={index}
-                            style={{width: '80px', height: '80px', background: `var(${color})`}}>{color}</figure>
-                )}
-            </p>
+                <p style={{
+                    display: 'flex',
+                    gap: '10px',
+                    flexWrap: 'wrap',
+                    fontSize: 'var(--fontSizeXsmall)',
+                    color: 'white'
+                }}>
+                    {colors.map((color, index) =>
+                        <figure key={index}
+                            style={{ width: '80px', height: '80px', background: `var(${color})` }}>{color}</figure>
+                    )}
+                </p>
+            </div>
+            <aside >
+                Hola Mundo
+            </aside>
         </div>
+
     )
 }

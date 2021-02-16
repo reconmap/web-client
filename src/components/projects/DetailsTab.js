@@ -6,8 +6,8 @@ import { IconDocument } from '../ui/Icons'
 
 function ProjectDetailsTab({ project }) {
     return (
-        <section className="flex">
-            <div className="half">
+        <section className="grid grid-two">
+            <div>
                 <h4>
                     <IconDocument /> Project Details
                 </h4>
@@ -17,7 +17,7 @@ function ProjectDetailsTab({ project }) {
                 </dl>
             </div>
 
-            <div className="push-right">
+            <div>
                 <h4>Relations</h4>
                 <dl>
                     <dt>Client</dt>

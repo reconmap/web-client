@@ -2,11 +2,19 @@
   button {
     border: none;
     border-bottom: var(--borderWidth) solid transparent;
-    border-radius: 0;
+    border-radius:  var(--borderRadius) var(--borderRadius) 0 0;
     background: transparent;
     color: var(--color-gray-light);
+    border-color: var(--black);
+
   }
 
+  button:hover {
+    border-color: var(--color-white);
+    outline: 0 0 0;
+    box-shadow: none;
+    color: var(--white);
+  }
   button.active {
     border-color: var(--primary-color);
     color: var(--white);

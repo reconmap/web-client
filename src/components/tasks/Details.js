@@ -98,8 +98,8 @@ const TaskDetails = ({ history, match }) => {
 
                     <Tabs>
                         <Tab name="Details">
-                            <div className="flex">
-                                <div className="half">
+                            <div className="grid grid-two">
+                                <div>
                                     <h4>Description</h4>
                                     <ReactMarkdown>{task.description || "_(empty)_"}</ReactMarkdown>
                                     <h4>Status</h4>
@@ -108,7 +108,7 @@ const TaskDetails = ({ history, match }) => {
                                     </p>
                                 </div>
 
-                                <div className="push-right">
+                                <div>
                                     <h4>People</h4>
                                     <dl>
                                         <dt>Created by</dt>

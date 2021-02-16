@@ -7,6 +7,7 @@ export default function UserAvatar({email, size = '--iconSize', onClick, name, t
             padding: '0',
             borderRadius: '50%',
             overflow: 'hidden',
+            flexShrink : '0'
         },
         image: {
             width: `var(${size})`,
