@@ -3,6 +3,7 @@ import UserLink from 'components/users/Link'
 import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { Link } from "react-router-dom"
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo'
 import useDelete from '../../hooks/useDelete'
 import TaskStatuses from "../../models/TaskStatuses"
 import secureApiFetch from '../../services/api'
@@ -60,7 +61,7 @@ const TaskDetails = ({ history, match }) => {
 
     useEffect(() => {
         if (task) {
-            document.title = `Task ${task.name} | Reconmap`;
+            document.title = `Task ${task.summary} | Reconmap`;
 
             secureApiFetch(`/projects/${task.project_id}`, { method: 'GET' })
                 .then(resp => resp.json())
@@ -94,7 +95,7 @@ const TaskDetails = ({ history, match }) => {
             </div>
             {!task ? <Loading /> :
                 <article>
-                    <Title title={task.name} type='Task' icon={<IconClipboard />} />
+                    <Title title={task.summary} type='Task' icon={<IconClipboard />} />
 
                     <Tabs>
                         <Tab name="Details">
@@ -126,6 +127,12 @@ const TaskDetails = ({ history, match }) => {
                                     </dl>
 
                                     <TimestampsSection entity={task} />
+                                    {task.due_date &&
+                                        <dl>
+                                            <dt>Due date</dt>
+                                            <dd><ReactTimeAgo date={task.due_date} /></dd>
+                                        </dl>
+                                    }
                                 </div>
                             </div>
                         </Tab>

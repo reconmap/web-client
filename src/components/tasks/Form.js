@@ -34,12 +34,14 @@ const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask 
                 )}
             </select>
         </label>
-        <label>Name
-            <input type="text" name="name" onChange={onFormChange} required autoFocus
-                value={task.name} /></label>
+        <label>Summary
+            <input type="text" name="summary" onChange={onFormChange} required autoFocus
+                value={task.summary} /></label>
         <label>Description
             <textarea name="description" onChange={onFormChange} required
                 value={task.description} /></label>
+        <label>Due date
+            <input type="date" name="due_date" onChange={onFormChange} value={task.due_date} /></label>
         <label>Command
             <select name="command_id" onChange={onFormChange} value={task.command_id}>
                 <option value="">(none)</option>

@@ -1,0 +1,7 @@
+.task-badge {
+    color: var(--yellow);
+    align-items: center;
+    display: inline-flex;
+    border-radius: var(--borderRadius, 3px);
+    font-weight: var(--fontBold);
+}

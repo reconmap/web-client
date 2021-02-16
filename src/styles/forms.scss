@@ -26,12 +26,15 @@ form input[type="checkbox"] {
 form input:required {
     border: var(--borderWidth) solid var(--primary-color);
 }
+
 fieldset{
     border: 0;
 }
+
 form legend {
     color: var(--white);
 }
+
 form.crud fieldset legend {
     border-bottom: var(--borderWidth) solid var(--black);
     width: 100%;
@@ -44,4 +47,8 @@ form.crud fieldset legend {
             grid-template-columns: 1fr;
         }
     }
+}
+
+textarea {
+    height: 150px;
 }

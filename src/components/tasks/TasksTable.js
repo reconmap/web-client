@@ -12,7 +12,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
         <table>
             <thead>
                 <tr>
-                    <th style={{ width: '190px' }}>Name</th>
+                    <th style={{ width: '190px' }}>Summary</th>
                     <th className='only-desktop'>Description</th>
                     <th style={{ width: '190px' }}>Project</th>
                     <th style={{ width: '12ch' }}>Assignee</th>

@@ -1,21 +1,12 @@
-import { Link } from 'react-router-dom'
-import { IconClipboardCheck } from '../ui/Icons'
+import { Link } from 'react-router-dom';
+import { IconClipboardCheck } from '../ui/Icons';
+import './TaskBadge.scss';
 
 const TaskBadge = ({ task }) => {
-    const styles = {
-        badge: {
-            color: `var(--yellow)`,
-            alignItems: 'center',
-            display: `inline-flex`,
-            borderRadius: 'var(--borderRadius, 3px)',
-            fontWeight: 'var(--fontBold)',
-        }
-    }
-
     return (
-        <Link to={"/tasks/" + task.id} style={styles.badge}>
+        <Link className="task-badge" to={"/tasks/" + task.id}>
             <IconClipboardCheck />
-            {task.name}
+            {task.summary}
         </Link>
     )
 }
