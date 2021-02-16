@@ -129,9 +129,11 @@ const TaskDetails = ({ history, match }) => {
                                 </div>
                             </div>
                         </Tab>
-                        <Tab name="Command instructions">
-                            <TaskCommandTab task={task} />
-                        </Tab>
+                        {task.command_id &&
+                            <Tab name="Command instructions">
+                                <TaskCommandTab task={task} />
+                            </Tab>
+                        }
                     </Tabs>
                 </article>
             }
