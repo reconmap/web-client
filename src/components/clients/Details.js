@@ -51,8 +51,8 @@ const ClientDetails = () => {
                 <Title type='Client' title={client.name} icon={<IconBriefcase />} />
             </div>
 
-            <div className="flex">
-                <div className="half">
+            <div className="grid grid-two">
+                <div>
                     <h4>Details</h4>
                     <dl>
                         <dt>Name</dt>
@@ -72,7 +72,7 @@ const ClientDetails = () => {
                     </dl>
                 </div>
 
-                <div className="push-right">
+                <div>
                     <h4>Relations</h4>
                     <dl>
                         <dt>Created by</dt>

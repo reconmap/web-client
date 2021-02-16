@@ -77,8 +77,8 @@ const VulnerabilityDetails = () => {
 
             <Tabs>
                 <Tab name="Details">
-                    <div className="flex">
-                        <div className='half'>
+                    <div className="grid grid-two">
+                        <div>
                             <h4>Description</h4>
                             <ReactMarkdown>{vulnerability.description || "_(empty)_"}</ReactMarkdown>
                             <h4>Details</h4>
@@ -102,7 +102,7 @@ const VulnerabilityDetails = () => {
                             </dl>
                         </div>
 
-                        <div className="push-right">
+                        <div>
                             <h4>Relations</h4>
                             <dl>
                                 <dt>Project</dt>

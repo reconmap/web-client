@@ -1,3 +1,4 @@
+import Help from "components/ui/Help";
 import ShellCommand from "components/ui/ShellCommand";
 import { useEffect, useState } from "react";
 import CommandService from "services/command";
@@ -32,8 +33,10 @@ const CommandInstructions = ({ command }) => {
         {Object.keys(commandArgs).length > 0 &&
             Object.keys(commandArgs).map((key) =>
                 <p>
-                    {commandArgs[key].name}<br />
-                    <input name={commandArgs[key].name} value={commandArgs[key].placeholder} onChange={onArgUpdate} />
+                    <label htmlFor='commandArg'>
+                        {commandArgs[key].name}
+                    </label> <br />
+                    <input id='commandArg' name={commandArgs[key].name} value={commandArgs[key].placeholder} onChange={onArgUpdate} />
                 </p>
             )
         }
@@ -44,11 +47,9 @@ const CommandInstructions = ({ command }) => {
             <ShellCommand>{CommandService.generateEntryPoint(command)} {commandArgsRendered}</ShellCommand>
         </div>
 
-        {usesContainer && <>
-            <h4>How does it work?</h4>
-
-            <p>Reconmap will invoke the command <strong>{command.short_name}</strong> from a <strong>{command.docker_image}</strong> container using the arguments <strong>{command.arguments}</strong> and upload the results to this server for analysis.</p>
-        </>
+        {usesContainer && <Help title='How does it work?'>
+            Reconmap will invoke the command <strong>{command.short_name}</strong> from a <strong>{command.docker_image}</strong> container using the arguments <strong>{command.arguments}</strong> and upload the results to this server for analysis.
+        </Help>
         }
     </>
 }

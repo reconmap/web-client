@@ -50,8 +50,8 @@ const UserProfile = ({ match }) => {
                         <Title type='User profile' title={user.full_name}
                             icon={<UserAvatar email={user.email} size='--iconSizeXLarge' />} />
 
-                        <div className="flex">
-                            <div className="half">
+                        <div className="grid grid-two">
+                            <div>
                                 <h4>Details</h4>
                                 <dl>
                                     {user.short_bio && <>
@@ -67,7 +67,7 @@ const UserProfile = ({ match }) => {
                                 </dl>
                             </div>
 
-                            <div className="push-right">
+                            <div>
                                 <TimestampsSection entity={user} />
                             </div>
                         </div>

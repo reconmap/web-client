@@ -31,6 +31,9 @@
 .half { width: 100%; }
 @media (min-width: 600px) { .half { width: 50%; }
 }
+.third { width: 100%; }
+@media (min-width: 600px) { .third { width: 66%; }
+}
 
 // media queries helpers
 .only-desktop { display: none; }
@@ -56,4 +59,29 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+}
+
+
+
+.grid {
+    display: grid;
+    gap : var(--space);
+}
+
+// grid-two
+// |------2fr------|---1fr---| 
+.grid-two { grid-template-columns: 2fr 1fr; }
+@media screen and (max-width : 900px){
+    .grid-two {
+        grid-template-columns: 1fr;
+    }
+}
+
+// grid-two-odd
+// |----1fr----|----1fr----| 
+.grid-two-odd { grid-template-columns: 2fr 1fr; }
+@media screen and (max-width : 900px){
+    .grid-two-odd {
+        grid-template-columns: 1fr;
+    }
 }

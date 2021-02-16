@@ -31,8 +31,9 @@ const TaskCommandTab = ({ task }) => {
         {task.command_id &&
             <>
                 <CommandInstructions command={command} />
+                <hr />
                 <h4>
-                    <h5>Results</h5>
+                    Results
                     <PrimaryButton to={`/tasks/${task.id}/upload`}>
                         <IconUpload /> Upload results
                     </PrimaryButton>
