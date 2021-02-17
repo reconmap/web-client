@@ -1,3 +1,4 @@
+import CommandOutputs from 'components/commands/Outputs'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React, { useEffect, useState } from 'react'
@@ -139,6 +140,11 @@ const TaskDetails = ({ history, match }) => {
                         {task.command_id &&
                             <Tab name="Command instructions">
                                 <TaskCommandTab task={task} />
+                            </Tab>
+                        }
+                        {task.command_id &&
+                            <Tab name="Command outputs">
+                                <CommandOutputs task={task} />
                             </Tab>
                         }
                     </Tabs>

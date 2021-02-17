@@ -38,7 +38,7 @@ const AttachmentsDropzone = ({ onUploadButtonClick, acceptedFilesSetter }) => {
         isDragActive,
         isDragAccept,
         isDragReject
-    } = useDropzone({ accept: 'image/*', onDrop: acceptedFilesSetter });
+    } = useDropzone({ onDrop: acceptedFilesSetter });
 
     const files = acceptedFiles.map(file => (
         <li key={file.path}>

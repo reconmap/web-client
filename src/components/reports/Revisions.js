@@ -30,7 +30,7 @@ const ReportRevisions = ({ projectId }) => {
     }
 
     const handleDownload = (reportId, contentType) => {
-        secureApiFetch(`/reports/${reportId}`, { method: 'GET', headers: { 'Content-Type': contentType } })
+        secureApiFetch(`/attachments/${reportId}`, { method: 'GET', headers: { 'Content-Type': contentType } })
             .then(resp => {
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
@@ -107,11 +107,11 @@ const ReportRevisions = ({ projectId }) => {
                         <td>{report.version_name} ({report.version_description})</td>
                         <td><ReactTimeAgo date={report.insert_ts} /></td>
                         <td>
-                            <SecondaryButton onClick={() => handleDownload(report.id, 'text/html')}>
+                            <SecondaryButton onClick={() => handleDownload(report.html_attachment_id)}>
                                 <IconCode /> HTML
                                         </SecondaryButton>
                                         &nbsp;
-                                        <SecondaryButton onClick={() => handleDownload(report.id, 'application/pdf')}>
+                                        <SecondaryButton onClick={() => handleDownload(report.pdf_attachment_id)}>
                                 <IconDocument /> PDF
                                         </SecondaryButton>
                         </td>
