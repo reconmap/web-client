@@ -10,12 +10,12 @@ import secureApiFetch from "services/api";
 import { actionCompletedToast } from "../ui/toast";
 
 const CommandOutputs = ({ task }) => {
-    const [commandOutputs, updateCommandOutputs] = useFetch(`/commands/outputs?taskId=${task.id}`)
+    const [commandOutputs, updateCommandOutputs] = useFetch(`/attachments?parentType=command&parentId=${task.id}`)
 
-    const onDeleteOutputClick = (ev, outputId) => {
+    const onDeleteOutputClick = (ev, attachmentId) => {
         ev.preventDefault();
 
-        secureApiFetch(`/commands/outputs/${outputId}`, { method: 'DELETE' })
+        secureApiFetch(`/attachments/${attachmentId}`, { method: 'DELETE' })
             .then(() => {
                 actionCompletedToast("The output has been deleted.");
                 updateCommandOutputs();
@@ -23,8 +23,8 @@ const CommandOutputs = ({ task }) => {
             .catch(err => console.error(err))
     }
 
-    const onDownloadClick = (outputId, contentType) => {
-        secureApiFetch(`/command/outputs/${outputId}`, { method: 'GET', headers: { 'Content-Type': contentType } })
+    const onDownloadClick = (ev, attachmentId) => {
+        secureApiFetch(`/attachments/${attachmentId}`, { method: 'GET', headers: {} })
             .then(resp => {
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
@@ -66,16 +66,16 @@ const CommandOutputs = ({ task }) => {
                         </thead>
                         <tbody>
                             {commandOutputs.length === 0 && <NoResultsTableRow numColumns={5} />}
-                            {commandOutputs.map((result, index) =>
+                            {commandOutputs.map((commandOutput, index) =>
                                 <tr key={index}>
-                                    <td>{result.insert_ts}</td>
-                                    <td>{result.submitter_name}</td>
-                                    <td>{result.file_name}</td>
-                                    <td><FileSizeSpan fileSize={result.file_size} /></td>
-                                    <td>{result.file_mimetype}</td>
+                                    <td>{commandOutput.insert_ts}</td>
+                                    <td>{commandOutput.submitter_name}</td>
+                                    <td>{commandOutput.client_file_name}</td>
+                                    <td><FileSizeSpan fileSize={commandOutput.file_size} /></td>
+                                    <td>{commandOutput.file_mimetype}</td>
                                     <td style={{ display: "flex" }}>
-                                        <SecondaryButton onClick={onDownloadClick}>Download</SecondaryButton>
-                                        <DeleteButton onClick={ev => onDeleteOutputClick(ev, result.id)} />
+                                        <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
+                                        <DeleteButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
                                     </td>
                                 </tr>
                             )}
