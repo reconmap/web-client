@@ -54,7 +54,7 @@ const TemplateDetails = ({ history, match }) => {
                             <ReactMarkdown>{template.description}</ReactMarkdown>
                             <h4>Tasks</h4>
                             {tasks && tasks.map((task, index) =>
-                                <>&#10003; {task.name}<br /></>
+                                <>&#10003; {task.summary}<br /></>
                             )}
                         </div>
 

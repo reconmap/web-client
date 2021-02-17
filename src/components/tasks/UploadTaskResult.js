@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import secureApiFetch from '../../services/api';
-import Breadcrumb from '../ui/Breadcrumb'
-import Title from '../ui/Title';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import Loading from "../ui/Loading";
+import secureApiFetch from '../../services/api';
+import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from "../ui/buttons/Primary";
 import { IconUpload } from "../ui/Icons";
+import Loading from "../ui/Loading";
+import Title from '../ui/Title';
 
 const UploadTaskResult = () => {
 
@@ -52,11 +52,11 @@ const UploadTaskResult = () => {
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/tasks">Tasks</Link>
-                    {task && <Link to={`/tasks/${task.id}`}>{task.name}</Link>}
+                    {task && <Link to={`/tasks/${task.id}`}>{task.summary}</Link>}
                 </Breadcrumb>
             </div>
             <article>
-                <Title title={`${task.name} results`} />
+                <Title title={`${task.summary} results`} />
                 <div className='items-start space-x-2'>
                     <div className='card flex-1'>
                         <h2>Upload {task.command_parser} output</h2>
