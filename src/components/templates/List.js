@@ -18,7 +18,9 @@ const TemplatesList = ({ history }) => {
     useSetTitle('Projects templates');
     const [templates, updateTemplates] = useFetch('/projects?isTemplate=1')
 
-    const cloneProject = (templateId) => {
+    const cloneProject = (ev, templateId) => {
+        ev.stopPropagation();
+
         secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
@@ -68,7 +70,7 @@ const TemplatesList = ({ history }) => {
                                     <td className='truncate'>{template.description}</td>
                                     <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
                                     <td className='flex justify-end'>
-                                        <PrimaryButton onClick={() => cloneProject(template.id)} key={template.id}
+                                        <PrimaryButton onClick={ev => cloneProject(ev, template.id)} key={template.id}
                                             title="Create project using this template"><IconPlus />Create
                                         project</PrimaryButton>
                                         <DeleteButton onClick={ev => deleteTemplate(ev, template.id)} />
