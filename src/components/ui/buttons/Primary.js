@@ -1,15 +1,15 @@
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-export default function PrimaryButton({
-                                          type,
-                                          onClick,
-                                          children,
-                                          color = 'primary-color',
-                                          fontSize = 'fontSizeSmall',
-                                          disabled = false,
-                                          to,
-                                          external = false
-                                      }) {
+const PrimaryButton = ({
+    type,
+    onClick,
+    children,
+    color = 'primary-color',
+    fontSize = 'fontSizeSmall',
+    disabled = false,
+    to,
+    external = false
+}) => {
 
     const history = useHistory()
     const handleOpen = () => {
@@ -21,8 +21,7 @@ export default function PrimaryButton({
             alignItems: 'center',
             backgroundColor: `var(--${color})`,
             color: `var(--white)`,
-            fontSize: `var(--${fontSize})`,
-            opacity: disabled ? '.5' : '1'
+            fontSize: `var(--${fontSize})`
         }
     }
 
@@ -32,3 +31,5 @@ export default function PrimaryButton({
         </button>
     )
 }
+
+export default PrimaryButton;

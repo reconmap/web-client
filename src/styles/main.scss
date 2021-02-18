@@ -154,6 +154,10 @@ button:focus {
     outline: 0;
 }
 
+button:disabled {
+    opacity: 0.5;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -363,14 +367,14 @@ button {
     cursor: pointer;
     position: relative;
     &[title]:hover:after{
-        content : attr(title);        
+        content : attr(title);
         position: absolute;
         display: block;
         padding: var(--space-sm);
         font-size: var(--fontSizeXsmall);
         opacity: .8;
         top: 130%;
-        left : -35%; 
+        left : -35%;
         right: -35%;
         margin:auto;
         // width:max-content;

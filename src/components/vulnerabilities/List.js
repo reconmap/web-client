@@ -1,20 +1,24 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import useSetTitle from './../../hooks/useSetTitle'
-import Loading from '../ui/Loading';
+import ButtonGroup from 'components/ui/buttons/ButtonGroup';
+import ReloadButton from 'components/ui/buttons/Reload';
+import React, { useCallback, useEffect, useState } from 'react';
 import useDelete from '../../hooks/useDelete';
-import Pagination from '../layout/Pagination';
 import secureApiFetch from '../../services/api';
-import VulnerabilitiesTable from './VulnerabilitiesTable';
-import CreateButton from '../ui/buttons/Create';
-import Title from '../ui/Title';
-import { IconFlag } from '../ui/Icons';
+import Pagination from '../layout/Pagination';
 import Breadcrumb from "../ui/Breadcrumb";
+import CreateButton from '../ui/buttons/Create';
+import { IconFlag } from '../ui/Icons';
+import Loading from '../ui/Loading';
+import Title from '../ui/Title';
+import useSetTitle from './../../hooks/useSetTitle';
+import VulnerabilitiesTable from './VulnerabilitiesTable';
 
 const VulnerabilitiesList = ({ history }) => {
     const searchParams = new URLSearchParams(history.location.search);
     let pageNumber = searchParams.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
+
+    const [reloadButtonDisabled, setReloadButtonDisabled] = useState(false);
 
     useSetTitle(`Vulnerabilities - Page ${pageNumber}`)
 
@@ -28,7 +32,10 @@ const VulnerabilitiesList = ({ history }) => {
         history.push(`/vulnerabilities?page=${pageNumber + 1}`);
     }
 
-    const reloadData = useCallback(() => {
+    const reloadVulnerabilities = useCallback(() => {
+        setVulnerabilities([]);
+        setReloadButtonDisabled(true);
+
         secureApiFetch(`/vulnerabilities?page=${apiPageNumber}`, { method: 'GET' })
             .then(resp => {
                 if (resp.headers.has('X-Page-Count')) {
@@ -39,13 +46,16 @@ const VulnerabilitiesList = ({ history }) => {
             .then((data) => {
                 setVulnerabilities(data);
             })
+            .finally(() => {
+                setReloadButtonDisabled(false);
+            });
     }, [apiPageNumber]);
 
     useEffect(() => {
-        reloadData()
-    }, [reloadData])
+        reloadVulnerabilities()
+    }, [reloadVulnerabilities])
 
-    const destroy = useDelete('/vulnerabilities/', reloadData, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
+    const destroy = useDelete('/vulnerabilities/', reloadVulnerabilities, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
     const handleCreateVulnerability = () => {
         history.push(`/vulnerabilities/create`)
     }
@@ -55,7 +65,10 @@ const VulnerabilitiesList = ({ history }) => {
             <div className='heading'>
                 <Breadcrumb />
                 <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
-                <CreateButton onClick={handleCreateVulnerability}>Add vulnerability</CreateButton>
+                <ButtonGroup>
+                    <CreateButton onClick={handleCreateVulnerability}>Add vulnerability</CreateButton>
+                    <ReloadButton onClick={reloadVulnerabilities} disabled={reloadButtonDisabled} />
+                </ButtonGroup>
             </div>
             <Title title='Vulnerabilities' icon={<IconFlag />} />
             {!vulnerabilities ? <Loading /> :
