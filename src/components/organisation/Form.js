@@ -1,20 +1,15 @@
-import React, {useEffect, useState} from 'react'
+import Organisation from 'models/Organisation';
+import React, { useEffect, useState } from 'react';
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
-import Title from '../ui/Title';
-import {IconPreferences} from "../ui/Icons";
-import useFetch from "../../hooks/useFetch";
+import { IconPreferences } from "../ui/Icons";
 import Loading from "../ui/Loading";
+import Title from '../ui/Title';
 
-export default function OrganisationForm({history}) {
-    const [organisation, setOrganisation] = useState({
-        name: "",
-        url: "",
-        contactName: null,
-        contactEmail: null,
-        contactPhone: null
-    })
+export default function OrganisationForm({ history }) {
+    const [organisation, setOrganisation] = useState(Organisation);
 
     const [rootOrganisation] = useFetch('/organisations/root');
     const [loading, setLoading] = useState(false);
@@ -23,7 +18,7 @@ export default function OrganisationForm({history}) {
         ev.preventDefault();
 
         setLoading(true);
-        await secureApiFetch(`/organisations/root`, {method: 'PUT', body: JSON.stringify(organisation)})
+        await secureApiFetch(`/organisations/root`, { method: 'PUT', body: JSON.stringify(organisation) })
         history.push(`/clients`)
     }
     const handleFormChange = ev => {
@@ -32,7 +27,7 @@ export default function OrganisationForm({history}) {
         const name = target.name;
         const value = target.value;
 
-        setOrganisation({...organisation, [name]: value});
+        setOrganisation({ ...organisation, [name]: value });
     };
 
     useEffect(() => {
@@ -47,7 +42,7 @@ export default function OrganisationForm({history}) {
     }, [rootOrganisation]);
 
     if (!organisation) {
-        return <Loading/>
+        return <Loading />
     }
 
     return (
@@ -57,23 +52,23 @@ export default function OrganisationForm({history}) {
                 </Breadcrumb>
             </div>
             <form onSubmit={onFormSubmit}>
-                <Title title="Settings" type="Organisation" icon={<IconPreferences/>}/>
+                <Title title="Settings" type="Organisation" icon={<IconPreferences />} />
                 <label>Name
                     <input type="text" name="name" value={organisation.name} onChange={handleFormChange} required
-                           autoFocus/></label>
+                        autoFocus /></label>
                 <label>URL
-                    <input type="text" name="url" value={organisation.url} onChange={handleFormChange}/></label>
+                    <input type="text" name="url" value={organisation.url} onChange={handleFormChange} /></label>
                 <label>Contact name
                     <input type="text" name="contactName" value={organisation.contactName} onChange={handleFormChange}
                     /></label>
                 <label>Contact email
                     <input type="email" name="contactEmail" value={organisation.contactEmail}
-                           onChange={handleFormChange}/></label>
+                        onChange={handleFormChange} /></label>
                 <label>Contact phone
                     <input type="text" name="contactPhone" value={organisation.contactPhone}
-                           onChange={handleFormChange}/></label>
+                        onChange={handleFormChange} /></label>
                 <PrimaryButton type="submit"
-                               disabled={loading}>Update</PrimaryButton>
+                    disabled={loading}>Update</PrimaryButton>
             </form>
         </div>
     )

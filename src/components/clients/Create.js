@@ -1,24 +1,19 @@
-import React, {useState} from 'react'
+import Client from 'models/Client';
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
+import { IconPlus } from "../ui/Icons";
 import Title from '../ui/Title';
-import {Link} from "react-router-dom";
-import {IconPlus} from "../ui/Icons";
 import ClientForm from "./Form";
 
-const ClientCreate = ({history}) => {
-    const [newClient, setNewClient] = useState({
-        name: null,
-        url: null,
-        contactName: null,
-        contactEmail: null,
-        contactPhone: null
-    })
+const ClientCreate = ({ history }) => {
+    const [newClient, setNewClient] = useState(Client);
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/clients`, {method: 'POST', body: JSON.stringify(newClient)})
+        await secureApiFetch(`/clients`, { method: 'POST', body: JSON.stringify(newClient) })
         history.push(`/clients`)
     }
 
@@ -30,9 +25,9 @@ const ClientCreate = ({history}) => {
                 </Breadcrumb>
             </div>
 
-            <Title title="New client details" icon={<IconPlus/>}/>
+            <Title title="New client details" icon={<IconPlus />} />
 
-            <ClientForm onFormSubmit={onFormSubmit} client={newClient} clientSetter={setNewClient}/>
+            <ClientForm onFormSubmit={onFormSubmit} client={newClient} clientSetter={setNewClient} />
         </div>
     )
 }

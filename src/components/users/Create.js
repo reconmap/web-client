@@ -1,22 +1,16 @@
-import React, {useState} from 'react'
-import {Link, useHistory} from 'react-router-dom';
+import User from 'models/User';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
+import { IconPlus } from "../ui/Icons";
 import Title from '../ui/Title';
-import {actionCompletedToast} from '../ui/toast'
-import {IconPlus} from "../ui/Icons";
+import { actionCompletedToast } from '../ui/toast';
 import UserForm from "./Form";
-import UserRoles from "../../models/UserRoles";
 
 const CreateUserPage = () => {
     const history = useHistory()
-    const [userData, setUserData] = useState({
-        name: null,
-        password: null,
-        email: null,
-        role: UserRoles[0].id,
-        sendEmailToUser: false
-    })
+    const [userData, setUserData] = useState(User);
 
     const handleCreate = async (ev) => {
         ev.preventDefault();
@@ -38,9 +32,9 @@ const CreateUserPage = () => {
                 </Breadcrumb>
             </div>
 
-            <Title title="New user details" icon={<IconPlus/>}/>
+            <Title title="New user details" icon={<IconPlus />} />
 
-            <UserForm user={userData} userSetter={setUserData} onFormSubmit={handleCreate}/>
+            <UserForm user={userData} userSetter={setUserData} onFormSubmit={handleCreate} />
         </div>
     )
 }
