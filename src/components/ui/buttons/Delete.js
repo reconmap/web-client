@@ -1,8 +1,8 @@
-import {IconX} from "../Icons";
-import SecondaryButton from './../buttons/Secondary'
+import { IconX } from "../Icons";
+import SecondaryButton from './../buttons/Secondary';
 
 const DeleteButton = (props) => <SecondaryButton onClick={props.onClick} {...props}>
-    <IconX/>
+    <IconX />
     {props.children || "Delete"}
 </SecondaryButton>
 

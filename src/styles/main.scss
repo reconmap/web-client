@@ -150,14 +150,6 @@
     background-color: var(--black);
 }
 
-button:focus {
-    outline: 0;
-}
-
-button:disabled {
-    opacity: 0.5;
-}
-
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -329,6 +321,7 @@ h4 {
         flex-shrink: 0;
     }
 }
+
 figure svg { margin: 0; }
 
 a {
@@ -337,15 +330,7 @@ a {
     }
 }
 
-input::placeholder {
-    color: var(--text-color);
-}
-
-input,
-select,
-textarea,
-.breadcrumb,
-button {
+.breadcrumb {
     color: var(--white);
     padding: var(--paddingBox);
     border-width: var(--borderWidth);
@@ -358,30 +343,6 @@ button {
 
     &:hover {
         box-shadow: 0 0 0 var(--borderWidth) var(--primary-color);
-    }
-}
-
-button {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    &[title]:hover:after{
-        content : attr(title);
-        position: absolute;
-        display: block;
-        padding: var(--space-sm);
-        font-size: var(--fontSizeXsmall);
-        opacity: .8;
-        top: 130%;
-        left : -35%;
-        right: -35%;
-        margin:auto;
-        // width:max-content;
-        background-color: var(--black);
-        border-radius: var(--borderRadius);
-        color : var(--text-color);
-        animation: fadeInDown .1s ease;
     }
 }
 

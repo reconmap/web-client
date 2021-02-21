@@ -7,7 +7,7 @@ const TaskCommandTab = ({ task }) => {
     if (!command) return <Loading />
 
     return <>
-        {task.command_id && <CommandInstructions command={command} />}
+        {task.command_id && <CommandInstructions command={command} task={task} />}
         {!task.command_id && <p>No command defined for this task.</p>}
     </>
 }

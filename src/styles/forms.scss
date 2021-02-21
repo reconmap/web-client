@@ -27,7 +27,7 @@ form input:required {
     border: var(--borderWidth) solid var(--primary-color);
 }
 
-fieldset{
+fieldset {
     border: 0;
 }
 
@@ -51,4 +51,58 @@ form.crud fieldset legend {
 
 textarea {
     height: 150px;
+}
+
+button:focus {
+    outline: 0;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+button {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    &[title]:hover:after {
+        content : attr(title);
+        position: absolute;
+        display: block;
+        padding: var(--space-sm);
+        font-size: var(--fontSizeXsmall);
+        opacity: .8;
+        top: 130%;
+        left : -35%;
+        right: -35%;
+        margin:auto;
+        background-color: var(--black);
+        border-radius: var(--borderRadius);
+        color : var(--text-color);
+        animation: fadeInDown .1s ease;
+    }
+}
+
+input::placeholder {
+    color: var(--text-color);
+}
+
+input,
+select,
+textarea,
+button {
+    color: var(--white);
+    padding: var(--paddingBox);
+    border-width: var(--borderWidth);
+    border-color: transparent;
+    background-color: var(--black);
+    border-radius: var(--borderRadius);
+    transition: var(--transitionTime);
+    font-size: var(--fontSizeSmall);
+    outline: transparent;
+
+    &:hover {
+        box-shadow: 0 0 0 var(--borderWidth) var(--primary-color);
+    }
 }

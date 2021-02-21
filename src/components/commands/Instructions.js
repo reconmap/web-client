@@ -3,7 +3,7 @@ import ShellCommand from "components/ui/ShellCommand";
 import { useEffect, useState } from "react";
 import CommandService from "services/command";
 
-const CommandInstructions = ({ command }) => {
+const CommandInstructions = ({ command, task = null }) => {
     const [commandArgsRendered, setCommandArgsRendered] = useState('');
     const [commandArgs, setCommandArgs] = useState({});
     const usesContainer = command.executable_type === 'rmap';
@@ -44,7 +44,7 @@ const CommandInstructions = ({ command }) => {
         <h5>2. Run this command</h5>
         <div>
             To run the task execute:
-            <ShellCommand>{CommandService.generateEntryPoint(command)} {commandArgsRendered}</ShellCommand>
+            <ShellCommand>{CommandService.generateEntryPoint(command, task)} {commandArgsRendered}</ShellCommand>
         </div>
 
         {usesContainer && <Help title='How does it work?'>
