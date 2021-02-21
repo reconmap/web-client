@@ -1,20 +1,4 @@
 
-.KeyboardShortcuts {
-  background-color: var(--bg-color);
-  width: 100%;
-  opacity: 0;
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 100;
-  animation-name: fadeInBackdrop;
-  animation-duration: .2s;
-  animation-delay: 0s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
 .KeyboardShortcutsPopup {
   opacity: 0;
   animation-name: fadeInPopup;
@@ -28,7 +12,6 @@
   backdrop-filter: blur(10px);
   top: 0;
   width: 90%;
-  max-width: 500px;
   height: max-content;
   bottom: 0;
   left: 0;
@@ -43,13 +26,7 @@
     align-items: center;
     gap: var(--space);
     margin-bottom: var(--space-sm);
-
   }
-
-}
-
-.KeyboardShortcutsHidden {
-  display: none;
 }
 
 kbd {

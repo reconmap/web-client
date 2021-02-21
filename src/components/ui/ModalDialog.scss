@@ -1,0 +1,15 @@
+.modaldialog-backdrop {
+    background-color: var(--bg-color);
+    width: 100%;
+    opacity: 0;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    animation-name: fadeInBackdrop;
+    animation-duration: .2s;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }

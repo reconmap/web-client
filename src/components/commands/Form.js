@@ -32,8 +32,8 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
             <label>Docker image
             <input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image} /></label>
 
-            <label>JSON configuration
-            <textarea name="configuration" onChange={onFormChange} value={command.configuration} />
+            <label>Output filename
+            <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename} />
             </label>
         </>}
 

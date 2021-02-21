@@ -1,9 +1,10 @@
-import {createRef, useCallback, useEffect} from "react";
+import ModalDialog from "components/ui/ModalDIalog";
+import { useCallback, useEffect, useState } from "react";
+import isInputElement from "utilities/domUtils";
 import './KeyboardShortcuts.scss';
-import isInputElement from "../../utilities/domUtils";
 
 const KeyboardShortcuts = () => {
-    const divRef = createRef();
+    const [modalVisible, setModalVisible] = useState(false);
 
     const onKeyDownListener = useCallback((ev) => {
         if (isInputElement(document.activeElement)) {
@@ -13,24 +14,14 @@ const KeyboardShortcuts = () => {
         if (ev.key === '?') {
             ev.preventDefault();
 
-            if (divRef.current.classList.contains('KeyboardShortcutsHidden')) {
-                divRef.current.classList.remove('KeyboardShortcutsHidden');
-            } else {
-                divRef.current.classList.add('KeyboardShortcutsHidden');
-            }
-        } else if (ev.key === 'Escape') {
-            ev.preventDefault();
-
-            if (!divRef.current.classList.contains('KeyboardShortcutsHidden')) {
-                divRef.current.classList.add('KeyboardShortcutsHidden');
-            }
+            setModalVisible(!modalVisible);
         }
-    }, [divRef]);
+    }, [modalVisible]);
 
-    const closeShortcutsPopup = () => {
-        divRef.current.classList.add('KeyboardShortcutsHidden');
+    const onModalClose = () => {
+        setModalVisible(false);
     }
-    
+
     useEffect(() => {
         document.addEventListener('keydown', onKeyDownListener);
         return () => {
@@ -38,38 +29,32 @@ const KeyboardShortcuts = () => {
         };
     }, [onKeyDownListener]);
 
-    return <div ref={divRef} className="KeyboardShortcutsHidden">
-        <div className="KeyboardShortcuts" onClick={closeShortcutsPopup}></div>
-        <div className="KeyboardShortcutsPopup">
-            <h3>Keyboard shortcuts</h3>
-            <hr />
-
-            <h4>General</h4>
-            <ul>
-                <li>
-                    Show/Hide keyboard shortcuts
+    return <ModalDialog title="Keyboard shortcuts" visible={modalVisible} onModalClose={onModalClose} style={{ maxWidth: '500px' }}>
+        <h4>General</h4>
+        <ul>
+            <li>
+                Show/Hide keyboard shortcuts
                     <kbd>?</kbd>
-                </li>
-                <li>
-                    Search
+            </li>
+            <li>
+                Search
                     <kbd>/</kbd>
-                </li>
-            </ul>
-            <hr />
+            </li>
+        </ul>
+        <hr />
 
-            <h4>Pagination</h4>
-            <ul>
-                <li>
-                    Previous page
+        <h4>Pagination</h4>
+        <ul>
+            <li>
+                Previous page
                     <kbd>p</kbd>
-                </li>
-                <li>
-                    Next page
+            </li>
+            <li>
+                Next page
                     <kbd>n</kbd>
-                </li>
-            </ul>
-        </div>
-    </div>
+            </li>
+        </ul>
+    </ModalDialog>
 };
 
 export default KeyboardShortcuts;
