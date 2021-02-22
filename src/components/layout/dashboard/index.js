@@ -1,19 +1,19 @@
+import { useState } from "react";
+import useSetTitle from "../../../hooks/useSetTitle";
 import Header from "../Header";
 import Sidebar from "../sidebar";
-import useSetTitle from "../../../hooks/useSetTitle";
-import { useState } from "react";
 import DashboardPanels from "./DashboardPanels";
 
-function Dashboard({children}) {
+function Dashboard({ children }) {
     useSetTitle('Dashboard')
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     return (
         <>
-            <Header/>
+            <Header />
             <main role="main" className={sidebarCollapsed ? 'collapsed' : ''}>
                 <Sidebar sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed} />
                 <div id='content'>
-                    {children || <DashboardPanels/>}
+                    {children || <DashboardPanels />}
                 </div>
             </main>
         </>

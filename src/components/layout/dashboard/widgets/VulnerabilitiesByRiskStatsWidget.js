@@ -1,20 +1,20 @@
-import {Cell, Pie, PieChart} from "recharts";
-import useFetch from "../../../hooks/useFetch";
+import useFetch from "hooks/useFetch";
+import { Cell, Pie, PieChart } from "recharts";
 
 const VulnerabilitiesByRiskStatsWidget = () => {
     const RADIAN = Math.PI / 180;
 
     const RISKS = {
-        'none': {label: 'None', color: '#f3f3f3'},
-        'low': {label: 'Low', color: 'var(--green)'},
-        'medium': {label: 'Medium', color: 'var(--yellow)'},
-        'high': {label: 'High', color: 'var(--purple)'},
-        'critical': {label: 'Critical', color: 'var(--primary-color)'}
+        'none': { label: 'None', color: '#f3f3f3' },
+        'low': { label: 'Low', color: 'var(--green)' },
+        'medium': { label: 'Medium', color: 'var(--yellow)' },
+        'high': { label: 'High', color: 'var(--purple)' },
+        'critical': { label: 'Critical', color: 'var(--primary-color)' }
     };
 
     const renderCustomLabel = ({
-                                   cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-                               }) => {
+        cx, cy, midAngle, innerRadius, outerRadius, percent, index,
+    }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -29,13 +29,14 @@ const VulnerabilitiesByRiskStatsWidget = () => {
     const [vulnerabilitiesByRiskStats] = useFetch('/vulnerabilities/stats?groupBy=risk')
 
     return (
-        <article className='card flex justify-center items-center'>
-            <PieChart width={380} height={400}>
+        <article className='card justify-center items-center'>
+            <h4>Vulnerabilities by risk</h4>
+            <PieChart width={400} height={320} >
                 <Pie
                     data={vulnerabilitiesByRiskStats}
                     dataKey="total"
-                    cx={200}
-                    cy={200}
+                    cx={160}
+                    cy={160}
                     labelLine={false}
                     outerRadius={100}
                     strokeOpacity='0'
@@ -46,12 +47,11 @@ const VulnerabilitiesByRiskStatsWidget = () => {
                 >
                     {
                         vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) =>
-                            <Cell key={index} fill={RISKS[entry.risk].color}/>
+                            <Cell key={index} fill={RISKS[entry.risk].color} />
                         )
                     }
                 </Pie>
             </PieChart>
-            <footer>Vulnerabilities by risk</footer>
         </article>
     )
 }
