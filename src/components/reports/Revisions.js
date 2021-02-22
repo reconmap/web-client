@@ -26,11 +26,11 @@ const ReportRevisions = ({ projectId }) => {
     }, [formValues.name]);
 
     const handleSendByEmail = (reportId) => {
-        history.push(`/report/${reportId}/send`);
+        history.push(`/projects/${projectId}/report/send`);
     }
 
-    const handleDownload = (reportId, contentType) => {
-        secureApiFetch(`/attachments/${reportId}`, { method: 'GET', headers: { 'Content-Type': contentType } })
+    const handleDownload = (reportId) => {
+        secureApiFetch(`/attachments/${reportId}`, { method: 'GET', headers: {} })
             .then(resp => {
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)

@@ -36,7 +36,7 @@ const ProjectReport = () => {
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
-                    <Link to={`/projects/${projectId}`}>{project.name}</Link>
+                    <Link to={`/projects/${project.id}`}>{project.name}</Link>
                 </Breadcrumb>
             </div>
             <Title type="Project reporting" title="Project report"

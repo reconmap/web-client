@@ -1,65 +1,86 @@
-import React, {useState} from 'react'
+import Loading from 'components/ui/Loading';
+import useFetch from 'hooks/useFetch';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import useSetTitle from "../../hooks/useSetTitle";
+import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
-import useSetTitle from "../../hooks/useSetTitle";
-import secureApiFetch from "../../services/api";
-import {Link, useParams} from 'react-router-dom';
 
-const SendReport = ({history}) => {
+const SendReport = ({ history }) => {
     useSetTitle("Send report")
 
     const routeParams = useParams();
-    const {reportId} = routeParams;
+    const { projectId } = routeParams;
+    const [project] = useFetch(`/projects/${projectId}`)
+    const [revisions] = useFetch(`/reports?projectId=${projectId}`)
 
     const [deliverySettings, setDeliverySettings] = useState({
+        report_id: null,
         recipients: null,
         subject: "[CONFIDENTIAL] Security report attached",
         body: "Please review attachment containing a security report."
     })
 
-    const [loading, setLoading] = useState(false)
     const handleSend = async (ev) => {
         ev.preventDefault();
 
-        setLoading(true)
-        await secureApiFetch(`/reports/${reportId}/send`, {method: 'POST', body: JSON.stringify(deliverySettings)})
-        history.push(`/reports`)
+        secureApiFetch(`/reports/${deliverySettings.report_id}/send`, { method: 'POST', body: JSON.stringify(deliverySettings) })
+            .then(() => {
+                history.push(`/projects/${project.id}/report`);
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
     const handleFormChange = ev => {
         const target = ev.target;
         const name = target.name;
         const value = target.value;
-        setDeliverySettings({...deliverySettings, [name]: value});
+        setDeliverySettings({ ...deliverySettings, [name]: value });
     };
+
+    useEffect(() => {
+        if (revisions && deliverySettings.report_id === null)
+            setDeliverySettings({ ...deliverySettings, report_id: revisions[0].id })
+    }, [revisions, deliverySettings]);
+
+    if (!project) return <Loading />
 
     return (
         <div>
             <div className='heading'>
                 <Breadcrumb>
-                    <Link to="/reports">Saved Reports</Link>
+                    <Link to="/projects">Projects</Link>
+                    {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
+                    {project && <Link to={`/projects/${project.id}/report`}>Report</Link>}
                 </Breadcrumb>
             </div>
             <form onSubmit={handleSend}>
-                <Title title='Send report'/>
+                <Title title='Send report' />
+                <label>Revision
+                    {revisions && <select name="report_id" onChange={handleFormChange}>
+                        {revisions.map((revision) => <option value={revision.id}>{revision.version_name}</option>)}
+                    </select>}
+                </label>
                 <label>Recipients (comma separated)
                     <input type="text" name="recipients" onChange={handleFormChange} required autoFocus
-                           placeholder="foo@bar.sec"/>
+                        placeholder="foo@bar.sec" />
                 </label>
                 <label>Subject
                     <input type="text" name="subject" onChange={handleFormChange}
-                           value={deliverySettings.subject}/>
+                        value={deliverySettings.subject} />
                 </label>
                 <label>Body
                     <textarea name="body" onChange={handleFormChange} required
-                              value={deliverySettings.body}/>
+                        value={deliverySettings.body} />
                 </label>
-                <PrimaryButton type="submit"
-                               disabled={loading}>{loading ? 'Sending...' : 'Send'}</PrimaryButton>
+                <PrimaryButton type="submit">Send</PrimaryButton>
             </form>
         </div>
     )
 }
 
-export default SendReport
+export default SendReport;

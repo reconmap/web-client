@@ -9,7 +9,7 @@ import {
     IconFolder,
     IconPlus,
     IconPreferences,
-    IconReport,
+
     IconTerminal,
     IconUpload,
     IconUserGroup
@@ -62,12 +62,6 @@ const Links = [
                 icon: <IconDocumentDuplicate size={5} />,
                 to: '/templates',
                 permissions: 'projects.templates'
-            },
-            {
-                title: 'Saved Reports',
-                icon: <IconReport size={5} />,
-                to: '/reports',
-                permissions: 'projects.reports'
             }
         ]
     },

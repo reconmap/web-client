@@ -13,12 +13,6 @@ table {
         padding: var(--padding) var(--margin);
         border-bottom: var(--borderWidth) solid var(--black);
     }
-
-    tbody {
-        td:last-child {
-            text-align: right;
-        }
-    }
 }
 
 .table-details {
