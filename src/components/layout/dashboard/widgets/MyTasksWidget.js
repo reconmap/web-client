@@ -8,7 +8,7 @@ const MyTasksWidget = () => {
 
     if (!tasks) return <Loading />
 
-    return <article class="card">
+    return <article className="card">
         <h4>My tasks</h4>
 
         <table>

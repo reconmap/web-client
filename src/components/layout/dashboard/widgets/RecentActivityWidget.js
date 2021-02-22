@@ -8,7 +8,7 @@ const RecentActivityWidget = () => {
 
     if (!auditLog) return <Loading />
 
-    return <article class="card">
+    return <article className="card">
         <h4>Recent activity</h4>
 
         <table>

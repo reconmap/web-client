@@ -7,7 +7,7 @@ const PopularCommandsWidget = () => {
 
     if (!commands) return <Loading />
 
-    return <article class="card">
+    return <article className="card">
         <h4>Popular commands</h4>
 
         <table>

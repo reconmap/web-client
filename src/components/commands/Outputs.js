@@ -103,7 +103,7 @@ const CommandOutputs = ({ task }) => {
                                     <td>{commandOutput.client_file_name}</td>
                                     <td><FileSizeSpan fileSize={commandOutput.file_size} /></td>
                                     <td>{commandOutput.file_mimetype}</td>
-                                    <td class="flex justify-end">
+                                    <td className="flex justify-end">
                                         <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
                                         <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
                                         <DeleteButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
