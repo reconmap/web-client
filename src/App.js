@@ -24,6 +24,7 @@ import SystemRoutes from "./components/system/Routes";
 import KeyboardShortcuts from "./components/support/KeyboardShortcuts";
 import OrganisationRoutes from "./components/organisation/Routes";
 import CommandsRoutes from 'components/commands/Routes';
+import Configuration from './Configuration';
 
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
@@ -33,7 +34,7 @@ const App = () => {
     }, [theme])
 
     return (
-        <Router>
+        <Router basename={Configuration.appBasename}>
             <AuthProvider>
                 <ThemeContext.Provider value={{ theme, setTheme }}>
                     <Switch>
