@@ -17,24 +17,20 @@ import {
 
 const Links = [
     {
-        title: 'Vulnerabilities', icon: <IconFlag size={5} />, to: '/vulnerabilities', sublinks: [
+        title: 'Projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
             {
-                title: 'Add',
+                title: 'Create',
                 icon: <IconPlus size={5} />,
-                to: '/vulnerabilities/create',
-            }
-        ],
-        permissions: 'vulnerabilities.*'
-    },
-    {
-        title: 'Commands', icon: <IconTerminal size={5} />, to: '/commands', sublinks: [
+                to: '/projects/create',
+                permissions: 'projects.create'
+            },
             {
-                title: 'Add',
-                icon: <IconPlus size={5} />,
-                to: '/commands/add',
+                title: 'Templates',
+                icon: <IconDocumentDuplicate size={5} />,
+                to: '/templates',
+                permissions: 'projects.templates'
             }
-        ],
-        permissions: 'commands.*'
+        ]
     },
     {
         title: 'Tasks',
@@ -50,20 +46,24 @@ const Links = [
         permissions: 'tasks.create'
     },
     {
-        title: 'Projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
+        title: 'Commands', icon: <IconTerminal size={5} />, to: '/commands', sublinks: [
             {
-                title: 'Create',
+                title: 'Add',
                 icon: <IconPlus size={5} />,
-                to: '/projects/create',
-                permissions: 'projects.create'
-            },
-            {
-                title: 'Templates',
-                icon: <IconDocumentDuplicate size={5} />,
-                to: '/templates',
-                permissions: 'projects.templates'
+                to: '/commands/add',
             }
-        ]
+        ],
+        permissions: 'commands.*'
+    },
+    {
+        title: 'Vulnerabilities', icon: <IconFlag size={5} />, to: '/vulnerabilities', sublinks: [
+            {
+                title: 'Add',
+                icon: <IconPlus size={5} />,
+                to: '/vulnerabilities/create',
+            }
+        ],
+        permissions: 'vulnerabilities.*'
     },
     {
         title: 'Clients', icon: <IconBriefcase size={5} />, to: '/clients', sublinks: [
