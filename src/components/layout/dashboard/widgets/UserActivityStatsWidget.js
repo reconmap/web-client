@@ -1,8 +1,12 @@
 import useFetch from "hooks/useFetch";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import widgetIsVisible from "services/widgets";
 
 const UserActivityStatsWidget = () => {
     const [auditLogStats] = useFetch('/auditlog/stats')
+
+    const visible = widgetIsVisible('user-activity-stats');
+    if (!visible) return null;
 
     return (
         <article className='card '>

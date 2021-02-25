@@ -2,9 +2,13 @@ import TaskBadge from "components/badges/TaskBadge";
 import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
+import widgetIsVisible from "services/widgets";
 
 const MyTasksWidget = () => {
     const [tasks] = useFetch(`/tasks?limit=5`)
+
+    const visible = widgetIsVisible('my-tasks');
+    if (!visible) return null;
 
     if (!tasks) return <Loading />
 

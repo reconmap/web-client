@@ -1,8 +1,12 @@
 import useFetch from "hooks/useFetch";
 import { Pie, PieChart } from "recharts";
+import widgetIsVisible from "services/widgets";
 
 const VulnerabilitiesByCategoryStatsWidget = () => {
     const [vulnerabilitiesByCategoryStats] = useFetch('/vulnerabilities/stats?groupBy=category')
+
+    const visible = widgetIsVisible('vulnerability-by-category-stats');
+    if (!visible) return null;
 
     return (
         <article className='card justify-center items-center'>

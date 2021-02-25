@@ -1,9 +1,13 @@
 import CommandBadge from "components/commands/Badge";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
+import widgetIsVisible from "services/widgets";
 
 const PopularCommandsWidget = () => {
     const [commands] = useFetch('/commands?limit=5');
+
+    const visible = widgetIsVisible('popular-commands');
+    if (!visible) return null;
 
     if (!commands) return <Loading />
 
