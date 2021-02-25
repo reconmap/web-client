@@ -1,12 +1,13 @@
-import React, {useRef, useState} from 'react'
-import {Link, useHistory, useLocation} from 'react-router-dom';
-import Breadcrumb from '../ui/Breadcrumb';
-import Risks from '../../models/Risks'
-import Title from '../ui/Title';
-import {IconPlus} from '../ui/Icons';
+import { actionCompletedToast } from 'components/ui/toast';
+import React, { useRef, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import useSetTitle from "../../hooks/useSetTitle";
-import VulnerabilityForm from "./Form";
+import Risks from '../../models/Risks';
 import secureApiFetch from "../../services/api";
+import Breadcrumb from '../ui/Breadcrumb';
+import { IconPlus } from '../ui/Icons';
+import Title from '../ui/Title';
+import VulnerabilityForm from "./Form";
 
 const VulnerabilityCreate = () => {
 
@@ -31,8 +32,11 @@ const VulnerabilityCreate = () => {
     const onFormSubmit = ev => {
         ev.preventDefault();
 
-        secureApiFetch(`/vulnerabilities`, {method: 'POST', body: JSON.stringify(vulnerability)})
-            .then(resp => history.push(`/vulnerabilities`));
+        secureApiFetch(`/vulnerabilities`, { method: 'POST', body: JSON.stringify(vulnerability) })
+            .then(() => {
+                history.push(`/vulnerabilities`);
+                actionCompletedToast(`The vulnerability "${vulnerability.summary}" has been added.`);
+            });
     };
 
     return (
@@ -42,10 +46,10 @@ const VulnerabilityCreate = () => {
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
             </div>
-            <Title title="New vulnerability details" icon={<IconPlus/>}/>
+            <Title title="New vulnerability details" icon={<IconPlus />} />
 
             <VulnerabilityForm vulnerability={vulnerability} vulnerabilitySetter={setVulnerability}
-                               onFormSubmit={onFormSubmit}/>
+                onFormSubmit={onFormSubmit} />
         </div>
     )
 };

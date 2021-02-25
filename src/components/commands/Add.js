@@ -1,3 +1,4 @@
+import { actionCompletedToast } from 'components/ui/toast';
 import Command from 'models/Command';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -13,8 +14,11 @@ const AddCommandPage = ({ history }) => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/commands`, { method: 'POST', body: JSON.stringify(newCommand) })
-        history.push(`/commands`)
+        secureApiFetch(`/commands`, { method: 'POST', body: JSON.stringify(newCommand) })
+            .then(() => {
+                history.push(`/commands`);
+                actionCompletedToast(`The command "${newCommand.short_name}" has been added.`);
+            })
     }
 
     return (

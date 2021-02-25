@@ -20,6 +20,7 @@ import Title from '../ui/Title';
 import { actionCompletedToast } from "../ui/toast";
 import useDelete from './../../hooks/useDelete';
 import useFetch from './../../hooks/useFetch';
+import CvssAbbr from './CvssAbbr';
 import VulnerabilitiesNotesTab from "./NotesTab";
 import VulnerabilityStatusBadge from "./StatusBadge";
 
@@ -92,7 +93,7 @@ const VulnerabilityDetails = () => {
                                 <dt>Category</dt>
                                 <dd>{vulnerability.category_name || '-'}</dd>
 
-                                <dt>CVSS score</dt>
+                                <dt><CvssAbbr /> score</dt>
                                 <dd><CvssScore score={vulnerability.cvss_score} /></dd>
 
                                 <dt>CVSS vector</dt>

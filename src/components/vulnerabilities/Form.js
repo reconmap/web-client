@@ -3,6 +3,7 @@ import { unstable_batchedUpdates } from "react-dom";
 import Risks from "../../models/Risks";
 import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
+import CvssAbbr from './CvssAbbr';
 
 const VulnerabilityForm = ({
     isEditForm = false,
@@ -122,7 +123,7 @@ const VulnerabilityForm = ({
             <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
                 onChange={onFormChange} />
         </label>
-        <label><span>CVSS vector</span>
+        <label><span><CvssAbbr /> vector</span>
             <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
         </label>
         <label>Affected target
