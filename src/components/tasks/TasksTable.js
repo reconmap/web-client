@@ -40,7 +40,7 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                                 <td>{task.command_short_name ? <BadgeOutline>{task.command_short_name}</BadgeOutline> : '-'}</td>
                                 <td className='flex justify-end'>
                                     <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
-                                    <DeleteButton onClick={() => destroy(task.id)} />
+                                    {destroy && <DeleteButton onClick={() => destroy(task.id)} />}
                                 </td>
                             </tr>
                         )}

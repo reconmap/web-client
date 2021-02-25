@@ -1,17 +1,15 @@
-import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable';
+import { useEffect, useState } from 'react';
 import secureApiFetch from '../../services/api';
-import {useEffect, useState} from 'react';
+import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable';
 
-const VulnerabilitiesSearchResults = ({keywords}) => {
+const VulnerabilitiesSearchResults = ({ keywords }) => {
 
     const [vulnerabilities, setVulnerabilities] = useState([]);
 
     useEffect(() => {
         const reloadData = () => {
-            secureApiFetch(`/vulnerabilities?keywords=${keywords}`, {method: 'GET'})
-                .then(resp => {
-                    return resp.json()
-                })
+            secureApiFetch(`/vulnerabilities?keywords=${keywords}`, { method: 'GET' })
+                .then(resp => resp.json())
                 .then(json => {
                     setVulnerabilities(json);
                 })
@@ -21,8 +19,8 @@ const VulnerabilitiesSearchResults = ({keywords}) => {
     }, [keywords])
 
     return <>
-        <h3>{vulnerabilities.length} vulnerabilities matched</h3>
-        <VulnerabilitiesTable vulnerabilities={vulnerabilities}/>
+        <h3>{vulnerabilities.length} matching vulnerabilities</h3>
+        <VulnerabilitiesTable vulnerabilities={vulnerabilities} />
     </>
 }
 

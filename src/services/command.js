@@ -13,6 +13,8 @@ const CommandService = {
     },
 
     parseArguments: command => {
+        if (command.arguments === null) return {};
+
         const argRegex = /{{{(.+?)}}}/g;
         const commandArgsFound = command.arguments.match(argRegex);
         if (commandArgsFound) {
@@ -36,15 +38,14 @@ const CommandService = {
         }
         const usesContainer = command.executable_type === 'rmap';
 
-        let commandArgsRendered
+        let commandArgsRendered = ''
 
         if (usesContainer) {
-            commandArgsRendered = '';
             Object.keys(commandArgs).forEach((key) => {
                 let containerArg = commandArgs[key];
                 commandArgsRendered += ` -var ${containerArg.name}=${containerArg.placeholder}`;
             });
-        } else {
+        } else if (command.arguments !== null) {
             commandArgsRendered = command.arguments;
             Object.keys(commandArgs).forEach((key) => {
                 let containerArg = commandArgs[key];

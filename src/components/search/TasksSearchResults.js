@@ -1,17 +1,15 @@
+import { useEffect, useState } from 'react';
 import secureApiFetch from '../../services/api';
-import {useEffect, useState} from 'react';
 import TasksTable from "../tasks/TasksTable";
 
-const TasksSearchResults = ({keywords}) => {
+const TasksSearchResults = ({ keywords }) => {
 
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
         const reloadData = () => {
-            secureApiFetch(`/tasks?keywords=${keywords}`, {method: 'GET'})
-                .then(resp => {
-                    return resp.json()
-                })
+            secureApiFetch(`/tasks?keywords=${keywords}`, { method: 'GET' })
+                .then(resp => resp.json())
                 .then(json => {
                     setTasks(json);
                 })
@@ -21,8 +19,8 @@ const TasksSearchResults = ({keywords}) => {
     }, [keywords])
 
     return <>
-        <h3>{tasks.length} tasks matched</h3>
-        <TasksTable tasks={tasks}/>
+        <h3>{tasks.length} matching tasks</h3>
+        <TasksTable tasks={tasks} />
     </>
 }
 
