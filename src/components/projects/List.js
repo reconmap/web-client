@@ -1,16 +1,16 @@
-import useSetTitle from '../../hooks/useSetTitle';
-import Loading from '../ui/Loading';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
-import Breadcrumb from '../ui/Breadcrumb';
+import useSetTitle from '../../hooks/useSetTitle';
 import ProjectBadge from '../badges/ProjectBadge';
+import ClientLink from "../clients/Link";
+import Breadcrumb from '../ui/Breadcrumb';
 import CreateButton from '../ui/buttons/Create';
 import DeleteButton from "../ui/buttons/Delete";
-import { ClientLink } from "../clients/Link";
-import Title from '../ui/Title';
-import { IconFolder } from '../ui/Icons';
-import NoResults from "../ui/NoResults";
 import LinkButton from "../ui/buttons/Link";
+import { IconFolder } from '../ui/Icons';
+import Loading from '../ui/Loading';
+import NoResults from "../ui/NoResults";
+import Title from '../ui/Title';
 
 const ProjectsList = ({ history }) => {
     useSetTitle('Projects');

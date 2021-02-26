@@ -1,3 +1,4 @@
+import { actionCompletedToast } from 'components/ui/toast';
 import Client from 'models/Client';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -13,8 +14,11 @@ const ClientCreate = ({ history }) => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/clients`, { method: 'POST', body: JSON.stringify(newClient) })
-        history.push(`/clients`)
+        secureApiFetch(`/clients`, { method: 'POST', body: JSON.stringify(newClient) })
+            .then(() => {
+                history.push(`/clients`);
+                actionCompletedToast(`The client "${newClient.name}" has been added.`);
+            })
     }
 
     return (

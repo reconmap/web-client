@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import secureApiFetch from '../../services/api';
-import Breadcrumb from '../ui/Breadcrumb';
-import TargetKinds from '../../models/TargetKinds'
-import PrimaryButton from '../ui/buttons/Primary';
-import Title from '../ui/Title';
+import { actionCompletedToast } from 'components/ui/toast';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
+import TargetKinds from '../../models/TargetKinds';
+import secureApiFetch from '../../services/api';
+import Breadcrumb from '../ui/Breadcrumb';
+import PrimaryButton from '../ui/buttons/Primary';
+import Title from '../ui/Title';
 
 export default function TargetCreateForm({ match, history }) {
     const projectId = match.params.id;
@@ -18,8 +19,11 @@ export default function TargetCreateForm({ match, history }) {
         ev.preventDefault();
 
         setLoading(true)
-        await secureApiFetch(`/targets`, { method: 'POST', body: JSON.stringify(newTarget) })
-        history.push(`/projects/${projectId}`)
+        secureApiFetch(`/targets`, { method: 'POST', body: JSON.stringify(newTarget) })
+            .then(() => {
+                history.push(`/projects/${projectId}`);
+                actionCompletedToast(`The target "${newTarget.name}" has been added.`);
+            })
     }
     const handleFormChange = ev => {
         const target = ev.target;

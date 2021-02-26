@@ -1,3 +1,4 @@
+import ClientLink from 'components/clients/Link'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React from 'react'
@@ -21,7 +22,7 @@ function ProjectDetailsTab({ project }) {
                 <h4>Relations</h4>
                 <dl>
                     <dt>Client</dt>
-                    <dd>{project.client_name ?? '-'}</dd>
+                    <dd><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></dd>
 
                     <dt>Created by</dt>
                     <dd><UserLink userId={project.creator_uid}>{project.creator_full_name}</UserLink></dd>

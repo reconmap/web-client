@@ -1,7 +1,7 @@
-import {Link} from "react-router-dom"
-import {IconBriefcase} from "../ui/Icons"
+import { Link } from "react-router-dom";
+import { IconBriefcase } from "../ui/Icons";
 
-export const ClientLink = ({clientId, children}) => {
+const ClientLink = ({ clientId, children }) => {
     const styles = {
         badge: {
             alignItems: 'center',
@@ -14,11 +14,12 @@ export const ClientLink = ({clientId, children}) => {
         }
     }
 
-
     return <Link
         style={styles.badge}
         to={`/clients/${clientId}`}>
-        <IconBriefcase styling={{color: 'var(--text-color)'}}/>
+        <IconBriefcase styling={{ color: 'var(--text-color)' }} />
         {children}
     </Link>
 }
+
+export default ClientLink;
