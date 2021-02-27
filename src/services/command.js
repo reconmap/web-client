@@ -2,7 +2,7 @@
 const CommandService = {
     generateEntryPoint: (command, task = null) => {
         if ('rmap' === command.executable_type) {
-            let entryPoint = `./rmap run-command -cid ${command.id}`;
+            let entryPoint = `./rmap command run -cid ${command.id}`;
             if (task !== null) {
                 entryPoint += ' -tid ' + task.id;
             }
