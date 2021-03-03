@@ -1,6 +1,7 @@
 import {
     IconBriefcase,
     IconClipboardList,
+    IconDocument,
     IconDocumentDuplicate,
     IconDownload,
     IconExtensions,
@@ -61,6 +62,16 @@ const Links = [
                 title: 'Add',
                 icon: <IconPlus size={5} />,
                 to: '/vulnerabilities/create',
+            }
+        ],
+        permissions: 'vulnerabilities.*'
+    },
+    {
+        title: 'Documents', icon: <IconDocument size={5} />, to: '/documents', sublinks: [
+            {
+                title: 'Add',
+                icon: <IconPlus size={5} />,
+                to: '/documents/add',
             }
         ],
         permissions: 'vulnerabilities.*'

@@ -7,7 +7,8 @@ const ExportForm = () => {
     const entities = [
         { key: 'clients', name: 'Clients' },
         { key: 'commands', name: 'Commands' },
-        { key: 'projects', name: 'Projects' },
+        { key: 'documents', name: 'Documents and notes' },
+        { key: 'projects', name: 'Projects and templates' },
         { key: 'tasks', name: 'Tasks' },
         { key: 'users', name: 'Users' },
         { key: 'vulnerabilities', name: 'Vulnerabilities' },

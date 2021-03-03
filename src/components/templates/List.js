@@ -1,10 +1,10 @@
+import ProjectBadge from 'components/projects/ProjectBadge';
 import { Link } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
 import secureApiFetch from '../../services/api';
 import BadgeOutline from '../badges/BadgeOutline';
-import ProjectBadge from '../badges/ProjectBadge';
 import Breadcrumb from '../ui/Breadcrumb';
 import CreateButton from '../ui/buttons/Create';
 import DeleteButton from "../ui/buttons/Delete";

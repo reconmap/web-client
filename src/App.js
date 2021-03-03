@@ -1,30 +1,31 @@
+import CommandsRoutes from 'components/commands/Routes';
+import DocumentsRoutes from 'components/documents/Routes';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import Dashboard from "./components/layout/dashboard";
-import Login from "./components/users/Login";
 import AuditLogList from "./components/auditlog/List";
+import ClientsRoutes from "./components/clients/Routes";
 import IntegrationsList from "./components/integrations/List";
+import Dashboard from "./components/layout/dashboard";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
-import { AuthProvider } from './contexts/AuthContext';
-import SearchResults from './components/search/Results';
-import ThemeContext from './contexts/ThemeContext';
-import Sandbox from './components/ui/Sandbox';
-import setThemeColors from './utilities/setThemeColors';
-import ClientsRoutes from "./components/clients/Routes";
-import UsersRoutes from "./components/users/Routes";
-import TasksRoutes from "./components/tasks/Routes";
+import OrganisationRoutes from "./components/organisation/Routes";
 import ProjectsRoutes from "./components/projects/Routes";
 import ReportsRoutes from "./components/reports/Routes";
-import TemplatesRoutes from "./components/templates/Routes";
-import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
+import SearchResults from './components/search/Results';
 import SupportForm from "./components/support/Form";
-import SystemRoutes from "./components/system/Routes";
 import KeyboardShortcuts from "./components/support/KeyboardShortcuts";
-import OrganisationRoutes from "./components/organisation/Routes";
-import CommandsRoutes from 'components/commands/Routes';
+import SystemRoutes from "./components/system/Routes";
+import TasksRoutes from "./components/tasks/Routes";
+import TemplatesRoutes from "./components/templates/Routes";
+import Sandbox from './components/ui/Sandbox';
+import Login from "./components/users/Login";
+import UsersRoutes from "./components/users/Routes";
+import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import Configuration from './Configuration';
+import { AuthProvider } from './contexts/AuthContext';
+import ThemeContext from './contexts/ThemeContext';
+import setThemeColors from './utilities/setThemeColors';
+
 
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
@@ -46,6 +47,7 @@ const App = () => {
                                     [
                                         ...CommandsRoutes,
                                         ...ClientsRoutes,
+                                        ...DocumentsRoutes,
                                         ...UsersRoutes,
                                         ...TasksRoutes,
                                         ...ProjectsRoutes,

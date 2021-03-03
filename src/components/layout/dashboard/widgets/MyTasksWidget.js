@@ -1,4 +1,4 @@
-import TaskBadge from "components/badges/TaskBadge";
+import TaskBadge from "components/tasks/TaskBadge";
 import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";

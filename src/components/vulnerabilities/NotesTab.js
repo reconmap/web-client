@@ -1,17 +1,17 @@
-import React, {useState} from 'react'
-import {IconDocument} from '../ui/Icons'
-import useFetch from "../../hooks/useFetch";
-import Loading from "../ui/Loading";
+import React, { useState } from 'react';
 import useDelete from "../../hooks/useDelete";
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
-import {actionCompletedToast} from "../ui/toast";
-import NotesForm from "../notes/Form";
+import NotesForm from "../documents/Form";
 import NotesTable from "../notes/Table";
+import { IconDocument } from '../ui/Icons';
+import Loading from "../ui/Loading";
+import { actionCompletedToast } from "../ui/toast";
 
-const VulnerabilitiesNotesTab = ({vulnerability}) => {
+const VulnerabilitiesNotesTab = ({ vulnerability }) => {
     const [notes, reloadNotes] = useFetch(`/notes?parentType=vulnerability&parentId=${vulnerability.id}`)
     const deleteNoteById = useDelete('/notes/', reloadNotes)
-    const emptyNote = {visibility: 'private', content: '', parentType: 'vulnerability', parentId: vulnerability.id};
+    const emptyNote = { visibility: 'private', content: '', parentType: 'vulnerability', parentId: vulnerability.id };
     const [newNote, updateNewNote] = useState(emptyNote)
 
     const onDeleteButtonClick = (ev, note) => {
@@ -36,19 +36,19 @@ const VulnerabilitiesNotesTab = ({vulnerability}) => {
     }
 
     if (!notes) {
-        return <Loading/>
+        return <Loading />
     }
 
     return (
         <section>
             <h4>
-                <IconDocument/>New vulnerability note
+                <IconDocument />New vulnerability note
             </h4>
-            <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote}/>
+            <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
             <h4>
-                <IconDocument/>Vulnerability notes
+                <IconDocument />Vulnerability notes
             </h4>
-            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick}/>
+            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
         </section>
     )
 }

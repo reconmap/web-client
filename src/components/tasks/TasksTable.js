@@ -1,10 +1,10 @@
 import React from "react";
 import BadgeOutline from '../badges/BadgeOutline';
-import TaskBadge from '../badges/TaskBadge';
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import NoResults from "../ui/NoResults";
 import UserLink from "../users/Link";
+import TaskBadge from "./TaskBadge";
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
 export default function TasksTable({ tasks, filter = { project: '', status: '' }, destroy }) {

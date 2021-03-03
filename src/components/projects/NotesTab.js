@@ -1,17 +1,17 @@
-import React, {useState} from 'react'
-import {IconDocument} from '../ui/Icons'
-import useFetch from "../../hooks/useFetch";
-import Loading from "../ui/Loading";
+import React, { useState } from 'react';
 import useDelete from "../../hooks/useDelete";
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
-import {actionCompletedToast} from "../ui/toast";
-import NotesForm from "../notes/Form";
+import NotesForm from "../documents/Form";
 import NotesTable from "../notes/Table";
+import { IconDocument } from '../ui/Icons';
+import Loading from "../ui/Loading";
+import { actionCompletedToast } from "../ui/toast";
 
-const ProjectNotesTab = ({project}) => {
+const ProjectNotesTab = ({ project }) => {
     const [notes, reloadNotes] = useFetch(`/notes?parentType=project&parentId=${project.id}`)
     const deleteNoteById = useDelete('/notes/', reloadNotes)
-    const emptyNote = {visibility: 'private', content: '', parentType: 'project', parentId: project.id};
+    const emptyNote = { visibility: 'private', content: '', parentType: 'project', parentId: project.id };
     const [newNote, updateNewNote] = useState(emptyNote)
 
     const onDeleteButtonClick = (ev, note) => {
@@ -36,19 +36,19 @@ const ProjectNotesTab = ({project}) => {
     }
 
     if (!notes) {
-        return <Loading/>
+        return <Loading />
     }
 
     return (
         <section>
             <h4>
-                <IconDocument/>New project note
+                <IconDocument />New project note
             </h4>
-            <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote}/>
+            <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
             <h4>
-                <IconDocument/>Project notes
+                <IconDocument />Project notes
             </h4>
-            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick}/>
+            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
         </section>
     )
 }
