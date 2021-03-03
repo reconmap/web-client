@@ -82,6 +82,12 @@ const VulnerabilityDetails = () => {
                         <div>
                             <h4>Description</h4>
                             <ReactMarkdown>{vulnerability.description || "_(empty)_"}</ReactMarkdown>
+                            {vulnerability.solution &&
+                                <>
+                                    <h4>Solution</h4>
+                                    <ReactMarkdown>{vulnerability.solution}</ReactMarkdown>
+                                </>
+                            }
                             <h4>Details</h4>
                             <dl>
                                 <dt>Status</dt>

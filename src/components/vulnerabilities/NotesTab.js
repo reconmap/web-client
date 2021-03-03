@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
-import NotesForm from "../documents/Form";
+import NotesForm from "../notes/Form";
 import NotesTable from "../notes/Table";
 import { IconDocument } from '../ui/Icons';
 import Loading from "../ui/Loading";

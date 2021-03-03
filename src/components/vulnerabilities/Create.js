@@ -1,8 +1,8 @@
 import { actionCompletedToast } from 'components/ui/toast';
+import VulnerabilityModel from 'models/Vulnerability';
 import React, { useRef, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import useSetTitle from "../../hooks/useSetTitle";
-import Risks from '../../models/Risks';
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from '../ui/Icons';
@@ -18,16 +18,7 @@ const VulnerabilityCreate = () => {
     const searchParams = new URLSearchParams(location.search);
     const urlProjectId = useRef(searchParams.get('projectId') || 0);
 
-    const [vulnerability, setVulnerability] = useState({
-        project_id: urlProjectId.current,
-        summary: "",
-        description: "",
-        risk: Risks[0].id,
-        category_id: 0,
-        cvss_score: null,
-        cvss_vector: null,
-        target_id: 0,
-    })
+    const [vulnerability, setVulnerability] = useState({ ...VulnerabilityModel, project_id: urlProjectId.current })
 
     const onFormSubmit = ev => {
         ev.preventDefault();

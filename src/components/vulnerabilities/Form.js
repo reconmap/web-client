@@ -105,6 +105,9 @@ const VulnerabilityForm = ({
         <label>Description
             <textarea name="description" value={vulnerability.description} onChange={onFormChange} />
         </label>
+        <label>Solution (if available)
+            <textarea name="solution" value={vulnerability.solution} onChange={onFormChange} />
+        </label>
         <label>Risk
             <select name="risk" value={vulnerability.risk} onChange={onFormChange} required>
                 {Risks.map((risk, index) =>
