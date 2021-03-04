@@ -1,4 +1,3 @@
-import UserPermissions from 'components/users/Permissions';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import PermissionsService from 'services/permissions';
@@ -18,7 +17,7 @@ export default function Sidebar(props) {
         if (!link.hasOwnProperty('permissions')) {
             return true;
         }
-        return user && PermissionsService.isAllowed(link.permissions, UserPermissions[user.role]);
+        return user && PermissionsService.isAllowed(link.permissions, user.permissions);
     }
 
     const watchClientWidth = useCallback(e => {
