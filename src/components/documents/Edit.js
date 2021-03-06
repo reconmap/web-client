@@ -12,26 +12,26 @@ import DocumentForm from './Form';
 const EditDocumentPage = ({ history }) => {
     const { documentId } = useParams();
 
-    const [serverCommand] = useFetch(`/documents/${documentId}`);
-    const [clientCommand, setClientCommand] = useState(null);
+    const [serverDocument] = useFetch(`/documents/${documentId}`);
+    const [clientDocument, setClientCommand] = useState(null);
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
         await secureApiFetch(`/documents/${documentId}`, {
             method: 'PUT',
-            body: JSON.stringify(clientCommand)
+            body: JSON.stringify(clientDocument)
         })
 
-        actionCompletedToast(`Document "${clientCommand.short_name}" updated.`);
+        actionCompletedToast(`Document "${clientDocument.title}" updated.`);
 
         history.push(`/documents/${documentId}`)
     }
 
     useEffect(() => {
-        if (serverCommand)
-            setClientCommand(serverCommand);
-    }, [serverCommand]);
+        if (serverDocument)
+            setClientCommand(serverDocument);
+    }, [serverDocument]);
 
     return (
         <div>
@@ -43,8 +43,8 @@ const EditDocumentPage = ({ history }) => {
 
             <Title title="Document details" icon={<IconPlus />} />
 
-            {!clientCommand ? <Loading /> :
-                <DocumentForm isEditForm={true} onFormSubmit={onFormSubmit} document={clientCommand}
+            {!clientDocument ? <Loading /> :
+                <DocumentForm isEditForm={true} onFormSubmit={onFormSubmit} document={clientDocument}
                     documentSetter={setClientCommand} />
             }
         </div>

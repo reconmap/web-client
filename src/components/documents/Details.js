@@ -1,7 +1,6 @@
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import React, { useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -12,6 +11,7 @@ import EditButton from "../ui/buttons/Edit";
 import { IconBriefcase } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
+import DocumentPreview from './Preview';
 
 const DocumentDetailsPage = () => {
     const { documentId } = useParams();
@@ -60,7 +60,7 @@ const DocumentDetailsPage = () => {
 
                         <dt>Content</dt>
                         <dd>
-                            <ReactMarkdown>{serverDoc.content}</ReactMarkdown>
+                            <DocumentPreview content={serverDoc.content} />
                         </dd>
                     </dl>
                 </div>

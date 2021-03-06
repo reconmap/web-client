@@ -2,8 +2,8 @@ const DocumentModel = {
     title: null,
     visibility: 'private',
     content: '',
-    parentType: null,
-    parentId: null
+    parent_type: null,
+    parent_id: null
 };
 
 export default DocumentModel;

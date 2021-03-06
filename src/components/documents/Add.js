@@ -9,7 +9,7 @@ import Title from '../ui/Title';
 import DocumentForm from './Form';
 
 const AddDocumentPage = ({ history }) => {
-    const [newCommand, setNewCommand] = useState({ ...DocumentModel, parentType: 'library' });
+    const [newCommand, setNewCommand] = useState({ ...DocumentModel, parent_type: 'library' });
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
