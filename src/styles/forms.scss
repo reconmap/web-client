@@ -57,7 +57,7 @@ button:focus {
     outline: 0;
 }
 
-button:disabled {
+button:disabled, select:disabled {
     opacity: 0.5;
 }
 

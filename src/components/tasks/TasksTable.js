@@ -7,11 +7,23 @@ import UserLink from "../users/Link";
 import TaskBadge from "./TaskBadge";
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
-export default function TasksTable({ tasks, filter = { project: '', status: '' }, destroy }) {
+const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project: '', status: '' }, destroy }) => {
+
+    const onTaskCheckboxChange = (ev) => {
+        const target = ev.target;
+        const targetId = parseInt(target.value);
+        if (target.checked) {
+            setSelectedTasks([...selectedTasks, targetId]);
+        } else {
+            setSelectedTasks(selectedTasks.filter(value => value !== targetId));
+        }
+    };
+
     return (
         <table>
             <thead>
                 <tr>
+                    <th style={{ width: "32px" }}>&nbsp;</th>
                     <th style={{ width: '190px' }}>Summary</th>
                     <th className='only-desktop'>Description</th>
                     <th style={{ width: '190px' }}>Project</th>
@@ -31,6 +43,14 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
                         .filter(task => task.status.includes(filter.status))
                         .map((task) =>
                             <tr key={task.id}>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        value={task.id}
+                                        onChange={onTaskCheckboxChange}
+                                        checked={selectedTasks.includes(task.id)}
+                                    />
+                                </td>
                                 <td><TaskBadge task={task} /></td>
                                 <td className='only-desktop truncate' >{task.description}</td>
                                 <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
@@ -48,3 +68,5 @@ export default function TasksTable({ tasks, filter = { project: '', status: '' }
         </table>
     )
 }
+
+export default TasksTable;

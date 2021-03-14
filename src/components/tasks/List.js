@@ -1,5 +1,9 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
+import DeleteButton from 'components/ui/buttons/Delete';
 import ReloadButton from 'components/ui/buttons/Reload';
+import { actionCompletedToast } from 'components/ui/toast';
 import React, { useState } from 'react';
+import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
@@ -15,7 +19,9 @@ import TasksTable from './TasksTable';
 const TasksList = ({ history }) => {
     useSetTitle('Tasks');
 
-    const [tasks, reloadTasks] = useFetch('/tasks')
+    const [tasks, reloadTasks] = useFetch('/tasks');
+    const [selectedTasks, setSelectedTasks] = useState([]);
+
     const [projects] = useFetch('/projects')
     const [filter, setFilter] = useState({ project: '', user: '', status: '' })
 
@@ -30,6 +36,26 @@ const TasksList = ({ history }) => {
     const handleCreateTask = () => {
         history.push(`/tasks/create`);
     }
+
+    const onStatusSelectChange = () => {
+
+    }
+
+    const onDeleteButtonClick = () => {
+        secureApiFetch('/tasks', {
+            method: 'PATCH',
+            headers: {
+                'Bulk-Operation': 'DELETE',
+            },
+            body: JSON.stringify(selectedTasks),
+        })
+            .then(reloadTasks)
+            .then(() => {
+                setSelectedTasks([]);
+                actionCompletedToast('All selected tasks were deleted.');
+            })
+            .catch(err => console.error(err));
+    };
 
     const destroy = useDelete('/tasks/', reloadTasks);
 
@@ -53,6 +79,19 @@ const TasksList = ({ history }) => {
                     </select>
                 </div>
                 <CreateButton onClick={handleCreateTask}>Create task</CreateButton>
+                <label disabled>Transition to&nbsp;
+                    <select disabled onChange={onStatusSelectChange}>
+                        <option>(select)</option>
+                        {TaskStatuses.map((status, index) =>
+                            <option key={index} value={status.id}>{status.name}</option>
+                        )}
+                    </select>
+                </label>
+                <RestrictedComponent roles={['administrator']}>
+                    <DeleteButton onClick={onDeleteButtonClick} disabled={!selectedTasks.length}>
+                        Delete selected
+                    </DeleteButton>
+                </RestrictedComponent>
                 <ReloadButton onClick={async () => { setReloadButtonDisabled(true); await reloadTasks(); setReloadButtonDisabled(false); }} disabled={reloadButtonDisabled} />
             </ButtonGroup>
         </div>
@@ -60,7 +99,7 @@ const TasksList = ({ history }) => {
 
         {!tasks ?
             <Loading /> :
-            <TasksTable tasks={tasks} filter={filter} destroy={destroy} />
+            <TasksTable tasks={tasks} selectedTasks={selectedTasks} setSelectedTasks={setSelectedTasks} filter={filter} destroy={destroy} />
         }
     </>
 }
