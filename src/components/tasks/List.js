@@ -37,8 +37,25 @@ const TasksList = ({ history }) => {
         history.push(`/tasks/create`);
     }
 
-    const onStatusSelectChange = () => {
+    const onStatusSelectChange = (ev) => {
+        const newStatus = ev.target.value;
 
+        secureApiFetch('/tasks', {
+            method: 'PATCH',
+            headers: {
+                'Bulk-Operation': 'UPDATE',
+            },
+            body: JSON.stringify({
+                taskIds: selectedTasks,
+                newStatus: newStatus
+            })
+        })
+            .then(reloadTasks)
+            .then(() => {
+                actionCompletedToast(`All selected tasks have been transitioned to "${newStatus}".`);
+                ev.target.value = '';
+            })
+            .catch(err => console.error(err));
     }
 
     const onDeleteButtonClick = () => {
@@ -79,9 +96,9 @@ const TasksList = ({ history }) => {
                     </select>
                 </div>
                 <CreateButton onClick={handleCreateTask}>Create task</CreateButton>
-                <label disabled>Transition to&nbsp;
-                    <select disabled onChange={onStatusSelectChange}>
-                        <option>(select)</option>
+                <label>Transition to&nbsp;
+                    <select disabled={!selectedTasks.length} onChange={onStatusSelectChange}>
+                        <option value="">(select)</option>
                         {TaskStatuses.map((status, index) =>
                             <option key={index} value={status.id}>{status.name}</option>
                         )}
