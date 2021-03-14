@@ -3,6 +3,7 @@ import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo'
 import { IconDocument } from '../ui/Icons'
 
 function ProjectDetailsTab({ project }) {
@@ -13,6 +14,14 @@ function ProjectDetailsTab({ project }) {
                     <IconDocument /> Project Details
                 </h4>
                 <dl>
+                    <dt>Status</dt>
+                    <dd>{project.archived ? 'Archived' : 'Active'}</dd>
+
+                    {project.engagement_type && <>
+                        <dt>Engagement type</dt>
+                        <dd>{project.engagement_type}</dd>
+                    </>}
+
                     <dt>Description</dt>
                     <dd><ReactMarkdown>{project.description}</ReactMarkdown></dd>
                 </dl>
@@ -29,6 +38,28 @@ function ProjectDetailsTab({ project }) {
                 </dl>
 
                 <TimestampsSection entity={project} />
+
+                {(project.engagement_start_date || project.engagement_end_date) &&
+                    <dl>
+                        {project.engagement_start_date && <>
+                            <dt>Engagement start date</dt>
+                            <dd><ReactTimeAgo date={project.engagement_start_date} /></dd>
+                        </>}
+
+                        {project.engagement_end_date && <>
+                            <dt>Engagement end date</dt>
+                            <dd><ReactTimeAgo date={project.engagement_end_date} /></dd>
+                        </>}
+                    </dl>
+                }
+
+                {project.archived === 1 &&
+                    <dl>
+                        <dt>Archived</dt>
+                        <dd><ReactTimeAgo date={project.archive_ts} /></dd>
+                    </dl>
+                }
+
             </div>
         </section>
     )
