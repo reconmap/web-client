@@ -23,7 +23,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
         <table>
             <thead>
                 <tr>
-                    <th style={{ width: "32px" }}>&nbsp;</th>
+                    {selectedTasks && <th style={{ width: "32px" }}>&nbsp;</th>}
                     <th style={{ width: '190px' }}>Summary</th>
                     <th className='only-desktop'>Description</th>
                     <th style={{ width: '190px' }}>Project</th>
@@ -43,14 +43,16 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                         .filter(task => task.status.includes(filter.status))
                         .map((task) =>
                             <tr key={task.id}>
-                                <td>
-                                    <input
-                                        type="checkbox"
-                                        value={task.id}
-                                        onChange={onTaskCheckboxChange}
-                                        checked={selectedTasks.includes(task.id)}
-                                    />
-                                </td>
+                                {selectedTasks &&
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            value={task.id}
+                                            onChange={onTaskCheckboxChange}
+                                            checked={selectedTasks.includes(task.id)}
+                                        />
+                                    </td>
+                                }
                                 <td><TaskBadge task={task} /></td>
                                 <td className='only-desktop truncate' >{task.description}</td>
                                 <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
