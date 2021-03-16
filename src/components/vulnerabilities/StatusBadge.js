@@ -1,16 +1,16 @@
-import {IconCheckCircle, IconX} from "../ui/Icons"
+import { IconCheckCircle, IconX } from "../ui/Icons"
 
-export default function VulnerabilityStatusBadge({status}) {
+const VulnerabilityStatusBadge = ({ status }) => {
     const STATUSES = {
         'open': {
             label: 'Open',
             color: 'red',
-            icon: <IconCheckCircle/>
+            icon: <IconCheckCircle />
         },
         'closed': {
             label: 'Closed',
             color: 'green',
-            icon: <IconX/>
+            icon: <IconX />
         },
     }
     const styles = {
@@ -34,3 +34,5 @@ export default function VulnerabilityStatusBadge({status}) {
         </span>
     )
 }
+
+export default VulnerabilityStatusBadge;

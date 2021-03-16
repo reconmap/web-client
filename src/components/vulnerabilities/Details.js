@@ -1,3 +1,4 @@
+import TargetBadge from 'components/target/TargetBadge';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import React, { useEffect } from 'react';
@@ -117,7 +118,7 @@ const VulnerabilityDetails = () => {
                                     <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</dd>
 
                                 <dt>Affected target</dt>
-                                <dd>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</dd>
+                                <dd><TargetBadge name={vulnerability.target_name}>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</TargetBadge></dd>
 
                                 <dt>Created by</dt>
                                 <dd><UserLink userId={vulnerability.creator_uid}>{vulnerability.creator_full_name}</UserLink></dd>

@@ -66,10 +66,12 @@ const CommandDetails = () => {
                                 <dt>Description</dt>
                                 <dd><ReactMarkdown>{command.description}</ReactMarkdown></dd>
 
-                                <dt>Command line example</dt>
-                                <dd>
-                                    <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
-                                </dd>
+                                {command.executable_path && <>
+                                    <dt>Command line example</dt>
+                                    <dd>
+                                        <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
+                                    </dd>
+                                </>}
                             </dl>
                         </div>
 
@@ -84,9 +86,11 @@ const CommandDetails = () => {
                         </div>
                     </div>
                 </Tab>
-                <Tab name="Run instructions">
-                    <CommandInstructions command={command} />
-                </Tab>
+                {command.executable_path &&
+                    <Tab name="Run instructions">
+                        <CommandInstructions command={command} />
+                    </Tab>
+                }
             </Tabs>
         </article>
     </div>

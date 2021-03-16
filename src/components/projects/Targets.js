@@ -1,11 +1,12 @@
-import Loading from "../ui/Loading"
-import { IconPlus, IconServer } from '../ui/Icons'
-import { useHistory } from 'react-router-dom'
-import SecondaryButton from '../ui/buttons/Secondary'
-import useFetch from "../../hooks/useFetch";
+import TargetBadge from "components/target/TargetBadge";
 import React from "react";
-import DeleteButton from "../ui/buttons/Delete";
+import { Link, useHistory } from 'react-router-dom';
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
+import DeleteButton from "../ui/buttons/Delete";
+import SecondaryButton from '../ui/buttons/Secondary';
+import { IconPlus, IconServer } from '../ui/Icons';
+import Loading from "../ui/Loading";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 
 const ProjectTargets = ({ project }) => {
@@ -45,12 +46,7 @@ const ProjectTargets = ({ project }) => {
                     {targets.length === 0 && <NoResultsTableRow numColumns={4} />}
                     {targets.map((target, index) =>
                         <tr key={index}>
-                            <td><a
-                                href="/"
-                                onClick={(ev) => {
-                                    ev.preventDefault();
-                                    history.push(`/projects/${project.id}/targets/${target.id}`)
-                                }}>{target.name}</a>
+                            <td><Link to={`/projects/${project.id}/targets/${target.id}`}><TargetBadge name={target.name} /></Link>
                             </td>
                             <td>{target.kind}</td>
                             <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>

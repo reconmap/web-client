@@ -23,11 +23,11 @@ const TargetView = ({ match, history }) => {
 
     const handleDelete = () => {
         destroy(targetId)
-            .then((success) => {
+            .then(success => {
                 if (success)
                     history.push('/projects');
             })
-            .catch((err) => console.error(err))
+            .catch(err => console.error(err))
     }
 
     if (!target || !vulnerabilities || !savedProject) return <Loading />

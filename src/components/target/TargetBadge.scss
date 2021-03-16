@@ -1,0 +1,14 @@
+
+div.target-badge {
+  text-transform: capitalize;
+  color: #ff6961;
+  display: inline-flex;
+  background-repeat: no-repeat;
+  background-image: url("/images/icons/target.svg");
+  background-color: var(--black);
+  background-size: 24px 24px;
+  background-position: 4px 4px;
+  border-radius: var(--borderRadius, 3px);
+  padding: var(--margin) var(--paddingBadge);
+  padding-left: 30px;
+}
