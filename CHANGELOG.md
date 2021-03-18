@@ -55,6 +55,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove table cell padding
 - Remove two-columns class
 
-[Unreleased]: https://github.com/Reconmap/api-backend/compare/0.8.5...master 
-[0.8.5]: https://github.com/Reconmap/api-backend/compare/0.8.0...0.8.5
+[Unreleased]: https://github.com/reconmap/web-client/compare/0.8.5...master 
+[0.8.5]: https://github.com/reconmap/web-client/compare/0.8.0...0.8.5
 
