@@ -1,6 +1,7 @@
 import TargetBadge from 'components/target/TargetBadge';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
+import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
 import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
@@ -11,9 +12,8 @@ import Breadcrumb from '../ui/Breadcrumb';
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
-import PrimaryButton from '../ui/buttons/Primary';
 import ExternalLink from "../ui/ExternalLink";
-import { IconCheck, IconFlag } from '../ui/Icons';
+import { IconFlag } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Tab from "../ui/Tab";
 import Tabs from "../ui/Tabs";
@@ -41,15 +41,15 @@ const VulnerabilityDetails = () => {
             history.push('/vulnerabilities')
     }
 
-    const handleStatus = () => {
-        const newStatus = vulnerability.status === 'open' ? 'closed' : 'open';
+    const onStatusChange = ev => {
+        const [status, substatus] = ev.target.value.split('-');
         secureApiFetch(`/vulnerabilities/${vulnerability.id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ status: newStatus })
+            method: 'PATCH',
+            body: JSON.stringify({ status, substatus })
         })
             .then(() => {
+                actionCompletedToast("The status has been transitioned.");
                 updateVulnerability()
-                actionCompletedToast('The task has been updated.');
             })
             .catch(err => console.error(err))
     }
@@ -66,11 +66,15 @@ const VulnerabilityDetails = () => {
                     ev.preventDefault();
                     history.push(`/vulnerabilities/${vulnerability.id}/edit`)
                 }}>Edit</EditButton>
-                {vulnerability.status === 'open' &&
-                    <PrimaryButton onClick={handleStatus}>
-                        <IconCheck /> Mark as closed</PrimaryButton>}
-                {vulnerability.status !== 'open' &&
-                    <PrimaryButton onClick={handleStatus}>Mark as open</PrimaryButton>}
+
+                <label>Transition to&nbsp;
+                        <select onChange={onStatusChange} value={vulnerability.status + '-' + vulnerability.substatus}>
+                        {VulnerabilityStatuses.map((status, index) =>
+                            <option key={index} value={status.id}>{status.name}</option>
+                        )}
+                    </select>
+                </label>
+
                 <DeleteButton onClick={handleDelete} />
             </ButtonGroup>
         </div>
@@ -92,7 +96,7 @@ const VulnerabilityDetails = () => {
                             <h4>Details</h4>
                             <dl>
                                 <dt>Status</dt>
-                                <dd><VulnerabilityStatusBadge status={vulnerability.status} /></dd>
+                                <dd><VulnerabilityStatusBadge vulnerability={vulnerability} /></dd>
 
                                 <dt>Risk</dt>
                                 <dd><RiskBadge risk={vulnerability.risk} /></dd>
@@ -118,7 +122,7 @@ const VulnerabilityDetails = () => {
                                     <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</dd>
 
                                 <dt>Affected target</dt>
-                                <dd><TargetBadge name={vulnerability.target_name}>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</TargetBadge></dd>
+                                <dd><Link to={`/projects/${vulnerability.project_id}/targets/${vulnerability.target_id}`}><TargetBadge name={vulnerability.target_name}>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</TargetBadge></Link></dd>
 
                                 <dt>Created by</dt>
                                 <dd><UserLink userId={vulnerability.creator_uid}>{vulnerability.creator_full_name}</UserLink></dd>
@@ -135,4 +139,4 @@ const VulnerabilityDetails = () => {
     </div>
 }
 
-export default VulnerabilityDetails
+export default VulnerabilityDetails;

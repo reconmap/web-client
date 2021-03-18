@@ -65,8 +65,16 @@
     --green: var(--complementary-color);
     --blue: var(--secondary-color);
     --yellow: var(--third-color);
+    --orange: #ccc5b0;
     --purple: var(--fourth-color);
     --gray: var(--text-color);
+
+    --orangeDark: hsla(
+        calc(var(--base-hue) + var(--distance-analog)),
+        var(--saturation),
+        var(--value),
+        0.45
+    );
 
     --redDark: hsla(
         calc(var(--base-hue) + var(--distance-analog)),

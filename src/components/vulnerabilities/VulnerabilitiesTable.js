@@ -1,12 +1,12 @@
-import RiskBadge from '../badges/RiskBadge'
-import VulnerabilityBadge from '../badges/VulnerabilityBadge'
-import CvssScore from '../badges/CvssScore'
-import DeleteButton from "../ui/buttons/Delete";
-import VulnerabilityStatusBadge from "./StatusBadge";
-import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
-import NoResults from "../ui/NoResults";
 import React from "react";
+import CvssScore from '../badges/CvssScore';
+import RiskBadge from '../badges/RiskBadge';
+import VulnerabilityBadge from '../badges/VulnerabilityBadge';
+import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
+import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
+import NoResults from "../ui/NoResults";
+import VulnerabilityStatusBadge from "./StatusBadge";
 
 export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
     return (
@@ -30,7 +30,7 @@ export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
                         return (
                             <tr key={index}>
                                 <td><VulnerabilityBadge vulnerability={vulnerability} /></td>
-                                <td><VulnerabilityStatusBadge status={vulnerability.status} /></td>
+                                <td><VulnerabilityStatusBadge vulnerability={vulnerability} /></td>
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td><CvssScore score={vulnerability.cvss_score} /></td>
                                 <td className='only-desktop'><VulnerabilityCategoryBadge category={vulnerability.category_name} /></td>
