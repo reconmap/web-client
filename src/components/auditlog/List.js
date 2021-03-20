@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import Pagination from '../layout/Pagination';
-import secureApiFetch from '../../services/api';
-import Loading from '../ui/Loading';
-import NoResults from '../ui/NoResults';
+import React, { useCallback, useEffect, useState } from 'react';
 import useSetTitle from '../../hooks/useSetTitle';
-import { IconEye, IconSave } from '../ui/Icons';
+import secureApiFetch from '../../services/api';
+import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
 import SecondaryButton from '../ui/buttons/Secondary';
+import { IconEye, IconSave } from '../ui/Icons';
+import Loading from '../ui/Loading';
+import NoResults from '../ui/NoResults';
 import Title from '../ui/Title';
 import AuditLogsTable from "./AuditLogsTable";
 
@@ -46,7 +46,7 @@ const AuditLogList = ({ history }) => {
     }, [reloadData])
 
     const handleExport = () => {
-        secureApiFetch(`/auditlog/export`, { method: 'GET' })
+        secureApiFetch(`/system/data?entities=auditlog`, { method: 'GET' })
             .then(resp => {
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
