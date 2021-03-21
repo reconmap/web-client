@@ -71,9 +71,9 @@ const AuditLogList = ({ history }) => {
                     <div>System</div>
                 </Breadcrumb>
                 <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
-                <SecondaryButton onClick={handleExport}><IconSave /> Export to CSV</SecondaryButton>
+                <SecondaryButton onClick={handleExport}><IconSave /> Export</SecondaryButton>
             </div>
-            <Title title='Audit Log' icon={<IconEye />} />
+            <Title type="System" title='Audit Log' icon={<IconEye />} />
             {!auditLog ? <Loading /> : auditLog.length === 0 ? <NoResults /> :
                 <AuditLogsTable auditLog={auditLog} />}
         </>

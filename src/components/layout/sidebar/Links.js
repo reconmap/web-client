@@ -117,6 +117,11 @@ const Links = [
                 to: '/system/export-data',
             },
             {
+                title: 'Usage',
+                icon: <IconExtensions size={5} />,
+                to: '/system/usage',
+            },
+            {
                 title: 'Integrations',
                 icon: <IconExtensions size={5} />,
                 to: '/integrations',
