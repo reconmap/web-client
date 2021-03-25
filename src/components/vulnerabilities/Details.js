@@ -93,7 +93,14 @@ const VulnerabilityDetails = () => {
                                     <ReactMarkdown>{vulnerability.solution}</ReactMarkdown>
                                 </>
                             }
-                            <h4>Details</h4>
+
+                            <h4>Proof of concept</h4>
+                            <ReactMarkdown>{vulnerability.proof_of_concept || "_(empty)_"}</ReactMarkdown>
+
+                            <h4>Impact</h4>
+                            <ReactMarkdown>{vulnerability.impact || "_(empty)_"}</ReactMarkdown>
+
+                            <h4>Properties</h4>
                             <dl>
                                 <dt>Status</dt>
                                 <dd><VulnerabilityStatusBadge vulnerability={vulnerability} /></dd>

@@ -105,6 +105,12 @@ const VulnerabilityForm = ({
         <label>Description
             <textarea name="description" value={vulnerability.description} onChange={onFormChange} />
         </label>
+        <label>Proof of concept
+            <textarea name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />
+        </label>
+        <label>Impact
+            <textarea name="impact" value={vulnerability.impact} onChange={onFormChange} />
+        </label>
         <label>Solution (if available)
             <textarea name="solution" value={vulnerability.solution} onChange={onFormChange} />
         </label>
