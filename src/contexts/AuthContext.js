@@ -1,4 +1,5 @@
-import React, {Component, createContext} from "react";
+import React, { Component, createContext } from "react";
+import Auth from "services/auth";
 import secureApiFetch from '../services/api';
 
 const AuthContext = createContext()
@@ -35,30 +36,25 @@ class AuthProvider extends Component {
                 }
                 return resp.json();
             })
-            .then((data) => {
-                localStorage.setItem("accessToken", data.access_token);
+            .then(data => {
                 localStorage.setItem('isAuth', true);
-                localStorage.setItem('user.id', data.id);
                 localStorage.setItem('user', JSON.stringify(data));
-                this.setState({isAuth: true, user: data});
+                this.setState({ isAuth: true, user: data });
                 onOk();
             })
-            .catch((err) => {
+            .catch(err => {
                 onKo(err.message);
             });
 
     }
 
     logout() {
-        this.setState({isAuth: false})
+        this.setState({ isAuth: false })
         secureApiFetch(`/users/logout`, {
             method: 'POST',
         })
             .finally(() => {
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('isAuth');
-                localStorage.removeItem('user.id');
-                localStorage.removeItem('user');
+                Auth.removeSession();
             });
     }
 
@@ -78,4 +74,5 @@ class AuthProvider extends Component {
 
 const AuthConsumer = AuthContext.Consumer
 
-export {AuthProvider, AuthConsumer}
+export { AuthProvider, AuthConsumer };
+

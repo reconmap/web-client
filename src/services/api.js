@@ -1,17 +1,16 @@
-import Configuration from '../Configuration';
 import toast from "../components/ui/toast";
+import Configuration from '../Configuration';
+import Auth from "./auth";
 
 function resetSessionStorageAndRedirect() {
-    window.localStorage.removeItem('accessToken');
-    window.localStorage.removeItem('isAuth');
-    window.localStorage.removeItem('user.id');
-    window.localStorage.removeItem('user');
+    Auth.removeSession();
     window.location = '/';
 }
 
 function secureApiFetch(url, init) {
-    const accessToken = localStorage.getItem('accessToken');
-    const headers = accessToken !== null ? {Authorization: 'Bearer ' + accessToken} : {};
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const headers = user && user.access_token !== null ? { Authorization: 'Bearer ' + user.access_token } : {};
     const initWithAuth = init;
     if (initWithAuth.hasOwnProperty('headers')) {
         Object.assign(initWithAuth.headers, headers);

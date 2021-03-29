@@ -63,5 +63,7 @@ const ProjectReport = () => {
 export default ProjectReport;
 
 const ReportPreview = ({ projectId }) => {
-    return <iframe title="Report preview" style={{ width: '50%', margin: '20px auto' }} id="report" src={Configuration.apiEndpoint + `/reports/preview?projectId=${projectId}&accessToken=${localStorage.getItem('accessToken')}`}></iframe>
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    return <iframe title="Report preview" style={{ width: '50%', margin: '20px auto' }} id="report" src={Configuration.apiEndpoint + `/reports/preview?projectId=${projectId}&accessToken=${user.access_token}`}></iframe>
 }
