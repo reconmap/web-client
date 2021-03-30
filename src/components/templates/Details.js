@@ -1,3 +1,4 @@
+import LinkButton from 'components/ui/buttons/Link';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
@@ -37,8 +38,8 @@ const TemplateDetails = ({ history, match }) => {
                 {template &&
                     <ButtonGroup>
                         <PrimaryButton onClick={() => cloneProject(template.id)}><IconPlusCircle
-                        /> Create
-                        project from template</PrimaryButton>
+                        /> Create project from template</PrimaryButton>
+                        <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
                         <DeleteButton onClick={() => destroy(template.id)} />
                     </ButtonGroup>
                 }

@@ -1,7 +1,7 @@
-import ProjectEngagementTypes from "../../models/ProjectEngagementTypes";
-import PrimaryButton from "../ui/buttons/Primary";
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+import ProjectEngagementTypes from "../../models/ProjectEngagementTypes";
+import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
 
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
@@ -9,7 +9,8 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
     const [clients] = useFetch('/clients');
 
     const handleFormChange = ev => {
-        setProject({ ...project, [ev.target.name]: ev.target.value });
+        const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
+        setProject({ ...project, [ev.target.name]: value });
     };
 
     useEffect(() => {
@@ -38,6 +39,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             <label>Description
                 <textarea name="description" onChange={handleFormChange} value={project.description} required />
             </label>
+            <label>Is template?
+                <input type="checkbox" name="is_template" onChange={handleFormChange} checked={project.is_template} />
+            </label>
         </fieldset>
 
         <fieldset>
@@ -51,15 +55,17 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                 </select>
             </label>
 
-            <label>Start date
+            {!project.is_template && <>
+                <label>Start date
                 <input type="date" name="engagement_start_date" value={project.engagement_start_date}
-                    onChange={handleFormChange} />
-            </label>
+                        onChange={handleFormChange} />
+                </label>
 
-            <label>End date
+                <label>End date
                 <input type="date" name="engagement_end_date" value={project.engagement_end_date}
-                    onChange={handleFormChange} />
-            </label>
+                        onChange={handleFormChange} />
+                </label>
+            </>}
         </fieldset>
 
         <PrimaryButton type="submit">{isEdit ? "Update" : "Create"}</PrimaryButton>
