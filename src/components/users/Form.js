@@ -36,6 +36,9 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                     {UserRoles.map((role, index) => <option value={role.id}>{role.name}</option>)}
                 </select>
             </label>
+            <label>Active?
+                <input type="checkbox" name="active" checked={user.active} onChange={onFormChange} />
+            </label>
         </fieldset>
 
         <fieldset>

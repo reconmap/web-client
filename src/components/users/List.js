@@ -93,6 +93,7 @@ const UsersList = ({ history }) => {
                             <th>Full name</th>
                             <th>Username</th>
                             <th>Role</th>
+                            <th>Active?</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -126,6 +127,7 @@ const UsersList = ({ history }) => {
                                 <td>
                                     <UserRoleBadge role={user.role} />
                                 </td>
+                                <td>{user.active ? 'True' : 'False'}</td>
                                 <td className='flex justify-end'>
                                     <LinkButton href={`/users/${user.id}/edit`}>
                                         Edit

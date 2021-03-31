@@ -52,7 +52,7 @@ const UserProfile = ({ match }) => {
 
                         <div className="grid grid-two">
                             <div>
-                                <h4>Details</h4>
+                                <h4>Properties</h4>
                                 <dl>
                                     {user.short_bio && <>
                                         <dt>Short bio</dt>
@@ -64,6 +64,9 @@ const UserProfile = ({ match }) => {
 
                                     <dt>Timezone</dt>
                                     <dd>{user.timezone}</dd>
+
+                                    <dt>Active?</dt>
+                                    <dd>{user.active ? 'True' : 'False'}</dd>
                                 </dl>
                             </div>
 
@@ -81,4 +84,4 @@ const UserProfile = ({ match }) => {
     )
 }
 
-export default UserProfile
+export default UserProfile;

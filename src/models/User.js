@@ -7,7 +7,8 @@ const User = {
     username: null,
     role: UserRoles[0].id,
     unencryptedPassword: null,
-    sendEmailToUser: false
+    sendEmailToUser: false,
+    active: true,
 };
 
 export default User;
