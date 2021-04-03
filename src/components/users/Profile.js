@@ -1,3 +1,4 @@
+import BooleanText from "components/ui/BooleanText";
 import TimestampsSection from "components/ui/TimestampsSection";
 import { Link, useHistory } from "react-router-dom";
 import useDelete from "../../hooks/useDelete";
@@ -66,7 +67,10 @@ const UserProfile = ({ match }) => {
                                     <dd>{user.timezone}</dd>
 
                                     <dt>Active?</dt>
-                                    <dd>{user.active ? 'True' : 'False'}</dd>
+                                    <dd><BooleanText value={user.active} /></dd>
+
+                                    <dt>2FA enabled?</dt>
+                                    <dd><BooleanText value={user.mfa_enabled} /></dd>
                                 </dl>
                             </div>
 

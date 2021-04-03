@@ -9,6 +9,7 @@ const User = {
     unencryptedPassword: null,
     sendEmailToUser: false,
     active: true,
+    mfa_enabled: false,
 };
 
 export default User;

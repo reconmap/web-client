@@ -39,6 +39,9 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             <label>Active?
                 <input type="checkbox" name="active" checked={user.active} onChange={onFormChange} />
             </label>
+            <label>2FA enabled?
+                <input type="checkbox" name="mfa_enabled" checked={user.mfa_enabled} onChange={onFormChange} />
+            </label>
         </fieldset>
 
         <fieldset>

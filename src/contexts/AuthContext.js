@@ -1,25 +1,25 @@
-import React, { Component, createContext } from "react";
+import React, { createContext, useState } from "react";
+import { useHistory } from "react-router";
 import Auth from "services/auth";
 import secureApiFetch from '../services/api';
 
 const AuthContext = createContext()
 
-class AuthProvider extends Component {
+const AuthProvider = (props) => {
 
-    state = {
-        isAuth: false
+    const history = useHistory();
+
+    const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+
+    let redirectTo
+    try {
+        redirectTo = props.location.state.from.pathname
+    } catch {
+        redirectTo = "/"
     }
 
-    constructor() {
-        super();
-        this.login = this.login.bind(this)
-        this.logout = this.logout.bind(this)
-
-        this.state.isAuth = localStorage.getItem('isAuth');
-        this.state.user = JSON.parse(localStorage.getItem('user'));
-    }
-
-    login(credentials, onOk, onKo) {
+    const login = (credentials, onOk, onKo) => {
         const formData = new FormData();
         formData.append('username', credentials.username);
         formData.append('password', credentials.password);
@@ -39,40 +39,45 @@ class AuthProvider extends Component {
             .then(data => {
                 localStorage.setItem('isAuth', true);
                 localStorage.setItem('user', JSON.stringify(data));
-                this.setState({ isAuth: true, user: data });
+
+                setUser(data);
+
+                if (data.mfa === 'setup') {
+                    history.push('/auth/mfa-setup');
+                    return;
+                } else if (data.mfa === 'ready') {
+                    history.push('/auth/mfa-verification');
+                    return;
+                }
+
+                // eg mfa == disabled
+
+                setIsAuth(true);
+                history.push(redirectTo);
+
                 onOk();
             })
             .catch(err => {
                 onKo(err.message);
             });
+    };
 
-    }
+    const logout = () => {
+        setIsAuth(false);
 
-    logout() {
-        this.setState({ isAuth: false })
         secureApiFetch(`/users/logout`, {
             method: 'POST',
         })
             .finally(() => {
                 Auth.removeSession();
             });
-    }
+    };
 
-    render() {
-        return (
-            <AuthContext.Provider value={{
-                isAuth: this.state.isAuth,
-                login: this.login,
-                logout: this.logout,
-                user: this.state.user
-            }}>
-                {this.props.children}
-            </AuthContext.Provider>
-        )
-    }
+    return <AuthContext.Provider value={{ isAuth, login, logout, user, setIsAuth }}>
+        {props.children}
+    </AuthContext.Provider>
 }
 
 const AuthConsumer = AuthContext.Consumer
 
-export { AuthProvider, AuthConsumer };
-
+export { AuthContext, AuthProvider, AuthConsumer };

@@ -1,3 +1,4 @@
+import AuthRoutes from 'components/auth/Routes';
 import CommandsRoutes from 'components/commands/Routes';
 import DocumentsRoutes from 'components/documents/Routes';
 import React, { useEffect, useState } from 'react';
@@ -18,7 +19,6 @@ import SystemRoutes from "./components/system/Routes";
 import TasksRoutes from "./components/tasks/Routes";
 import TemplatesRoutes from "./components/templates/Routes";
 import Sandbox from './components/ui/Sandbox';
-import Login from "./components/users/Login";
 import UsersRoutes from "./components/users/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import Configuration from './Configuration';
@@ -39,8 +39,8 @@ const App = () => {
             <AuthProvider>
                 <ThemeContext.Provider value={{ theme, setTheme }}>
                     <Switch>
-                        <Route exact path="/login" component={Login} />
                         <ProtectedRoute exact path='/' component={Dashboard} />
+                        {AuthRoutes.map((value, index) => React.cloneElement(value, { key: index }))}
                         <Dashboard>
                             <Switch>
                                 {

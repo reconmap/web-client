@@ -1,9 +1,10 @@
-import Header from "./Header";
-import './LoginContainer.scss'
-const LoginContainer = ({children}) => {
+import Header from "../layout/Header";
+import './LoginContainer.scss';
+
+const LoginContainer = ({ children }) => {
     return (
         <div className='login__container'>
-            <Header/>
+            <Header />
             <div>
                 {children}
             </div>

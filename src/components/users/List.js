@@ -1,4 +1,5 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import BooleanText from "components/ui/BooleanText";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import CreateButton from "../../components/ui/buttons/Create";
@@ -94,6 +95,7 @@ const UsersList = ({ history }) => {
                             <th>Username</th>
                             <th>Role</th>
                             <th>Active?</th>
+                            <th>2FA enabled?</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -127,7 +129,8 @@ const UsersList = ({ history }) => {
                                 <td>
                                     <UserRoleBadge role={user.role} />
                                 </td>
-                                <td>{user.active ? 'True' : 'False'}</td>
+                                <td><BooleanText value={user.active} /></td>
+                                <td><BooleanText value={user.mfa_enabled} /></td>
                                 <td className='flex justify-end'>
                                     <LinkButton href={`/users/${user.id}/edit`}>
                                         Edit
