@@ -24,7 +24,7 @@ const MfaSetup = () => {
                     <legend>Two-factor authentication</legend>
 
                     <p>Use a time-based one-time password (TOPT) authenticator app to scan the QR code or enter the alphanumeric code <strong>{mfa.secret}</strong> manually.</p>
-                    <p><img src={mfa.qrDataUri} /></p>
+                    <p><img src={mfa.qrDataUri} alt="QR code" /></p>
                     <p>Once you have done this, click the button below.</p>
 
                     <PrimaryButton onClick={onContinueButtonClick}>Continue</PrimaryButton>

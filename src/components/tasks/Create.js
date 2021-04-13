@@ -1,27 +1,23 @@
-import React, {useRef, useState} from 'react'
+import TaskModel from 'models/Task';
+import React, { useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
+import { IconPlus } from "../ui/Icons";
 import Title from '../ui/Title';
-import {Link, useLocation} from 'react-router-dom';
-import {IconPlus} from "../ui/Icons";
 import TaskForm from "./Form";
 
-const TaskCreationPage = ({history}) => {
+const TaskCreationPage = ({ history }) => {
     const location = useLocation();
     const defaultProjectId = "";
     const projectIdParam = useRef(new URLSearchParams(location.search).get('projectId') || defaultProjectId);
 
-    const [newTask, setNewTask] = useState({
-        project_id: projectIdParam.current,
-        name: null,
-        description: null,
-        parser: "",
-    })
+    const [newTask, setNewTask] = useState({ ...TaskModel, project_id: projectIdParam.current })
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/tasks`, {method: 'POST', body: JSON.stringify(newTask)})
+        await secureApiFetch(`/tasks`, { method: 'POST', body: JSON.stringify(newTask) })
         history.push(`/tasks?projectId=${newTask.project_id}`)
     }
 
@@ -33,9 +29,9 @@ const TaskCreationPage = ({history}) => {
                 </Breadcrumb>
             </div>
 
-            <Title title="New task details" icon={<IconPlus/>}/>
+            <Title title="New task details" icon={<IconPlus />} />
 
-            <TaskForm onFormSubmit={onFormSubmit} task={newTask} taskSetter={setNewTask}/>
+            <TaskForm onFormSubmit={onFormSubmit} task={newTask} taskSetter={setNewTask} />
         </div>
     )
 }

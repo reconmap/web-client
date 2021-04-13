@@ -1,3 +1,4 @@
+import { actionCompletedToast } from 'components/ui/toast';
 import Project from 'models/Project';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -15,7 +16,12 @@ const ProjectCreate = ({ history }) => {
         ev.preventDefault();
 
         await secureApiFetch(`/projects`, { method: 'POST', body: JSON.stringify(newProject) })
-        history.push('/projects');
+        actionCompletedToast(`The project '${newProject.name}' has been created`);
+        if (newProject.is_template) {
+            history.push('/templates');
+        } else {
+            history.push('/projects');
+        }
     }
 
     return (
