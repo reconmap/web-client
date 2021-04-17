@@ -1,3 +1,4 @@
+import { actionCompletedToast } from 'components/ui/toast';
 import Organisation from 'models/Organisation';
 import React, { useEffect, useState } from 'react';
 import useFetch from "../../hooks/useFetch";
@@ -18,8 +19,9 @@ export default function OrganisationForm({ history }) {
         ev.preventDefault();
 
         setLoading(true);
-        await secureApiFetch(`/organisations/root`, { method: 'PUT', body: JSON.stringify(organisation) })
-        history.push(`/clients`)
+        await secureApiFetch(`/organisations/root`, { method: 'PUT', body: JSON.stringify(organisation) });
+        actionCompletedToast('The changes to the organisation has been saved.');
+        setLoading(false);
     }
     const handleFormChange = ev => {
         const target = ev.target;
@@ -32,13 +34,7 @@ export default function OrganisationForm({ history }) {
 
     useEffect(() => {
         if (rootOrganisation)
-            setOrganisation({
-                name: rootOrganisation.name,
-                url: rootOrganisation.url,
-                contactName: rootOrganisation.contact_name,
-                contactEmail: rootOrganisation.contact_email,
-                contactPhone: rootOrganisation.contact_phone
-            });
+            setOrganisation(rootOrganisation);
     }, [rootOrganisation]);
 
     if (!organisation) {
@@ -59,16 +55,16 @@ export default function OrganisationForm({ history }) {
                 <label>URL
                     <input type="text" name="url" value={organisation.url} onChange={handleFormChange} /></label>
                 <label>Contact name
-                    <input type="text" name="contactName" value={organisation.contactName} onChange={handleFormChange}
+                    <input type="text" name="contact_name" value={organisation.contact_name} onChange={handleFormChange}
                     /></label>
                 <label>Contact email
-                    <input type="email" name="contactEmail" value={organisation.contactEmail}
+                    <input type="email" name="contact_email" value={organisation.contact_email}
                         onChange={handleFormChange} /></label>
                 <label>Contact phone
-                    <input type="text" name="contactPhone" value={organisation.contactPhone}
+                    <input type="text" name="contact_phone" value={organisation.contact_phone}
                         onChange={handleFormChange} /></label>
                 <PrimaryButton type="submit"
-                    disabled={loading}>Update</PrimaryButton>
+                    disabled={loading}>Save</PrimaryButton>
             </form>
         </div>
     )
