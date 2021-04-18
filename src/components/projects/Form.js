@@ -1,3 +1,4 @@
+import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import ProjectEngagementTypes from "../../models/ProjectEngagementTypes";
@@ -37,7 +38,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                 <input type="text" name="name" onChange={handleFormChange} value={project.name} required autoFocus />
             </label>
             <label>Description
-                <textarea name="description" onChange={handleFormChange} value={project.description} required />
+                <MarkdownEditor name="description" onChange={handleFormChange} value={project.description} required />
             </label>
             <label>Is template?
                 <input type="checkbox" name="is_template" onChange={handleFormChange} checked={project.is_template} />

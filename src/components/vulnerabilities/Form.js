@@ -1,5 +1,7 @@
+import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import { useEffect, useState } from 'react';
 import { unstable_batchedUpdates } from "react-dom";
+import 'react-mde/lib/styles/css/react-mde-all.css';
 import Risks from "../../models/Risks";
 import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
@@ -103,16 +105,16 @@ const VulnerabilityForm = ({
             <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus />
         </label>
         <label>Description
-            <textarea name="description" value={vulnerability.description} onChange={onFormChange} />
+            <MarkdownEditor name="description" value={vulnerability.description} onChange={onFormChange} />
         </label>
         <label>Proof of concept
-            <textarea name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />
+            <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />
         </label>
         <label>Impact
-            <textarea name="impact" value={vulnerability.impact} onChange={onFormChange} />
+            <MarkdownEditor name="impact" value={vulnerability.impact} onChange={onFormChange} />
         </label>
         <label>Solution (if available)
-            <textarea name="solution" value={vulnerability.solution} onChange={onFormChange} />
+            <MarkdownEditor name="solution" value={vulnerability.solution} onChange={onFormChange} />
         </label>
         <label>Risk
             <select name="risk" value={vulnerability.risk} onChange={onFormChange} required>

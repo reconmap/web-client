@@ -1,3 +1,4 @@
+import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
 
@@ -13,7 +14,7 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
         <label>Short name
             <input type="text" name="short_name" onChange={onFormChange} value={command.short_name} required autoFocus /></label>
         <label>Description
-            <textarea name="description" onChange={onFormChange} value={command.description} required />
+            <MarkdownEditor name="description" onChange={onFormChange} value={command.description} required />
         </label>
         <label>Type
             <select name="executable_type" onChange={onFormChange} value={command.executable_type} required>

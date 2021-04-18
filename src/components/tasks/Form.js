@@ -1,3 +1,4 @@
+import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import Loading from "components/ui/Loading";
 import { useEffect } from 'react';
 import useFetch from "../../hooks/useFetch";
@@ -38,7 +39,7 @@ const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask 
             <input type="text" name="summary" onChange={onFormChange} required autoFocus
                 value={task.summary} /></label>
         <label>Description
-            <textarea name="description" onChange={onFormChange} required
+            <MarkdownEditor name="description" onChange={onFormChange} required
                 value={task.description} /></label>
         <label>Due date
             <input type="date" name="due_date" onChange={onFormChange} value={task.due_date} /></label>

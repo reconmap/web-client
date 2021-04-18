@@ -1,3 +1,4 @@
+import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
 
@@ -16,7 +17,7 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
         <label for="title">Title</label>
         <input type="text" name="title" id="title" value={document.title} onChange={onFormInputChange} required autofocus />
         <label for="content">Content (markdown supported)</label>
-        <textarea name="content" style={{ width: '100%' }} required value={document.content}
+        <MarkdownEditor name="content" style={{ width: '100%' }} required value={document.content}
             onChange={onFormInputChange} /><br />
         <label for="visibility">Visibility</label>
         <select name="visibility" id="visibility" value={document.visibility} onChange={onFormInputChange} required>

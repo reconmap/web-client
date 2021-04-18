@@ -10,18 +10,19 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.2",
-    "react-markdown": "^5.0.3",
+    "react-markdown": "^6.0.0",
+    "react-mde": "^11.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-time-ago": "^6.2.2",
     "recharts": "^2.0.9",
-    "ua-parser-js": "^0.7.26"
+    "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^13.0.14",
-    "npm-check-updates": "^11.3.0"
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.4",
+    "npm-check-updates": "^11.4.1"
   },
   "scripts": {
     "lint": "eslint . --ext .js",
