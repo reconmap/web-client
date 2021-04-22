@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import useFetch from "../../hooks/useFetch"
@@ -26,10 +27,12 @@ const ProjectVulnerabilities = ({ project }) => {
                 {vulnerabilities &&
                     <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
                         setStatus={setStatus} />}
-                <SecondaryButton onClick={handleCreateVulnerability}>
-                    <IconPlus />
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <SecondaryButton onClick={handleCreateVulnerability}>
+                        <IconPlus />
                     Add New Vulnerability
                 </SecondaryButton>
+                </RestrictedComponent>
             </ButtonGroup>
         </h4>
         {vulnerabilities ?

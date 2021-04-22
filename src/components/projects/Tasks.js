@@ -1,9 +1,10 @@
-import Loading from '../ui/Loading';
-import { IconClipboardList } from '../ui/Icons';
-import TasksTable from "../tasks/TasksTable";
-import useFetch from "../../hooks/useFetch";
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import { useHistory } from 'react-router-dom';
+import useFetch from "../../hooks/useFetch";
+import TasksTable from "../tasks/TasksTable";
 import CreateButton from "../ui/buttons/Create";
+import { IconClipboardList } from '../ui/Icons';
+import Loading from '../ui/Loading';
 
 const ProjectTasks = ({ project }) => {
     const history = useHistory();
@@ -19,7 +20,9 @@ const ProjectTasks = ({ project }) => {
             <IconClipboardList /> Tasks&nbsp;<small>({tasks && tasks.reduce(function (total, task) {
                 return task.status === 'done' ? total + 1 : total;
             }, 0)}/{tasks && tasks.length} completed)</small>
-            <CreateButton onClick={handleAddTask}>Add task</CreateButton>
+            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                <CreateButton onClick={handleAddTask}>Add task</CreateButton>
+            </RestrictedComponent>
         </h4>
 
         {tasks ? <TasksTable tasks={tasks} /> : <Loading />}

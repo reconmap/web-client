@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthConsumer } from '../../contexts/AuthContext'
@@ -35,9 +36,11 @@ const UserMenu = () => {
                 <Link to='/users/preferences'>Preferences</Link>
                 <Link to='/users/password-change'>Change password</Link>
                 <hr style={{ borderColor: 'var(--bg-color)' }} />
-                <h5>Organisation</h5>
-                <Link to='/organisation'>Settings</Link>
-                <hr style={{ borderColor: 'var(--bg-color)' }} />
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <h5>Organisation</h5>
+                    <Link to='/organisation'>Settings</Link>
+                    <hr style={{ borderColor: 'var(--bg-color)' }} />
+                </RestrictedComponent>
                 <Link to='/' onClick={logout}>Logout</Link>
             </div>
         }

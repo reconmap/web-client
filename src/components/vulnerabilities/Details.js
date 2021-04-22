@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TargetBadge from 'components/target/TargetBadge';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
@@ -62,20 +63,22 @@ const VulnerabilityDetails = () => {
                 <Link to="/vulnerabilities">Vulnerabilities</Link>
             </Breadcrumb>
             <ButtonGroup>
-                <EditButton onClick={(ev) => {
-                    ev.preventDefault();
-                    history.push(`/vulnerabilities/${vulnerability.id}/edit`)
-                }}>Edit</EditButton>
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <EditButton onClick={(ev) => {
+                        ev.preventDefault();
+                        history.push(`/vulnerabilities/${vulnerability.id}/edit`)
+                    }}>Edit</EditButton>
 
-                <label>Transition to&nbsp;
+                    <label>Transition to&nbsp;
                         <select onChange={onStatusChange} value={vulnerability.status + '-' + vulnerability.substatus}>
-                        {VulnerabilityStatuses.map((status, index) =>
-                            <option key={index} value={status.id}>{status.name}</option>
-                        )}
-                    </select>
-                </label>
+                            {VulnerabilityStatuses.map((status, index) =>
+                                <option key={index} value={status.id}>{status.name}</option>
+                            )}
+                        </select>
+                    </label>
 
-                <DeleteButton onClick={handleDelete} />
+                    <DeleteButton onClick={handleDelete} />
+                </RestrictedComponent>
             </ButtonGroup>
         </div>
         <article>

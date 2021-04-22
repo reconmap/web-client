@@ -1,3 +1,4 @@
+import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import TimestampsSection from "components/ui/TimestampsSection";
 import { Link, useHistory } from "react-router-dom";
@@ -41,8 +42,10 @@ const UserProfile = ({ match }) => {
                     <Link to="/users">Users</Link>
                 </Breadcrumb>
                 <ButtonGroup>
-                    <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
-                    <DeleteButton onClick={onDeleteButtonClick} />
+                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                        <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
+                        <DeleteButton onClick={onDeleteButtonClick} />
+                    </RestrictedComponent>
                 </ButtonGroup>
             </div>
             <div>

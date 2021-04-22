@@ -1,3 +1,4 @@
+import RestrictedComponent from "components/logic/RestrictedComponent";
 import React from "react";
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
@@ -35,10 +36,13 @@ export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
                                 <td><CvssScore score={vulnerability.cvss_score} /></td>
                                 <td className='only-desktop'><VulnerabilityCategoryBadge category={vulnerability.category_name} /></td>
                                 <td className='flex justify-end'>
-                                    <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
-                                    {destroy &&
-                                        <DeleteButton onClick={() => destroy(vulnerability.id)} />
-                                    }</td>
+                                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                                        <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
+                                        {destroy &&
+                                            <DeleteButton onClick={() => destroy(vulnerability.id)} />
+                                        }
+                                    </RestrictedComponent>
+                                </td>
                             </tr>
                         )
                     })}

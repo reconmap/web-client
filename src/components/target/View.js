@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
@@ -38,7 +39,9 @@ const TargetView = ({ match, history }) => {
                 <Link to="/projects">Projects</Link>
                 <Link to={`/projects/${savedProject.id}`}>{savedProject.name}</Link>
             </Breadcrumb>
-            <DeleteButton onClick={handleDelete} />
+            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                <DeleteButton onClick={handleDelete} />
+            </RestrictedComponent>
         </div>
         <article>
             <div>

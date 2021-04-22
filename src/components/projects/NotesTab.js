@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import React, { useState } from 'react';
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -41,10 +42,12 @@ const ProjectNotesTab = ({ project }) => {
 
     return (
         <section>
-            <h4>
-                <IconDocument />New project note
-            </h4>
-            <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
+            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                <h4>
+                    <IconDocument />New project note
+                </h4>
+                <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
+            </RestrictedComponent>
             <h4>
                 <IconDocument />Project notes
             </h4>

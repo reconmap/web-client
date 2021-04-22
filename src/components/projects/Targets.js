@@ -1,3 +1,4 @@
+import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetBadge from "components/target/TargetBadge";
 import React from "react";
 import { Link, useHistory } from 'react-router-dom';
@@ -30,7 +31,9 @@ const ProjectTargets = ({ project }) => {
     return <section>
         <h4>
             <IconServer />Targets
-            <SecondaryButton onClick={handleAddTarget}><IconPlus />Add target</SecondaryButton>
+            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                <SecondaryButton onClick={handleAddTarget}><IconPlus />Add target</SecondaryButton>
+            </RestrictedComponent>
         </h4>
         {!targets ? <Loading /> :
             <table>
@@ -51,7 +54,9 @@ const ProjectTargets = ({ project }) => {
                             <td>{target.kind}</td>
                             <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
                             <td>
-                                <DeleteButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
+                                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                                    <DeleteButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
+                                </RestrictedComponent>
                             </td>
                         </tr>
                     )}

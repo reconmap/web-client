@@ -1,3 +1,4 @@
+import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteButton from "components/ui/buttons/Delete";
 import PrimaryButton from "components/ui/buttons/Primary";
 import SecondaryButton from "components/ui/buttons/Secondary";
@@ -79,9 +80,11 @@ const CommandOutputs = ({ task }) => {
 
                 <h4>
                     Results
-                    <PrimaryButton to={`/tasks/${task.id}/upload`}>
-                        <IconUpload /> Upload results
-                    </PrimaryButton>
+                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                        <PrimaryButton to={`/tasks/${task.id}/upload`}>
+                            <IconUpload /> Upload results
+                        </PrimaryButton>
+                    </RestrictedComponent>
                 </h4>
                 {!commandOutputs ? <Loading /> :
 

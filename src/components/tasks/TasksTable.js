@@ -1,3 +1,4 @@
+import RestrictedComponent from "components/logic/RestrictedComponent";
 import React from "react";
 import BadgeOutline from '../badges/BadgeOutline';
 import DeleteButton from "../ui/buttons/Delete";
@@ -61,8 +62,10 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                                 <td><TaskStatusFormatter task={task} /></td>
                                 <td>{task.command_short_name ? <BadgeOutline>{task.command_short_name}</BadgeOutline> : '-'}</td>
                                 <td className='flex justify-end'>
-                                    <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
-                                    {destroy && <DeleteButton onClick={() => destroy(task.id)} />}
+                                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                                        <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
+                                        {destroy && <DeleteButton onClick={() => destroy(task.id)} />}
+                                    </RestrictedComponent>
                                 </td>
                             </tr>
                         )}

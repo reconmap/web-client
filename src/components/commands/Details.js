@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ShellCommand from 'components/ui/ShellCommand';
 import Tab from 'components/ui/Tab';
 import Tabs from 'components/ui/Tabs';
@@ -45,11 +46,13 @@ const CommandDetails = () => {
                 <Link to="/commands">Commands</Link>
             </Breadcrumb>
             <ButtonGroup>
-                <EditButton onClick={(ev) => {
-                    ev.preventDefault();
-                    history.push(`/commands/${command.id}/edit`)
-                }}>Edit</EditButton>
-                <DeleteButton onClick={handleDelete} />
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <EditButton onClick={(ev) => {
+                        ev.preventDefault();
+                        history.push(`/commands/${command.id}/edit`)
+                    }}>Edit</EditButton>
+                    <DeleteButton onClick={handleDelete} />
+                </RestrictedComponent>
             </ButtonGroup>
         </div>
         <article>

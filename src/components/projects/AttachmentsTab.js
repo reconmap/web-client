@@ -1,5 +1,6 @@
 import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import React, { useState } from 'react';
 import secureApiFetch from 'services/api';
 import useDelete from "../../hooks/useDelete";
@@ -42,14 +43,15 @@ const ProjectAttachmentsTab = ({ project }) => {
 
     return (
         <section>
+            <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
+                <AttachmentsDropzone onUploadButtonClick={onUploadButtonClick} acceptedFilesSetter={setAcceptedFiles} />
 
-            <AttachmentsDropzone onUploadButtonClick={onUploadButtonClick} acceptedFilesSetter={setAcceptedFiles} />
-
-            <h4>
-                <IconDocument />Attachment list
+                <h4>
+                    <IconDocument />Attachment list
             </h4>
 
-            <AttachmentsTable attachments={attachments} onDeleteAttachmentClick={onDeleteAttachmentClick} />
+                <AttachmentsTable attachments={attachments} onDeleteAttachmentClick={onDeleteAttachmentClick} />
+            </RestrictedComponent>
         </section>
     )
 }

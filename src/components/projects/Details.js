@@ -1,3 +1,4 @@
+import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
 import { Link } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -61,19 +62,21 @@ const ProjectDetails = ({ match, history }) => {
                     <ProjectTeam project={project} users={users} />
 
                     <ButtonGroup>
-                        {!project.archived && <>
-                            <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
-                            <SecondaryButton onClick={handleGenerateReport}>
-                                <IconClipboardCheck />
+                        <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                            {!project.archived && <>
+                                <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
+                                <SecondaryButton onClick={handleGenerateReport}>
+                                    <IconClipboardCheck />
                             Generate Report
                         </SecondaryButton>
-                            <SecondaryButton onClick={handleManageTeam}>
-                                <IconUserGroup />
+                                <SecondaryButton onClick={handleManageTeam}>
+                                    <IconUserGroup />
                             Manage Members
                         </SecondaryButton>
-                        </>}
-                        <SecondaryButton onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</SecondaryButton>
-                        <DeleteButton onClick={() => destroy(project.id)} />
+                            </>}
+                            <SecondaryButton onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</SecondaryButton>
+                            <DeleteButton onClick={() => destroy(project.id)} />
+                        </RestrictedComponent>
                     </ButtonGroup>
                 </>}
             </div>

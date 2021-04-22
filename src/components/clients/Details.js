@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import React, { useEffect } from 'react';
@@ -39,11 +40,13 @@ const ClientDetails = () => {
                 <Link to="/clients">Clients</Link>
             </Breadcrumb>
             <ButtonGroup>
-                <EditButton onClick={(ev) => {
-                    ev.preventDefault();
-                    history.push(`/clients/${client.id}/edit`)
-                }}>Edit</EditButton>
-                <DeleteButton onClick={handleDelete} />
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <EditButton onClick={(ev) => {
+                        ev.preventDefault();
+                        history.push(`/clients/${client.id}/edit`)
+                    }}>Edit</EditButton>
+                    <DeleteButton onClick={handleDelete} />
+                </RestrictedComponent>
             </ButtonGroup>
         </div>
         <article>

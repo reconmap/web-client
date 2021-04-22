@@ -1,4 +1,5 @@
 import CommandOutputs from 'components/commands/Outputs'
+import RestrictedComponent from 'components/logic/RestrictedComponent'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React, { useEffect, useState } from 'react'
@@ -82,15 +83,17 @@ const TaskDetails = ({ history, match }) => {
                 </Breadcrumb>
                 {task && users &&
                     <ButtonGroup>
-                        <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
-                        <label>Transition to&nbsp;
+                        <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                            <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
+                            <label>Transition to&nbsp;
                         <select onChange={onStatusChange} value={task.status}>
-                                {TaskStatuses.map((status, index) =>
-                                    <option key={index} value={status.id}>{status.name}</option>
-                                )}
-                            </select>
-                        </label>
-                        <DeleteButton onClick={() => handleDelete(task.id)} />
+                                    {TaskStatuses.map((status, index) =>
+                                        <option key={index} value={status.id}>{status.name}</option>
+                                    )}
+                                </select>
+                            </label>
+                            <DeleteButton onClick={() => handleDelete(task.id)} />
+                        </RestrictedComponent>
                     </ButtonGroup>
                 }
             </div>

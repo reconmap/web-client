@@ -1,3 +1,4 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import useSetTitle from '../../hooks/useSetTitle';
@@ -24,7 +25,9 @@ const ProjectsList = ({ history }) => {
     return <div>
         <div className='heading'>
             <Breadcrumb />
-            <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
+            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
+            </RestrictedComponent>
         </div>
         <Title title='Projects' icon={<IconFolder />} />
         {!projects ? <Loading /> :
@@ -54,8 +57,10 @@ const ProjectsList = ({ history }) => {
                                 <td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</td>
                                 <td>{project.archived ? 'Archived' : 'Active'}</td>
                                 <td className='flex justify-end'>
-                                    <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
-                                    <DeleteButton onClick={() => destroy(project.id)} />
+                                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                                        <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
+                                        <DeleteButton onClick={() => destroy(project.id)} />
+                                    </RestrictedComponent>
                                 </td>
                             </tr>
                         )}
