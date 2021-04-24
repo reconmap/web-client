@@ -1,6 +1,7 @@
 import PrimaryButton from 'components/ui/buttons/Primary';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import secureApiFetch from 'services/api';
 
 const baseStyle = {
     flex: 1,
@@ -30,21 +31,42 @@ const rejectStyle = {
     borderColor: 'var(--red)'
 };
 
-const AttachmentsDropzone = ({ onUploadButtonClick, acceptedFilesSetter }) => {
+const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null }) => {
+    const onFileDrop = (newFiles) => {
+        setAcceptedFiles(newFiles);
+    };
+
     const {
-        acceptedFiles,
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject
-    } = useDropzone({ onDrop: acceptedFilesSetter });
+        getRootProps, getInputProps,
+        isDragActive, isDragAccept, isDragReject
+    } = useDropzone({ onDrop: onFileDrop });
+
+    const [acceptedFiles, setAcceptedFiles] = useState([]);
 
     const files = acceptedFiles.map(file => (
         <li key={file.path}>
             {file.path} - {file.size} bytes
         </li>
     ));
+
+    const onUploadButtonClick = ev => {
+        const formData = new FormData();
+        formData.append('parentType', parentType);
+        formData.append('parentId', parentId);
+        acceptedFiles.forEach(file => {
+            formData.append('attachment[]', file);
+        })
+
+        secureApiFetch('/attachments', {
+            method: 'POST',
+            body: formData
+        })
+            .then(() => {
+                setAcceptedFiles([]);
+                if (onUploadFinished) onUploadFinished();
+            })
+            .catch(err => console.error(err));
+    }
 
     const style = useMemo(() => ({
         ...baseStyle,
@@ -53,15 +75,15 @@ const AttachmentsDropzone = ({ onUploadButtonClick, acceptedFilesSetter }) => {
         ...(isDragReject ? rejectStyle : {})
     }), [
         isDragActive,
-        isDragReject,
-        isDragAccept
+        isDragAccept,
+        isDragReject
     ]);
 
     return (
         <div className="container">
             <div {...getRootProps({ style })}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
+                <p>Drag and drop some files here, or click to select files</p>
             </div>
             <aside>
                 <h4>Files to upload:</h4>

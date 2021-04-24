@@ -1,3 +1,5 @@
+import AttachmentsTable from 'components/attachments/AttachmentsTable';
+import AttachmentsDropzone from 'components/attachments/Dropzone';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TargetBadge from 'components/target/TargetBadge';
 import TimestampsSection from 'components/ui/TimestampsSection';
@@ -14,7 +16,7 @@ import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
 import ExternalLink from "../ui/ExternalLink";
-import { IconFlag } from '../ui/Icons';
+import { IconDocument, IconFlag } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Tab from "../ui/Tab";
 import Tabs from "../ui/Tabs";
@@ -31,6 +33,10 @@ const VulnerabilityDetails = () => {
     const { params: { vulnerabilityId } } = useRouteMatch()
     const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`)
     const deleteVulnerability = useDelete(`/vulnerabilities/`)
+
+    const parentType = 'vulnerability';
+    const parentId = vulnerabilityId;
+    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`)
 
     useEffect(() => {
         if (vulnerability) document.title = `Vulnerability ${vulnerability.summary} | Reconmap`;
@@ -143,6 +149,12 @@ const VulnerabilityDetails = () => {
                     </div>
                 </Tab>
                 <Tab name="Notes"><VulnerabilitiesNotesTab vulnerability={vulnerability} /></Tab>
+                <Tab name="Attachments">
+                    <AttachmentsDropzone parentType={parentType} parentId={parentId} onUploadFinished={reloadAttachments} />
+
+                    <h4><IconDocument />Attachment list</h4>
+                    <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                </Tab>
             </Tabs>
         </article>
 

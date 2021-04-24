@@ -1,3 +1,5 @@
+import AttachmentsTable from 'components/attachments/AttachmentsTable'
+import AttachmentsDropzone from 'components/attachments/Dropzone'
 import CommandOutputs from 'components/commands/Outputs'
 import RestrictedComponent from 'components/logic/RestrictedComponent'
 import TimestampsSection from 'components/ui/TimestampsSection'
@@ -13,7 +15,7 @@ import Breadcrumb from "../ui/Breadcrumb"
 import ButtonGroup from "../ui/buttons/ButtonGroup"
 import DeleteButton from "../ui/buttons/Delete"
 import PrimaryButton from '../ui/buttons/Primary'
-import { IconClipboard } from '../ui/Icons'
+import { IconClipboard, IconDocument } from '../ui/Icons'
 import Loading from '../ui/Loading'
 import Tab from '../ui/Tab'
 import Tabs from '../ui/Tabs'
@@ -28,6 +30,11 @@ const TaskDetails = ({ history, match }) => {
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
     const [users] = useFetch(`/users`)
     const [project, setProject] = useState(null);
+
+    const parentType = 'task';
+    const parentId = taskId;
+    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`)
+
     const destroy = useDelete('/tasks/', fetchTask);
 
     const handleDelete = () => {
@@ -150,6 +157,12 @@ const TaskDetails = ({ history, match }) => {
                                 <CommandOutputs task={task} />
                             </Tab>
                         }
+                        <Tab name="Attachments">
+                            <AttachmentsDropzone parentType={parentType} parentId={parentId} onUploadFinished={reloadAttachments} />
+
+                            <h4><IconDocument />Attachment list</h4>
+                            <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                        </Tab>
                     </Tabs>
                 </article>
             }
