@@ -1,5 +1,8 @@
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ButtonGroup from 'components/ui/buttons/ButtonGroup';
+import DeleteButton from 'components/ui/buttons/Delete';
 import ReloadButton from 'components/ui/buttons/Reload';
+import { actionCompletedToast } from 'components/ui/toast';
 import React, { useCallback, useEffect, useState } from 'react';
 import useDelete from '../../hooks/useDelete';
 import secureApiFetch from '../../services/api';
@@ -19,6 +22,8 @@ const VulnerabilitiesList = ({ history }) => {
     const apiPageNumber = pageNumber - 1;
 
     const [reloadButtonDisabled, setReloadButtonDisabled] = useState(false);
+
+    const [selection, setSelection] = useState([]);
 
     useSetTitle(`Vulnerabilities - Page ${pageNumber}`)
 
@@ -51,6 +56,22 @@ const VulnerabilitiesList = ({ history }) => {
             });
     }, [apiPageNumber]);
 
+    const onDeleteButtonClick = () => {
+        secureApiFetch('/vulnerabilities', {
+            method: 'PATCH',
+            headers: {
+                'Bulk-Operation': 'DELETE',
+            },
+            body: JSON.stringify(selection),
+        })
+            .then(reloadVulnerabilities)
+            .then(() => {
+                setSelection([]);
+                actionCompletedToast('All selected vulnerabilities were deleted.');
+            })
+            .catch(err => console.error(err));
+    };
+
     useEffect(() => {
         reloadVulnerabilities()
     }, [reloadVulnerabilities])
@@ -67,12 +88,18 @@ const VulnerabilitiesList = ({ history }) => {
                 <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
                 <ButtonGroup>
                     <CreateButton onClick={handleCreateVulnerability}>Add vulnerability</CreateButton>
+                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                        <DeleteButton onClick={onDeleteButtonClick} disabled={!selection.length}>
+                            Delete selected
+                        </DeleteButton>
+                    </RestrictedComponent>
+
                     <ReloadButton onClick={reloadVulnerabilities} disabled={reloadButtonDisabled} />
                 </ButtonGroup>
             </div>
             <Title title='Vulnerabilities' icon={<IconFlag />} />
             {!vulnerabilities ? <Loading /> :
-                <VulnerabilitiesTable vulnerabilities={vulnerabilities} destroy={destroy} />
+                <VulnerabilitiesTable vulnerabilities={vulnerabilities} selection={selection} setSelection={setSelection} destroy={destroy} />
             }
         </>
     )

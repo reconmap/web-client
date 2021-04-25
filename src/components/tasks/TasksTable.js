@@ -10,7 +10,9 @@ import TaskStatusFormatter from "./TaskStatusFormatter";
 
 const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project: '', status: '' }, destroy }) => {
 
-    const onTaskCheckboxChange = (ev) => {
+    const showSelection = selectedTasks !== undefined;
+
+    const onSelectionChange = ev => {
         const target = ev.target;
         const targetId = parseInt(target.value);
         if (target.checked) {
@@ -24,7 +26,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
         <table>
             <thead>
                 <tr>
-                    {selectedTasks && <th style={{ width: "32px" }}>&nbsp;</th>}
+                    {showSelection && <th style={{ width: "32px" }}>&nbsp;</th>}
                     <th style={{ width: '190px' }}>Summary</th>
                     <th className='only-desktop'>Description</th>
                     <th style={{ width: '190px' }}>Project</th>
@@ -37,19 +39,19 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
             <tbody>
                 {tasks.length === 0 ?
                     <tr>
-                        <td colSpan="6"><NoResults /></td>
+                        <td colSpan="7"><NoResults /></td>
                     </tr> :
                     tasks
                         .filter(task => task.project_id.toString().includes(filter.project))
                         .filter(task => task.status.includes(filter.status))
                         .map((task) =>
                             <tr key={task.id}>
-                                {selectedTasks &&
+                                {showSelection &&
                                     <td>
                                         <input
                                             type="checkbox"
                                             value={task.id}
-                                            onChange={onTaskCheckboxChange}
+                                            onChange={onSelectionChange}
                                             checked={selectedTasks.includes(task.id)}
                                         />
                                     </td>

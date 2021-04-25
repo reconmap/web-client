@@ -9,11 +9,25 @@ import LinkButton from "../ui/buttons/Link";
 import NoResults from "../ui/NoResults";
 import VulnerabilityStatusBadge from "./StatusBadge";
 
-export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
+const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, destroy }) => {
+    const showSelection = selection !== undefined;
+
+    const onSelectionChange = ev => {
+        const target = ev.target;
+        const selectionId = parseInt(target.value);
+        if (target.checked) {
+            setSelection([...selection, selectionId]);
+        } else {
+            setSelection(selection.filter(value => value !== selectionId));
+        }
+    };
+
+
     return (
         <table>
             <thead>
                 <tr>
+                    {showSelection && <th style={{ width: "32px" }}>&nbsp;</th>}
                     <th style={{ width: '190px' }}>Summary</th>
                     <th style={{ width: '120px' }}>Status</th>
                     <th style={{ width: '120px' }}>Risk</th>
@@ -30,6 +44,16 @@ export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
                     vulnerabilities.map((vulnerability, index) => {
                         return (
                             <tr key={index}>
+                                {showSelection &&
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            value={vulnerability.id}
+                                            onChange={onSelectionChange}
+                                            checked={selection.includes(vulnerability.id)}
+                                        />
+                                    </td>
+                                }
                                 <td><VulnerabilityBadge vulnerability={vulnerability} /></td>
                                 <td><VulnerabilityStatusBadge vulnerability={vulnerability} /></td>
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
@@ -50,3 +74,5 @@ export default function VulnerabilitiesTable({ vulnerabilities, destroy }) {
         </table>
     )
 }
+
+export default VulnerabilitiesTable;
