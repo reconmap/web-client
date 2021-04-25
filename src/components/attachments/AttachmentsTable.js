@@ -9,6 +9,7 @@ import useDelete from "hooks/useDelete";
 import { useState } from "react";
 import ReactTimeAgo from 'react-time-ago';
 import secureApiFetch from "services/api";
+
 const AttachmentsTable = ({ attachments, reloadAttachments }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +34,7 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
                 const [contentType, , blob] = values;
 
                 if (contentType.indexOf('image/') !== -1) {
-                    setContent(<img src={await URL.createObjectURL(blob)} />);
+                    setContent(<img src={await URL.createObjectURL(blob)} alt="" />);
                     // @todo -> URL.revokeObjectURL
                 } else {
                     setContent(<textarea style={{ width: '100%', height: '90%' }}>{await blob.text()}</textarea>);
