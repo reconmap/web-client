@@ -147,7 +147,7 @@ const TaskDetails = ({ history, match }) => {
                                 </div>
                             </div>
                         </Tab>
-                        {task.command_id && task.command_executable_path &&
+                        {task.command_id &&
                             <Tab name="Command instructions">
                                 <TaskCommandTab task={task} />
                             </Tab>
