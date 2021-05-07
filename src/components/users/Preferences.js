@@ -1,22 +1,22 @@
-import React, {useContext, useState} from 'react'
-import useSetTitle from '../../hooks/useSetTitle'
-import {IconDark, IconLight, IconPreferences, IconSave} from '../ui/Icons'
-import {getAllTimezones} from 'countries-and-timezones';
-import secureApiFetch from '../../services/api';
-import Primary from '../ui/buttons/Primary'
-import Title from '../ui/Title';
+import { getAllTimezones } from 'countries-and-timezones';
+import React, { useContext, useState } from 'react';
 import ThemeContext from "../../contexts/ThemeContext";
-import SecondaryButton from "../ui/buttons/Secondary";
-import Breadcrumb from '../ui/Breadcrumb';
+import useSetTitle from '../../hooks/useSetTitle';
+import secureApiFetch from '../../services/api';
 import setThemeColors from '../../utilities/setThemeColors';
+import Breadcrumb from '../ui/Breadcrumb';
+import Primary from '../ui/buttons/Primary';
+import SecondaryButton from "../ui/buttons/Secondary";
+import { IconDark, IconLight, IconPreferences, IconSave } from '../ui/Icons';
+import Title from '../ui/Title';
 
-const UserPreferences = ({history}) => {
+const UserPreferences = ({ history }) => {
     useSetTitle('Preferences')
+    const user = JSON.parse(localStorage.getItem('user'));
     const timezones = getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
-    const [timezone, setTimezone] = useState(null);
-    const user = JSON.parse(localStorage.getItem('user'));
-    const {theme, setTheme} = useContext(ThemeContext)
+    const [timezone, setTimezone] = useState(user.timezone);
+    const { theme, setTheme } = useContext(ThemeContext)
 
     const handleSwitchTheme = () => {
         setTheme(theme => {
@@ -25,14 +25,16 @@ const UserPreferences = ({history}) => {
         })
     }
 
-    const handleChange = (ev) => {
+    const handleChange = ev => {
         setTimezone(ev.target.value);
     }
 
-    const handleSubmit = () => {
+    const onFormSubmit = ev => {
+        ev.preventDefault();
+
         secureApiFetch(`/users/${user.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({timezone: timezone})
+            body: JSON.stringify({ timezone: timezone })
         })
             .then(() => {
                 user.timezone = timezone;
@@ -45,10 +47,10 @@ const UserPreferences = ({history}) => {
     return (
         <>
             <div className='heading'>
-                <Breadcrumb/>
+                <Breadcrumb />
             </div>
-            <Title type='User' title='Preferences' icon={<IconPreferences/>}/>
-            <form onSubmit={e => e.preventDefault()}>
+            <Title type='User' title='Preferences' icon={<IconPreferences />} />
+            <form onSubmit={onFormSubmit} required>
                 <label>Timezone
                     <select onChange={handleChange} defaultValue={user.timezone}>
                         {timezoneKeys.map((key, index) =>
@@ -58,17 +60,16 @@ const UserPreferences = ({history}) => {
                 </label>
                 <label>Theme
                     <SecondaryButton onClick={handleSwitchTheme}>
-                        {theme === 'light' ?
-                            <IconDark/> : <IconLight/>
+                        {theme === 'dark' ?
+                            <><IconDark /> Dark</> : <><IconLight /> Light</>
                         }
-                        {theme === 'light' ? 'Dark' : 'Light'}
                     </SecondaryButton>
 
                 </label>
-                <Primary onClick={handleSubmit}><IconSave/> Save</Primary>
+                <Primary type="submit"><IconSave /> Save</Primary>
             </form>
         </>
     )
 }
 
-export default UserPreferences
+export default UserPreferences;
