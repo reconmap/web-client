@@ -2,6 +2,7 @@ import ExternalLink from "components/ui/ExternalLink";
 import Help from "components/ui/Help";
 import ShellCommand from "components/ui/ShellCommand";
 import { useEffect, useState } from "react";
+import { CliDownloadUrl } from "ServerUrls";
 import CommandService from "services/command";
 
 const CommandInstructions = ({ command, task = null }) => {
@@ -44,7 +45,7 @@ const CommandInstructions = ({ command, task = null }) => {
         {Object.keys(commandArgs).length === 0 && <p>No arguments required.</p>}
         <h4>2. Execute <strong>rmap</strong> on any terminal</h4>
         <div>
-            Make sure you have a copy of <strong>rmap</strong> on a machine you trust. Download the CLI for Macos/Linux and Windows from <ExternalLink href="https://github.com/reconmap/cli/releases/">Github</ExternalLink>.<br />
+            Make sure you have a copy of <strong>rmap</strong> on a machine you trust. Download the CLI for Macos/Linux and Windows from <ExternalLink href={CliDownloadUrl}>Github</ExternalLink>.<br />
             Once <strong>rmap</strong> is within reach execute the command shown below.
             <ShellCommand>{CommandService.generateEntryPoint(command, task)} {commandArgsRendered}</ShellCommand>
         </div>

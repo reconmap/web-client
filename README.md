@@ -7,7 +7,7 @@
 
 - Docker
 - Make
-- [Reconmap API](https://github.com/Reconmap/api-backend)
+- [Reconmap REST API](https://github.com/reconmap/rest-api)
 
 ## How to run
 
