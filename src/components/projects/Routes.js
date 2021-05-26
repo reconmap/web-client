@@ -1,7 +1,5 @@
 import SendReport from "components/reports/Send";
 import ProtectedRoute from "../logic/ProtectedRoute";
-import TargetCreateForm from "../target/Create";
-import TargetView from "../target/View";
 import TaskCreationPage from "../tasks/Create";
 import ProjectCreateForm from "./Create";
 import ProjectDetails from "./Details";
@@ -20,10 +18,6 @@ const ProjectsRoutes = [
         component={ProjectMembership} />,
     <ProtectedRoute path={`/projects/:id([0-9]+)/tasks/create`}
         component={TaskCreationPage} />,
-    <ProtectedRoute path={`/projects/:id([0-9]+)/targets/create`}
-        component={TargetCreateForm} />,
-    <ProtectedRoute path={`/projects/:projectId([0-9]+)/targets/:targetId([0-9]+)`}
-        component={TargetView} />,
     <ProtectedRoute exact path={`/projects/:id([0-9]+)`} component={ProjectDetails} />
 ]
 

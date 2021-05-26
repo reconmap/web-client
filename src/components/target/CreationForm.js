@@ -1,4 +1,6 @@
 import { actionCompletedToast } from 'components/ui/toast';
+import useQuery from 'hooks/useQuery';
+import { ReactComponent as TargetIcon } from 'images/icons/target.svg';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
@@ -8,8 +10,10 @@ import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
-export default function TargetCreateForm({ match, history }) {
-    const projectId = match.params.id;
+const TargetCreationForm = ({ history }) => {
+    const query = useQuery();
+    const projectId = query.get('projectId');
+
     const [newTarget, setNewTarget] = useState({ projectId: projectId, name: null, kind: TargetKinds[0].value })
     const [loading, setLoading] = useState(false)
 
@@ -21,10 +25,11 @@ export default function TargetCreateForm({ match, history }) {
         setLoading(true)
         secureApiFetch(`/targets`, { method: 'POST', body: JSON.stringify(newTarget) })
             .then(() => {
-                history.push(`/projects/${projectId}`);
+                history.push(`/projects/${newTarget.projectId}`);
                 actionCompletedToast(`The target "${newTarget.name}" has been added.`);
             })
     }
+
     const handleFormChange = ev => {
         const target = ev.target;
         const name = target.name;
@@ -41,7 +46,7 @@ export default function TargetCreateForm({ match, history }) {
                 </Breadcrumb>
             </div>
             <form onSubmit={handleCreate}>
-                <Title title='Create Target' />
+                <Title title='Add target' icon={<TargetIcon />} />
                 <label>Name
                     <input type="text" name="name" onChange={handleFormChange} required autoFocus /></label>
                 <label>Kind
@@ -52,8 +57,10 @@ export default function TargetCreateForm({ match, history }) {
                     </select>
                 </label>
                 <PrimaryButton type="submit"
-                    disabled={loading}>Create</PrimaryButton>
+                    disabled={loading}>Add</PrimaryButton>
             </form>
         </div>
     )
 }
+
+export default TargetCreationForm;

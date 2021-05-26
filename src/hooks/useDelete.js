@@ -1,12 +1,12 @@
-import secureApiFetch from '../services/api'
-import {actionCompletedToast} from '../components/ui/toast'
+import { actionCompletedToast } from '../components/ui/toast';
+import secureApiFetch from '../services/api';
 
-export default function useDelete(endpoint, successCallback = null, confirmationMessage = `Do you really want to delete this item?`, deleteMessage = 'The item has been deleted.') {
+const useDelete = (endpoint, successCallback = null, confirmationMessage = `Do you really want to delete this item?`, deleteMessage = 'The item has been deleted.') => {
 
     return async (id) => {
         if (window.confirm(confirmationMessage)) {
             try {
-                await secureApiFetch(`${endpoint}${id}`, {method: 'DELETE'})
+                await secureApiFetch(`${endpoint}${id}`, { method: 'DELETE' })
                 if (successCallback) {
                     successCallback();
                 }
@@ -20,3 +20,5 @@ export default function useDelete(endpoint, successCallback = null, confirmation
         }
     };
 }
+
+export default useDelete;

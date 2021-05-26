@@ -1,7 +1,8 @@
 import { actionCompletedToast } from 'components/ui/toast';
+import useQuery from 'hooks/useQuery';
 import VulnerabilityModel from 'models/Vulnerability';
 import React, { useRef, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import useSetTitle from "../../hooks/useSetTitle";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
@@ -14,9 +15,8 @@ const VulnerabilityCreate = () => {
     useSetTitle('Add vulnerability');
 
     const history = useHistory();
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const urlProjectId = useRef(searchParams.get('projectId') || 0);
+    const query = useQuery();
+    const urlProjectId = useRef(query.get('projectId') || 0);
 
     const [vulnerability, setVulnerability] = useState({ ...VulnerabilityModel, project_id: urlProjectId.current })
 

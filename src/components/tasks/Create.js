@@ -1,6 +1,7 @@
+import useQuery from 'hooks/useQuery';
 import TaskModel from 'models/Task';
 import React, { useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from "../ui/Icons";
@@ -8,9 +9,9 @@ import Title from '../ui/Title';
 import TaskForm from "./Form";
 
 const TaskCreationPage = ({ history }) => {
-    const location = useLocation();
+    const query = useQuery();
     const defaultProjectId = "";
-    const projectIdParam = useRef(new URLSearchParams(location.search).get('projectId') || defaultProjectId);
+    const projectIdParam = useRef(query.get('projectId') || defaultProjectId);
 
     const [newTask, setNewTask] = useState({ ...TaskModel, project_id: projectIdParam.current })
 

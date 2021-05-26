@@ -1,6 +1,7 @@
 import AuthRoutes from 'components/auth/Routes';
 import CommandsRoutes from 'components/commands/Routes';
 import DocumentsRoutes from 'components/documents/Routes';
+import TargetsRoutes from 'components/target/Routes';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuditLogList from "./components/auditlog/List";
@@ -52,6 +53,7 @@ const App = () => {
                                         ...TasksRoutes,
                                         ...ProjectsRoutes,
                                         ...VulnerabilitiesRoutes,
+                                        ...TargetsRoutes,
                                         ...TemplatesRoutes,
                                         ...ReportsRoutes,
                                         ...SystemRoutes,

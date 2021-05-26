@@ -1,7 +1,8 @@
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Badge from "../badges/Badge";
@@ -12,14 +13,21 @@ import Title from '../ui/Title';
 import VulnerabilitiesTable from "../vulnerabilities/VulnerabilitiesTable";
 
 const TargetView = ({ match, history }) => {
-    const { projectId, targetId } = match.params;
+    const { targetId } = match.params;
     const [target] = useFetch(`/targets/${targetId}`)
     const destroy = useDelete(`/targets/`);
-    const [savedProject] = useFetch(`/projects/${projectId}`);
+    const [savedProject, setSavedProject] = useState(null);
     const [vulnerabilities] = useFetch(`/vulnerabilities?targetId=${targetId}`);
 
     useEffect(() => {
-        if (target) document.title = `Target ${target.name} | Reconmap`;
+        if (target) {
+            document.title = `Target ${target.name} | Reconmap`;
+            secureApiFetch(`/projects/${target.project_id}`, { method: 'GET', headers: {} })
+                .then(resp => resp.json())
+                .then(json => {
+                    setSavedProject(json);
+                })
+        }
     }, [target])
 
     const handleDelete = () => {
@@ -31,13 +39,14 @@ const TargetView = ({ match, history }) => {
             .catch(err => console.error(err))
     }
 
-    if (!target || !vulnerabilities || !savedProject) return <Loading />
+    if (!target) return <Loading />
 
     return <div>
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/projects">Projects</Link>
-                <Link to={`/projects/${savedProject.id}`}>{savedProject.name}</Link>
+                {savedProject &&
+                    <Link to={`/projects/${savedProject.id}`}>{savedProject.name}</Link>}
             </Breadcrumb>
             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                 <DeleteButton onClick={handleDelete} />
@@ -59,7 +68,8 @@ const TargetView = ({ match, history }) => {
                 </div>
 
                 <h4>Vulnerabilities</h4>
-                <VulnerabilitiesTable vulnerabilities={vulnerabilities} />
+                {vulnerabilities &&
+                    <VulnerabilitiesTable vulnerabilities={vulnerabilities} />}
             </div>
         </article>
     </div>

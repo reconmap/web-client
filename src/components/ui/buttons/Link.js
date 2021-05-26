@@ -1,14 +1,18 @@
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import './Link.css';
-import {useHistory} from 'react-router-dom';
 
-const LinkButton = ({children, external = false, ...props}) => {
+const LinkButton = ({ children, external = false, ...props }) => {
     const history = useHistory();
 
     const onAnchorClick = ev => {
         if (!external) {
             ev.preventDefault();
 
-            history.push(ev.target.pathname);
+            history.push({
+                pathname: ev.target.pathname,
+                search: ev.target.search
+            });
         }
     }
 
@@ -18,5 +22,9 @@ const LinkButton = ({children, external = false, ...props}) => {
         </a>
     )
 }
+
+LinkButton.propTypes = {
+    href: PropTypes.string.isRequired
+};
 
 export default LinkButton;

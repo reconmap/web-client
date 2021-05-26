@@ -1,3 +1,4 @@
+import useQuery from 'hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
 import useSetTitle from '../../hooks/useSetTitle';
 import secureApiFetch from '../../services/api';
@@ -11,8 +12,8 @@ import Title from '../ui/Title';
 import AuditLogsTable from "./AuditLogsTable";
 
 const AuditLogList = ({ history }) => {
-    const searchParams = new URLSearchParams(history.location.search);
-    let pageNumber = searchParams.get('page');
+    const query = useQuery();
+    let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
 
