@@ -7,9 +7,9 @@ import { IconUpload } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import ModalDialog from "components/ui/ModalDIalog";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import useFetch from "hooks/useFetch";
 import { useState } from "react";
-import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
 import secureApiFetch from "services/api";
 import { actionCompletedToast } from "../ui/toast";
 
@@ -101,7 +101,7 @@ const CommandOutputs = ({ task }) => {
                             {commandOutputs.length === 0 && <NoResultsTableRow numColumns={5} />}
                             {commandOutputs.map((commandOutput, index) =>
                                 <tr key={index}>
-                                    <td><ReactTimeAgo date={commandOutput.insert_ts} /></td>
+                                    <td><RelativeDateFormatter date={commandOutput.insert_ts} /></td>
                                     <td>{commandOutput.submitter_name}</td>
                                     <td>{commandOutput.client_file_name}</td>
                                     <td><FileSizeSpan fileSize={commandOutput.file_size} /></td>

@@ -4,10 +4,10 @@ import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
 import ModalDialog from "components/ui/ModalDIalog";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import { resolveMime } from 'friendly-mimes';
 import useDelete from "hooks/useDelete";
 import { useState } from "react";
-import ReactTimeAgo from 'react-time-ago';
 import secureApiFetch from "services/api";
 
 const AttachmentsTable = ({ attachments, reloadAttachments }) => {
@@ -89,7 +89,7 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
                 {attachments.length === 0 && <NoResultsTableRow numColumns={6} />}
                 {attachments.map((attachment, index) =>
                     <tr key={index}>
-                        <td><ReactTimeAgo date={attachment.insert_ts} /></td>
+                        <td><RelativeDateFormatter date={attachment.insert_ts} /></td>
                         <td>{attachment.submitter_name}</td>
                         <td>{attachment.client_file_name}</td>
                         <td><FileSizeSpan fileSize={attachment.file_size} /></td>

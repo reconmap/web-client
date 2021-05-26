@@ -2,12 +2,12 @@ import AttachmentsTable from 'components/attachments/AttachmentsTable'
 import AttachmentsDropzone from 'components/attachments/Dropzone'
 import CommandOutputs from 'components/commands/Outputs'
 import RestrictedComponent from 'components/logic/RestrictedComponent'
+import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { Link } from "react-router-dom"
-import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo'
 import useDelete from '../../hooks/useDelete'
 import TaskStatuses from "../../models/TaskStatuses"
 import secureApiFetch from '../../services/api'
@@ -141,7 +141,7 @@ const TaskDetails = ({ history, match }) => {
                                     {task.due_date &&
                                         <dl>
                                             <dt>Due date</dt>
-                                            <dd><ReactTimeAgo date={task.due_date} /></dd>
+                                            <dd><RelativeDateFormatter date={task.due_date} /></dd>
                                         </dl>
                                     }
                                 </div>

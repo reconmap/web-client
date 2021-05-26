@@ -1,9 +1,9 @@
 import ClientLink from 'components/clients/Link'
+import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import ReactTimeAgo from 'react-time-ago/commonjs/ReactTimeAgo'
 import { IconDocument } from '../ui/Icons'
 
 function ProjectDetailsTab({ project }) {
@@ -43,12 +43,12 @@ function ProjectDetailsTab({ project }) {
                     <dl>
                         {project.engagement_start_date && <>
                             <dt>Engagement start date</dt>
-                            <dd><ReactTimeAgo date={project.engagement_start_date} /></dd>
+                            <dd><RelativeDateFormatter date={project.engagement_start_date} /></dd>
                         </>}
 
                         {project.engagement_end_date && <>
                             <dt>Engagement end date</dt>
-                            <dd><ReactTimeAgo date={project.engagement_end_date} /></dd>
+                            <dd><RelativeDateFormatter date={project.engagement_end_date} /></dd>
                         </>}
                     </dl>
                 }
@@ -56,7 +56,7 @@ function ProjectDetailsTab({ project }) {
                 {project.archived === 1 &&
                     <dl>
                         <dt>Archived</dt>
-                        <dd><ReactTimeAgo date={project.archive_ts} /></dd>
+                        <dd><RelativeDateFormatter date={project.archive_ts} /></dd>
                     </dl>
                 }
 

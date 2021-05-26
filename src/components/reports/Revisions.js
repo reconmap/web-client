@@ -4,11 +4,11 @@ import SecondaryButton from "components/ui/buttons/Secondary";
 import { IconCode, IconDocument } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import useDelete from "hooks/useDelete";
 import useFetch from "hooks/useFetch";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
 import secureApiFetch from "services/api";
 
 const ReportRevisions = ({ projectId }) => {
@@ -105,7 +105,7 @@ const ReportRevisions = ({ projectId }) => {
                 {reports.map((report, index) =>
                     <tr key={index}>
                         <td>{report.version_name} ({report.version_description})</td>
-                        <td><ReactTimeAgo date={report.insert_ts} /></td>
+                        <td><RelativeDateFormatter date={report.insert_ts} /></td>
                         <td>
                             <SecondaryButton onClick={() => handleDownload(report.html_attachment_id)}>
                                 <IconCode /> HTML

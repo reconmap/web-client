@@ -1,11 +1,13 @@
 import LinkButton from "components/ui/buttons/Link";
+import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import React from "react";
-import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
 import DeleteButton from "../ui/buttons/Delete";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 import DocumentBadge from "./Badge";
 
 const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
+    //    alert(documents[0].insert_ts)//2021-05-03 11:44:26
+
     return <table>
         <thead>
             <tr>
@@ -23,7 +25,7 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
                 <tr>
                     <td><DocumentBadge document={document} /></td>
                     <td className="truncate">{document.content}</td>
-                    <td><ReactTimeAgo date={document.insert_ts} /></td>
+                    <td>{<RelativeDateFormatter date={document.insert_ts} />}</td>
                     <td>{document.user_name}</td>
                     <td>{document.visibility}</td>
                     <td className="flex justify-end">
