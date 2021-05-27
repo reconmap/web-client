@@ -1,23 +1,24 @@
+import Breadcrumb from 'components/ui/Breadcrumb';
+import ButtonGroup from 'components/ui/buttons/ButtonGroup';
+import DeleteButton from 'components/ui/buttons/Delete';
 import LinkButton from 'components/ui/buttons/Link';
+import PrimaryButton from 'components/ui/buttons/Primary';
+import { IconPlusCircle } from 'components/ui/Icons';
+import Loading from 'components/ui/Loading';
 import TimestampsSection from 'components/ui/TimestampsSection';
+import Title from 'components/ui/Title';
+import useDelete from 'hooks/useDelete';
+import useFetch from 'hooks/useFetch';
+import useSetTitle from 'hooks/useSetTitle';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
-import useDelete from '../../hooks/useDelete';
-import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
-import secureApiFetch from '../../services/api';
-import Breadcrumb from '../ui/Breadcrumb';
-import ButtonGroup from "../ui/buttons/ButtonGroup";
-import DeleteButton from "../ui/buttons/Delete";
-import PrimaryButton from '../ui/buttons/Primary';
-import { IconPlusCircle } from '../ui/Icons';
-import Loading from '../ui/Loading';
-import Title from '../ui/Title';
+import secureApiFetch from 'services/api';
+
 
 const TemplateDetails = ({ history, match }) => {
     useSetTitle('Projects templates');
-    const [template, updateTemplate] = useFetch(`/projects/${match.params.id}`)
-    const [tasks] = useFetch(`/projects/${match.params.id}/tasks`)
+    const [template] = useFetch(`/projects/${match.params.templateId}`)
+    const [tasks] = useFetch(`/projects/${match.params.templateId}/tasks`)
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
@@ -27,13 +28,16 @@ const TemplateDetails = ({ history, match }) => {
             });
     }
 
-    const destroy = useDelete('/tasks/', updateTemplate);
+    const destroy = useDelete('/projects/', () => {
+        history.push('/projects/templates');
+    });
 
     return (
         <>
             <div className='heading'>
                 <Breadcrumb>
-                    <Link to="/templates">Templates</Link>
+                    <Link to="/projects">Projects</Link>
+                    <Link to="/projects/templates">Templates</Link>
                 </Breadcrumb>
                 {template &&
                     <ButtonGroup>

@@ -94,6 +94,10 @@ const VulnerabilityForm = ({
     };
 
     return <form onSubmit={onFormSubmit}>
+        <label>Is template?
+                <input type="checkbox" name="is_template" onChange={onFormChange} checked={vulnerability.is_template} />
+        </label>
+
         <label>Project
             <select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
                 {projects && projects.map((project, index) =>

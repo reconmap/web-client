@@ -27,6 +27,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
         <fieldset>
             <legend>Basic information</legend>
 
+            <label>Is template?
+                <input type="checkbox" name="is_template" onChange={handleFormChange} checked={project.is_template} />
+            </label>
             <label>Client
                 <select name="client_id" onChange={handleFormChange} value={project.client_id}>
                     {clients && clients.map((client, index) =>
@@ -39,9 +42,6 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             </label>
             <label>Description
                 <MarkdownEditor name="description" onChange={handleFormChange} value={project.description} required />
-            </label>
-            <label>Is template?
-                <input type="checkbox" name="is_template" onChange={handleFormChange} checked={project.is_template} />
             </label>
         </fieldset>
 

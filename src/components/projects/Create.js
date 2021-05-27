@@ -18,7 +18,7 @@ const ProjectCreate = ({ history }) => {
         await secureApiFetch(`/projects`, { method: 'POST', body: JSON.stringify(newProject) })
         actionCompletedToast(`The project '${newProject.name}' has been created`);
         if (newProject.is_template) {
-            history.push('/templates');
+            history.push('/projects/templates');
         } else {
             history.push('/projects');
         }

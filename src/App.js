@@ -2,6 +2,7 @@ import AuthRoutes from 'components/auth/Routes';
 import CommandsRoutes from 'components/commands/Routes';
 import DocumentsRoutes from 'components/documents/Routes';
 import TargetsRoutes from 'components/target/Routes';
+import VulnerabilityTemplatesRoutes from 'components/vulnerabilities/templates/Routes';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuditLogList from "./components/auditlog/List";
@@ -12,13 +13,13 @@ import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
 import OrganisationRoutes from "./components/organisation/Routes";
 import ProjectsRoutes from "./components/projects/Routes";
+import ProjectTemplatesRoutes from './components/projects/templates/Routes';
 import ReportsRoutes from "./components/reports/Routes";
 import SearchResults from './components/search/Results';
 import SupportForm from "./components/support/Form";
 import KeyboardShortcuts from "./components/support/KeyboardShortcuts";
 import SystemRoutes from "./components/system/Routes";
 import TasksRoutes from "./components/tasks/Routes";
-import TemplatesRoutes from "./components/templates/Routes";
 import Sandbox from './components/ui/Sandbox';
 import UsersRoutes from "./components/users/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
@@ -26,7 +27,6 @@ import Configuration from './Configuration';
 import { AuthProvider } from './contexts/AuthContext';
 import ThemeContext from './contexts/ThemeContext';
 import setThemeColors from './utilities/setThemeColors';
-
 
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
@@ -52,9 +52,10 @@ const App = () => {
                                         ...UsersRoutes,
                                         ...TasksRoutes,
                                         ...ProjectsRoutes,
+                                        ...ProjectTemplatesRoutes,
                                         ...VulnerabilitiesRoutes,
+                                        ...VulnerabilityTemplatesRoutes,
                                         ...TargetsRoutes,
-                                        ...TemplatesRoutes,
                                         ...ReportsRoutes,
                                         ...SystemRoutes,
                                         ...OrganisationRoutes

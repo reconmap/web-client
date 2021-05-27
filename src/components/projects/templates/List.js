@@ -1,21 +1,21 @@
+import BadgeOutline from 'components/badges/BadgeOutline';
 import ProjectBadge from 'components/projects/ProjectBadge';
+import Breadcrumb from 'components/ui/Breadcrumb';
+import CreateButton from 'components/ui/buttons/Create';
+import DeleteButton from 'components/ui/buttons/Delete';
+import PrimaryButton from 'components/ui/buttons/Primary';
+import { IconDocumentDuplicate, IconPlus } from 'components/ui/Icons';
+import Loading from 'components/ui/Loading';
+import NoResults from 'components/ui/NoResults';
+import Title from 'components/ui/Title';
+import useDelete from 'hooks/useDelete';
+import useFetch from 'hooks/useFetch';
+import useSetTitle from 'hooks/useSetTitle';
 import { Link } from 'react-router-dom';
-import useDelete from '../../hooks/useDelete';
-import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
-import secureApiFetch from '../../services/api';
-import BadgeOutline from '../badges/BadgeOutline';
-import Breadcrumb from '../ui/Breadcrumb';
-import CreateButton from '../ui/buttons/Create';
-import DeleteButton from "../ui/buttons/Delete";
-import PrimaryButton from "../ui/buttons/Primary";
-import { IconDocumentDuplicate, IconPlus } from '../ui/Icons';
-import Loading from '../ui/Loading';
-import NoResults from "../ui/NoResults";
-import Title from '../ui/Title';
+import secureApiFetch from 'services/api';
 
 const TemplatesList = ({ history }) => {
-    useSetTitle('Projects templates');
+    useSetTitle('Project templates');
     const [templates, updateTemplates] = useFetch('/projects?isTemplate=1')
 
     const cloneProject = (ev, templateId) => {
@@ -29,7 +29,7 @@ const TemplatesList = ({ history }) => {
     }
 
     const viewProject = (templateId) => {
-        history.push(`/templates/${templateId}`);
+        history.push(`/projects/templates/${templateId}`);
     }
 
     const destroy = useDelete('/projects/', updateTemplates);
@@ -49,7 +49,7 @@ const TemplatesList = ({ history }) => {
 
                 <CreateButton onClick={() => history.push('/system/import-data')}>Import template(s)</CreateButton>
             </div>
-            <Title title='Templates' icon={<IconDocumentDuplicate />} />
+            <Title title='Project templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :
                 <table>
                     <thead>
@@ -85,4 +85,4 @@ const TemplatesList = ({ history }) => {
     )
 }
 
-export default TemplatesList
+export default TemplatesList;

@@ -28,7 +28,7 @@ const Links = [
             {
                 title: 'Templates',
                 icon: <IconDocumentDuplicate size={5} />,
-                to: '/templates',
+                to: '/projects/templates',
                 permissions: 'projects.templates'
             }
         ]
@@ -62,6 +62,12 @@ const Links = [
                 title: 'Add',
                 icon: <IconPlus size={5} />,
                 to: '/vulnerabilities/create',
+            },
+            {
+                title: 'Templates',
+                icon: <IconDocumentDuplicate size={5} />,
+                to: '/vulnerabilities/templates',
+                permissions: 'vulnerabilities.templates'
             }
         ],
         permissions: 'vulnerabilities.*'
