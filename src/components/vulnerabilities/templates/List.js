@@ -1,3 +1,5 @@
+import VulnerabilityBadge from 'components/badges/VulnerabilityBadge';
+import VulnerabilityCategoryBadge from 'components/badges/VulnerabilityCategoryBadge';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -64,8 +66,8 @@ const TemplatesList = ({ history }) => {
                             :
                             templates.map((template) =>
                                 <tr key={template.id} onClick={() => viewTemplate(template.id)}>
-                                    <td className='truncate'>{template.summary}</td>
-                                    <td className='truncate'>{template.category_name}</td>
+                                    <td><VulnerabilityBadge vulnerability={template} /></td>
+                                    <td><VulnerabilityCategoryBadge category={template.category_name} /></td>
                                     <td className='flex justify-end'>
                                         <PrimaryButton onClick={ev => cloneVulnerability(ev, template.id)} key={template.id}
                                             title="Clone"><IconPlus />Clone and edit</PrimaryButton>
