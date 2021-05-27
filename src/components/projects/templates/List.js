@@ -71,8 +71,7 @@ const TemplatesList = ({ history }) => {
                                     <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
                                     <td className='flex justify-end'>
                                         <PrimaryButton onClick={ev => cloneProject(ev, template.id)} key={template.id}
-                                            title="Create project using this template"><IconPlus />Create
-                                        project</PrimaryButton>
+                                            title="Clone"><IconPlus />Clone and edit</PrimaryButton>
                                         <DeleteButton onClick={ev => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>

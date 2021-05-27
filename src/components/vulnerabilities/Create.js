@@ -25,7 +25,13 @@ const VulnerabilityCreate = () => {
 
         secureApiFetch(`/vulnerabilities`, { method: 'POST', body: JSON.stringify(vulnerability) })
             .then(() => {
-                history.push(`/vulnerabilities`);
+
+                if (vulnerability.is_template) {
+                    history.push('/vulnerabilities/templates');
+                } else {
+                    history.push(`/vulnerabilities`);
+                }
+
                 actionCompletedToast(`The vulnerability "${vulnerability.summary}" has been added.`);
             });
     };

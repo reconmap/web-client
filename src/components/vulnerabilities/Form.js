@@ -88,67 +88,77 @@ const VulnerabilityForm = ({
     const onFormChange = ev => {
         const target = ev.target;
         const name = target.name;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
 
         setVulnerability({ ...vulnerability, [name]: value });
     };
 
-    return <form onSubmit={onFormSubmit}>
-        <label>Is template?
-                <input type="checkbox" name="is_template" onChange={onFormChange} checked={vulnerability.is_template} />
-        </label>
+    return <form onSubmit={onFormSubmit} className="crud">
+        <fieldset>
+            <legend>Basic information</legend>
 
-        <label>Project
-            <select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
-                {projects && projects.map((project, index) =>
-                    <option key={index} value={project.id}>{project.name}</option>
-                )}
-            </select>
-        </label>
-        <label>Summary
+            <label>Is template?
+                <input type="checkbox" name="is_template" onChange={onFormChange} checked={vulnerability.is_template} />
+            </label>
+
+            <label>Summary
             <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus />
-        </label>
-        <label>Description
+            </label>
+            <label>Description
             <MarkdownEditor name="description" value={vulnerability.description} onChange={onFormChange} />
-        </label>
-        <label>Proof of concept
+            </label>
+            <label>Proof of concept
             <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />
-        </label>
-        <label>Impact
+            </label>
+            <label>Impact
             <MarkdownEditor name="impact" value={vulnerability.impact} onChange={onFormChange} />
-        </label>
-        <label>Solution (if available)
+            </label>
+            <label>Solution (if available)
             <MarkdownEditor name="solution" value={vulnerability.solution} onChange={onFormChange} />
-        </label>
-        <label>Risk
+            </label>
+            <label>Risk
             <select name="risk" value={vulnerability.risk} onChange={onFormChange} required>
-                {Risks.map((risk, index) =>
-                    <option key={index} value={risk.id}>{risk.name}</option>
-                )}
-            </select>
-        </label>
-        <label>Category
+                    {Risks.map((risk, index) =>
+                        <option key={index} value={risk.id}>{risk.name}</option>
+                    )}
+                </select>
+            </label>
+            <label>Category
             <select name="category_id" value={vulnerability.category_id} onChange={onFormChange} required>
-                {categories && categories.map((category, index) =>
-                    <option key={index} value={category.id}>{category.name}</option>
-                )}
-            </select>
-        </label>
-        <label>CVSS score
+                    {categories && categories.map((category, index) =>
+                        <option key={index} value={category.id}>{category.name}</option>
+                    )}
+                </select>
+            </label>
+            <label>CVSS score
             <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
-                onChange={onFormChange} />
-        </label>
-        <label><span><CvssAbbr /> vector</span>
-            <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
-        </label>
-        <label>Affected target
+                    onChange={onFormChange} />
+            </label>
+            <label><span><CvssAbbr /> vector</span>
+                <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Relations</legend>
+
+            <label>Project
+            <select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
+                    {projects && projects.map((project, index) =>
+                        <option key={index} value={project.id}>{project.name}</option>
+                    )}
+                </select>
+            </label>
+
+            <label>Affected target
             <select name="target_id" value={vulnerability.target_id} onChange={onFormChange}>
-                <option value="0">(none)</option>
-                {targets && targets.map((target, index) =>
-                    <option key={index} value={target.id}>{target.name}</option>
-                )}
-            </select>
-        </label>
+                    <option value="0">(none)</option>
+                    {targets && targets.map((target, index) =>
+                        <option key={index} value={target.id}>{target.name}</option>
+                    )}
+                </select>
+            </label>
+        </fieldset>
 
         <Primary type="submit">{isEditForm ? "Save" : "Add"}</Primary>
     </form>
