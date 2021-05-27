@@ -139,7 +139,7 @@ const VulnerabilityForm = ({
             </label>
         </fieldset>
 
-        <fieldset>
+        {!vulnerability.is_template && <fieldset>
             <legend>Relations</legend>
 
             <label>Project
@@ -158,7 +158,7 @@ const VulnerabilityForm = ({
                     )}
                 </select>
             </label>
-        </fieldset>
+        </fieldset>}
 
         <Primary type="submit">{isEditForm ? "Save" : "Add"}</Primary>
     </form>

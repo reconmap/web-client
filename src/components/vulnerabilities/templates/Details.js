@@ -1,7 +1,6 @@
 import CvssScore from 'components/badges/CvssScore';
 import RiskBadge from 'components/badges/RiskBadge';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
-import TargetBadge from 'components/target/TargetBadge';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import ButtonGroup from 'components/ui/buttons/ButtonGroup';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -53,7 +52,7 @@ const TemplateDetails = ({ history, match }) => {
                     </Breadcrumb>
                     <ButtonGroup>
                         <PrimaryButton onClick={() => cloneProject(vulnerability.id)}><IconPlusCircle
-                        /> Add to project</PrimaryButton>
+                        /> Clone and edit</PrimaryButton>
 
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
@@ -107,15 +106,6 @@ const TemplateDetails = ({ history, match }) => {
                                 <div>
                                     <h4>Relations</h4>
                                     <dl>
-                                        <dt>Project</dt>
-                                        <dd>{vulnerability.project_id ?
-                                            <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</dd>
-
-                                        {vulnerability.target_id && <>
-                                            <dt>Affected target</dt>
-                                            <dd><Link to={`/targets/${vulnerability.target_id}`}><TargetBadge name={vulnerability.target_name}>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</TargetBadge></Link></dd>
-                                        </>}
-
                                         <dt>Created by</dt>
                                         <dd><UserLink userId={vulnerability.creator_uid}>{vulnerability.creator_full_name}</UserLink></dd>
                                     </dl>

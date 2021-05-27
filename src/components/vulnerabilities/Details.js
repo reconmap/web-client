@@ -137,7 +137,7 @@ const VulnerabilityDetails = () => {
                                 <dd>{vulnerability.project_id ?
                                     <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</dd>
 
-                                {vulnerability.target_id && <>
+                                {vulnerability.target_id !== null && vulnerability.target_id !== 0 && <>
                                     <dt>Affected target</dt>
                                     <dd><Link to={`/targets/${vulnerability.target_id}`}><TargetBadge name={vulnerability.target_name}>{vulnerability.target_id ? `${vulnerability.target_name} (${vulnerability.target_kind})` : "-"}</TargetBadge></Link></dd>
                                 </>}
