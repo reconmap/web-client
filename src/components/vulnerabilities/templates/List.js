@@ -1,3 +1,5 @@
+import VulnerabilityBadge from 'components/badges/VulnerabilityBadge';
+import VulnerabilityCategoryBadge from 'components/badges/VulnerabilityCategoryBadge';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -16,13 +18,13 @@ const TemplatesList = ({ history }) => {
     useSetTitle('Vulnerability templates');
     const [templates, updateTemplates] = useFetch('/vulnerabilities?isTemplate=1')
 
-    const addToProject = (ev, templateId) => {
+    const cloneVulnerability = (ev, templateId) => {
         ev.stopPropagation();
 
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
-                history.push(`/projects/${data.projectId}/edit`);
+                history.push(`/vulnerabilities/${data.vulnerabilityId}/edit`);
             });
     }
 
@@ -60,15 +62,15 @@ const TemplatesList = ({ history }) => {
                     </thead>
                     <tbody>
                         {templates.length === 0 ?
-                            <td colSpan="5"><NoResults /></td>
+                            <td colSpan="3"><NoResults /></td>
                             :
                             templates.map((template) =>
                                 <tr key={template.id} onClick={() => viewTemplate(template.id)}>
-                                    <td className='truncate'>{template.summary}</td>
-                                    <td className='truncate'>{template.category_name}</td>
+                                    <td><VulnerabilityBadge vulnerability={template} /></td>
+                                    <td><VulnerabilityCategoryBadge category={template.category_name} /></td>
                                     <td className='flex justify-end'>
-                                        <PrimaryButton onClick={ev => addToProject(ev, template.id)} key={template.id}
-                                            title="Add to project"><IconPlus />Add to project</PrimaryButton>
+                                        <PrimaryButton onClick={ev => cloneVulnerability(ev, template.id)} key={template.id}
+                                            title="Clone"><IconPlus />Clone and edit</PrimaryButton>
                                         <DeleteButton onClick={ev => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>

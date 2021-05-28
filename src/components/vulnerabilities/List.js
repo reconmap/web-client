@@ -32,17 +32,17 @@ const VulnerabilitiesList = ({ history }) => {
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
-        history.push(`/vulnerabilities?page=${pageNumber - 1}`);
+        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}`);
     }
     const handleNext = () => {
-        history.push(`/vulnerabilities?page=${pageNumber + 1}`);
+        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}`);
     }
 
     const reloadVulnerabilities = useCallback(() => {
         setVulnerabilities([]);
         setReloadButtonDisabled(true);
 
-        secureApiFetch(`/vulnerabilities?page=${apiPageNumber}`, { method: 'GET' })
+        secureApiFetch(`/vulnerabilities?isTemplate=false&page=${apiPageNumber}`, { method: 'GET' })
             .then(resp => {
                 if (resp.headers.has('X-Page-Count')) {
                     setNumberPages(resp.headers.get('X-Page-Count'))

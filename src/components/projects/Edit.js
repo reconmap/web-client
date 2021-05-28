@@ -1,26 +1,30 @@
-import React, {useEffect, useState} from 'react'
-import {Link, useParams} from 'react-router-dom';
-import Breadcrumb from '../ui/Breadcrumb'
-import Title from '../ui/Title'
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
-import {IconPlus} from "../ui/Icons";
+import Breadcrumb from '../ui/Breadcrumb';
+import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
-import {actionCompletedToast} from "../ui/toast";
+import Title from '../ui/Title';
+import { actionCompletedToast } from "../ui/toast";
 import ProjectForm from "./Form";
 
-const ProjectEdit = ({history}) => {
-    const {projectId} = useParams();
+const ProjectEdit = ({ history }) => {
+    const { projectId } = useParams();
     const [serverProject] = useFetch(`/projects/${projectId}`);
     const [clientProject, setClientProject] = useState(null);
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/projects/${projectId}`, {method: 'PUT', body: JSON.stringify(clientProject)})
+        await secureApiFetch(`/projects/${projectId}`, { method: 'PUT', body: JSON.stringify(clientProject) })
         actionCompletedToast(`Project "${clientProject.name}" updated.`);
 
-        history.push(`/projects/${projectId}`);
+        if (clientProject.is_template) {
+            history.push(`/projects/templates/${projectId}`);
+        } else {
+            history.push(`/projects/${projectId}`);
+        }
     };
 
     useEffect(() => {
@@ -28,7 +32,7 @@ const ProjectEdit = ({history}) => {
     }, [serverProject]);
 
     if (!serverProject || !clientProject) {
-        return <Loading/>
+        return <Loading />
     }
 
     return (
@@ -39,10 +43,10 @@ const ProjectEdit = ({history}) => {
                     <Link to={`/projects/${serverProject.id}`}>{serverProject.name}</Link>
                 </Breadcrumb>
             </div>
-            <Title title="Project details" icon={<IconPlus/>}/>
+            <Title title="Project details" icon={<IconPlus />} />
 
             <ProjectForm isEdit={true} project={clientProject} projectSetter={setClientProject}
-                         onFormSubmit={onFormSubmit}/>
+                onFormSubmit={onFormSubmit} />
         </div>
     )
 }

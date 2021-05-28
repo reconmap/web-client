@@ -3,7 +3,7 @@ import ButtonGroup from 'components/ui/buttons/ButtonGroup';
 import DeleteButton from 'components/ui/buttons/Delete';
 import LinkButton from 'components/ui/buttons/Link';
 import PrimaryButton from 'components/ui/buttons/Primary';
-import { IconPlusCircle } from 'components/ui/Icons';
+import { IconFolder, IconPlusCircle } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import Title from 'components/ui/Title';
@@ -51,7 +51,7 @@ const TemplateDetails = ({ history, match }) => {
             {(!template) ?
                 <Loading /> :
                 <article>
-                    <Title title={template.name} type='Project template' />
+                    <Title title={template.name} type='Project template' icon={<IconFolder />} />
 
                     <div className="grid grid-two">
                         <div>
