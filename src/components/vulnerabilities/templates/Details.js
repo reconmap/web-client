@@ -32,7 +32,7 @@ const TemplateDetails = ({ history, match }) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
-                history.push(`/vulnerabilities/${data.projectId}/edit`);
+                history.push(`/vulnerabilities/${data.vulnerabilityId}/edit`);
             });
     }
 
