@@ -6,6 +6,8 @@ const LinkButton = ({ children, external = false, ...props }) => {
     const history = useHistory();
 
     const onAnchorClick = ev => {
+        ev.stopPropagation();
+
         if (!external) {
             ev.preventDefault();
 
