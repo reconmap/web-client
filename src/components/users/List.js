@@ -111,10 +111,7 @@ const UsersList = ({ history }) => {
                                     />
                                 </td>
                                 <td>
-                                    <UserAvatar
-                                        email={user.email}
-                                        size="--iconSize"
-                                    />
+                                    <UserAvatar email={user.email} />
                                 </td>
                                 <td>
                                     <Link to={`/users/${user.id}`}>

@@ -81,7 +81,7 @@ const TasksList = ({ match }) => {
                     {members.length === 0 && <NoResultsTableRow numColumns={3} />}
                     {members && members.map((member, index) =>
                         <tr key={index}>
-                            <td><UserAvatar size='--iconSizeLarge' email={member.email} /></td>
+                            <td><UserAvatar email={member.email} /></td>
                             <td><UserLink userId={member.id}>{member.full_name}</UserLink></td>
                             <td><UserRoleBadge role={member.role} /></td>
                             <td className='text-right'>

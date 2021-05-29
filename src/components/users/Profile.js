@@ -52,7 +52,7 @@ const UserProfile = ({ match }) => {
                 {user ?
                     <>
                         <Title type='User profile' title={user.full_name}
-                            icon={<UserAvatar email={user.email} size='--iconSizeXLarge' />} />
+                            icon={<UserAvatar email={user.email}  />} />
 
                         <div className="grid grid-two">
                             <div>
