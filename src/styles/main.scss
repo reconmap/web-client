@@ -180,7 +180,7 @@ strong {
 
 main {
     padding-top: 72px;
-    display: grid;
+    display: grid!important;
     transition: grid-template-columns 0.2s;
     grid-template-columns: var(--sidebarWidth) 1fr;
 
