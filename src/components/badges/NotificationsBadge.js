@@ -1,17 +1,20 @@
-import React, {useState} from 'react'
-import {IconBell} from '../ui/Icons'
+import React, { useState } from "react";
 import Configuration from "../../Configuration";
+import { Button } from "@chakra-ui/button";
+import {
+    Popover,
+    PopoverArrow,
+    PopoverBody,
+    PopoverCloseButton,
+    PopoverContent,
+    PopoverHeader,
+    PopoverTrigger,
+} from "@chakra-ui/popover";
+import { BellIcon } from "@chakra-ui/icons";
+import { Tag } from "@chakra-ui/tag";
 
 export default function NotificationsBadge() {
-    const [notifications, setNotifications] = useState([])
-
-    const [showWindow, setShowWindow] = useState(false)
-    const handleShowWindow = () => {
-        setShowWindow(!showWindow)
-        setTimeout(() => {
-            setShowWindow(false)
-        }, 60000)
-    }
+    const [notifications, setNotifications] = useState([]);
 
     try {
         const webSocketServer = new WebSocket(Configuration.wsEndpoint);
@@ -24,18 +27,20 @@ export default function NotificationsBadge() {
         webSocketServer.onmessage = function (ev) {
             const data = JSON.parse(ev.data);
             setNotifications([...notifications, data]);
-        }
+        };
         webSocketServer.onerror = function (err) {
             console.error(`[error] ${err.message}`);
         };
 
         webSocketServer.onclose = function (ev) {
             if (ev.wasClean) {
-                console.error(`[close] Connection closed cleanly, code=${ev.code} reason=${ev.reason}`);
+                console.error(
+                    `[close] Connection closed cleanly, code=${ev.code} reason=${ev.reason}`
+                );
             } else {
                 // e.g. server process killed or network down
                 // ev.code is usually 1006 in this case
-                console.error('[close] Connection died');
+                console.error("[close] Connection died");
             }
         };
         // if(ws.readyState == WebSocket.CLOSED) this.connect();
@@ -44,50 +49,43 @@ export default function NotificationsBadge() {
     } catch (err) {
         console.error(err);
     }
-    const styles = {
-        button: {
-            position: 'relative',
-        }
-    }
 
-    return (<button style={styles.button} onClick={handleShowWindow} aria-label="Notifications">
-            <IconBell styling={{margin: 0}}/>
-            {notifications.length > 0 &&
-            <div className='w-3 h-3 -m-1 bg-red-500 rounded-full absolute top-0 right-0 animate-pulse'></div>}
-            {showWindow && <NotificationsWindow notifications={notifications}/>}
-        </button>
-    )
-}
-
-const NotificationsWindow = ({notifications}) => {
-    const styles = {
-        notificationWindow: {
-            position: 'absolute',
-            padding: 'var(--paddingBox)',
-            borderRadius: 'var(--borderRadius)',
-            backgroundColor: 'var(--black)',
-            color: 'var(--text-color)',
-            top: '40px',
-            left: '-70px',
-            right: 0,
-            margin: 'auto',
-            width: '180px',
-            zIndex: 10,
-            fontSize: 'var(--fontSizeXsmall'
-        },
-
-    }
-
-    return <div style={styles.notificationWindow}>
-        {notifications.length > 0 ?
-            <ul>
-                {notifications.map((notification, index) =>
-                    <li key={index} className='flex justify-between items-center my-1'>
-                        {notification.title}
-                        <span className='text-red-500  rounded-full font-bold text-sm'>{notification.detail}</span>
-                    </li>
-                )}
-            </ul>
-            : <span>No notifications</span>}
-    </div>
+    return (
+        <Popover placement="bottom-end">
+            <PopoverTrigger>
+                <Button pr={notifications.length > 0? 1 : 2} variant="ghost" aria-label="Notifications" >
+                    <BellIcon fontSize="xl" color="gray.500" />
+                    {notifications.length > 0 && (
+                        <Tag colorScheme='red'  >{notifications.length}</Tag>
+                    )}
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader px="3" pb="3" color="gray.500">
+                    Notifications
+                </PopoverHeader>
+                <PopoverBody>
+                    {notifications.length > 0 ? (
+                        <ul>
+                            {notifications.map((notification, index) => (
+                                <li
+                                    key={index}
+                                    className="flex justify-between items-center my-1"
+                                >
+                                    {notification.title}
+                                    <span className="text-red-500  rounded-full font-bold text-sm">
+                                        {notification.detail}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <span>No notifications</span>
+                    )}
+                </PopoverBody>
+            </PopoverContent>
+        </Popover>
+    );
 }
