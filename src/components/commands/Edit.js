@@ -23,7 +23,7 @@ const EditCommandPage = ({ history }) => {
             body: JSON.stringify(clientCommand)
         })
 
-        actionCompletedToast(`Command "${clientCommand.short_name}" updated.`);
+        actionCompletedToast(`The command "${clientCommand.short_name}" has been updated.`);
 
         history.push(`/commands/${commandId}`)
     }

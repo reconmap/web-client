@@ -18,7 +18,7 @@ const ProjectEdit = ({ history }) => {
         ev.preventDefault();
 
         await secureApiFetch(`/projects/${projectId}`, { method: 'PUT', body: JSON.stringify(clientProject) })
-        actionCompletedToast(`Project "${clientProject.name}" updated.`);
+        actionCompletedToast(`The project "${clientProject.name}" has been updated.`);
 
         if (clientProject.is_template) {
             history.push(`/projects/templates/${projectId}`);

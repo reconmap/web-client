@@ -9,15 +9,15 @@ import Title from '../ui/Title';
 import DocumentForm from './Form';
 
 const AddDocumentPage = ({ history }) => {
-    const [newCommand, setNewCommand] = useState({ ...DocumentModel, parent_type: 'library' });
+    const [newDocument, setNewDocument] = useState({ ...DocumentModel, parent_type: 'library' });
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/documents`, { method: 'POST', body: JSON.stringify(newCommand) })
+        secureApiFetch(`/documents`, { method: 'POST', body: JSON.stringify(newDocument) })
             .then(() => {
                 history.push(`/documents`);
-                actionCompletedToast(`The document "${newCommand.short_name}" has been added.`);
+                actionCompletedToast(`The document "${newDocument.title}" has been added.`);
             })
     }
 
@@ -31,7 +31,7 @@ const AddDocumentPage = ({ history }) => {
 
             <Title title="New document details" icon={<IconPlus />} />
 
-            <DocumentForm onFormSubmit={onFormSubmit} document={newCommand} documentSetter={setNewCommand} />
+            <DocumentForm onFormSubmit={onFormSubmit} document={newDocument} documentSetter={setNewDocument} />
         </div>
     )
 }

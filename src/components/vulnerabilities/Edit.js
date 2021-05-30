@@ -28,7 +28,7 @@ const VulnerabilityEdit = () => {
             body: JSON.stringify(clientVulnerability)
         });
 
-        actionCompletedToast(`Vulnerability "${clientVulnerability.summary}" updated.`);
+        actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
 
         if (clientVulnerability.is_template) {
             history.push(`/vulnerabilities/templates/${vulnerabilityId}`);

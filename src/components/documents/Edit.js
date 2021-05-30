@@ -23,7 +23,7 @@ const EditDocumentPage = ({ history }) => {
             body: JSON.stringify(clientDocument)
         })
 
-        actionCompletedToast(`Document "${clientDocument.title}" updated.`);
+        actionCompletedToast(`The document "${clientDocument.title}" has been updated.`);
 
         history.push(`/documents/${documentId}`)
     }

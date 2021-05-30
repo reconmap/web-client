@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import { actionCompletedToast } from 'components/ui/toast';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import Title from '../ui/Title';
-import {Link, useParams} from 'react-router-dom';
-import {IconPlus} from "../ui/Icons";
-import TaskForm from "./Form";
-import useFetch from "../../hooks/useFetch";
+import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
+import Title from '../ui/Title';
+import TaskForm from "./Form";
 
-const EditTaskPage = ({history}) => {
-    const {taskId} = useParams();
+const EditTaskPage = ({ history }) => {
+    const { taskId } = useParams();
 
     const [serverTask] = useFetch(`/tasks/${taskId}`);
     const [clientTask, setClientTask] = useState(null);
@@ -17,7 +18,8 @@ const EditTaskPage = ({history}) => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/tasks/${taskId}`, {method: 'PATCH', body: JSON.stringify(clientTask)})
+        await secureApiFetch(`/tasks/${taskId}`, { method: 'PATCH', body: JSON.stringify(clientTask) })
+        actionCompletedToast(`The task "${clientTask.summary}" has been updated.`);
         history.push(`/tasks/${taskId}`)
     }
 
@@ -34,10 +36,10 @@ const EditTaskPage = ({history}) => {
                 </Breadcrumb>
             </div>
 
-            <Title title="Task details" icon={<IconPlus/>}/>
+            <Title title="Task details" icon={<IconPlus />} />
 
-            {!clientTask ? <Loading/> :
-                <TaskForm isEditForm={true} onFormSubmit={onFormSubmit} task={clientTask} taskSetter={setClientTask}/>
+            {!clientTask ? <Loading /> :
+                <TaskForm isEditForm={true} onFormSubmit={onFormSubmit} task={clientTask} taskSetter={setClientTask} />
             }
         </div>
     )

@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import Title from '../ui/Title';
-import {Link, useParams} from "react-router-dom";
-import {IconPlus} from "../ui/Icons";
-import ClientForm from "./Form";
-import useFetch from "../../hooks/useFetch";
-import {actionCompletedToast} from "../ui/toast";
+import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
+import Title from '../ui/Title';
+import { actionCompletedToast } from "../ui/toast";
+import ClientForm from "./Form";
 
-const EditClientPage = ({history}) => {
-    const {clientId} = useParams();
+const EditClientPage = ({ history }) => {
+    const { clientId } = useParams();
 
     const [serverClient] = useFetch(`/clients/${clientId}`);
     const [clientClient, setClientClient] = useState(null);
@@ -23,7 +23,7 @@ const EditClientPage = ({history}) => {
             body: JSON.stringify(clientClient)
         })
 
-        actionCompletedToast(`Client "${clientClient.name}" updated.`);
+        actionCompletedToast(`The client "${clientClient.name}" has been updated.`);
 
         history.push(`/clients/${clientId}`)
     }
@@ -41,11 +41,11 @@ const EditClientPage = ({history}) => {
                 </Breadcrumb>
             </div>
 
-            <Title title="Client details" icon={<IconPlus/>}/>
+            <Title title="Client details" icon={<IconPlus />} />
 
-            {!clientClient ? <Loading/> :
+            {!clientClient ? <Loading /> :
                 <ClientForm isEditForm={true} onFormSubmit={onFormSubmit} client={clientClient}
-                            clientSetter={setClientClient}/>
+                    clientSetter={setClientClient} />
             }
         </div>
     )
