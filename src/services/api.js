@@ -1,4 +1,5 @@
-import toast from "../components/ui/toast";
+// import toast from "../components/ui/toast";
+import { toast } from 'components/ui/toast';
 import Configuration from '../Configuration';
 import Auth from "./auth";
 
