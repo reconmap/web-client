@@ -41,15 +41,18 @@ const TemplatesList = ({ history }) => {
         destroy(templateId);
     }
 
+    const onAddVulnerabilityTemplateClick = () => {
+        history.push(`/vulnerabilities/create?isTemplate=true`)
+    }
+
     return (
         <>
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
-                    <Link to="/vulnerabilities/templates">Templates</Link>
                 </Breadcrumb>
 
-                <CreateButton onClick={() => history.push('/system/import-data')}>Import template(s)</CreateButton>
+                <CreateButton onClick={onAddVulnerabilityTemplateClick}>Add vulnerability template</CreateButton>
             </div>
             <Title title='Vulnerability templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :

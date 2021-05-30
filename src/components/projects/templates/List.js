@@ -41,6 +41,10 @@ const TemplatesList = ({ history }) => {
         destroy(templateId);
     }
 
+    const onAddProjectTemplateClick = () => {
+        history.push(`/projects/create?isTemplate=true`)
+    }
+
     return (
         <>
             <div className='heading'>
@@ -48,7 +52,7 @@ const TemplatesList = ({ history }) => {
                     <Link to="/projects">Projects</Link>
                 </Breadcrumb>
 
-                <CreateButton onClick={() => history.push('/system/import-data')}>Import template(s)</CreateButton>
+                <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
             </div>
             <Title title='Project templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :

@@ -1,4 +1,5 @@
 import { actionCompletedToast } from 'components/ui/toast';
+import useQuery from 'hooks/useQuery';
 import Project from 'models/Project';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -10,7 +11,9 @@ import ProjectForm from "./Form";
 
 const ProjectCreate = ({ history }) => {
 
-    const [newProject, setNewProject] = useState(Project);
+    const query = useQuery();
+    const isTemplate = 'true' === query.get('isTemplate');
+    const [newProject, setNewProject] = useState({ ...Project, is_template: isTemplate });
 
     const handleCreate = async (ev) => {
         ev.preventDefault();

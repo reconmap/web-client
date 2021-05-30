@@ -69,7 +69,7 @@ const VulnerabilitiesList = ({ history }) => {
         reloadVulnerabilities()
     }, [reloadVulnerabilities])
 
-    const handleCreateVulnerability = () => {
+    const onAddVulnerabilityClick = () => {
         history.push(`/vulnerabilities/create`)
     }
 
@@ -79,7 +79,7 @@ const VulnerabilitiesList = ({ history }) => {
                 <Breadcrumb />
                 <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
                 <ButtonGroup>
-                    <CreateButton onClick={handleCreateVulnerability}>Add vulnerability</CreateButton>
+                    <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                         <DeleteButton onClick={onDeleteButtonClick} disabled={!selection.length}>
                             Delete selected

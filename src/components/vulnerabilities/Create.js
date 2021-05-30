@@ -17,8 +17,9 @@ const VulnerabilityCreate = () => {
     const history = useHistory();
     const query = useQuery();
     const urlProjectId = useRef(query.get('projectId') || 0);
+    const isTemplate = 'true' === query.get('isTemplate');
 
-    const [vulnerability, setVulnerability] = useState({ ...VulnerabilityModel, project_id: urlProjectId.current })
+    const [vulnerability, setVulnerability] = useState({ ...VulnerabilityModel, is_template: isTemplate, project_id: urlProjectId.current })
 
     const onFormSubmit = ev => {
         ev.preventDefault();
