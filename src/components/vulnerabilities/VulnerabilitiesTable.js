@@ -1,4 +1,7 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import ReloadButton from "components/ui/buttons/Reload";
+import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import useDelete from "hooks/useDelete";
 import React from "react";
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
@@ -6,10 +9,9 @@ import VulnerabilityBadge from '../badges/VulnerabilityBadge';
 import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
-import NoResults from "../ui/NoResults";
 import VulnerabilityStatusBadge from "./StatusBadge";
 
-const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, destroy }) => {
+const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reloadCallback }) => {
     const showSelection = selection !== undefined;
 
     const onSelectionChange = ev => {
@@ -22,6 +24,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, destro
         }
     };
 
+    const deleteVulnerability = useDelete('/vulnerabilities/', reloadCallback, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
 
     return (
         <table>
@@ -33,14 +36,13 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, destro
                     <th style={{ width: '120px' }}>Risk</th>
                     <th style={{ width: '120px' }}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
                     <th className='only-desktop' style={{ width: '20%' }}>Category</th>
-                    <th style={{ width: '15%' }}>&nbsp;</th>
+                    <th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></th>
                 </tr>
             </thead>
             <tbody>
                 {vulnerabilities.length === 0 ?
-                    <tr>
-                        <td colSpan="6"><NoResults /></td>
-                    </tr> :
+                    <NoResultsTableRow colSpan="7" />
+                    :
                     vulnerabilities.map((vulnerability, index) => {
                         return (
                             <tr key={index}>
@@ -62,8 +64,8 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, destro
                                 <td className='flex justify-end'>
                                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                         <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
-                                        {destroy &&
-                                            <DeleteButton onClick={() => destroy(vulnerability.id)} />
+                                        {reloadCallback &&
+                                            <DeleteButton onClick={() => deleteVulnerability(vulnerability.id)} />
                                         }
                                     </RestrictedComponent>
                                 </td>

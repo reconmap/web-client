@@ -11,7 +11,7 @@ import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
 const ProjectVulnerabilities = ({ project }) => {
     const history = useHistory();
 
-    const [vulnerabilities] = useFetch(`/projects/${project.id}/vulnerabilities`)
+    const [vulnerabilities, reloadVulnerabilities] = useFetch(`/projects/${project.id}/vulnerabilities`)
 
     const handleCreateVulnerability = () => {
         history.push(`/vulnerabilities/create?projectId=${project.id}`)
@@ -37,7 +37,9 @@ const ProjectVulnerabilities = ({ project }) => {
         </h4>
         {vulnerabilities ?
             <VulnerabilitiesTable
-                vulnerabilities={vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))} />
+                vulnerabilities={vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))}
+                reloadCallback={reloadVulnerabilities}
+            />
             : <Loading />}
     </section>
 }
