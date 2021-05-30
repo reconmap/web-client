@@ -1,5 +1,5 @@
 // import toast from "../components/ui/toast";
-import { toast } from 'components/ui/toast';
+import { errorToast } from 'components/ui/toast';
 import Configuration from '../Configuration';
 import Auth from "./auth";
 
@@ -30,7 +30,7 @@ function secureApiFetch(url, init) {
         .catch(err => {
             if (err.message.toLowerCase().indexOf('network') !== -1) {
                 console.error(err.message);
-                toast('Network error', 'Please check connectivity with the API.');
+                errorToast('Network error. Please check connectivity with the API.');
             }
             return Promise.reject(err);
         });

@@ -1,11 +1,11 @@
-import Title from "../ui/Title";
-import PrimaryButton from "../ui/buttons/Primary";
-import {useHistory} from 'react-router-dom';
-import {useEffect, useState} from "react";
-import Breadcrumb from "../ui/Breadcrumb";
+import { actionCompletedToast, errorToast } from "components/ui/toast";
+import { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 import secureApiFetch from "../../services/api";
-import {IconPreferences} from "../ui/Icons";
-import { actionCompletedToast, toast } from "components/ui/toast";
+import Breadcrumb from "../ui/Breadcrumb";
+import PrimaryButton from "../ui/buttons/Primary";
+import { IconPreferences } from "../ui/Icons";
+import Title from "../ui/Title";
 
 const UserPasswordChange = () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -36,7 +36,7 @@ const UserPasswordChange = () => {
             })
             .catch(err => {
                 console.error(err);
-                toast("There was a problem updating your password. Check the data.")
+                errorToast("There was a problem updating your password. Check the data.")
                 setSubmitButtonDisabled(false);
             });
     }
@@ -44,7 +44,7 @@ const UserPasswordChange = () => {
         const target = ev.target;
         const name = target.name;
         const value = target.value;
-        setPasswords({...passwords, [name]: value});
+        setPasswords({ ...passwords, [name]: value });
     };
 
     useEffect(() => {
@@ -54,24 +54,24 @@ const UserPasswordChange = () => {
     return (
         <div>
             <div className='heading'>
-                <Breadcrumb/>
+                <Breadcrumb />
             </div>
             <form onSubmit={handleCreate}>
-                <Title title="Password Change" type="User" icon={<IconPreferences/>}/>
+                <Title title="Password Change" type="User" icon={<IconPreferences />} />
                 <label>Current password
                     <input type="password" name="currentPassword" value={passwords.currentPassword}
-                           onChange={handleFormChange} autoFocus required/>
+                        onChange={handleFormChange} autoFocus required />
                 </label>
                 <label>New password
                     <input type="password" name="newPassword" value={passwords.newPassword} onChange={handleFormChange}
-                           required/>
+                        required />
                 </label>
                 <label>New password confirmation
                     <input type="password" name="newPasswordConfirmation" value={passwords.newPasswordConfirmation}
-                           onChange={handleFormChange} required/>
+                        onChange={handleFormChange} required />
                 </label>
                 <PrimaryButton type="submit"
-                               disabled={submitButtonDisabled}>Update</PrimaryButton>
+                    disabled={submitButtonDisabled}>Update</PrimaryButton>
             </form>
         </div>
     )

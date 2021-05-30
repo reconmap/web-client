@@ -1,6 +1,6 @@
-import { createStandaloneToast } from "@chakra-ui/react"
+import { createStandaloneToast } from "@chakra-ui/react";
 
-export const toast = createStandaloneToast()
+const toast = createStandaloneToast();
 
 export function actionCompletedToast(description) {
     toast({
@@ -9,5 +9,15 @@ export function actionCompletedToast(description) {
         position: 'bottom-right',
         isClosable: true,
         status: 'success'
-    })
+    });
+}
+
+export function errorToast(description) {
+    toast({
+        title: 'An error has occurred',
+        description: description,
+        position: 'bottom-right',
+        isClosable: false,
+        status: 'error'
+    });
 }
