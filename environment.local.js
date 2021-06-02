@@ -3,5 +3,8 @@ window.env = {
     REACT_APP_API_ENDPOINT: 'http://localhost:8080',
 
 	// URL to the Reconmap WebSocket API including protocol and port but not trailing slash
-    REACT_APP_WS_ENDPOINT: 'ws://localhost:8765'
+    REACT_APP_WS_ENDPOINT: 'ws://localhost:8765',
+
+    // Application base path e.g. https://somehost.com/reconmap
+    // REACT_APP_BASENAME: '/reconmap'
 };
