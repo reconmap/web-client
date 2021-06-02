@@ -5,7 +5,7 @@ import Auth from "./auth";
 
 function resetSessionStorageAndRedirect() {
     Auth.removeSession();
-    window.location = '/';
+    window.location = Configuration.appBasename;
 }
 
 function secureApiFetch(url, init) {
