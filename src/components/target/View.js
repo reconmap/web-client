@@ -1,3 +1,4 @@
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import React, { useEffect, useState } from 'react';
@@ -21,7 +22,6 @@ const TargetView = ({ match, history }) => {
 
     useEffect(() => {
         if (target) {
-            document.title = `Target ${target.name} | Reconmap`;
             secureApiFetch(`/projects/${target.project_id}`, { method: 'GET', headers: {} })
                 .then(resp => resp.json())
                 .then(json => {
@@ -42,6 +42,7 @@ const TargetView = ({ match, history }) => {
     if (!target) return <Loading />
 
     return <div>
+        <PageTitle value={`Target ${target.name}`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/projects">Projects</Link>

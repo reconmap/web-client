@@ -1,7 +1,7 @@
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
 import ClientLink from "../clients/Link";
 import Breadcrumb from '../ui/Breadcrumb';
 import CreateButton from '../ui/buttons/Create';
@@ -14,7 +14,6 @@ import Title from '../ui/Title';
 import ProjectBadge from './ProjectBadge';
 
 const ProjectsList = ({ history }) => {
-    useSetTitle('Projects');
     const [projects, updateProjects] = useFetch('/projects')
     const destroy = useDelete('/projects/', updateProjects);
 
@@ -23,6 +22,7 @@ const ProjectsList = ({ history }) => {
     }
 
     return <div>
+        <PageTitle value="Projects" />
         <div className='heading'>
             <Breadcrumb />
             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>

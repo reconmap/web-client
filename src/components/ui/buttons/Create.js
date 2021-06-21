@@ -7,4 +7,4 @@ const CreateButton = ({ onClick, children }) =>
         {children || "Create"}
     </PrimaryButton>
 
-export default CreateButton
+export default CreateButton;

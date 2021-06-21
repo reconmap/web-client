@@ -1,6 +1,7 @@
+import PageTitle from 'components/logic/PageTitle';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -20,10 +21,6 @@ const DocumentDetailsPage = () => {
     const [serverDoc] = useFetch(`/documents/${documentId}`)
     const deleteDocument = useDelete(`/documents/`)
 
-    useEffect(() => {
-        if (serverDoc) document.title = `${serverDoc.title} - Document | Reconmap`;
-    }, [serverDoc])
-
     const handleDelete = async () => {
         const confirmed = await deleteDocument(documentId);
         if (confirmed)
@@ -35,6 +32,7 @@ const DocumentDetailsPage = () => {
     }
 
     return <div>
+        <PageTitle value={`${serverDoc.title} - Document`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/documents">Documents</Link>

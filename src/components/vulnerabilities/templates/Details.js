@@ -1,5 +1,6 @@
 import CvssScore from 'components/badges/CvssScore';
 import RiskBadge from 'components/badges/RiskBadge';
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import ButtonGroup from 'components/ui/buttons/ButtonGroup';
@@ -16,7 +17,6 @@ import Title from 'components/ui/Title';
 import UserLink from 'components/users/Link';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import useSetTitle from 'hooks/useSetTitle';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import secureApiFetch from 'services/api';
@@ -25,7 +25,6 @@ import VulnerabilityStatusBadge from '../StatusBadge';
 
 
 const TemplateDetails = ({ history, match }) => {
-    useSetTitle('Vulnerability template');
     const [vulnerability] = useFetch(`/vulnerabilities/${match.params.templateId}`)
 
     const cloneProject = async (templateId) => {
@@ -44,6 +43,7 @@ const TemplateDetails = ({ history, match }) => {
 
     return (
         <>
+            <PageTitle value="Vulnerability template" />
             <div>
                 <div className='heading'>
                     <Breadcrumb>

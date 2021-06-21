@@ -1,10 +1,11 @@
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ShellCommand from 'components/ui/ShellCommand';
 import Tab from 'components/ui/Tab';
 import Tabs from 'components/ui/Tabs';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import CommandService from 'services/command';
@@ -26,10 +27,6 @@ const CommandDetails = () => {
     const [command] = useFetch(`/commands/${commandId}`)
     const deleteClient = useDelete(`/commands/`)
 
-    useEffect(() => {
-        if (command) document.title = `${command.short_name} - Command | Reconmap`;
-    }, [command])
-
     const handleDelete = async () => {
         const confirmed = await deleteClient(commandId);
         if (confirmed)
@@ -41,6 +38,7 @@ const CommandDetails = () => {
     }
 
     return <div>
+        <PageTitle value={`${command.short_name} - Command`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/commands">Commands</Link>

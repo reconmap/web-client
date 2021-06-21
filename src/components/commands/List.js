@@ -1,8 +1,8 @@
+import PageTitle from 'components/logic/PageTitle';
 import CreateButton from 'components/ui/buttons/Create';
 import { useHistory } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconFolder } from '../ui/Icons';
 import Loading from '../ui/Loading';
@@ -14,8 +14,6 @@ const CommandsListPage = () => {
     const [commands, updateCommands] = useFetch('/commands')
     const destroy = useDelete('/commands/', updateCommands);
 
-    useSetTitle('Commands');
-
     const onAddCommandClick = ev => {
         ev.preventDefault();
 
@@ -23,6 +21,7 @@ const CommandsListPage = () => {
     }
 
     return <div>
+        <PageTitle value="Commands" />
         <div className='heading'>
             <Breadcrumb />
             <CreateButton onClick={onAddCommandClick}>Add command</CreateButton>

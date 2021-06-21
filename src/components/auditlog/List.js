@@ -1,6 +1,6 @@
+import PageTitle from 'components/logic/PageTitle';
 import useQuery from 'hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
-import useSetTitle from '../../hooks/useSetTitle';
 import secureApiFetch from '../../services/api';
 import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -16,8 +16,6 @@ const AuditLogList = ({ history }) => {
     let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
-
-    useSetTitle(`Audit log - Page ${pageNumber}`)
 
     const [auditLog, setAuditLog] = useState([]);
     const [numberPages, setNumberPages] = useState(1);
@@ -67,6 +65,7 @@ const AuditLogList = ({ history }) => {
 
     return (
         <>
+            <PageTitle value={`Audit log - Page ${pageNumber}`} />
             <div className='heading'>
                 <Breadcrumb>
                     <div>System</div>
@@ -81,4 +80,4 @@ const AuditLogList = ({ history }) => {
     )
 }
 
-export default AuditLogList
+export default AuditLogList;

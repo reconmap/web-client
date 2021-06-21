@@ -1,3 +1,4 @@
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ButtonGroup from 'components/ui/buttons/ButtonGroup';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -11,7 +12,6 @@ import CreateButton from '../ui/buttons/Create';
 import { IconFlag } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
-import useSetTitle from './../../hooks/useSetTitle';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 
 const VulnerabilitiesList = ({ history }) => {
@@ -21,8 +21,6 @@ const VulnerabilitiesList = ({ history }) => {
     const apiPageNumber = pageNumber - 1;
 
     const [selection, setSelection] = useState([]);
-
-    useSetTitle(`Vulnerabilities - Page ${pageNumber}`)
 
     const [vulnerabilities, setVulnerabilities] = useState([]);
     const [numberPages, setNumberPages] = useState(1);
@@ -75,6 +73,7 @@ const VulnerabilitiesList = ({ history }) => {
 
     return (
         <>
+            <PageTitle value={`Vulnerabilities - Page ${pageNumber}`} />
             <div className='heading'>
                 <Breadcrumb />
                 <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import PageTitle from 'components/logic/PageTitle';
+import React, { useState } from 'react';
 import { Link, useHistory, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
@@ -41,14 +42,11 @@ const UploadTaskResult = () => {
             .catch(err => console.error(err));
     }
 
-    useEffect(() => {
-        document.title = 'Upload Task | Reconmap';
-    }, []);
-
     if (!task) return <Loading />
 
     return (
         <div>
+            <PageTitle value="Upload Task" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/tasks">Tasks</Link>

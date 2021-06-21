@@ -1,4 +1,5 @@
 import BadgeOutline from 'components/badges/BadgeOutline';
+import PageTitle from 'components/logic/PageTitle';
 import ProjectBadge from 'components/projects/ProjectBadge';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
@@ -11,12 +12,10 @@ import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import useSetTitle from 'hooks/useSetTitle';
 import { Link } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
 const TemplatesList = ({ history }) => {
-    useSetTitle('Project templates');
     const [templates, updateTemplates] = useFetch('/projects?isTemplate=1')
 
     const cloneProject = (ev, templateId) => {
@@ -47,6 +46,7 @@ const TemplatesList = ({ history }) => {
 
     return (
         <>
+            <PageTitle value="Project templates" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>

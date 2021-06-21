@@ -1,7 +1,7 @@
+import PageTitle from 'components/logic/PageTitle';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from "../../hooks/useSetTitle";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from '../ui/Icons';
@@ -12,8 +12,6 @@ import VulnerabilityForm from "./Form";
 
 const VulnerabilityEdit = () => {
     const { vulnerabilityId } = useParams();
-
-    useSetTitle('Edit Vulnerability');
 
     const history = useHistory();
 
@@ -44,6 +42,7 @@ const VulnerabilityEdit = () => {
 
     return (
         <div>
+            <PageTitle value="Edit Vulnerability" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>

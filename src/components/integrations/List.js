@@ -1,18 +1,17 @@
-import useSetTitle from '../../hooks/useSetTitle';
+import PageTitle from 'components/logic/PageTitle';
 import useFetch from '../../hooks/useFetch';
+import Breadcrumb from '../ui/Breadcrumb';
+import { IconExtensions } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
-import Breadcrumb from '../ui/Breadcrumb';
 import Title from "../ui/Title";
-import { IconExtensions } from '../ui/Icons';
 
 const IntegrationsList = ({ history }) => {
     const [integrations] = useFetch('/system/integrations')
 
-    useSetTitle('Integrations');
-
     return (
         <div>
+            <PageTitle value="Integrations" />
             <div className='heading'>
                 <Breadcrumb>
                     <div>System</div>
@@ -38,4 +37,4 @@ const IntegrationsList = ({ history }) => {
     )
 }
 
-export default IntegrationsList
+export default IntegrationsList;

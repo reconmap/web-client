@@ -1,6 +1,6 @@
+import PageTitle from 'components/logic/PageTitle';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import CreateButton from "../ui/buttons/Create";
 import DeleteButton from "../ui/buttons/Delete";
@@ -13,7 +13,6 @@ import Title from '../ui/Title';
 import ClientLink from "./Link";
 
 const ClientsList = ({ history }) => {
-    useSetTitle('Clients');
     const [clients, updateTasks] = useFetch('/clients')
 
     const destroy = useDelete('/clients/', updateTasks);
@@ -22,6 +21,7 @@ const ClientsList = ({ history }) => {
     }
 
     return <>
+        <PageTitle value="Clients" />
         <div className='heading'>
             <Breadcrumb />
 

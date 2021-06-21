@@ -1,10 +1,10 @@
+import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
 import { Link } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
 import Breadcrumb from '../ui/Breadcrumb';
 import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
@@ -24,8 +24,6 @@ import ProjectTeam from './Team';
 import ProjectVulnerabilities from './Vulnerabilities';
 
 const ProjectDetails = ({ match, history }) => {
-    useSetTitle('Project');
-
     const projectId = match.params.id;
 
     const [project, updateProject] = useFetch(`/projects/${projectId}`)
@@ -54,6 +52,7 @@ const ProjectDetails = ({ match, history }) => {
 
     return (
         <>
+            <PageTitle value="Project" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
@@ -67,12 +66,12 @@ const ProjectDetails = ({ match, history }) => {
                                 <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
                                 <SecondaryButton onClick={handleGenerateReport}>
                                     <IconClipboardCheck />
-                            Generate Report
-                        </SecondaryButton>
+                                    Generate Report
+                                </SecondaryButton>
                                 <SecondaryButton onClick={handleManageTeam}>
                                     <IconUserGroup />
-                            Manage Members
-                        </SecondaryButton>
+                                    Manage Members
+                                </SecondaryButton>
                             </>}
                             <SecondaryButton onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</SecondaryButton>
                             <DeleteButton onClick={() => destroy(project.id)} />

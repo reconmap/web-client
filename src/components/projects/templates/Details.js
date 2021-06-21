@@ -1,3 +1,4 @@
+import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import ButtonGroup from 'components/ui/buttons/ButtonGroup';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -9,14 +10,11 @@ import TimestampsSection from 'components/ui/TimestampsSection';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import useSetTitle from 'hooks/useSetTitle';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
-
 const TemplateDetails = ({ history, match }) => {
-    useSetTitle('Projects templates');
     const [template] = useFetch(`/projects/${match.params.templateId}`)
     const [tasks] = useFetch(`/projects/${match.params.templateId}/tasks`)
 
@@ -34,6 +32,7 @@ const TemplateDetails = ({ history, match }) => {
 
     return (
         <>
+            <PageTitle value="Projects templates" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>

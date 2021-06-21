@@ -1,7 +1,7 @@
+import PageTitle from 'components/logic/PageTitle';
 import { getAllTimezones } from 'countries-and-timezones';
 import React, { useContext, useState } from 'react';
 import ThemeContext from "../../contexts/ThemeContext";
-import useSetTitle from '../../hooks/useSetTitle';
 import secureApiFetch from '../../services/api';
 import setThemeColors from '../../utilities/setThemeColors';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -11,7 +11,6 @@ import { IconDark, IconLight, IconPreferences, IconSave } from '../ui/Icons';
 import Title from '../ui/Title';
 
 const UserPreferences = ({ history }) => {
-    useSetTitle('Preferences')
     const user = JSON.parse(localStorage.getItem('user'));
     const timezones = getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
@@ -46,6 +45,7 @@ const UserPreferences = ({ history }) => {
 
     return (
         <>
+            <PageTitle value="Preferences" />
             <div className='heading'>
                 <Breadcrumb />
             </div>

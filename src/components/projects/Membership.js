@@ -1,7 +1,7 @@
 import UserRoleBadge from "components/badges/UserRoleBadge";
+import PageTitle from "components/logic/PageTitle";
 import { Link } from "react-router-dom";
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -16,7 +16,6 @@ import UserLink from "../users/Link";
 const TasksList = ({ match }) => {
 
     const projectId = match.params.id;
-    useSetTitle('Project membership');
     const [users] = useFetch(`/users`)
     const [members, updateMembers] = useFetch(`/projects/${projectId}/users`)
     const [savedProject] = useFetch(`/projects/${projectId}`);
@@ -47,6 +46,7 @@ const TasksList = ({ match }) => {
     }
 
     return <div>
+        <PageTitle value="Project membership" />
         <div className="heading">
             <Breadcrumb>
                 <Link to="/projects">Projects</Link>

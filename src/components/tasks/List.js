@@ -1,3 +1,4 @@
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteButton from 'components/ui/buttons/Delete';
 import ReloadButton from 'components/ui/buttons/Reload';
@@ -6,7 +7,6 @@ import React, { useState } from 'react';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
 import TaskStatuses from "../../models/TaskStatuses";
 import Breadcrumb from '../ui/Breadcrumb';
 import ButtonGroup from "../ui/buttons/ButtonGroup";
@@ -17,8 +17,6 @@ import Title from '../ui/Title';
 import TasksTable from './TasksTable';
 
 const TasksList = ({ history }) => {
-    useSetTitle('Tasks');
-
     const [tasks, reloadTasks] = useFetch('/tasks');
     const [selectedTasks, setSelectedTasks] = useState([]);
 
@@ -77,6 +75,7 @@ const TasksList = ({ history }) => {
     const destroy = useDelete('/tasks/', reloadTasks);
 
     return <>
+        <PageTitle value="Tasks" />
         <div className='heading'>
             <Breadcrumb />
             <ButtonGroup>

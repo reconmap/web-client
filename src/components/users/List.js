@@ -1,3 +1,4 @@
+import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import React, { useState } from "react";
@@ -5,7 +6,6 @@ import { Link } from "react-router-dom";
 import CreateButton from "../../components/ui/buttons/Create";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
-import useSetTitle from "../../hooks/useSetTitle";
 import secureApiFetch from "../../services/api";
 import UserAvatar from "../badges/UserAvatar";
 import UserRoleBadge from "../badges/UserRoleBadge";
@@ -21,8 +21,6 @@ import { actionCompletedToast } from "../ui/toast";
 import UserLink from "./Link";
 
 const UsersList = ({ history }) => {
-    useSetTitle("Users");
-
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     const [users, updateUsers] = useFetch("/users");
     const deleteUser = useDelete("/users/", updateUsers);
@@ -67,6 +65,7 @@ const UsersList = ({ history }) => {
 
     return (
         <>
+            <PageTitle value="Users" />
             <div className="heading">
                 <Breadcrumb />
                 <ButtonGroup>

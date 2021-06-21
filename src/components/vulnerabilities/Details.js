@@ -1,11 +1,12 @@
 import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TargetBadge from 'components/target/TargetBadge';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
@@ -38,10 +39,6 @@ const VulnerabilityDetails = () => {
     const parentId = vulnerabilityId;
     const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`)
 
-    useEffect(() => {
-        if (vulnerability) document.title = `Vulnerability ${vulnerability.summary} | Reconmap`;
-    }, [vulnerability])
-
     const handleDelete = async () => {
         const confirmed = await deleteVulnerability(vulnerabilityId);
         if (confirmed)
@@ -64,6 +61,7 @@ const VulnerabilityDetails = () => {
     if (!vulnerability) return <Loading />
 
     return <div>
+        <PageTitle value={`Vulnerability ${vulnerability.summary}`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/vulnerabilities">Vulnerabilities</Link>

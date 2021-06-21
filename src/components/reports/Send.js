@@ -1,16 +1,14 @@
+import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import useFetch from 'hooks/useFetch';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import useSetTitle from "../../hooks/useSetTitle";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
 const SendReport = ({ history }) => {
-    useSetTitle("Send report")
-
     const routeParams = useParams();
     const { projectId } = routeParams;
     const [project] = useFetch(`/projects/${projectId}`)
@@ -51,6 +49,7 @@ const SendReport = ({ history }) => {
 
     return (
         <div>
+            <PageTitle value="Send report" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>

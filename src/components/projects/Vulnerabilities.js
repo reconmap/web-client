@@ -1,10 +1,10 @@
 import RestrictedComponent from 'components/logic/RestrictedComponent'
+import CreateButton from 'components/ui/buttons/Create'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import useFetch from "../../hooks/useFetch"
 import ButtonGroup from '../ui/buttons/ButtonGroup'
-import SecondaryButton from '../ui/buttons/Secondary'
-import { IconFlag, IconPlus } from '../ui/Icons'
+import { IconFlag } from '../ui/Icons'
 import Loading from '../ui/Loading'
 import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
 
@@ -28,20 +28,19 @@ const ProjectVulnerabilities = ({ project }) => {
                     <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
                         setStatus={setStatus} />}
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                    <SecondaryButton onClick={handleCreateVulnerability}>
-                        <IconPlus />
-                    Add New Vulnerability
-                </SecondaryButton>
+                    <CreateButton onClick={handleCreateVulnerability}>Add new vulnerability</CreateButton>
                 </RestrictedComponent>
             </ButtonGroup>
         </h4>
-        {vulnerabilities ?
-            <VulnerabilitiesTable
-                vulnerabilities={vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))}
-                reloadCallback={reloadVulnerabilities}
-            />
-            : <Loading />}
-    </section>
+        {
+            vulnerabilities ?
+                <VulnerabilitiesTable
+                    vulnerabilities={vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))}
+                    reloadCallback={reloadVulnerabilities}
+                />
+                : <Loading />
+        }
+    </section >
 }
 
 export default ProjectVulnerabilities

@@ -1,3 +1,4 @@
+import PageTitle from 'components/logic/PageTitle';
 import ReportConfigurationForm from 'components/reports/ConfigurationForm';
 import ReportRevisions from 'components/reports/Revisions';
 import Tab from 'components/ui/Tab';
@@ -23,7 +24,6 @@ const ProjectReport = () => {
             .then(resp => resp.json())
             .then(json => {
                 setProject(json);
-                document.title = `Report ${json.name} | Reconmap`;
             });
     }, [projectId, setProject]);
 
@@ -33,6 +33,7 @@ const ProjectReport = () => {
 
     return (
         <>
+            <PageTitle value={`Report ${project.name}`} />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>

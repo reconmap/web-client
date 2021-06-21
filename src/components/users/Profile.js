@@ -1,10 +1,10 @@
+import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import TimestampsSection from "components/ui/TimestampsSection";
 import { Link, useHistory } from "react-router-dom";
 import useDelete from "../../hooks/useDelete";
 import useFetch from '../../hooks/useFetch';
-import useSetTitle from '../../hooks/useSetTitle';
 import AuditLogsTable from '../auditlog/AuditLogsTable';
 import UserAvatar from '../badges/UserAvatar';
 import UserRoleBadge from '../badges/UserRoleBadge';
@@ -16,8 +16,6 @@ import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 
 const UserProfile = ({ match }) => {
-    useSetTitle('User');
-
     const history = useHistory();
 
     const userId = match.params.userId;
@@ -37,6 +35,7 @@ const UserProfile = ({ match }) => {
 
     return (
         <>
+            <PageTitle value={`${user.name} user`} />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
@@ -52,7 +51,7 @@ const UserProfile = ({ match }) => {
                 {user ?
                     <>
                         <Title type='User profile' title={user.full_name}
-                            icon={<UserAvatar email={user.email}  />} />
+                            icon={<UserAvatar email={user.email} />} />
 
                         <div className="grid grid-two">
                             <div>

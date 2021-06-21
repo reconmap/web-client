@@ -1,7 +1,8 @@
+import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Breadcrumb from "../ui/Breadcrumb";
 import ButtonGroup from "../ui/buttons/ButtonGroup";
@@ -21,10 +22,6 @@ const ClientDetails = () => {
     const [client] = useFetch(`/clients/${clientId}`)
     const deleteClient = useDelete(`/clients/`)
 
-    useEffect(() => {
-        if (client) document.title = `${client.name} - Client | Reconmap`;
-    }, [client])
-
     const handleDelete = async () => {
         const confirmed = await deleteClient(clientId);
         if (confirmed)
@@ -34,7 +31,9 @@ const ClientDetails = () => {
     if (!client) {
         return <Loading />
     }
+
     return <div>
+        <PageTitle value={`${client.name} - Client`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/clients">Clients</Link>

@@ -1,5 +1,6 @@
 import VulnerabilityBadge from 'components/badges/VulnerabilityBadge';
 import VulnerabilityCategoryBadge from 'components/badges/VulnerabilityCategoryBadge';
+import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -11,12 +12,10 @@ import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import useSetTitle from 'hooks/useSetTitle';
 import { Link } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
 const TemplatesList = ({ history }) => {
-    useSetTitle('Vulnerability templates');
     const [templates, updateTemplates] = useFetch('/vulnerabilities?isTemplate=1')
 
     const cloneVulnerability = (ev, templateId) => {
@@ -47,6 +46,7 @@ const TemplatesList = ({ history }) => {
 
     return (
         <>
+            <PageTitle value="Vulnerability templates" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>

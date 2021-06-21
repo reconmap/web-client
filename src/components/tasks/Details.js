@@ -1,6 +1,7 @@
 import AttachmentsTable from 'components/attachments/AttachmentsTable'
 import AttachmentsDropzone from 'components/attachments/Dropzone'
 import CommandOutputs from 'components/commands/Outputs'
+import PageTitle from 'components/logic/PageTitle'
 import RestrictedComponent from 'components/logic/RestrictedComponent'
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
@@ -70,8 +71,6 @@ const TaskDetails = ({ history, match }) => {
 
     useEffect(() => {
         if (task) {
-            document.title = `Task ${task.summary} | Reconmap`;
-
             secureApiFetch(`/projects/${task.project_id}`, { method: 'GET' })
                 .then(resp => resp.json())
                 .then(project => {
@@ -93,7 +92,7 @@ const TaskDetails = ({ history, match }) => {
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
                             <label>Transition to&nbsp;
-                        <select onChange={onStatusChange} value={task.status}>
+                                <select onChange={onStatusChange} value={task.status}>
                                     {TaskStatuses.map((status, index) =>
                                         <option key={index} value={status.id}>{status.name}</option>
                                     )}
@@ -106,6 +105,7 @@ const TaskDetails = ({ history, match }) => {
             </div>
             {!task ? <Loading /> :
                 <article>
+                    <PageTitle value={`Task ${task.summary}`} />
                     <Title title={task.summary} type='Task' icon={<IconClipboard />} />
 
                     <Tabs>
