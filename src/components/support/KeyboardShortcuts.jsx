@@ -1,3 +1,4 @@
+import { Kbd } from "@chakra-ui/react";
 import ModalDialog from "components/ui/ModalDIalog";
 import { useCallback, useEffect, useState } from "react";
 import isInputElement from "utilities/domUtils";
@@ -34,11 +35,11 @@ const KeyboardShortcuts = () => {
         <ul>
             <li>
                 Show/Hide keyboard shortcuts
-                    <kbd>?</kbd>
+                <Kbd>?</Kbd>
             </li>
             <li>
                 Search
-                    <kbd>/</kbd>
+                <Kbd>/</Kbd>
             </li>
         </ul>
         <hr />
@@ -47,11 +48,11 @@ const KeyboardShortcuts = () => {
         <ul>
             <li>
                 Previous page
-                    <kbd>p</kbd>
+                <Kbd>p</Kbd>
             </li>
             <li>
                 Next page
-                    <kbd>n</kbd>
+                <Kbd>n</Kbd>
             </li>
         </ul>
     </ModalDialog>

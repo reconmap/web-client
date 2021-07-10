@@ -28,13 +28,3 @@
     margin-bottom: var(--space-sm);
   }
 }
-
-kbd {
-  background-color: var(--bg-color);
-  display: inline-block;
-  text-transform: uppercase;
-  border-radius: var(--borderRadius);
-  width: max-content;
-  padding: var(--space-sm) var(--space);
-  color: var(--white);
-}
