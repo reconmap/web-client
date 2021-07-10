@@ -1,3 +1,4 @@
+import { Table, Thead } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ClientLink from "../clients/Link";
 import DeleteButton from "../ui/buttons/Delete";
@@ -6,8 +7,8 @@ import NoResults from "../ui/NoResults";
 import ProjectBadge from './ProjectBadge';
 
 const ProjectsTable = ({ projects, destroy = null }) => {
-    return <table>
-        <thead>
+    return <Table>
+        <Thead>
             <tr>
                 <th style={{ width: '190px' }}>Name</th>
                 <th>Client</th>
@@ -16,7 +17,7 @@ const ProjectsTable = ({ projects, destroy = null }) => {
                 <th>Status</th>
                 <th>&nbsp;</th>
             </tr>
-        </thead>
+        </Thead>
         <tbody>
             {projects.length === 0 ?
                 <tr>
@@ -42,7 +43,7 @@ const ProjectsTable = ({ projects, destroy = null }) => {
                     </tr>
                 )}
         </tbody>
-    </table>
+    </Table>
 }
 
 export default ProjectsTable;

@@ -15,14 +15,6 @@ form {
     }
 }
 
-form input[type="checkbox"] {
-    float: left;
-    margin-right: var(--margin);
-    width: var(--iconSizeSmall);
-    height: var(--iconSizeSmall);
-    border-radius: var(--borderRadius);
-}
-
 form input:required {
     border: var(--borderWidth) solid var(--primary-color);
 }

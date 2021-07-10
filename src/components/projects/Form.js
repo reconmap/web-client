@@ -1,3 +1,4 @@
+import { Checkbox, Select } from "@chakra-ui/react";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
@@ -28,22 +29,24 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             <legend>Basic information</legend>
 
             <label>Is template?
-                <input type="checkbox" name="is_template" onChange={handleFormChange} checked={project.is_template} />
+                <Checkbox name="is_template" onChange={handleFormChange} isChecked={project.is_template} />
             </label>
 
-            <label>Visibility
-                <select name="visibility" onChange={handleFormChange} value={project.visibility}>
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                </select>
-            </label>
+            {!project.is_template && <>
+                <label>Visibility
+                    <Select name="visibility" onChange={handleFormChange} value={project.visibility}>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </Select>
+                </label>
+            </>}
 
             <label>Client
-                <select name="client_id" onChange={handleFormChange} value={project.client_id}>
+                <Select name="client_id" onChange={handleFormChange} value={project.client_id}>
                     {clients && clients.map((client, index) =>
                         <option key={index} value={client.id}>{client.name}</option>
                     )}
-                </select>
+                </Select>
             </label>
             <label>Name
                 <input type="text" name="name" onChange={handleFormChange} value={project.name} required autoFocus />
@@ -58,10 +61,10 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             <label>
                 Type
-                <select name="engagement_type" value={project.engagement_type} onChange={handleFormChange}>
+                <Select name="engagement_type" value={project.engagement_type} onChange={handleFormChange}>
                     <option value="">(undefined)</option>
                     {ProjectEngagementTypes.map((type, index) => <option value={type.id}>{type.name}</option>)}
-                </select>
+                </Select>
             </label>
 
             {!project.is_template && <>
