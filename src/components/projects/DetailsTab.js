@@ -1,3 +1,4 @@
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import ClientLink from 'components/clients/Link'
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
@@ -14,6 +15,9 @@ function ProjectDetailsTab({ project }) {
                     <IconDocument /> Project Details
                 </h4>
                 <dl>
+                    <dt>Visibility</dt>
+                    <dd>{project.visibility === 'public' ? <><ViewIcon /> Public</> : <><ViewOffIcon /> Private</>}</dd>
+
                     <dt>Status</dt>
                     <dd>{project.archived ? 'Archived' : 'Active'}</dd>
 

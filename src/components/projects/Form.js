@@ -30,6 +30,14 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             <label>Is template?
                 <input type="checkbox" name="is_template" onChange={handleFormChange} checked={project.is_template} />
             </label>
+
+            <label>Visibility
+                <select name="visibility" onChange={handleFormChange} value={project.visibility}>
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </label>
+
             <label>Client
                 <select name="client_id" onChange={handleFormChange} value={project.client_id}>
                     {clients && clients.map((client, index) =>
@@ -58,12 +66,12 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             {!project.is_template && <>
                 <label>Start date
-                <input type="date" name="engagement_start_date" value={project.engagement_start_date}
+                    <input type="date" name="engagement_start_date" value={project.engagement_start_date}
                         onChange={handleFormChange} />
                 </label>
 
                 <label>End date
-                <input type="date" name="engagement_end_date" value={project.engagement_end_date}
+                    <input type="date" name="engagement_end_date" value={project.engagement_end_date}
                         onChange={handleFormChange} />
                 </label>
             </>}
