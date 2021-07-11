@@ -1,3 +1,4 @@
+import { Checkbox } from '@chakra-ui/react';
 import Loading from 'components/ui/Loading';
 import Tab from 'components/ui/Tab';
 import Tabs from 'components/ui/Tabs';
@@ -66,7 +67,7 @@ const DashboardPanels = () => {
                 <h4>Select which widgets to present in your dashboard</h4>
                 <br />
                 {Object.keys(dashboardConfig).map((widgetKey) => {
-                    return <><label><input type="checkbox" name={widgetKey} checked={dashboardConfig[widgetKey].visible} onChange={onWidgetChange} /> {dashboardConfig[widgetKey].title}</label><br /></>
+                    return <><Checkbox name={widgetKey} isChecked={dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{dashboardConfig[widgetKey].title}</Checkbox><br /></>
                 })}
             </Tab>
         </Tabs>

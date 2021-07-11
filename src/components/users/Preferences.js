@@ -1,3 +1,4 @@
+import { Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import { getAllTimezones } from 'countries-and-timezones';
 import React, { useContext, useState } from 'react';
@@ -52,11 +53,11 @@ const UserPreferences = ({ history }) => {
             <Title type='User' title='Preferences' icon={<IconPreferences />} />
             <form onSubmit={onFormSubmit} required>
                 <label>Timezone
-                    <select onChange={handleChange} defaultValue={user.timezone}>
+                    <Select onChange={handleChange} defaultValue={user.timezone}>
                         {timezoneKeys.map((key, index) =>
                             <option key={index} value={timezones[key].name}>{timezones[key].name}</option>
                         )}
-                    </select>
+                    </Select>
                 </label>
                 <label>Theme
                     <SecondaryButton onClick={handleSwitchTheme}>

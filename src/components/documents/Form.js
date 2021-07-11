@@ -1,3 +1,4 @@
+import { Select } from "@chakra-ui/react";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -20,10 +21,10 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
         <MarkdownEditor name="content" style={{ width: '100%' }} required value={document.content}
             onChange={onFormInputChange} /><br />
         <label for="visibility">Visibility</label>
-        <select name="visibility" id="visibility" value={document.visibility} onChange={onFormInputChange} required>
+        <Select name="visibility" id="visibility" value={document.visibility} onChange={onFormInputChange} required>
             <option value="private">Private</option>
             <option value="public">Public</option>
-        </select><br />
+        </Select><br />
 
         <PrimaryButton type="submit">{isEditForm ? "Update" : "Create"}</PrimaryButton>
     </form>

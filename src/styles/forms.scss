@@ -80,7 +80,7 @@ input::placeholder {
     color: var(--text-color);
 }
 
-input,
+input:not([type="checkbox"]),
 select,
 textarea,
 button {

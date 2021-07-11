@@ -1,3 +1,4 @@
+import { Select } from '@chakra-ui/react';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import { useEffect, useState } from 'react';
 import { unstable_batchedUpdates } from "react-dom";
@@ -102,36 +103,36 @@ const VulnerabilityForm = ({
             </label>
 
             <label>Summary
-            <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus />
+                <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus />
             </label>
             <label>Description
-            <MarkdownEditor name="description" value={vulnerability.description} onChange={onFormChange} />
+                <MarkdownEditor name="description" value={vulnerability.description} onChange={onFormChange} />
             </label>
             <label>Proof of concept
-            <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />
+                <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />
             </label>
             <label>Impact
-            <MarkdownEditor name="impact" value={vulnerability.impact} onChange={onFormChange} />
+                <MarkdownEditor name="impact" value={vulnerability.impact} onChange={onFormChange} />
             </label>
             <label>Solution (if available)
-            <MarkdownEditor name="solution" value={vulnerability.solution} onChange={onFormChange} />
+                <MarkdownEditor name="solution" value={vulnerability.solution} onChange={onFormChange} />
             </label>
             <label>Risk
-            <select name="risk" value={vulnerability.risk} onChange={onFormChange} required>
+                <Select name="risk" value={vulnerability.risk} onChange={onFormChange} required>
                     {Risks.map((risk, index) =>
                         <option key={index} value={risk.id}>{risk.name}</option>
                     )}
-                </select>
+                </Select>
             </label>
             <label>Category
-            <select name="category_id" value={vulnerability.category_id} onChange={onFormChange} required>
+                <Select name="category_id" value={vulnerability.category_id} onChange={onFormChange} required>
                     {categories && categories.map((category, index) =>
                         <option key={index} value={category.id}>{category.name}</option>
                     )}
-                </select>
+                </Select>
             </label>
             <label>CVSS score
-            <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
+                <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
                     onChange={onFormChange} />
             </label>
             <label><span><CvssAbbr /> vector</span>
@@ -143,20 +144,20 @@ const VulnerabilityForm = ({
             <legend>Relations</legend>
 
             <label>Project
-            <select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
+                <Select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
                     {projects && projects.map((project, index) =>
                         <option key={index} value={project.id}>{project.name}</option>
                     )}
-                </select>
+                </Select>
             </label>
 
             <label>Affected target
-            <select name="target_id" value={vulnerability.target_id} onChange={onFormChange}>
+                <Select name="target_id" value={vulnerability.target_id} onChange={onFormChange}>
                     <option value="0">(none)</option>
                     {targets && targets.map((target, index) =>
                         <option key={index} value={target.id}>{target.name}</option>
                     )}
-                </select>
+                </Select>
             </label>
         </fieldset>}
 

@@ -1,3 +1,4 @@
+import { Select } from "@chakra-ui/react";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -17,24 +18,24 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
             <MarkdownEditor name="description" onChange={onFormChange} value={command.description} required />
         </label>
         <label>Type
-            <select name="executable_type" onChange={onFormChange} value={command.executable_type} required>
+            <Select name="executable_type" onChange={onFormChange} value={command.executable_type} required>
                 <option value="custom">Custom</option>
                 <option value="rmap">Reconmap (rmap)</option>
-            </select>
+            </Select>
         </label>
         {command.executable_type === 'custom' && <>
             <label>Executable path
-            <input type="text" name="executable_path" onChange={onFormChange} value={command.executable_path} /></label>
+                <input type="text" name="executable_path" onChange={onFormChange} value={command.executable_path} /></label>
         </>
         }
         <label>Command line arguments
             <input type="text" name="arguments" onChange={onFormChange} value={command.arguments} /></label>
         {command.executable_type === 'rmap' && <>
             <label>Docker image
-            <input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image} /></label>
+                <input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image} /></label>
 
             <label>Output filename
-            <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename} />
+                <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename} />
             </label>
         </>}
 

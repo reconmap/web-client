@@ -1,3 +1,4 @@
+import { Select } from "@chakra-ui/react";
 import { useState } from "react";
 import UserRoles from "../../models/UserRoles";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -32,9 +33,9 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                 <input type="email" name="email" value={user.email} onChange={onFormChange} required />
             </label>
             <label>Role
-                <select name="role" onChange={onFormChange} value={user.role} required>
+                <Select name="role" onChange={onFormChange} value={user.role} required>
                     {UserRoles.map((role, index) => <option value={role.id}>{role.name}</option>)}
-                </select>
+                </Select>
             </label>
             <label>Active?
                 <input type="checkbox" name="active" checked={user.active} onChange={onFormChange} />
@@ -52,19 +53,19 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             {!isEdit &&
                 <>
                     <label for="passwordGenerationMethod">Password generation method
-                        <select name="passwordGenerationMethod" onChange={onPasswordGenerationMethodChange}>
+                        <Select name="passwordGenerationMethod" onChange={onPasswordGenerationMethodChange}>
                             <option value="auto">Auto-generated</option>
                             <option value="manual">Manual</option>
-                        </select>
+                        </Select>
                     </label>
                     {passwordGenerationMethod === 'manual' &&
                         <>
                             <label>Password
-                             <input type="password" name="unencryptedPassword" onChange={onFormChange} required />
+                                <input type="password" name="unencryptedPassword" onChange={onFormChange} required />
                             </label>
                             <label>
                                 Send email to user
-                            <input type="checkbox" name="sendEmailToUser" onChange={onFormChange} />
+                                <input type="checkbox" name="sendEmailToUser" onChange={onFormChange} />
                             </label>
                         </>
                     }

@@ -1,3 +1,4 @@
+import { Select } from "@chakra-ui/react";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import Loading from "components/ui/Loading";
 import { useEffect } from 'react';
@@ -28,12 +29,12 @@ const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask 
     return <form onSubmit={onFormSubmit}>
         <label>
             Project
-            <select name="project_id" onChange={onFormChange}
+            <Select name="project_id" onChange={onFormChange}
                 value={task.project_id} required>
                 {projects && projects.map((project, index) =>
                     <option key={index} value={project.id}>{project.name}</option>
                 )}
-            </select>
+            </Select>
         </label>
         <label>Summary
             <input type="text" name="summary" onChange={onFormChange} required autoFocus
@@ -44,12 +45,12 @@ const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask 
         <label>Due date
             <input type="date" name="due_date" onChange={onFormChange} value={task.due_date} /></label>
         <label>Command
-            <select name="command_id" onChange={onFormChange} value={task.command_id}>
+            <Select name="command_id" onChange={onFormChange} value={task.command_id}>
                 <option value="">(none)</option>
                 {commands.map((command) =>
                     <option value={command.id}>{command.short_name}</option>
                 )}
-            </select>
+            </Select>
         </label>
 
         <PrimaryButton type="submit">{isEditForm ? "Save" : "Create"}</PrimaryButton>

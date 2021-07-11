@@ -322,7 +322,6 @@ h2,
 h3,
 h4 {
     svg {
-        margin: 0 var(--margin) 0 0;
         width: var(--iconSizeSmall);
         height: var(--iconSizeSmall);
         padding: 0;
@@ -351,20 +350,6 @@ a {
 
     &:hover {
         box-shadow: 0 0 0 var(--borderWidth) var(--primary-color);
-    }
-}
-
-div.has-help {
-    max-width: 900px;
-    margin: auto;
-    display: grid;
-    gap: var(--padding);
-    grid-template-columns: minmax(400px, 1fr) minmax(120px, 300px);
-}
-
-@media only screen and (max-width: 700px) {
-    div.has-help {
-        display: block;
     }
 }
 
