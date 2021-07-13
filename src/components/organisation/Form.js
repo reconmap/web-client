@@ -61,7 +61,7 @@ export default function OrganisationForm({ history }) {
                     <input type="email" name="contact_email" value={organisation.contact_email}
                         onChange={handleFormChange} /></label>
                 <label>Contact phone
-                    <input type="text" name="contact_phone" value={organisation.contact_phone}
+                    <input type="tel" name="contact_phone" value={organisation.contact_phone}
                         onChange={handleFormChange} /></label>
                 <PrimaryButton type="submit"
                     disabled={loading}>Save</PrimaryButton>

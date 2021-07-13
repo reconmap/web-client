@@ -1,4 +1,4 @@
-import { Kbd } from "@chakra-ui/react";
+import { Divider, Kbd } from "@chakra-ui/react";
 import ModalDialog from "components/ui/ModalDIalog";
 import { useCallback, useEffect, useState } from "react";
 import isInputElement from "utilities/domUtils";
@@ -42,7 +42,7 @@ const KeyboardShortcuts = () => {
                 <Kbd>/</Kbd>
             </li>
         </ul>
-        <hr />
+        <Divider />
 
         <h4>Pagination</h4>
         <ul>

@@ -295,19 +295,6 @@ section {
     }
 }
 
-input:focus {
-    border: var(--borderWidth) solid var(--gray);
-}
-
-
-
-
-hr {
-    border-top-width: var(--borderWidth);
-    margin: var(--space) auto;
-    border-color: var(--bg-color);
-}
-
 .recharts-wrapper svg {
     width: initial;
     height: initial;
@@ -330,12 +317,6 @@ h4 {
 }
 
 figure svg { margin: 0; }
-
-a {
-    &:hover {
-        opacity: 0.8;
-    }
-}
 
 .breadcrumb {
     color: var(--white);

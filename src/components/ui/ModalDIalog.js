@@ -1,3 +1,4 @@
+import { Divider } from "@chakra-ui/react";
 import { useCallback, useEffect } from "react";
 import isInputElement from "utilities/domUtils";
 import './ModalDialog.scss';
@@ -33,7 +34,7 @@ const ModalDialog = ({ title, children, visible, onModalClose, style = {} }) => 
         <div className="modaldialog-backdrop" onClick={closeShortcutsPopup}></div>
         <div className="KeyboardShortcutsPopup" style={style}>
             <h3>{title}</h3>
-            <hr />
+            <Divider />
 
             {children}
         </div>
