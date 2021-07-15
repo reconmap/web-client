@@ -3,6 +3,7 @@ import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Auth from "services/auth";
 import CreateButton from "../../components/ui/buttons/Create";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -21,7 +22,7 @@ import { actionCompletedToast } from "../ui/toast";
 import UserLink from "./Link";
 
 const UsersList = ({ history }) => {
-    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    const loggedInUser = Auth.getLoggedInUser();
     const [users, updateUsers] = useFetch("/users");
     const deleteUser = useDelete("/users/", updateUsers);
     const handleCreate = () => {

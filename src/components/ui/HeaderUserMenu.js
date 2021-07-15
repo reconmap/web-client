@@ -5,10 +5,12 @@ import UserAvatar from "components/badges/UserAvatar";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { AuthConsumer } from "contexts/AuthContext";
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Auth from "services/auth";
 
 export default function HeaderUserMenu({ email }) {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = Auth.getLoggedInUser();
+
     return (
         <Menu closeOnBlur closeOnSelect>
             <MenuButton rightIcon={<ChevronDownIcon />}>

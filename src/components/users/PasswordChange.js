@@ -1,6 +1,7 @@
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
+import Auth from "services/auth";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -8,7 +9,7 @@ import { IconPreferences } from "../ui/Icons";
 import Title from "../ui/Title";
 
 const UserPasswordChange = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Auth.getLoggedInUser();
     const history = useHistory();
     const [passwords, setPasswords] = useState(
         {

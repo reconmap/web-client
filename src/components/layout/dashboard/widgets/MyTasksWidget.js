@@ -2,10 +2,12 @@ import TaskBadge from "components/tasks/TaskBadge";
 import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
+import Auth from "services/auth";
 import widgetIsVisible from "services/widgets";
 
 const MyTasksWidget = () => {
-    const [tasks] = useFetch(`/tasks?limit=5`)
+    const user = Auth.getLoggedInUser();
+    const [tasks] = useFetch(`/tasks?assigneeUid=${user.id}&limit=5`)
 
     const visible = widgetIsVisible('my-tasks');
     if (!visible) return null;

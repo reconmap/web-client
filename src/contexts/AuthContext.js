@@ -10,7 +10,7 @@ const AuthProvider = (props) => {
     const history = useHistory();
 
     const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    const [user, setUser] = useState(Auth.getLoggedInUser());
 
     let redirectTo
     try {

@@ -1,5 +1,6 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
+import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
 import SecondaryButton from '../../ui/buttons/Secondary';
 import { IconBookOpen, IconChevronDown, IconDashboard, IconSupport } from '../../ui/Icons';
@@ -11,7 +12,7 @@ export default function Sidebar(props) {
     const { setSidebarCollapsed, sidebarCollapsed } = props
     const { push } = useHistory();
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Auth.getLoggedInUser();
 
     const filterByRole = (link) => {
         if (!link.hasOwnProperty('permissions')) {

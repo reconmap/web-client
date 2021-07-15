@@ -1,9 +1,8 @@
-import { IconX } from "../Icons";
-import SecondaryButton from './../buttons/Secondary';
+import { DeleteIcon } from "@chakra-ui/icons";
+import { Button } from "@chakra-ui/react";
 
-const DeleteButton = (props) => <SecondaryButton onClick={props.onClick} {...props}>
-    <IconX />
+const DeleteButton = (props) => <Button colorScheme="red" onClick={props.onClick} {...props} leftIcon={<DeleteIcon />}>
     {props.children || "Delete"}
-</SecondaryButton>
+</Button>
 
-export default DeleteButton
+export default DeleteButton;

@@ -6,6 +6,7 @@ import Tabs from 'components/ui/Tabs';
 import Configuration from 'Configuration';
 import React, { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from "react-router-dom";
+import Auth from 'services/auth';
 import secureApiFetch from '../../services/api';
 import { IconReport } from '../ui/Icons';
 import Loading from "../ui/Loading";
@@ -64,7 +65,7 @@ const ProjectReport = () => {
 export default ProjectReport;
 
 const ReportPreview = ({ projectId }) => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Auth.getLoggedInUser();
 
     return <iframe title="Report preview" style={{ width: '50%', margin: '20px auto' }} id="report" src={Configuration.apiEndpoint + `/reports/preview?projectId=${projectId}&accessToken=${user.access_token}`}></iframe>
 }

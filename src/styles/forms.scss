@@ -45,11 +45,7 @@ textarea {
     height: 150px;
 }
 
-button:focus {
-    outline: 0;
-}
-
-button:disabled, select:disabled {
+button:disabled {
     opacity: 0.5;
 }
 
@@ -82,8 +78,7 @@ input::placeholder {
 
 input:not([type="checkbox"]),
 select,
-textarea,
-button {
+textarea {
     color: var(--white);
     padding: var(--paddingBox);
     border-width: var(--borderWidth);
@@ -97,4 +92,15 @@ button {
     &:hover {
         box-shadow: 0 0 0 var(--borderWidth) var(--primary-color);
     }
+}
+
+button {
+    color: var(--white);
+    padding: var(--paddingBox);
+    border-width: var(--borderWidth);
+    border-color: transparent;
+    background-color: var(--black);
+    border-radius: var(--borderRadius);
+    transition: var(--transitionTime);
+    font-size: var(--fontSizeSmall);
 }

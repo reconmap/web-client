@@ -9,7 +9,7 @@ function resetSessionStorageAndRedirect() {
 }
 
 function secureApiFetch(url, init) {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Auth.getLoggedInUser();
 
     const headers = user && user.access_token !== null ? { Authorization: 'Bearer ' + user.access_token } : {};
     const initWithAuth = init;

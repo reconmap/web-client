@@ -1,10 +1,11 @@
 import ExternalLink from 'components/ui/ExternalLink';
 import { ServerIssuesUrl } from 'ServerUrls';
+import Auth from 'services/auth';
 import './Form.css';
 
 const SupportForm = () => {
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Auth.getLoggedInUser();
 
     const systemInfo = `User
 ----

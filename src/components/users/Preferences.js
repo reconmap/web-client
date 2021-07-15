@@ -2,6 +2,7 @@ import { Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import { getAllTimezones } from 'countries-and-timezones';
 import React, { useContext, useState } from 'react';
+import Auth from 'services/auth';
 import ThemeContext from "../../contexts/ThemeContext";
 import secureApiFetch from '../../services/api';
 import setThemeColors from '../../utilities/setThemeColors';
@@ -12,7 +13,7 @@ import { IconDark, IconLight, IconPreferences, IconSave } from '../ui/Icons';
 import Title from '../ui/Title';
 
 const UserPreferences = ({ history }) => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Auth.getLoggedInUser();
     const timezones = getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
     const [timezone, setTimezone] = useState(user.timezone);
