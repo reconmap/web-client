@@ -3,11 +3,6 @@ table {
     width: 100%;
     margin: var(--padding) auto;
 
-    tbody tr:hover {
-        border-left: 1px solid darkgray;
-        border-right: 1px solid darkgray;
-    }
-
     th {
         text-align: left;
         padding: var(--padding) var(--margin);

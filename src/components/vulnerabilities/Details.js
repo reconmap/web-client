@@ -3,6 +3,7 @@ import AttachmentsDropzone from 'components/attachments/Dropzone';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TargetBadge from 'components/target/TargetBadge';
+import EmptyField from 'components/ui/EmptyField';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
@@ -93,7 +94,7 @@ const VulnerabilityDetails = () => {
                     <div className="grid grid-two">
                         <div>
                             <h4>Description</h4>
-                            <ReactMarkdown>{vulnerability.description || "_(empty)_"}</ReactMarkdown>
+                            {vulnerability.description ? <ReactMarkdown>{vulnerability.description}</ReactMarkdown> : <EmptyField />}
                             {vulnerability.solution &&
                                 <>
                                     <h4>Solution</h4>
@@ -102,10 +103,10 @@ const VulnerabilityDetails = () => {
                             }
 
                             <h4>Proof of concept</h4>
-                            <ReactMarkdown>{vulnerability.proof_of_concept || "_(empty)_"}</ReactMarkdown>
+                            {vulnerability.proof_of_concept ? <ReactMarkdown>{vulnerability.proof_of_concept}</ReactMarkdown> : <EmptyField />}
 
                             <h4>Impact</h4>
-                            <ReactMarkdown>{vulnerability.impact || "_(empty)_"}</ReactMarkdown>
+                            {vulnerability.impact ? <ReactMarkdown>{vulnerability.impact}</ReactMarkdown> : <EmptyField />}
 
                             <h4>Properties</h4>
                             <dl>

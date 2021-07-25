@@ -3,7 +3,6 @@ form {
         display: grid;
         align-items: center;
         grid-template-columns: 220px 1fr;
-        grid-column-gap: var(--space);
     }
 
     label,

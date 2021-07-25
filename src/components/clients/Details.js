@@ -1,5 +1,6 @@
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import EmptyField from 'components/ui/EmptyField';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import React from 'react';
@@ -70,7 +71,7 @@ const ClientDetails = () => {
                         <dd><a href={`mailto:${client.contact_email}`}>{client.contact_email}</a></dd>
 
                         <dt>Contact phone</dt>
-                        <dd><a href={`tel:${client.contact_phone}`}>{client.contact_phone}</a></dd>
+                        <dd>{client.contact_phone ? <a href={`tel:${client.contact_phone}`}>{client.contact_phone}</a> : <EmptyField />}</dd>
                     </dl>
                 </div>
 

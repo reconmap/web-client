@@ -7,6 +7,7 @@ import ButtonGroup from 'components/ui/buttons/ButtonGroup';
 import DeleteButton from 'components/ui/buttons/Delete';
 import LinkButton from 'components/ui/buttons/Link';
 import PrimaryButton from 'components/ui/buttons/Primary';
+import EmptyField from 'components/ui/EmptyField';
 import ExternalLink from 'components/ui/ExternalLink';
 import { IconFlag, IconPlusCircle } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
@@ -68,7 +69,7 @@ const TemplateDetails = ({ history, match }) => {
                             <div className="grid grid-two">
                                 <div>
                                     <h4>Description</h4>
-                                    <ReactMarkdown>{vulnerability.description || "_(empty)_"}</ReactMarkdown>
+                                    {vulnerability.description ? <ReactMarkdown>{vulnerability.description}</ReactMarkdown> : <EmptyField />}
                                     {vulnerability.solution &&
                                         <>
                                             <h4>Solution</h4>
@@ -77,10 +78,10 @@ const TemplateDetails = ({ history, match }) => {
                                     }
 
                                     <h4>Proof of concept</h4>
-                                    <ReactMarkdown>{vulnerability.proof_of_concept || "_(empty)_"}</ReactMarkdown>
+                                    {vulnerability.description ? <ReactMarkdown>{vulnerability.description}</ReactMarkdown> : <EmptyField />}
 
                                     <h4>Impact</h4>
-                                    <ReactMarkdown>{vulnerability.impact || "_(empty)_"}</ReactMarkdown>
+                                    {vulnerability.impact ? <ReactMarkdown>{vulnerability.impact}</ReactMarkdown> : <EmptyField />}
 
                                     <h4>Properties</h4>
                                     <dl>

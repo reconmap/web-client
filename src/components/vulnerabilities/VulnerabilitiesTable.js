@@ -41,7 +41,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
             </thead>
             <tbody>
                 {vulnerabilities.length === 0 ?
-                    <NoResultsTableRow colSpan="7" />
+                    <NoResultsTableRow numColumns="6" />
                     :
                     vulnerabilities.map((vulnerability, index) => {
                         return (

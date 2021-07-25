@@ -3,6 +3,7 @@ import AttachmentsDropzone from 'components/attachments/Dropzone'
 import CommandOutputs from 'components/commands/Outputs'
 import PageTitle from 'components/logic/PageTitle'
 import RestrictedComponent from 'components/logic/RestrictedComponent'
+import EmptyField from 'components/ui/EmptyField'
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
@@ -113,7 +114,7 @@ const TaskDetails = ({ history, match }) => {
                             <div className="grid grid-two">
                                 <div>
                                     <h4>Description</h4>
-                                    <ReactMarkdown>{task.description || "_(empty)_"}</ReactMarkdown>
+                                    {task.description ? <ReactMarkdown>{task.description}</ReactMarkdown> : <EmptyField />}
                                     <h4>Status</h4>
                                     <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
                                         <TaskStatusFormatter task={task} />

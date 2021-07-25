@@ -1,4 +1,4 @@
-import { Select } from '@chakra-ui/react';
+import { Checkbox, Select } from '@chakra-ui/react';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import { useEffect, useState } from 'react';
 import { unstable_batchedUpdates } from "react-dom";
@@ -98,8 +98,10 @@ const VulnerabilityForm = ({
         <fieldset>
             <legend>Basic information</legend>
 
-            <label>Is template?
-                <input type="checkbox" name="is_template" onChange={onFormChange} checked={vulnerability.is_template} />
+            <label>Properties
+                <div>
+                    <Checkbox name="is_template" onChange={onFormChange} isChecked={vulnerability.is_template}>Is template</Checkbox>
+                </div>
             </label>
 
             <label>Summary
