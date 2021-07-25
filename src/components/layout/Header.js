@@ -1,13 +1,13 @@
+import * as path from 'path';
 import { Link } from 'react-router-dom';
 import { ServerIssuesUrl, UserManualUrl } from 'ServerUrls';
+import Configuration from '../../Configuration';
 import { AuthConsumer } from '../../contexts/AuthContext';
 import NotificationsBadge from '../badges/NotificationsBadge';
 import SearchBox from "../search/Box";
 import LinkButton from '../ui/buttons/Link';
 import HeaderUserMenu from '../ui/HeaderUserMenu';
-import Configuration from '../../Configuration';
 import './Header.scss';
-import * as path from 'path';
 
 const LINKS = [
     { title: "User Manual", to: { pathname: UserManualUrl } },
@@ -22,7 +22,7 @@ export default function Header() {
                 <nav>
                     <Link to='/' style={{ cursor: 'pointer' }} className='logo'>
                         <h3>
-                            <img alt='logo' src={ path.join(Configuration.appBasename, 'logo.svg') } />
+                            <img alt='logo' src={path.join(Configuration.appBasename, 'logo.svg')} />
                             <strong style={{ color: 'var(--white)' }} className='from-tablet'>
                                 Recon<span style={{ color: 'var(--primary-color)' }}>map</span>
                             </strong>
@@ -37,8 +37,6 @@ export default function Header() {
                             <LinkButton external key={index} href={link.to.pathname}>
                                 {link.title}
                             </LinkButton>))}
-
-                    <div id='progress'></div>
                 </nav>
             )
         }

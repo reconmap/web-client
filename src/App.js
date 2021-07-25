@@ -1,6 +1,7 @@
 import AuthRoutes from 'components/auth/Routes';
 import CommandsRoutes from 'components/commands/Routes';
 import DocumentsRoutes from 'components/documents/Routes';
+import SupportRoutes from 'components/support/Routes';
 import TargetsRoutes from 'components/target/Routes';
 import VulnerabilityTemplatesRoutes from 'components/vulnerabilities/templates/Routes';
 import React, { useEffect, useState } from 'react';
@@ -16,11 +17,9 @@ import ProjectsRoutes from "./components/projects/Routes";
 import ProjectTemplatesRoutes from './components/projects/templates/Routes';
 import ReportsRoutes from "./components/reports/Routes";
 import SearchResults from './components/search/Results';
-import SupportForm from "./components/support/Form";
 import KeyboardShortcuts from "./components/support/KeyboardShortcuts";
 import SystemRoutes from "./components/system/Routes";
 import TasksRoutes from "./components/tasks/Routes";
-import Sandbox from './components/ui/Sandbox';
 import UsersRoutes from "./components/users/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import Configuration from './Configuration';
@@ -57,6 +56,7 @@ const App = () => {
                                         ...VulnerabilityTemplatesRoutes,
                                         ...TargetsRoutes,
                                         ...ReportsRoutes,
+                                        ...SupportRoutes,
                                         ...SystemRoutes,
                                         ...OrganisationRoutes
                                     ]
@@ -65,8 +65,6 @@ const App = () => {
                                 <ProtectedRoute path={`/search/:keywords`} component={SearchResults} />
                                 <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
-                                <ProtectedRoute exact path={`/sandbox`} component={Sandbox} />
-                                <ProtectedRoute exact path={`/support`} component={SupportForm} />
                                 <Route component={PageNotFound} />
                             </Switch>
                             <KeyboardShortcuts />

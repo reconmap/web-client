@@ -1,4 +1,5 @@
 import {
+    IconBookOpen,
     IconBriefcase,
     IconClipboardList,
     IconDocument,
@@ -10,6 +11,10 @@ import {
     IconFolder,
     IconPlus,
     IconPreferences,
+
+    IconQuestionCircle,
+
+    IconSupport,
 
     IconTerminal,
     IconUpload,
@@ -139,7 +144,26 @@ const Links = [
             },
         ],
         permissions: 'system.*'
+    },
+    {
+        title: 'Help and support',
+        icon: <IconQuestionCircle size={5} />,
+        to: '/help',
+        sublinks: [
+            {
+                title: 'User manual',
+                icon: <IconBookOpen size={5} />,
+                to: 'https://reconmap.org/user-manual/',
+                external: true
+            },
+            {
+                title: 'Support',
+                icon: <IconSupport size={5} />,
+                to: '/support',
+            },
+
+        ]
     }
 ]
 
-export default Links
+export default Links;

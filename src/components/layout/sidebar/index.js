@@ -1,16 +1,14 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
-import SecondaryButton from '../../ui/buttons/Secondary';
-import { IconBookOpen, IconChevronDown, IconDashboard, IconSupport } from '../../ui/Icons';
+import { IconChevronDown, IconDashboard } from '../../ui/Icons';
 import IconCollapse from './../../../images/icons/collapse';
 import Links from './Links';
 import './Sidebar.scss';
 
 export default function Sidebar(props) {
     const { setSidebarCollapsed, sidebarCollapsed } = props
-    const { push } = useHistory();
 
     const user = Auth.getLoggedInUser();
 
@@ -33,12 +31,6 @@ export default function Sidebar(props) {
 
     const defaultSectionStatuses = Object.assign({}, ...Links.map(link => ({ [link.title]: false })));
     const [sectionStatuses, updateSectionStatuses] = useState(defaultSectionStatuses);
-
-    const handleUserManual = () => {
-        window.open("https://reconmap.org/user-manual/", '_blank');
-    }
-
-    const onSupportButtonClick = () => { push('/support'); }
 
     const onParentClick = (ev, link) => {
         ev.preventDefault();
@@ -71,22 +63,23 @@ export default function Sidebar(props) {
                     {sectionStatuses[link.title] &&
                         <React.Fragment>
                             {subLinks.map(sublink =>
-                                <NavLink to={sublink.to} data-label={sublink.title} activeClassName='active'
-                                    className='sublink'
-                                    exact>
-                                    {sublink.icon}
-                                    <span>{sublink.title}</span>
-                                </NavLink>
+                                sublink.hasOwnProperty('external') ?
+                                    <a href={sublink.to} target="_blank" rel="noreferrer noopener" data-label={sublink.title} activeClassName='active' className='sublink'>
+                                        {sublink.icon}
+                                        <span>{sublink.title}</span>
+                                    </a>
+                                    :
+                                    <NavLink to={sublink.to} data-label={sublink.title} activeClassName='active'
+                                        className='sublink'
+                                        exact>
+                                        {sublink.icon}
+                                        <span>{sublink.title}</span>
+                                    </NavLink>
                             )}
                         </React.Fragment>}
                 </React.Fragment>
 
             })}
-
-            <div id='bottom'>
-                <SecondaryButton onClick={handleUserManual}><IconBookOpen /><span>User manual</span></SecondaryButton>
-                <SecondaryButton onClick={onSupportButtonClick}><IconSupport /> <span>Support</span></SecondaryButton>
-            </div>
         </aside>
     )
 }

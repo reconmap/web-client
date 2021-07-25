@@ -14,16 +14,6 @@ nav {
     h3 {
         margin-right: auto;
     }
-
-    #progress {
-        position: absolute;
-        bottom: 0;
-        height: var(--borderWidth);
-        background-color: var(--primary-color);
-        width: 0;
-        left: 0;
-        transition: var(--transitionTime);
-    }
 }
 
 
@@ -40,9 +30,4 @@ nav {
             margin-right: auto;
         }
     }
-}
-// This applies from 1200px  (Desktops)
-@media (min-width: 1200px) {
-    nav {
-      }
 }
