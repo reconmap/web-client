@@ -1,6 +1,7 @@
 import AuthRoutes from 'components/auth/Routes';
 import CommandsRoutes from 'components/commands/Routes';
 import DocumentsRoutes from 'components/documents/Routes';
+import SearchRoutes from 'components/search/Routes';
 import SupportRoutes from 'components/support/Routes';
 import TargetsRoutes from 'components/target/Routes';
 import VulnerabilityTemplatesRoutes from 'components/vulnerabilities/templates/Routes';
@@ -16,7 +17,6 @@ import OrganisationRoutes from "./components/organisation/Routes";
 import ProjectsRoutes from "./components/projects/Routes";
 import ProjectTemplatesRoutes from './components/projects/templates/Routes';
 import ReportsRoutes from "./components/reports/Routes";
-import SearchResults from './components/search/Results';
 import KeyboardShortcuts from "./components/support/KeyboardShortcuts";
 import SystemRoutes from "./components/system/Routes";
 import TasksRoutes from "./components/tasks/Routes";
@@ -56,13 +56,13 @@ const App = () => {
                                         ...VulnerabilityTemplatesRoutes,
                                         ...TargetsRoutes,
                                         ...ReportsRoutes,
+                                        ...SearchRoutes,
                                         ...SupportRoutes,
                                         ...SystemRoutes,
                                         ...OrganisationRoutes
                                     ]
                                         .map((value, index) => React.cloneElement(value, { key: index }))
                                 }
-                                <ProtectedRoute path={`/search/:keywords`} component={SearchResults} />
                                 <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
                                 <Route component={PageNotFound} />
