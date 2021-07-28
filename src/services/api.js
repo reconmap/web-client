@@ -9,6 +9,9 @@ function resetSessionStorageAndRedirect() {
 }
 
 function secureApiFetch(url, init) {
+    if ('undefined' === typeof (init)) {
+        init = {};
+    }
     const user = Auth.getLoggedInUser();
 
     const headers = user && user.access_token !== null ? { Authorization: 'Bearer ' + user.access_token } : {};

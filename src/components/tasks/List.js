@@ -1,3 +1,4 @@
+import { Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -81,27 +82,27 @@ const TasksList = ({ history }) => {
             <ButtonGroup>
                 <div>
                     <label>Project</label>
-                    <select onChange={handleSetProject}>
-                        <option value="">Any</option>
+                    <Select onChange={handleSetProject}>
+                        <option value="">(any)</option>
                         {projects && projects.map(project => <option value={project.id}
                             key={project.id}>{project.name}</option>)}
-                    </select>
+                    </Select>
                 </div>
                 <div>
                     <label>Status</label>
-                    <select onChange={handleSetStatus}>
+                    <Select onChange={handleSetStatus}>
                         <option value="">(any)</option>
                         {TaskStatuses.map((status, index) => <option value={status.id}>{status.name}</option>)}
-                    </select>
+                    </Select>
                 </div>
                 <CreateButton onClick={handleCreateTask}>Create task</CreateButton>
                 <label>Transition to&nbsp;
-                    <select disabled={!selectedTasks.length} onChange={onStatusSelectChange}>
+                    <Select disabled={!selectedTasks.length} onChange={onStatusSelectChange}>
                         <option value="">(select)</option>
                         {TaskStatuses.map((status, index) =>
                             <option key={index} value={status.id}>{status.name}</option>
                         )}
-                    </select>
+                    </Select>
                 </label>
                 <RestrictedComponent roles={['administrator']}>
                     <DeleteButton onClick={onDeleteButtonClick} disabled={!selectedTasks.length}>
