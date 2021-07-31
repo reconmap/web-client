@@ -6,7 +6,7 @@ const widgetIsVisible = (widgetId) => {
     }
 
     const widgetConfig = JSON.parse(widgetConfigEncoded);
-    return widgetConfig[widgetId].visible;
+    return widgetConfig.hasOwnProperty(widgetId) ? widgetConfig[widgetId].visible : true;
 }
 
 export default widgetIsVisible;

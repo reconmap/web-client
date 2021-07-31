@@ -1,6 +1,5 @@
 import useFetch from "hooks/useFetch";
 import { Cell, Pie, PieChart } from "recharts";
-import widgetIsVisible from "services/widgets";
 
 const VulnerabilitiesByRiskStatsWidget = () => {
     const RADIAN = Math.PI / 180;
@@ -29,35 +28,30 @@ const VulnerabilitiesByRiskStatsWidget = () => {
 
     const [vulnerabilitiesByRiskStats] = useFetch('/vulnerabilities/stats?groupBy=risk')
 
-    const visible = widgetIsVisible('vulnerability-by-category-stats');
-    if (!visible) return null;
-
-    return (
-        <article className='card justify-center items-center'>
-            <h4>Vulnerabilities by risk</h4>
-            <PieChart width={400} height={320} >
-                <Pie
-                    data={vulnerabilitiesByRiskStats}
-                    dataKey="total"
-                    cx={160}
-                    cy={160}
-                    labelLine={false}
-                    outerRadius={100}
-                    strokeOpacity='0'
-                    strokeWidth='var(--borderWidth)'
-                    color='var(--bg-color)'
-                    fill="#8884d8"
-                    label={renderCustomLabel}
-                >
-                    {
-                        vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) =>
-                            <Cell key={index} fill={RISKS[entry.risk].color} />
-                        )
-                    }
-                </Pie>
-            </PieChart>
-        </article>
-    )
+    return <article className='card justify-center items-center'>
+        <h4>Vulnerabilities by risk</h4>
+        <PieChart width={400} height={320} >
+            <Pie
+                data={vulnerabilitiesByRiskStats}
+                dataKey="total"
+                cx={160}
+                cy={160}
+                labelLine={false}
+                outerRadius={100}
+                strokeOpacity='0'
+                strokeWidth='var(--borderWidth)'
+                color='var(--bg-color)'
+                fill="#8884d8"
+                label={renderCustomLabel}
+            >
+                {
+                    vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) =>
+                        <Cell key={index} fill={RISKS[entry.risk].color} />
+                    )
+                }
+            </Pie>
+        </PieChart>
+    </article>
 }
 
 export default VulnerabilitiesByRiskStatsWidget
