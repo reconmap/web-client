@@ -1,4 +1,4 @@
-import DeleteButton from "components/ui/buttons/Delete";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import NoResults from "components/ui/NoResults";
 import CommandBadge from "./Badge";
@@ -25,7 +25,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                         <td>{command.docker_image}</td>
                         <td className='flex justify-end'>
                             <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
-                            {onDeleteCallback && <DeleteButton onClick={() => onDeleteCallback(command.id)} />}
+                            {onDeleteCallback && <DeleteIconButton onClick={() => onDeleteCallback(command.id)} />}
                         </td>
                     </tr>
                 )}

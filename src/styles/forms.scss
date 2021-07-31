@@ -67,7 +67,6 @@ button {
         background-color: var(--black);
         border-radius: var(--borderRadius);
         color : var(--text-color);
-        animation: fadeInDown .1s ease;
     }
 }
 
@@ -75,7 +74,7 @@ input::placeholder {
     color: var(--text-color);
 }
 
-input:not([type="checkbox"]),
+input:not([type="checkbox"]):not([type="button"]),
 select,
 textarea {
     color: var(--white);

@@ -1,11 +1,5 @@
 
 .KeyboardShortcutsPopup {
-  opacity: 0;
-  animation-name: fadeInPopup;
-  animation-duration: .5s;
-  animation-delay: 0s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
   z-index: 101;
   border-radius: var(--borderRadius);
   position: absolute;

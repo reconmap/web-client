@@ -1,7 +1,7 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import React from "react";
 import BadgeOutline from '../badges/BadgeOutline';
-import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import NoResults from "../ui/NoResults";
 import UserLink from "../users/Link";
@@ -66,7 +66,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                                 <td className='flex justify-end'>
                                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                         <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
-                                        {destroy && <DeleteButton onClick={() => destroy(task.id)} />}
+                                        {destroy && <DeleteIconButton onClick={() => destroy(task.id)} />}
                                     </RestrictedComponent>
                                 </td>
                             </tr>

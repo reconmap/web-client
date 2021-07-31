@@ -1,5 +1,4 @@
 @import "utilities";
-@import "animations";
 @import "forms";
 @import "tables";
 
@@ -281,7 +280,6 @@ h6 {
 }
 
 p {
-    margin-top: 0;
     color: var(--text-color);
     margin-bottom: var(--margin);
 }

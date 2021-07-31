@@ -1,6 +1,7 @@
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Auth from "services/auth";
@@ -132,7 +133,7 @@ const UsersList = ({ history }) => {
                                     <LinkButton href={`/users/${user.id}/edit`}>
                                         Edit
                                     </LinkButton>
-                                    <DeleteButton
+                                    <DeleteIconButton
                                         onClick={() => handleDelete(user.id)}
                                         disabled={
                                             parseInt(user.id) ===

@@ -1,7 +1,7 @@
 import { Table, Thead } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import ClientLink from "../clients/Link";
-import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import NoResults from "../ui/NoResults";
 import ProjectBadge from './ProjectBadge';
@@ -36,7 +36,7 @@ const ProjectsTable = ({ projects, destroy = null }) => {
                             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                 <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
                                 {destroy &&
-                                    <DeleteButton onClick={() => destroy(project.id)} />
+                                    <DeleteIconButton onClick={() => destroy(project.id)} />
                                 }
                             </RestrictedComponent>
                         </td>

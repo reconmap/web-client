@@ -1,9 +1,9 @@
 import PageTitle from 'components/logic/PageTitle';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import CreateButton from "../ui/buttons/Create";
-import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import ExternalLink from "../ui/ExternalLink";
 import { IconBriefcase } from '../ui/Icons';
@@ -56,7 +56,7 @@ const ClientsList = ({ history }) => {
                                 <td>{client.contact_phone || '-'}</td>
                                 <td className='flex justify-end'>
                                     <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
-                                    <DeleteButton onClick={() => destroy(client.id)} />
+                                    <DeleteIconButton onClick={() => destroy(client.id)} />
                                 </td>
                             </tr>
                         )

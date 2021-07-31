@@ -1,4 +1,5 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import useDelete from "hooks/useDelete";
@@ -7,7 +8,6 @@ import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
 import VulnerabilityBadge from '../badges/VulnerabilityBadge';
 import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
-import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import VulnerabilityStatusBadge from "./StatusBadge";
 
@@ -65,7 +65,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                         <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                                         {reloadCallback &&
-                                            <DeleteButton onClick={() => deleteVulnerability(vulnerability.id)} />
+                                            <DeleteIconButton onClick={() => deleteVulnerability(vulnerability.id)} />
                                         }
                                     </RestrictedComponent>
                                 </td>
