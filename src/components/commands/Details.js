@@ -1,8 +1,11 @@
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import EmptyField from 'components/ui/EmptyField';
+import ExternalLink from 'components/ui/ExternalLink';
 import ShellCommand from 'components/ui/ShellCommand';
 import Tab from 'components/ui/Tab';
 import Tabs from 'components/ui/Tabs';
+import Tags from 'components/ui/Tags';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import React from 'react';
@@ -56,16 +59,21 @@ const CommandDetails = () => {
         <article>
             <div>
                 <Title type='Command' title={command.short_name} icon={<IconBriefcase />} />
+                <Tags values={command.tags} />
             </div>
 
             <Tabs>
                 <Tab name="Details">
                     <div className="grid grid-two">
                         <div>
-                            <h4>Details</h4>
                             <dl>
                                 <dt>Description</dt>
-                                <dd><ReactMarkdown>{command.description}</ReactMarkdown></dd>
+                                <dd>{command.description ? <ReactMarkdown>{command.description}</ReactMarkdown> : <EmptyField />}</dd>
+
+                                {command.more_info_url && <>
+                                    <dt>More information URL</dt>
+                                    <dl>{command.more_info_url ? <ExternalLink href={command.more_info_url}>{command.more_info_url}</ExternalLink> : <EmptyField />}</dl>
+                                </>}
 
                                 {command.executable_path && <>
                                     <dt>Command line example</dt>
@@ -94,7 +102,7 @@ const CommandDetails = () => {
                 }
             </Tabs>
         </article>
-    </div>
+    </div >
 }
 
 export default CommandDetails;

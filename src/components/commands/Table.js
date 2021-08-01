@@ -1,6 +1,7 @@
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import NoResults from "components/ui/NoResults";
+import Tags from "components/ui/Tags";
 import CommandBadge from "./Badge";
 
 const CommandsTable = ({ commands, onDeleteCallback = null }) => {
@@ -10,7 +11,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                 <th style={{ width: '190px' }}>Short name</th>
                 <th className='only-desktop'>Description</th>
                 <th>Docker image</th>
-                <th></th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +22,10 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                 commands.map(command =>
                     <tr key={command.id}>
                         <td ><CommandBadge command={command} /></td>
-                        <td className='only-desktop truncate'>{command.description}</td>
+                        <td className='only-desktop truncate'>
+                            {command.description}<br />
+                            <Tags values={command.tags} />
+                        </td>
                         <td>{command.docker_image}</td>
                         <td className='flex justify-end'>
                             <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>

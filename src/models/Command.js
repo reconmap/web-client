@@ -6,7 +6,9 @@ const Command = {
     executable_type: 'custom',
     executable_path: null,
     arguments: null,
-    configuration: null
+    configuration: null,
+    more_info_url: null,
+    tags: null
 };
 
 export default Command;

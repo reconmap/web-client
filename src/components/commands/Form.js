@@ -7,13 +7,18 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
     const onFormChange = ev => {
         const target = ev.target;
         const name = target.name;
-        const value = target.value;
+        let value = target.value;
+        if ('tags' === name) {
+            value = JSON.stringify(value.split(','));
+        }
         setCommand({ ...command, [name]: value });
     };
 
     return <form onSubmit={onFormSubmit}>
         <label>Short name
             <input type="text" name="short_name" onChange={onFormChange} value={command.short_name} required autoFocus /></label>
+        <label>Tags
+            <input type="text" name="tags" onChange={onFormChange} value={command.tags ? JSON.parse(command.tags).join(',') : ''} /></label>
         <label>Description
             <MarkdownEditor name="description" onChange={onFormChange} value={command.description} required />
         </label>
@@ -38,6 +43,8 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
                 <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename} />
             </label>
         </>}
+        <label>More information URL
+            <input type="url" name="more_info_url" onChange={onFormChange} value={command.more_info_url} /></label>
 
         <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
     </form>
