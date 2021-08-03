@@ -104,17 +104,17 @@ const DashboardPanels = () => {
     return <section>
         <Title type="Home" title="Dashboard" icon={<IconChartBar />} />
         <Tabs>
-            <Tab name="View">
+            <Tab key="view_tab" name="View">
                 <div className='dashboard__panels'>
                     {visibleWidgets.length === 0 ? <WelcomeWidget /> : visibleWidgets}
                 </div>
             </Tab>
-            <Tab name="Configure">
+            <Tab key="configure_tab" name="Configure">
                 <h4>Select which widgets to present in your dashboard</h4>
                 <br />
                 <Stack>
                     {Object.keys(Widgets).map(widgetKey => {
-                        return <Checkbox name={widgetKey} isChecked={dashboardConfig.hasOwnProperty(widgetKey) && dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{Widgets[widgetKey].title}. <em>{Widgets[widgetKey].description}</em></Checkbox>
+                        return <Checkbox key={widgetKey} name={widgetKey} isChecked={dashboardConfig.hasOwnProperty(widgetKey) && dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{Widgets[widgetKey].title}. <em>{Widgets[widgetKey].description}</em></Checkbox>
                     })}
                 </Stack>
             </Tab>

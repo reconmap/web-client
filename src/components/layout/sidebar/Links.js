@@ -2,6 +2,7 @@ import {
     IconBookOpen,
     IconBriefcase,
     IconClipboardList,
+    IconCode,
     IconDocument,
     IconDocumentDuplicate,
     IconDownload,
@@ -154,6 +155,12 @@ const Links = [
                 title: 'User manual',
                 icon: <IconBookOpen size={5} />,
                 to: 'https://reconmap.org/user-manual/',
+                external: true
+            },
+            {
+                title: 'API docs',
+                icon: <IconCode size={5} />,
+                to: `${window.env.REACT_APP_API_ENDPOINT}/docs`,
                 external: true
             },
             {

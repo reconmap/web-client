@@ -16,7 +16,7 @@ const ActiveProjectsWidget = () => {
             :
             <Stack>
                 <h5>Links</h5>
-                {projects.map(project => <ProjectBadge project={project} />)}
+                {projects.map(project => <ProjectBadge key={project.id} project={project} />)}
             </Stack>
         }
     </article>

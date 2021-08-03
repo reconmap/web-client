@@ -12,11 +12,13 @@ const PopularCommandsWidget = () => {
 
         <table>
             <thead>
-                <th>Short name</th>
-                <th>Description</th>
+                <tr>
+                    <th>Short name</th>
+                    <th>Description</th>
+                </tr>
             </thead>
             <tbody>
-                {commands.map(command => <tr>
+                {commands.map(command => <tr key={command.id}>
                     <td><CommandBadge command={command}>{command.short_name}</CommandBadge></td>
                     <td>{command.description}</td>
                 </tr>)}

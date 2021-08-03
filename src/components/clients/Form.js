@@ -1,3 +1,4 @@
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
 
@@ -10,8 +11,10 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
     };
 
     return <form onSubmit={onFormSubmit}>
-        <label>Name
-            <input type="text" name="name" onChange={onFormChange} value={client.name} required autoFocus /></label>
+        <FormControl isRequired>
+            <FormLabel>Name</FormLabel>
+            <Input type="text" name="name" onChange={onFormChange} value={client.name} required autoFocus />
+        </FormControl>
         <label>URL
             <input type="text" name="url" onChange={onFormChange} value={client.url} />
         </label>

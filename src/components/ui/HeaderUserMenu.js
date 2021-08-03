@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Badge, Divider, HStack, Text } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import UserAvatar from "components/badges/UserAvatar";
@@ -13,7 +12,7 @@ export default function HeaderUserMenu({ email }) {
 
     return (
         <Menu closeOnBlur closeOnSelect>
-            <MenuButton rightIcon={<ChevronDownIcon />}>
+            <MenuButton>
                 <UserAvatar email={user.email} name={user.name} />
             </MenuButton>
             <AuthConsumer>

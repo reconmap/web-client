@@ -18,11 +18,13 @@ const MyTasksWidget = () => {
             :
             <table>
                 <thead>
-                    <th>Summary</th>
-                    <th>Status</th>
+                    <tr>
+                        <th>Summary</th>
+                        <th>Status</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    {tasks.map(task => <tr>
+                    {tasks.map(task => <tr key={task.id}>
                         <td><TaskBadge task={task} /></td>
                         <td><TaskStatusFormatter task={task} /></td>
                     </tr>)}

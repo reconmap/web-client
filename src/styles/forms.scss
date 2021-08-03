@@ -86,10 +86,6 @@ textarea {
     transition: var(--transitionTime);
     font-size: var(--fontSizeSmall);
     outline: transparent;
-
-    &:hover {
-        box-shadow: 0 0 0 var(--borderWidth) var(--primary-color);
-    }
 }
 
 button {

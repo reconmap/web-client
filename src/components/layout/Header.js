@@ -14,7 +14,7 @@ const LINKS = [
     { title: "Support", to: { pathname: ServerIssuesUrl } },
 ];
 
-export default function Header() {
+const Header = () => {
 
     return <AuthConsumer>
         {
@@ -42,3 +42,5 @@ export default function Header() {
         }
     </AuthConsumer>
 }
+
+export default Header;

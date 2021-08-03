@@ -13,11 +13,13 @@ const RecentActivityWidget = () => {
 
         <table>
             <thead>
-                <th>Action</th>
-                <th>User</th>
+                <tr>
+                    <th>Action</th>
+                    <th>User</th>
+                </tr>
             </thead>
             <tbody>
-                {auditLog.map(log => <tr>
+                {auditLog.map(log => <tr key={log.id}>
                     <td><Badge>{log.action}</Badge></td>
                     <td>{log.user_name ?
                         <UserLink userId={log.user_id}>{log.user_name}</UserLink> : '-'}</td>

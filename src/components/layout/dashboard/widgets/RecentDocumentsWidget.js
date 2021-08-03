@@ -16,7 +16,7 @@ const RecentDocumentsWidget = () => {
             :
             <Stack>
                 <h5>Links</h5>
-                {documents.map(doc => <DocumentBadge document={doc} />)}
+                {documents.map(doc => <DocumentBadge key={doc.id} document={doc} />)}
             </Stack>
         }
     </article>

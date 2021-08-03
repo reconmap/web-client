@@ -1,3 +1,4 @@
+import PrimaryButton from 'components/ui/buttons/Primary';
 import ExternalLink from 'components/ui/ExternalLink';
 import { ServerIssuesUrl } from 'ServerUrls';
 import Auth from 'services/auth';
@@ -49,7 +50,7 @@ WebSocket URL: ${window.env.REACT_APP_WS_ENDPOINT}
             if possible as this could accelerate its resolution.</p>
 
         <textarea id="systemInfoControl" value={systemInfo} readOnly />
-        <button onClick={onCopyToClipboardClick}>Copy to clipboard</button>
+        <PrimaryButton onClick={onCopyToClipboardClick}>Copy to clipboard</PrimaryButton>
     </div >
 }
 

@@ -1,4 +1,4 @@
-import { actionCompletedToast } from 'components/ui/toast';
+import { actionCompletedToast, errorToast } from 'components/ui/toast';
 import Client from 'models/Client';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -15,9 +15,12 @@ const ClientCreate = ({ history }) => {
         ev.preventDefault();
 
         secureApiFetch(`/clients`, { method: 'POST', body: JSON.stringify(newClient) })
-            .then(() => {
-                history.push(`/clients`);
-                actionCompletedToast(`The client "${newClient.name}" has been added.`);
+            .then(resp => {
+                if (resp.status === 200) {
+                    history.push(`/clients`);
+                    actionCompletedToast(`The client "${newClient.name}" has been added.`);
+                }
+                errorToast("The client could not be saved. Review the form data or check the application logs.")
             })
     }
 
