@@ -1,5 +1,6 @@
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import ClientLink from 'components/clients/Link'
+import EmptyField from 'components/ui/EmptyField'
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
@@ -27,7 +28,7 @@ function ProjectDetailsTab({ project }) {
                     </>}
 
                     <dt>Description</dt>
-                    <dd><ReactMarkdown>{project.description}</ReactMarkdown></dd>
+                    <dd>{project.description ? <ReactMarkdown>{project.description}</ReactMarkdown> : <EmptyField />}</dd>
                 </dl>
             </div>
 

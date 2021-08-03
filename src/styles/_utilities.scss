@@ -69,7 +69,7 @@
 }
 
 // grid-two
-// |------2fr------|---1fr---| 
+// |------2fr------|---1fr---|
 .grid-two { grid-template-columns: 2fr 1fr; }
 @media screen and (max-width : 900px){
     .grid-two {
@@ -77,11 +77,3 @@
     }
 }
 
-// grid-two-odd
-// |----1fr----|----1fr----| 
-.grid-two-odd { grid-template-columns: 2fr 1fr; }
-@media screen and (max-width : 900px){
-    .grid-two-odd {
-        grid-template-columns: 1fr;
-    }
-}

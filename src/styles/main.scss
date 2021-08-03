@@ -1,6 +1,5 @@
 @import "utilities";
 @import "forms";
-@import "tables";
 
 :root {
 
@@ -281,7 +280,6 @@ h6 {
 
 p {
     color: var(--text-color);
-    margin-bottom: var(--margin);
 }
 
 section {
@@ -374,5 +372,15 @@ dl {
         dt {
             border-bottom-color: var(--bg-color);
         }
+    }
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+
+    th {
+        text-align: left;
+        border-bottom: var(--borderWidth) solid var(--black);
     }
 }

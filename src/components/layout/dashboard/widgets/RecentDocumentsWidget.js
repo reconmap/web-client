@@ -1,6 +1,7 @@
+import { Stack } from "@chakra-ui/react";
+import DocumentBadge from "components/documents/Badge";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
-import { Link } from "react-router-dom";
 
 const RecentDocumentsWidget = () => {
     const [documents] = useFetch(`/documents?limit=5`)
@@ -13,16 +14,10 @@ const RecentDocumentsWidget = () => {
         {documents.length === 0 ?
             <p>No documents to show.</p>
             :
-            <table>
-                <thead>
-                    <th>Title</th>
-                </thead>
-                <tbody>
-                    {documents.map(doc => <tr>
-                        <td><Link to={`/documents/${doc.id}`}>{doc.title}</Link></td>
-                    </tr>)}
-                </tbody>
-            </table>
+            <Stack>
+                <h5>Links</h5>
+                {documents.map(doc => <DocumentBadge document={doc} />)}
+            </Stack>
         }
     </article>
 }

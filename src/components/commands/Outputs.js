@@ -1,5 +1,5 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
-import DeleteButton from "components/ui/buttons/Delete";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import PrimaryButton from "components/ui/buttons/Primary";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import FileSizeSpan from "components/ui/FileSizeSpan";
@@ -109,7 +109,7 @@ const CommandOutputs = ({ task }) => {
                                     <td className="flex justify-end">
                                         <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
                                         <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
-                                        <DeleteButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
+                                        <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
                                     </td>
                                 </tr>
                             )}

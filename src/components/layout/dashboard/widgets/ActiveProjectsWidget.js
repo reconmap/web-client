@@ -1,6 +1,7 @@
+import { Stack } from "@chakra-ui/react";
+import ProjectBadge from "components/projects/ProjectBadge";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
-import { Link } from "react-router-dom";
 
 const ActiveProjectsWidget = () => {
     const [projects] = useFetch(`/projects?status=active&limit=5`)
@@ -13,16 +14,10 @@ const ActiveProjectsWidget = () => {
         {projects.length === 0 ?
             <p>No projects to show.</p>
             :
-            <table>
-                <thead>
-                    <th>Name</th>
-                </thead>
-                <tbody>
-                    {projects.map(project => <tr>
-                        <td><Link to={`/projects/${project.id}`}>{project.name}</Link></td>
-                    </tr>)}
-                </tbody>
-            </table>
+            <Stack>
+                <h5>Links</h5>
+                {projects.map(project => <ProjectBadge project={project} />)}
+            </Stack>
         }
     </article>
 }
