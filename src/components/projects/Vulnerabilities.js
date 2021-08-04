@@ -1,3 +1,4 @@
+import { Select } from '@chakra-ui/react'
 import RestrictedComponent from 'components/logic/RestrictedComponent'
 import CreateButton from 'components/ui/buttons/Create'
 import React, { useState } from 'react'
@@ -59,28 +60,28 @@ const VulnerabilityFilters = ({ vulnerabilities, setCategory, setRisk, setStatus
     return <div className='space-x-2 mx-auto flex items-center '>
         <div>
             <label>Risk</label>
-            <select onChange={handleSetRisk}>
-                <option value=''>Any</option>
+            <Select onChange={handleSetRisk}>
+                <option value=''>(any)</option>
                 {[...new Set(vulnerabilities.map(vuln => vuln.risk))]
                     .map((risk, index) => <option value={risk} key={index}>{risk.charAt(0).toUpperCase() + risk.slice(1)}</option>)}
-            </select>
+            </Select>
         </div>
 
         <div>
             <label>Category</label>
-            <select onChange={handleSetCategory}>
-                <option value=''>Any</option>
+            <Select onChange={handleSetCategory}>
+                <option value=''>(any)</option>
                 {[...new Set(vulnerabilities.filter(vuln => vuln.category_name).map(vuln => vuln.category_name))]
                     .map((cat, index) => <option value={cat} key={index}>{cat}</option>)}
-            </select>
+            </Select>
         </div>
         <div>
             <label>Status</label>
-            <select onChange={handleSetStatus}>
-                <option value=''>Any</option>
+            <Select onChange={handleSetStatus}>
+                <option value=''>(any)</option>
                 <option value='open'>Open</option>
                 <option value='closed'>Closed</option>
-            </select>
+            </Select>
         </div>
     </div>
 }

@@ -1,7 +1,6 @@
 
 const CommandService = {
     hasCommand: (command) => {
-        console.dir(command);
         return (command.executable_type === 'rmap' && command.docker_image != null && command.docker_image.length > 0) || (command.executable_path != null && command.executable_path.length > 0);
     },
 

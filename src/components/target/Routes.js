@@ -4,9 +4,9 @@ import MultipleTargetCreationForm from "./MultipleCreationForm";
 import TargetView from "./View";
 
 const TargetsRoutes = [
-    <ProtectedRoute path={`/targets/add`}
+    <ProtectedRoute path={`/projects/:projectId/targets/add`}
         component={TargetCreationForm} />,
-    <ProtectedRoute path={`/targets/add-multiple`}
+    <ProtectedRoute path={`/projects/:projectId/targets/add-multiple`}
         component={MultipleTargetCreationForm} />,
     <ProtectedRoute path={`/targets/:targetId([0-9]+)`}
         component={TargetView} />,

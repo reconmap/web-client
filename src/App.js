@@ -6,7 +6,7 @@ import SupportRoutes from 'components/support/Routes';
 import TargetsRoutes from 'components/target/Routes';
 import VulnerabilityTemplatesRoutes from 'components/vulnerabilities/templates/Routes';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AuditLogList from "./components/auditlog/List";
 import ClientsRoutes from "./components/clients/Routes";
 import IntegrationsList from "./components/integrations/List";
@@ -35,12 +35,12 @@ const App = () => {
     }, [theme])
 
     return (
-        <Router basename={Configuration.appBasename}>
+        <BrowserRouter basename={Configuration.appBasename}>
             <AuthProvider>
                 <ThemeContext.Provider value={{ theme, setTheme }}>
                     <Switch>
                         <ProtectedRoute exact path='/' component={Dashboard} />
-                        {AuthRoutes.map((value, index) => React.cloneElement(value, { key: index }))}
+                        {AuthRoutes.map((value, index) => React.cloneElement(value, { key: `auth_route_${index}` }))}
                         <Dashboard>
                             <Switch>
                                 {
@@ -61,7 +61,7 @@ const App = () => {
                                         ...SystemRoutes,
                                         ...OrganisationRoutes
                                     ]
-                                        .map((value, index) => React.cloneElement(value, { key: index }))
+                                        .map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))
                                 }
                                 <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
@@ -73,7 +73,7 @@ const App = () => {
                     </Switch>
                 </ThemeContext.Provider>
             </AuthProvider>
-        </Router>
+        </BrowserRouter>
     );
 };
 

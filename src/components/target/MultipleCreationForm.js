@@ -1,18 +1,18 @@
 import { actionCompletedToast } from 'components/ui/toast';
-import useQuery from 'hooks/useQuery';
 import { ReactComponent as TargetIcon } from 'images/icons/target.svg';
 import TargetKinds from 'models/TargetKinds';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
-const MultipleTargetCreationForm = ({ match, history }) => {
-    const query = useQuery();
-    const projectId = query.get('projectId');
+const MultipleTargetCreationForm = () => {
+    const history = useHistory();
+    const { projectId } = useParams();
+
     const [newTargets, setNewTargets] = useState({ projectId: projectId, lines: "" })
     const [loading, setLoading] = useState(false)
 
@@ -54,7 +54,7 @@ const MultipleTargetCreationForm = ({ match, history }) => {
                         <p>Command separated names and kinds (one per line)</p>
                         <p>
                             Acceptable target kind values are:
-                    <ul>
+                            <ul>
                                 {TargetKinds.map((targetKind, index) => <li>{targetKind.value}</li>)}
                             </ul>
                         </p>

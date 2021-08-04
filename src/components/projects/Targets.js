@@ -28,8 +28,8 @@ const ProjectTargets = ({ project }) => {
             <IconServer />Targets
             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                 <ButtonGroup>
-                    <LinkButton href={`/targets/add?projectId=${project.id}`}><IconPlus />Add target</LinkButton>
-                    <LinkButton href={`/targets/add-multiple?projectId=${project.id}`}><IconPlus />Add targets</LinkButton>
+                    <LinkButton href={`/projects/${project.id}/targets/add`}><IconPlus />Add target</LinkButton>
+                    <LinkButton href={`/projects/${project.id}/targets/add-multiple`}><IconPlus />Add targets</LinkButton>
                 </ButtonGroup>
             </RestrictedComponent>
         </h4>
