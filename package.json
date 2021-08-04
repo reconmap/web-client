@@ -21,7 +21,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-time-ago": "^7.0.0",
-    "recharts": "^2.0.9",
+    "recharts": "^2.0.10",
     "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
