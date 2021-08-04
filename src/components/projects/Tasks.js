@@ -1,4 +1,5 @@
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import useDelete from 'hooks/useDelete';
 import { useHistory } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import TasksTable from "../tasks/TasksTable";
@@ -8,12 +9,14 @@ import Loading from '../ui/Loading';
 
 const ProjectTasks = ({ project }) => {
     const history = useHistory();
-    const [tasks] = useFetch(`/projects/${project.id}/tasks`)
+    const [tasks, reloadTasks] = useFetch(`/projects/${project.id}/tasks`)
 
     const handleAddTask = ev => {
         ev.preventDefault();
         history.push(`/tasks/create?projectId=${project.id}`);
     }
+
+    const onDeleteTask = useDelete('/tasks/', reloadTasks);
 
     return <section>
         <h4>
@@ -25,7 +28,7 @@ const ProjectTasks = ({ project }) => {
             </RestrictedComponent>
         </h4>
 
-        {tasks ? <TasksTable tasks={tasks} /> : <Loading />}
+        {tasks ? <TasksTable tasks={tasks} destroy={onDeleteTask} /> : <Loading />}
     </section>
 }
 

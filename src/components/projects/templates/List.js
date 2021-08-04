@@ -3,7 +3,7 @@ import PageTitle from 'components/logic/PageTitle';
 import ProjectBadge from 'components/projects/ProjectBadge';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
-import DeleteButton from 'components/ui/buttons/Delete';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LinkButton from 'components/ui/buttons/Link';
 import PrimaryButton from 'components/ui/buttons/Primary';
 import { IconDocumentDuplicate, IconPlus } from 'components/ui/Icons';
@@ -78,7 +78,7 @@ const TemplatesList = ({ history }) => {
                                         <PrimaryButton onClick={ev => cloneProject(ev, template.id)} key={template.id}
                                             title="Clone"><IconPlus />Clone and edit</PrimaryButton>
                                         <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
-                                        <DeleteButton onClick={ev => deleteTemplate(ev, template.id)} />
+                                        <DeleteIconButton onClick={ev => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>
                             )

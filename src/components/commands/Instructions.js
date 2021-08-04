@@ -28,6 +28,10 @@ const CommandInstructions = ({ command, task = null }) => {
         }
     }, [command]);
 
+    if (!CommandService.hasCommand(command)) {
+        return <p>This command has no instructions defined.</p>
+    }
+
     return <>
         <h4>Instructions</h4>
 

@@ -1,12 +1,12 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetBadge from "components/target/TargetBadge";
 import ButtonGroup from "components/ui/buttons/ButtonGroup";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import React from "react";
 import { Link } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
-import DeleteButton from "../ui/buttons/Delete";
 import { IconPlus, IconServer } from '../ui/Icons';
 import Loading from "../ui/Loading";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
@@ -53,7 +53,7 @@ const ProjectTargets = ({ project }) => {
                             <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
                             <td>
                                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                                    <DeleteButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
+                                    <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
                                 </RestrictedComponent>
                             </td>
                         </tr>

@@ -1,4 +1,4 @@
-import DeleteButton from "components/ui/buttons/Delete";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
@@ -67,6 +67,15 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
             .then(() => reloadAttachments());
     }
 
+    const safeResolveMime = mimeType => {
+        try {
+            return resolveMime(mimeType)['name']
+        } catch (err) {
+            console.error(err);
+            return mimeType;
+        }
+    }
+
     if (!attachments) {
         return <Loading />
     }
@@ -93,11 +102,11 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
                         <td>{attachment.submitter_name}</td>
                         <td>{attachment.client_file_name}</td>
                         <td><FileSizeSpan fileSize={attachment.file_size} /></td>
-                        <td><span title={resolveMime(attachment.file_mimetype)['name']}>{attachment.file_mimetype}</span></td>
+                        <td><span title={safeResolveMime(attachment.file_mimetype)}>{attachment.file_mimetype}</span></td>
                         <td style={{ display: "flex" }}>
                             <SecondaryButton onClick={ev => onViewClick(ev, attachment.id)}>View</SecondaryButton>
                             <SecondaryButton onClick={ev => onDownloadClick(ev, attachment.id)}>Download</SecondaryButton>
-                            <DeleteButton onClick={ev => onDeleteAttachmentClick(ev, attachment.id)} />
+                            <DeleteIconButton onClick={ev => onDeleteAttachmentClick(ev, attachment.id)} />
                         </td>
                     </tr>
                 )}

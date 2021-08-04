@@ -1,3 +1,4 @@
+import { Button } from '@chakra-ui/react'
 import { useHistory } from 'react-router-dom'
 
 const SecondaryButton = ({ onClick, children, to, disabled = false, external = false, tooltip }) => {
@@ -7,10 +8,10 @@ const SecondaryButton = ({ onClick, children, to, disabled = false, external = f
     }
 
     return (
-        <button
+        <Button
             title={tooltip} onClick={onClick || handleOpen} disabled={disabled}>
             {children}
-        </button>
+        </Button>
     )
 }
 

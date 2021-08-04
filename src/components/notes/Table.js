@@ -1,7 +1,7 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import DeleteButton from "../ui/buttons/Delete";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 
 const NotesTable = ({ notes, onDeleteButtonClick }) => {
@@ -25,7 +25,7 @@ const NotesTable = ({ notes, onDeleteButtonClick }) => {
                     <td><ReactMarkdown>{note.content}</ReactMarkdown></td>
                     <td>
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                            <DeleteButton onClick={ev => onDeleteButtonClick(ev, note)} />
+                            <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, note)} />
                         </RestrictedComponent>
                     </td>
                 </tr>
