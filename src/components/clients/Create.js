@@ -16,11 +16,12 @@ const ClientCreate = ({ history }) => {
 
         secureApiFetch(`/clients`, { method: 'POST', body: JSON.stringify(newClient) })
             .then(resp => {
-                if (resp.status === 200) {
+                if (resp.status === 201) {
                     history.push(`/clients`);
                     actionCompletedToast(`The client "${newClient.name}" has been added.`);
+                } else {
+                    errorToast("The client could not be saved. Review the form data or check the application logs.")
                 }
-                errorToast("The client could not be saved. Review the form data or check the application logs.")
             })
     }
 

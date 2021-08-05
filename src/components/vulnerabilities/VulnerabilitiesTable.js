@@ -1,4 +1,5 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
@@ -32,6 +33,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                 <tr>
                     {showSelection && <th style={{ width: "32px" }}>&nbsp;</th>}
                     <th style={{ width: '190px' }}>Summary</th>
+                    <th style={{ width: '190px' }}>Project</th>
                     <th style={{ width: '120px' }}>Status</th>
                     <th style={{ width: '120px' }}>Risk</th>
                     <th style={{ width: '120px' }}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
@@ -57,6 +59,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                                     </td>
                                 }
                                 <td><VulnerabilityBadge vulnerability={vulnerability} /></td>
+                                <td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</td>
                                 <td><VulnerabilityStatusBadge vulnerability={vulnerability} /></td>
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td><CvssScore score={vulnerability.cvss_score} /></td>

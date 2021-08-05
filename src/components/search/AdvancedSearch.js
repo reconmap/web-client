@@ -9,8 +9,17 @@ import Title from '../ui/Title';
 const AdvancedSearch = () => {
     const history = useHistory();
 
+    const entityList = {
+        'commands': 'Commands',
+        'tasks': 'Tasks',
+        'vulnerabilities': 'Vulnerabilities',
+        'vulnerability_templates': 'Vulnerability templates',
+        'projects': 'Projects',
+        'project_templates': 'Project templates'
+    };
+
     const [keywords, setKeywords] = useState('');
-    const [entities, setEntities] = useState(['commands', 'tasks', 'vulnerabilities', 'projects']);
+    const [entities, setEntities] = useState(Object.keys(entityList));
 
     const onFormSubmit = (ev) => {
         ev.preventDefault();
@@ -21,7 +30,6 @@ const AdvancedSearch = () => {
     const onKeywordsChange = ev => {
         setKeywords(ev.target.value);
     };
-
 
     const onFormInputChange = ev => {
         const target = ev.target;
@@ -41,10 +49,9 @@ const AdvancedSearch = () => {
         <form onSubmit={onFormSubmit}>
             <input type="search" name="keywords" value={keywords} onChange={onKeywordsChange} placeholder="Keywords" />
 
-            <Checkbox isChecked={entities.includes('commands')} value="commands" onChange={onFormInputChange}>Commands</Checkbox>
-            <Checkbox isChecked={entities.includes('tasks')} value="tasks" onChange={onFormInputChange}>Tasks</Checkbox>
-            <Checkbox isChecked={entities.includes('vulnerabilities')} value="vulnerabilities" onChange={onFormInputChange}>Vulnerabilities</Checkbox>
-            <Checkbox isChecked={entities.includes('projects')} value="projects" onChange={onFormInputChange}>Projects</Checkbox>
+            {Object.keys(entityList).map((objectKey) =>
+                <Checkbox isChecked={entities.includes(objectKey)} value={objectKey} onChange={onFormInputChange}>{entityList[objectKey]}</Checkbox>
+            )}
 
             <Button type="submit" isDisabled={entities.length === 0}>Search</Button>
         </form>

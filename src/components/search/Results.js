@@ -4,7 +4,7 @@ import PageTitle from 'components/logic/PageTitle';
 import LinkButton from 'components/ui/buttons/Link';
 import VulnerabilitiesTable from 'components/vulnerabilities/VulnerabilitiesTable';
 import useQuery from 'hooks/useQuery';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import ProjectsTable from "../projects/Table";
@@ -13,13 +13,13 @@ import Breadcrumb from '../ui/Breadcrumb';
 import { IconSearch } from '../ui/Icons';
 import Title from '../ui/Title';
 
-const SearchResults = () => {
+const SearchResults = React.memo(() => {
     const params = useParams();
     const query = useQuery();
     const keywords = decodeURIComponent(params.keywords);
 
-    const entitiesParam = query.has('entities') ? query.get('entities') : 'commands,tasks,vulnerabilities,projects';
-    const entities = entitiesParam.split(',');
+    const entitiesParam = query.has('entities') ? query.get('entities') : 'commands,tasks,vulnerabilities,vulnerability_templates,projects,project_templates';
+    const entities = useMemo(() => entitiesParam.split(','), [entitiesParam]);
 
     const [results, setResults] = useState(entities.reduce((map, obj) => { map[obj] = []; return map; }, {}));
 
@@ -37,16 +37,28 @@ const SearchResults = () => {
                     setResults((prevResults) => ({ ...prevResults, tasks: json }));
                 })
         if (entities.includes('vulnerabilities'))
-            secureApiFetch(`/vulnerabilities?keywords=${keywords}`, { method: 'GET' })
+            secureApiFetch(`/vulnerabilities?isTemplate=0&keywords=${keywords}`, { method: 'GET' })
                 .then(resp => resp.json())
                 .then(json => {
                     setResults((prevResults) => ({ ...prevResults, vulnerabilities: json }));
                 })
+        if (entities.includes('vulnerability_templates'))
+            secureApiFetch(`/vulnerabilities?isTemplate=1&keywords=${keywords}`, { method: 'GET' })
+                .then(resp => resp.json())
+                .then(json => {
+                    setResults((prevResults) => ({ ...prevResults, vulnerability_templates: json }));
+                })
         if (entities.includes('projects'))
-            secureApiFetch(`/projects?keywords=${keywords}`, { method: 'GET' })
+            secureApiFetch(`/projects?isTemplate=0&keywords=${keywords}`, { method: 'GET' })
                 .then(resp => resp.json())
                 .then(json => {
                     setResults((prevResults) => ({ ...prevResults, projects: json }));
+                })
+        if (entities.includes('project_templates'))
+            secureApiFetch(`/projects?isTemplate=1&keywords=${keywords}`, { method: 'GET' })
+                .then(resp => resp.json())
+                .then(json => {
+                    setResults((prevResults) => ({ ...prevResults, project_templates: json }));
                 })
     }, [keywords, entities]);
 
@@ -88,13 +100,25 @@ const SearchResults = () => {
                 <VulnerabilitiesTable vulnerabilities={results.vulnerabilities} />
             </>
         }
+        {entities.includes('vulnerability_templates') && results.vulnerability_templates.length > 0 &&
+            <>
+                <h3>{results.vulnerability_templates.length} matching vulnerability templates</h3>
+                <VulnerabilitiesTable vulnerabilities={results.vulnerability_templates} />
+            </>
+        }
         {entities.includes('projects') && results.projects.length > 0 &&
             <>
                 <h3>{results.projects.length} matching projects</h3>
                 <ProjectsTable projects={results.projects} />
             </>
         }
+        {entities.includes('project_templates') && results.project_templates.length > 0 &&
+            <>
+                <h3>{results.project_templates.length} matching project templates</h3>
+                <ProjectsTable projects={results.project_templates} />
+            </>
+        }
     </>
-}
+})
 
 export default SearchResults;

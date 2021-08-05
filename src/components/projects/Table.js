@@ -28,7 +28,7 @@ const ProjectsTable = ({ projects, destroy = null }) => {
                         <td>
                             <ProjectBadge project={project} />
                         </td>
-                        <td><ClientLink clientId={project.client_id}>{project.client_name}</ClientLink></td>
+                        <td>{project.is_template ? <span title="Not applicable">(n/a)</span> : <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>}</td>
                         <td className='only-desktop truncate'>{project.description}</td>
                         <td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</td>
                         <td>{project.archived ? 'Archived' : 'Active'}</td>
