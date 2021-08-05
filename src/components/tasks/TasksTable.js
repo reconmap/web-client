@@ -1,4 +1,5 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import React from "react";
 import BadgeOutline from '../badges/BadgeOutline';
@@ -58,7 +59,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                                 }
                                 <td><TaskBadge task={task} /></td>
                                 <td className='only-desktop truncate' >{task.description}</td>
-                                <td><a href={`/projects/${task.project_id}`}>{task.project_name}</a></td>
+                                <td><ProjectBadge project={{ id: task.project_id, name: task.project_name }} /></td>
                                 <td  >{task.assignee_uid ?
                                     <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
                                 <td><TaskStatusFormatter task={task} /></td>
