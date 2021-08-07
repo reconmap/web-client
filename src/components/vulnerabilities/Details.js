@@ -2,6 +2,7 @@ import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import ProjectBadge from 'components/projects/ProjectBadge';
 import TargetBadge from 'components/target/TargetBadge';
 import EmptyField from 'components/ui/EmptyField';
 import TimestampsSection from 'components/ui/TimestampsSection';
@@ -135,7 +136,7 @@ const VulnerabilityDetails = () => {
                             <dl>
                                 <dt>Project</dt>
                                 <dd>{vulnerability.project_id ?
-                                    <a href={`/projects/${vulnerability.project_id}`}>{vulnerability.project_name}</a> : '-'}</dd>
+                                    <ProjectBadge project={{id: vulnerability.project_id, name: vulnerability.project_name}} /> : '-'}</dd>
 
                                 {vulnerability.target_id !== null && vulnerability.target_id !== 0 && <>
                                     <dt>Affected target</dt>
