@@ -34,7 +34,6 @@ const ClientDetails = () => {
     }
 
     return <div>
-        <PageTitle value={`${client.name} - Client`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/clients">Clients</Link>
@@ -51,6 +50,7 @@ const ClientDetails = () => {
         </div>
         <article>
             <div>
+                <PageTitle value={`${client.name} client`} />
                 <Title type='Client' title={client.name} icon={<IconBriefcase />} />
             </div>
 

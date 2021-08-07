@@ -44,7 +44,6 @@ const TemplateDetails = ({ history, match }) => {
 
     return (
         <>
-            <PageTitle value="Vulnerability template" />
             <div>
                 <div className='heading'>
                     <Breadcrumb>
@@ -62,6 +61,8 @@ const TemplateDetails = ({ history, match }) => {
                     </ButtonGroup>
                 </div>
                 <article>
+                    <PageTitle value={`${vulnerability.summary} vulnerability template`} />
+
                     <Title type='Vulnerability template' title={vulnerability.summary} icon={<IconFlag />} />
 
                     <Tabs>

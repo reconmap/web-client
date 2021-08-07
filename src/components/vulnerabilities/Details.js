@@ -62,7 +62,6 @@ const VulnerabilityDetails = () => {
     if (!vulnerability) return <Loading />
 
     return <div>
-        <PageTitle value={`Vulnerability ${vulnerability.summary}`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/vulnerabilities">Vulnerabilities</Link>
@@ -87,6 +86,8 @@ const VulnerabilityDetails = () => {
             </ButtonGroup>
         </div>
         <article>
+            <PageTitle value={`${vulnerability.summary} vulnerability`} />
+
             <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag />} />
 
             <Tabs>

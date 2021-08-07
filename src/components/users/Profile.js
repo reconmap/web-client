@@ -38,7 +38,6 @@ const UserProfile = ({ match }) => {
 
     return (
         <>
-            <PageTitle value={`${user.name} user`} />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
@@ -51,6 +50,8 @@ const UserProfile = ({ match }) => {
                 </ButtonGroup>
             </div>
             <div>
+                <PageTitle value={`${user.full_name} user`} />
+
                 <Title type='User profile' title={user.full_name}
                     icon={<UserAvatar email={user.email} />} />
                 <Tabs>

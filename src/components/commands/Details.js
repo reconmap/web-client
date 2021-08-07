@@ -41,7 +41,6 @@ const CommandDetails = () => {
     }
 
     return <div>
-        <PageTitle value={`${command.short_name} - Command`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/commands">Commands</Link>
@@ -58,6 +57,8 @@ const CommandDetails = () => {
         </div>
         <article>
             <div>
+                <PageTitle value={`${command.short_name} command`} />
+
                 <Title type='Command' title={command.short_name} icon={<IconBriefcase />} />
                 <Tags values={command.tags} />
             </div>

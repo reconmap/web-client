@@ -32,7 +32,6 @@ const DocumentDetailsPage = () => {
     }
 
     return <div>
-        <PageTitle value={`${serverDoc.title} - Document`} />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/documents">Documents</Link>
@@ -47,6 +46,7 @@ const DocumentDetailsPage = () => {
         </div>
         <article>
             <div>
+                <PageTitle value={`${serverDoc.title} document`} />
                 <Title type="Document" title={serverDoc.title} icon={<IconBriefcase />} />
             </div>
 

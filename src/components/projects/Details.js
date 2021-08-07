@@ -52,12 +52,12 @@ const ProjectDetails = ({ match, history }) => {
 
     return (
         <>
-            <PageTitle value="Project" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
                 </Breadcrumb>
                 {project && <>
+                    <PageTitle value={`${project.name} project`} />
                     <ProjectTeam project={project} users={users} />
 
                     <ButtonGroup>

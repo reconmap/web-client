@@ -32,7 +32,6 @@ const TemplateDetails = ({ history, match }) => {
 
     return (
         <>
-            <PageTitle value="Projects templates" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
@@ -50,6 +49,7 @@ const TemplateDetails = ({ history, match }) => {
             {(!template) ?
                 <Loading /> :
                 <article>
+                    <PageTitle value={`${template.name} project template`} />
                     <Title title={template.name} type='Project template' icon={<IconFolder />} />
 
                     <div className="grid grid-two">

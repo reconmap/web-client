@@ -1,3 +1,4 @@
+import { Select } from '@chakra-ui/react'
 import AttachmentsTable from 'components/attachments/AttachmentsTable'
 import AttachmentsDropzone from 'components/attachments/Dropzone'
 import CommandOutputs from 'components/commands/Outputs'
@@ -93,11 +94,11 @@ const TaskDetails = ({ history, match }) => {
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
                             <label>Transition to&nbsp;
-                                <select onChange={onStatusChange} value={task.status}>
+                                <Select onChange={onStatusChange} value={task.status}>
                                     {TaskStatuses.map((status, index) =>
                                         <option key={index} value={status.id}>{status.name}</option>
                                     )}
-                                </select>
+                                </Select>
                             </label>
                             <DeleteButton onClick={() => handleDelete(task.id)} />
                         </RestrictedComponent>
@@ -106,7 +107,8 @@ const TaskDetails = ({ history, match }) => {
             </div>
             {!task ? <Loading /> :
                 <article>
-                    <PageTitle value={`Task ${task.summary}`} />
+                    <PageTitle value={`${task.summary} task`} />
+
                     <Title title={task.summary} type='Task' icon={<IconClipboard />} />
 
                     <Tabs>
@@ -130,12 +132,12 @@ const TaskDetails = ({ history, match }) => {
                                         <dt>Assigned to</dt>
                                         <dd>
                                             {users &&
-                                                <select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
+                                                <Select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
                                                     <option value="">(nobody)</option>
                                                     {users.map((user, index) =>
                                                         <option key={index} value={user.id}>{user.full_name}</option>
                                                     )}
-                                                </select>}
+                                                </Select>}
                                         </dd>
                                     </dl>
 
