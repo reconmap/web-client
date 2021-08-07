@@ -1,16 +1,14 @@
 import Badge from "components/badges/Badge";
-import Loading from "components/ui/Loading";
 import UserLink from "components/users/Link";
 import useFetch from "hooks/useFetch";
 
 const RecentActivityWidget = () => {
     const [auditLog] = useFetch('/auditlog?limit=5');
 
-    if (!auditLog) return <Loading />
-
     return <article className="card">
         <h4>Recent activity</h4>
 
+        {auditLog && auditLog.length > 0 ?
         <table>
             <thead>
                 <tr>
@@ -25,7 +23,9 @@ const RecentActivityWidget = () => {
                         <UserLink userId={log.user_id}>{log.user_name}</UserLink> : '-'}</td>
                 </tr>)}
             </tbody>
-        </table>
+        </table> : 
+        <p>No activity to show.</p>
+        }
     </article>
 }
 

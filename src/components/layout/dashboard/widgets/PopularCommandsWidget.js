@@ -1,15 +1,13 @@
 import CommandBadge from "components/commands/Badge";
-import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
 
 const PopularCommandsWidget = () => {
     const [commands] = useFetch('/commands?limit=5');
 
-    if (!commands) return <Loading />
-
     return <article className="card">
         <h4>Popular commands</h4>
 
+        {commands && commands.length > 0 ? 
         <table>
             <thead>
                 <tr>
@@ -23,7 +21,9 @@ const PopularCommandsWidget = () => {
                     <td>{command.description}</td>
                 </tr>)}
             </tbody>
-        </table>
+        </table> : 
+        <p>No commands to show.</p>
+        }
     </article>
 }
 

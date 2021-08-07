@@ -6,6 +6,7 @@ const VulnerabilitiesByCategoryStatsWidget = () => {
 
     return <article className='card justify-center items-center'>
         <h4>Vulnerabilities by category</h4>
+        {vulnerabilitiesByCategoryStats && vulnerabilitiesByCategoryStats.length > 0 ?
         <PieChart width={320} height={320}>
             <Pie
                 data={vulnerabilitiesByCategoryStats}
@@ -23,7 +24,9 @@ const VulnerabilitiesByCategoryStatsWidget = () => {
                 labelStyle={{ fill: '#ffffff' }}
             >
             </Pie>
-        </PieChart>
+        </PieChart> : 
+        <p>No enough data to generate the chart.</p>
+}
     </article>
 }
 

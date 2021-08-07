@@ -30,6 +30,8 @@ const VulnerabilitiesByRiskStatsWidget = () => {
 
     return <article className='card justify-center items-center'>
         <h4>Vulnerabilities by risk</h4>
+
+        {vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.length > 0 ? 
         <PieChart width={400} height={320} >
             <Pie
                 data={vulnerabilitiesByRiskStats}
@@ -50,7 +52,9 @@ const VulnerabilitiesByRiskStatsWidget = () => {
                     )
                 }
             </Pie>
-        </PieChart>
+        </PieChart> : 
+        <p>No enough data to generate the chart.</p>
+}
     </article>
 }
 
