@@ -8,7 +8,7 @@
     "@craco/craco": "^6.2.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
-    "countries-and-timezones": "^2.4.0",
+    "countries-and-timezones": "^2.5.0",
     "dayjs": "^1.10.6",
     "framer-motion": "^4.1.17",
     "friendly-mimes": "^1.0.5",
