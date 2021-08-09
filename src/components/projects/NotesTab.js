@@ -1,19 +1,18 @@
+import { useDisclosure } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
-import React, { useState } from 'react';
+import NoteModalDialog from 'components/notes/ModalDialog';
+import CreateButton from 'components/ui/buttons/Create';
+import React from 'react';
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
-import secureApiFetch from "../../services/api";
-import NotesForm from "../notes/Form";
 import NotesTable from "../notes/Table";
 import { IconDocument } from '../ui/Icons';
 import Loading from "../ui/Loading";
-import { actionCompletedToast } from "../ui/toast";
 
 const ProjectNotesTab = ({ project }) => {
     const [notes, reloadNotes] = useFetch(`/notes?parentType=project&parentId=${project.id}`)
     const deleteNoteById = useDelete('/notes/', reloadNotes)
-    const emptyNote = { visibility: 'private', content: '', parentType: 'project', parentId: project.id };
-    const [newNote, updateNewNote] = useState(emptyNote)
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const onDeleteButtonClick = (ev, note) => {
         ev.preventDefault();
@@ -21,19 +20,9 @@ const ProjectNotesTab = ({ project }) => {
         deleteNoteById(note.id);
     }
 
-    const onCreateNoteFormSubmit = async (ev) => {
-        ev.preventDefault();
-
-        await secureApiFetch(`/notes`, {
-            method: 'POST',
-            body: JSON.stringify(newNote)
-        }).then(() => {
-            reloadNotes();
-            actionCompletedToast(`The note has been created."`);
-        })
-            .finally(() => {
-                updateNewNote(emptyNote)
-            })
+    const onNoteFormSaved = () => {
+        reloadNotes();
+        onClose();
     }
 
     if (!notes) {
@@ -42,14 +31,13 @@ const ProjectNotesTab = ({ project }) => {
 
     return (
         <section>
-            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                <h4>
-                    <IconDocument />New project note
-                </h4>
-                <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
-            </RestrictedComponent>
+            <NoteModalDialog parentType="project" parent={project} isOpen={isOpen} onClose={onNoteFormSaved} />
             <h4>
                 <IconDocument />Project notes
+
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <CreateButton onClick={onOpen}>Add note</CreateButton>
+                </RestrictedComponent>
             </h4>
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
         </section>

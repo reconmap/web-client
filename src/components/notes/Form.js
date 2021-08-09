@@ -1,5 +1,5 @@
-import PrimaryButton from "../ui/buttons/Primary";
 import React from "react";
+import { Select, Textarea } from "@chakra-ui/react";
 
 const NotesForm = ({note, onFormSubmit, noteSetter: setNote}) => {
     const onFormInputChange = ev => {
@@ -13,15 +13,14 @@ const NotesForm = ({note, onFormSubmit, noteSetter: setNote}) => {
     };
 
     return <form onSubmit={onFormSubmit}>
+        <label>Content</label>
+        <Textarea name="content" style={{width: '100%'}} required value={note.content}
+                  onChange={onFormInputChange} autoFocus /><br/>
         <label>Visibility</label>
-        <select name="visibility" required value={note.visibility} onChange={onFormInputChange}>
+        <Select name="visibility" required value={note.visibility} onChange={onFormInputChange}>
             <option value="private">Private</option>
             <option value="public">Public</option>
-        </select><br/>
-        <label>Content</label>
-        <textarea name="content" style={{width: '100%'}} required value={note.content}
-                  onChange={onFormInputChange}/><br/>
-        <PrimaryButton type="submit">Create</PrimaryButton>
+        </Select>
     </form>
 }
 

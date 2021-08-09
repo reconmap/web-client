@@ -1,3 +1,4 @@
+import { Select } from '@chakra-ui/react';
 import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
 import PageTitle from 'components/logic/PageTitle';
@@ -79,11 +80,11 @@ const VulnerabilityDetails = () => {
                     }}>Edit</EditButton>
 
                     <label>Transition to&nbsp;
-                        <select onChange={onStatusChange} value={vulnerability.status + '-' + vulnerability.substatus}>
+                        <Select onChange={onStatusChange} value={vulnerability.status + '-' + vulnerability.substatus}>
                             {VulnerabilityStatuses.map((status, index) =>
                                 <option key={index} value={status.id}>{status.name}</option>
                             )}
-                        </select>
+                        </Select>
                     </label>
 
                     <DeleteButton onClick={handleDelete} />
