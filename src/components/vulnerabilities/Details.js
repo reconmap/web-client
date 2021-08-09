@@ -10,7 +10,7 @@ import UserLink from 'components/users/Link';
 import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { Link, Redirect, useHistory, useRouteMatch } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
@@ -61,6 +61,10 @@ const VulnerabilityDetails = () => {
     }
 
     if (!vulnerability) return <Loading />
+
+    if(vulnerability && vulnerability.is_template) {
+        return <Redirect to={`/vulnerabilities/templates/${vulnerability.id}`}/>
+    }
 
     return <div>
         <div className='heading'>

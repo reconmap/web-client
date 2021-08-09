@@ -1,7 +1,7 @@
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -48,6 +48,10 @@ const ProjectDetails = ({ match, history }) => {
                 actionCompletedToast('The project has been updated.');
             })
             .catch(err => console.error(err))
+    }
+
+    if(project && project.is_template) {
+        return <Redirect to={`/projects/templates/${project.id}`}/>
     }
 
     return (

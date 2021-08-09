@@ -11,7 +11,7 @@ import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
 const TemplateDetails = ({ history, match }) => {
@@ -29,6 +29,10 @@ const TemplateDetails = ({ history, match }) => {
     const destroy = useDelete('/projects/', () => {
         history.push('/projects/templates');
     });
+
+    if(template && !template.is_template) {
+        return <Redirect to={`/projects/${template.id}`}/>
+    }
 
     return (
         <>

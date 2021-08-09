@@ -19,7 +19,7 @@ import UserLink from 'components/users/Link';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import CvssAbbr from '../CvssAbbr';
 import VulnerabilityStatusBadge from '../StatusBadge';
@@ -41,6 +41,10 @@ const TemplateDetails = ({ history, match }) => {
     });
 
     if (!vulnerability) return <Loading />
+
+    if(vulnerability && !vulnerability.is_template) {
+        return <Redirect to={`/vulnerabilities/${vulnerability.id}`}/>
+    }
 
     return (
         <>
