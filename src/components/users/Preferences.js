@@ -1,6 +1,6 @@
 import { Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
-import { getAllTimezones } from 'countries-and-timezones';
+import CountriesTimezones from 'countries-and-timezones';
 import React, { useContext, useState } from 'react';
 import Auth from 'services/auth';
 import ThemeContext from "../../contexts/ThemeContext";
@@ -14,7 +14,7 @@ import Title from '../ui/Title';
 
 const UserPreferences = ({ history }) => {
     const user = Auth.getLoggedInUser();
-    const timezones = getAllTimezones();
+    const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
     const [timezone, setTimezone] = useState(user.timezone);
     const { theme, setTheme } = useContext(ThemeContext)
