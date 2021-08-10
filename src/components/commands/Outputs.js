@@ -90,15 +90,17 @@ const CommandOutputs = ({ task }) => {
 
                     <table>
                         <thead>
-                            <th>Upload date</th>
-                            <th>Uploaded by</th>
-                            <th>Filename</th>
-                            <th>File size</th>
-                            <th>Mimetype</th>
-                            <th>&nbsp;</th>
+                            <tr>
+                                <th>Upload date</th>
+                                <th>Uploaded by</th>
+                                <th>Filename</th>
+                                <th>File size</th>
+                                <th>Mimetype</th>
+                                <th>&nbsp;</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            {commandOutputs.length === 0 && <NoResultsTableRow numColumns={5} />}
+                            {commandOutputs.length === 0 && <NoResultsTableRow numColumns={6} />}
                             {commandOutputs.map((commandOutput, index) =>
                                 <tr key={index}>
                                     <td><RelativeDateFormatter date={commandOutput.insert_ts} /></td>
