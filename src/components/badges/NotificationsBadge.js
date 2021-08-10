@@ -31,34 +31,38 @@ const NotificationsBadge = () => {
     const connect = useCallback(() => {
         console.debug('connecting to websocket server')
 
-        wsServerRef.current = new WebSocket(Configuration.wsEndpoint);
+        try {
+            wsServerRef.current = new WebSocket(Configuration.wsEndpoint);
 
-        wsServerRef.current.onopen = ev => {
-            console.debug("connected to websocket server!");
-            wsServerRef.current.send("jwt.token");
+            wsServerRef.current.onopen = ev => {
+                console.debug("connected to websocket server!");
+                wsServerRef.current.send("jwt.token");
 
-            clearTimeout(connectInterval.current);
-        };
+                clearTimeout(connectInterval.current);
+            };
 
-        wsServerRef.current.onmessage = ev => {
-            const data = JSON.parse(ev.data);
-            setNotifications([...notifications, data]);
-        };
-        wsServerRef.current.onerror = err => {
-            console.error(`websocket error: ${err.message}`);
+            wsServerRef.current.onmessage = ev => {
+                const data = JSON.parse(ev.data);
+                setNotifications([...notifications, data]);
+            };
+            wsServerRef.current.onerror = err => {
+                console.error(`websocket error: ${err.message}`);
 
-            wsServerRef.current.close();
-        };
+                wsServerRef.current.close();
+            };
 
-        wsServerRef.current.onclose = ev => {
-            if (ev.wasClean) {
-                console.debug(`websocket connection closed cleanly (code=${ev.code} reason=${ev.reason})`);
-            } else {
-                // e.g. server process killed or network down
-                // ev.code is usually 1006 in this case
-                console.error(`websocket connection died (code=${ev.code} reason=${ev.reason})`);
-            }
-        };
+            wsServerRef.current.onclose = ev => {
+                if (ev.wasClean) {
+                    console.debug(`websocket connection closed cleanly (code=${ev.code} reason=${ev.reason})`);
+                } else {
+                    // e.g. server process killed or network down
+                    // ev.code is usually 1006 in this case
+                    console.error(`websocket connection died (code=${ev.code} reason=${ev.reason})`);
+                }
+            };
+        } catch (err) {
+            console.error(err);
+        }
     }, [connectInterval, notifications]);
 
     const disconnect = () => {
