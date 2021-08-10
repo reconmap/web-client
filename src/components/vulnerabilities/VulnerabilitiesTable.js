@@ -1,8 +1,10 @@
+import { Stack } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import Tags from "components/ui/Tags";
 import useDelete from "hooks/useDelete";
 import React from "react";
 import CvssScore from '../badges/CvssScore';
@@ -58,7 +60,12 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                                         />
                                     </td>
                                 }
-                                <td><VulnerabilityBadge vulnerability={vulnerability} /></td>
+                                <td>
+                                    <Stack>
+                                        <VulnerabilityBadge vulnerability={vulnerability} />
+                                        <div><Tags values={vulnerability.tags} /></div>
+                                    </Stack>
+                                </td>
                                 <td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</td>
                                 <td><VulnerabilityStatusBadge vulnerability={vulnerability} /></td>
                                 <td><RiskBadge risk={vulnerability.risk} /></td>

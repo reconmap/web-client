@@ -89,7 +89,11 @@ const VulnerabilityForm = ({
     const onFormChange = ev => {
         const target = ev.target;
         const name = target.name;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        let value = target.type === 'checkbox' ? target.checked : target.value;
+
+        if ('tags' === name) {
+            value = JSON.stringify(value.split(','));
+        }
 
         setVulnerability({ ...vulnerability, [name]: value });
     };
@@ -109,6 +113,9 @@ const VulnerabilityForm = ({
             </label>
             <label>Description
                 <MarkdownEditor name="description" value={vulnerability.description} onChange={onFormChange} />
+            </label>
+            <label>Tags
+                <input type="text" name="tags" onChange={onFormChange} value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(',') : ''} />
             </label>
             <label>Proof of concept
                 <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />

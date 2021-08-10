@@ -6,6 +6,7 @@ import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectBadge from 'components/projects/ProjectBadge';
 import TargetBadge from 'components/target/TargetBadge';
 import EmptyField from 'components/ui/EmptyField';
+import Tags from 'components/ui/Tags';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
@@ -63,8 +64,8 @@ const VulnerabilityDetails = () => {
 
     if (!vulnerability) return <Loading />
 
-    if(vulnerability && vulnerability.is_template) {
-        return <Redirect to={`/vulnerabilities/templates/${vulnerability.id}`}/>
+    if (vulnerability && vulnerability.is_template) {
+        return <Redirect to={`/vulnerabilities/templates/${vulnerability.id}`} />
     }
 
     return <div>
@@ -95,6 +96,7 @@ const VulnerabilityDetails = () => {
             <PageTitle value={`${vulnerability.summary} vulnerability`} />
 
             <Title type='Vulnerability' title={vulnerability.summary} icon={<IconFlag />} />
+            <Tags values={vulnerability.tags} />
 
             <Tabs>
                 <Tab name="Details">
@@ -141,7 +143,7 @@ const VulnerabilityDetails = () => {
                             <dl>
                                 <dt>Project</dt>
                                 <dd>{vulnerability.project_id ?
-                                    <ProjectBadge project={{id: vulnerability.project_id, name: vulnerability.project_name}} /> : '-'}</dd>
+                                    <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} /> : '-'}</dd>
 
                                 {vulnerability.target_id !== null && vulnerability.target_id !== 0 && <>
                                     <dt>Affected target</dt>
