@@ -1,5 +1,7 @@
+import { Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import ProjectBadge from 'components/projects/ProjectBadge';
 import EmptyField from 'components/ui/EmptyField';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
@@ -15,6 +17,26 @@ import Title from '../ui/Title';
 import useDelete from './../../hooks/useDelete';
 import useFetch from './../../hooks/useFetch';
 import Loading from './../ui/Loading';
+
+const ClientProjectsTab = ({ clientId }) => {
+    const [projects] = useFetch(`/projects?clientId=${clientId}`);
+
+    if (!projects) return <Loading />
+
+    if (projects.length === 0) {
+        return <div>
+            This client has no projects. You can see all projects and their clients <Link to="/projects">here</Link>.
+        </div>
+    }
+
+    return <div>
+        <Stack>
+            {projects.map(project =>
+                <ProjectBadge project={project} />
+            )}
+        </Stack>
+    </div>
+}
 
 const ClientDetails = () => {
     const { params: { clientId } } = useRouteMatch()
@@ -54,37 +76,52 @@ const ClientDetails = () => {
                 <Title type='Client' title={client.name} icon={<IconBriefcase />} />
             </div>
 
-            <div className="grid grid-two">
-                <div>
-                    <h4>Details</h4>
-                    <dl>
-                        <dt>Name</dt>
-                        <dd>{client.name}</dd>
+            <Tabs variant="enclosed" isLazy>
+                <TabList>
+                    <Tab>Details</Tab>
+                    <Tab>Client's projects</Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                        <div className="grid grid-two">
+                            <div>
+                                <h4>Properties</h4>
 
-                        <dt>URL</dt>
-                        <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
+                                <dl>
+                                    <dt>Name</dt>
+                                    <dd>{client.name}</dd>
 
-                        <dt>Contact name</dt>
-                        <dd>{client.contact_name}</dd>
+                                    <dt>URL</dt>
+                                    <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
 
-                        <dt>Contact email</dt>
-                        <dd><a href={`mailto:${client.contact_email}`}>{client.contact_email}</a></dd>
+                                    <dt>Contact name</dt>
+                                    <dd>{client.contact_name}</dd>
 
-                        <dt>Contact phone</dt>
-                        <dd>{client.contact_phone ? <a href={`tel:${client.contact_phone}`}>{client.contact_phone}</a> : <EmptyField />}</dd>
-                    </dl>
-                </div>
+                                    <dt>Contact email</dt>
+                                    <dd><a href={`mailto:${client.contact_email}`}>{client.contact_email}</a></dd>
 
-                <div>
-                    <h4>Relations</h4>
-                    <dl>
-                        <dt>Created by</dt>
-                        <dd><UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink></dd>
-                    </dl>
+                                    <dt>Contact phone</dt>
+                                    <dd>{client.contact_phone ? <a href={`tel:${client.contact_phone}`}>{client.contact_phone}</a> : <EmptyField />}</dd>
+                                </dl>
+                            </div>
 
-                    <TimestampsSection entity={client} />
-                </div>
-            </div>
+                            <div>
+                                <h4>Relations</h4>
+                                <dl>
+                                    <dt>Created by</dt>
+                                    <dd><UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink></dd>
+                                </dl>
+
+                                <TimestampsSection entity={client} />
+                            </div>
+                        </div>
+                    </TabPanel>
+                    <TabPanel >
+                        <ClientProjectsTab clientId={clientId} />
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
+
         </article>
     </div>
 }
