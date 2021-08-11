@@ -15,7 +15,7 @@ const SystemLogsPage = () => {
             .then(text => setLogs(text));
     }, []);
 
-    if (!logs) return <Loading />
+    if (null === logs) return <Loading />
 
     return <div style={{ height: '100%' }}>
         <div className='heading'>
