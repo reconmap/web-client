@@ -1,3 +1,4 @@
+import { Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import useFetch from 'hooks/useFetch';
@@ -60,9 +61,9 @@ const SendReport = ({ history }) => {
             <form onSubmit={handleSend}>
                 <Title title='Send report' />
                 <label>Revision
-                    {revisions && <select name="report_id" onChange={handleFormChange}>
+                    {revisions && <Select name="report_id" onChange={handleFormChange}>
                         {revisions.map((revision) => <option value={revision.id}>{revision.version_name}</option>)}
-                    </select>}
+                    </Select>}
                 </label>
                 <label>Recipients (comma separated)
                     <input type="text" name="recipients" onChange={handleFormChange} required autoFocus
