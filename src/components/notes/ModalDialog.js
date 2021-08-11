@@ -26,14 +26,14 @@ const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
     return <Modal size="xl" isOpen={isOpen} onClose={onCancel}>
         <ModalOverlay />
         <ModalContent>
-            <ModalHeader>Notes</ModalHeader>
+            <ModalHeader>New notes details</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
             </ModalBody>
 
             <ModalFooter>
-                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={onCancel} mr={3}>Cancel</Button>
                 <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>Save</Button>
             </ModalFooter>
         </ModalContent>

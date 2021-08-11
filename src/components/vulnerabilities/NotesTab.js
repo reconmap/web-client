@@ -31,7 +31,7 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
 
     return (
         <section>
-            <NoteModalDialog parentType="vulnerability" parent={vulnerability} isOpen={isOpen} onClose={onNoteFormSaved} />
+            <NoteModalDialog parentType="vulnerability" parent={vulnerability} isOpen={isOpen} onClose={onNoteFormSaved} onCancel={onClose} />
             <h4>
                 <IconDocument />Vulnerability notes
 

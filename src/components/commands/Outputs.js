@@ -8,6 +8,7 @@ import Loading from "components/ui/Loading";
 import ModalDialog from "components/ui/ModalDIalog";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
+import UserLink from "components/users/Link";
 import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import secureApiFetch from "services/api";
@@ -91,11 +92,11 @@ const CommandOutputs = ({ task }) => {
                     <table>
                         <thead>
                             <tr>
+                                <th>Filename</th>
+                                <th>Mimetype</th>
+                                <th>File size</th>
                                 <th>Upload date</th>
                                 <th>Uploaded by</th>
-                                <th>Filename</th>
-                                <th>File size</th>
-                                <th>Mimetype</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
@@ -103,11 +104,11 @@ const CommandOutputs = ({ task }) => {
                             {commandOutputs.length === 0 && <NoResultsTableRow numColumns={6} />}
                             {commandOutputs.map((commandOutput, index) =>
                                 <tr key={index}>
-                                    <td><RelativeDateFormatter date={commandOutput.insert_ts} /></td>
-                                    <td>{commandOutput.submitter_name}</td>
                                     <td>{commandOutput.client_file_name}</td>
-                                    <td><FileSizeSpan fileSize={commandOutput.file_size} /></td>
                                     <td>{commandOutput.file_mimetype}</td>
+                                    <td><FileSizeSpan fileSize={commandOutput.file_size} /></td>
+                                    <td><RelativeDateFormatter date={commandOutput.insert_ts} /></td>
+                                    <td><UserLink userId={commandOutput.submitter_uid}>{commandOutput.submitter_name}</UserLink></td>
                                     <td className="flex justify-end">
                                         <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
                                         <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
