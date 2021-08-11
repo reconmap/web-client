@@ -4,7 +4,7 @@ import Header from "../Header";
 import Sidebar from "../sidebar";
 import DashboardPanels from "./DashboardPanels";
 
-function Dashboard({ children }) {
+const Dashboard = ({ children }) => {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     return (
         <>
