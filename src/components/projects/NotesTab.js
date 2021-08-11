@@ -12,7 +12,7 @@ import Loading from "../ui/Loading";
 const ProjectNotesTab = ({ project }) => {
     const [notes, reloadNotes] = useFetch(`/notes?parentType=project&parentId=${project.id}`)
     const deleteNoteById = useDelete('/notes/', reloadNotes)
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const onDeleteButtonClick = (ev, note) => {
         ev.preventDefault();
@@ -31,11 +31,11 @@ const ProjectNotesTab = ({ project }) => {
 
     return (
         <section>
-            <NoteModalDialog parentType="project" parent={project} isOpen={isOpen} onClose={onNoteFormSaved} />
             <h4>
                 <IconDocument />Project notes
 
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <NoteModalDialog parentType="project" parent={project} isOpen={isOpen} onClose={onNoteFormSaved} onCancel={onClose} />
                     <CreateButton onClick={onOpen}>Add note</CreateButton>
                 </RestrictedComponent>
             </h4>

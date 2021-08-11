@@ -1,10 +1,12 @@
-import { Center } from "@chakra-ui/react";
+import { Button, Center, HStack, useDisclosure } from "@chakra-ui/react";
 import Pagination from "components/layout/Pagination";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import TargetModalDialog from "components/target/ModalDialog";
 import TargetBadge from "components/target/TargetBadge";
 import ButtonGroup from "components/ui/buttons/ButtonGroup";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
+import Tags from "components/ui/Tags";
 import useQuery from "hooks/useQuery";
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
@@ -21,6 +23,8 @@ const ProjectTargets = ({ project }) => {
     const [numberPages, setNumberPages] = useState(1);
     const [targets, setTargets] = useState([]);
 
+    const { isOpen: isAddTargetDialogOpen, onOpen: openAddTargetDialog, onClose: closeAddTargetDialog } = useDisclosure();
+
     const onDeleteButtonClick = (ev, targetId) => {
         ev.preventDefault();
 
@@ -28,6 +32,11 @@ const ProjectTargets = ({ project }) => {
             .then(() => {
                 reloadTargets();
             })
+    }
+
+    const onTargetFormSaved = () => {
+        reloadTargets();
+        closeAddTargetDialog();
     }
 
     const reloadTargets = useCallback(() => {
@@ -61,7 +70,8 @@ const ProjectTargets = ({ project }) => {
             <IconServer />Targets
             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                 <ButtonGroup>
-                    <LinkButton href={`/projects/${project.id}/targets/add`}><IconPlus />Add target</LinkButton>
+                    <TargetModalDialog project={project} isOpen={isAddTargetDialogOpen} onSubmit={onTargetFormSaved} onCancel={closeAddTargetDialog} />
+                    <Button onClick={openAddTargetDialog}><IconPlus />Add target</Button>
                     <LinkButton href={`/projects/${project.id}/targets/add-multiple`}><IconPlus />Add targets</LinkButton>
                 </ButtonGroup>
             </RestrictedComponent>
@@ -84,7 +94,12 @@ const ProjectTargets = ({ project }) => {
                         {targets.length === 0 && <NoResultsTableRow numColumns={4} />}
                         {targets.map((target, index) =>
                             <tr key={index}>
-                                <td><Link to={`/targets/${target.id}`}><TargetBadge name={target.name} /></Link></td>
+                                <td>
+                                    <HStack>
+                                        <Link to={`/targets/${target.id}`}><TargetBadge name={target.name} /></Link>
+                                        <div><Tags values={target.tags} /></div>
+                                    </HStack>
+                                </td>
                                 <td>{target.kind}</td>
                                 <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
                                 <td>

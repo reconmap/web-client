@@ -4,7 +4,7 @@ import { useState } from "react";
 import secureApiFetch from "services/api";
 import NotesForm from "./Form";
 
-const NoteModalDialog = ({parentType, parent, isOpen, onClose}) => {
+const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
     const emptyNote = { visibility: 'private', content: '', parentType: parentType, parentId: parent.id };
     const [newNote, updateNewNote] = useState(emptyNote)
 
@@ -23,23 +23,21 @@ const NoteModalDialog = ({parentType, parent, isOpen, onClose}) => {
             })
     }
 
-    return <Modal size="xl" isOpen={isOpen} onClose={onClose}>
-    <ModalOverlay />
-    <ModalContent>
-      <ModalHeader>Notes</ModalHeader>
-      <ModalCloseButton />
-      <ModalBody>
-      <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
-      </ModalBody>
+    return <Modal size="xl" isOpen={isOpen} onClose={onCancel}>
+        <ModalOverlay />
+        <ModalContent>
+            <ModalHeader>Notes</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+                <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
+            </ModalBody>
 
-      <ModalFooter>
-        <Button onClick={onClose}>
-          Close
-        </Button>
-        <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>Save</Button>
-      </ModalFooter>
-    </ModalContent>
-  </Modal>
+            <ModalFooter>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>Save</Button>
+            </ModalFooter>
+        </ModalContent>
+    </Modal>
 }
 
 export default NoteModalDialog;
