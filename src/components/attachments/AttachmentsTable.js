@@ -5,6 +5,7 @@ import Loading from "components/ui/Loading";
 import ModalDialog from "components/ui/ModalDIalog";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
+import UserLink from "components/users/Link";
 import { resolveMime } from 'friendly-mimes';
 import useDelete from "hooks/useDelete";
 import { useState } from "react";
@@ -87,22 +88,24 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
 
         <table>
             <thead>
-                <th>Upload date</th>
-                <th>Uploaded by</th>
-                <th>Filename</th>
-                <th>File size</th>
-                <th>Mimetype</th>
-                <th>&nbsp;</th>
+                <tr>
+                    <th>Filename</th>
+                    <th>Mimetype</th>
+                    <th>File size</th>
+                    <th>Upload date</th>
+                    <th>Uploaded by</th>
+                    <th>&nbsp;</th>
+                </tr>
             </thead>
             <tbody>
                 {attachments.length === 0 && <NoResultsTableRow numColumns={6} />}
                 {attachments.map((attachment, index) =>
                     <tr key={index}>
-                        <td><RelativeDateFormatter date={attachment.insert_ts} /></td>
-                        <td>{attachment.submitter_name}</td>
                         <td>{attachment.client_file_name}</td>
-                        <td><FileSizeSpan fileSize={attachment.file_size} /></td>
                         <td><span title={safeResolveMime(attachment.file_mimetype)}>{attachment.file_mimetype}</span></td>
+                        <td><FileSizeSpan fileSize={attachment.file_size} /></td>
+                        <td><RelativeDateFormatter date={attachment.insert_ts} /></td>
+                        <td><UserLink userId={attachment.submitter_uid}>{attachment.submitter_name}</UserLink></td>
                         <td style={{ display: "flex" }}>
                             <SecondaryButton onClick={ev => onViewClick(ev, attachment.id)}>View</SecondaryButton>
                             <SecondaryButton onClick={ev => onDownloadClick(ev, attachment.id)}>Download</SecondaryButton>

@@ -1,17 +1,19 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import UserLink from "components/users/Link";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 
 const NotesTable = ({ notes, onDeleteButtonClick }) => {
     return <table>
         <thead>
             <tr>
+                <th>Content</th>
                 <th style={{ width: '200px' }}>Creation time</th>
                 <th style={{ width: '140px' }}>Author</th>
                 <th style={{ width: '140px' }}>Visibility</th>
-                <th>Content</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -19,10 +21,10 @@ const NotesTable = ({ notes, onDeleteButtonClick }) => {
             {notes.length === 0 && <NoResultsTableRow numColumns={5} />}
             {notes.map((note, index) =>
                 <tr>
-                    <td>{note.insert_ts}</td>
-                    <td>{note.user_name}</td>
-                    <td>{note.visibility}</td>
                     <td><ReactMarkdown>{note.content}</ReactMarkdown></td>
+                    <td><ReactTimeAgo date={note.insert_ts} /></td>
+                    <td><UserLink userId={note.user_id}>{note.user_name}</UserLink></td>
+                    <td>{note.visibility}</td>
                     <td>
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, note)} />
