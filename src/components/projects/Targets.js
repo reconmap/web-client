@@ -1,27 +1,60 @@
+import { Center } from "@chakra-ui/react";
+import Pagination from "components/layout/Pagination";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetBadge from "components/target/TargetBadge";
 import ButtonGroup from "components/ui/buttons/ButtonGroup";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
-import React from "react";
+import useQuery from "hooks/useQuery";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import { IconPlus, IconServer } from '../ui/Icons';
 import Loading from "../ui/Loading";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 
 const ProjectTargets = ({ project }) => {
-    const [targets, updateTargets] = useFetch(`/targets?projectId=${project.id}`)
+    const query = useQuery();
+    const urlPageNumber = query.get('page') !== null ? parseInt(query.get('page')) : 1;
+    const [pageNumber, setPageNumber] = useState(urlPageNumber);
+
+    const [numberPages, setNumberPages] = useState(1);
+    const [targets, setTargets] = useState([]);
 
     const onDeleteButtonClick = (ev, targetId) => {
         ev.preventDefault();
 
         secureApiFetch(`/targets/${targetId}`, { method: 'DELETE' })
             .then(() => {
-                updateTargets();
+                reloadTargets();
             })
     }
+
+    const reloadTargets = useCallback(() => {
+        setTargets([]);
+
+        secureApiFetch(`/targets?projectId=${project.id}&page=${pageNumber - 1}`, { method: 'GET' })
+            .then(resp => {
+                if (resp.headers.has('X-Page-Count')) {
+                    setNumberPages(resp.headers.get('X-Page-Count'))
+                }
+                return resp.json()
+            })
+            .then(data => {
+                setTargets(data);
+            });
+    }, [pageNumber, project]);
+
+    const onPrevPageClick = () => {
+        setPageNumber(pageNumber - 1);
+    }
+    const onNextPageClick = () => {
+        setPageNumber(pageNumber + 1);
+    }
+
+    useEffect(() => {
+        reloadTargets()
+    }, [reloadTargets])
 
     return <section>
         <h4>
@@ -34,32 +67,36 @@ const ProjectTargets = ({ project }) => {
             </RestrictedComponent>
         </h4>
         {!targets ? <Loading /> :
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Kind</th>
-                        <th>Vulnerable?</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {targets.length === 0 && <NoResultsTableRow numColumns={4} />}
-                    {targets.map((target, index) =>
-                        <tr key={index}>
-                            <td><Link to={`/targets/${target.id}`}><TargetBadge name={target.name} /></Link>
-                            </td>
-                            <td>{target.kind}</td>
-                            <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
-                            <td>
-                                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                                    <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
-                                </RestrictedComponent>
-                            </td>
+            <>
+                {numberPages > 1 && <Center>
+                    <Pagination page={pageNumber - 1} total={numberPages} handlePrev={onPrevPageClick} handleNext={onNextPageClick} />
+                </Center>}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Kind</th>
+                            <th>Vulnerable?</th>
+                            <th>&nbsp;</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {targets.length === 0 && <NoResultsTableRow numColumns={4} />}
+                        {targets.map((target, index) =>
+                            <tr key={index}>
+                                <td><Link to={`/targets/${target.id}`}><TargetBadge name={target.name} /></Link></td>
+                                <td>{target.kind}</td>
+                                <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
+                                <td>
+                                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                                        <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
+                                    </RestrictedComponent>
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </>
         }
     </section>
 }

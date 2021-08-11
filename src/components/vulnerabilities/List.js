@@ -5,6 +5,7 @@ import DeleteButton from 'components/ui/buttons/Delete';
 import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Pagination from '../layout/Pagination';
 import Breadcrumb from "../ui/Breadcrumb";
@@ -14,7 +15,8 @@ import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 
-const VulnerabilitiesList = ({ history }) => {
+const VulnerabilitiesList = () => {
+    const history = useHistory();
     const query = useQuery();
     let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
