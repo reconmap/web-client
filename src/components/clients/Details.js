@@ -1,7 +1,7 @@
-import { Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
-import ProjectBadge from 'components/projects/ProjectBadge';
+import ProjectsTable from 'components/projects/Table';
 import EmptyField from 'components/ui/EmptyField';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
@@ -30,11 +30,7 @@ const ClientProjectsTab = ({ clientId }) => {
     }
 
     return <div>
-        <Stack>
-            {projects.map(project =>
-                <ProjectBadge project={project} />
-            )}
-        </Stack>
+        <ProjectsTable projects={projects} />
     </div>
 }
 
