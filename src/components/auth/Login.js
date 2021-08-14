@@ -1,6 +1,6 @@
+import { Button, FormControl, Heading, Input } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { AuthConsumer } from "../../contexts/AuthContext";
-import PrimaryButton from "../ui/buttons/Primary";
 import './Login.scss';
 import LoginContainer from "./LoginContainer";
 
@@ -45,18 +45,38 @@ const Login = () => {
                 <LoginContainer>
                     <section className="loginform">
                         <form onSubmit={ev => handleSubmit(ev, login)}>
-                            <fieldset>
-                                <legend>Login</legend>
-                                <label htmlFor="inputUsername" className="sr-only">Username</label>
-                                <input type="text" id="inputUsername" onChange={handleUsername}
+                            <FormControl as="fieldset">
+                                <Heading as="legend" size="lg" mb="3" > Login</Heading>
+                                <Input
+                                    autoFocus
+                                    isRequired
+                                    type={"text"}
                                     placeholder="Username"
-                                    required autoFocus />
+                                    onChange={handleUsername}
+                                    id="inputUsername"
+                                />
                                 <label htmlFor="inputPassword" className="sr-only">Password</label>
-                                <input type="password" id="inputPassword" onChange={handlePassword}
-                                    placeholder="Password" required />
-                                <PrimaryButton
-                                    type="submit">{!loading ? "Sign in" : "Processing..."}</PrimaryButton>
-                            </fieldset>
+                                <Input
+                                    isRequired
+                                    type={"password"}
+                                    placeholder="Enter password"
+                                    onChange={handlePassword}
+                                    id="inputPassword"
+                                />
+                                <Button
+                                    isLoading={loading}
+                                    loadingText="Processing..."
+                                    type="submit"
+                                    isFullWidth
+                                    colorScheme="red"
+                                    isDisabled={
+                                        !credentials.password ||
+                                        !credentials.username
+                                    }
+                                >
+                                    Sign in
+                                </Button>
+                            </FormControl>
                             {error &&
                                 <p className="loginform__error">{error} </p>}
                         </form>
