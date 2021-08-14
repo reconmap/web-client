@@ -48,7 +48,7 @@ const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask 
             <Select name="command_id" onChange={onFormChange} value={task.command_id}>
                 <option value="">(none)</option>
                 {commands.map((command) =>
-                    <option value={command.id}>{command.short_name}</option>
+                    <option value={command.id}>{command.name}</option>
                 )}
             </Select>
         </label>

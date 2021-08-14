@@ -61,7 +61,7 @@ const CommandInstructions = ({ command, task = null }) => {
         </>}
 
         {usesContainer && <Help title='How does it work?'>
-            Reconmap will invoke the command <strong>{command.short_name}</strong> from a <strong>{command.docker_image}</strong> container using the arguments <strong>{command.arguments}</strong> and upload the results to this server for analysis.
+            Reconmap will invoke the command <strong>{command.name}</strong> from a <strong>{command.docker_image}</strong> container using the arguments <strong>{command.arguments}</strong> and upload the results to this server for analysis.
         </Help>
         }
     </>

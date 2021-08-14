@@ -57,9 +57,9 @@ const CommandDetails = () => {
         </div>
         <article>
             <div>
-                <PageTitle value={`${command.short_name} command`} />
+                <PageTitle value={`${command.name} command`} />
 
-                <Title type='Command' title={command.short_name} icon={<IconBriefcase />} />
+                <Title type='Command' title={command.name} icon={<IconBriefcase />} />
                 <Tags values={command.tags} />
             </div>
 
@@ -71,6 +71,10 @@ const CommandDetails = () => {
                                 <dt>Description</dt>
                                 <dd>{command.description ? <ReactMarkdown>{command.description}</ReactMarkdown> : <EmptyField />}</dd>
 
+                                {command.output_parser && <>
+                                    <dt>Output parser support</dt>
+                                    <dl>Yes ({command.output_parser})</dl>
+                                </>}
                                 {command.more_info_url && <>
                                     <dt>More information URL</dt>
                                     <dl>{command.more_info_url ? <ExternalLink href={command.more_info_url}>{command.more_info_url}</ExternalLink> : <EmptyField />}</dl>

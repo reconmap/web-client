@@ -8,8 +8,9 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
     return <table>
         <thead>
             <tr>
-                <th style={{ width: '190px' }}>Short name</th>
+                <th style={{ width: '190px' }}>Name</th>
                 <th className='only-desktop'>Description</th>
+                <th>Output parser</th>
                 <th>Docker image</th>
                 <th>&nbsp;</th>
             </tr>
@@ -17,7 +18,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
         <tbody>
             {commands.length === 0 ?
                 <tr>
-                    <td colSpan="4"><NoResults /></td>
+                    <td colSpan="5"><NoResults /></td>
                 </tr> :
                 commands.map(command =>
                     <tr key={command.id}>
@@ -26,6 +27,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                             {command.description}<br />
                             <Tags values={command.tags} />
                         </td>
+                        <td>{command.output_parser ?? '-'}</td>
                         <td>{command.docker_image}</td>
                         <td className='flex justify-end'>
                             <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>

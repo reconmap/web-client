@@ -17,7 +17,7 @@ const AddCommandPage = ({ history }) => {
         secureApiFetch(`/commands`, { method: 'POST', body: JSON.stringify(newCommand) })
             .then(() => {
                 history.push(`/commands`);
-                actionCompletedToast(`The command "${newCommand.short_name}" has been added.`);
+                actionCompletedToast(`The command "${newCommand.name}" has been added.`);
             })
     }
 

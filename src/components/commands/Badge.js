@@ -15,7 +15,7 @@ const CommandBadge = ({ command }) => {
     return (
         <Link to={"/commands/" + command.id} style={styles.badge}>
             <IconTerminal />
-            {command.short_name}
+            {command.name}
         </Link>
     )
 }

@@ -63,7 +63,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                                 <td  >{task.assignee_uid ?
                                     <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
                                 <td><TaskStatusFormatter task={task} /></td>
-                                <td>{task.command_short_name ? <BadgeOutline>{task.command_short_name}</BadgeOutline> : '-'}</td>
+                                <td>{task.command_name ? <BadgeOutline>{task.command_name}</BadgeOutline> : '-'}</td>
                                 <td className='flex justify-end'>
                                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                         <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
