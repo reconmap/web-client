@@ -1,9 +1,7 @@
+import {  Button,  FormControl, Heading, Input, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { AuthConsumer } from "../../contexts/AuthContext";
-import PrimaryButton from "../ui/buttons/Primary";
-import './Login.scss';
 import LoginContainer from "./LoginContainer";
-
 
 const Login = () => {
 
@@ -43,24 +41,44 @@ const Login = () => {
         {
             ({ isAuth, login }) => (
                 <LoginContainer>
-                    <section className="loginform">
-                        <form onSubmit={ev => handleSubmit(ev, login)}>
-                            <fieldset>
-                                <legend>Login</legend>
-                                <label htmlFor="inputUsername" className="sr-only">Username</label>
-                                <input type="text" id="inputUsername" onChange={handleUsername}
-                                    placeholder="Username"
-                                    required autoFocus />
-                                <label htmlFor="inputPassword" className="sr-only">Password</label>
-                                <input type="password" id="inputPassword" onChange={handlePassword}
-                                    placeholder="Password" required />
-                                <PrimaryButton
-                                    type="submit">{!loading ? "Sign in" : "Processing..."}</PrimaryButton>
-                            </fieldset>
-                            {error &&
-                                <p className="loginform__error">{error} </p>}
-                        </form>
-                    </section>
+                    <form onSubmit={ev => handleSubmit(ev, login)} style={{ width:'100%'}}>
+                        <FormControl as="fieldset">
+                            <Heading as="legend" size="lg" > Login</Heading>
+                            <label htmlFor="inputUsername" className="sr-only">Username</label>
+                            <Input
+                                autoFocus
+                                isInvalid={error}
+                                isRequired
+                                type="text"
+                                placeholder="Username"
+                                onChange={handleUsername}
+                                id="inputUsername"
+                            />
+                            <label htmlFor="inputPassword" className="sr-only">Password</label>
+                            <Input
+                                isRequired
+                                isInvalid={error}
+                                type="password"
+                                placeholder="Enter password"
+                                onChange={handlePassword}
+                                id="inputPassword"
+                            />
+                            <Button
+                                isLoading={loading}
+                                loadingText="Processing..."
+                                type="submit"
+                                isFullWidth
+                                colorScheme="red"
+                                isDisabled={
+                                    !credentials.password ||
+                                    !credentials.username
+                                }
+                            >
+                                Sign in
+                            </Button>
+                        </FormControl>
+                        <Text color='red.300' fontSize='sm' h='12'>{error}</Text>
+                    </form>
                 </LoginContainer>
             )
         }
