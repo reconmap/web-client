@@ -1,9 +1,7 @@
-import { Button, FormControl, Heading, Input } from "@chakra-ui/react";
+import {  Button,  FormControl, Heading, Input, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { AuthConsumer } from "../../contexts/AuthContext";
-import './Login.scss';
 import LoginContainer from "./LoginContainer";
-
 
 const Login = () => {
 
@@ -43,44 +41,44 @@ const Login = () => {
         {
             ({ isAuth, login }) => (
                 <LoginContainer>
-                    <section className="loginform">
-                        <form onSubmit={ev => handleSubmit(ev, login)}>
-                            <FormControl as="fieldset">
-                                <Heading as="legend" size="lg" mb="3" > Login</Heading>
-                                <Input
-                                    autoFocus
-                                    isRequired
-                                    type={"text"}
-                                    placeholder="Username"
-                                    onChange={handleUsername}
-                                    id="inputUsername"
-                                />
-                                <label htmlFor="inputPassword" className="sr-only">Password</label>
-                                <Input
-                                    isRequired
-                                    type={"password"}
-                                    placeholder="Enter password"
-                                    onChange={handlePassword}
-                                    id="inputPassword"
-                                />
-                                <Button
-                                    isLoading={loading}
-                                    loadingText="Processing..."
-                                    type="submit"
-                                    isFullWidth
-                                    colorScheme="red"
-                                    isDisabled={
-                                        !credentials.password ||
-                                        !credentials.username
-                                    }
-                                >
-                                    Sign in
-                                </Button>
-                            </FormControl>
-                            {error &&
-                                <p className="loginform__error">{error} </p>}
-                        </form>
-                    </section>
+                    <form onSubmit={ev => handleSubmit(ev, login)} style={{ width:'100%'}}>
+                        <FormControl as="fieldset">
+                            <Heading as="legend" size="lg" > Login</Heading>
+                            <label htmlFor="inputUsername" className="sr-only">Username</label>
+                            <Input
+                                autoFocus
+                                isInvalid={error}
+                                isRequired
+                                type="text"
+                                placeholder="Username"
+                                onChange={handleUsername}
+                                id="inputUsername"
+                            />
+                            <label htmlFor="inputPassword" className="sr-only">Password</label>
+                            <Input
+                                isRequired
+                                isInvalid={error}
+                                type="password"
+                                placeholder="Enter password"
+                                onChange={handlePassword}
+                                id="inputPassword"
+                            />
+                            <Button
+                                isLoading={loading}
+                                loadingText="Processing..."
+                                type="submit"
+                                isFullWidth
+                                colorScheme="red"
+                                isDisabled={
+                                    !credentials.password ||
+                                    !credentials.username
+                                }
+                            >
+                                Sign in
+                            </Button>
+                        </FormControl>
+                        <Text color='red.300' fontSize='sm' h='12'>{error}</Text>
+                    </form>
                 </LoginContainer>
             )
         }

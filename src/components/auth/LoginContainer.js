@@ -1,19 +1,19 @@
+import { Box, Container } from "@chakra-ui/react";
 import Header from "../layout/Header";
-import './LoginContainer.scss';
 
 const LoginContainer = ({ children }) => {
     return (
-        <div className='login__container'>
+        <Box minH="100vh" d="flex" flexDirection="column">
             <Header />
-            <div>
+            <Container as="section" flex="1" d="flex" alignItems="center">
                 {children}
-            </div>
-            <footer>
-                Version
-                <strong > {process.env.REACT_APP_VERSION}</strong> ({process.env.REACT_APP_GIT_COMMIT_HASH})
-            </footer>
-        </div>
-    )
-}
+            </Container>
+            <Box as='footer' p="3" textAlign='center'>
+                Version <strong> {process.env.REACT_APP_VERSION}</strong> (
+                {process.env.REACT_APP_GIT_COMMIT_HASH})
+            </Box>
+        </Box>
+    );
+};
 
-export default LoginContainer
+export default LoginContainer;
