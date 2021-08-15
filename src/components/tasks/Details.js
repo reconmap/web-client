@@ -1,4 +1,4 @@
-import { Select } from '@chakra-ui/react'
+import { HStack, Select } from '@chakra-ui/react'
 import AttachmentsTable from 'components/attachments/AttachmentsTable'
 import AttachmentsDropzone from 'components/attachments/Dropzone'
 import CommandOutputs from 'components/commands/Outputs'
@@ -15,7 +15,6 @@ import useDelete from '../../hooks/useDelete'
 import TaskStatuses from "../../models/TaskStatuses"
 import secureApiFetch from '../../services/api'
 import Breadcrumb from "../ui/Breadcrumb"
-import ButtonGroup from "../ui/buttons/ButtonGroup"
 import DeleteButton from "../ui/buttons/Delete"
 import PrimaryButton from '../ui/buttons/Primary'
 import { IconClipboard, IconDocument } from '../ui/Icons'
@@ -90,7 +89,7 @@ const TaskDetails = ({ history, match }) => {
                     {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
                 </Breadcrumb>
                 {task && users &&
-                    <ButtonGroup>
+                    <HStack alignItems='flex-end'>
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
                             <label>Transition to&nbsp;
@@ -102,7 +101,7 @@ const TaskDetails = ({ history, match }) => {
                             </label>
                             <DeleteButton onClick={() => handleDelete(task.id)} />
                         </RestrictedComponent>
-                    </ButtonGroup>
+                    </HStack>
                 }
             </div>
             {!task ? <Loading /> :

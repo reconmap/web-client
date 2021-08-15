@@ -1,3 +1,4 @@
+import { ButtonGroup } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
@@ -6,7 +7,6 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from "../ui/Breadcrumb";
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
 import { IconBriefcase } from '../ui/Icons';

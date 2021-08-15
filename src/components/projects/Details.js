@@ -1,3 +1,4 @@
+import { ButtonGroup } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
@@ -6,7 +7,6 @@ import secureApiFetch from "services/api";
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from '../ui/buttons/Secondary';

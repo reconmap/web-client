@@ -1,10 +1,9 @@
-import { Select } from '@chakra-ui/react'
+import { HStack, Select } from '@chakra-ui/react'
 import RestrictedComponent from 'components/logic/RestrictedComponent'
 import CreateButton from 'components/ui/buttons/Create'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import useFetch from "../../hooks/useFetch"
-import ButtonGroup from '../ui/buttons/ButtonGroup'
 import { IconFlag } from '../ui/Icons'
 import Loading from '../ui/Loading'
 import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
@@ -24,14 +23,14 @@ const ProjectVulnerabilities = ({ project }) => {
 
     return <section>
         <h4><IconFlag />Vulnerabilities
-            <ButtonGroup>
+            <HStack alignItems='flex-end'>
                 {vulnerabilities &&
                     <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
                         setStatus={setStatus} />}
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <CreateButton onClick={handleCreateVulnerability}>Add new vulnerability</CreateButton>
                 </RestrictedComponent>
-            </ButtonGroup>
+            </HStack>
         </h4>
         {
             vulnerabilities ?

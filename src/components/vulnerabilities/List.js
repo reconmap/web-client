@@ -1,6 +1,6 @@
+import { ButtonGroup } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
-import ButtonGroup from 'components/ui/buttons/ButtonGroup';
 import DeleteButton from 'components/ui/buttons/Delete';
 import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';

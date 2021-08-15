@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
@@ -8,7 +8,6 @@ import UserLink from 'components/users/Link';
 import React from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Breadcrumb from "../ui/Breadcrumb";
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
 import ExternalLink from "../ui/ExternalLink";

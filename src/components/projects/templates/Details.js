@@ -1,6 +1,6 @@
+import { ButtonGroup } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
-import ButtonGroup from 'components/ui/buttons/ButtonGroup';
 import DeleteButton from 'components/ui/buttons/Delete';
 import LinkButton from 'components/ui/buttons/Link';
 import PrimaryButton from 'components/ui/buttons/Primary';

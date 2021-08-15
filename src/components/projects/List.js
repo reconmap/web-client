@@ -1,11 +1,10 @@
-import { Select } from '@chakra-ui/react';
+import { HStack, Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import { useCallback, useEffect, useState } from 'react';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import Breadcrumb from '../ui/Breadcrumb';
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import CreateButton from '../ui/buttons/Create';
 import { IconFolder } from '../ui/Icons';
 import Loading from '../ui/Loading';
@@ -47,7 +46,7 @@ const ProjectsList = ({ history }) => {
         <PageTitle value="Projects" />
         <div className='heading'>
             <Breadcrumb />
-            <ButtonGroup>
+            <HStack>
                 <div>
                     <label>Status
                         <Select onChange={onStatusFilterChange} defaultValue="active">
@@ -60,7 +59,7 @@ const ProjectsList = ({ history }) => {
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
                 </RestrictedComponent>
-            </ButtonGroup>
+            </HStack>
         </div>
         <Title title='Projects' icon={<IconFolder />} />
         {!projects ? <Loading /> : <ProjectsTable projects={projects} destroy={destroy} />}
