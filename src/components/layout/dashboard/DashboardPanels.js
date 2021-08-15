@@ -1,11 +1,10 @@
-import { Checkbox, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Checkbox, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import Loading from 'components/ui/Loading';
 import Widgets from 'models/Widgets';
 import React, { useEffect, useState } from 'react';
 import widgetIsVisible from 'services/widgets';
 import { IconChartBar } from "../../ui/Icons";
 import Title from "../../ui/Title";
-import './DashboardPanels.scss';
 import WelcomeWidget from './widgets/WelcomeWidget';
 
 const DashboardPanels = () => {
@@ -54,9 +53,9 @@ const DashboardPanels = () => {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <div className='dashboard__panels'>
+                    <SimpleGrid gap="3" columns={{base: "1", md:"2", xl:"3"}}>
                         {visibleWidgets.length === 0 ? <WelcomeWidget /> : visibleWidgets}
-                    </div>
+                    </SimpleGrid>
                 </TabPanel>
                 <TabPanel>
                     <h4>Select which widgets to present in your dashboard</h4>
