@@ -53,7 +53,7 @@ const AdvancedSearch = () => {
                 <Checkbox isChecked={entities.includes(objectKey)} value={objectKey} onChange={onFormInputChange}>{entityList[objectKey]}</Checkbox>
             )}
 
-            <Button type="submit" isDisabled={entities.length === 0}>Search</Button>
+            <Button type="submit" isDisabled={keywords.length === 0 || entities.length === 0}>Search</Button>
         </form>
     </>
 }
