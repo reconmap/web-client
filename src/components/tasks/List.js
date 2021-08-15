@@ -1,4 +1,4 @@
-import { Select } from '@chakra-ui/react';
+import { HStack, Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -10,7 +10,6 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import TaskStatuses from "../../models/TaskStatuses";
 import Breadcrumb from '../ui/Breadcrumb';
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import CreateButton from "../ui/buttons/Create";
 import { IconClipboardList } from '../ui/Icons';
 import Loading from '../ui/Loading';
@@ -79,7 +78,7 @@ const TasksList = ({ history }) => {
         <PageTitle value="Tasks" />
         <div className='heading'>
             <Breadcrumb />
-            <ButtonGroup>
+            <HStack alignItems='flex-end'>
                 <div>
                     <label>Project</label>
                     <Select onChange={handleSetProject}>
@@ -110,7 +109,7 @@ const TasksList = ({ history }) => {
                     </DeleteButton>
                 </RestrictedComponent>
                 <ReloadButton onClick={async () => { setReloadButtonDisabled(true); await reloadTasks(); setReloadButtonDisabled(false); }} disabled={reloadButtonDisabled} />
-            </ButtonGroup>
+            </HStack>
         </div>
         <Title title='Tasks' icon={<IconClipboardList />} />
 

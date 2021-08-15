@@ -1,9 +1,8 @@
-import { Button, Center, HStack, useDisclosure } from "@chakra-ui/react";
+import { Button, ButtonGroup, Center, HStack, useDisclosure } from "@chakra-ui/react";
 import Pagination from "components/layout/Pagination";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetModalDialog from "components/target/ModalDialog";
 import TargetBadge from "components/target/TargetBadge";
-import ButtonGroup from "components/ui/buttons/ButtonGroup";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import Tags from "components/ui/Tags";

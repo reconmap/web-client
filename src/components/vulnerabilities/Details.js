@@ -1,4 +1,4 @@
-import { Select } from '@chakra-ui/react';
+import { HStack, Select } from '@chakra-ui/react';
 import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
 import PageTitle from 'components/logic/PageTitle';
@@ -17,7 +17,6 @@ import secureApiFetch from '../../services/api';
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
 import Breadcrumb from '../ui/Breadcrumb';
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
 import ExternalLink from "../ui/ExternalLink";
@@ -73,7 +72,7 @@ const VulnerabilityDetails = () => {
             <Breadcrumb>
                 <Link to="/vulnerabilities">Vulnerabilities</Link>
             </Breadcrumb>
-            <ButtonGroup>
+            <HStack alignItems='flex-end'>
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <EditButton onClick={(ev) => {
                         ev.preventDefault();
@@ -90,7 +89,7 @@ const VulnerabilityDetails = () => {
 
                     <DeleteButton onClick={handleDelete} />
                 </RestrictedComponent>
-            </ButtonGroup>
+            </HStack>
         </div>
         <article>
             <PageTitle value={`${vulnerability.summary} vulnerability`} />

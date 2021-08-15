@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
@@ -11,7 +11,6 @@ import AuditLogsTable from '../auditlog/AuditLogsTable';
 import UserAvatar from '../badges/UserAvatar';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import Breadcrumb from '../ui/Breadcrumb';
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import Loading from '../ui/Loading';

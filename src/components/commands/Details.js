@@ -1,3 +1,4 @@
+import { ButtonGroup } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import EmptyField from 'components/ui/EmptyField';
@@ -15,7 +16,6 @@ import CommandService from 'services/command';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from "../ui/Breadcrumb";
-import ButtonGroup from "../ui/buttons/ButtonGroup";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
 import { IconBriefcase } from '../ui/Icons';
