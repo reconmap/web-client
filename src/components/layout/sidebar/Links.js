@@ -1,39 +1,17 @@
-import {
-    IconBookOpen,
-    IconBriefcase,
-    IconClipboardList,
-    IconCode,
-    IconDocument,
-    IconDocumentDuplicate,
-    IconDownload,
-    IconExtensions,
-    IconEye,
-    IconFlag,
-    IconFolder,
-    IconPlus,
-    IconPreferences,
 
-    IconQuestionCircle,
-
-    IconSupport,
-
-    IconTerminal,
-    IconUpload,
-    IconUserGroup
-} from "../../ui/Icons";
-
+import { HiAdjustments, HiBookOpen, HiBriefcase, HiChartPie, HiCode, HiDocument, HiDocumentDuplicate, HiDownload, HiEye, HiFlag, HiFolder,  HiPlus, HiPuzzle, HiSupport, HiTerminal, HiUpload, HiUsers, HiViewList } from 'react-icons/hi'
 const Links = [
     {
-        title: 'Projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
+        title: 'Projects', icon: <HiFolder />, to: '/projects', sublinks: [
             {
                 title: 'Create',
-                icon: <IconPlus size={5} />,
+                icon: <HiPlus />,
                 to: '/projects/create',
                 permissions: 'projects.create'
             },
             {
                 title: 'Templates',
-                icon: <IconDocumentDuplicate size={5} />,
+                icon: <HiDocumentDuplicate />,
                 to: '/projects/templates',
                 permissions: 'projects.templates'
             }
@@ -41,37 +19,37 @@ const Links = [
     },
     {
         title: 'Tasks',
-        icon: <IconClipboardList size={5} />,
+        icon: <HiViewList />,
         to: '/tasks',
         sublinks: [
             {
                 title: 'Create',
-                icon: <IconPlus size={5} />,
+                icon: <HiPlus />,
                 to: '/tasks/create',
             }
         ],
         permissions: 'tasks.create'
     },
     {
-        title: 'Commands', icon: <IconTerminal size={5} />, to: '/commands', sublinks: [
+        title: 'Commands', icon: <HiTerminal />, to: '/commands', sublinks: [
             {
                 title: 'Add',
-                icon: <IconPlus size={5} />,
+                icon: <HiPlus />,
                 to: '/commands/add',
             }
         ],
         permissions: 'commands.*'
     },
     {
-        title: 'Vulnerabilities', icon: <IconFlag size={5} />, to: '/vulnerabilities', sublinks: [
+        title: 'Vulnerabilities', icon: <HiFlag />, to: '/vulnerabilities', sublinks: [
             {
                 title: 'Add',
-                icon: <IconPlus size={5} />,
+                icon: <HiPlus />,
                 to: '/vulnerabilities/create',
             },
             {
                 title: 'Templates',
-                icon: <IconDocumentDuplicate size={5} />,
+                icon: <HiDocumentDuplicate />,
                 to: '/vulnerabilities/templates',
                 permissions: 'vulnerabilities.templates'
             }
@@ -79,30 +57,30 @@ const Links = [
         permissions: 'vulnerabilities.*'
     },
     {
-        title: 'Documents', icon: <IconDocument size={5} />, to: '/documents', sublinks: [
+        title: 'Documents', icon: <HiDocument />, to: '/documents', sublinks: [
             {
                 title: 'Add',
-                icon: <IconPlus size={5} />,
+                icon: <HiPlus />,
                 to: '/documents/add',
             }
         ],
         permissions: 'vulnerabilities.*'
     },
     {
-        title: 'Clients', icon: <IconBriefcase size={5} />, to: '/clients', sublinks: [
+        title: 'Clients', icon: <HiBriefcase />, to: '/clients', sublinks: [
             {
                 title: 'Create',
-                icon: <IconPlus size={5} />,
+                icon: <HiPlus />,
                 to: '/clients/create',
             }
         ],
         permissions: 'clients.*'
     },
     {
-        title: 'Users', icon: <IconUserGroup size={5} />, to: '/users', sublinks: [
+        title: 'Users', icon: <HiUsers />, to: '/users', sublinks: [
             {
                 title: 'Create',
-                icon: <IconPlus size={5} />,
+                icon: <HiPlus />,
                 to: '/users/create',
             }
         ],
@@ -110,37 +88,37 @@ const Links = [
     },
     {
         title: 'System',
-        icon: <IconPreferences size={5} />,
+        icon: <HiAdjustments />,
         to: '/system',
         sublinks: [
             {
                 title: 'Audit log',
-                icon: <IconEye size={5} />,
+                icon: <HiEye />,
                 to: '/auditlog'
             },
             {
                 title: 'Import data',
-                icon: <IconUpload size={5} />,
+                icon: <HiUpload />,
                 to: '/system/import-data',
             },
             {
                 title: 'Export data',
-                icon: <IconDownload size={5} />,
+                icon: <HiDownload />,
                 to: '/system/export-data',
             },
             {
                 title: 'Usage',
-                icon: <IconExtensions size={5} />,
+                icon: <HiChartPie />,
                 to: '/system/usage',
             },
             {
                 title: 'Application logs',
-                icon: <IconEye size={5} />,
+                icon: <HiEye />,
                 to: '/system/logs'
             },
             {
                 title: 'Integrations',
-                icon: <IconExtensions size={5} />,
+                icon: <HiPuzzle />,
                 to: '/integrations',
             },
         ],
@@ -148,24 +126,24 @@ const Links = [
     },
     {
         title: 'Help and support',
-        icon: <IconQuestionCircle size={5} />,
+        icon: <HiSupport />,
         to: '/help',
         sublinks: [
             {
                 title: 'User manual',
-                icon: <IconBookOpen size={5} />,
+                icon: <HiBookOpen />,
                 to: 'https://reconmap.org/user-manual/',
                 external: true
             },
             {
                 title: 'API docs',
-                icon: <IconCode size={5} />,
+                icon: <HiCode />,
                 to: `${window.env.REACT_APP_API_ENDPOINT}/docs`,
                 external: true
             },
             {
                 title: 'Support',
-                icon: <IconSupport size={5} />,
+                icon: <HiSupport />,
                 to: '/support',
             },
 

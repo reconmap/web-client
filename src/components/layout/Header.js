@@ -1,5 +1,7 @@
+import { Box, IconButton,Text ,Link,  } from '@chakra-ui/react';
 import * as path from 'path';
-import { Link } from 'react-router-dom';
+import {  HiMenu } from 'react-icons/hi';
+import { Link as ReactLink } from 'react-router-dom';
 import { ServerIssuesUrl, UserManualUrl } from 'ServerUrls';
 import Configuration from '../../Configuration';
 import { AuthConsumer } from '../../contexts/AuthContext';
@@ -7,27 +9,32 @@ import NotificationsBadge from '../badges/NotificationsBadge';
 import SearchBox from "../search/Box";
 import LinkButton from '../ui/buttons/Link';
 import HeaderUserMenu from '../ui/HeaderUserMenu';
-import './Header.scss';
 
 const LINKS = [
     { title: "User Manual", to: { pathname: UserManualUrl } },
     { title: "Support", to: { pathname: ServerIssuesUrl } },
 ];
 
-const Header = () => {
-
+const Header = ({onOpen}) => {
+    const handleClick = () => {
+        onOpen()
+      }
     return <AuthConsumer>
         {
             ({ isAuth, user }) => (
-                <nav>
-                    <Link to='/' style={{ cursor: 'pointer' }} className='logo'>
-                        <h3>
+                <Box bg='gray.800' zIndex='10' pos='fixed' w='full' boxShadow='lg' py='3' px='5'
+                    d='flex' alignItems='center' justifyContent='space-between'>
+                    <Box d='flex' alignItems='center' justifyContent='flex-end'>
+                        <IconButton onClick={handleClick} mr='3' icon={<HiMenu />} variant='outline' display={{ base: 'flex', lg: 'none' }} />
+                        <Link _hover={{ textDecor:'none'}}  to='/' style={{ cursor: 'pointer' }} as={ReactLink} d='flex' alignItems='center'>
                             <img alt='logo' src={path.join(Configuration.appBasename, 'logo.svg')} />
-                            <strong style={{ color: 'var(--white)' }} className='from-tablet'>
+                            <Text as='h3' fontWeight='bold' ml='2' color='white' d={{ base: 'none', lg:'inline-block'} }>
                                 Recon<span style={{ color: 'var(--primary-color)' }}>map</span>
-                            </strong>
-                        </h3>
-                    </Link>
+                            </Text>
+                        </Link>
+                    </Box>
+                    <Box d='flex' alignItems='center' justifyContent='flex-end'>
+
                     {isAuth ? <>
                         <SearchBox />
                         <NotificationsBadge />
@@ -37,7 +44,8 @@ const Header = () => {
                             <LinkButton external key={index} href={link.to.pathname}>
                                 {link.title}
                             </LinkButton>))}
-                </nav>
+                    </Box>
+                </Box>
             )
         }
     </AuthConsumer>

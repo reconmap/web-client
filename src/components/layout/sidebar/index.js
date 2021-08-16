@@ -1,16 +1,16 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button,  VStack, Text, Drawer, DrawerOverlay, DrawerContent,  DrawerBody,  } from '@chakra-ui/react';
+import React from 'react';
+import { HiOutlineViewList } from 'react-icons/hi';
+import { Link as ReactLink,useHistory,  } from 'react-router-dom';
 import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
-import { IconChevronDown, IconDashboard } from '../../ui/Icons';
-import IconCollapse from './../../../images/icons/collapse';
+import {  IconDashboard } from '../../ui/Icons';
 import Links from './Links';
-import './Sidebar.scss';
 
-export default function Sidebar(props) {
-    const { setSidebarCollapsed, sidebarCollapsed } = props
+export default function Sidebar({isOpen, onClose}) {
 
     const user = Auth.getLoggedInUser();
+    const {location} = useHistory()
 
     const filterByRole = (link) => {
         if (!link.hasOwnProperty('permissions')) {
@@ -19,67 +19,55 @@ export default function Sidebar(props) {
         return user && PermissionsService.isAllowed(link.permissions, user.permissions);
     }
 
-    const watchClientWidth = useCallback(e => {
-        if (e.target.innerWidth < 800) setSidebarCollapsed(true)
-    }, [setSidebarCollapsed])
+    const SidebarButton = ({link}) => {
+        return <Button color='gray.400' _active={{ backgroundColor: 'black', color: 'white' }} justifyContent='flex-start' as={ReactLink} variant='ghost' size='sm' isFullWidth to={link.to} data-label={link.title} isActive={location.pathname === link.to} leftIcon={link.icon || <HiOutlineViewList />}>
+            <span>{link.title}</span>
+        </Button>
+    }
 
-    useLayoutEffect(() => {
-        if (window.innerWidth < 800) setSidebarCollapsed(true)
-        window.addEventListener('resize', watchClientWidth);
-        return () => { window.removeEventListener('resize', watchClientWidth) }
-    }, [watchClientWidth, setSidebarCollapsed])
-
-    const defaultSectionStatuses = Object.assign({}, ...Links.map(link => ({ [link.title]: false })));
-    const [sectionStatuses, updateSectionStatuses] = useState(defaultSectionStatuses);
-
-    const onParentClick = (ev, link) => {
-        ev.preventDefault();
-        updateSectionStatuses({ ...sectionStatuses, [link.title]: !sectionStatuses[link.title] })
+    const SidebarLinks = () => {
+        return <><Button isActive={ location.pathname ==='/'} as={ReactLink} variant='ghost'  isFullWidth  to={'/'} justifyContent='flex-start' data-label='Dashboard' leftIcon={<IconDashboard />} _active={{ backgroundColor: 'black', color: 'white' }}>
+                <Text size='xs'  >Dashboard</Text>
+            </Button>
+            <Accordion mt='2' >
+                {Links.filter(filterByRole).map((link, index) => {
+                    const subLinks = link.sublinks.filter(filterByRole);
+                    return <AccordionItem  border='0' key={index} >
+                            <h2 >
+                                <AccordionButton _expanded={{ color: 'red.400'}} color='gray.500' d='flex' alignItems='center' textAlign='left' >
+                                    {link.icon}
+                                    <Text size='xs' ml='2' color='currentColor'> {link.title} </Text>
+                                    <AccordionIcon ml='auto' />
+                                </AccordionButton>
+                            </h2>
+                            <AccordionPanel>
+                            <VStack spacing='1'>
+                                <SidebarButton link={link}/>
+                                    {subLinks.map(sublink =>
+                                        sublink.hasOwnProperty('external') ?
+                                            <Button as={'a'} href={sublink.to} target="_blank" variant='ghost' isFullWidth size='sm' rel="noreferrer noopener" color='gray.400' justifyContent='flex-start'  data-label={sublink.title} leftIcon={sublink.icon}> <span>{sublink.title}</span> </Button>
+                                            : <SidebarButton link={sublink}/>
+                                    )}
+                                </VStack>
+                            </AccordionPanel>
+                    </AccordionItem>
+                })}
+            </Accordion></>
     }
 
     return (
-        <aside className="sidebar " style={{ paddingTop: sidebarCollapsed ? 'calc(var(--space) * 4)' : 'var(--space)' }}>
-            <button onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                style={{ padding: '5px', position: 'absolute', top: 'var(--space)', display: 'inline', zIndex: '10', right: sidebarCollapsed ? 'var(--space)' : 0, margin: 'auto' }}>
-                <span style={{ height: '20px', width: '20px', margin: 0, padding: 0, transformOrigin: 'center center', transform: sidebarCollapsed ? `rotate(180deg)` : `rotate(0deg)`, display: 'block' }}>
-                    <IconCollapse />
-                </span>
-            </button>
-
-            <Link to={'/'} data-label='Dashboard'>
-                <IconDashboard size={5} />
-                <span>Dashboard</span>
-            </Link>
-            {Links.filter(filterByRole).map((link, index) => {
-                const subLinks = link.sublinks.filter(filterByRole);
-                return <React.Fragment key={index}>
-                    <div onClick={ev => onParentClick(ev, link)}>
-                        <NavLink to={link.to} data-label={link.title} activeClassName='active' exact>
-                            {link.icon}
-                            <span>{link.title}</span>
-                            {subLinks.length > 0 && <IconChevronDown styling={{ transform: sectionStatuses[link.title] && 'rotate(180deg)' }} />}
-                        </NavLink>
-                    </div>
-                    {sectionStatuses[link.title] &&
-                        <React.Fragment>
-                            {subLinks.map(sublink =>
-                                sublink.hasOwnProperty('external') ?
-                                    <a href={sublink.to} target="_blank" rel="noreferrer noopener" data-label={sublink.title} activeClassName='active' className='sublink'>
-                                        {sublink.icon}
-                                        <span>{sublink.title}</span>
-                                    </a>
-                                    :
-                                    <NavLink to={sublink.to} data-label={sublink.title} activeClassName='active'
-                                        className='sublink'
-                                        exact>
-                                        {sublink.icon}
-                                        <span>{sublink.title}</span>
-                                    </NavLink>
-                            )}
-                        </React.Fragment>}
-                </React.Fragment>
-
-            })}
-        </aside>
+        <React.Fragment>
+            <Drawer placement={'left'} isOpen={isOpen} size='xs' onClose={onClose} >
+                <DrawerOverlay />
+                <DrawerContent bg='gray.900' pt='10'>
+                <DrawerBody>
+                    <SidebarLinks />                
+                </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+            <Box as='aside' pl='2' pt='2' display={{ base: 'none', lg:'block'}}>
+                <SidebarLinks />                
+            </Box>
+        </React.Fragment>
     )
 }
