@@ -24,7 +24,7 @@ const AdvancedSearch = () => {
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        history.push(`/search/${keywords}?entities=` + entities.join(','));
+        history.push(`/search/${keywords.trim()}?entities=` + entities.join(','));
     }
 
     const onKeywordsChange = ev => {
@@ -53,7 +53,7 @@ const AdvancedSearch = () => {
                 <Checkbox isChecked={entities.includes(objectKey)} value={objectKey} onChange={onFormInputChange}>{entityList[objectKey]}</Checkbox>
             )}
 
-            <Button type="submit" isDisabled={keywords.length === 0 || entities.length === 0}>Search</Button>
+            <Button type="submit" isDisabled={keywords.trim().length === 0 || entities.length === 0}>Search</Button>
         </form>
     </>
 }
