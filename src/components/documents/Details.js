@@ -67,7 +67,7 @@ const DocumentDetailsPage = () => {
                     <h4>Relations</h4>
                     <dl>
                         <dt>Created by</dt>
-                        <dd><UserLink userId={serverDoc.creator_uid}>{serverDoc.creator_full_name}</UserLink></dd>
+                        <dd><UserLink userId={serverDoc.user_id}>{serverDoc.user_name}</UserLink></dd>
                     </dl>
 
                     <TimestampsSection entity={serverDoc} />

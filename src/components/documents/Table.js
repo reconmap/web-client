@@ -1,6 +1,7 @@
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
+import UserLink from "components/users/Link";
 import React from "react";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 import DocumentBadge from "./Badge";
@@ -20,11 +21,11 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
         <tbody>
             {documents.length === 0 && <NoResultsTableRow numColumns={5} />}
             {documents.map((document, index) =>
-                <tr>
+                <tr key={`doc_${index}`}>
                     <td><DocumentBadge document={document} /></td>
                     <td className="truncate">{document.content}</td>
                     <td>{<RelativeDateFormatter date={document.insert_ts} />}</td>
-                    <td>{document.user_name}</td>
+                    <td><UserLink userId={document.user_id}>{document.user_name}</UserLink></td>
                     <td>{document.visibility}</td>
                     <td className="flex justify-end">
                         <LinkButton href={`/documents/${document.id}/edit`}>Edit</LinkButton>
