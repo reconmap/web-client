@@ -1,15 +1,27 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button,  VStack, Text, Drawer, DrawerOverlay, DrawerContent,  DrawerBody,  } from '@chakra-ui/react';
-import React from 'react';
-import { HiOutlineViewList } from 'react-icons/hi';
-import { Link as ReactLink,useHistory,  } from 'react-router-dom';
+import { Box, Button, Collapse, Drawer, DrawerContent, DrawerOverlay, Flex, Icon, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import React from 'react'
+import { HiChevronRight, } from 'react-icons/hi';
+import Links from './Links';
 import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
-import {  IconDashboard } from '../../ui/Icons';
-import Links from './Links';
+import { Link, useHistory } from 'react-router-dom';
+import * as path from 'path';
+import Configuration from '../../../Configuration';
+import { IconDashboard } from 'components/ui/Icons';
 
-export default function Sidebar({isOpen, onClose}) {
-
+const Sidebar = (sidebar) => {
     const user = Auth.getLoggedInUser();
+    const disclosures = {
+        'Projects': useDisclosure(),
+        'Tasks': useDisclosure(),
+        'Commands': useDisclosure(),
+        'Vulnerabilities': useDisclosure(),
+        'Documents': useDisclosure(),
+        'Clients': useDisclosure(),
+        'Users': useDisclosure(),
+        'System': useDisclosure(),
+        'Help and support': useDisclosure(),
+    }
     const {location} = useHistory()
 
     const filterByRole = (link) => {
@@ -18,56 +30,64 @@ export default function Sidebar({isOpen, onClose}) {
         }
         return user && PermissionsService.isAllowed(link.permissions, user.permissions);
     }
+    const NavItem = (props) => {
+        const { icon, children, to, ...rest } = props;
+        return (
+            <Link to={to}  >
+                <Flex bg={ location.pathname ===to ? 'black':''} align="center" px="4" pl="4" py="3" cursor="pointer" color={useColorModeValue("inherit", "gray.400")} _hover={{ bg: useColorModeValue("gray.100", "gray.900"), color: useColorModeValue("gray.900", "gray.200"), }} fontWeight="semibold" transition=".15s ease" {...rest} >
+                    <Flex mr='2' _groupHover={{ color: useColorModeValue("gray.600", "gray.300"), }}>{icon}</Flex>
+                    {children}
+                </Flex>
+            </Link>
+        );
+    };
+    const navItemBg = useColorModeValue("white", "gray.800")
+    const navItemBorderColor = useColorModeValue("inherit", "gray.700")
 
-    const SidebarButton = ({link}) => {
-        return <Button color='gray.400' _active={{ backgroundColor: 'black', color: 'white' }} justifyContent='flex-start' as={ReactLink} variant='ghost' size='sm' isFullWidth to={link.to} data-label={link.title} isActive={location.pathname === link.to} leftIcon={link.icon || <HiOutlineViewList />}>
-            <span>{link.title}</span>
-        </Button>
-    }
-
-    const SidebarLinks = () => {
-        return <><Button isActive={ location.pathname ==='/'} as={ReactLink} variant='ghost'  isFullWidth  to={'/'} justifyContent='flex-start' data-label='Dashboard' leftIcon={<IconDashboard />} _active={{ backgroundColor: 'black', color: 'white' }}>
-                <Text size='xs'  >Dashboard</Text>
-            </Button>
-            <Accordion mt='2' >
+    const SidebarContent = (props) => (
+        <Box as="nav" pos="fixed" top="0" left="0" zIndex="sticky" h="full" pb="10" overflowX="hidden" overflowY="auto" bg={navItemBg} borderColor={navItemBorderColor} borderRightWidth="1px" w="60" {...props} >
+            <Link _hover={{ textDecor: 'none' }} to='/' style={{ cursor: 'pointer' }} d='flex' alignItems='center' >
+                <Flex p='5' flexDirection='row'>
+                    <img alt='logo' src={path.join(Configuration.appBasename, 'logo.svg')} />
+                    <Text as='h3' fontWeight='bold' ml='2' color='white' >
+                        Recon<span style={{ color: 'var(--primary-color)' }}>map</span>
+                    </Text>
+                </Flex>
+            </Link>
+            <Flex direction="column" as="nav" fontSize="sm" color="gray.600" aria-label="Main Navigation" >
+                <NavItem icon={<IconDashboard />} to={'/'}> Dashboard </NavItem>
                 {Links.filter(filterByRole).map((link, index) => {
                     const subLinks = link.sublinks.filter(filterByRole);
-                    return <AccordionItem  border='0' key={index} >
-                            <h2 >
-                                <AccordionButton _expanded={{ color: 'red.400'}} color='gray.500' d='flex' alignItems='center' textAlign='left' >
-                                    {link.icon}
-                                    <Text size='xs' ml='2' color='currentColor'> {link.title} </Text>
-                                    <AccordionIcon ml='auto' />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel>
-                            <VStack spacing='1'>
-                                <SidebarButton link={link}/>
-                                    {subLinks.map(sublink =>
-                                        sublink.hasOwnProperty('external') ?
-                                            <Button as={'a'} href={sublink.to} target="_blank" variant='ghost' isFullWidth size='sm' rel="noreferrer noopener" color='gray.400' justifyContent='flex-start'  data-label={sublink.title} leftIcon={sublink.icon}> <span>{sublink.title}</span> </Button>
-                                            : <SidebarButton link={sublink}/>
-                                    )}
-                                </VStack>
-                            </AccordionPanel>
-                    </AccordionItem>
+                    return <>
+                        <NavItem icon={link.icon} onClick={disclosures[link.title].onToggle} to={link.to}>
+                            {link.title}
+                            {subLinks && <Icon as={HiChevronRight} ml="auto" transform={disclosures[link.title].isOpen && "rotate(90deg)"} />}
+                        </NavItem>
+                        {subLinks &&
+                            <Collapse in={disclosures[link.title].isOpen} animateOpacity>
+                                {subLinks.map(sublink =>
+                                    sublink.hasOwnProperty('external') ?
+                                    <Button rounded='0'  pl="12" py="2" as={'a'} href={sublink.to} target="_blank" variant='ghost' isFullWidth size='sm' rel="noreferrer noopener" color='gray.400' justifyContent='flex-start' bg={navItemBg} borderColor={navItemBorderColor} borderRightWidth="1px" w="60" data-label={sublink.title} leftIcon={sublink.icon}> <span>{sublink.title}</span> </Button>
+                                        : <NavItem pl="12" py="2" icon={sublink.icon} to={sublink.to}> {sublink.title} </NavItem>
+                                )}
+                            </Collapse>
+                        }
+                    </>
                 })}
-            </Accordion></>
-    }
-
+            </Flex>
+        </Box>
+    );
     return (
-        <React.Fragment>
-            <Drawer placement={'left'} isOpen={isOpen} size='xs' onClose={onClose} >
+        <>
+            <SidebarContent display={{ base: "none", md: "unset" }} />
+            <Drawer isOpen={sidebar.isOpen} onClose={sidebar.onClose} placement="left" >
                 <DrawerOverlay />
-                <DrawerContent bg='gray.900' pt='10'>
-                <DrawerBody>
-                    <SidebarLinks />                
-                </DrawerBody>
+                <DrawerContent>
+                    <SidebarContent w="full" borderRight="none" />
                 </DrawerContent>
             </Drawer>
-            <Box as='aside' pl='2' pt='2' display={{ base: 'none', lg:'block'}}>
-                <SidebarLinks />                
-            </Box>
-        </React.Fragment>
-    )
+        </>
+    );
 }
+
+export default Sidebar

@@ -1,4 +1,4 @@
-import {  Box, Grid, useDisclosure } from "@chakra-ui/react";
+import {  Box,useDisclosure } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import Header from "../Header";
 import Sidebar from "../sidebar";
@@ -11,12 +11,12 @@ const Dashboard = ({ children }) => {
         <>
             <PageTitle value="Dashboard" />
             <Header onOpen={onOpen}/>
-            <Grid pt={{ base:'12', lg:'20'}} as='main' gridTemplateColumns={{ base:'1fr', lg:'200px 1fr'}} gap='2'>
+            <Box pt={'20'} as='main' >
                 <Sidebar isOpen={isOpen} onClose={onClose} />
-                <Box id='content' p={{ base:'5', lg:'3'}}>
+                <Box id='content' pr={{ base:'5', lg:'3'}} pl={{base: 5, md: '64'}}>
                     {children || <DashboardPanels />}
                 </Box>
-            </Grid>
+            </Box>
         </>
     );
 }
