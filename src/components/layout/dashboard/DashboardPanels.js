@@ -34,10 +34,10 @@ const DashboardPanels = () => {
         setDashboardConfig(memoryConfig)
     }, []);
 
-    const visibleWidgets = Object.keys(Widgets).map((widgetKey) => {
+    const visibleWidgets = Object.keys(Widgets).map(widgetKey => {
         const widget = Widgets[widgetKey];
         if (widgetIsVisible(widgetKey)) {
-            return widget.component;
+            return React.cloneElement(widget.component, { key: widgetKey });
         }
         return null;
     }).filter(widget => widget !== null);
@@ -53,7 +53,7 @@ const DashboardPanels = () => {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <SimpleGrid gap="3" columns={{base: "1", md:"2", xl:"3"}}>
+                    <SimpleGrid gap="3" columns={{ base: "1", md: "2", xl: "3" }}>
                         {visibleWidgets.length === 0 ? <WelcomeWidget /> : visibleWidgets}
                     </SimpleGrid>
                 </TabPanel>
