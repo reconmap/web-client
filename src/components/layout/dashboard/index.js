@@ -1,21 +1,22 @@
+import {  Box,useDisclosure } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
-import { useState } from "react";
 import Header from "../Header";
 import Sidebar from "../sidebar";
 import DashboardPanels from "./DashboardPanels";
 
 const Dashboard = ({ children }) => {
-    const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
     return (
         <>
             <PageTitle value="Dashboard" />
-            <Header />
-            <main role="main" className={sidebarCollapsed ? 'collapsed' : ''}>
-                <Sidebar sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed} />
-                <div id='content'>
+            <Header onOpen={onOpen}/>
+            <Box pt={'20'} as='main' >
+                <Sidebar isOpen={isOpen} onClose={onClose} />
+                <Box id='content' pr={{ base:'5', lg:'3'}} pl={{base: 5, md: '64'}}>
                     {children || <DashboardPanels />}
-                </div>
-            </main>
+                </Box>
+            </Box>
         </>
     );
 }

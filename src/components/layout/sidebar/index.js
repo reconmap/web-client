@@ -1,16 +1,28 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Box, Button, Collapse, Drawer, DrawerContent, DrawerOverlay, Flex, Icon, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import React from 'react'
+import { HiChevronRight, } from 'react-icons/hi';
+import Links from './Links';
 import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
-import { IconChevronDown, IconDashboard } from '../../ui/Icons';
-import IconCollapse from './../../../images/icons/collapse';
-import Links from './Links';
-import './Sidebar.scss';
+import { Link, useHistory } from 'react-router-dom';
+import * as path from 'path';
+import Configuration from '../../../Configuration';
+import { IconDashboard } from 'components/ui/Icons';
 
-export default function Sidebar(props) {
-    const { setSidebarCollapsed, sidebarCollapsed } = props
-
+const Sidebar = (sidebar) => {
     const user = Auth.getLoggedInUser();
+    const disclosures = {
+        'Projects': useDisclosure(),
+        'Tasks': useDisclosure(),
+        'Commands': useDisclosure(),
+        'Vulnerabilities': useDisclosure(),
+        'Documents': useDisclosure(),
+        'Clients': useDisclosure(),
+        'Users': useDisclosure(),
+        'System': useDisclosure(),
+        'Help and support': useDisclosure(),
+    }
+    const {location} = useHistory()
 
     const filterByRole = (link) => {
         if (!link.hasOwnProperty('permissions')) {
@@ -18,68 +30,64 @@ export default function Sidebar(props) {
         }
         return user && PermissionsService.isAllowed(link.permissions, user.permissions);
     }
-
-    const watchClientWidth = useCallback(e => {
-        if (e.target.innerWidth < 800) setSidebarCollapsed(true)
-    }, [setSidebarCollapsed])
-
-    useLayoutEffect(() => {
-        if (window.innerWidth < 800) setSidebarCollapsed(true)
-        window.addEventListener('resize', watchClientWidth);
-        return () => { window.removeEventListener('resize', watchClientWidth) }
-    }, [watchClientWidth, setSidebarCollapsed])
-
-    const defaultSectionStatuses = Object.assign({}, ...Links.map(link => ({ [link.title]: false })));
-    const [sectionStatuses, updateSectionStatuses] = useState(defaultSectionStatuses);
-
-    const onParentClick = (ev, link) => {
-        ev.preventDefault();
-        updateSectionStatuses({ ...sectionStatuses, [link.title]: !sectionStatuses[link.title] })
-    }
-
-    return (
-        <aside className="sidebar " style={{ paddingTop: sidebarCollapsed ? 'calc(var(--space) * 4)' : 'var(--space)' }}>
-            <button onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                style={{ padding: '5px', position: 'absolute', top: 'var(--space)', display: 'inline', zIndex: '10', right: sidebarCollapsed ? 'var(--space)' : 0, margin: 'auto' }}>
-                <span style={{ height: '20px', width: '20px', margin: 0, padding: 0, transformOrigin: 'center center', transform: sidebarCollapsed ? `rotate(180deg)` : `rotate(0deg)`, display: 'block' }}>
-                    <IconCollapse />
-                </span>
-            </button>
-
-            <Link to={'/'} data-label='Dashboard'>
-                <IconDashboard size={5} />
-                <span>Dashboard</span>
+    const NavItem = (props) => {
+        const { icon, children, to, ...rest } = props;
+        return (
+            <Link to={to}  >
+                <Flex bg={ location.pathname ===to ? 'black':''} align="center" px="4" pl="4" py="3" cursor="pointer" color={useColorModeValue("inherit", "gray.400")} _hover={{ bg: useColorModeValue("gray.100", "gray.900"), color: useColorModeValue("gray.900", "gray.200"), }} fontWeight="semibold" transition=".15s ease" {...rest} >
+                    <Flex mr='2' _groupHover={{ color: useColorModeValue("gray.600", "gray.300"), }}>{icon}</Flex>
+                    {children}
+                </Flex>
             </Link>
-            {Links.filter(filterByRole).map((link, index) => {
-                const subLinks = link.sublinks.filter(filterByRole);
-                return <React.Fragment key={index}>
-                    <div onClick={ev => onParentClick(ev, link)}>
-                        <NavLink to={link.to} data-label={link.title} activeClassName='active' exact>
-                            {link.icon}
-                            <span>{link.title}</span>
-                            {subLinks.length > 0 && <IconChevronDown styling={{ transform: sectionStatuses[link.title] && 'rotate(180deg)' }} />}
-                        </NavLink>
-                    </div>
-                    {sectionStatuses[link.title] &&
-                        <React.Fragment>
-                            {subLinks.map(sublink =>
-                                sublink.hasOwnProperty('external') ?
-                                    <a href={sublink.to} target="_blank" rel="noreferrer noopener" data-label={sublink.title} activeClassName='active' className='sublink'>
-                                        {sublink.icon}
-                                        <span>{sublink.title}</span>
-                                    </a>
-                                    :
-                                    <NavLink to={sublink.to} data-label={sublink.title} activeClassName='active'
-                                        className='sublink'
-                                        exact>
-                                        {sublink.icon}
-                                        <span>{sublink.title}</span>
-                                    </NavLink>
-                            )}
-                        </React.Fragment>}
-                </React.Fragment>
+        );
+    };
+    const navItemBg = useColorModeValue("white", "gray.800")
+    const navItemBorderColor = useColorModeValue("inherit", "gray.700")
 
-            })}
-        </aside>
-    )
+    const SidebarContent = (props) => (
+        <Box as="nav" pos="fixed" top="0" left="0" zIndex="sticky" h="full" pb="10" overflowX="hidden" overflowY="auto" bg={navItemBg} borderColor={navItemBorderColor} borderRightWidth="1px" w="60" {...props} >
+            <Link _hover={{ textDecor: 'none' }} to='/' style={{ cursor: 'pointer' }} d='flex' alignItems='center' >
+                <Flex p='5' flexDirection='row'>
+                    <img alt='logo' src={path.join(Configuration.appBasename, 'logo.svg')} />
+                    <Text as='h3' fontWeight='bold' ml='2' color='white' >
+                        Recon<span style={{ color: 'var(--primary-color)' }}>map</span>
+                    </Text>
+                </Flex>
+            </Link>
+            <Flex direction="column" as="nav" fontSize="sm" color="gray.600" aria-label="Main Navigation" >
+                <NavItem icon={<IconDashboard />} to={'/'}> Dashboard </NavItem>
+                {Links.filter(filterByRole).map((link, index) => {
+                    const subLinks = link.sublinks.filter(filterByRole);
+                    return <>
+                        <NavItem icon={link.icon} onClick={disclosures[link.title].onToggle} to={link.to}>
+                            {link.title}
+                            {subLinks && <Icon as={HiChevronRight} ml="auto" transform={disclosures[link.title].isOpen && "rotate(90deg)"} />}
+                        </NavItem>
+                        {subLinks &&
+                            <Collapse in={disclosures[link.title].isOpen} animateOpacity>
+                                {subLinks.map(sublink =>
+                                    sublink.hasOwnProperty('external') ?
+                                    <Button rounded='0'  pl="12" py="2" as={'a'} href={sublink.to} target="_blank" variant='ghost' isFullWidth size='sm' rel="noreferrer noopener" color='gray.400' justifyContent='flex-start' bg={navItemBg} borderColor={navItemBorderColor} borderRightWidth="1px" w="60" data-label={sublink.title} leftIcon={sublink.icon}> <span>{sublink.title}</span> </Button>
+                                        : <NavItem pl="12" py="2" icon={sublink.icon} to={sublink.to}> {sublink.title} </NavItem>
+                                )}
+                            </Collapse>
+                        }
+                    </>
+                })}
+            </Flex>
+        </Box>
+    );
+    return (
+        <>
+            <SidebarContent display={{ base: "none", md: "unset" }} />
+            <Drawer isOpen={sidebar.isOpen} onClose={sidebar.onClose} placement="left" >
+                <DrawerOverlay />
+                <DrawerContent>
+                    <SidebarContent w="full" borderRight="none" />
+                </DrawerContent>
+            </Drawer>
+        </>
+    );
 }
+
+export default Sidebar
