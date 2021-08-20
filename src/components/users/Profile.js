@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Button, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
@@ -16,7 +16,7 @@ import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
-
+import {Link as ReactLink} from 'react-router-dom'
 const UserProfile = ({ match }) => {
     const history = useHistory();
 
@@ -87,8 +87,8 @@ const UserProfile = ({ match }) => {
                             </div>
                         </TabPanel>
                         <TabPanel>
-                            <h4>Activity (<Link to="/auditlog">view full audit log</Link>)</h4>
                             {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true" /> : <Loading />}
+                            <Button  isFullWidth mt='3' to="/auditlog" as={ ReactLink }>View full audit log</Button>
                         </TabPanel>
                     </TabPanels>
                 </Tabs>
