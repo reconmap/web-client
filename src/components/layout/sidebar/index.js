@@ -62,14 +62,14 @@ export default function Sidebar(props) {
                     </div>
                     {sectionStatuses[link.title] &&
                         <React.Fragment>
-                            {subLinks.map(sublink =>
+                            {subLinks.map((sublink, index) =>
                                 sublink.hasOwnProperty('external') ?
-                                    <a href={sublink.to} target="_blank" rel="noreferrer noopener" data-label={sublink.title} activeClassName='active' className='sublink'>
+                                    <a key={`sublink_${index}`} href={sublink.to} target="_blank" rel="noreferrer noopener" data-label={sublink.title} activeClassName='active' className='sublink'>
                                         {sublink.icon}
                                         <span>{sublink.title}</span>
                                     </a>
                                     :
-                                    <NavLink to={sublink.to} data-label={sublink.title} activeClassName='active'
+                                    <NavLink key={`sublink_${index}`} to={sublink.to} data-label={sublink.title} activeClassName='active'
                                         className='sublink'
                                         exact>
                                         {sublink.icon}
