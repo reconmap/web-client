@@ -14,7 +14,7 @@ const Tabs = ({ children }) => {
 
     childrenArray.forEach((child, index) => {
         if (child instanceof Object) {
-            buttons.push(<button onClick={ev => handleChangeTab(ev, index)}
+            buttons.push(<button key={`tab_${index}`} onClick={ev => handleChangeTab(ev, index)}
                 className={currentTab === index ? "active" : ""}>{child.props.name}</button>);
         }
     })

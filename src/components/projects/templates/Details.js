@@ -1,4 +1,4 @@
-import { ButtonGroup } from '@chakra-ui/react';
+import { ButtonGroup, Stack } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -30,8 +30,8 @@ const TemplateDetails = ({ history, match }) => {
         history.push('/projects/templates');
     });
 
-    if(template && !template.is_template) {
-        return <Redirect to={`/projects/${template.id}`}/>
+    if (template && !template.is_template) {
+        return <Redirect to={`/projects/${template.id}`} />
     }
 
     return (
@@ -61,9 +61,11 @@ const TemplateDetails = ({ history, match }) => {
                             <h4>Description</h4>
                             <ReactMarkdown>{template.description}</ReactMarkdown>
                             <h4>Tasks</h4>
-                            {tasks && tasks.map((task, index) =>
-                                <>&#10003; {task.summary}<br /></>
-                            )}
+                            <Stack>
+                                {tasks && tasks.map((task, index) =>
+                                    <div key={`task_${index}`}>&#10003; {task.summary}</div>
+                                )}
+                            </Stack>
                         </div>
 
                         <div>

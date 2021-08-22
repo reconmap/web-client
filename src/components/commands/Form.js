@@ -39,7 +39,7 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
             <label>Output parser
                 <Select name="output_parser" onChange={onFormChange} value={command.output_parser}>
                     <option value="">(none)</option>
-                    {parsers.map(parser => <option value={parser.code}>{parser.name}</option>)}
+                    {parsers.map(parser => <option key={`parser_${parser.code}`} value={parser.code}>{parser.name}</option>)}
                 </Select>
             </label>
         </fieldset>

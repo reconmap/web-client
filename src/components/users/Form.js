@@ -34,7 +34,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             </label>
             <label>Role
                 <Select name="role" onChange={onFormChange} value={user.role} required>
-                    {UserRoles.map((role, index) => <option value={role.id}>{role.name}</option>)}
+                    {UserRoles.map(role => <option key={`role_${role.id}`} value={role.id}>{role.name}</option>)}
                 </Select>
             </label>
             <label>Properties
@@ -52,7 +52,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             </label>
             {!isEdit &&
                 <>
-                    <label for="passwordGenerationMethod">Password generation method
+                    <label htmlFor="passwordGenerationMethod">Password generation method
                         <Select name="passwordGenerationMethod" onChange={onPasswordGenerationMethodChange}>
                             <option value="auto">Auto-generated</option>
                             <option value="manual">Manual</option>
