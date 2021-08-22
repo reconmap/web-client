@@ -91,7 +91,7 @@ const TasksList = ({ history }) => {
                     <label>Status</label>
                     <Select onChange={handleSetStatus}>
                         <option value="">(any)</option>
-                        {TaskStatuses.map((status, index) => <option value={status.id}>{status.name}</option>)}
+                        {TaskStatuses.map(status => <option key={`taskstatus_${status.id}`} value={status.id}>{status.name}</option>)}
                     </Select>
                 </div>
                 <CreateButton onClick={handleCreateTask}>Create task</CreateButton>

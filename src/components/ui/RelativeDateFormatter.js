@@ -11,7 +11,7 @@ const RelativeDateFormatter = ({ date: dateString }) => {
         return dateString;
     }
 
-    return <ReactTimeAgo date={dateString} />
+    return <ReactTimeAgo date={timestamp} locale="en-UK" />
 };
 
 RelativeDateFormatter.propTypes = {

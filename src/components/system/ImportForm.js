@@ -36,14 +36,14 @@ const ImportForm = () => {
         <div>
             <h3>Import system data</h3>
             <form>
-                <p>
+                <div>
                     Notes:
                     <ul>
                         <li>Everything on the file will be attempted to be imported.</li>
                         <li>If there is an error the import process will continue resulting on a partial import.</li>
                         <li>If there are missing attributes, Reconmap will attempt to use defaults instead.</li>
                     </ul>
-                </p>
+                </div>
                 <label>
                     Select file
                     <input type="file" id="importFile" onChange={onImportFileChange} required accept=".json,.js,application/json,text/json" />

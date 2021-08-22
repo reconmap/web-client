@@ -54,7 +54,7 @@ export default function Sidebar(props) {
                 const subLinks = link.sublinks.filter(filterByRole);
                 return <React.Fragment key={index}>
                     <div onClick={ev => onParentClick(ev, link)}>
-                        <NavLink to={link.to} data-label={link.title} activeClassName='active' exact>
+                        <NavLink to={link.to} data-label={link.title} activeClassName="active" exact>
                             {link.icon}
                             <span>{link.title}</span>
                             {subLinks.length > 0 && <IconChevronDown styling={{ transform: sectionStatuses[link.title] && 'rotate(180deg)' }} />}
@@ -64,12 +64,12 @@ export default function Sidebar(props) {
                         <React.Fragment>
                             {subLinks.map((sublink, index) =>
                                 sublink.hasOwnProperty('external') ?
-                                    <a key={`sublink_${index}`} href={sublink.to} target="_blank" rel="noreferrer noopener" data-label={sublink.title} activeClassName='active' className='sublink'>
+                                    <a key={`sublink_${index}`} href={sublink.to} target="_blank" rel="noreferrer noopener" data-label={sublink.title} className='sublink'>
                                         {sublink.icon}
                                         <span>{sublink.title}</span>
                                     </a>
                                     :
-                                    <NavLink key={`sublink_${index}`} to={sublink.to} data-label={sublink.title} activeClassName='active'
+                                    <NavLink key={`sublink_${index}`} to={sublink.to} data-label={sublink.title} activeClassName="active"
                                         className='sublink'
                                         exact>
                                         {sublink.icon}

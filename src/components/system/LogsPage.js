@@ -23,9 +23,7 @@ const SystemLogsPage = () => {
         </div>
         <Title type="System" title="Logs" icon={<IconDownloadDocument />} />
 
-        <Textarea variant="filled" isReadOnly size="sm" style={{ height: '100%' }}>
-            {logs}
-        </Textarea>
+        <Textarea variant="filled" isReadOnly size="sm" style={{ height: '100%' }} value={logs} />
 
     </div>
 };

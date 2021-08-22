@@ -29,6 +29,7 @@ import setThemeColors from './utilities/setThemeColors';
 
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
+
     useEffect(() => {
         localStorage.setItem('theme', theme)
         setThemeColors(theme)
