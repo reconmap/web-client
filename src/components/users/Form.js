@@ -23,14 +23,14 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             <legend>Basic information</legend>
 
             <label>Full name
-                <input type="text" name="full_name" value={user.full_name} onChange={onFormChange} required />
+                <input type="text" name="full_name" value={user.full_name || ""} onChange={onFormChange} required />
             </label>
             <label>Short bio
-                <input type="text" name="short_bio" value={user.short_bio} onChange={onFormChange}
+                <input type="text" name="short_bio" value={user.short_bio || ""} onChange={onFormChange}
                     placeholder="DevSecOps, or Project Manager" />
             </label>
             <label>Email
-                <input type="email" name="email" value={user.email} onChange={onFormChange} required />
+                <input type="email" name="email" value={user.email || ""} onChange={onFormChange} required />
             </label>
             <label>Role
                 <Select name="role" onChange={onFormChange} value={user.role} required>
@@ -48,7 +48,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
         <fieldset>
             <legend>Credentials</legend>
             <label>Username
-                <input type="text" name="username" value={user.username} onChange={onFormChange} autoFocus required />
+                <input type="text" name="username" value={user.username || ""} onChange={onFormChange} autoFocus required />
             </label>
             {!isEdit &&
                 <>

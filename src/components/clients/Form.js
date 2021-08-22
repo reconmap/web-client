@@ -11,18 +11,18 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
 
     return <form onSubmit={onFormSubmit}>
         <label>Name
-            <input type="text" name="name" onChange={onFormChange} value={client.name} required autoFocus /></label>
+            <input type="text" name="name" onChange={onFormChange} value={client.name || ""} required autoFocus /></label>
         <label>URL
-            <input type="text" name="url" onChange={onFormChange} value={client.url} />
+            <input type="text" name="url" onChange={onFormChange} value={client.url || ""} />
         </label>
         <label>Contact name
-            <input type="text" name="contact_name" onChange={onFormChange} value={client.contact_name}
+            <input type="text" name="contact_name" onChange={onFormChange} value={client.contact_name || ""}
                 required /></label>
         <label>Contact email
-            <input type="email" name="contact_email" onChange={onFormChange} value={client.contact_email}
+            <input type="email" name="contact_email" onChange={onFormChange} value={client.contact_email || ""}
                 required /></label>
         <label>Contact phone
-            <input type="tel" name="contact_phone" onChange={onFormChange} value={client.contact_phone} />
+            <input type="tel" name="contact_phone" onChange={onFormChange} value={client.contact_phone || ""} />
         </label>
 
         <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>

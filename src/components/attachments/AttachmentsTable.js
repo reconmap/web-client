@@ -38,7 +38,7 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
                     setContent(<img src={await URL.createObjectURL(blob)} alt="" />);
                     // @todo -> URL.revokeObjectURL
                 } else {
-                    setContent(<textarea style={{ width: '100%', height: '90%' }}>{await blob.text()}</textarea>);
+                    setContent(<textarea style={{ width: '100%', height: '90%' }} value={await blob.text()} readOnly />);
                 }
                 setModalVisible(true);
             })

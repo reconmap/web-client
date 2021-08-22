@@ -109,22 +109,22 @@ const VulnerabilityForm = ({
             </label>
 
             <label>Summary
-                <input type="text" name="summary" value={vulnerability.summary} onChange={onFormChange} required autoFocus />
+                <input type="text" name="summary" value={vulnerability.summary || ""} onChange={onFormChange} required autoFocus />
             </label>
             <label>Description
-                <MarkdownEditor name="description" value={vulnerability.description} onChange={onFormChange} />
+                <MarkdownEditor name="description" value={vulnerability.description || ""} onChange={onFormChange} />
             </label>
             <label>Tags
                 <input type="text" name="tags" onChange={onFormChange} value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(',') : ''} />
             </label>
             <label>Proof of concept
-                <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept} onChange={onFormChange} />
+                <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept || ""} onChange={onFormChange} />
             </label>
             <label>Impact
-                <MarkdownEditor name="impact" value={vulnerability.impact} onChange={onFormChange} />
+                <MarkdownEditor name="impact" value={vulnerability.impact || ""} onChange={onFormChange} />
             </label>
             <label>Solution (if available)
-                <MarkdownEditor name="solution" value={vulnerability.solution} onChange={onFormChange} />
+                <MarkdownEditor name="solution" value={vulnerability.solution || ""} onChange={onFormChange} />
             </label>
             <label>Risk
                 <Select name="risk" value={vulnerability.risk} onChange={onFormChange} required>

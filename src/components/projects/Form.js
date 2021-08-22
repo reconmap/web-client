@@ -42,17 +42,17 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             </>}
 
             <label>Client
-                <Select name="client_id" onChange={handleFormChange} value={project.client_id}>
+                <Select name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
                     {clients && clients.map((client, index) =>
                         <option key={index} value={client.id}>{client.name}</option>
                     )}
                 </Select>
             </label>
             <label>Name
-                <input type="text" name="name" onChange={handleFormChange} value={project.name} required autoFocus />
+                <input type="text" name="name" onChange={handleFormChange} value={project.name || ""} required autoFocus />
             </label>
             <label>Description
-                <MarkdownEditor name="description" onChange={handleFormChange} value={project.description} required />
+                <MarkdownEditor name="description" onChange={handleFormChange} value={project.description || ""} required />
             </label>
         </fieldset>
 
@@ -61,9 +61,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             <label>
                 Type
-                <Select name="engagement_type" value={project.engagement_type} onChange={handleFormChange}>
+                <Select name="engagement_type" value={project.engagement_type || ""} onChange={handleFormChange}>
                     <option value="">(undefined)</option>
-                    {ProjectEngagementTypes.map((type, index) => <option value={type.id}>{type.name}</option>)}
+                    {ProjectEngagementTypes.map(type => <option key={`engtype_${type.id}`} value={type.id}>{type.name}</option>)}
                 </Select>
             </label>
 

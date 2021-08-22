@@ -38,7 +38,7 @@ const CommandInstructions = ({ command, task = null }) => {
         <h4>1. Fill in the arguments</h4>
         {Object.keys(commandArgs).length > 0 &&
             Object.keys(commandArgs).map((key) =>
-                <p>
+                <p key={`command_${key}`}>
                     <label htmlFor='commandArg'>
                         {commandArgs[key].name}
                     </label> <br />

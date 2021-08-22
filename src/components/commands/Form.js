@@ -24,20 +24,20 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
         <fieldset>
             <legend>Basic information</legend>
             <label>Name
-                <input type="text" name="name" onChange={onFormChange} value={command.name} required autoFocus /></label>
+                <input type="text" name="name" onChange={onFormChange} value={command.name || ""} required autoFocus /></label>
             <label>Description
-                <MarkdownEditor name="description" onChange={onFormChange} value={command.description} required />
+                <MarkdownEditor name="description" onChange={onFormChange} value={command.description || ""} required />
             </label>
             <label>Tags
                 <input type="text" name="tags" onChange={onFormChange} value={command.tags ? JSON.parse(command.tags).join(',') : ''} /></label>
             <label>More information URL
-                <input type="url" name="more_info_url" onChange={onFormChange} value={command.more_info_url} /></label>
+                <input type="url" name="more_info_url" onChange={onFormChange} value={command.more_info_url || ""} /></label>
         </fieldset>
         <fieldset>
             <legend>Automation details</legend>
 
             <label>Output parser
-                <Select name="output_parser" onChange={onFormChange} value={command.output_parser}>
+                <Select name="output_parser" onChange={onFormChange} value={command.output_parser || ""}>
                     <option value="">(none)</option>
                     {parsers.map(parser => <option key={`parser_${parser.code}`} value={parser.code}>{parser.name}</option>)}
                 </Select>
@@ -51,17 +51,17 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
         </label>
         {command.executable_type === 'custom' && <>
             <label>Executable path
-                <input type="text" name="executable_path" onChange={onFormChange} value={command.executable_path} /></label>
+                <input type="text" name="executable_path" onChange={onFormChange} value={command.executable_path || ""} /></label>
         </>
         }
         <label>Command line arguments
-            <input type="text" name="arguments" onChange={onFormChange} value={command.arguments} /></label>
+            <input type="text" name="arguments" onChange={onFormChange} value={command.arguments || ""} /></label>
         {command.executable_type === 'rmap' && <>
             <label>Docker image
-                <input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image} /></label>
+                <input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image || ""} /></label>
 
             <label>Output filename
-                <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename} />
+                <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename || ""} />
             </label>
         </>}
 

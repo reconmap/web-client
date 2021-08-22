@@ -16,9 +16,9 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
 
     return <form onSubmit={onFormSubmit}>
         <label htmlFor="title">Title</label>
-        <input type="text" name="title" id="title" value={document.title} onChange={onFormInputChange} required autoFocus />
+        <input type="text" name="title" id="title" value={document.title || ""} onChange={onFormInputChange} required autoFocus />
         <label htmlFor="content">Content (markdown supported)</label>
-        <MarkdownEditor name="content" style={{ width: '100%' }} required value={document.content}
+        <MarkdownEditor name="content" style={{ width: '100%' }} required value={document.content || ""}
             onChange={onFormInputChange} /><br />
         <label htmlFor="visibility">Visibility</label>
         <Select name="visibility" id="visibility" value={document.visibility} onChange={onFormInputChange} required>
