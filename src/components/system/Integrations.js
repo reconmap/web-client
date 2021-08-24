@@ -6,7 +6,7 @@ import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Title from "../ui/Title";
 
-const IntegrationsList = ({ history }) => {
+const SystemIntegrationsPage = () => {
     const [integrations] = useFetch('/system/integrations')
 
     return (
@@ -37,4 +37,4 @@ const IntegrationsList = ({ history }) => {
     )
 }
 
-export default IntegrationsList;
+export default SystemIntegrationsPage;

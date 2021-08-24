@@ -9,7 +9,6 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AuditLogList from "./components/auditlog/List";
 import ClientsRoutes from "./components/clients/Routes";
-import IntegrationsList from "./components/integrations/List";
 import Dashboard from "./components/layout/dashboard";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProtectedRoute from "./components/logic/ProtectedRoute";
@@ -64,7 +63,6 @@ const App = () => {
                                     ]
                                         .map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))
                                 }
-                                <ProtectedRoute path={`/integrations`} component={IntegrationsList} />
                                 <ProtectedRoute path={`/auditlog`} component={AuditLogList} />
                                 <Route component={PageNotFound} />
                             </Switch>

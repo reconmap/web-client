@@ -1,4 +1,5 @@
 import ActiveProjectsWidget from "components/layout/dashboard/widgets/ActiveProjectsWidget";
+import ApiHealthWidget from "components/layout/dashboard/widgets/ApiHealthWidget";
 import MyTasksWidget from "components/layout/dashboard/widgets/MyTasksWidget";
 import PopularCommandsWidget from "components/layout/dashboard/widgets/PopularCommandsWidget";
 import RecentActivityWidget from "components/layout/dashboard/widgets/RecentActivityWidget";
@@ -50,6 +51,12 @@ const Widgets = {
         title: 'User activity over time',
         visible: true,
         component: <UserActivityStatsWidget />
+    },
+    'api-health': {
+        title: 'API health',
+        visible: true,
+        component: <ApiHealthWidget />,
+        description: 'It presents information about the health of the API server.'
     },
 };
 

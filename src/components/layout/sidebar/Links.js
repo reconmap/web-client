@@ -1,8 +1,10 @@
 import {
     IconBookOpen,
     IconBriefcase,
+    IconCheck,
     IconClipboardList,
     IconCode,
+    IconCube,
     IconDocument,
     IconDocumentDuplicate,
     IconDownload,
@@ -130,7 +132,7 @@ const Links = [
             },
             {
                 title: 'Usage',
-                icon: <IconExtensions size={5} />,
+                icon: <IconCube size={5} />,
                 to: '/system/usage',
             },
             {
@@ -141,7 +143,12 @@ const Links = [
             {
                 title: 'Integrations',
                 icon: <IconExtensions size={5} />,
-                to: '/integrations',
+                to: '/system/integrations',
+            },
+            {
+                title: 'Health',
+                icon: <IconCheck size={5} />,
+                to: '/system/health',
             },
         ],
         permissions: 'system.*'
