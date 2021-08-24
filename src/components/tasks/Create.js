@@ -1,3 +1,4 @@
+import PageTitle from 'components/logic/PageTitle';
 import useQuery from 'hooks/useQuery';
 import TaskModel from 'models/Task';
 import React, { useRef, useState } from 'react';
@@ -24,6 +25,7 @@ const TaskCreationPage = ({ history }) => {
 
     return (
         <div>
+            <PageTitle value="Add task" />
             <div className='heading'>
                 <Breadcrumb>
                     <Link to="/tasks">Tasks</Link>

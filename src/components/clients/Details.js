@@ -71,7 +71,7 @@ const ClientDetails = () => {
                 <Title type='Client' title={client.name} icon={<IconBriefcase />} />
             </div>
 
-            <Tabs variant="enclosed" isLazy>
+            <Tabs isLazy>
                 <TabList>
                     <Tab>Details</Tab>
                     <Tab>Client's projects</Tab>

@@ -46,7 +46,7 @@ const DashboardPanels = () => {
 
     return <section>
         <Title type="Home" title="Dashboard" icon={<IconChartBar />} />
-        <Tabs variant="enclosed">
+        <Tabs>
             <TabList>
                 <Tab>View</Tab>
                 <Tab>Configure</Tab>

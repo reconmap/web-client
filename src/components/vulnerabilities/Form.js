@@ -127,14 +127,14 @@ const VulnerabilityForm = ({
                 <MarkdownEditor name="solution" value={vulnerability.solution || ""} onChange={onFormChange} />
             </label>
             <label>Risk
-                <Select name="risk" value={vulnerability.risk} onChange={onFormChange} required>
+                <Select name="risk" value={vulnerability.risk || ""} onChange={onFormChange} required>
                     {Risks.map((risk, index) =>
                         <option key={index} value={risk.id}>{risk.name}</option>
                     )}
                 </Select>
             </label>
             <label>Category
-                <Select name="category_id" value={vulnerability.category_id} onChange={onFormChange} required>
+                <Select name="category_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
                     {categories && categories.map((category, index) =>
                         <option key={index} value={category.id}>{category.name}</option>
                     )}
@@ -153,7 +153,7 @@ const VulnerabilityForm = ({
             <legend>Relations</legend>
 
             <label>Project
-                <Select name="project_id" value={vulnerability.project_id} onChange={onFormChange} required>
+                <Select name="project_id" value={vulnerability.project_id || ""} onChange={onFormChange} required>
                     {projects && projects.map((project, index) =>
                         <option key={index} value={project.id}>{project.name}</option>
                     )}
@@ -161,7 +161,7 @@ const VulnerabilityForm = ({
             </label>
 
             <label>Affected target
-                <Select name="target_id" value={vulnerability.target_id} onChange={onFormChange}>
+                <Select name="target_id" value={vulnerability.target_id || ""} onChange={onFormChange}>
                     <option value="0">(none)</option>
                     {targets && targets.map((target, index) =>
                         <option key={index} value={target.id}>{target.name}</option>

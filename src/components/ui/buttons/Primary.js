@@ -26,7 +26,7 @@ const PrimaryButton = ({
     }
 
     return (
-        <button type={type ? type : "button"} onClick={onClick || handleOpen} disabled={disabled} style={styles.button}>
+        <button className="reconmapbutton" type={type ? type : "button"} onClick={onClick || handleOpen} disabled={disabled} style={styles.button}>
             {children}
         </button>
     )

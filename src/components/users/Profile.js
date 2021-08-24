@@ -52,7 +52,7 @@ const UserProfile = ({ match }) => {
 
                 <Title type='User profile' title={user.full_name}
                     icon={<UserAvatar email={user.email} />} />
-                <Tabs variant="enclosed" isLazy>
+                <Tabs isLazy>
                     <TabList>
                         <Tab>Details</Tab>
                         <Tab>Activity</Tab>
