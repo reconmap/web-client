@@ -22,7 +22,8 @@
     "react-scripts": "^4.0.3",
     "react-time-ago": "^7.1.1",
     "recharts": "^2.1.2",
-    "ua-parser-js": "^0.7.28"
+    "ua-parser-js": "^0.7.28",
+    "xterm": "^4.13.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",

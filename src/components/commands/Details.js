@@ -1,6 +1,7 @@
 import { ButtonGroup } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import CommandTerminal from 'components/ui/CommandTerminal';
 import EmptyField from 'components/ui/EmptyField';
 import ExternalLink from 'components/ui/ExternalLink';
 import ShellCommand from 'components/ui/ShellCommand';
@@ -99,6 +100,9 @@ const CommandDetails = () => {
                             <TimestampsSection entity={command} />
                         </div>
                     </div>
+                </Tab>
+                <Tab name="Terminal">
+                    <CommandTerminal />
                 </Tab>
                 {(command.executable_path || command.docker_image) &&
                     <Tab name="Run instructions">
