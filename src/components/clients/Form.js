@@ -1,4 +1,3 @@
-import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {

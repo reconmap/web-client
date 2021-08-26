@@ -4,6 +4,7 @@ import DocumentsRoutes from 'components/documents/Routes';
 import SearchRoutes from 'components/search/Routes';
 import SupportRoutes from 'components/support/Routes';
 import TargetsRoutes from 'components/target/Routes';
+import VulnerabilityCategoriesRoutes from 'components/vulnerabilities/categories/Routes';
 import VulnerabilityTemplatesRoutes from 'components/vulnerabilities/templates/Routes';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -54,6 +55,7 @@ const App = () => {
                                         ...ProjectTemplatesRoutes,
                                         ...VulnerabilitiesRoutes,
                                         ...VulnerabilityTemplatesRoutes,
+                                        ...VulnerabilityCategoriesRoutes,
                                         ...TargetsRoutes,
                                         ...ReportsRoutes,
                                         ...SearchRoutes,

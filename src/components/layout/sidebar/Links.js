@@ -76,6 +76,12 @@ const Links = [
                 icon: <IconDocumentDuplicate size={5} />,
                 to: '/vulnerabilities/templates',
                 permissions: 'vulnerabilities.templates'
+            },
+            {
+                title: 'Categories',
+                icon: <IconDocumentDuplicate size={5} />,
+                to: '/vulnerabilities/categories',
+                permissions: 'vulnerabilities.categories'
             }
         ],
         permissions: 'vulnerabilities.*'

@@ -1,11 +1,9 @@
-import { ButtonGroup } from '@chakra-ui/react';
+import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import EmptyField from 'components/ui/EmptyField';
 import ExternalLink from 'components/ui/ExternalLink';
 import ShellCommand from 'components/ui/ShellCommand';
-import Tab from 'components/ui/Tab';
-import Tabs from 'components/ui/Tabs';
 import Tags from 'components/ui/Tags';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
@@ -64,47 +62,53 @@ const CommandDetails = () => {
             </div>
 
             <Tabs>
-                <Tab name="Details">
-                    <div className="grid grid-two">
-                        <div>
-                            <dl>
-                                <dt>Description</dt>
-                                <dd>{command.description ? <ReactMarkdown>{command.description}</ReactMarkdown> : <EmptyField />}</dd>
+                <TabList>
+                    <Tab>Details</Tab>
+                    <Tab>Run instructions</Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                        <div className="grid grid-two">
+                            <div>
+                                <dl>
+                                    <dt>Description</dt>
+                                    <dd>{command.description ? <ReactMarkdown>{command.description}</ReactMarkdown> : <EmptyField />}</dd>
 
-                                {command.output_parser && <>
-                                    <dt>Output parser support</dt>
-                                    <dl>Yes ({command.output_parser})</dl>
-                                </>}
-                                {command.more_info_url && <>
-                                    <dt>More information URL</dt>
-                                    <dl>{command.more_info_url ? <ExternalLink href={command.more_info_url}>{command.more_info_url}</ExternalLink> : <EmptyField />}</dl>
-                                </>}
+                                    {command.output_parser && <>
+                                        <dt>Output parser support</dt>
+                                        <dl>Yes ({command.output_parser})</dl>
+                                    </>}
+                                    {command.more_info_url && <>
+                                        <dt>More information URL</dt>
+                                        <dl>{command.more_info_url ? <ExternalLink href={command.more_info_url}>{command.more_info_url}</ExternalLink> : <EmptyField />}</dl>
+                                    </>}
 
-                                {command.executable_path && <>
-                                    <dt>Command line example</dt>
-                                    <dd>
-                                        <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
-                                    </dd>
-                                </>}
-                            </dl>
+                                    {command.executable_path && <>
+                                        <dt>Command line example</dt>
+                                        <dd>
+                                            <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
+                                        </dd>
+                                    </>}
+                                </dl>
+                            </div>
+
+                            <div>
+                                <h4>Relations</h4>
+                                <dl>
+                                    <dt>Created by</dt>
+                                    <dd><UserLink userId={command.creator_uid}>{command.creator_full_name}</UserLink></dd>
+                                </dl>
+
+                                <TimestampsSection entity={command} />
+                            </div>
                         </div>
-
-                        <div>
-                            <h4>Relations</h4>
-                            <dl>
-                                <dt>Created by</dt>
-                                <dd><UserLink userId={command.creator_uid}>{command.creator_full_name}</UserLink></dd>
-                            </dl>
-
-                            <TimestampsSection entity={command} />
-                        </div>
-                    </div>
-                </Tab>
-                {(command.executable_path || command.docker_image) &&
-                    <Tab name="Run instructions">
-                        <CommandInstructions command={command} />
-                    </Tab>
-                }
+                    </TabPanel>
+                    <TabPanel>
+                        {(command.executable_path || command.docker_image) &&
+                            <CommandInstructions command={command} />
+                        }
+                    </TabPanel>
+                </TabPanels>
             </Tabs>
         </article>
     </div >

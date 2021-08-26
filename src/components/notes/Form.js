@@ -1,5 +1,4 @@
 import { Select, Textarea } from "@chakra-ui/react";
-import React from "react";
 
 const NotesForm = ({ note, onFormSubmit, noteSetter: setNote }) => {
     const onFormInputChange = ev => {

@@ -5,7 +5,6 @@ import ProjectsTable from 'components/projects/Table';
 import EmptyField from 'components/ui/EmptyField';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import React from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from '../ui/buttons/Delete';
