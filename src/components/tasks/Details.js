@@ -1,4 +1,4 @@
-import { HStack, Select } from '@chakra-ui/react'
+import { HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import AttachmentsTable from 'components/attachments/AttachmentsTable'
 import AttachmentsDropzone from 'components/attachments/Dropzone'
 import CommandOutputs from 'components/commands/Outputs'
@@ -19,8 +19,6 @@ import DeleteButton from "../ui/buttons/Delete"
 import PrimaryButton from '../ui/buttons/Primary'
 import { IconClipboard, IconDocument } from '../ui/Icons'
 import Loading from '../ui/Loading'
-import Tab from '../ui/Tab'
-import Tabs from '../ui/Tabs'
 import { actionCompletedToast } from "../ui/toast"
 import useFetch from './../../hooks/useFetch'
 import Title from './../ui/Title'
@@ -111,61 +109,69 @@ const TaskDetails = ({ history, match }) => {
                     <Title title={task.summary} type='Task' icon={<IconClipboard />} />
 
                     <Tabs>
-                        <Tab name="Details">
-                            <div className="grid grid-two">
-                                <div>
-                                    <h4>Description</h4>
-                                    {task.description ? <ReactMarkdown>{task.description}</ReactMarkdown> : <EmptyField />}
-                                    <h4>Status</h4>
-                                    <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
-                                        <TaskStatusFormatter task={task} />
-                                    </p>
-                                </div>
+                        <TabList>
+                            <Tab>Details</Tab>
+                            <Tab>Command instructions</Tab>
+                            <Tab>Command outputs</Tab>
+                            <Tab>Attachments</Tab>
+                        </TabList>
+                        <TabPanels>
+                            <TabPanel>
+                                <div className="grid grid-two">
+                                    <div>
+                                        <h4>Description</h4>
+                                        {task.description ? <ReactMarkdown>{task.description}</ReactMarkdown> : <EmptyField />}
+                                        <h4>Status</h4>
+                                        <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
+                                            <TaskStatusFormatter task={task} />
+                                        </p>
+                                    </div>
 
-                                <div>
-                                    <h4>People</h4>
-                                    <dl>
-                                        <dt>Created by</dt>
-                                        <dd><UserLink userId={task.creator_uid}>{task.creator_full_name}</UserLink></dd>
-
-                                        <dt>Assigned to</dt>
-                                        <dd>
-                                            {users &&
-                                                <Select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
-                                                    <option value="">(nobody)</option>
-                                                    {users.map((user, index) =>
-                                                        <option key={index} value={user.id}>{user.full_name}</option>
-                                                    )}
-                                                </Select>}
-                                        </dd>
-                                    </dl>
-
-                                    <TimestampsSection entity={task} />
-                                    {task.due_date &&
+                                    <div>
+                                        <h4>People</h4>
                                         <dl>
-                                            <dt>Due date</dt>
-                                            <dd><RelativeDateFormatter date={task.due_date} /></dd>
-                                        </dl>
-                                    }
-                                </div>
-                            </div>
-                        </Tab>
-                        {task.command_id &&
-                            <Tab name="Command instructions">
-                                <TaskCommandTab task={task} />
-                            </Tab>
-                        }
-                        {task.command_id &&
-                            <Tab name="Command outputs">
-                                <CommandOutputs task={task} />
-                            </Tab>
-                        }
-                        <Tab name="Attachments">
-                            <AttachmentsDropzone parentType={parentType} parentId={parentId} onUploadFinished={reloadAttachments} />
+                                            <dt>Created by</dt>
+                                            <dd><UserLink userId={task.creator_uid}>{task.creator_full_name}</UserLink></dd>
 
-                            <h4><IconDocument />Attachment list</h4>
-                            <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
-                        </Tab>
+                                            <dt>Assigned to</dt>
+                                            <dd>
+                                                {users &&
+                                                    <Select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
+                                                        <option value="">(nobody)</option>
+                                                        {users.map((user, index) =>
+                                                            <option key={index} value={user.id}>{user.full_name}</option>
+                                                        )}
+                                                    </Select>}
+                                            </dd>
+                                        </dl>
+
+                                        <TimestampsSection entity={task} />
+                                        {task.due_date &&
+                                            <dl>
+                                                <dt>Due date</dt>
+                                                <dd><RelativeDateFormatter date={task.due_date} /></dd>
+                                            </dl>
+                                        }
+                                    </div>
+                                </div>
+                            </TabPanel>
+                            {task.command_id &&
+                                <TabPanel>
+                                    <TaskCommandTab task={task} />
+                                </TabPanel>
+                            }
+                            {task.command_id &&
+                                <TabPanel>
+                                    <CommandOutputs task={task} />
+                                </TabPanel>
+                            }
+                            <TabPanel>
+                                <AttachmentsDropzone parentType={parentType} parentId={parentId} onUploadFinished={reloadAttachments} />
+
+                                <h4><IconDocument />Attachment list</h4>
+                                <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                            </TabPanel>
+                        </TabPanels>
                     </Tabs>
                 </article>
             }

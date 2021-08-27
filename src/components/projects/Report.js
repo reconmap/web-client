@@ -1,8 +1,7 @@
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import ReportConfigurationForm from 'components/reports/ConfigurationForm';
 import ReportRevisions from 'components/reports/Revisions';
-import Tab from 'components/ui/Tab';
-import Tabs from 'components/ui/Tabs';
 import Configuration from 'Configuration';
 import React, { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from "react-router-dom";
@@ -45,17 +44,24 @@ const ProjectReport = () => {
                 icon={<IconReport />} />
 
             <Tabs>
-                <Tab name="Preview">
-                    <ReportPreview projectId={projectId} />
-                </Tab>
+                <TabList>
+                    <Tab>Preview</Tab>
+                    <Tab>Revisions</Tab>
+                    <Tab>Configuration</Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                        <ReportPreview projectId={projectId} />
+                    </TabPanel>
 
-                <Tab name="Revisions">
-                    <ReportRevisions projectId={projectId} />
-                </Tab>
+                    <TabPanel>
+                        <ReportRevisions projectId={projectId} />
+                    </TabPanel>
 
-                <Tab name="Configuration">
-                    <ReportConfigurationForm projectId={projectId} />
-                </Tab>
+                    <TabPanel>
+                        <ReportConfigurationForm projectId={projectId} />
+                    </TabPanel>
+                </TabPanels>
             </Tabs>
 
         </>

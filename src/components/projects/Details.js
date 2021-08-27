@@ -1,4 +1,4 @@
-import { ButtonGroup } from "@chakra-ui/react";
+import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
@@ -12,8 +12,6 @@ import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from '../ui/buttons/Secondary';
 import { IconClipboardCheck, IconFolder, IconUserGroup } from '../ui/Icons';
 import Loading from '../ui/Loading';
-import Tab from "../ui/Tab";
-import Tabs from "../ui/Tabs";
 import Title from '../ui/Title';
 import ProjectAttachmentsTab from './AttachmentsTab';
 import ProjectDetailsTab from './DetailsTab';
@@ -50,8 +48,8 @@ const ProjectDetails = ({ match, history }) => {
             .catch(err => console.error(err))
     }
 
-    if(project && project.is_template) {
-        return <Redirect to={`/projects/templates/${project.id}`}/>
+    if (project && project.is_template) {
+        return <Redirect to={`/projects/templates/${project.id}`} />
     }
 
     return (
@@ -88,12 +86,22 @@ const ProjectDetails = ({ match, history }) => {
                     <Title title={project.name} type="Project" icon={<IconFolder />} />
 
                     <Tabs>
-                        <Tab name="Details"><ProjectDetailsTab project={project} /></Tab>
-                        <Tab name="Targets"><ProjectTargets project={project} /></Tab>
-                        <Tab name="Tasks"><ProjectTasks project={project} /></Tab>
-                        <Tab name="Vulnerabilities"><ProjectVulnerabilities project={project} /></Tab>
-                        <Tab name="Notes"><ProjectNotesTab project={project} /></Tab>
-                        <Tab name="Attachments"><ProjectAttachmentsTab project={project} /></Tab>
+                        <TabList>
+                            <Tab>Details</Tab>
+                            <Tab>Targets</Tab>
+                            <Tab>Tasks</Tab>
+                            <Tab>Vulnerabilities</Tab>
+                            <Tab>Notes</Tab>
+                            <Tab>Attachments</Tab>
+                        </TabList>
+                        <TabPanels>
+                            <TabPanel><ProjectDetailsTab project={project} /></TabPanel>
+                            <TabPanel><ProjectTargets project={project} /></TabPanel>
+                            <TabPanel><ProjectTasks project={project} /></TabPanel>
+                            <TabPanel><ProjectVulnerabilities project={project} /></TabPanel>
+                            <TabPanel><ProjectNotesTab project={project} /></TabPanel>
+                            <TabPanel><ProjectAttachmentsTab project={project} /></TabPanel>
+                        </TabPanels>
                     </Tabs>
                 </>
             }
