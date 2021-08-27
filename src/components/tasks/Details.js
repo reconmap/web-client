@@ -111,8 +111,8 @@ const TaskDetails = ({ history, match }) => {
                     <Tabs>
                         <TabList>
                             <Tab>Details</Tab>
-                            <Tab>Command instructions</Tab>
-                            <Tab>Command outputs</Tab>
+                            {task.command_id && <Tab>Command instructions</Tab>}
+                            {task.command_id && <Tab>Command outputs</Tab>}
                             <Tab>Attachments</Tab>
                         </TabList>
                         <TabPanels>

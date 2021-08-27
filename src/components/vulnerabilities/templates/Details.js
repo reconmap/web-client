@@ -79,7 +79,7 @@ const TemplateDetails = ({ history, match }) => {
                             }
 
                             <h4>Proof of concept</h4>
-                            {vulnerability.description ? <ReactMarkdown>{vulnerability.description}</ReactMarkdown> : <EmptyField />}
+                            {vulnerability.proof_of_concept ? <ReactMarkdown>{vulnerability.proof_of_concept}</ReactMarkdown> : <EmptyField />}
 
                             <h4>Impact</h4>
                             {vulnerability.impact ? <ReactMarkdown>{vulnerability.impact}</ReactMarkdown> : <EmptyField />}
