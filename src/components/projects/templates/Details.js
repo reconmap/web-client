@@ -1,4 +1,4 @@
-import { ButtonGroup, Stack } from '@chakra-ui/react';
+import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import DeleteButton from 'components/ui/buttons/Delete';
@@ -6,17 +6,16 @@ import LinkButton from 'components/ui/buttons/Link';
 import PrimaryButton from 'components/ui/buttons/Primary';
 import { IconFolder, IconPlusCircle } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
-import TimestampsSection from 'components/ui/TimestampsSection';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import ReactMarkdown from 'react-markdown';
 import { Link, Redirect } from 'react-router-dom';
 import secureApiFetch from 'services/api';
+import ProjectDetailsTab from '../DetailsTab';
+import ProjectTasks from '../Tasks';
 
 const TemplateDetails = ({ history, match }) => {
     const [template] = useFetch(`/projects/${match.params.templateId}`)
-    const [tasks] = useFetch(`/projects/${match.params.templateId}/tasks`)
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
@@ -56,22 +55,16 @@ const TemplateDetails = ({ history, match }) => {
                     <PageTitle value={`${template.name} project template`} />
                     <Title title={template.name} type='Project template' icon={<IconFolder />} />
 
-                    <div className="grid grid-two">
-                        <div>
-                            <h4>Description</h4>
-                            <ReactMarkdown>{template.description}</ReactMarkdown>
-                            <h4>Tasks</h4>
-                            <Stack>
-                                {tasks && tasks.map((task, index) =>
-                                    <div key={`task_${index}`}>&#10003; {task.summary}</div>
-                                )}
-                            </Stack>
-                        </div>
-
-                        <div>
-                            <TimestampsSection entity={template} />
-                        </div>
-                    </div>
+                    <Tabs>
+                        <TabList>
+                            <Tab>Details</Tab>
+                            <Tab>Tasks</Tab>
+                        </TabList>
+                        <TabPanels>
+                            <TabPanel><ProjectDetailsTab project={template} /></TabPanel>
+                            <TabPanel><ProjectTasks project={template} /></TabPanel>
+                        </TabPanels>
+                    </Tabs>
                 </article>}
         </>
     )

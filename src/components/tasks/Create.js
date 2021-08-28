@@ -1,4 +1,5 @@
 import PageTitle from 'components/logic/PageTitle';
+import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
 import TaskModel from 'models/Task';
 import React, { useRef, useState } from 'react';
@@ -13,6 +14,7 @@ const TaskCreationPage = ({ history }) => {
     const query = useQuery();
     const defaultProjectId = "";
     const projectIdParam = useRef(query.get('projectId') || defaultProjectId);
+    const forTemplate = query.get('projectId') === 1;
 
     const [newTask, setNewTask] = useState({ ...TaskModel, project_id: projectIdParam.current })
 
@@ -20,7 +22,8 @@ const TaskCreationPage = ({ history }) => {
         ev.preventDefault();
 
         await secureApiFetch(`/tasks`, { method: 'POST', body: JSON.stringify(newTask) })
-        history.push(`/tasks?projectId=${newTask.project_id}`)
+        history.push(`/projects/${newTask.project_id}`)
+        actionCompletedToast(`The task '${newTask.summary}' has been created.`);
     }
 
     return (
@@ -34,7 +37,7 @@ const TaskCreationPage = ({ history }) => {
 
             <Title title="New task details" icon={<IconPlus />} />
 
-            <TaskForm onFormSubmit={onFormSubmit} task={newTask} taskSetter={setNewTask} />
+            <TaskForm onFormSubmit={onFormSubmit} task={newTask} forTemplate={forTemplate} taskSetter={setNewTask} />
         </div>
     )
 }

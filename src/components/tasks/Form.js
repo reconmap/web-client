@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 import useFetch from "../../hooks/useFetch";
 import PrimaryButton from "../ui/buttons/Primary";
 
-const TaskForm = ({ isEditForm = false, onFormSubmit, task, taskSetter: setTask }) => {
+const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
 
-    const [projects] = useFetch('/projects');
+    const [projects] = useFetch('/projects?isTemplate=1');
     const [commands] = useFetch('/commands');
 
     const onFormChange = ev => {

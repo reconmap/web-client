@@ -39,15 +39,16 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                         <option value="private">Private</option>
                     </Select>
                 </label>
+
+                <label>Client
+                    <Select name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
+                        {clients && clients.map((client, index) =>
+                            <option key={index} value={client.id}>{client.name}</option>
+                        )}
+                    </Select>
+                </label>
             </>}
 
-            <label>Client
-                <Select name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
-                    {clients && clients.map((client, index) =>
-                        <option key={index} value={client.id}>{client.name}</option>
-                    )}
-                </Select>
-            </label>
             <label>Name
                 <input type="text" name="name" onChange={handleFormChange} value={project.name || ""} required autoFocus />
             </label>
