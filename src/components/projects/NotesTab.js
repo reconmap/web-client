@@ -36,7 +36,7 @@ const ProjectNotesTab = ({ project }) => {
 
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <NoteModalDialog parentType="project" parent={project} isOpen={isOpen} onClose={onNoteFormSaved} onCancel={onClose} />
-                    <CreateButton onClick={onOpen}>Add note</CreateButton>
+                    <CreateButton onClick={onOpen}>Add note...</CreateButton>
                 </RestrictedComponent>
             </h4>
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />

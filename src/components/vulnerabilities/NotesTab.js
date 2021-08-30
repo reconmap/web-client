@@ -36,7 +36,7 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
                 <IconDocument />Vulnerability notes
 
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                    <CreateButton onClick={onOpen}>Add note</CreateButton>
+                    <CreateButton onClick={onOpen}>Add note...</CreateButton>
                 </RestrictedComponent>
             </h4>
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />

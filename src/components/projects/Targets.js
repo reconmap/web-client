@@ -1,8 +1,9 @@
-import { Button, ButtonGroup, Center, HStack, useDisclosure } from "@chakra-ui/react";
+import { ButtonGroup, Center, HStack, useDisclosure } from "@chakra-ui/react";
 import Pagination from "components/layout/Pagination";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetModalDialog from "components/target/ModalDialog";
 import TargetBadge from "components/target/TargetBadge";
+import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import Tags from "components/ui/Tags";
@@ -70,7 +71,7 @@ const ProjectTargets = ({ project }) => {
             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                 <ButtonGroup>
                     <TargetModalDialog project={project} isOpen={isAddTargetDialogOpen} onSubmit={onTargetFormSaved} onCancel={closeAddTargetDialog} />
-                    <Button onClick={openAddTargetDialog}><IconPlus />Add target</Button>
+                    <CreateButton onClick={openAddTargetDialog}>Add target...</CreateButton>
                     <LinkButton href={`/projects/${project.id}/targets/add-multiple`}><IconPlus />Add targets</LinkButton>
                 </ButtonGroup>
             </RestrictedComponent>
