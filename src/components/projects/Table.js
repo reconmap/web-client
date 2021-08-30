@@ -6,12 +6,12 @@ import LinkButton from "../ui/buttons/Link";
 import NoResults from "../ui/NoResults";
 import ProjectBadge from './ProjectBadge';
 
-const ProjectsTable = ({ projects, destroy = null }) => {
+const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) => {
     return <Table>
         <Thead>
             <tr>
                 <th style={{ width: '190px' }}>Name</th>
-                <th>Client</th>
+                {showClientColumn && <th>Client</th>}
                 <th className='only-desktop'>Description</th>
                 <th>Rules of engagement</th>
                 <th>Status</th>
@@ -28,12 +28,12 @@ const ProjectsTable = ({ projects, destroy = null }) => {
                         <td>
                             <ProjectBadge project={project} />
                         </td>
-                        <td>{
-                            project.is_template ?
+                        {showClientColumn &&
+                            <td>{project.is_template ?
                                 <span title="Not applicable">(n/a)</span> :
-                                <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>
-                            }
-                        </td>
+                                <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>}
+                            </td>
+                        }
                         <td className='only-desktop truncate'>{project.description}</td>
                         <td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</td>
                         <td>{project.archived ? 'Archived' : 'Active'}</td>

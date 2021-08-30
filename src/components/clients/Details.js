@@ -28,7 +28,7 @@ const ClientProjectsTab = ({ clientId }) => {
     }
 
     return <div>
-        <ProjectsTable projects={projects} />
+        <ProjectsTable projects={projects} showClientColumn={false} />
     </div>
 }
 
@@ -73,7 +73,7 @@ const ClientDetails = () => {
             <Tabs isLazy>
                 <TabList>
                     <Tab>Details</Tab>
-                    <Tab>Client's projects</Tab>
+                    <Tab>Projects</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
@@ -82,9 +82,6 @@ const ClientDetails = () => {
                                 <h4>Properties</h4>
 
                                 <dl>
-                                    <dt>Name</dt>
-                                    <dd>{client.name}</dd>
-
                                     <dt>URL</dt>
                                     <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
 
