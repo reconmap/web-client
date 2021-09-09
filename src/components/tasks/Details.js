@@ -111,8 +111,11 @@ const TaskDetails = ({ history, match }) => {
                     <Tabs>
                         <TabList>
                             <Tab>Details</Tab>
-                            {task.command_id && <Tab>Command instructions</Tab>}
-                            {task.command_id && <Tab>Command outputs</Tab>}
+                            {task.command_id && <>
+                                <Tab>Command instructions</Tab>
+                                <Tab>Command outputs</Tab>
+                            </>
+                            }
                             <Tab>Attachments</Tab>
                         </TabList>
                         <TabPanels>
@@ -158,13 +161,11 @@ const TaskDetails = ({ history, match }) => {
                             {task.command_id &&
                                 <TabPanel>
                                     <TaskCommandTab task={task} />
-                                </TabPanel>
-                            }
+                                </TabPanel>}
                             {task.command_id &&
                                 <TabPanel>
                                     <CommandOutputs task={task} />
-                                </TabPanel>
-                            }
+                                </TabPanel>}
                             <TabPanel>
                                 <AttachmentsDropzone parentType={parentType} parentId={parentId} onUploadFinished={reloadAttachments} />
 

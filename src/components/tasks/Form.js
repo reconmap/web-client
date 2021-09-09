@@ -7,7 +7,7 @@ import PrimaryButton from "../ui/buttons/Primary";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
 
-    const [projects] = useFetch('/projects?isTemplate=1');
+    const [projects] = useFetch('/projects?isTemplate=' + (forTemplate ? 1 : 0));
     const [commands] = useFetch('/commands');
 
     const onFormChange = ev => {

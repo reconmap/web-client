@@ -14,7 +14,7 @@ const TaskCreationPage = ({ history }) => {
     const query = useQuery();
     const defaultProjectId = "";
     const projectIdParam = useRef(query.get('projectId') || defaultProjectId);
-    const forTemplate = query.get('projectId') === 1;
+    const forTemplate = parseInt(query.get('forTemplate')) === 1;
 
     const [newTask, setNewTask] = useState({ ...TaskModel, project_id: projectIdParam.current })
 

@@ -1,3 +1,5 @@
+import { Button } from "@chakra-ui/react";
+import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
 import Help from "components/ui/Help";
 import ShellCommand from "components/ui/ShellCommand";
@@ -9,10 +11,15 @@ const CommandInstructions = ({ command, task = null }) => {
     const [commandArgsRendered, setCommandArgsRendered] = useState('');
     const [commandArgs, setCommandArgs] = useState({});
     const usesContainer = command.executable_type === 'rmap';
+    const [showTerminal, setShowTerminal] = useState(false);
 
     const onArgUpdate = ev => {
         setCommandArgs({ ...commandArgs, [ev.target.name]: { name: ev.target.name, placeholder: ev.target.value } });
     };
+
+    const runOnTerminal = ev => {
+        setShowTerminal(true);
+    }
 
     useEffect(() => {
         if (commandArgs !== null) {
@@ -52,6 +59,10 @@ const CommandInstructions = ({ command, task = null }) => {
             Make sure you have a copy of <strong>rmap</strong> on a machine you trust. Download the CLI for Macos/Linux and Windows from <ExternalLink href={CliDownloadUrl}>Github</ExternalLink>.<br />
             Once <strong>rmap</strong> is within reach execute the command shown below.
             <ShellCommand>{CommandService.generateEntryPoint(command, task)} {commandArgsRendered}</ShellCommand>
+
+            <Button onClick={runOnTerminal}>Run on a browser terminal</Button>
+
+            {showTerminal && <CommandTerminal commands={[CommandService.generateEntryPoint(command, task) + " " + commandArgsRendered]} />}
         </div>
 
         {task && command.output_filename && <>

@@ -1,6 +1,7 @@
 import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import CommandTerminal from 'components/ui/CommandTerminal';
 import EmptyField from 'components/ui/EmptyField';
 import ExternalLink from 'components/ui/ExternalLink';
 import ShellCommand from 'components/ui/ShellCommand';
@@ -65,6 +66,7 @@ const CommandDetails = () => {
                 <TabList>
                     <Tab>Details</Tab>
                     <Tab>Run instructions</Tab>
+        			<Tab>Terminal</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
@@ -108,6 +110,9 @@ const CommandDetails = () => {
                             <CommandInstructions command={command} />
                         }
                     </TabPanel>
+        			<TabPanel>
+                    	<CommandTerminal />
+        			</TabPanel>
                 </TabPanels>
             </Tabs>
         </article>
