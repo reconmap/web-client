@@ -11,7 +11,7 @@ import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
 const ProjectVulnerabilities = ({ project }) => {
     const history = useHistory();
 
-    const [vulnerabilities, reloadVulnerabilities] = useFetch(`/projects/${project.id}/vulnerabilities`)
+    const [vulnerabilities, reloadVulnerabilities] = useFetch(`/vulnerabilities?projectId=${project.id}`)
 
     const handleCreateVulnerability = () => {
         history.push(`/vulnerabilities/create?projectId=${project.id}`)

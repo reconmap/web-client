@@ -1,4 +1,4 @@
-import { HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs, Tag } from '@chakra-ui/react';
 import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
 import PageTitle from 'components/logic/PageTitle';
@@ -84,7 +84,7 @@ const VulnerabilityDetails = () => {
             <PageTitle value={`${vulnerability.summary} vulnerability`} />
 
             <Title type='Vulnerability' title={vulnerability.external_id ? <><strong>{vulnerability.external_id.toUpperCase()}</strong>&nbsp;{vulnerability.summary}</> : vulnerability.summary} icon={<IconFlag />} />
-            <Tags values={vulnerability.tags} />
+            <Tag size="sm" colorScheme="blue">{vulnerability.visibility}</Tag> <Tags values={vulnerability.tags} />
 
             <Tabs>
                 <TabList>
