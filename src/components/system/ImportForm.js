@@ -1,3 +1,5 @@
+import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import { Input } from '@chakra-ui/input';
 import React, { useState } from 'react';
 import secureApiFetch from '../../services/api';
 import PrimaryButton from '../ui/buttons/Primary';
@@ -5,7 +7,7 @@ import { IconUpload } from '../ui/Icons';
 
 const ImportForm = () => {
 
-    const [importResponse, setImportResponse] = useState([]);
+    const [importResponse, setImportResponse] = useState(null);
     const [importButtonDisabled, setImportButtonDisabled] = useState(true);
 
     const handleUploadClick = ev => {
@@ -44,24 +46,33 @@ const ImportForm = () => {
                         <li>If there are missing attributes, Reconmap will attempt to use defaults instead.</li>
                     </ul>
                 </div>
-                <label>
-                    Select file
-                    <input type="file" id="importFile" onChange={onImportFileChange} required accept=".json,.js,application/json,text/json" />
-                </label>
+                <FormControl id="importFile" isRequired>
+                    <FormLabel>Import file</FormLabel>
+                    <Input type="file" onChange={onImportFileChange} accept=".json,.js,application/json,text/json" isRequired />
+                </FormControl>
+
                 <PrimaryButton disabled={importButtonDisabled}
                     onClick={handleUploadClick}><IconUpload /> Import</PrimaryButton>
             </form>
 
-            {importResponse.length > 0 &&
+            {importResponse &&
                 <div>
-                    <h4>Import finished!</h4>
+                    <h4>Import completed</h4>
 
-                    <p>The number of imports per category are:</p>
-                    <ul>
-                        {importResponse.map(entityResult => {
-                            return <li>{entityResult.count} {entityResult.name} ({entityResult.errors.length} errors)</li>
-                        })}
-                    </ul>
+                    {importResponse.errors.length > 0 && <ul>
+                        {importResponse.errors.map(error => <li style={{ color: 'orange' }}>
+                            {error}
+                        </li>)}
+                    </ul>}
+
+                    {importResponse.results.length > 0 && <>
+                        <p>The number of imports per category are:</p>
+                        <ul>
+                            {importResponse.results.map(entityResult => {
+                                return <li>{entityResult.count} {entityResult.name} ({entityResult.errors.length} errors)</li>
+                            })}
+                        </ul>
+                    </>}
                 </div>
             }
         </div>

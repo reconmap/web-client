@@ -173,7 +173,7 @@ const Links = [
             {
                 title: 'API docs',
                 icon: <IconCode size={5} />,
-                to: `${window.env.REACT_APP_API_ENDPOINT}/docs`,
+                to: `${window.env.REACT_APP_API_ENDPOINT}/docs/`,
                 external: true
             },
             {

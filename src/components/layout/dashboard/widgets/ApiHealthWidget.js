@@ -12,13 +12,13 @@ const ApiHealthWidget = () => {
         {apiHealth && <>
             <dl>
                 <dt>Response</dt>
-                <dd style={{ color: 'green' }}>OK</dd>
-
-                <dt>Attachments directory exists</dt>
-                <dd>{apiHealth.attachmentsDirectory.exists ? <GreenYes /> : <RedNo />}</dd>
+                <dd style={{ color: 'green' }}>Ok</dd>
 
                 <dt>Attachments directory is writeable</dt>
                 <dd>{apiHealth.attachmentsDirectory.writeable ? <GreenYes /> : <RedNo />}</dd>
+
+                <dt>Logs directory is writeable</dt>
+                <dd>{apiHealth.logsDirectory.writeable ? <GreenYes /> : <RedNo />}</dd>
             </dl>
         </>}
     </article>
