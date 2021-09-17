@@ -12,11 +12,9 @@ import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { Link, Redirect } from 'react-router-dom';
 import secureApiFetch from 'services/api';
-import VulnerabilityDescriptionPanel from '../VulnerabilityDescriptionPanel';
-import VulnerabilityRemediationPanel from '../VulnerabilityRemediationPanel';
 
 
-const VulnerabilityTemplateDetails = ({ history, match }) => {
+const ReportTemplateDetails = ({ history, match }) => {
     const [vulnerability] = useFetch(`/vulnerabilities/${match.params.templateId}`)
 
     const cloneProject = async (templateId) => {
@@ -67,10 +65,8 @@ const VulnerabilityTemplateDetails = ({ history, match }) => {
                         </TabList>
                         <TabPanels>
                             <TabPanel>
-                                <VulnerabilityDescriptionPanel vulnerability={vulnerability} />
                             </TabPanel>
                             <TabPanel>
-                                <VulnerabilityRemediationPanel vulnerability={vulnerability} />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
@@ -80,4 +76,4 @@ const VulnerabilityTemplateDetails = ({ history, match }) => {
     )
 }
 
-export default VulnerabilityTemplateDetails;
+export default ReportTemplateDetails;

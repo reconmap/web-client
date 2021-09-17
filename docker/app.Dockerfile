@@ -9,7 +9,7 @@ COPY src ./src
 
 RUN npm install && npm run build
 
-FROM nginx:1.18.0
+FROM nginx:1.20
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/

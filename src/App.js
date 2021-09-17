@@ -1,6 +1,7 @@
 import AuthRoutes from 'components/auth/Routes';
 import CommandsRoutes from 'components/commands/Routes';
 import DocumentsRoutes from 'components/documents/Routes';
+import ReportTemplatesRoutes from 'components/reports/templates/Routes';
 import SearchRoutes from 'components/search/Routes';
 import SupportRoutes from 'components/support/Routes';
 import TargetsRoutes from 'components/target/Routes';
@@ -58,6 +59,7 @@ const App = () => {
                                         ...VulnerabilityCategoriesRoutes,
                                         ...TargetsRoutes,
                                         ...ReportsRoutes,
+                                        ...ReportTemplatesRoutes,
                                         ...SearchRoutes,
                                         ...SupportRoutes,
                                         ...SystemRoutes,

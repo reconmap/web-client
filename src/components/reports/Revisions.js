@@ -1,52 +1,26 @@
-import DeleteButton from "components/ui/buttons/Delete";
+import { FormControl, FormLabel } from "@chakra-ui/form-control";
+import { Input } from "@chakra-ui/input";
+import { Select } from "@chakra-ui/select";
 import PrimaryButton from "components/ui/buttons/Primary";
-import SecondaryButton from "components/ui/buttons/Secondary";
-import { IconCode, IconDocument } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
-import NoResultsTableRow from "components/ui/NoResultsTableRow";
-import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
-import useDelete from "hooks/useDelete";
 import useFetch from "hooks/useFetch";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import secureApiFetch from "services/api";
+import ReportsTable from "./Table";
 
 const ReportRevisions = ({ projectId }) => {
-    const history = useHistory();
+
     const [reports, updateReports] = useFetch(`/reports?projectId=${projectId}`);
+    const [templates] = useFetch('/reports/templates');
 
     const [saveVersionButtonDisabled, setSaveVersionButtonDisabled] = useState(true);
-    const defaultFormValues = { name: "", description: "" };
+    const defaultFormValues = { reportTemplateId: 0, name: "", description: "" };
     const [formValues, setFormValues] = useState(defaultFormValues);
 
-    const deleteReport = useDelete('/reports/', updateReports);
 
     useEffect(() => {
         setSaveVersionButtonDisabled(formValues.name.length === 0);
     }, [formValues.name]);
-
-    const handleSendByEmail = (reportId) => {
-        history.push(`/projects/${projectId}/report/send`);
-    }
-
-    const handleDownload = (reportId) => {
-        secureApiFetch(`/attachments/${reportId}`, { method: 'GET', headers: {} })
-            .then(resp => {
-                const contentDispositionHeader = resp.headers.get('Content-Disposition');
-                const filenameRe = new RegExp(/filename="(.*)";/)
-                const filename = filenameRe.exec(contentDispositionHeader)[1]
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                a.click();
-            })
-    }
 
     const onFormValueChange = ev => {
         ev.preventDefault();
@@ -59,6 +33,7 @@ const ReportRevisions = ({ projectId }) => {
 
         const params = {
             projectId: projectId,
+            reportTemplateId: formValues.reportTemplateId,
             name: formValues.name,
             description: formValues.description
         };
@@ -73,6 +48,12 @@ const ReportRevisions = ({ projectId }) => {
             .catch(err => console.error(err));
     };
 
+    useEffect(() => {
+        if (templates) {
+            setFormValues((prev) => ({ ...prev, reportTemplateId: templates[0].id }))
+        }
+    }, [templates]);
+
     if (!reports) return <Loading />
 
     return <>
@@ -80,9 +61,18 @@ const ReportRevisions = ({ projectId }) => {
             <fieldset>
                 <legend>New report version</legend>
 
-                <label>Name</label>
-                <input type="text" name="name" value={formValues.name} onChange={onFormValueChange}
-                    placeholder="eg 1.0, 202103" required />
+                <FormControl isRequired>
+                    <FormLabel>Template</FormLabel>
+                    {templates && <Select name="reportTemplateId" value={formValues.reportTemplateId} onChange={onFormValueChange}>
+                        {templates.map(template => <option value={template.id}>{template.version_name}</option>)}
+                    </Select>}
+                </FormControl>
+
+                <FormControl isRequired>
+                    <FormLabel>Name</FormLabel>
+                    <Input type="text" name="name" value={formValues.name} onChange={onFormValueChange}
+                        placeholder="eg 1.0, 202103" />
+                </FormControl>
                 <label>Description</label>
                 <input type="text" name="description" value={formValues.description}
                     onChange={onFormValueChange}
@@ -92,38 +82,7 @@ const ReportRevisions = ({ projectId }) => {
             <PrimaryButton type="submit" disabled={saveVersionButtonDisabled}>Save version</PrimaryButton>
         </form>
 
-        <table>
-            <caption>Report versions</caption>
-            <thead>
-                <tr>
-                    <th>Name (Description)</th>
-                    <th>Datetime</th>
-                    <th>Downloads</th>
-                    <th>&nbsp;</th>
-                </tr>
-                {reports.length === 0 && <NoResultsTableRow numColumns={4} />}
-                {reports.map((report, index) =>
-                    <tr key={index}>
-                        <td>{report.version_name} ({report.version_description})</td>
-                        <td><RelativeDateFormatter date={report.insert_ts} /></td>
-                        <td>
-                            <SecondaryButton onClick={() => handleDownload(report.html_attachment_id)}>
-                                <IconCode /> HTML
-                                        </SecondaryButton>
-                                        &nbsp;
-                                        <SecondaryButton onClick={() => handleDownload(report.pdf_attachment_id)}>
-                                <IconDocument /> PDF
-                                        </SecondaryButton>
-                        </td>
-                        <td className="flex justify-end">
-                            <SecondaryButton onClick={() => handleSendByEmail(report.id)}>Send by email</SecondaryButton>
-
-                            <DeleteButton onClick={() => deleteReport(report.id)} />
-                        </td>
-                    </tr>
-                )}
-            </thead>
-        </table>
+        <ReportsTable reports={reports} updateReports={updateReports} />
     </>
 }
 

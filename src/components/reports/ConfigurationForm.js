@@ -77,43 +77,6 @@ const ReportConfigurationForm = ({ projectId }) => {
                 </label>
             </fieldset>
 
-            <fieldset>
-                <legend>Custom content</legend>
-                <label>
-                    Include cover
-                    <div>
-                        <select name="include_cover" value={clientConfiguration.include_cover} onChange={onFormChange}>
-                            <option value="default">Yes (default)</option>
-                            <option value="custom">Yes (custom)</option>
-                            <option value="none">No</option>
-                        </select>
-                        <textarea name="custom_cover" onChange={onFormChange} value={clientConfiguration.custom_cover} style={{ width: '100%', display: clientConfiguration.include_cover === 'custom' ? "block" : "none" }} />
-                    </div>
-                </label>
-                <label>
-                    Include header
-                    <div>
-                        <select name="include_header" value={clientConfiguration.include_header} onChange={onFormChange}>
-                            <option value="default">Yes (default)</option>
-                            <option value="custom">Yes (custom)</option>
-                            <option value="none">No</option>
-                        </select>
-                        <textarea name="custom_header" onChange={onFormChange} value={clientConfiguration.custom_header} style={{ width: '100%', display: clientConfiguration.include_header === 'custom' ? "block" : "none" }} />
-                    </div>
-                </label>
-                <label>
-                    Include footer
-                    <div>
-                        <select name="include_footer" value={clientConfiguration.include_footer} onChange={onFormChange}>
-                            <option value="default">Yes (default)</option>
-                            <option value="custom">Yes (custom)</option>
-                            <option value="none">No</option>
-                        </select>
-                        <textarea name="custom_footer" onChange={onFormChange} value={clientConfiguration.custom_footer} style={{ width: '100%', display: clientConfiguration.include_footer === 'custom' ? "block" : "none" }} />
-                    </div>
-                </label>
-            </fieldset>
-
             <PrimaryButton type="submit">Save configuration</PrimaryButton>
         </form>
     </>

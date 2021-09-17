@@ -87,6 +87,22 @@ const Links = [
         permissions: 'vulnerabilities.*'
     },
     {
+        title: 'Reports', icon: <IconFlag size={5} />, to: '/reports', sublinks: [
+            {
+                title: 'Add',
+                icon: <IconPlus size={5} />,
+                to: '/reports/create',
+            },
+            {
+                title: 'Templates',
+                icon: <IconDocumentDuplicate size={5} />,
+                to: '/reports/templates',
+                permissions: 'reports.templates'
+            }
+        ],
+        permissions: 'reports.*'
+    },
+    {
         title: 'Documents', icon: <IconDocument size={5} />, to: '/documents', sublinks: [
             {
                 title: 'Add',

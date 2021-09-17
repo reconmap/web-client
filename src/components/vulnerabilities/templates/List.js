@@ -15,7 +15,7 @@ import useFetch from 'hooks/useFetch';
 import { Link } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
-const TemplatesList = ({ history }) => {
+const VulnerabilityTemplatesList = ({ history }) => {
     const [templates, updateTemplates] = useFetch('/vulnerabilities?isTemplate=1')
 
     const cloneVulnerability = (ev, templateId) => {
@@ -88,4 +88,4 @@ const TemplatesList = ({ history }) => {
     )
 }
 
-export default TemplatesList;
+export default VulnerabilityTemplatesList;

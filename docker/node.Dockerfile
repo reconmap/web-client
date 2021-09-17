@@ -1,4 +1,4 @@
-FROM node:14.15.1-stretch
+FROM node:14-bullseye-slim
 
 WORKDIR /opt/reconmap
 
