@@ -1,15 +1,18 @@
 import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
+import { Flex } from '@chakra-ui/layout';
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import LinkButton from 'components/ui/buttons/Link';
+import EmptyField from 'components/ui/EmptyField';
 import { IconDocumentDuplicate } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
+import { resolveMime } from 'friendly-mimes';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { useRef, useState } from 'react';
@@ -26,10 +29,6 @@ const ReportTemplatesList = ({ history }) => {
         version_description: null,
         resultFile: null,
     })
-
-    const viewTemplate = (templateId) => {
-        history.push(`/vulnerabilities/templates/${templateId}`);
-    }
 
     const destroy = useDelete('/reports/', updateTemplates);
 
@@ -64,7 +63,14 @@ const ReportTemplatesList = ({ history }) => {
     const onFormChange = ev => {
         setReportTemplate({ ...reportTemplate, [ev.target.name]: ev.target.value })
     }
-
+    const safeResolveMime = mimeType => {
+        try {
+            return resolveMime(mimeType)['name']
+        } catch (err) {
+            console.error(err);
+            return mimeType;
+        }
+    }
     return (
         <>
             <form onSubmit={onCreateReportFormSubmit}>
@@ -93,29 +99,36 @@ const ReportTemplatesList = ({ history }) => {
             </div>
             <Title title='Report templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :
-                <table>
-                    <thead>
-                        <tr>
-                            <th style={{ width: '190px' }}>File name</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <Table variant="simple">
+                    <Thead>
+                        <Tr>
+                            <Th style={{ width: '190px' }}>Name</Th>
+                            <Th>Description</Th>
+                            <Th style={{ width: '190px' }}>File name</Th>
+                            <Th>Mime type</Th>
+                            <Th>&nbsp;</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
                         {templates.length === 0 ?
-                            <tr><td colSpan="3"><NoResults /></td></tr>
+                            <Tr><Td colSpan="3"><NoResults /></Td></Tr>
                             :
                             templates.map((template) =>
-                                <tr key={template.id} onClick={() => viewTemplate(template.id)}>
-                                    <td>{template.client_file_name}</td>
-                                    <td className='flex justify-end'>
-                                        <LinkButton href={`/vulnerabilities/${template.id}/edit`}>Edit</LinkButton>
-                                        <DeleteIconButton onClick={ev => deleteTemplate(ev, template.id)} />
-                                    </td>
-                                </tr>
+                                <Tr key={template.id}>
+                                    <Td>{template.version_name}</Td>
+                                    <Td><EmptyField value={template.version_description} /></Td>
+                                    <Td>{template.client_file_name}</Td>
+                                    <Td><span title={safeResolveMime(template.file_mimetype)}>{template.file_mimetype}</span></Td>
+                                    <Td justify="end">
+                                        <Flex justify="end">
+                                            <DeleteIconButton disabled={template.generated_by_uid === 0} title={template.generated_by_uid === 0 ? "System templates cannot be deleted" : ""} onClick={ev => deleteTemplate(ev, template.id)} />
+                                        </Flex>
+                                    </Td>
+                                </Tr>
                             )
                         }
-                    </tbody>
-                </table>
+                    </Tbody>
+                </Table>
             }
         </>
     )

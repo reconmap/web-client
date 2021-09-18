@@ -205,8 +205,6 @@ div form + aside {
     border-radius: var(--borderRadius);
 }
 
-// Typography
-table th,
 label,
 small,
 details summary {
@@ -381,7 +379,6 @@ table {
     width: 100%;
 
     th {
-        text-align: left;
         border-bottom: var(--borderWidth) solid var(--black);
     }
 }

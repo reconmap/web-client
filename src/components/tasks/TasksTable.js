@@ -57,7 +57,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                                 </td>
                             }
                             <td><TaskBadge task={task} /></td>
-                            <td className='only-desktop truncate' >{task.description}</td>
+                            <td className='only-desktop truncate'>{task.description ? task.description.substring(0, 100) + "..." : "-"}</td>
                             {showProjectColumn && <td><ProjectBadge project={{ id: task.project_id, name: task.project_name }} /></td>}
                             <td  >{task.assignee_uid ?
                                 <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
