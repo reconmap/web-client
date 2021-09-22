@@ -73,5 +73,5 @@ export default ProjectReport;
 const ReportPreview = ({ projectId }) => {
     const user = Auth.getLoggedInUser();
 
-    return <iframe title="Report preview" style={{ width: '50%', margin: '20px auto' }} id="report" src={Configuration.apiEndpoint + `/reports/preview?projectId=${projectId}&accessToken=${user.access_token}`}></iframe>
+    return <iframe title="Report preview" style={{ width: '50%', margin: '20px auto' }} id="report" src={Configuration.getDefaultApiUrl() + `/reports/preview?projectId=${projectId}&accessToken=${user.access_token}`}></iframe>
 }

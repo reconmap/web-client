@@ -37,7 +37,7 @@ const App = () => {
     }, [theme])
 
     return (
-        <BrowserRouter basename={Configuration.appBasename}>
+        <BrowserRouter basename={Configuration.getContextPath()}>
             <AuthProvider>
                 <ThemeContext.Provider value={{ theme, setTheme }}>
                     <Switch>

@@ -1,3 +1,4 @@
+import Configuration from "Configuration";
 import { useEffect, useRef, useState } from "react";
 import { Terminal } from "xterm";
 import 'xterm/css/xterm.css';
@@ -24,32 +25,34 @@ const CommandTerminal = ({ commands = [] }) => {
         let retryHandle = null;
 
         const connectTerminal = () => {
-            const websocket = new WebSocket('ws://127.0.0.1:3000/term');
-            websocket.binaryType = 'arraybuffer';
+            const agentServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
+            const agentServiceHostPort = Configuration.getAgentServiceHostPort();
+            const webSocket = new WebSocket(`${agentServiceProtocol}://${agentServiceHostPort}/term`);
+            webSocket.binaryType = 'arraybuffer';
 
             term.onData(data => {
-                websocket.send(textEncoder.encode("\x00" + data));
+                webSocket.send(textEncoder.encode("\x00" + data));
             });
 
             term.onResize(ev => {
-                websocket.send(textEncoder.encode("\x01" + JSON.stringify({ cols: ev.cols, rows: ev.rows })))
+                webSocket.send(textEncoder.encode("\x01" + JSON.stringify({ cols: ev.cols, rows: ev.rows })))
             });
 
             term.onTitleChange(title => {
                 setTerminalTitle(title);
             });
 
-            websocket.onopen = ev => {
+            webSocket.onopen = ev => {
                 setTerminalTitle('Connected!')
 
                 commands.forEach(command => {
-                    websocket.send(textEncoder.encode("\x00" + command + "\r\n"));
+                    webSocket.send(textEncoder.encode("\x00" + command + "\r\n"));
                 })
 
                 term.focus();
             };
 
-            websocket.onmessage = ev => {
+            webSocket.onmessage = ev => {
                 if (ev.data instanceof ArrayBuffer) {
                     term.write(arrayBufferToString(ev.data));
                 } else {
@@ -57,12 +60,12 @@ const CommandTerminal = ({ commands = [] }) => {
                 }
             }
 
-            websocket.onerror = ev => {
+            webSocket.onerror = ev => {
                 console.error(ev);
-                websocket.close();
+                webSocket.close();
             }
 
-            websocket.onclose = ev => {
+            webSocket.onclose = ev => {
                 setTerminalTitle('Disconnected')
                 clearTimeout(retryHandle);
                 retryHandle = setTimeout(connectTerminal, 1000);

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
-    "@chakra-ui/react": "^1.6.7",
+    "@chakra-ui/react": "^1.6.8",
     "@craco/craco": "^6.3.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
@@ -21,7 +21,7 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
     "react-time-ago": "^7.1.1",
-    "recharts": "^2.1.2",
+    "recharts": "^2.1.4",
     "ua-parser-js": "^0.7.28",
     "xterm": "^4.14.1"
   },
@@ -30,7 +30,7 @@
     "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^13.2.1",
     "npm-check-updates": "^11.8.5",
-    "sass": "^1.41.1"
+    "sass": "^1.42.1"
   },
   "scripts": {
     "lint": "eslint . --ext .js",

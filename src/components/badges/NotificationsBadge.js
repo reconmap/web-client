@@ -32,7 +32,9 @@ const NotificationsBadge = () => {
         console.debug('connecting to websocket server')
 
         try {
-            wsServerRef.current = new WebSocket(Configuration.wsEndpoint);
+            const notificationServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
+            const notificationServiceHostPort = Configuration.getAgentServiceHostPort();
+            wsServerRef.current = new WebSocket(`${notificationServiceProtocol}://${notificationServiceHostPort}/notifications`);
 
             wsServerRef.current.onopen = ev => {
                 console.debug("connected to websocket server!");

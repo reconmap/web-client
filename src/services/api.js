@@ -5,7 +5,8 @@ import Auth from "./auth";
 
 function resetSessionStorageAndRedirect() {
     Auth.removeSession();
-    window.location = Configuration.appBasename;
+
+    window.location = Configuration.getContextPath();
 }
 
 function secureApiFetch(url, init) {
@@ -22,7 +23,7 @@ function secureApiFetch(url, init) {
         initWithAuth.headers = headers;
     }
 
-    return fetch(Configuration.apiEndpoint + url, init)
+    return fetch(Configuration.getDefaultApiUrl() + url, init)
         .then(resp => {
             if (resp.status === 401) {
                 resetSessionStorageAndRedirect();
