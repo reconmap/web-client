@@ -35,5 +35,5 @@ code.prompt {
 }
 
 code + code {
-  margin: calc(var(--margin) * -1) 0;
+  margin: calc(-1*var(--margin)) 0;
 }

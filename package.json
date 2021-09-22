@@ -8,6 +8,10 @@
     "@craco/craco": "^6.3.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.9.6",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
     "countries-and-timezones": "^3.2.2",
     "dayjs": "^1.10.7",
     "framer-motion": "^4.1.17",
@@ -22,6 +26,7 @@
     "react-scripts": "^4.0.3",
     "react-time-ago": "^7.1.1",
     "recharts": "^2.1.4",
+    "typescript": "^4.4.3",
     "ua-parser-js": "^0.7.28",
     "xterm": "^4.14.1"
   },

@@ -1,5 +1,6 @@
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
+import ExternalLink from 'components/ui/ExternalLink';
 import React, { useState } from 'react';
 import secureApiFetch from '../../services/api';
 import PrimaryButton from '../ui/buttons/Primary';
@@ -44,6 +45,7 @@ const ImportForm = () => {
                         <li>Everything on the file will be attempted to be imported.</li>
                         <li>If there is an error the import process will continue resulting on a partial import.</li>
                         <li>If there are missing attributes, Reconmap will attempt to use defaults instead.</li>
+                        <li>Example of the files to import can be found on the following url: <ExternalLink href="https://github.com/reconmap/rest-api/tree/master/exports">https://github.com/reconmap/rest-api/tree/master/exports</ExternalLink> </li>
                     </ul>
                 </div>
                 <FormControl id="importFile" isRequired>
