@@ -1,5 +1,6 @@
 import PrimaryButton from 'components/ui/buttons/Primary';
 import ExternalLink from 'components/ui/ExternalLink';
+import Configuration from 'Configuration';
 import { ServerIssuesUrl } from 'ServerUrls';
 import Auth from 'services/auth';
 import './Form.css';
@@ -23,8 +24,9 @@ Build: ${process.env.REACT_APP_GIT_COMMIT_HASH}
 
 Server
 ------
-API URL: ${window.env.REACT_APP_API_ENDPOINT}
-WebSocket URL: ${window.env.REACT_APP_WS_ENDPOINT}
+API URL: ${Configuration.getDefaultApiUrl()}
+Notifications API (host:port): ${Configuration.getNotificationsServiceHostPort()}
+Agent API (host:port)): ${Configuration.getAgentServiceHostPort()}
 
 `;
 

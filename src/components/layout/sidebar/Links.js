@@ -1,3 +1,4 @@
+import Configuration from "Configuration";
 import {
     IconBookOpen,
     IconBriefcase,
@@ -88,11 +89,6 @@ const Links = [
     },
     {
         title: 'Reports', icon: <IconFlag size={5} />, to: '/reports', sublinks: [
-            {
-                title: 'Add',
-                icon: <IconPlus size={5} />,
-                to: '/reports/create',
-            },
             {
                 title: 'Templates',
                 icon: <IconDocumentDuplicate size={5} />,
@@ -189,7 +185,7 @@ const Links = [
             {
                 title: 'API docs',
                 icon: <IconCode size={5} />,
-                to: `${window.env.REACT_APP_API_ENDPOINT}/docs/`,
+                to: `${Configuration.getDefaultApiUrl()}/docs/`,
                 external: true
             },
             {
