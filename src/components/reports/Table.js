@@ -6,7 +6,6 @@ import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import useDelete from "hooks/useDelete";
 import PropTypes from 'prop-types';
-import React from "react";
 import { useHistory } from "react-router";
 import secureApiFetch from "services/api";
 

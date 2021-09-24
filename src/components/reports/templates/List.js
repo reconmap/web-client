@@ -5,9 +5,10 @@ import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import SecondaryButton from 'components/ui/buttons/Secondary';
 import EmptyField from 'components/ui/EmptyField';
 import ExternalLink from 'components/ui/ExternalLink';
-import { IconDocumentDuplicate } from 'components/ui/Icons';
+import { IconDocument, IconDocumentDuplicate } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
@@ -15,6 +16,7 @@ import { resolveMime } from 'friendly-mimes';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { Link } from 'react-router-dom';
+import secureApiFetch from 'services/api';
 import ReportModalDialog from './ModalDialog';
 
 const ReportTemplatesList = () => {
@@ -33,6 +35,25 @@ const ReportTemplatesList = () => {
     const onReportTemplateFormSaved = () => {
         refetchTemplates();
         closeAddReportTemplateDialog();
+    }
+
+    const handleDownload = (reportId) => {
+        secureApiFetch(`/attachments/${reportId}`, { method: 'GET', headers: {} })
+            .then(resp => {
+                const contentDispositionHeader = resp.headers.get('Content-Disposition');
+                const filenameRe = new RegExp(/filename="(.*)";/)
+                const filename = filenameRe.exec(contentDispositionHeader)[1]
+                return Promise.all([resp.blob(), filename]);
+            })
+            .then((values) => {
+                const blob = values[0];
+                const filename = values[1];
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+            })
     }
 
     const safeResolveMime = mimeType => {
@@ -69,12 +90,13 @@ const ReportTemplatesList = () => {
                             <Th>Description</Th>
                             <Th style={{ width: '190px' }}>File name</Th>
                             <Th>Mime type</Th>
+                            <Th>Downloads</Th>
                             <Th>&nbsp;</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                         {templates.length === 0 ?
-                            <Tr><Td colSpan="3"><NoResults /></Td></Tr>
+                            <Tr><Td colSpan={3}><NoResults /></Td></Tr>
                             :
                             templates.map((template) =>
                                 <Tr key={template.id}>
@@ -82,6 +104,11 @@ const ReportTemplatesList = () => {
                                     <Td><EmptyField value={template.version_description} /></Td>
                                     <Td>{template.client_file_name}</Td>
                                     <Td><span title={safeResolveMime(template.file_mimetype)}>{template.file_mimetype}</span></Td>
+                                    <Td>
+                                        <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
+                                            <IconDocument /> DOCX
+                                        </SecondaryButton>
+                                    </Td>
                                     <Td className="flex justify-end">
                                         <DeleteIconButton disabled={template.generated_by_uid === 0} title={template.generated_by_uid === 0 ? "System templates cannot be deleted" : ""} onClick={ev => deleteTemplate(ev, template.id)} />
                                     </Td>

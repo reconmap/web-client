@@ -16,6 +16,11 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
         setFormValues({ ...formValues, [ev.target.name]: ev.target.value });
     };
 
+    const beforeCancelCallback = ev => {
+        setFormValues(defaultFormValues);
+        onCancel(ev);
+    }
+
     const onFormSubmit = ev => {
         ev.preventDefault();
 
@@ -45,7 +50,7 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
         }
     }, [templates]);
 
-    return <Modal size="xl" isOpen={isOpen} onClose={onCancel}>
+    return <Modal size="xl" isOpen={isOpen} onClose={beforeCancelCallback}>
         <ModalOverlay />
         <ModalContent>
             <ModalHeader><HStack><TargetIcon style={{ width: '24px' }} /> <h4>New report version details</h4></HStack></ModalHeader>
@@ -76,7 +81,7 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
             </ModalBody>
 
             <ModalFooter>
-                <Button onClick={onCancel} mr={3}>Cancel</Button>
+                <Button onClick={beforeCancelCallback} mr={3}>Cancel</Button>
                 <Button form="reportVersionReportForm" type="submit" colorScheme="blue">Save</Button>
             </ModalFooter>
         </ModalContent>
