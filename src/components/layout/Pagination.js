@@ -1,10 +1,10 @@
-import {IconLeft, IconRight} from '../ui/Icons'
-import SecondaryButton from './../ui/buttons/Secondary'
+import { useCallback, useEffect } from 'react';
 import isInputElement from "../../utilities/domUtils";
-import {useCallback, useEffect} from 'react';
-import './Pagination.scss'
+import { IconLeft, IconRight } from '../ui/Icons';
+import SecondaryButton from './../ui/buttons/Secondary';
+import './Pagination.scss';
 
-const Pagination = ({page, total, handleNext, handlePrev}) => {
+const Pagination = ({ page, total, handleNext, handlePrev }) => {
     const previousEnabled = page + 1 > 1;
     const nextEnabled = page + 1 < total;
 
@@ -30,9 +30,9 @@ const Pagination = ({page, total, handleNext, handlePrev}) => {
     }, [onKeyDownListener]);
 
     return <div className='pagination'>
-        <SecondaryButton tooltip='Previous [P]' disabled={!previousEnabled} onClick={handlePrev}><IconLeft/></SecondaryButton>
+        <SecondaryButton tooltip='Previous [P]' disabled={!previousEnabled} onClick={handlePrev}><IconLeft /></SecondaryButton>
         <label>{page + 1} <span className='opacity-25'>|</span> {total} </label>
-        <SecondaryButton tooltip='Next [N]' disabled={!nextEnabled} onClick={handleNext}><IconRight/></SecondaryButton>
+        <SecondaryButton tooltip='Next [N]' disabled={!nextEnabled} onClick={handleNext}><IconRight /></SecondaryButton>
     </div>
 }
 

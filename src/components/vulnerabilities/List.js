@@ -1,18 +1,18 @@
-import { ButtonGroup } from '@chakra-ui/react';
+import { ButtonGroup } from '@chakra-ui/button';
+import Pagination from 'components/layout/Pagination';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import Breadcrumb from 'components/ui/Breadcrumb';
 import DeleteButton from 'components/ui/buttons/Delete';
+import Loading from 'components/ui/Loading';
+import Title from 'components/ui/Title';
 import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
-import Pagination from '../layout/Pagination';
-import Breadcrumb from "../ui/Breadcrumb";
 import CreateButton from '../ui/buttons/Create';
 import { IconFlag } from '../ui/Icons';
-import Loading from '../ui/Loading';
-import Title from '../ui/Title';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 
 const VulnerabilitiesList = () => {
@@ -25,19 +25,26 @@ const VulnerabilitiesList = () => {
     const [selection, setSelection] = useState([]);
 
     const [vulnerabilities, setVulnerabilities] = useState([]);
+    const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
-        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}`);
+        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
     }
     const handleNext = () => {
-        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}`);
+        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
+    }
+
+    const onSortChange = (ev, column, order) => {
+        ev.preventDefault();
+
+        setSortBy({ column: column, order: order });
     }
 
     const reloadVulnerabilities = useCallback(() => {
         setVulnerabilities([]);
 
-        secureApiFetch(`/vulnerabilities?isTemplate=false&page=${apiPageNumber}`, { method: 'GET' })
+        secureApiFetch(`/vulnerabilities?isTemplate=false&page=${apiPageNumber}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`, { method: 'GET' })
             .then(resp => {
                 if (resp.headers.has('X-Page-Count')) {
                     setNumberPages(resp.headers.get('X-Page-Count'))
@@ -47,7 +54,7 @@ const VulnerabilitiesList = () => {
             .then((data) => {
                 setVulnerabilities(data);
             });
-    }, [apiPageNumber]);
+    }, [apiPageNumber, sortBy]);
 
     const onDeleteButtonClick = () => {
         secureApiFetch('/vulnerabilities', {
@@ -65,13 +72,13 @@ const VulnerabilitiesList = () => {
             .catch(err => console.error(err));
     };
 
-    useEffect(() => {
-        reloadVulnerabilities()
-    }, [reloadVulnerabilities])
-
     const onAddVulnerabilityClick = () => {
         history.push(`/vulnerabilities/create`)
     }
+
+    useEffect(() => {
+        reloadVulnerabilities()
+    }, [reloadVulnerabilities])
 
     return (
         <>
@@ -90,7 +97,7 @@ const VulnerabilitiesList = () => {
             </div>
             <Title title='Vulnerabilities' icon={<IconFlag />} />
             {!vulnerabilities ? <Loading /> :
-                <VulnerabilitiesTable vulnerabilities={vulnerabilities} selection={selection} setSelection={setSelection} reloadCallback={reloadVulnerabilities} />
+                <VulnerabilitiesTable vulnerabilities={vulnerabilities} onSortChange={onSortChange} selection={selection} setSelection={setSelection} reloadCallback={reloadVulnerabilities} />
             }
         </>
     )

@@ -14,7 +14,7 @@ import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 import LinkButton from "../ui/buttons/Link";
 import VulnerabilityStatusBadge from "./StatusBadge";
 
-const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reloadCallback }) => {
+const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reloadCallback, onSortChange }) => {
     const showSelection = selection !== undefined;
 
     const onSelectionChange = ev => {
@@ -37,8 +37,8 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                     <th style={{ width: '190px' }}>Summary</th>
                     <th style={{ width: '190px' }}>Project</th>
                     <th style={{ width: '120px' }}>Status</th>
-                    <th style={{ width: '120px' }}>Risk</th>
-                    <th style={{ width: '120px' }}><abbr title="Common Vulnerability Scoring System">CVSS</abbr> score</th>
+                    <th style={{ width: '120px' }}><a href="#" onClick={ev => onSortChange(ev, 'risk', 'DESC')}>&darr;</a> Risk <a href="#" onClick={ev => onSortChange(ev, 'risk', 'ASC')}>&uarr;</a></th>
+                    <th style={{ width: '120px' }}><a href="#" onClick={ev => onSortChange(ev, 'cvss_score', 'DESC')}>&darr;</a> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <a href="#" onClick={ev => onSortChange(ev, 'cvss_score', 'ASC')}>&darr;</a></th>
                     <th className='only-desktop' style={{ width: '20%' }}>Category</th>
                     <th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></th>
                 </tr>
