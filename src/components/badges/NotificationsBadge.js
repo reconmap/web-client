@@ -33,7 +33,7 @@ const NotificationsBadge = () => {
 
         try {
             const notificationServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
-            const notificationServiceHostPort = Configuration.getAgentServiceHostPort();
+            const notificationServiceHostPort = Configuration.getNotificationsServiceHostPort();
             wsServerRef.current = new WebSocket(`${notificationServiceProtocol}://${notificationServiceHostPort}/notifications`);
 
             wsServerRef.current.onopen = ev => {

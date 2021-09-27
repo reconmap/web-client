@@ -95,10 +95,11 @@ const VulnerabilitiesList = () => {
                     </RestrictedComponent>
                 </ButtonGroup>
             </div>
-            <Title title='Vulnerabilities' icon={<IconFlag />} />
-            {!vulnerabilities ? <Loading /> :
+            {!vulnerabilities && <Title title='Vulnerabilities' icon={<IconFlag />} />}
+            {!vulnerabilities ? <Loading /> : <>
+                <Title title={`Vulnerabilities (${vulnerabilities.length})`} icon={<IconFlag />} />
                 <VulnerabilitiesTable vulnerabilities={vulnerabilities} onSortChange={onSortChange} selection={selection} setSelection={setSelection} reloadCallback={reloadVulnerabilities} />
-            }
+            </>}
         </>
     )
 }

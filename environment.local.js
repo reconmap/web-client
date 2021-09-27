@@ -8,7 +8,7 @@ window.env = {
     REACT_APP_NOTIFICATIONS_SERVICE_HOST_PORT: 'localhost:4040',
 
     // hostname:port for the Reconmap's agent service
-    REACT_APP_AGENT_SERVICE_HOST_PORT: 'localhost:2020',
+    REACT_APP_AGENT_SERVICE_HOST_PORT: 'localhost:4040',
 
     // Web application context path e.g. / (for http://127.0.0.1/) or /reconmap (for http://127.0.0.1/reconmap)
     // REACT_APP_CONTEXT_PATH: '/reconmap'

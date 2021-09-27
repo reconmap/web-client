@@ -10,8 +10,15 @@ import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
 
 const ProjectVulnerabilities = ({ project }) => {
     const history = useHistory();
+    const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
 
-    const [vulnerabilities, reloadVulnerabilities] = useFetch(`/vulnerabilities?projectId=${project.id}`)
+    const onSortChange = (ev, column, order) => {
+        ev.preventDefault();
+
+        setSortBy({ column: column, order: order });
+    }
+
+    const [vulnerabilities, reloadVulnerabilities] = useFetch(`/vulnerabilities?projectId=${project.id}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`)
 
     const handleCreateVulnerability = () => {
         history.push(`/vulnerabilities/create?projectId=${project.id}`)
@@ -36,7 +43,7 @@ const ProjectVulnerabilities = ({ project }) => {
             vulnerabilities ?
                 <VulnerabilitiesTable
                     vulnerabilities={vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))}
-                    reloadCallback={reloadVulnerabilities}
+                    reloadCallback={reloadVulnerabilities} onSortChange={onSortChange}
                 />
                 : <Loading />
         }
