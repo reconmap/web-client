@@ -26,6 +26,7 @@ const VulnerabilitiesList = () => {
 
     const [vulnerabilities, setVulnerabilities] = useState([]);
     const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
+    const [totalCount, setTotalCount] = useState(0);
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
@@ -48,6 +49,9 @@ const VulnerabilitiesList = () => {
             .then(resp => {
                 if (resp.headers.has('X-Page-Count')) {
                     setNumberPages(resp.headers.get('X-Page-Count'))
+                }
+                if (resp.headers.has('X-Total-Count')) {
+                    setTotalCount(resp.headers.get('X-Total-Count'))
                 }
                 return resp.json()
             })
@@ -97,7 +101,7 @@ const VulnerabilitiesList = () => {
             </div>
             {!vulnerabilities && <Title title='Vulnerabilities' icon={<IconFlag />} />}
             {!vulnerabilities ? <Loading /> : <>
-                <Title title={`Vulnerabilities (${vulnerabilities.length})`} icon={<IconFlag />} />
+                <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
                 <VulnerabilitiesTable vulnerabilities={vulnerabilities} onSortChange={onSortChange} selection={selection} setSelection={setSelection} reloadCallback={reloadVulnerabilities} />
             </>}
         </>
