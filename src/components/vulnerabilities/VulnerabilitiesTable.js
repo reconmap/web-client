@@ -1,9 +1,11 @@
-import { Stack } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/layout";
+import { Checkbox, Stack } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import SortDescendingLink from "components/ui/SortDescendingLink";
 import Tags from "components/ui/Tags";
 import useDelete from "hooks/useDelete";
 import React from "react";
@@ -13,6 +15,7 @@ import VulnerabilityBadge from '../badges/VulnerabilityBadge';
 import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 import LinkButton from "../ui/buttons/Link";
 import VulnerabilityStatusBadge from "./StatusBadge";
+
 
 const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reloadCallback, onSortChange }) => {
     const showSelection = selection !== undefined;
@@ -27,18 +30,26 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
         }
     };
 
+    const onHeaderCheckboxClick = ev => {
+        if (ev.target.checked) {
+            setSelection(vulnerabilities.map(vulnerability => vulnerability.id));
+        } else {
+            setSelection([]);
+        }
+    }
+
     const deleteVulnerability = useDelete('/vulnerabilities/', reloadCallback, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
 
     return (
         <table>
             <thead>
                 <tr>
-                    {showSelection && <th style={{ width: "32px" }}>&nbsp;</th>}
+                    {showSelection && <th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length === vulnerabilities.length} /></th>}
                     <th style={{ width: '190px' }}>Summary</th>
                     <th style={{ width: '190px' }}>Project</th>
                     <th style={{ width: '120px' }}>Status</th>
-                    <th style={{ width: '120px' }}><a href="#" onClick={ev => onSortChange(ev, 'risk', 'DESC')}>&darr;</a> Risk <a href="#" onClick={ev => onSortChange(ev, 'risk', 'ASC')}>&uarr;</a></th>
-                    <th style={{ width: '120px' }}><a href="#" onClick={ev => onSortChange(ev, 'cvss_score', 'DESC')}>&darr;</a> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <a href="#" onClick={ev => onSortChange(ev, 'cvss_score', 'ASC')}>&darr;</a></th>
+                    <th style={{ width: '120px' }}><SortDescendingLink sortCallback={ev => onSortChange(ev, 'risk', 'DESC')} /> Risk <Link onClick={ev => onSortChange(ev, 'risk', 'ASC')}>&uarr;</Link></th>
+                    <th style={{ width: '120px' }}><SortDescendingLink sortCallback={ev => onSortChange(ev, 'cvss_score', 'DESC')} /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <Link onClick={ev => onSortChange(ev, 'cvss_score', 'ASC')}>&darr;</Link></th>
                     <th className='only-desktop' style={{ width: '20%' }}>Category</th>
                     <th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></th>
                 </tr>
@@ -52,11 +63,10 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                             <tr key={index}>
                                 {showSelection &&
                                     <td>
-                                        <input
-                                            type="checkbox"
+                                        <Checkbox
                                             value={vulnerability.id}
                                             onChange={onSelectionChange}
-                                            checked={selection.includes(vulnerability.id)}
+                                            isChecked={selection.includes(vulnerability.id)}
                                         />
                                     </td>
                                 }
