@@ -3,13 +3,13 @@ FROM quay.io/reconmap/web-client AS builder
 ARG RECONMAP_APP_GIT_COMMIT_HASH
 ENV REACT_APP_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
-COPY craco.config.js jsconfig.json package.json package-lock.json ./
+COPY jsconfig.json package.json package-lock.json ./
 COPY public ./public
 COPY src ./src
 
 RUN npm install && npm run build
 
-FROM nginx:1.20
+FROM nginx:stable
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
