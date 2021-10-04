@@ -39,7 +39,7 @@ const VulnerabilityCategoriesPage = () => {
             </Breadcrumb>
 
             <VulnerabilityCategoryModalDialog isOpen={isAddTargetDialogOpen} onClose={onCategoryFormSaved} onCancel={closeAddCategoryDialog} />
-            <CreateButton onClick={openAddCategoryDialog}>Add vulnerability category</CreateButton>
+            <CreateButton onClick={openAddCategoryDialog}>Add vulnerability category...</CreateButton>
         </div>
         <Title title='Vulnerability categories' icon={<IconDocumentDuplicate />} />
         {!categories ? <Loading /> :
