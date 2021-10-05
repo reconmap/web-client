@@ -21,8 +21,8 @@ GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 .PHONY: prepare
 prepare:
 	docker build -f docker/node.Dockerfile -t $(DOCKER_DEFAULT_TAG) .
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm $(DOCKER_DEFAULT_TAG) install -g npm-check-updates
-	docker run --rm -it -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm $(DOCKER_DEFAULT_TAG) install
+	docker run --rm -t -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm $(DOCKER_DEFAULT_TAG) install -g npm-check-updates
+	docker run --rm -t -w /var/www/webapp -v $(PWD):/var/www/webapp --entrypoint npm $(DOCKER_DEFAULT_TAG) install
 
 .PHONY: start
 start:
@@ -50,7 +50,7 @@ tests:
 
 .PHONY: tests-ci
 tests-ci:
-	docker run --rm -it -w /var/www/webapp \
+	docker run --rm -t -w /var/www/webapp \
 		-v $(PWD):/var/www/webapp \
 		-v $(PWD)/$(ENV_FILE_NAME):/var/www/webapp/public/environment.js \
 		--entrypoint yarn -e CI=true $(DOCKER_DEFAULT_TAG) test:ci
