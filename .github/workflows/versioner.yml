@@ -1,0 +1,18 @@
+name: Version Increment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+      - run: git config --global user.name github-actions
+      - run: git config --global user.email github-actions@github.com
+      - run: npm version patch -m "Increment version to %s"
+      - run: git push
