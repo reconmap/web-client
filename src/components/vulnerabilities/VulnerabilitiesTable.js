@@ -1,11 +1,11 @@
-import { Link } from "@chakra-ui/layout";
 import { Checkbox, Stack } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
+import AscendingSortLink from "components/ui/AscendingSortLink";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
+import DescendingSortLink from "components/ui/DescendingSortLink";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
-import SortDescendingLink from "components/ui/SortDescendingLink";
 import Tags from "components/ui/Tags";
 import useDelete from "hooks/useDelete";
 import React from "react";
@@ -47,9 +47,9 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                     {showSelection && <th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length === vulnerabilities.length} /></th>}
                     <th style={{ width: '190px' }}>Summary</th>
                     <th style={{ width: '190px' }}>Project</th>
-                    <th style={{ width: '120px' }}>Status</th>
-                    <th style={{ width: '120px' }}><SortDescendingLink sortCallback={ev => onSortChange(ev, 'risk', 'DESC')} /> Risk <Link onClick={ev => onSortChange(ev, 'risk', 'ASC')}>&uarr;</Link></th>
-                    <th style={{ width: '120px' }}><SortDescendingLink sortCallback={ev => onSortChange(ev, 'cvss_score', 'DESC')} /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <Link onClick={ev => onSortChange(ev, 'cvss_score', 'ASC')}>&darr;</Link></th>
+                    <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></th>
+                    <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="risk" /> Risk <AscendingSortLink callback={onSortChange} property="risk" /></th>
+                    <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="cvss_score" /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <AscendingSortLink callback={onSortChange} property="cvss_score" /></th>
                     <th className='only-desktop' style={{ width: '20%' }}>Category</th>
                     <th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></th>
                 </tr>
