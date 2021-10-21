@@ -38,8 +38,7 @@ const ClientsList = ({ history }) => {
                         <th>URL</th>
                         <th>Contact name</th>
                         <th>Contact email</th>
-                        <th>Contact phone</th>
-                        <th>&nbsp;</th>
+                        <th colSpan={2}>Contact phone</th>
                     </tr>
                 </thead>
                 <tbody>

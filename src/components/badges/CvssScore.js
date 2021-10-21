@@ -25,7 +25,7 @@ const CvssScore = ({ score, fontSize = 'fontSizeXsmall' }) => {
     }
 
     if (score === null) {
-        return '-';
+        return <>-</>;
     }
 
     return <div style={styles.badge}>

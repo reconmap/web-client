@@ -8,14 +8,12 @@ import DescendingSortLink from "components/ui/DescendingSortLink";
 import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import Tags from "components/ui/Tags";
 import useDelete from "hooks/useDelete";
-import React from "react";
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
 import VulnerabilityBadge from '../badges/VulnerabilityBadge';
 import VulnerabilityCategoryBadge from '../badges/VulnerabilityCategoryBadge';
 import LinkButton from "../ui/buttons/Link";
 import VulnerabilityStatusBadge from "./StatusBadge";
-
 
 const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reloadCallback, onSortChange }) => {
     const showSelection = selection !== undefined;
@@ -44,13 +42,13 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
         <table>
             <thead>
                 <tr>
-                    {showSelection && <th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length === vulnerabilities.length} /></th>}
+                    {showSelection && <th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilities.length} /></th>}
                     <th style={{ width: '190px' }}>Summary</th>
                     <th style={{ width: '190px' }}>Project</th>
                     <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></th>
                     <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="risk" /> Risk <AscendingSortLink callback={onSortChange} property="risk" /></th>
                     <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="cvss_score" /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <AscendingSortLink callback={onSortChange} property="cvss_score" /></th>
-                    <th className='only-desktop' style={{ width: '20%' }}>Category</th>
+                    <th className='only-desktop' style={{ width: '20%' }}><DescendingSortLink callback={onSortChange} property="category_name" /> Category <AscendingSortLink callback={onSortChange} property="category_name" /></th>
                     <th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></th>
                 </tr>
             </thead>
