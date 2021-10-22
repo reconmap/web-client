@@ -13,7 +13,7 @@ FROM nginx:stable
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
 
-COPY --from=builder /home/node/reconmap/build /usr/share/nginx/html
+COPY --from=builder --chown=nginx:nginx /home/node/reconmap/build /usr/share/nginx/html
 
 EXPOSE 80
 
