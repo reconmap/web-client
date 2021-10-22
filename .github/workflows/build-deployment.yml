@@ -18,11 +18,15 @@ jobs:
   version-build-push:
     needs: configure
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
-      options: --user ${{ needs.configure.outputs.containerUser }}
 
     steps:
+      - name: Echo user values
+        run: |
+          echo $USER
+          id -u
+          id -g
+      - name: Fix folder permissions
+        run: sudo chown -R $USER:$USER ${{ github.workspace }} 
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
