@@ -1,7 +1,7 @@
 FROM node:14-bullseye-slim
 
-WORKDIR /opt/reconmap
-
 ENV DISABLE_OPENCOLLECTIVE true
-ENV PATH /opt/reconmap/node_modules/.bin:$PATH
+
+WORKDIR /home/node/reconmap
+ENV PATH /home/node/reconmap/node_modules/.bin:$PATH
 

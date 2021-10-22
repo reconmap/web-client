@@ -1,4 +1,4 @@
-FROM quay.io/reconmap/web-client AS builder
+FROM reconmap/web-client:dev AS builder
 
 ARG RECONMAP_APP_GIT_COMMIT_HASH
 ENV REACT_APP_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
