@@ -11,12 +11,11 @@ RUN npm install && npm run build
 
 FROM nginx:stable
 
-RUN rm /etc/nginx/conf.d/default.conf
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
 
 COPY --from=builder /home/node/reconmap/build /usr/share/nginx/html
 
 EXPOSE 80
 
+USER nginx
 CMD ["nginx", "-g", "daemon off;"]
-
