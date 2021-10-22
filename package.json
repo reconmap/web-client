@@ -1,6 +1,6 @@
 {
   "name": "reconmap-web-client",
-  "version": "0.9.15",
+  "version": "0.9.16",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.0.16",
