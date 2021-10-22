@@ -6,8 +6,22 @@ on:
       - master
 
 jobs:
-  version:
+  configure:
     runs-on: ubuntu-latest
+    outputs:
+      containerUser: ${{ steps.get-user.outputs.containerUser }}
+
+    steps:
+      - id: get-user
+        run: echo "::set-output name=containerUser::`id -u`:`id -g`"
+
+  version-build-push:
+    needs: configure
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/vscode/devcontainers/base:ubuntu
+      options: --user ${{ needs.configure.outputs.containerUser }}
+
     steps:
       - uses: actions/checkout@v2
         with:
