@@ -1,46 +1,50 @@
 name: Build and deployment workflow
 
 on:
-  push:
-    branches:
-      - master
+    push:
+        branches:
+            - master
 
 jobs:
-  configure:
-    runs-on: ubuntu-latest
-    outputs:
-      containerUser: ${{ steps.get-user.outputs.containerUser }}
+    configure:
+        runs-on: ubuntu-latest
+        outputs:
+            containerUser: ${{ steps.get-user.outputs.containerUser }}
 
-    steps:
-      - id: get-user
-        run: echo "::set-output name=containerUser::`id -u`:`id -g`"
+        steps:
+            - id: get-user
+              run: echo "::set-output name=containerUser::`id -u`:`id -g`"
 
-  version-build-push:
-    needs: configure
-    runs-on: ubuntu-latest
+    version-build-push:
+        needs: configure
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Echo user values
-        run: |
-          echo $USER
-          id -u
-          id -g
-      - name: Fix folder permissions
-        run: sudo chown -R $USER:$USER ${{ github.workspace }} 
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Login to Quay
-        run: echo "${{ secrets.QUAY_ROBOT_TOKEN }}" | docker login -u "${{ secrets.QUAY_ROBOT_USERNAME }}" --password-stdin quay.io
-      - name: Set Git credentials
-        run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-      - name: Increase version
-        run: |
-          npm version patch -m "Increment version to %s"
-          git push
-      - run: |
-          make
-          make tests-ci
-          make build push
+        steps:
+            - name: Echo user values
+              run: |
+                  echo $USER
+                  id -u
+                  id -g
+            - name: Fix folder permissions
+              run: sudo chown -R $USER:$USER ${{ github.workspace }}
+            - uses: actions/checkout@v2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+            - name: Login to Quay
+              run: echo "${{ secrets.QUAY_ROBOT_TOKEN }}" | docker login -u "${{ secrets.QUAY_ROBOT_USERNAME }}" --password-stdin quay.io
+            - name: Set Git credentials
+              run: |
+                  git config --global user.name github-actions
+                  git config --global user.email github-actions@github.com
+            - name: Increase version
+              run: |
+                  npm version patch -m "Increment version to %s"
+                  git push
+            - name: Prepare
+              run: make
+            - name: Run tests
+              run: make tests-ci
+            - name: Build
+              run: make build
+            - name: Push
+              run: make push
