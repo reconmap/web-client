@@ -32,7 +32,7 @@ const VulnerabilityCategoriesPage = () => {
     }
 
     return <>
-        <PageTitle value="Vulnerability templates" />
+        <PageTitle value="Vulnerability categories" />
         <div className='heading'>
             <Breadcrumb>
                 <Link to="/vulnerabilities">Vulnerabilities</Link>
@@ -47,17 +47,18 @@ const VulnerabilityCategoriesPage = () => {
                 <thead>
                     <tr>
                         <th style={{ width: '190px' }}>Name</th>
-                        <th>Description</th>
-                        <th>&nbsp;</th>
+                        <th>Parent category</th>
+                        <th colSpan={2}>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     {categories.length === 0 ?
-                        <tr><td colSpan="3"><NoResults /></td></tr>
+                        <tr><td colSpan={3}><NoResults /></td></tr>
                         :
                         categories.map(category =>
                             <tr key={category.id}>
                                 <td>{category.name}</td>
+                                <td>{category.parent_name ?? '-'}</td>
                                 <td>{category.description}</td>
                                 <td className='flex justify-end'>
                                     <DeleteIconButton onClick={ev => deleteCategory(ev, category.id)} />

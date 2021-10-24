@@ -78,7 +78,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                                 <td><VulnerabilityStatusBadge vulnerability={vulnerability} /></td>
                                 <td><RiskBadge risk={vulnerability.risk} /></td>
                                 <td><CvssScore score={vulnerability.cvss_score} /></td>
-                                <td className='only-desktop'><VulnerabilityCategoryBadge category={vulnerability.category_name} /></td>
+                                <td className='only-desktop'><VulnerabilityCategoryBadge category={vulnerability.category_hierarchy_name} /></td>
                                 <td className='flex justify-end'>
                                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                         <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>

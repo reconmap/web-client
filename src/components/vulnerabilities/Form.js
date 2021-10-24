@@ -132,7 +132,7 @@ const VulnerabilityForm = ({
                     <label>Category
                         <Select name="category_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
                             {categories && categories.map((category, index) =>
-                                <option key={index} value={category.id}>{category.name}</option>
+                                <option key={index} value={category.id}>{category.hierarchy_name}</option>
                             )}
                         </Select>
                     </label>
