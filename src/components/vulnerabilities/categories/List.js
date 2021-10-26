@@ -1,31 +1,51 @@
-import { useDisclosure } from '@chakra-ui/react';
+import { Table, Tbody, Td, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import LinkButton from 'components/ui/buttons/Link';
 import { IconDocumentDuplicate } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import VulnerabilityCategoryModalDialog from './ModalDialog';
+import VulnerabilityCategoryAddModalDialog from './AddModalDialog';
+import VulnerabilityCategoryEditModalDialog from './EditModalDialog';
 
 const VulnerabilityCategoriesPage = () => {
     const [categories, fetchCategories] = useFetch('/vulnerabilities/categories')
 
     const destroy = useDelete('/vulnerabilities/categories/', fetchCategories);
 
-    const { isOpen: isAddTargetDialogOpen, onOpen: openAddCategoryDialog, onClose: closeAddCategoryDialog } = useDisclosure();
+    const [editCategory, setEditCategory] = useState({});
 
-    const onCategoryFormSaved = () => {
+    const { isOpen: isAddCategoryDialogOpen, onOpen: openAddCategoryDialog, onClose: closeAddCategoryDialog } = useDisclosure();
+    const { isOpen: isEditCategoryDialogOpen, onOpen: openEditCategoryDialog, onClose: closeEditCategoryDialog } = useDisclosure();
+
+    const onCategoryDialogClosed = () => {
         fetchCategories();
+
         closeAddCategoryDialog();
+        closeEditCategoryDialog();
     }
 
+    const onAddClick = ev => {
+        ev.preventDefault();
 
-    const deleteCategory = (ev, templateId) => {
+        openAddCategoryDialog();
+    }
+
+    const onEditClick = (ev, ccategory) => {
+        ev.preventDefault();
+
+        setEditCategory(ccategory);
+        openEditCategoryDialog();
+    }
+
+    const onDeleteClick = (ev, templateId) => {
         ev.stopPropagation();
 
         destroy(templateId);
@@ -38,36 +58,38 @@ const VulnerabilityCategoriesPage = () => {
                 <Link to="/vulnerabilities">Vulnerabilities</Link>
             </Breadcrumb>
 
-            <VulnerabilityCategoryModalDialog isOpen={isAddTargetDialogOpen} onClose={onCategoryFormSaved} onCancel={closeAddCategoryDialog} />
-            <CreateButton onClick={openAddCategoryDialog}>Add vulnerability category...</CreateButton>
+            <VulnerabilityCategoryAddModalDialog isOpen={isAddCategoryDialogOpen} onClose={onCategoryDialogClosed} onCancel={closeAddCategoryDialog} />
+            {isEditCategoryDialogOpen && <VulnerabilityCategoryEditModalDialog category={editCategory} isOpen={isEditCategoryDialogOpen} onClose={onCategoryDialogClosed} onCancel={closeEditCategoryDialog} />}
+            <CreateButton onClick={onAddClick}>Add vulnerability category...</CreateButton>
         </div>
         <Title title='Vulnerability categories' icon={<IconDocumentDuplicate />} />
         {!categories ? <Loading /> :
-            <table>
-                <thead>
-                    <tr>
-                        <th style={{ width: '190px' }}>Name</th>
-                        <th>Parent category</th>
-                        <th colSpan={2}>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <Table size="sm">
+                <Thead>
+                    <Tr>
+                        <Th style={{ width: '190px' }}>Name</Th>
+                        <Th>Parent category</Th>
+                        <Th colSpan={2}>Description</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
                     {categories.length === 0 ?
-                        <tr><td colSpan={3}><NoResults /></td></tr>
+                        <Tr><Td colSpan={3}><NoResults /></Td></Tr>
                         :
                         categories.map(category =>
-                            <tr key={category.id}>
-                                <td>{category.name}</td>
-                                <td>{category.parent_name ?? '-'}</td>
-                                <td>{category.description}</td>
-                                <td className='flex justify-end'>
-                                    <DeleteIconButton onClick={ev => deleteCategory(ev, category.id)} />
-                                </td>
-                            </tr>
+                            <Tr key={category.id}>
+                                <Td><strong>{category.name}</strong></Td>
+                                <Td>{category.parent_name ?? '-'}</Td>
+                                <Td>{category.description}</Td>
+                                <Td className='flex justify-end'>
+                                    <LinkButton href="#" onClick={ev => onEditClick(ev, category)}>Edit</LinkButton>
+                                    <DeleteIconButton onClick={ev => onDeleteClick(ev, category.id)} />
+                                </Td>
+                            </Tr>
                         )
                     }
-                </tbody>
-            </table>
+                </Tbody>
+            </Table>
         }
     </>
 }

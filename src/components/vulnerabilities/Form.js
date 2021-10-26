@@ -8,6 +8,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 import Risks from "../../models/Risks";
 import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
+import { parentChildNames } from './categories/Span';
 import CvssAbbr from './CvssAbbr';
 
 const VulnerabilityForm = ({
@@ -131,8 +132,9 @@ const VulnerabilityForm = ({
                     </label>
                     <label>Category
                         <Select name="category_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
-                            {categories && categories.map((category, index) =>
-                                <option key={index} value={category.id}>{category.hierarchy_name}</option>
+                            <option>(none)</option>
+                            {categories && categories.map(category =>
+                                <option key={category.id} value={category.id}>{parentChildNames(category.parent_name, category.name)}</option>
                             )}
                         </Select>
                     </label>

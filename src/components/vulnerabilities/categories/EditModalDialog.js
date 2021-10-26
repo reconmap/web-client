@@ -4,9 +4,8 @@ import { useState } from "react";
 import secureApiFetch from "services/api";
 import VulnerabilityCategoryForm from "./Form";
 
-const VulnerabilityCategoryModalDialog = ({ isOpen, onClose, onCancel }) => {
-    const emptyCategory = { name: '', description: '' };
-    const [newCategory, updateNewCategory] = useState(emptyCategory);
+const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCancel }) => {
+    const [newCategory, updateNewCategory] = useState(category);
 
     const onCreateCategoryFormSubmit = ev => {
         if (!document.getElementById('vulnerability_category_form').checkValidity()) {
@@ -15,22 +14,21 @@ const VulnerabilityCategoryModalDialog = ({ isOpen, onClose, onCancel }) => {
 
         ev.preventDefault();
 
-        secureApiFetch(`/vulnerabilities/categories`, {
-            method: 'POST',
+        secureApiFetch(`/vulnerabilities/categories/${category.id}`, {
+            method: 'PUT',
             body: JSON.stringify(newCategory)
         }).then(() => {
             onClose();
-            actionCompletedToast(`The vulnerability category has been created.`);
+            actionCompletedToast(`The vulnerability category has been updated.`);
         })
             .finally(() => {
-                updateNewCategory(emptyCategory)
             })
     }
 
     return <Modal size="xl" isOpen={isOpen} onClose={onCancel}>
         <ModalOverlay />
         <ModalContent>
-            <ModalHeader>New vulnerability category details</ModalHeader>
+            <ModalHeader>Vulnerability category details</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <VulnerabilityCategoryForm category={newCategory} onFormSubmit={onCreateCategoryFormSubmit} categorySetter={updateNewCategory} />
@@ -44,4 +42,4 @@ const VulnerabilityCategoryModalDialog = ({ isOpen, onClose, onCancel }) => {
     </Modal>
 }
 
-export default VulnerabilityCategoryModalDialog;
+export default VulnerabilityCategoryEditModalDialog;

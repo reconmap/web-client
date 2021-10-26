@@ -1,6 +1,5 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import VulnerabilityBadge from 'components/badges/VulnerabilityBadge';
-import VulnerabilityCategoryBadge from 'components/badges/VulnerabilityCategoryBadge';
 import PageTitle from 'components/logic/PageTitle';
 import AscendingSortLink from 'components/ui/AscendingSortLink';
 import Breadcrumb from 'components/ui/Breadcrumb';
@@ -19,6 +18,7 @@ import { useState } from 'react';
 import { useHistory } from "react-router";
 import { Link } from 'react-router-dom';
 import secureApiFetch from 'services/api';
+import VulnerabilityCategorySpan from '../categories/Span';
 
 const VulnerabilityTemplatesList = () => {
     const history = useHistory();
@@ -69,7 +69,7 @@ const VulnerabilityTemplatesList = () => {
             </div>
             <Title title='Vulnerability templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :
-                <Table>
+                <Table size="sm">
                     <Thead>
                         <Tr>
                             <Th>Summary</Th>
@@ -83,7 +83,7 @@ const VulnerabilityTemplatesList = () => {
                             templates.map((template) =>
                                 <Tr key={template.id} onClick={() => viewTemplate(template.id)}>
                                     <Td><VulnerabilityBadge vulnerability={template} /></Td>
-                                    <Td><VulnerabilityCategoryBadge category={template.category_name} /></Td>
+                                    <Td><VulnerabilityCategorySpan name={template.category_name} parentName={template.parent_category_name} /></Td>
                                     <Td className='flex justify-end'>
                                         <PrimaryButton onClick={ev => cloneVulnerability(ev, template.id)} key={template.id}
                                             title="Clone"><IconPlus />Clone and edit</PrimaryButton>

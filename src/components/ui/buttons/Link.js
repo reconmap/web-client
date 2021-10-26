@@ -19,7 +19,7 @@ const LinkButton = ({ children, external = false, ...props }) => {
     }
 
     return (
-        <a {...props} target={external ? "_blank" : ""} onClick={onAnchorClick} className="link-button">
+        <a onClick={onAnchorClick} target={external ? "_blank" : ""} className="link-button" {...props}>
             {children}
         </a>
     )

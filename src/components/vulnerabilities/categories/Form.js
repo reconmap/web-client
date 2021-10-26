@@ -2,7 +2,7 @@ import { FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
 import useFetch from "hooks/useFetch";
 
 const VulnerabilityCategoryForm = ({ category, onFormSubmit, categorySetter: setCategory }) => {
-    const [categories] = useFetch('/vulnerabilities/categories');
+    const [categories] = useFetch('/vulnerabilities/categories?parentsOnly=true');
 
     const onFormInputChange = ev => {
         const target = ev.target;
@@ -15,9 +15,9 @@ const VulnerabilityCategoryForm = ({ category, onFormSubmit, categorySetter: set
     return <form id="vulnerability_category_form" onSubmit={onFormSubmit}>
         <FormControl id="parent_id" isRequired>
             <FormLabel>Parent category</FormLabel>
-            {categories && <Select name="parent_id" onChange={onFormInputChange}>
+            {categories && <Select name="parent_id" value={category.parent_id} onChange={onFormInputChange}>
                 <option>(none)</option>
-                {categories.map(category => <option value={category.id}>{category.name}</option>)}
+                {categories.filter(category => category.parent_id === null).map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
             </Select>}
         </FormControl>
         <FormControl id="name" isRequired>
