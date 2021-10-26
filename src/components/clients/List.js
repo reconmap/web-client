@@ -44,7 +44,7 @@ const ClientsList = ({ history }) => {
                 <tbody>
                     {clients.length === 0 ?
                         <tr>
-                            <td colSpan="6"><NoResults /></td>
+                            <td colSpan={6}><NoResults /></td>
                         </tr> :
                         clients.map((client) =>
                             <tr key={client.id}>

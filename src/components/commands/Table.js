@@ -18,7 +18,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
         <tbody>
             {commands.length === 0 ?
                 <tr>
-                    <td colSpan="5"><NoResults /></td>
+                    <td colSpan={5}><NoResults /></td>
                 </tr> :
                 commands.map(command =>
                     <tr key={command.id}>

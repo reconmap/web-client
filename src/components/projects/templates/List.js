@@ -67,7 +67,7 @@ const TemplatesList = ({ history }) => {
                     </thead>
                     <tbody>
                         {templates.length === 0 ?
-                            <td colSpan="5"><NoResults /></td>
+                            <td colSpan={5}><NoResults /></td>
                             :
                             templates.map((template) =>
                                 <tr key={template.id} onClick={() => viewProject(template.id)}>

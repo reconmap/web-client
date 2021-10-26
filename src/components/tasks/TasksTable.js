@@ -39,7 +39,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
         <tbody>
             {tasks.length === 0 ?
                 <tr>
-                    <td colSpan="7"><NoResults /></td>
+                    <td colSpan={7}><NoResults /></td>
                 </tr> :
                 tasks
                     .filter(task => task.project_id.toString().includes(filter.project))

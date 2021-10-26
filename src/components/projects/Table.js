@@ -21,7 +21,7 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
         <tbody>
             {projects.length === 0 ?
                 <tr>
-                    <td colSpan="5"><NoResults /></td>
+                    <td colSpan={5}><NoResults /></td>
                 </tr> :
                 projects.map((project) =>
                     <tr key={project.id}>
