@@ -1,21 +1,11 @@
+import useFetch from "hooks/useFetch";
 import React, { useState } from "react";
 import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
 import { IconDownload } from "../ui/Icons";
 
 const ExportForm = () => {
-    const entities = [
-        { key: 'auditlog', name: 'Audit log' },
-        { key: 'clients', name: 'Clients' },
-        { key: 'commands', name: 'Commands' },
-        { key: 'documents', name: 'Documents and notes' },
-        { key: 'projects', name: 'Projects' },
-        { key: 'project_templates', name: 'Project templates' },
-        { key: 'tasks', name: 'Tasks' },
-        { key: 'users', name: 'Users' },
-        { key: 'vulnerabilities', name: 'Vulnerabilities' },
-        { key: 'vulnerability_templates', name: 'Vulnerability templates' },
-    ];
+    const [entities] = useFetch('/system/exportables');
 
     const [exportButtonDisabled, setExportButtonDisabled] = useState(true);
 
@@ -30,9 +20,7 @@ const ExportForm = () => {
     const onExportButtonClick = ev => {
         ev.preventDefault();
 
-        const url = `/system/data?` + new URLSearchParams({
-            entities: entitiesToExport
-        }).toString();
+        const url = `/system/data?` + new URLSearchParams({ entities: entitiesToExport }).toString();
         secureApiFetch(url, { method: 'GET' })
             .then(resp => {
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
@@ -64,7 +52,7 @@ const ExportForm = () => {
         </div>
 
         <select multiple style={{ width: '80%', height: 250, marginTop: '5px', marginBottom: '5px' }} onChange={onEntitiesSelectionChange}>
-            {entities.map((entity, index) => <option key={index} value={entity.key}>{entity.name}</option>)}
+            {entities && entities.map(entity => <option key={entity.key} value={entity.key}>{entity.description}</option>)}
         </select>
         <br />
         <PrimaryButton disabled={exportButtonDisabled}
