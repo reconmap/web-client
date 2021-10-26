@@ -7,7 +7,7 @@ import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
-import { actionCompletedToast } from "../ui/toast";
+import { actionCompletedToast, errorToast } from "../ui/toast";
 import VulnerabilityForm from "./Form";
 
 const VulnerabilityEdit = () => {
@@ -24,15 +24,22 @@ const VulnerabilityEdit = () => {
         await secureApiFetch(`/vulnerabilities/${vulnerabilityId}`, {
             method: 'PUT',
             body: JSON.stringify(clientVulnerability)
-        });
+        }).then(resp => {
+            if (resp.status === 200) {
 
-        actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
+                actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
 
-        if (clientVulnerability.is_template) {
-            history.push(`/vulnerabilities/templates/${vulnerabilityId}`);
-        } else {
-            history.push(`/vulnerabilities/${vulnerabilityId}`)
-        }
+                if (clientVulnerability.is_template) {
+                    history.push(`/vulnerabilities/templates/${vulnerabilityId}`);
+                } else {
+                    history.push(`/vulnerabilities/${vulnerabilityId}`)
+                }
+            } else {
+                throw new Error("Unable to save. Check form");
+            }
+        }).catch(err => {
+            errorToast(err.message);
+        })
     };
 
     useEffect(() => {
