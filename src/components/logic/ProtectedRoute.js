@@ -1,15 +1,14 @@
-import {AuthConsumer} from "../../contexts/AuthContext";
-import {Redirect, Route, withRouter} from "react-router-dom";
+import { Redirect, Route, withRouter } from "react-router-dom";
+import { AuthConsumer } from "../../contexts/AuthContext";
 
-
-const ProtectedRoute = ({component: Component, ...rest}) => (
+const ProtectedRoute = ({ component: Component, ...rest }) => (
     <AuthConsumer>
         {
-            ({isAuth}) => (
+            ({ isAuth }) => (
                 <Route {...rest} render={props =>
                     isAuth ? <Component {...props} /> :
-                        <Redirect to={{pathname: "/login", state: {from: props.location}}}/>
-                }/>
+                        <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+                } />
             )
         }
     </AuthConsumer>
