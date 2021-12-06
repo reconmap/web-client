@@ -33,7 +33,7 @@ const ClientProjectsTab = ({ clientId }) => {
 }
 
 const ClientDetails = () => {
-    const { params: { clientId } } = useRouteMatch()
+    const { params: { clientId } } = useRouteMatch();
     const history = useHistory()
 
     const [client] = useFetch(`/clients/${clientId}`)
