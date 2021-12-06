@@ -1,6 +1,6 @@
 import { actionCompletedToast } from 'components/ui/toast';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -9,7 +9,8 @@ import Loading from "../ui/Loading";
 import Title from '../ui/Title';
 import TaskForm from "./Form";
 
-const EditTaskPage = ({ history }) => {
+const EditTaskPage = () => {
+    const history = useHistory();
     const { taskId } = useParams();
 
     const [serverTask] = useFetch(`/tasks/${taskId}`);

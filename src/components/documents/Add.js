@@ -1,14 +1,15 @@
 import { actionCompletedToast } from 'components/ui/toast';
 import DocumentModel from 'models/Document';
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Link, useHistory } from "react-router-dom";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from "../ui/Icons";
 import Title from '../ui/Title';
 import DocumentForm from './Form';
 
-const AddDocumentPage = ({ history }) => {
+const AddDocumentPage = () => {
+    const history = useHistory();
     const [newDocument, setNewDocument] = useState({ ...DocumentModel, parent_type: 'library' });
 
     const onFormSubmit = async (ev) => {

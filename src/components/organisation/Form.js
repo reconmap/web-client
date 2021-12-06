@@ -1,6 +1,6 @@
 import { actionCompletedToast } from 'components/ui/toast';
 import Organisation from 'models/Organisation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -9,7 +9,7 @@ import { IconPreferences } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from '../ui/Title';
 
-export default function OrganisationForm({ history }) {
+const OrganisationForm = () => {
     const [organisation, setOrganisation] = useState(Organisation);
 
     const [rootOrganisation] = useFetch('/organisations/root');
@@ -69,3 +69,5 @@ export default function OrganisationForm({ history }) {
         </div>
     )
 }
+
+export default OrganisationForm;

@@ -2,6 +2,7 @@ import { HStack, Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -12,7 +13,8 @@ import Title from '../ui/Title';
 import ProjectsTable from './Table';
 
 
-const ProjectsList = ({ history }) => {
+const ProjectsList = () => {
+    const history = useHistory();
     const [projects, setProjects] = useState([]);
     const [statusFilter, setStatusFilter] = useState('active');
 

@@ -1,5 +1,6 @@
 import PageTitle from 'components/logic/PageTitle';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import { useHistory } from 'react-router';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -12,7 +13,8 @@ import NoResults from "../ui/NoResults";
 import Title from '../ui/Title';
 import ClientLink from "./Link";
 
-const ClientsList = ({ history }) => {
+const ClientsList = () => {
+    const history = useHistory();
     const [clients, updateTasks] = useFetch('/clients')
 
     const destroy = useDelete('/clients/', updateTasks);

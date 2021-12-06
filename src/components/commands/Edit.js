@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useHistory, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -9,7 +9,8 @@ import Title from '../ui/Title';
 import { actionCompletedToast } from "../ui/toast";
 import CommandForm from './Form';
 
-const EditCommandPage = ({ history }) => {
+const EditCommandPage = () => {
+    const history = useHistory();
     const { commandId } = useParams();
 
     const [serverCommand] = useFetch(`/commands/${commandId}`);

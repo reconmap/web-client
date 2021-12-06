@@ -1,6 +1,7 @@
 import PageTitle from 'components/logic/PageTitle';
 import useQuery from 'hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import secureApiFetch from '../../services/api';
 import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -11,7 +12,8 @@ import NoResults from '../ui/NoResults';
 import Title from '../ui/Title';
 import AuditLogsTable from "./AuditLogsTable";
 
-const AuditLogList = ({ history }) => {
+const AuditLogList = () => {
+    const history = useHistory();
     const query = useQuery();
     let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;

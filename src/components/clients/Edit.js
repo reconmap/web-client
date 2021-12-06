@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -9,7 +9,8 @@ import Title from '../ui/Title';
 import { actionCompletedToast } from "../ui/toast";
 import ClientForm from "./Form";
 
-const EditClientPage = ({ history }) => {
+const EditClientPage = () => {
+    const history = useHistory();
     const { clientId } = useParams();
 
     const [serverClient] = useFetch(`/clients/${clientId}`);

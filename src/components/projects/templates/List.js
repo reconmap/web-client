@@ -12,10 +12,11 @@ import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
-const TemplatesList = ({ history }) => {
+const TemplatesList = () => {
+    const history = useHistory();
     const [templates, updateTemplates] = useFetch('/projects?isTemplate=1')
 
     const cloneProject = (ev, templateId) => {

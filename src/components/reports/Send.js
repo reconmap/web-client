@@ -3,13 +3,14 @@ import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import useFetch from 'hooks/useFetch';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
-const SendReport = ({ history }) => {
+const SendReport = () => {
+    const history = useHistory();
     const routeParams = useParams();
     const { projectId } = routeParams;
     const [project] = useFetch(`/projects/${projectId}`)

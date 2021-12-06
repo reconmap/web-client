@@ -3,14 +3,15 @@ import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
 import TaskModel from 'models/Task';
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from "../ui/Icons";
 import Title from '../ui/Title';
 import TaskForm from "./Form";
 
-const TaskCreationPage = ({ history }) => {
+const TaskCreationPage = () => {
+    const history = useHistory();
     const query = useQuery();
     const defaultProjectId = "";
     const projectIdParam = useRef(query.get('projectId') || defaultProjectId);

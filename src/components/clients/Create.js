@@ -1,14 +1,15 @@
 import { actionCompletedToast, errorToast } from 'components/ui/toast';
 import Client from 'models/Client';
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from "../ui/Icons";
 import Title from '../ui/Title';
 import ClientForm from "./Form";
 
-const ClientCreate = ({ history }) => {
+const ClientCreate = () => {
+    const history = useHistory();
     const [newClient, setNewClient] = useState(Client);
 
     const onFormSubmit = async (ev) => {

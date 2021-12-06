@@ -4,7 +4,8 @@ import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteButton from 'components/ui/buttons/Delete';
 import ReloadButton from 'components/ui/buttons/Reload';
 import { actionCompletedToast } from 'components/ui/toast';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -16,7 +17,8 @@ import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import TasksTable from './TasksTable';
 
-const TasksList = ({ history }) => {
+const TasksList = () => {
+    const history = useHistory();
     const [tasks, reloadTasks] = useFetch('/tasks');
     const [selectedTasks, setSelectedTasks] = useState([]);
 
