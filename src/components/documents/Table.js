@@ -24,7 +24,7 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
                 <tr key={`doc_${index}`}>
                     <td><DocumentBadge document={document} /></td>
                     <td className="truncate">{document.content}</td>
-                    <td>{<RelativeDateFormatter date={document.insert_ts} />}</td>
+                    <td><RelativeDateFormatter date={document.insert_ts} /></td>
                     <td><UserLink userId={document.user_id}>{document.user_name}</UserLink></td>
                     <td>{document.visibility}</td>
                     <td className="flex justify-end">

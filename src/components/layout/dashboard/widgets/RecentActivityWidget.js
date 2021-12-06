@@ -1,3 +1,4 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import Badge from "components/badges/Badge";
 import UserLink from "components/users/Link";
 import useFetch from "hooks/useFetch";
@@ -9,22 +10,24 @@ const RecentActivityWidget = () => {
         <h4>Recent activity</h4>
 
         {auditLog && auditLog.length > 0 ?
-        <table>
-            <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>User</th>
-                </tr>
-            </thead>
-            <tbody>
-                {auditLog.map(log => <tr key={log.id}>
-                    <td><Badge>{log.action}</Badge></td>
-                    <td>{log.user_name ?
-                        <UserLink userId={log.user_id}>{log.user_name}</UserLink> : '-'}</td>
-                </tr>)}
-            </tbody>
-        </table> : 
-        <p>No activity to show.</p>
+            <Table size="sm">
+                <Thead>
+                    <Tr>
+                        <Th>Action</Th>
+                        <Th>User</Th>
+                        <Th>Date/Time</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {auditLog.map(log => <Tr key={log.id}>
+                        <Td><Badge>{log.action}</Badge></Td>
+                        <Td>{log.user_name ?
+                            <UserLink userId={log.user_id}>{log.user_name}</UserLink> : '-'}</Td>
+                        <Td>{log.insert_ts}</Td>
+                    </Tr>)}
+                </Tbody>
+            </Table> :
+            <p>No activity to show.</p>
         }
     </article>
 }

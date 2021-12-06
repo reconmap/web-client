@@ -4,6 +4,7 @@ import MyTasksWidget from "components/layout/dashboard/widgets/MyTasksWidget";
 import PopularCommandsWidget from "components/layout/dashboard/widgets/PopularCommandsWidget";
 import RecentActivityWidget from "components/layout/dashboard/widgets/RecentActivityWidget";
 import RecentDocumentsWidget from "components/layout/dashboard/widgets/RecentDocumentsWidget";
+import RecentVulnerabilitiesWidget from "components/layout/dashboard/widgets/RecentVulnerabilitiesWidget";
 import UserActivityStatsWidget from "components/layout/dashboard/widgets/UserActivityStatsWidget";
 import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget";
 import VulnerabilitiesByRiskStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget";
@@ -57,6 +58,12 @@ const Widgets = {
         visible: true,
         component: <ApiHealthWidget />,
         description: 'It presents information about the health of the API server.'
+    },
+    'recent-vulnerabilities': {
+        title: 'Recent vulnerabilities',
+        visible: true,
+        component: <RecentVulnerabilitiesWidget />,
+        description: 'It shows the most recently reported vulnerabilities.'
     },
 };
 
