@@ -29,7 +29,7 @@ start:
 	docker run -u node --rm -it \
 		-v $(PWD):/home/node/reconmap \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/node/reconmap/public/environment.js \
-		-p 3001:3001 \
+		-p 5500:5500 \
 		-e REACT_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \

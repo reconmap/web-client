@@ -22,7 +22,7 @@ COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
 
 COPY --from=builder --chown=nginx:nginx /home/node/reconmap/build /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 5500
 
 USER nginx
 CMD ["nginx", "-g", "daemon off;"]

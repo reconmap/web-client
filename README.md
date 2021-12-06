@@ -17,5 +17,5 @@ This is a component of many in the [Reconmap's architecture](https://reconmap.or
 
 ```sh
 make prepare start
-firefox http://localhost:3001/
+firefox http://localhost:5500/
 ```

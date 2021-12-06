@@ -38,7 +38,7 @@
   },
   "scripts": {
     "lint": "eslint . --ext .js",
-    "start": "yarn lint && REACT_APP_VERSION=$npm_package_version PORT=3001 BROWSER=none react-scripts start",
+    "start": "yarn lint && REACT_APP_VERSION=$npm_package_version PORT=5500 BROWSER=none react-scripts start",
     "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test --verbose",
     "test:ci": "CI=true react-scripts test --no-watchman --all --verbose",
