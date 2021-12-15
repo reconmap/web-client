@@ -1,5 +1,4 @@
 import { FormControl, FormLabel, Select } from '@chakra-ui/react';
-import React from 'react';
 import TargetKinds from '../../models/TargetKinds';
 
 const TargetForm = ({ newTarget, onFormSubmit, targetSetter: setTarget }) => {

@@ -2,7 +2,6 @@ import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import useFetch from 'hooks/useFetch';
-import React from 'react';
 import { IconDocument } from '../ui/Icons';
 
 const ProjectAttachmentsTab = ({ project }) => {

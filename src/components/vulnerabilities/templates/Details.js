@@ -10,13 +10,14 @@ import Loading from 'components/ui/Loading';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import VulnerabilityDescriptionPanel from '../VulnerabilityDescriptionPanel';
 import VulnerabilityRemediationPanel from '../VulnerabilityRemediationPanel';
 
 
-const VulnerabilityTemplateDetails = ({ history, match }) => {
+const VulnerabilityTemplateDetails = ({ match }) => {
+    const history = useHistory();
     const [vulnerability] = useFetch(`/vulnerabilities/${match.params.templateId}`)
 
     const cloneProject = async (templateId) => {

@@ -2,7 +2,6 @@ import { useDisclosure } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import NoteModalDialog from 'components/notes/ModalDialog';
 import CreateButton from 'components/ui/buttons/Create';
-import React from 'react';
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";

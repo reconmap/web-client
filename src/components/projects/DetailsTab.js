@@ -1,12 +1,14 @@
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { SimpleGrid } from '@chakra-ui/react'
 import ClientLink from 'components/clients/Link'
+import VulnerabilitiesByCategoryStatsWidget from 'components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget'
+import VulnerabilitiesByRiskStatsWidget from 'components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget'
 import EmptyField from 'components/ui/EmptyField'
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
-import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import { IconDocument } from '../ui/Icons'
+import { IconChartBar, IconDocument } from '../ui/Icons'
 
 const ProjectDetailsTab = ({ project }) => {
     const isTemplate = project.is_template === 1;
@@ -34,6 +36,15 @@ const ProjectDetailsTab = ({ project }) => {
                 <dt>Description</dt>
                 <dd>{project.description ? <ReactMarkdown>{project.description}</ReactMarkdown> : <EmptyField />}</dd>
             </dl>
+
+            <h4>
+                <IconChartBar /> Stats
+            </h4>
+
+            <SimpleGrid gap="3" columns={{ base: "1", md: "2", xl: "3" }}>
+                <VulnerabilitiesByRiskStatsWidget projectId={project.id} />
+                <VulnerabilitiesByCategoryStatsWidget projectId={project.id} />
+            </SimpleGrid>
         </div>
 
         <div>

@@ -8,7 +8,6 @@ import ShellCommand from 'components/ui/ShellCommand';
 import Tags from 'components/ui/Tags';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import CommandService from 'services/command';
@@ -66,7 +65,7 @@ const CommandDetails = () => {
                 <TabList>
                     <Tab>Details</Tab>
                     <Tab>Run instructions</Tab>
-        			<Tab>Terminal</Tab>
+                    <Tab>Terminal</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
@@ -110,9 +109,9 @@ const CommandDetails = () => {
                             <CommandInstructions command={command} />
                         }
                     </TabPanel>
-        			<TabPanel>
-                    	<CommandTerminal />
-        			</TabPanel>
+                    <TabPanel>
+                        <CommandTerminal />
+                    </TabPanel>
                 </TabPanels>
             </Tabs>
         </article>

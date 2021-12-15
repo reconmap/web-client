@@ -10,7 +10,7 @@ import TimestampsSection from 'components/ui/TimestampsSection'
 import UserLink from 'components/users/Link'
 import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { Link } from "react-router-dom"
+import { Link, useHistory } from 'react-router-dom'
 import useDelete from '../../hooks/useDelete'
 import TaskStatuses from "../../models/TaskStatuses"
 import secureApiFetch from '../../services/api'
@@ -25,7 +25,8 @@ import Title from './../ui/Title'
 import TaskCommandTab from './CommandTab'
 import TaskStatusFormatter from "./TaskStatusFormatter"
 
-const TaskDetails = ({ history, match }) => {
+const TaskDetails = ({ match }) => {
+    const history = useHistory();
     const taskId = match.params.taskId;
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
     const [users] = useFetch(`/users`)

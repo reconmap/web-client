@@ -1,7 +1,8 @@
 import useFetch from "hooks/useFetch";
+import PropTypes from 'prop-types';
 import { Cell, Pie, PieChart } from "recharts";
 
-const VulnerabilitiesByRiskStatsWidget = () => {
+const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
     const RADIAN = Math.PI / 180;
 
     const RISKS = {
@@ -26,36 +27,41 @@ const VulnerabilitiesByRiskStatsWidget = () => {
         );
     };
 
-    const [vulnerabilitiesByRiskStats] = useFetch('/vulnerabilities/stats?groupBy=risk')
+    const url = '/vulnerabilities/stats?groupBy=risk' + (null !== projectId ? '&projectId=' + encodeURIComponent(projectId) : '');
+    const [vulnerabilitiesByRiskStats] = useFetch(url)
 
     return <article className='card justify-center items-center'>
         <h4>Vulnerabilities by risk</h4>
 
-        {vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.length > 0 ? 
-        <PieChart width={400} height={320} >
-            <Pie
-                data={vulnerabilitiesByRiskStats}
-                dataKey="total"
-                cx={160}
-                cy={160}
-                labelLine={false}
-                outerRadius={100}
-                strokeOpacity='0'
-                strokeWidth='var(--borderWidth)'
-                color='var(--bg-color)'
-                fill="#8884d8"
-                label={renderCustomLabel}
-            >
-                {
-                    vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) =>
-                        <Cell key={index} fill={RISKS[entry.risk].color} />
-                    )
-                }
-            </Pie>
-        </PieChart> : 
-        <p>No enough data to generate the chart.</p>
-}
+        {vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.length > 0 ?
+            <PieChart width={400} height={320} >
+                <Pie
+                    data={vulnerabilitiesByRiskStats}
+                    dataKey="total"
+                    cx={160}
+                    cy={160}
+                    labelLine={false}
+                    outerRadius={100}
+                    strokeOpacity='0'
+                    strokeWidth='var(--borderWidth)'
+                    color='var(--bg-color)'
+                    fill="#8884d8"
+                    label={renderCustomLabel}
+                >
+                    {
+                        vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.map((entry, index) =>
+                            <Cell key={index} fill={RISKS[entry.risk].color} />
+                        )
+                    }
+                </Pie>
+            </PieChart> :
+            <p>No enough data to generate the chart.</p>
+        }
     </article>
 }
 
-export default VulnerabilitiesByRiskStatsWidget
+VulnerabilitiesByRiskStatsWidget.propTypes = {
+    projectId: PropTypes.number
+};
+
+export default VulnerabilitiesByRiskStatsWidget;

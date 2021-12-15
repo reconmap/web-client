@@ -2,7 +2,7 @@ import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -13,7 +13,8 @@ import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import VulnerabilitiesTable from "../vulnerabilities/VulnerabilitiesTable";
 
-const TargetView = ({ match, history }) => {
+const TargetView = ({ match }) => {
+    const history = useHistory();
     const { targetId } = match.params;
     const [target] = useFetch(`/targets/${targetId}`)
     const destroy = useDelete(`/targets/`);

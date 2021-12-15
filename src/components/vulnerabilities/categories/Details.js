@@ -17,13 +17,14 @@ import UserLink from 'components/users/Link';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import ReactMarkdown from 'react-markdown';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import CvssAbbr from '../CvssAbbr';
 import VulnerabilityStatusBadge from '../StatusBadge';
 
 
-const TemplateDetails = ({ history, match }) => {
+const TemplateDetails = ({ match }) => {
+    const history = useHistory();
     const [vulnerability] = useFetch(`/vulnerabilities/${match.params.templateId}`)
 
     const cloneProject = async (templateId) => {

@@ -2,7 +2,7 @@ import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -21,7 +21,8 @@ import ProjectTasks from './Tasks';
 import ProjectTeam from './Team';
 import ProjectVulnerabilities from './Vulnerabilities';
 
-const ProjectDetails = ({ match, history }) => {
+const ProjectDetails = ({ match }) => {
+    const history = useHistory();
     const projectId = match.params.id;
 
     const [project, updateProject] = useFetch(`/projects/${projectId}`)

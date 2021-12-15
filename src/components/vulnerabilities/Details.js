@@ -5,7 +5,6 @@ import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import Tags from 'components/ui/Tags';
 import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
-import React from 'react';
 import { Link, Redirect, useHistory, useRouteMatch } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';

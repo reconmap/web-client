@@ -2,7 +2,6 @@ import { ButtonGroup } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import React from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';

@@ -9,12 +9,13 @@ import Loading from 'components/ui/Loading';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import ProjectDetailsTab from '../DetailsTab';
 import ProjectTasks from '../Tasks';
 
-const TemplateDetails = ({ history, match }) => {
+const TemplateDetails = ({ match }) => {
+    const history = useHistory();
     const [template] = useFetch(`/projects/${match.params.templateId}`)
 
     const cloneProject = async (templateId) => {
