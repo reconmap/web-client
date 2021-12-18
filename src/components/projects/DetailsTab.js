@@ -37,7 +37,7 @@ const ProjectDetailsTab = ({ project }) => {
                 <dd>{project.description ? <ReactMarkdown>{project.description}</ReactMarkdown> : <EmptyField />}</dd>
             </dl>
 
-            <h4>
+            <h4 style={{ marginTop: 20 }}>
                 <IconChartBar /> Stats
             </h4>
 

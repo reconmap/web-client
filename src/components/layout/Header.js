@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path-browserify';
 import { Link } from 'react-router-dom';
 import { ServerIssuesUrl, UserManualUrl } from 'ServerUrls';
 import Configuration from '../../Configuration';
