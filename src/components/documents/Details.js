@@ -1,6 +1,7 @@
 import { ButtonGroup } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import TimestampsSection from 'components/ui/TimestampsSection';
+import VisibilityLegend from 'components/ui/VisibilityLegend';
 import UserLink from 'components/users/Link';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
@@ -53,7 +54,7 @@ const DocumentDetailsPage = () => {
                 <div>
                     <dl>
                         <dt>Visibility</dt>
-                        <dd>{serverDoc.visibility}</dd>
+                        <dd><VisibilityLegend visibility={serverDoc.visibility} /></dd>
 
                         <dt>Content</dt>
                         <dd>

@@ -11,7 +11,7 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
     return <Table size="sm">
         <Thead>
             <Tr>
-                <Th>Action</Th>
+                <Th>Event</Th>
                 <Th>IP address</Th>
                 <Th>User agent</Th>
                 <Th>Date/Time</Th>
@@ -21,7 +21,7 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
                         <Th>Role</Th>
                     </>
                 }
-                <Th>Object</Th>
+                <Th>Data</Th>
             </Tr>
         </Thead>
         <Tbody>

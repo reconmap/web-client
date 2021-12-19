@@ -1,4 +1,3 @@
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { SimpleGrid } from '@chakra-ui/react'
 import ClientLink from 'components/clients/Link'
 import VulnerabilitiesByCategoryStatsWidget from 'components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget'
@@ -6,6 +5,7 @@ import VulnerabilitiesByRiskStatsWidget from 'components/layout/dashboard/widget
 import EmptyField from 'components/ui/EmptyField'
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
 import TimestampsSection from 'components/ui/TimestampsSection'
+import VisibilityLegend from 'components/ui/VisibilityLegend'
 import UserLink from 'components/users/Link'
 import ReactMarkdown from 'react-markdown'
 import { IconChartBar, IconDocument } from '../ui/Icons'
@@ -21,7 +21,7 @@ const ProjectDetailsTab = ({ project }) => {
             <dl>
                 {!isTemplate && <>
                     <dt>Visibility</dt>
-                    <dd>{project.visibility === 'public' ? <><ViewIcon /> Public</> : <><ViewOffIcon /> Private</>}</dd>
+                    <dd><VisibilityLegend visibility={project.visibility} /></dd>
 
 
                     <dt>Status</dt>

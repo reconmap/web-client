@@ -11,8 +11,8 @@ import DocumentsTable from './Table';
 
 const DocumentsListPage = () => {
     const history = useHistory();
-    const [commands, updateCommands] = useFetch('/documents')
-    const destroy = useDelete('/documents/', updateCommands);
+    const [documents, fetchDocuments] = useFetch('/documents')
+    const destroy = useDelete('/documents/', fetchDocuments);
 
     const onAddCommandClick = ev => {
         ev.preventDefault();
@@ -27,7 +27,7 @@ const DocumentsListPage = () => {
             <CreateButton onClick={onAddCommandClick}>Create document</CreateButton>
         </div>
         <Title title="Documents" icon={<IconFolder />} />
-        {!commands ? <Loading /> : <DocumentsTable documents={commands} onDeleteButtonClick={destroy} />}
+        {!documents ? <Loading /> : <DocumentsTable documents={documents} onDeleteButtonClick={destroy} />}
     </div>
 }
 

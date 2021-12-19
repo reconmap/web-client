@@ -1,40 +1,41 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
+import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
-import React from "react";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 import DocumentBadge from "./Badge";
 
 const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
-    return <table>
-        <thead>
-            <tr>
-                <th style={{ width: '190px' }}>Title</th>
-                <th>Content</th>
-                <th style={{ width: '200px' }}>Creation time</th>
-                <th style={{ width: '140px' }}>Author</th>
-                <th style={{ width: '140px' }}>Visibility</th>
-                <th>&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-            {documents.length === 0 && <NoResultsTableRow numColumns={5} />}
+    return <Table size="sm" variant="striped">
+        <Thead>
+            <Tr>
+                <Th style={{ width: '190px' }}>Title</Th>
+                <Th>Content</Th>
+                <Th style={{ width: '200px' }}>Creation time</Th>
+                <Th style={{ width: '140px' }}>Author</Th>
+                <Th style={{ width: '140px' }}>Visibility</Th>
+                <Th>&nbsp;</Th>
+            </Tr>
+        </Thead>
+        <Tbody>
+            {documents.length === 0 && <NoResultsTableRow numColumns={6} />}
             {documents.map((document, index) =>
-                <tr key={`doc_${index}`}>
-                    <td><DocumentBadge document={document} /></td>
-                    <td className="truncate">{document.content}</td>
-                    <td><RelativeDateFormatter date={document.insert_ts} /></td>
-                    <td><UserLink userId={document.user_id}>{document.user_name}</UserLink></td>
-                    <td>{document.visibility}</td>
-                    <td className="flex justify-end">
+                <Tr key={`doc_${index}`}>
+                    <Td><DocumentBadge document={document} /></Td>
+                    <Td className="truncate">{document.content}</Td>
+                    <Td><RelativeDateFormatter date={document.insert_ts} /></Td>
+                    <Td><UserLink userId={document.user_id}>{document.user_name}</UserLink></Td>
+                    <Td><VisibilityLegend visibility={document.visibility} /></Td>
+                    <Td style={{ textAlign: "right" }}>
                         <LinkButton href={`/documents/${document.id}/edit`}>Edit</LinkButton>
                         <DeleteIconButton onClick={ev => onDeleteButtonClick(document.id)} />
-                    </td>
-                </tr>
+                    </Td>
+                </Tr>
             )}
-        </tbody>
-    </table>
+        </Tbody>
+    </Table>
 }
 
 export default DocumentsTable;
