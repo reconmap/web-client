@@ -1,4 +1,10 @@
-const Timestamps = ({insertTs, updateTs}) => {
+
+interface TimestampsProps {
+    insertTs: string;
+    updateTs: string;
+}
+
+const Timestamps = ({ insertTs, updateTs }: TimestampsProps) => {
     const styles = {
         stamp: {
             fontSize: `var(--fontSizeXsmall)`,
