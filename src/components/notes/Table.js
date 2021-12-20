@@ -1,5 +1,6 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
 import React from "react";
 import ReactMarkdown from "react-markdown";
@@ -24,7 +25,7 @@ const NotesTable = ({ notes, onDeleteButtonClick }) => {
                     <td><ReactMarkdown>{note.content}</ReactMarkdown></td>
                     <td><ReactTimeAgo date={note.insert_ts} /></td>
                     <td><UserLink userId={note.user_id}>{note.user_name}</UserLink></td>
-                    <td>{note.visibility}</td>
+                    <td><VisibilityLegend visibility={note.visibility} /></td>
                     <td>
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, note)} />

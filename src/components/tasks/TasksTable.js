@@ -27,7 +27,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
         <thead>
             <tr>
                 {showSelection && <th style={{ width: "32px" }}>&nbsp;</th>}
-                <th style={{ width: '190px' }}>Summary</th>
+                <th>Summary</th>
                 <th className='only-desktop'>Description</th>
                 {showProjectColumn && <th style={{ width: '190px' }}>Project</th>}
                 <th style={{ width: '12ch' }}>Assignee</th>

@@ -11,7 +11,7 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
     return <Table size="sm" variant="striped">
         <Thead>
             <Tr>
-                <Th style={{ width: '190px' }}>Title</Th>
+                <Th>Title</Th>
                 <Th>Content</Th>
                 <Th style={{ width: '200px' }}>Creation time</Th>
                 <Th style={{ width: '140px' }}>Author</Th>

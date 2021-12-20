@@ -1,4 +1,4 @@
-import { Table, Thead } from '@chakra-ui/react';
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import ClientLink from "../clients/Link";
@@ -7,47 +7,47 @@ import NoResults from "../ui/NoResults";
 import ProjectBadge from './ProjectBadge';
 
 const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) => {
-    return <Table>
+    return <Table size="sm">
         <Thead>
-            <tr>
-                <th style={{ width: '190px' }}>Name</th>
-                {showClientColumn && <th>Client</th>}
-                <th className='only-desktop'>Description</th>
-                <th>Rules of engagement</th>
-                <th>Status</th>
-                <th>&nbsp;</th>
-            </tr>
+            <Tr>
+                <Th>Name</Th>
+                {showClientColumn && <Th>Client</Th>}
+                <Th className='only-desktop'>Description</Th>
+                <Th>Rules of engagement</Th>
+                <Th>Status</Th>
+                <Th>&nbsp;</Th>
+            </Tr>
         </Thead>
-        <tbody>
+        <Tbody>
             {projects.length === 0 ?
-                <tr>
-                    <td colSpan={5}><NoResults /></td>
-                </tr> :
+                <Tr>
+                    <Td colSpan={5}><NoResults /></Td>
+                </Tr> :
                 projects.map((project) =>
-                    <tr key={project.id}>
-                        <td>
+                    <Tr key={project.id}>
+                        <Td>
                             <ProjectBadge project={project} />
-                        </td>
+                        </Td>
                         {showClientColumn &&
-                            <td>{project.is_template ?
+                            <Td>{project.is_template ?
                                 <span title="Not applicable">(n/a)</span> :
                                 <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>}
-                            </td>
+                            </Td>
                         }
-                        <td className='only-desktop truncate'>{project.description}</td>
-                        <td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</td>
-                        <td>{project.archived ? 'Archived' : 'Active'}</td>
-                        <td className='flex justify-end'>
+                        <Td className='only-desktop truncate'>{project.description}</Td>
+                        <Td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</Td>
+                        <Td>{project.archived ? 'Archived' : 'Active'}</Td>
+                        <Td className='flex justify-end'>
                             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                 <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
                                 {destroy &&
                                     <DeleteIconButton onClick={() => destroy(project.id)} />
                                 }
                             </RestrictedComponent>
-                        </td>
-                    </tr>
+                        </Td>
+                    </Tr>
                 )}
-        </tbody>
+        </Tbody>
     </Table>
 }
 
