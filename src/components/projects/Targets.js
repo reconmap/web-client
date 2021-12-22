@@ -1,4 +1,4 @@
-import { ButtonGroup, Center, HStack, useDisclosure } from "@chakra-ui/react";
+import { ButtonGroup, Center, HStack, Table, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
 import Pagination from "components/layout/Pagination";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetModalDialog from "components/target/ModalDialog";
@@ -81,36 +81,45 @@ const ProjectTargets = ({ project }) => {
                 {numberPages > 1 && <Center>
                     <Pagination page={pageNumber - 1} total={numberPages} handlePrev={onPrevPageClick} handleNext={onNextPageClick} />
                 </Center>}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Kind</th>
-                            <th>Vulnerable?</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <Table size="sm">
+                    <Thead>
+                        <Tr>
+                            <Th>Name</Th>
+                            <Th>Sub-target</Th>
+                            <Th>Kind</Th>
+                            <Th>Vulnerable?</Th>
+                            <Th>&nbsp;</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
                         {targets.length === 0 && <NoResultsTableRow numColumns={4} />}
                         {targets.map((target, index) =>
-                            <tr key={index}>
-                                <td>
-                                    <HStack>
+                            <Tr key={index}>
+                                <Td>
+                                    {target.parent_id === null &&
+                                        <HStack>
+                                            <Link to={`/targets/${target.id}`}><TargetBadge name={target.name} /></Link>
+                                        </HStack>
+                                    }
+                                    {target.parent_id !== null &&
+                                        <>{target.parent_name ?? '-'}</>
+                                    }
+                                </Td>
+                                <Td>{target.parent_id !== null ?
+                                    <>
                                         <Link to={`/targets/${target.id}`}><TargetBadge name={target.name} /></Link>
-                                        <div><Tags values={target.tags} /></div>
-                                    </HStack>
-                                </td>
-                                <td>{target.kind}</td>
-                                <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
-                                <td>
+                                    </> : '-'}</Td>
+                                <Td>{target.kind} <Tags values={target.tags} /></Td>
+                                <Td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</Td>
+                                <Td>
                                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                         <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, target.id)} />
                                     </RestrictedComponent>
-                                </td>
-                            </tr>
+                                </Td>
+                            </Tr>
                         )}
-                    </tbody>
-                </table>
+                    </Tbody>
+                </Table>
             </>
         }
     </section>
