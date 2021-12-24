@@ -2,7 +2,8 @@ import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
-import EmptyField from 'components/ui/EmptyField';
+import MailLink from "components/ui/MailLink";
+import TelephoneLink from "components/ui/TelephoneLink";
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
@@ -82,6 +83,9 @@ const ClientDetails = () => {
                                 <h4>Properties</h4>
 
                                 <dl>
+                                    <dt>Address</dt>
+                                    <dd>{client.address ?? '-'}</dd>
+
                                     <dt>URL</dt>
                                     <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
 
@@ -89,10 +93,10 @@ const ClientDetails = () => {
                                     <dd>{client.contact_name}</dd>
 
                                     <dt>Contact email</dt>
-                                    <dd><a href={`mailto:${client.contact_email}`}>{client.contact_email}</a></dd>
+                                    <dd><MailLink email={client.contact_email} /></dd>
 
                                     <dt>Contact phone</dt>
-                                    <dd>{client.contact_phone ? <a href={`tel:${client.contact_phone}`}>{client.contact_phone}</a> : <EmptyField />}</dd>
+                                    <dd><TelephoneLink number={client.contact_phone} /></dd>
                                 </dl>
                             </div>
 

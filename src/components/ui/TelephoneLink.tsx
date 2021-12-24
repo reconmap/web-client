@@ -1,0 +1,15 @@
+
+import EmptyField from 'components/ui/EmptyField';
+
+interface TelephoneLinkProps {
+    number: string | null;
+}
+
+const TelephoneLink = ({ number }: TelephoneLinkProps) => {
+    if (null === number || 0 === number.length) {
+        return <EmptyField />
+    }
+    return <a href={`tel:${number}`} title={`Call telephone number "${number}"`}>{number}</a>
+}
+
+export default TelephoneLink;

@@ -1,5 +1,8 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import MailLink from "components/ui/MailLink";
+import TelephoneLink from "components/ui/TelephoneLink";
 import { useHistory } from 'react-router';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -33,37 +36,39 @@ const ClientsList = () => {
 
         {!clients ?
             <Loading /> :
-            <table>
-                <thead>
-                    <tr>
-                        <th style={{ width: '190px' }}>Name</th>
-                        <th>URL</th>
-                        <th>Contact name</th>
-                        <th>Contact email</th>
-                        <th colSpan={2}>Contact phone</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <Table size="sm">
+                <Thead>
+                    <Tr>
+                        <Th>Name</Th>
+                        <Th>Address</Th>
+                        <Th>URL</Th>
+                        <Th>Contact name</Th>
+                        <Th>Contact email</Th>
+                        <Th colSpan={2}>Contact phone</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
                     {clients.length === 0 ?
-                        <tr>
-                            <td colSpan={6}><NoResults /></td>
-                        </tr> :
+                        <Tr>
+                            <Td colSpan={6}><NoResults /></Td>
+                        </Tr> :
                         clients.map((client) =>
-                            <tr key={client.id}>
-                                <td><ClientLink clientId={client.id}>{client.name}</ClientLink></td>
-                                <td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</td>
-                                <td>{client.contact_name || '-'}</td>
-                                <td>{client.contact_email || '-'}</td>
-                                <td>{client.contact_phone || '-'}</td>
-                                <td className='flex justify-end'>
+                            <Tr key={client.id}>
+                                <Td><ClientLink clientId={client.id}>{client.name}</ClientLink></Td>
+                                <Td>{client.address || '-'}</Td>
+                                <Td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</Td>
+                                <Td>{client.contact_name || '-'}</Td>
+                                <Td><MailLink email={client.contact_email} /></Td>
+                                <Td><TelephoneLink number={client.contact_phone} /></Td>
+                                <Td className='flex justify-end'>
                                     <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton onClick={() => destroy(client.id)} />
-                                </td>
-                            </tr>
+                                </Td>
+                            </Tr>
                         )
                     }
-                </tbody>
-            </table>
+                </Tbody>
+            </Table>
         }
     </>
 }
