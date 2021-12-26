@@ -1,3 +1,4 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -23,56 +24,57 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
         }
     };
 
-    return <table>
-        <thead>
-            <tr>
-                {showSelection && <th style={{ width: "32px" }}>&nbsp;</th>}
-                <th>Summary</th>
-                <th className='only-desktop'>Description</th>
-                {showProjectColumn && <th style={{ width: '190px' }}>Project</th>}
-                <th style={{ width: '12ch' }}>Assignee</th>
-                <th style={{ width: '100px' }}>Status</th>
-                <th>Command</th>
-                <th>&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
+    return <Table size="sm">
+        <Thead>
+            <Tr>
+                {showSelection && <Th style={{ width: "32px" }}>&nbsp;</Th>}
+                <Th>Summary</Th>
+                <Th className='only-desktop'>Description</Th>
+                {showProjectColumn && <Th>Project</Th>}
+                <Th>Priority</Th>
+                <Th>Assignee</Th>
+                <Th style={{ width: '100px' }}>Status</Th>
+                <Th colSpan={2}>Command</Th>
+            </Tr>
+        </Thead>
+        <Tbody>
             {tasks.length === 0 ?
-                <tr>
-                    <td colSpan={7}><NoResults /></td>
-                </tr> :
+                <Tr>
+                    <Td colSpan={7}><NoResults /></Td>
+                </Tr> :
                 tasks
                     .filter(task => task.project_id.toString().includes(filter.project))
                     .filter(task => task.status.includes(filter.status))
                     .map((task) =>
-                        <tr key={task.id}>
+                        <Tr key={task.id}>
                             {showSelection &&
-                                <td>
+                                <Td>
                                     <input
                                         type="checkbox"
                                         value={task.id}
                                         onChange={onSelectionChange}
                                         checked={selectedTasks.includes(task.id)}
                                     />
-                                </td>
+                                </Td>
                             }
-                            <td><TaskBadge task={task} /></td>
-                            <td className='only-desktop truncate'>{task.description ? task.description.substring(0, 100) + "..." : "-"}</td>
-                            {showProjectColumn && <td><ProjectBadge project={{ id: task.project_id, name: task.project_name }} /></td>}
-                            <td  >{task.assignee_uid ?
-                                <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
-                            <td><TaskStatusFormatter task={task} /></td>
-                            <td>{task.command_name ? <BadgeOutline>{task.command_name}</BadgeOutline> : '-'}</td>
-                            <td className='flex justify-end'>
+                            <Td><TaskBadge task={task} /></Td>
+                            <Td className='only-desktop truncate'>{task.description ? task.description.substring(0, 100) + "..." : "-"}</Td>
+                            {showProjectColumn && <Td><ProjectBadge project={{ id: task.project_id, name: task.project_name }} /></Td>}
+                            <Td>{task.priority}</Td>
+                            <Td  >{task.assignee_uid ?
+                                <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</Td>
+                            <Td><TaskStatusFormatter task={task} /></Td>
+                            <Td>{task.command_name ? <BadgeOutline>{task.command_name}</BadgeOutline> : '-'}</Td>
+                            <Td className='flex justify-end'>
                                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                     <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
                                     {destroy && <DeleteIconButton onClick={() => destroy(task.id)} />}
                                 </RestrictedComponent>
-                            </td>
-                        </tr>
+                            </Td>
+                        </Tr>
                     )}
-        </tbody>
-    </table>
+        </Tbody>
+    </Table>
 }
 
 export default TasksTable;

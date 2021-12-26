@@ -193,7 +193,11 @@ const Links = [
                 icon: <IconSupport size={5} />,
                 to: '/support',
             },
-
+            {
+                title: 'Licenses',
+                icon: <IconSupport size={5} />,
+                to: '/licenses',
+            }
         ]
     }
 ]

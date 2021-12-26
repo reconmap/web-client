@@ -125,6 +125,8 @@ const TaskDetails = ({ match }) => {
                                     <div>
                                         <h4>Description</h4>
                                         {task.description ? <ReactMarkdown>{task.description}</ReactMarkdown> : <EmptyField />}
+                                        <h4>Priority</h4>
+                                        <p>{task.priority}</p>
                                         <h4>Status</h4>
                                         <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
                                             <TaskStatusFormatter task={task} />

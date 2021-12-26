@@ -3,10 +3,10 @@ import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import Loading from "components/ui/Loading";
 import { useEffect } from 'react';
 import useFetch from "../../hooks/useFetch";
+import { TaskPriorityList } from "../../models/TaskPriority";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
-
     const [projects] = useFetch('/projects?isTemplate=' + (forTemplate ? 1 : 0));
     const [commands] = useFetch('/commands');
 
@@ -41,7 +41,12 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                 value={task.summary} /></label>
         <label>Description
             <MarkdownEditor name="description" onChange={onFormChange} required
-                value={task.description} /></label>
+                value={task.description || ''} /></label>
+        <label>Priority
+            <select name="priority" onChange={onFormChange} value={task.priority || "medium"}>
+                {TaskPriorityList.map(priority => <option value={priority.value}>{priority.name}</option>)}
+            </select>
+        </label>
         <label>Due date
             <input type="date" name="due_date" onChange={onFormChange} value={task.due_date} /></label>
         <label>Command
