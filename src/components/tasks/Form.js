@@ -43,9 +43,9 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
             <MarkdownEditor name="description" onChange={onFormChange} required
                 value={task.description || ''} /></label>
         <label>Priority
-            <select name="priority" onChange={onFormChange} value={task.priority || "medium"}>
+            <Select name="priority" onChange={onFormChange} value={task.priority || "medium"}>
                 {TaskPriorityList.map(priority => <option value={priority.value}>{priority.name}</option>)}
-            </select>
+            </Select>
         </label>
         <label>Due date
             <input type="date" name="due_date" onChange={onFormChange} value={task.due_date} /></label>
