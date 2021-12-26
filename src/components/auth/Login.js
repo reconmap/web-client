@@ -17,34 +17,33 @@ const Login = () => {
         setCredentials({ ...credentials, password: ev.target.value })
     }
 
-    const onOk = () => {
-        setLoading(false);
-
-        let redirectTo
-        try {
-            console.dir(location.state);
-            redirectTo = location.state.from.pathname
-        } catch {
-            redirectTo = "/"
-        }
-
-        navigate(redirectTo);
-    }
-
-    const onKo = (err) => {
-        setLoading(false);
-        setError(err)
-    }
-
     const handleSubmit = (ev, login) => {
         setLoading(true);
         ev.preventDefault();
-        login(credentials, onOk, onKo);
+
+        login(credentials)
+            .then(() => {
+                setLoading(false);
+
+                let redirectTo
+                try {
+                    redirectTo = location.state.from.pathname
+                } catch {
+                    redirectTo = "/"
+                }
+
+                navigate(redirectTo);
+            })
+            .catch(err => {
+                setLoading(false);
+
+                setError(err.message);
+            });
     }
 
     return <AuthConsumer>
         {
-            ({ isAuth, login }) => <form onSubmit={ev => handleSubmit(ev, login)} style={{ width: '100%' }}>
+            ({ login }) => <form onSubmit={ev => handleSubmit(ev, login)} style={{ width: '100%' }}>
                 <FormControl as="fieldset">
                     <Heading as="legend" size="lg" > Login</Heading>
                     <label htmlFor="inputUsername" className="sr-only">Username</label>

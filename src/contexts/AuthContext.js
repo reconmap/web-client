@@ -14,11 +14,13 @@ function useAuth() {
     return {
         user,
         isAuth,
-        login(credentials, onOk, onKo) {
+
+        login(credentials) {
             const formData = new FormData();
             formData.append('username', credentials.username);
             formData.append('password', credentials.password);
-            secureApiFetch(`/users/login`, {
+
+            return secureApiFetch(`/users/login`, {
                 method: 'POST',
                 body: formData
             })
@@ -48,13 +50,12 @@ function useAuth() {
                     // eg mfa == disabled
 
                     setIsAuth(true);
-
-                    onOk();
                 })
                 .catch(err => {
-                    onKo(err.message);
+                    throw err;
                 });
         },
+
         logout() {
             setIsAuth(false);
 
