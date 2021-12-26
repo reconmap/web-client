@@ -2,7 +2,7 @@ import { HStack, Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -14,12 +14,12 @@ import ProjectsTable from './Table';
 
 
 const ProjectsList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [projects, setProjects] = useState([]);
     const [statusFilter, setStatusFilter] = useState('active');
 
     const handleCreateProject = () => {
-        history.push('/projects/create')
+        navigate('/projects/create')
     }
 
     const onStatusFilterChange = ev => {

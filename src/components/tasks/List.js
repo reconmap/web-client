@@ -5,7 +5,7 @@ import DeleteButton from 'components/ui/buttons/Delete';
 import ReloadButton from 'components/ui/buttons/Reload';
 import { actionCompletedToast } from 'components/ui/toast';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -18,7 +18,7 @@ import Title from '../ui/Title';
 import TasksTable from './TasksTable';
 
 const TasksList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [tasks, reloadTasks] = useFetch('/tasks');
     const [selectedTasks, setSelectedTasks] = useState([]);
 
@@ -34,7 +34,7 @@ const TasksList = () => {
         setFilter({ ...filter, status: ev.target.value })
     }
     const handleCreateTask = () => {
-        history.push(`/tasks/create`);
+        navigate(`/tasks/create`);
     }
 
     const onStatusSelectChange = (ev) => {

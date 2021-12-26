@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
@@ -10,7 +10,7 @@ import { actionCompletedToast } from "../ui/toast";
 import ProjectForm from "./Form";
 
 const ProjectEdit = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { projectId } = useParams();
     const [serverProject] = useFetch(`/projects/${projectId}`);
     const [clientProject, setClientProject] = useState(null);
@@ -22,9 +22,9 @@ const ProjectEdit = () => {
         actionCompletedToast(`The project "${clientProject.name}" has been updated.`);
 
         if (clientProject.is_template) {
-            history.push(`/projects/templates/${projectId}`);
+            navigate(`/projects/templates/${projectId}`);
         } else {
-            history.push(`/projects/${projectId}`);
+            navigate(`/projects/${projectId}`);
         }
     };
 

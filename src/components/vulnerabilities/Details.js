@@ -5,7 +5,7 @@ import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import Tags from 'components/ui/Tags';
 import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
-import { Link, Redirect, useHistory, useRouteMatch } from 'react-router-dom';
+import { Link, Navigate, useMatch, useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from '../ui/buttons/Delete';
@@ -21,8 +21,8 @@ import VulnerabilityDescriptionPanel from './VulnerabilityDescriptionPanel';
 import VulnerabilityRemediationPanel from './VulnerabilityRemediationPanel';
 
 const VulnerabilityDetails = () => {
-    const history = useHistory()
-    const { params: { vulnerabilityId } } = useRouteMatch()
+    const navigate = useNavigate();
+    const { vulnerabilityId } = useMatch()
     const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`)
     const deleteVulnerability = useDelete(`/vulnerabilities/`)
 
@@ -33,7 +33,7 @@ const VulnerabilityDetails = () => {
     const handleDelete = async () => {
         const confirmed = await deleteVulnerability(vulnerabilityId);
         if (confirmed)
-            history.push('/vulnerabilities')
+            navigate('/vulnerabilities')
     }
 
     const onStatusChange = ev => {
@@ -52,7 +52,7 @@ const VulnerabilityDetails = () => {
     if (!vulnerability) return <Loading />
 
     if (vulnerability && vulnerability.is_template) {
-        return <Redirect to={`/vulnerabilities/templates/${vulnerability.id}`} />
+        return <Navigate to={`/vulnerabilities/templates/${vulnerability.id}`} />
     }
 
     return <div>
@@ -64,7 +64,7 @@ const VulnerabilityDetails = () => {
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <EditButton onClick={(ev) => {
                         ev.preventDefault();
-                        history.push(`/vulnerabilities/${vulnerability.id}/edit`)
+                        navigate(`/vulnerabilities/${vulnerability.id}/edit`)
                     }}>Edit</EditButton>
 
                     <label>Transition to&nbsp;

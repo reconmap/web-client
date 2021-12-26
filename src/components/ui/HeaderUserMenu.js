@@ -7,7 +7,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Auth from "services/auth";
 
-export default function HeaderUserMenu({ email }) {
+const HeaderUserMenu = () => {
     const user = Auth.getLoggedInUser();
 
     return (
@@ -56,3 +56,5 @@ export default function HeaderUserMenu({ email }) {
         </Menu>
     );
 }
+
+export default HeaderUserMenu;

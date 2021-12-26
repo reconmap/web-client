@@ -2,7 +2,7 @@ import { Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import CountriesTimezones from 'countries-and-timezones';
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Auth from 'services/auth';
 import ThemeContext from "../../contexts/ThemeContext";
 import secureApiFetch from '../../services/api';
@@ -14,7 +14,7 @@ import { IconDark, IconLight, IconPreferences, IconSave } from '../ui/Icons';
 import Title from '../ui/Title';
 
 const UserPreferences = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const user = Auth.getLoggedInUser();
     const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
@@ -42,7 +42,7 @@ const UserPreferences = () => {
             .then(() => {
                 user.timezone = timezone;
                 localStorage.setItem('user', JSON.stringify(user));
-                history.push('/');
+                navigate('/');
             })
             .catch(err => console.error(err))
     }

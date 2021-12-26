@@ -3,16 +3,15 @@ import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import useFetch from 'hooks/useFetch';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
 const SendReport = () => {
-    const history = useHistory();
-    const routeParams = useParams();
-    const { projectId } = routeParams;
+    const navigate = useNavigate();
+    const { projectId } = useParams();
     const [project] = useFetch(`/projects/${projectId}`)
     const [revisions] = useFetch(`/reports?projectId=${projectId}`)
 
@@ -28,7 +27,7 @@ const SendReport = () => {
 
         secureApiFetch(`/reports/${deliverySettings.report_id}/send`, { method: 'POST', body: JSON.stringify(deliverySettings) })
             .then(() => {
-                history.push(`/projects/${project.id}/report`);
+                navigate(`/projects/${project.id}/report`);
             })
             .catch(err => {
                 console.error(err);

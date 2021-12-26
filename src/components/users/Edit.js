@@ -1,20 +1,19 @@
-import React, {useEffect, useState} from 'react'
-import {Link, useHistory, useParams} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
-import Title from '../ui/Title';
-import {actionCompletedToast} from '../ui/toast'
-import {IconPlus} from "../ui/Icons";
-import UserForm from "./Form";
-import useFetch from "../../hooks/useFetch";
+import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
+import Title from '../ui/Title';
+import { actionCompletedToast } from '../ui/toast';
+import UserForm from "./Form";
 
 const EditUserPage = () => {
-    const history = useHistory()
-    const {userId} = useParams();
+    const navigate = useNavigate();
+    const { userId } = useParams();
     const [serverUser] = useFetch(`/users/${userId}`);
     const [clientUser, setClientUser] = useState(null);
-
 
     const handleCreate = async (ev) => {
         ev.preventDefault();
@@ -23,7 +22,7 @@ const EditUserPage = () => {
             method: 'PATCH',
             body: JSON.stringify(clientUser)
         }).then(() => {
-            history.push(`/users/${userId}`)
+            navigate(`/users/${userId}`)
             actionCompletedToast(`The user "${clientUser.full_name}" has been updated.`);
         })
     }
@@ -32,7 +31,7 @@ const EditUserPage = () => {
         setClientUser(serverUser);
     }, [serverUser]);
 
-    if (!serverUser || !clientUser) return <Loading/>
+    if (!serverUser || !clientUser) return <Loading />
 
     return (
         <div>
@@ -42,9 +41,9 @@ const EditUserPage = () => {
                 </Breadcrumb>
             </div>
 
-            <Title title="User details" icon={<IconPlus/>}/>
+            <Title title="User details" icon={<IconPlus />} />
 
-            <UserForm isEdit={true} user={clientUser} userSetter={setClientUser} onFormSubmit={handleCreate}/>
+            <UserForm isEdit={true} user={clientUser} userSetter={setClientUser} onFormSubmit={handleCreate} />
         </div>
     )
 }

@@ -1,15 +1,12 @@
-import ProtectedRoute from "../logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import TargetForm from "./Form";
 import MultipleTargetCreationForm from "./MultipleCreationForm";
 import TargetView from "./View";
 
 const TargetsRoutes = [
-    <ProtectedRoute path={`/projects/:projectId/targets/add`}
-        component={TargetForm} />,
-    <ProtectedRoute path={`/projects/:projectId/targets/add-multiple`}
-        component={MultipleTargetCreationForm} />,
-    <ProtectedRoute path={`/targets/:targetId([0-9]+)`}
-        component={TargetView} />,
+    <Route path={`/projects/:projectId/targets/add`} element={<TargetForm />} />,
+    <Route path={`/projects/:projectId/targets/add-multiple`} element={<MultipleTargetCreationForm />} />,
+    <Route path={`/targets/:targetId`} element={<TargetView />} />,
 ]
 
 export default TargetsRoutes;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -10,7 +10,7 @@ import { actionCompletedToast } from "../ui/toast";
 import CommandForm from './Form';
 
 const EditCommandPage = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { commandId } = useParams();
 
     const [serverCommand] = useFetch(`/commands/${commandId}`);
@@ -26,7 +26,7 @@ const EditCommandPage = () => {
 
         actionCompletedToast(`The command "${clientCommand.name}" has been updated.`);
 
-        history.push(`/commands/${commandId}`)
+        navigate(`/commands/${commandId}`)
     }
 
     useEffect(() => {

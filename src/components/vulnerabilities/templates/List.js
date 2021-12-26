@@ -15,13 +15,12 @@ import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { useState } from 'react';
-import { useHistory } from "react-router";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import VulnerabilityCategorySpan from '../categories/Span';
 
 const VulnerabilityTemplatesList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
     const [templates, updateTemplates] = useFetch(`/vulnerabilities?isTemplate=1&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`)
 
@@ -31,7 +30,7 @@ const VulnerabilityTemplatesList = () => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
-                history.push(`/vulnerabilities/${data.vulnerabilityId}/edit`);
+                navigate(`/vulnerabilities/${data.vulnerabilityId}/edit`);
             });
     }
 
@@ -42,7 +41,7 @@ const VulnerabilityTemplatesList = () => {
     }
 
     const viewTemplate = (templateId) => {
-        history.push(`/vulnerabilities/templates/${templateId}`);
+        navigate(`/vulnerabilities/templates/${templateId}`);
     }
 
     const destroy = useDelete('/vulnerabilities/', updateTemplates);
@@ -54,7 +53,7 @@ const VulnerabilityTemplatesList = () => {
     }
 
     const onAddVulnerabilityTemplateClick = () => {
-        history.push(`/vulnerabilities/create?isTemplate=true`)
+        navigate(`/vulnerabilities/create?isTemplate=true`)
     }
 
     return (

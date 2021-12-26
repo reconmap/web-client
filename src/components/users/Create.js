@@ -1,6 +1,6 @@
 import User from 'models/User';
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from "../ui/Icons";
@@ -9,7 +9,7 @@ import { actionCompletedToast } from '../ui/toast';
 import UserForm from "./Form";
 
 const CreateUserPage = () => {
-    const history = useHistory()
+    const navigate = useNavigate();
     const [userData, setUserData] = useState(User);
 
     const handleCreate = async (ev) => {
@@ -19,7 +19,7 @@ const CreateUserPage = () => {
             method: 'POST',
             body: JSON.stringify(userData)
         }).then(() => {
-            history.push('/users/')
+            navigate('/users/')
             actionCompletedToast(`The user "${userData.full_name}" has been created.`);
         })
     }

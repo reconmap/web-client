@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Link.css';
 
 const LinkButton = ({ children, external = false, ...props }) => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const onAnchorClick = ev => {
         ev.stopPropagation();
@@ -11,7 +11,7 @@ const LinkButton = ({ children, external = false, ...props }) => {
         if (!external) {
             ev.preventDefault();
 
-            history.push({
+            navigate({
                 pathname: ev.target.pathname,
                 search: ev.target.search
             });

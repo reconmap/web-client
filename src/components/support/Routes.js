@@ -1,10 +1,10 @@
-import ProtectedRoute from "../logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import SupportForm from "./Form";
 import HelpIndexPage from "./HelpIndex";
 
 const SupportRoutes = [
-    <ProtectedRoute exact path={`/help`} component={HelpIndexPage} />,
-    <ProtectedRoute exact path={`/support`} component={SupportForm} />
+    <Route path={`/help`} element={<HelpIndexPage />} />,
+    <Route path={`/support`} element={<SupportForm />} />
 ]
 
 export default SupportRoutes;

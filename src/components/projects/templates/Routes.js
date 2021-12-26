@@ -1,10 +1,10 @@
-import ProtectedRoute from "components/logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import TemplateDetails from "./Details";
 import TemplatesList from "./List";
 
 const ProjectTemplatesRoutes = [
-    <ProtectedRoute exact path={`/projects/templates`} component={TemplatesList} />,
-    <ProtectedRoute exact path={`/projects/templates/:templateId([0-9]+)`} component={TemplateDetails} />
+    <Route path={`/projects/templates`} element={<TemplatesList />} />,
+    <Route path={`/projects/templates/:templateId`} element={<TemplateDetails />} />
 ]
 
 export default ProjectTemplatesRoutes;

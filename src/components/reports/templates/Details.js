@@ -10,30 +10,30 @@ import Loading from 'components/ui/Loading';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
-
-const ReportTemplateDetails = ({ match }) => {
-    const history = useHistory();
-    const [vulnerability] = useFetch(`/vulnerabilities/${match.params.templateId}`)
+const ReportTemplateDetails = () => {
+    const navigate = useNavigate();
+    const { templateId } = useParams();
+    const [vulnerability] = useFetch(`/vulnerabilities/${templateId}`)
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
-                history.push(`/vulnerabilities/${data.vulnerabilityId}/edit`);
+                navigate(`/vulnerabilities/${data.vulnerabilityId}/edit`);
             });
     }
 
     const destroy = useDelete('/vulnerabilities/', () => {
-        history.push('/vulnerabilities/templates');
+        navigate('/vulnerabilities/templates');
     });
 
     if (!vulnerability) return <Loading />
 
     if (vulnerability && !vulnerability.is_template) {
-        return <Redirect to={`/vulnerabilities/${vulnerability.id}`} />
+        return <Navigate to={`/vulnerabilities/${vulnerability.id}`} />
     }
 
     return (

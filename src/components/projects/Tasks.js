@@ -1,6 +1,6 @@
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import useDelete from 'hooks/useDelete';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import TasksTable from "../tasks/TasksTable";
 import CreateButton from "../ui/buttons/Create";
@@ -8,13 +8,13 @@ import { IconClipboardList } from '../ui/Icons';
 import Loading from '../ui/Loading';
 
 const ProjectTasks = ({ project }) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const isTemplate = project.is_template === 1;
     const [tasks, reloadTasks] = useFetch(`/projects/${project.id}/tasks`)
 
     const onAddTaskClick = ev => {
         ev.preventDefault();
-        history.push(`/tasks/create?projectId=${project.id}&forTemplate=${project.is_template}`);
+        navigate(`/tasks/create?projectId=${project.id}&forTemplate=${project.is_template}`);
     }
 
     const onDeleteTask = useDelete('/tasks/', reloadTasks);

@@ -9,29 +9,30 @@ import Loading from 'components/ui/Loading';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import ProjectDetailsTab from '../DetailsTab';
 import ProjectTasks from '../Tasks';
 
-const TemplateDetails = ({ match }) => {
-    const history = useHistory();
-    const [template] = useFetch(`/projects/${match.params.templateId}`)
+const TemplateDetails = () => {
+    const navigate = useNavigate();
+    const { templateId } = useParams();
+    const [template] = useFetch(`/projects/${templateId}`)
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
-                history.push(`/projects/${data.projectId}/edit`);
+                navigate(`/projects/${data.projectId}/edit`);
             });
     }
 
     const destroy = useDelete('/projects/', () => {
-        history.push('/projects/templates');
+        navigate('/projects/templates');
     });
 
     if (template && !template.is_template) {
-        return <Redirect to={`/projects/${template.id}`} />
+        return <Navigate to={`/projects/${template.id}`} />
     }
 
     return (

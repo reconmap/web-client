@@ -1,8 +1,8 @@
-import ProtectedRoute from "components/logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import TemplatesList from "./List";
 
 const VulnerabilityCategoriesRoutes = [
-    <ProtectedRoute exact path={`/vulnerabilities/categories`} component={TemplatesList} />,
+    <Route path={`/vulnerabilities/categories`} element={<TemplatesList />} />,
 ]
 
 export default VulnerabilityCategoriesRoutes;

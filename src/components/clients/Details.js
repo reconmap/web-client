@@ -6,7 +6,7 @@ import MailLink from "components/ui/MailLink";
 import TelephoneLink from "components/ui/TelephoneLink";
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
@@ -34,8 +34,8 @@ const ClientProjectsTab = ({ clientId }) => {
 }
 
 const ClientDetails = () => {
-    const { params: { clientId } } = useRouteMatch();
-    const history = useHistory()
+    const { clientId } = useParams();
+    const navigate = useNavigate();
 
     const [client] = useFetch(`/clients/${clientId}`)
     const deleteClient = useDelete(`/clients/`)
@@ -43,7 +43,7 @@ const ClientDetails = () => {
     const handleDelete = async () => {
         const confirmed = await deleteClient(clientId);
         if (confirmed)
-            history.push('/clients');
+            navigate('/clients');
     }
 
     if (!client) {
@@ -59,7 +59,7 @@ const ClientDetails = () => {
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <EditButton onClick={(ev) => {
                         ev.preventDefault();
-                        history.push(`/clients/${client.id}/edit`)
+                        navigate(`/clients/${client.id}/edit`)
                     }}>Edit</EditButton>
                     <DeleteButton onClick={handleDelete} />
                 </RestrictedComponent>

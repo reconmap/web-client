@@ -1,6 +1,6 @@
 import PageTitle from 'components/logic/PageTitle';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -13,7 +13,7 @@ import VulnerabilityForm from "./Form";
 const VulnerabilityEdit = () => {
     const { vulnerabilityId } = useParams();
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [serverVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`);
     const [clientVulnerability, setClientVulnerability] = useState(null);
@@ -30,9 +30,9 @@ const VulnerabilityEdit = () => {
                 actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
 
                 if (clientVulnerability.is_template) {
-                    history.push(`/vulnerabilities/templates/${vulnerabilityId}`);
+                    navigate(`/vulnerabilities/templates/${vulnerabilityId}`);
                 } else {
-                    history.push(`/vulnerabilities/${vulnerabilityId}`)
+                    navigate(`/vulnerabilities/${vulnerabilityId}`)
                 }
             } else {
                 throw new Error("Unable to save. Check form");

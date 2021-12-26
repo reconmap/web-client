@@ -1,13 +1,13 @@
 import { Button, Checkbox } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconSearch } from '../ui/Icons';
 import Title from '../ui/Title';
 
 const AdvancedSearch = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const entityList = {
         'commands': 'Commands',
@@ -24,7 +24,7 @@ const AdvancedSearch = () => {
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        history.push(`/search/${keywords.trim()}?entities=` + entities.join(','));
+        navigate(`/search/${keywords.trim()}?entities=` + entities.join(','));
     }
 
     const onKeywordsChange = ev => {

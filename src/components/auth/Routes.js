@@ -4,9 +4,9 @@ import MfaSetup from "./MfaSetup";
 import MfaVerification from "./MfaVerification";
 
 const AuthRoutes = [
-    <Route exact path="/login" component={Login} />,
-    <Route exact path="/auth/mfa-setup" component={MfaSetup} />,
-    <Route exact path="/auth/mfa-verification" component={MfaVerification} />
+    <Route path="/login" element={<Login />} />,
+    <Route path="/auth/mfa-setup" element={<MfaSetup />} />,
+    <Route path="/auth/mfa-verification" element={<MfaVerification />} />
 ]
 
 export default AuthRoutes;

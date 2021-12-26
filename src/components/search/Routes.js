@@ -1,10 +1,10 @@
-import ProtectedRoute from "../logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import AdvancedSearch from "./AdvancedSearch";
 import SearchResults from "./Results";
 
 const SearchRoutes = [
-    <ProtectedRoute path={`/search/:keywords`} component={SearchResults} />,
-    <ProtectedRoute path={`/advanced-search`} component={AdvancedSearch} />,
+    <Route path={`/search/:keywords`} element={<SearchResults />} />,
+    <Route path={`/advanced-search`} element={<AdvancedSearch />} />,
 ]
 
 export default SearchRoutes;

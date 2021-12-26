@@ -3,7 +3,7 @@ import PageTitle from 'components/logic/PageTitle';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import VisibilityLegend from 'components/ui/VisibilityLegend';
 import UserLink from 'components/users/Link';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from "../ui/Breadcrumb";
@@ -16,7 +16,7 @@ import DocumentPreview from './Preview';
 
 const DocumentDetailsPage = () => {
     const { documentId } = useParams();
-    const history = useHistory()
+    const navigate = useNavigate();
 
     const [serverDoc] = useFetch(`/documents/${documentId}`)
     const deleteDocument = useDelete(`/documents/`)
@@ -24,7 +24,7 @@ const DocumentDetailsPage = () => {
     const handleDelete = async () => {
         const confirmed = await deleteDocument(documentId);
         if (confirmed)
-            history.push('/documents');
+            navigate('/documents');
     }
 
     if (!serverDoc) {
@@ -39,7 +39,7 @@ const DocumentDetailsPage = () => {
             <ButtonGroup>
                 <EditButton onClick={(ev) => {
                     ev.preventDefault();
-                    history.push(`/documents/${serverDoc.id}/edit`)
+                    navigate(`/documents/${serverDoc.id}/edit`)
                 }}>Edit</EditButton>
                 <DeleteButton onClick={handleDelete} />
             </ButtonGroup>

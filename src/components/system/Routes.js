@@ -1,5 +1,5 @@
+import { Route } from "react-router-dom";
 import SystemIndexPage from ".";
-import ProtectedRoute from "../logic/ProtectedRoute";
 import ExportPage from "./ExportPage";
 import SystemHealthPage from "./HealthPage";
 import ImportPage from "./ImportPage";
@@ -8,13 +8,13 @@ import SystemLogsPage from "./LogsPage";
 import SystemUsagePage from "./UsagePage";
 
 const SystemRoutes = [
-    <ProtectedRoute exact path={`/system`} component={SystemIndexPage} />,
-    <ProtectedRoute exact path={`/system/integrations`} component={SystemIntegrationsPage} />,
-    <ProtectedRoute exact path={`/system/health`} component={SystemHealthPage} />,
-    <ProtectedRoute exact path={`/system/usage`} component={SystemUsagePage} />,
-    <ProtectedRoute exact path={`/system/logs`} component={SystemLogsPage} />,
-    <ProtectedRoute exact path={`/system/export-data`} component={ExportPage} />,
-    <ProtectedRoute exact path={`/system/import-data`} component={ImportPage} />,
+    <Route path={`/system`} element={<SystemIndexPage />} />,
+    <Route path={`/system/integrations`} element={<SystemIntegrationsPage />} />,
+    <Route path={`/system/health`} element={<SystemHealthPage />} />,
+    <Route path={`/system/usage`} element={<SystemUsagePage />} />,
+    <Route path={`/system/logs`} element={<SystemLogsPage />} />,
+    <Route path={`/system/export-data`} element={<ExportPage />} />,
+    <Route path={`/system/import-data`} element={<ImportPage />} />,
 ]
 
 export default SystemRoutes;

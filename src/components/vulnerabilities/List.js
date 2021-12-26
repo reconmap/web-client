@@ -9,14 +9,14 @@ import Title from 'components/ui/Title';
 import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
 import { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import CreateButton from '../ui/buttons/Create';
 import { IconFlag } from '../ui/Icons';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 
 const VulnerabilitiesList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const query = useQuery();
     let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
@@ -30,10 +30,10 @@ const VulnerabilitiesList = () => {
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
-        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
+        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
     }
     const handleNext = () => {
-        history.push(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
+        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
     }
 
     const onSortChange = (ev, column, order) => {
@@ -77,7 +77,7 @@ const VulnerabilitiesList = () => {
     };
 
     const onAddVulnerabilityClick = () => {
-        history.push(`/vulnerabilities/create`)
+        navigate(`/vulnerabilities/create`)
     }
 
     useEffect(() => {

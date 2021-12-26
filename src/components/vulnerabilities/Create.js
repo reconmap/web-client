@@ -3,7 +3,7 @@ import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
 import VulnerabilityModel from 'models/Vulnerability';
 import React, { useRef, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from '../ui/Icons';
@@ -12,7 +12,7 @@ import VulnerabilityForm from "./Form";
 
 const VulnerabilityCreate = () => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const query = useQuery();
     const urlProjectId = useRef(query.get('projectId') || 0);
     const isTemplate = 'true' === query.get('isTemplate');
@@ -26,9 +26,9 @@ const VulnerabilityCreate = () => {
             .then(() => {
 
                 if (vulnerability.is_template) {
-                    history.push('/vulnerabilities/templates');
+                    navigate('/vulnerabilities/templates');
                 } else {
-                    history.push(`/vulnerabilities`);
+                    navigate(`/vulnerabilities`);
                 }
 
                 actionCompletedToast(`The vulnerability "${vulnerability.summary}" has been added.`);

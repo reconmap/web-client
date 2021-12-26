@@ -1,6 +1,6 @@
 import PageTitle from 'components/logic/PageTitle';
 import CreateButton from 'components/ui/buttons/Create';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -10,14 +10,14 @@ import Title from '../ui/Title';
 import CommandsTable from './Table';
 
 const CommandsListPage = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [commands, updateCommands] = useFetch('/commands')
     const destroy = useDelete('/commands/', updateCommands);
 
     const onAddCommandClick = ev => {
         ev.preventDefault();
 
-        history.push('/commands/add');
+        navigate('/commands/add');
     }
 
     return <div>

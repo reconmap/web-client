@@ -2,7 +2,7 @@ import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -13,9 +13,9 @@ import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import VulnerabilitiesTable from "../vulnerabilities/VulnerabilitiesTable";
 
-const TargetView = ({ match }) => {
-    const history = useHistory();
-    const { targetId } = match.params;
+const TargetView = () => {
+    const navigate = useNavigate();
+    const { targetId } = useParams();
     const [target] = useFetch(`/targets/${targetId}`)
     const destroy = useDelete(`/targets/`);
     const [savedProject, setSavedProject] = useState(null);
@@ -35,7 +35,7 @@ const TargetView = ({ match }) => {
         destroy(targetId)
             .then(success => {
                 if (success)
-                    history.push('/projects');
+                    navigate('/projects');
             })
             .catch(err => console.error(err))
     }

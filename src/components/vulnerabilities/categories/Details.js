@@ -17,32 +17,32 @@ import UserLink from 'components/users/Link';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import ReactMarkdown from 'react-markdown';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import CvssAbbr from '../CvssAbbr';
 import VulnerabilityStatusBadge from '../StatusBadge';
 
 
 const TemplateDetails = ({ match }) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [vulnerability] = useFetch(`/vulnerabilities/${match.params.templateId}`)
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
-                history.push(`/vulnerabilities/${data.vulnerabilityId}/edit`);
+                navigate(`/vulnerabilities/${data.vulnerabilityId}/edit`);
             });
     }
 
     const destroy = useDelete('/vulnerabilities/', () => {
-        history.push('/vulnerabilities/templates');
+        navigate('/vulnerabilities/templates');
     });
 
     if (!vulnerability) return <Loading />
 
     if (vulnerability && !vulnerability.is_template) {
-        return <Redirect to={`/vulnerabilities/${vulnerability.id}`} />
+        return <Navigate to={`/vulnerabilities/${vulnerability.id}`} />
     }
 
     return (

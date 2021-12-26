@@ -1,33 +1,33 @@
-import { HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import AttachmentsTable from 'components/attachments/AttachmentsTable'
-import AttachmentsDropzone from 'components/attachments/Dropzone'
-import CommandOutputs from 'components/commands/Outputs'
-import PageTitle from 'components/logic/PageTitle'
-import RestrictedComponent from 'components/logic/RestrictedComponent'
-import EmptyField from 'components/ui/EmptyField'
-import RelativeDateFormatter from 'components/ui/RelativeDateFormatter'
-import TimestampsSection from 'components/ui/TimestampsSection'
-import UserLink from 'components/users/Link'
-import React, { useEffect, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import { Link, useHistory } from 'react-router-dom'
-import useDelete from '../../hooks/useDelete'
-import TaskStatuses from "../../models/TaskStatuses"
-import secureApiFetch from '../../services/api'
-import Breadcrumb from "../ui/Breadcrumb"
-import DeleteButton from "../ui/buttons/Delete"
-import PrimaryButton from '../ui/buttons/Primary'
-import { IconClipboard, IconDocument } from '../ui/Icons'
-import Loading from '../ui/Loading'
-import { actionCompletedToast } from "../ui/toast"
-import useFetch from './../../hooks/useFetch'
-import Title from './../ui/Title'
-import TaskCommandTab from './CommandTab'
-import TaskStatusFormatter from "./TaskStatusFormatter"
+import { HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import AttachmentsTable from 'components/attachments/AttachmentsTable';
+import AttachmentsDropzone from 'components/attachments/Dropzone';
+import CommandOutputs from 'components/commands/Outputs';
+import PageTitle from 'components/logic/PageTitle';
+import RestrictedComponent from 'components/logic/RestrictedComponent';
+import EmptyField from 'components/ui/EmptyField';
+import RelativeDateFormatter from 'components/ui/RelativeDateFormatter';
+import TimestampsSection from 'components/ui/TimestampsSection';
+import UserLink from 'components/users/Link';
+import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import useDelete from '../../hooks/useDelete';
+import TaskStatuses from "../../models/TaskStatuses";
+import secureApiFetch from '../../services/api';
+import Breadcrumb from "../ui/Breadcrumb";
+import DeleteButton from "../ui/buttons/Delete";
+import PrimaryButton from '../ui/buttons/Primary';
+import { IconClipboard, IconDocument } from '../ui/Icons';
+import Loading from '../ui/Loading';
+import { actionCompletedToast } from "../ui/toast";
+import useFetch from './../../hooks/useFetch';
+import Title from './../ui/Title';
+import TaskCommandTab from './CommandTab';
+import TaskStatusFormatter from "./TaskStatusFormatter";
 
-const TaskDetails = ({ match }) => {
-    const history = useHistory();
-    const taskId = match.params.taskId;
+const TaskDetails = () => {
+    const navigate = useNavigate();
+    const { taskId } = useParams();
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
     const [users] = useFetch(`/users`)
     const [project, setProject] = useState(null);
@@ -40,7 +40,7 @@ const TaskDetails = ({ match }) => {
 
     const handleDelete = () => {
         destroy(task.id);
-        history.push('/tasks');
+        navigate('/tasks');
     }
 
     const onAssigneeChange = ev => {

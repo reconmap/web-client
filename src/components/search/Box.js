@@ -1,9 +1,9 @@
-import {useHistory} from 'react-router-dom'
-import {createRef, useCallback, useEffect} from "react";
+import { createRef, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import isInputElement from "../../utilities/domUtils";
 
 const SearchBox = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const inputRef = createRef();
 
     const onKeyDownListener = useCallback((ev) => {
@@ -26,11 +26,11 @@ const SearchBox = () => {
         const inputField = ev.target;
         const trimmedValue = inputField.value.trim();
         if (ev.key === 'Enter' && trimmedValue.length > 0) {
-            history.push('/search/' + encodeURIComponent(trimmedValue));
+            navigate('/search/' + encodeURIComponent(trimmedValue));
         }
     }
 
-    return <input ref={inputRef} type="search" placeholder="Search..." onKeyDown={handleSearchKeyDown}/>
+    return <input ref={inputRef} type="search" placeholder="Search..." onKeyDown={handleSearchKeyDown} />
 }
 
 export default SearchBox;

@@ -12,11 +12,11 @@ import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 
 const TemplatesList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [templates, updateTemplates] = useFetch('/projects?isTemplate=1')
 
     const cloneProject = (ev, templateId) => {
@@ -25,12 +25,12 @@ const TemplatesList = () => {
         secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {
-                history.push(`/projects/${data.projectId}/edit`);
+                navigate(`/projects/${data.projectId}/edit`);
             });
     }
 
     const viewProject = (templateId) => {
-        history.push(`/projects/templates/${templateId}`);
+        navigate(`/projects/templates/${templateId}`);
     }
 
     const destroy = useDelete('/projects/', updateTemplates);
@@ -42,7 +42,7 @@ const TemplatesList = () => {
     }
 
     const onAddProjectTemplateClick = () => {
-        history.push(`/projects/create?isTemplate=true`)
+        navigate(`/projects/create?isTemplate=true`)
     }
 
     return (

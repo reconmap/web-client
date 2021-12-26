@@ -4,7 +4,7 @@ import ReportConfigurationForm from 'components/reports/ConfigurationForm';
 import ReportRevisions from 'components/reports/Revisions';
 import Configuration from 'Configuration';
 import React, { useEffect, useState } from 'react';
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Auth from 'services/auth';
 import secureApiFetch from '../../services/api';
 import { IconReport } from '../ui/Icons';
@@ -14,7 +14,7 @@ import Breadcrumb from './../ui/Breadcrumb';
 import './Report.scss';
 
 const ProjectReport = () => {
-    const { params: { id: projectId } } = useRouteMatch();
+    const { projectId } = useParams();
     const [project, setProject] = useState(null);
 
     useEffect(() => {

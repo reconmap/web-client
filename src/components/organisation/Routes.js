@@ -1,8 +1,8 @@
-import ProtectedRoute from "../logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import OrganisationForm from "./Form";
 
 const OrganisationRoutes = [
-    <ProtectedRoute exact path={`/organisation`} component={OrganisationForm}/>
+    <Route path={`/organisation`} element={<OrganisationForm />} />
 ];
 
 export default OrganisationRoutes;

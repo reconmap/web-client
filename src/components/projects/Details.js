@@ -2,7 +2,7 @@ import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -21,20 +21,20 @@ import ProjectTasks from './Tasks';
 import ProjectTeam from './Team';
 import ProjectVulnerabilities from './Vulnerabilities';
 
-const ProjectDetails = ({ match }) => {
-    const history = useHistory();
-    const projectId = match.params.id;
+const ProjectDetails = () => {
+    const navigate = useNavigate();
+    const { projectId } = useParams();
 
     const [project, updateProject] = useFetch(`/projects/${projectId}`)
     const [users] = useFetch(`/projects/${projectId}/users`)
     const destroy = useDelete(`/projects/`, updateProject);
 
     const handleGenerateReport = () => {
-        history.push(`/projects/${project.id}/report`)
+        navigate(`/projects/${project.id}/report`)
     }
 
     const handleManageTeam = () => {
-        history.push(`/projects/${project.id}/membership`)
+        navigate(`/projects/${project.id}/membership`)
     }
 
     const onArchiveButtonClick = (project) => {
@@ -50,7 +50,7 @@ const ProjectDetails = ({ match }) => {
     }
 
     if (project && project.is_template) {
-        return <Redirect to={`/projects/templates/${project.id}`} />
+        return <Navigate to={`/projects/templates/${project.id}`} />
     }
 
     return (

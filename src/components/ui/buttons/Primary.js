@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const PrimaryButton = ({
     type,
@@ -10,10 +10,9 @@ const PrimaryButton = ({
     to,
     external = false
 }) => {
-
-    const history = useHistory()
+    const navigate = useNavigate();
     const handleOpen = () => {
-        external ? window.open(to, '_blank') : history.push(to)
+        external ? window.open(to, '_blank') : navigate(to)
     }
     const styles = {
         button: {

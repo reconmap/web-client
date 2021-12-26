@@ -4,7 +4,7 @@ import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Auth from "services/auth";
 import CreateButton from "../../components/ui/buttons/Create";
 import useDelete from "../../hooks/useDelete";
@@ -23,12 +23,12 @@ import { actionCompletedToast } from "../ui/toast";
 import UserLink from "./Link";
 
 const UsersList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const loggedInUser = Auth.getLoggedInUser();
     const [users, updateUsers] = useFetch("/users");
     const deleteUser = useDelete("/users/", updateUsers);
     const handleCreate = () => {
-        history.push("/users/create");
+        navigate("/users/create");
     };
 
     const [selectedUsers, setSelectedUsers] = useState([]);

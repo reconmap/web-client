@@ -1,15 +1,15 @@
-import { HStack, Select } from '@chakra-ui/react'
-import RestrictedComponent from 'components/logic/RestrictedComponent'
-import CreateButton from 'components/ui/buttons/Create'
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import useFetch from "../../hooks/useFetch"
-import { IconFlag } from '../ui/Icons'
-import Loading from '../ui/Loading'
-import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable'
+import { HStack, Select } from '@chakra-ui/react';
+import RestrictedComponent from 'components/logic/RestrictedComponent';
+import CreateButton from 'components/ui/buttons/Create';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useFetch from "../../hooks/useFetch";
+import { IconFlag } from '../ui/Icons';
+import Loading from '../ui/Loading';
+import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable';
 
 const ProjectVulnerabilities = ({ project }) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
 
     const onSortChange = (ev, column, order) => {
@@ -21,7 +21,7 @@ const ProjectVulnerabilities = ({ project }) => {
     const [vulnerabilities, reloadVulnerabilities] = useFetch(`/vulnerabilities?projectId=${project.id}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`)
 
     const handleCreateVulnerability = () => {
-        history.push(`/vulnerabilities/create?projectId=${project.id}`)
+        navigate(`/vulnerabilities/create?projectId=${project.id}`)
     }
 
     const [category, setCategory] = useState('')

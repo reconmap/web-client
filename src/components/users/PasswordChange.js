@@ -1,6 +1,6 @@
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Auth from "services/auth";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -10,7 +10,7 @@ import Title from "../ui/Title";
 
 const UserPasswordChange = () => {
     const user = Auth.getLoggedInUser();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [passwords, setPasswords] = useState(
         {
             currentPassword: "",
@@ -33,7 +33,7 @@ const UserPasswordChange = () => {
                 }
 
                 actionCompletedToast(`Your password has been changed.`);
-                history.push('/users');
+                navigate('/users');
             })
             .catch(err => {
                 console.error(err);

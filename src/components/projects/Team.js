@@ -1,10 +1,10 @@
-import {useHistory} from 'react-router-dom'
-import UserAvatar from './../badges/UserAvatar'
+import { useNavigate } from 'react-router-dom';
+import UserAvatar from './../badges/UserAvatar';
 
-const ProjectTeam = ({project, users}) => {
-    const history = useHistory()
+const ProjectTeam = ({ project, users }) => {
+    const navigate = useNavigate();
     const handleOnClick = id => {
-        history.push(`/users/${id}`)
+        navigate(`/users/${id}`)
     }
 
     return (
@@ -15,7 +15,7 @@ const ProjectTeam = ({project, users}) => {
                     email={user.email}
                     onClick={() => handleOnClick(user.id)}
                     name={user.name}
-                    tooltip/>
+                    tooltip />
             )}
         </div>
     )

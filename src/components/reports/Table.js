@@ -6,12 +6,12 @@ import NoResultsTableRow from "components/ui/NoResultsTableRow";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import useDelete from "hooks/useDelete";
 import PropTypes from 'prop-types';
-import { useHistory } from "react-router";
+import { useNavigate } from 'react-router-dom';
 import secureApiFetch from "services/api";
 
 const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const deleteReport = useDelete('/reports/', updateReports);
 
@@ -35,7 +35,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
     }
 
     const handleSendByEmail = (projectId) => {
-        history.push(`/projects/${projectId}/report/send`);
+        navigate(`/projects/${projectId}/report/send`);
     }
 
     return <table>

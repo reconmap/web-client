@@ -37,7 +37,7 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
                 actionCompletedToast(`The report version "${formValues.name}" has been added.`);
             })
             .catch(err => {
-                console.dir(err);
+                console.error(err);
             })
             .finally(() => {
                 setFormValues(defaultFormValues)

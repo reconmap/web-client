@@ -9,7 +9,7 @@ import Tags from 'components/ui/Tags';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import ReactMarkdown from 'react-markdown';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import CommandService from 'services/command';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -22,8 +22,8 @@ import Title from '../ui/Title';
 import CommandInstructions from './Instructions';
 
 const CommandDetails = () => {
-    const { params: { commandId } } = useRouteMatch()
-    const history = useHistory()
+    const { commandId } = useParams();
+    const navigate = useNavigate();
 
     const [command] = useFetch(`/commands/${commandId}`)
     const deleteClient = useDelete(`/commands/`)
@@ -31,7 +31,7 @@ const CommandDetails = () => {
     const handleDelete = async () => {
         const confirmed = await deleteClient(commandId);
         if (confirmed)
-            history.push('/commands');
+            navigate('/commands');
     }
 
     if (!command) {
@@ -47,7 +47,7 @@ const CommandDetails = () => {
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <EditButton onClick={(ev) => {
                         ev.preventDefault();
-                        history.push(`/commands/${command.id}/edit`)
+                        navigate(`/commands/${command.id}/edit`)
                     }}>Edit</EditButton>
                     <DeleteButton onClick={handleDelete} />
                 </RestrictedComponent>

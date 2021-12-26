@@ -1,14 +1,14 @@
-import ProtectedRoute from "../logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import ClientCreate from "./Create";
 import ClientDetails from "./Details";
-import ClientsList from "./List";
 import EditClientPage from "./Edit";
+import ClientsList from "./List";
 
 const ClientsRoutes = [
-    <ProtectedRoute exact path={`/clients/create`} component={ClientCreate}/>,
-    <ProtectedRoute exact path={`/clients/:clientId([0-9]+)`} component={ClientDetails}/>,
-    <ProtectedRoute exact path={`/clients/:clientId([0-9]+)/edit`} component={EditClientPage}/>,
-    <ProtectedRoute exact path={`/clients`} component={ClientsList}/>
+    <Route path={`/clients/create`} element={<ClientCreate />} />,
+    <Route path={`/clients/:clientId`} element={<ClientDetails />} />,
+    <Route path={`/clients/:clientId/edit`} element={<EditClientPage />} />,
+    <Route path={`/clients`} element={<ClientsList />} />
 ];
 
-export default ClientsRoutes
+export default ClientsRoutes;

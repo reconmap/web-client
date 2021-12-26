@@ -1,7 +1,7 @@
 import PageTitle from 'components/logic/PageTitle';
 import useQuery from 'hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -13,7 +13,7 @@ import Title from '../ui/Title';
 import AuditLogsTable from "./AuditLogsTable";
 
 const AuditLogList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const query = useQuery();
     let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
@@ -23,10 +23,10 @@ const AuditLogList = () => {
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
-        history.push(`/auditlog?page=${pageNumber - 1}`);
+        navigate(`/auditlog?page=${pageNumber - 1}`);
     }
     const handleNext = () => {
-        history.push(`/auditlog?page=${pageNumber + 1}`);
+        navigate(`/auditlog?page=${pageNumber + 1}`);
     }
 
     const reloadData = useCallback(() => {

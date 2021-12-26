@@ -3,7 +3,7 @@ import PageTitle from 'components/logic/PageTitle';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import MailLink from "components/ui/MailLink";
 import TelephoneLink from "components/ui/TelephoneLink";
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -17,12 +17,12 @@ import Title from '../ui/Title';
 import ClientLink from "./Link";
 
 const ClientsList = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [clients, updateTasks] = useFetch('/clients')
 
     const destroy = useDelete('/clients/', updateTasks);
     const handleCreateClient = () => {
-        history.push(`/clients/create`)
+        navigate(`/clients/create`)
     }
 
     return <>

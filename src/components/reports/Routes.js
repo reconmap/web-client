@@ -1,10 +1,10 @@
-import ProtectedRoute from "../logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import ReportsList from "./List";
 import SendReport from "./Send";
 
 const ReportsRoutes = [
-    <ProtectedRoute exact path={`/reports`} component={ReportsList} />,
-    <ProtectedRoute path={`/report/:reportId([0-9]+)/send`} component={SendReport} />
+    <Route path={`/reports`} element={<ReportsList />} />,
+    <Route path={`/report/:reportId/send`} element={<SendReport />} />
 ];
 
-export default ReportsRoutes
+export default ReportsRoutes;

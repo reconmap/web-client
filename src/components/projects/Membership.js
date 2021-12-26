@@ -3,7 +3,7 @@ import UserRoleBadge from "components/badges/UserRoleBadge";
 import PageTitle from "components/logic/PageTitle";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from '../../hooks/useFetch';
 import secureApiFetch from '../../services/api';
 import UserAvatar from '../badges/UserAvatar';
@@ -15,9 +15,8 @@ import NoResultsTableRow from '../ui/NoResultsTableRow';
 import Title from '../ui/Title';
 import UserLink from "../users/Link";
 
-const ProjectMembership = ({ match }) => {
-
-    const projectId = match.params.id;
+const ProjectMembership = () => {
+    const { projectId } = useParams();
     const [users] = useFetch(`/users`)
     const [members, updateMembers] = useFetch(`/projects/${projectId}/users`)
     const [savedProject] = useFetch(`/projects/${projectId}`);
@@ -45,7 +44,7 @@ const ProjectMembership = ({ match }) => {
     }
 
     useEffect(() => {
-        if(members && users && users.length > 0) {
+        if (members && users && users.length > 0) {
             const memberIds = members.reduce((list, user) => [...list, user.id], []);
             setAvailableUsers(users.filter(user => !memberIds.includes(user.id)));
         }
@@ -63,21 +62,21 @@ const ProjectMembership = ({ match }) => {
         <Title title='Members' />
 
         {availableUsers.length > 0 ?
-        <form>
-            <label>
-                Select user
-                <Select id="userId">
-                    {availableUsers && availableUsers.map((user, index) =>
-                        <option key={index} value={user.id}>{user.full_name}</option>
-                    )}
-                </Select>
-            </label>
-            <PrimaryButton onClick={handleOnClick}><IconPlus /> Add as member</PrimaryButton>
-        </form> : 
-          <Alert status="info">
-          <AlertIcon />
-          All users have been added to the project.
-          </Alert>
+            <form>
+                <label>
+                    Select user
+                    <Select id="userId">
+                        {availableUsers && availableUsers.map((user, index) =>
+                            <option key={index} value={user.id}>{user.full_name}</option>
+                        )}
+                    </Select>
+                </label>
+                <PrimaryButton onClick={handleOnClick}><IconPlus /> Add as member</PrimaryButton>
+            </form> :
+            <Alert status="info">
+                <AlertIcon />
+                All users have been added to the project.
+            </Alert>
         }
 
         {!members ?

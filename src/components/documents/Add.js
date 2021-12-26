@@ -1,7 +1,7 @@
 import { actionCompletedToast } from 'components/ui/toast';
 import DocumentModel from 'models/Document';
 import { useState } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from "../ui/Icons";
@@ -9,7 +9,7 @@ import Title from '../ui/Title';
 import DocumentForm from './Form';
 
 const AddDocumentPage = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [newDocument, setNewDocument] = useState({ ...DocumentModel, parent_type: 'library' });
 
     const onFormSubmit = async (ev) => {
@@ -17,7 +17,7 @@ const AddDocumentPage = () => {
 
         secureApiFetch(`/documents`, { method: 'POST', body: JSON.stringify(newDocument) })
             .then(() => {
-                history.push(`/documents`);
+                navigate(`/documents`);
                 actionCompletedToast(`The document "${newDocument.title}" has been added.`);
             })
     }

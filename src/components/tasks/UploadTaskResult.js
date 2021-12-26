@@ -1,6 +1,6 @@
 import PageTitle from 'components/logic/PageTitle';
 import React, { useState } from 'react';
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -10,11 +10,9 @@ import Loading from "../ui/Loading";
 import Title from '../ui/Title';
 
 const UploadTaskResult = () => {
+    const navigate = useNavigate();
 
-    const routeParams = useParams();
-    const history = useHistory();
-
-    const taskId = routeParams.taskId;
+    const { taskId } = useParams();
 
     const [task] = useFetch(`/tasks/${taskId}`);
     const [uploadButtonDisabled, setUploadButtonDisabled] = useState(true);
@@ -37,7 +35,7 @@ const UploadTaskResult = () => {
             body: formData
         })
             .then(resp => {
-                history.push('/tasks/' + taskId);
+                navigate('/tasks/' + taskId);
             })
             .catch(err => console.error(err));
     }

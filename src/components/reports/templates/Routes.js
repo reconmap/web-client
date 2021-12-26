@@ -1,10 +1,10 @@
-import ProtectedRoute from "components/logic/ProtectedRoute";
+import { Route } from "react-router-dom";
 import ReportTemplateDetails from "./Details";
 import ReportTemplatesList from "./List";
 
 const ReportTemplatesRoutes = [
-    <ProtectedRoute exact path={`/reports/templates`} component={ReportTemplatesList} />,
-    <ProtectedRoute exact path={`/reports/templates/:templateId([0-9]+)`} component={ReportTemplateDetails} />
+    <Route path={`/reports/templates`} element={<ReportTemplatesList />} />,
+    <Route path={`/reports/templates/:templateId`} element={<ReportTemplateDetails />} />
 ]
 
 export default ReportTemplatesRoutes;

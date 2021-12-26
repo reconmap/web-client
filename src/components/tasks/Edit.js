@@ -1,6 +1,6 @@
 import { actionCompletedToast } from 'components/ui/toast';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -10,7 +10,7 @@ import Title from '../ui/Title';
 import TaskForm from "./Form";
 
 const EditTaskPage = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { taskId } = useParams();
 
     const [serverTask] = useFetch(`/tasks/${taskId}`);
@@ -21,7 +21,7 @@ const EditTaskPage = () => {
 
         await secureApiFetch(`/tasks/${taskId}`, { method: 'PATCH', body: JSON.stringify(clientTask) })
         actionCompletedToast(`The task "${clientTask.summary}" has been updated.`);
-        history.push(`/tasks/${taskId}`)
+        navigate(`/tasks/${taskId}`)
     }
 
     useEffect(() => {

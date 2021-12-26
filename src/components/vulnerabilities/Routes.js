@@ -1,14 +1,14 @@
-import ProtectedRoute from "../logic/ProtectedRoute";
-import VulnerabilitiesList from "./List";
+import { Route } from "react-router-dom";
 import VulnerabilityCreate from "./Create";
 import VulnerabilityDetails from "./Details";
 import VulnerabilityEdit from "./Edit";
+import VulnerabilitiesList from "./List";
 
 const VulnerabilitiesRoutes = [
-    <ProtectedRoute exact path={`/vulnerabilities`} component={VulnerabilitiesList}/>,
-    <ProtectedRoute exact path={`/vulnerabilities/create`} component={VulnerabilityCreate}/>,
-    <ProtectedRoute exact path={`/vulnerabilities/:vulnerabilityId([0-9]+)`} component={VulnerabilityDetails}/>,
-    <ProtectedRoute exact path={`/vulnerabilities/:vulnerabilityId([0-9]+)/edit`} component={VulnerabilityEdit}/>
+    <Route path={`/vulnerabilities`} element={<VulnerabilitiesList />} />,
+    <Route path={`/vulnerabilities/create`} element={<VulnerabilityCreate />} />,
+    <Route path={`/vulnerabilities/:vulnerabilityId`} element={<VulnerabilityDetails />} />,
+    <Route path={`/vulnerabilities/:vulnerabilityId/edit`} element={<VulnerabilityEdit />} />
 ]
 
-export default VulnerabilitiesRoutes
+export default VulnerabilitiesRoutes;

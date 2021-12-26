@@ -15,7 +15,6 @@ const LINKS = [
 ];
 
 const Header = () => {
-
     return <AuthConsumer>
         {
             ({ isAuth, user }) => (

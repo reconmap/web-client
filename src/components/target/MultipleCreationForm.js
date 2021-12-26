@@ -2,7 +2,7 @@ import { actionCompletedToast } from 'components/ui/toast';
 import { ReactComponent as TargetIcon } from 'images/icons/target.svg';
 import TargetKinds from 'models/TargetKinds';
 import React, { useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -10,7 +10,7 @@ import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
 
 const MultipleTargetCreationForm = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { projectId } = useParams();
 
     const [newTargets, setNewTargets] = useState({ projectId: projectId, lines: "" })
@@ -28,7 +28,7 @@ const MultipleTargetCreationForm = () => {
             }, body: JSON.stringify(newTargets)
         })
             .then(() => {
-                history.push(`/projects/${newTargets.projectId}`);
+                navigate(`/projects/${newTargets.projectId}`);
                 actionCompletedToast(`The targets have been added.`);
             })
     }

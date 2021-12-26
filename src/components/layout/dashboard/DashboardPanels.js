@@ -8,7 +8,6 @@ import Title from "../../ui/Title";
 import WelcomeWidget from './widgets/WelcomeWidget';
 
 const DashboardPanels = () => {
-
     const [dashboardConfig, setDashboardConfig] = useState(null);
 
     const onWidgetChange = (ev) => {
