@@ -126,14 +126,14 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 a {
     text-decoration: none;
     color: var(--text-color);
-
 }
 
 strong {
-    color: var(--white);
+    color: var(--text-color);
     font-weight: var(--fontBold);
 }
 

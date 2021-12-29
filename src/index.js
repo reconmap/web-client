@@ -15,6 +15,6 @@ ReactDOM.render(
         <ChakraProvider theme={ReconmapTheme}>
             <App />
         </ChakraProvider>
-    </React.StrictMode >, document.getElementById('root'));
+    </React.StrictMode>, document.getElementById('root'));
 
 serviceWorker.unregister();
