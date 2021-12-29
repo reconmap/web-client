@@ -1,8 +1,15 @@
 import { extendTheme } from "@chakra-ui/react";
+import { mode } from '@chakra-ui/theme-tools';
 
-const rctheme = extendTheme({
+const ReconmapTheme = extendTheme({
     styles: {
-        global: {
+        global: (props) => ({
+            body: {
+                fontFamily: 'body',
+                color: mode('gray.800', 'whiteAlpha.900')(props),
+                bg: mode('#fff', 'var(--color-gray-dark)')(props),
+                lineHeight: 'base',
+            },
             h1: {
                 fontSize: "2.1rem",
             },
@@ -16,7 +23,10 @@ const rctheme = extendTheme({
             h4: {
                 fontSize: "1.2rem",
             }
-        }
+        }),
+    },
+    defaultProps: {
+        size: "sm",
     },
     config: {
         useSystemColorMode: false,
@@ -24,4 +34,4 @@ const rctheme = extendTheme({
     },
 });
 
-export default rctheme;
+export default ReconmapTheme;

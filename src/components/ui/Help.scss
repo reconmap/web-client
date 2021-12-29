@@ -3,6 +3,10 @@
     background-color: var(--color-black);
     margin-bottom: var(--space);
     padding: var(--space);
+
+    .help__desc {
+        color: var(--text-color);
+    }
     &__title {
         margin-top : 0;
         display: flex;

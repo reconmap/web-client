@@ -1,4 +1,4 @@
-import { Checkbox, Stack } from "@chakra-ui/react";
+import { Checkbox, Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import AscendingSortLink from "components/ui/AscendingSortLink";
@@ -38,61 +38,59 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
 
     const deleteVulnerability = useDelete('/vulnerabilities/', reloadCallback, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
 
-    return <table>
-        <thead>
-            <tr>
-                {showSelection && <th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilities.length} /></th>}
-                <th style={{ width: '190px' }}>Summary</th>
-                <th style={{ width: '190px' }}>Project</th>
-                <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></th>
-                <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="risk" /> Risk <AscendingSortLink callback={onSortChange} property="risk" /></th>
-                <th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="cvss_score" /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <AscendingSortLink callback={onSortChange} property="cvss_score" /></th>
-                <th className='only-desktop' style={{ width: '20%' }}><DescendingSortLink callback={onSortChange} property="category_name" /> Category <AscendingSortLink callback={onSortChange} property="category_name" /></th>
-                <th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></th>
-            </tr>
-        </thead>
-        <tbody>
+    return <Table>
+        <Thead>
+            <Tr>
+                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilities.length} /></Th>}
+                <Th style={{ width: '190px' }}>Summary</Th>
+                <Th style={{ width: '190px' }}>Project</Th>
+                <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></Th>
+                <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="risk" /> Risk <AscendingSortLink callback={onSortChange} property="risk" /></Th>
+                <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="cvss_score" /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <AscendingSortLink callback={onSortChange} property="cvss_score" /></Th>
+                <Th className='only-desktop' style={{ width: '20%' }}><DescendingSortLink callback={onSortChange} property="category_name" /> Category <AscendingSortLink callback={onSortChange} property="category_name" /></Th>
+                <Th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></Th>
+            </Tr>
+        </Thead>
+        <Tbody>
             {vulnerabilities.length === 0 ?
-                <NoResultsTableRow numColumns="6" />
+                <NoResultsTableRow numColumns={showSelection ? 8 : 7} />
                 :
                 vulnerabilities.map((vulnerability, index) => {
-                    return (
-                        <tr key={index}>
-                            {showSelection &&
-                                <td>
-                                    <Checkbox
-                                        value={vulnerability.id}
-                                        onChange={onSelectionChange}
-                                        isChecked={selection.includes(vulnerability.id)}
-                                    />
-                                </td>
-                            }
-                            <td>
-                                <Stack>
-                                    <VulnerabilityBadge vulnerability={vulnerability} />
-                                    <div><Tags values={vulnerability.tags} /></div>
-                                </Stack>
-                            </td>
-                            <td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</td>
-                            <td><VulnerabilityStatusBadge vulnerability={vulnerability} /></td>
-                            <td><RiskBadge risk={vulnerability.risk} /></td>
-                            <td><CvssScore score={vulnerability.cvss_score} /></td>
-                            <td className='only-desktop'>
-                                <VulnerabilityCategorySpan name={vulnerability.category_name} parentName={vulnerability.parent_category_name} />
-                            </td>
-                            <td className='flex justify-end'>
-                                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                                    <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
-                                    {reloadCallback &&
-                                        <DeleteIconButton onClick={() => deleteVulnerability(vulnerability.id)} />
-                                    }
-                                </RestrictedComponent>
-                            </td>
-                        </tr>
-                    )
+                    return <Tr key={index}>
+                        {showSelection &&
+                            <Td>
+                                <Checkbox
+                                    value={vulnerability.id}
+                                    onChange={onSelectionChange}
+                                    isChecked={selection.includes(vulnerability.id)}
+                                />
+                            </Td>
+                        }
+                        <Td>
+                            <Stack>
+                                <VulnerabilityBadge vulnerability={vulnerability} />
+                                <div><Tags values={vulnerability.tags} /></div>
+                            </Stack>
+                        </Td>
+                        <Td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</Td>
+                        <Td><VulnerabilityStatusBadge vulnerability={vulnerability} /></Td>
+                        <Td><RiskBadge risk={vulnerability.risk} /></Td>
+                        <Td><CvssScore score={vulnerability.cvss_score} /></Td>
+                        <Td className='only-desktop'>
+                            <VulnerabilityCategorySpan name={vulnerability.category_name} parentName={vulnerability.parent_category_name} />
+                        </Td>
+                        <Td className='flex justify-end'>
+                            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                                <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
+                                {reloadCallback &&
+                                    <DeleteIconButton onClick={() => deleteVulnerability(vulnerability.id)} />
+                                }
+                            </RestrictedComponent>
+                        </Td>
+                    </Tr>
                 })}
-        </tbody>
-    </table>
+        </Tbody>
+    </Table>
 }
 
 export default VulnerabilitiesTable;

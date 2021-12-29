@@ -3,7 +3,7 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import theme from 'styles/theme';
+import ReconmapTheme from 'theme/index';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './styles/main.scss';
@@ -12,7 +12,7 @@ TimeAgo.addDefaultLocale(en);
 
 ReactDOM.render(
     <React.StrictMode>
-        <ChakraProvider theme={theme}>
+        <ChakraProvider theme={ReconmapTheme}>
             <App />
         </ChakraProvider>
     </React.StrictMode >, document.getElementById('root'));
