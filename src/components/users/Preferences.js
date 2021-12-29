@@ -1,4 +1,4 @@
-import { Select } from '@chakra-ui/react';
+import { Select, useColorMode } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import CountriesTimezones from 'countries-and-timezones';
 import React, { useContext, useState } from 'react';
@@ -19,11 +19,15 @@ const UserPreferences = () => {
     const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
     const [timezone, setTimezone] = useState(user.timezone);
-    const { theme, setTheme } = useContext(ThemeContext)
+
+    const { setTheme } = useContext(ThemeContext)
+
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const handleSwitchTheme = () => {
         setTheme(theme => {
-            setThemeColors(theme)
+            setThemeColors(theme);
+            toggleColorMode();
             return (theme === 'light') ? 'dark' : 'light'
         })
     }
@@ -64,7 +68,7 @@ const UserPreferences = () => {
                 </label>
                 <label>Theme
                     <SecondaryButton onClick={handleSwitchTheme}>
-                        {theme === 'dark' ?
+                        {colorMode === 'dark' ?
                             <><IconDark /> Dark</> : <><IconLight /> Light</>
                         }
                     </SecondaryButton>

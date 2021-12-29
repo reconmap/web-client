@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
-import SecondaryButton from '../ui/buttons/Secondary';
-import { IconEye, IconSave } from '../ui/Icons';
+import ExportButton from '../ui/buttons/Export';
+import { IconEye } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import NoResults from '../ui/NoResults';
 import Title from '../ui/Title';
@@ -65,21 +65,19 @@ const AuditLogList = () => {
             })
     }
 
-    return (
-        <>
-            <PageTitle value={`Audit log - Page ${pageNumber}`} />
-            <div className='heading'>
-                <Breadcrumb>
-                    <div>System</div>
-                </Breadcrumb>
-                <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
-                <SecondaryButton onClick={handleExport}><IconSave /> Export</SecondaryButton>
-            </div>
-            <Title type="System" title='Audit Log' icon={<IconEye />} />
-            {!auditLog ? <Loading /> : auditLog.length === 0 ? <NoResults /> :
-                <AuditLogsTable auditLog={auditLog} />}
-        </>
-    )
+    return <>
+        <PageTitle value={`Audit log - Page ${pageNumber}`} />
+        <div className='heading'>
+            <Breadcrumb>
+                <div>System</div>
+            </Breadcrumb>
+            <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
+            <ExportButton onClick={handleExport} />
+        </div>
+        <Title type="System" title='Audit Log' icon={<IconEye />} />
+        {!auditLog ? <Loading /> : auditLog.length === 0 ? <NoResults /> :
+            <AuditLogsTable auditLog={auditLog} />}
+    </>
 }
 
 export default AuditLogList;

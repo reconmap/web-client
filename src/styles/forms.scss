@@ -6,9 +6,7 @@ form {
     }
 
     label,
-    input:not([type="checkbox"]),
-    select,
-    button {
+    input:not([type="checkbox"]) {
         margin: var(--margin) auto;
         width: 100%;
     }
@@ -41,57 +39,13 @@ textarea {
     height: 150px;
 }
 
-button:disabled {
-    opacity: 0.5;
-}
-
-button {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    &[title]:hover:after {
-        content : attr(title);
-        position: absolute;
-        display: block;
-        padding: var(--space-sm);
-        font-size: var(--fontSizeXsmall);
-        opacity: .8;
-        top: 130%;
-        left : -35%;
-        right: -35%;
-        margin:auto;
-        background-color: var(--black);
-        border-radius: var(--borderRadius);
-        color : var(--text-color);
-    }
-}
-
 input::placeholder {
     color: var(--text-color);
 }
 
 input:not([type="checkbox"]):not([type="button"]),
-select,
 textarea {
-    color: var(--white);
     padding: var(--paddingBox);
-    border-width: var(--borderWidth);
-    border-color: transparent;
     background-color: var(--black);
-    border-radius: var(--borderRadius);
-    transition: var(--transitionTime);
-    font-size: var(--fontSizeSmall);
-    outline: transparent;
-}
-
-button.reconmapbutton {
-    color: var(--white);
-    padding: var(--paddingBox);
-    border-width: var(--borderWidth);
-    border-color: transparent;
-    background-color: var(--black);
-    border-radius: var(--borderRadius);
-    transition: var(--transitionTime);
     font-size: var(--fontSizeSmall);
 }

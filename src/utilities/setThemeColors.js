@@ -4,7 +4,7 @@ const setThemeColors = (theme) => {
     if (theme === 'light') {
         style.setProperty('--black', `var(--color-gray-lightest)`)
         style.setProperty('--bg-color', `#fff`)
-        style.setProperty('--text-color', `var(--color-gray)`)
+        style.setProperty('--text-color', `var(--color-black)`)
         style.setProperty('--white', `var(--color-black)`)
     } else {
         style.setProperty('--black', `var(--color-black)`)
@@ -14,4 +14,4 @@ const setThemeColors = (theme) => {
     }
 }
 
-export default setThemeColors
+export default setThemeColors;

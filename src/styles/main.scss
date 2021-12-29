@@ -2,7 +2,6 @@
 @import "forms";
 
 :root {
-
     --tablet : 600px;
     --desktop: 1200px;
 
@@ -148,6 +147,7 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 ::-moz-selection {
     color: var(--primary-color);
     background-color: var(--black);
@@ -179,6 +179,7 @@ strong {
 
 main {
     padding-top: 72px;
+    background-color: var(--bg-color);
     display: grid!important;
     transition: grid-template-columns 0.2s;
     grid-template-columns: var(--sidebarWidth) 1fr;
@@ -252,7 +253,6 @@ h5,
 h6 {
     color: var(--white);
     font-weight: 500;
-    button,
     div {
         margin-left: auto;
     }
@@ -270,10 +270,6 @@ h6 {
 
     label {
         margin-right: calc(var(--padding) / 2);
-    }
-
-    select {
-        max-width: 200px;
     }
 }
 
@@ -297,7 +293,6 @@ section {
 
 a,
 span,
-button,
 input,
 figure,
 h2,
@@ -312,22 +307,7 @@ h4 {
 }
 
 figure svg { margin: 0; }
-
-.breadcrumb {
-    color: var(--white);
-    padding: var(--paddingBox);
-    border-width: var(--borderWidth);
-    border-color: transparent;
-    background-color: var(--black);
-    border-radius: var(--borderRadius);
-    transition: var(--transitionTime);
-    font-size: var(--fontSizeSmall);
-    outline: transparent;
-
-    &:hover {
-        box-shadow: 0 0 0 var(--borderWidth) var(--primary-color);
-    }
-}
+svg { margin: 0; max-width:24px; }
 
 dt {
     font-weight: bold;
@@ -377,8 +357,4 @@ dl {
 table {
     table-layout: fixed;
     width: 100%;
-
-    th {
-        border-bottom: var(--borderWidth) solid var(--black);
-    }
 }

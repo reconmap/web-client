@@ -30,9 +30,9 @@ const Pagination = ({ page, total, handleNext, handlePrev }) => {
     }, [onKeyDownListener]);
 
     return <div className='pagination'>
-        <SecondaryButton tooltip='Previous [P]' disabled={!previousEnabled} onClick={handlePrev}><IconLeft /></SecondaryButton>
+        <SecondaryButton tooltip='Previous [P]' disabled={!previousEnabled} onClick={handlePrev}><IconLeft styling={{ width: 24 }} /></SecondaryButton>
         <label>{page + 1} <span className='opacity-25'>|</span> {total} </label>
-        <SecondaryButton tooltip='Next [N]' disabled={!nextEnabled} onClick={handleNext}><IconRight /></SecondaryButton>
+        <SecondaryButton tooltip='Next [N]' disabled={!nextEnabled} onClick={handleNext}><IconRight styling={{ width: 24 }} /></SecondaryButton>
     </div>
 }
 

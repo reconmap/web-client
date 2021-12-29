@@ -1,33 +1,24 @@
+import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const PrimaryButton = ({
     type,
     onClick,
     children,
-    color = 'primary-color',
-    fontSize = 'fontSizeSmall',
     disabled = false,
     to,
-    external = false
+    external = false,
+    ...props
 }) => {
     const navigate = useNavigate();
     const handleOpen = () => {
         external ? window.open(to, '_blank') : navigate(to)
     }
-    const styles = {
-        button: {
-            display: 'inline-flex',
-            alignItems: 'center',
-            backgroundColor: `var(--${color})`,
-            color: `var(--white)`,
-            fontSize: `var(--${fontSize})`
-        }
-    }
 
     return (
-        <button className="reconmapbutton" type={type ? type : "button"} onClick={onClick || handleOpen} disabled={disabled} style={styles.button}>
+        <Button {...props} type={type ? type : "button"} onClick={onClick || handleOpen} isDisabled={disabled}>
             {children}
-        </button>
+        </Button>
     )
 }
 
