@@ -28,7 +28,7 @@ const UserPreferences = () => {
         setTheme(theme => {
             setThemeColors(theme);
             toggleColorMode();
-            return (theme === 'light') ? 'dark' : 'light'
+            return (colorMode === 'dark') ? 'light' : 'dark'
         })
     }
 
@@ -51,33 +51,31 @@ const UserPreferences = () => {
             .catch(err => console.error(err))
     }
 
-    return (
-        <>
-            <PageTitle value="Preferences" />
-            <div className='heading'>
-                <Breadcrumb />
-            </div>
-            <Title type='User' title='Preferences' icon={<IconPreferences />} />
-            <form onSubmit={onFormSubmit} required>
-                <label>Timezone
-                    <Select onChange={handleChange} defaultValue={user.timezone}>
-                        {timezoneKeys.map((key, index) =>
-                            <option key={index} value={timezones[key].name}>{timezones[key].name}</option>
-                        )}
-                    </Select>
-                </label>
-                <label>Theme
-                    <SecondaryButton onClick={handleSwitchTheme}>
-                        {colorMode === 'dark' ?
-                            <><IconDark /> Dark</> : <><IconLight /> Light</>
-                        }
-                    </SecondaryButton>
+    return <>
+        <PageTitle value="Preferences" />
+        <div className='heading'>
+            <Breadcrumb />
+        </div>
+        <Title type='User' title='Preferences' icon={<IconPreferences />} />
+        <form onSubmit={onFormSubmit} required>
+            <label>Timezone
+                <Select onChange={handleChange} defaultValue={user.timezone}>
+                    {timezoneKeys.map((key, index) =>
+                        <option key={index} value={timezones[key].name}>{timezones[key].name}</option>
+                    )}
+                </Select>
+            </label>
+            <label>Theme
+                <SecondaryButton onClick={handleSwitchTheme}>
+                    {colorMode === 'dark' ?
+                        <><IconDark /> Dark</> : <><IconLight /> Light</>
+                    }
+                </SecondaryButton>
 
-                </label>
-                <Primary type="submit"><IconSave /> Save</Primary>
-            </form>
-        </>
-    )
+            </label>
+            <Primary type="submit"><IconSave /> Save</Primary>
+        </form>
+    </>
 }
 
 export default UserPreferences;

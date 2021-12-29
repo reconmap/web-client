@@ -1,3 +1,4 @@
+import { Table, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
@@ -38,35 +39,35 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
         navigate(`/projects/${projectId}/report/send`);
     }
 
-    return <table>
-        <thead>
-            <tr>
-                <th>Name (Description)</th>
-                {includeProjectColumn && <th>Project</th>}
-                <th>Datetime</th>
-                <th>Downloads</th>
-                <th>&nbsp;</th>
-            </tr>
+    return <Table>
+        <Thead>
+            <Tr>
+                <Th>Name (Description)</Th>
+                {includeProjectColumn && <Th>Project</Th>}
+                <Th>Datetime</Th>
+                <Th>Downloads</Th>
+                <Th>&nbsp;</Th>
+            </Tr>
             {reports.length === 0 && <NoResultsTableRow numColumns={4} />}
             {reports.map((report, index) =>
-                <tr key={index}>
-                    <td>{report.version_name} ({report.version_description})</td>
-                    {includeProjectColumn && <td><ProjectBadge project={{ id: report.project_id, name: report.project_name }} /></td>}
-                    <td><RelativeDateFormatter date={report.insert_ts} /></td>
-                    <td>
+                <Tr key={index}>
+                    <Td>{report.version_name} ({report.version_description})</Td>
+                    {includeProjectColumn && <Td><ProjectBadge project={{ id: report.project_id, name: report.project_name }} /></Td>}
+                    <Td><RelativeDateFormatter date={report.insert_ts} /></Td>
+                    <Td>
                         <SecondaryButton onClick={() => handleDownload(report.docx_attachment_id)}>
                             <IconDocument /> DOCX
                         </SecondaryButton>
-                    </td>
-                    <td className="flex justify-end">
+                    </Td>
+                    <Td className="flex justify-end">
                         <SecondaryButton onClick={() => handleSendByEmail(report.project_id)}>Send by email</SecondaryButton>
 
                         <DeleteIconButton onClick={() => deleteReport(report.id)} />
-                    </td>
-                </tr>
+                    </Td>
+                </Tr>
             )}
-        </thead>
-    </table>
+        </Thead>
+    </Table>
 }
 
 ReportsTable.propTypes = {

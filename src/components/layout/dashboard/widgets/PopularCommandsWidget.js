@@ -1,3 +1,4 @@
+import { Th } from "@chakra-ui/react";
 import CommandBadge from "components/commands/Badge";
 import useFetch from "hooks/useFetch";
 
@@ -11,8 +12,8 @@ const PopularCommandsWidget = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>Short name</th>
-                        <th>Description</th>
+                        <Th>Short name</Th>
+                        <Th>Description</Th>
                     </tr>
                 </thead>
                 <tbody>

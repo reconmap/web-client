@@ -5,7 +5,7 @@
     --tablet : 600px;
     --desktop: 1200px;
 
-    --base-hue: 336; //190
+    --base-hue: 336;
     --saturation: 50%;
     --value: 55%;
     --tint: 2%;
@@ -48,7 +48,6 @@
     --color-gray-light: #748094;
     --color-gray-lightest: hsl(240, 1%, 94%);
 
-    --color-white: #fff;
     --alpha: 0.7;
 
     --primary-color: #e56e6a;
@@ -66,43 +65,6 @@
     --purple: var(--fourth-color);
     --gray: var(--text-color);
 
-    --orangeDark: hsla(
-        calc(var(--base-hue) + var(--distance-analog)),
-        var(--saturation),
-        var(--value),
-        0.45
-    );
-
-    --redDark: hsla(
-        calc(var(--base-hue) + var(--distance-analog)),
-        var(--saturation),
-        var(--value),
-        0.25
-    );
-    --greenDark: hsla(
-        calc(var(--base-hue) + var(--distance-complementary)),
-        var(--saturation),
-        var(--value),
-        0.25
-    );
-    --blueDark: hsla(
-        calc(var(--base-hue) + var(--distance-secondary)),
-        var(--saturation),
-        var(--value),
-        0.25
-    );
-    --yellowDark: hsla(
-        calc(var(--base-hue) + var(--distance-third)),
-        var(--saturation),
-        var(--value),
-        0.25
-    );
-    --purpleDark: hsla(
-        calc(var(--base-hue) + var(--distance-fourth)),
-        var(--saturation),
-        var(--value),
-        0.25
-    );
     --text-colorDark: hsla(var(--base-hue), 3%, 50%, 0.25);
 
     //spacing
@@ -356,5 +318,4 @@ dl {
 
 table {
     table-layout: fixed;
-    width: 100%;
 }

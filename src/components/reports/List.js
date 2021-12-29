@@ -24,18 +24,16 @@ const ReportsList = () => {
         reloadReports()
     }, [reloadReports])
 
-    return (
-        <>
-            <PageTitle value={`Reports`} />
-            <div className='heading'>
-                <Breadcrumb />
-            </div>
-            <Title title='Reports' icon={<IconFlag />} />
-            {!reports ? <Loading /> :
-                <ReportsTable reports={reports} updateReports={reloadReports} includeProjectColumn={true} />
-            }
-        </>
-    )
+    return <>
+        <PageTitle value={`Reports`} />
+        <div className='heading'>
+            <Breadcrumb />
+        </div>
+        <Title title='Reports' icon={<IconFlag />} />
+        {!reports ? <Loading /> :
+            <ReportsTable reports={reports} updateReports={reloadReports} includeProjectColumn={true} />
+        }
+    </>
 }
 
 export default ReportsList;

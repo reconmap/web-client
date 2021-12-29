@@ -1,4 +1,4 @@
-import { ButtonGroup } from "@chakra-ui/react";
+import { ButtonGroup, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
@@ -66,91 +66,89 @@ const UsersList = () => {
         updateUsers();
     };
 
-    return (
-        <>
-            <PageTitle value="Users" />
-            <div className="heading">
-                <Breadcrumb />
-                <ButtonGroup>
-                    <CreateButton onClick={handleCreate}>
-                        Create User
-                    </CreateButton>
-                    <RestrictedComponent roles={['administrator']}>
-                        <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>
-                            Delete selected
-                        </DeleteButton>
-                    </RestrictedComponent>
-                </ButtonGroup>
-            </div>
-            <Title title="Users and Permissions" icon={<IconUserGroup />} />
-            {!users ? (
-                <Loading />
-            ) : users.length === 0 ? (
-                <NoResults />
-            ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th style={{ width: "32px" }}>&nbsp;</th>
-                            <th style={{ width: "64px" }}>&nbsp;</th>
-                            <th>Full name</th>
-                            <th>Username</th>
-                            <th>Role</th>
-                            <th>Active?</th>
-                            <th>2FA enabled?</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map((user, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <input
-                                        type="checkbox"
-                                        value={user.id}
-                                        onChange={onTaskCheckboxChange}
-                                        checked={selectedUsers.includes(user.id)}
-                                    />
-                                </td>
-                                <td>
-                                    <UserAvatar email={user.email} />
-                                </td>
-                                <td>
-                                    <Link to={`/users/${user.id}`}>
-                                        {user.full_name}
-                                    </Link>
-                                </td>
-                                <td>
-                                    <UserLink userId={user.id}>
-                                        {user.username}
-                                    </UserLink>
-                                </td>
-                                <td>
-                                    <UserRoleBadge role={user.role} />
-                                </td>
-                                <td><BooleanText value={user.active} /></td>
-                                <td><BooleanText value={user.mfa_enabled} /></td>
-                                <td className='flex justify-end'>
-                                    <LinkButton href={`/users/${user.id}/edit`}>
-                                        Edit
-                                    </LinkButton>
-                                    <DeleteIconButton
-                                        onClick={() => handleDelete(user.id)}
-                                        disabled={
-                                            parseInt(user.id) ===
-                                                loggedInUser.id
-                                                ? "disabled"
-                                                : ""
-                                        }
-                                    />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
-        </>
-    );
+    return <>
+        <PageTitle value="Users" />
+        <div className="heading">
+            <Breadcrumb />
+            <ButtonGroup>
+                <CreateButton onClick={handleCreate}>
+                    Create User
+                </CreateButton>
+                <RestrictedComponent roles={['administrator']}>
+                    <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>
+                        Delete selected
+                    </DeleteButton>
+                </RestrictedComponent>
+            </ButtonGroup>
+        </div>
+        <Title title="Users and Permissions" icon={<IconUserGroup />} />
+        {!users ? (
+            <Loading />
+        ) : users.length === 0 ? (
+            <NoResults />
+        ) : (
+            <Table>
+                <Thead>
+                    <Tr>
+                        <Th style={{ width: "32px" }}>&nbsp;</Th>
+                        <Th style={{ width: "64px" }}>&nbsp;</Th>
+                        <Th>Full name</Th>
+                        <Th>Username</Th>
+                        <Th>Role</Th>
+                        <Th>Active?</Th>
+                        <Th>2FA enabled?</Th>
+                        <Th>&nbsp;</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {users.map((user, index) => (
+                        <Tr key={index}>
+                            <Td>
+                                <input
+                                    type="checkbox"
+                                    value={user.id}
+                                    onChange={onTaskCheckboxChange}
+                                    checked={selectedUsers.includes(user.id)}
+                                />
+                            </Td>
+                            <Td>
+                                <UserAvatar email={user.email} />
+                            </Td>
+                            <Td>
+                                <Link to={`/users/${user.id}`}>
+                                    {user.full_name}
+                                </Link>
+                            </Td>
+                            <Td>
+                                <UserLink userId={user.id}>
+                                    {user.username}
+                                </UserLink>
+                            </Td>
+                            <Td>
+                                <UserRoleBadge role={user.role} />
+                            </Td>
+                            <Td><BooleanText value={user.active} /></Td>
+                            <Td><BooleanText value={user.mfa_enabled} /></Td>
+                            <Td className='flex justify-end'>
+                                <LinkButton href={`/users/${user.id}/edit`}>
+                                    Edit
+                                </LinkButton>
+                                <DeleteIconButton
+                                    onClick={() => handleDelete(user.id)}
+                                    disabled={
+                                        parseInt(user.id) ===
+                                            loggedInUser.id
+                                            ? "disabled"
+                                            : ""
+                                    }
+                                />
+                            </Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        )}
+    </>
 };
 
 export default UsersList;

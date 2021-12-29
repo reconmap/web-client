@@ -71,7 +71,7 @@ aside.sidebar {
       transition: transform .1s;
     }
     &:hover, &.active {
-      color: var(--white);
+      color: var(--text-color);
       border-left: var(--borderWidth) solid var(--primary-color);
     }
 

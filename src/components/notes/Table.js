@@ -1,3 +1,4 @@
+import { Th } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import VisibilityLegend from "components/ui/VisibilityLegend";
@@ -11,11 +12,11 @@ const NotesTable = ({ notes, onDeleteButtonClick }) => {
     return <table>
         <thead>
             <tr>
-                <th>Content</th>
-                <th style={{ width: '200px' }}>Creation time</th>
-                <th style={{ width: '140px' }}>Author</th>
-                <th style={{ width: '140px' }}>Visibility</th>
-                <th>&nbsp;</th>
+                <Th>Content</Th>
+                <Th style={{ width: '200px' }}>Creation time</Th>
+                <Th style={{ width: '140px' }}>Author</Th>
+                <Th style={{ width: '140px' }}>Visibility</Th>
+                <Th>&nbsp;</Th>
             </tr>
         </thead>
         <tbody>
