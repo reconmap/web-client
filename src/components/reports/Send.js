@@ -1,4 +1,4 @@
-import { Select } from '@chakra-ui/react';
+import { FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import useFetch from 'hooks/useFetch';
@@ -48,39 +48,42 @@ const SendReport = () => {
 
     if (!project) return <Loading />
 
-    return (
-        <div>
-            <PageTitle value="Send report" />
-            <div className='heading'>
-                <Breadcrumb>
-                    <Link to="/projects">Projects</Link>
-                    {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
-                    {project && <Link to={`/projects/${project.id}/report`}>Report</Link>}
-                </Breadcrumb>
-            </div>
-            <form onSubmit={handleSend}>
-                <Title title='Send report' />
-                <label>Revision
-                    {revisions && <Select name="report_id" onChange={handleFormChange}>
-                        {revisions.map((revision) => <option value={revision.id}>{revision.version_name}</option>)}
-                    </Select>}
-                </label>
-                <label>Recipients (comma separated)
-                    <input type="text" name="recipients" onChange={handleFormChange} required autoFocus
-                        placeholder="foo@bar.sec" />
-                </label>
-                <label>Subject
-                    <input type="text" name="subject" onChange={handleFormChange}
-                        value={deliverySettings.subject} />
-                </label>
-                <label>Body
-                    <textarea name="body" onChange={handleFormChange} required
-                        value={deliverySettings.body} />
-                </label>
-                <PrimaryButton type="submit">Send</PrimaryButton>
-            </form>
+    return <div>
+        <PageTitle value="Send report" />
+        <div className='heading'>
+            <Breadcrumb>
+                <Link to="/projects">Projects</Link>
+                {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
+                {project && <Link to={`/projects/${project.id}/report`}>Report</Link>}
+            </Breadcrumb>
         </div>
-    )
+        <form onSubmit={handleSend}>
+            <Title title='Send report' />
+            <FormControl isRequired>
+                <FormLabel for="reportId">Revision</FormLabel>
+                <Select id="reportId" name="report_id" onChange={handleFormChange}>
+                    {revisions && revisions.map(revision => <option value={revision.id}>{revision.version_name}</option>)}
+                </Select>
+            </FormControl>
+            <FormControl isRequired>
+                <FormLabel>Recipients</FormLabel>
+                <Input type="text" name="recipients" onChange={handleFormChange} autoFocus
+                    placeholder="foo@bar.sec" />
+                <FormHelperText>Comma separated list of email addresses.</FormHelperText>
+            </FormControl>
+            <FormControl isRequired>
+                <FormLabel>Subject</FormLabel>
+                <Input type="text" name="subject" onChange={handleFormChange}
+                    value={deliverySettings.subject} />
+            </FormControl>
+            <FormControl isRequired>
+                <FormLabel>Body</FormLabel>
+                <Textarea name="body" onChange={handleFormChange} value={deliverySettings.body} />
+            </FormControl>
+
+            <PrimaryButton type="submit">Send</PrimaryButton>
+        </form>
+    </div>
 }
 
 export default SendReport;

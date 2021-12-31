@@ -81,7 +81,7 @@ const ProjectTargets = ({ project }) => {
                 {numberPages > 1 && <Center>
                     <Pagination page={pageNumber - 1} total={numberPages} handlePrev={onPrevPageClick} handleNext={onNextPageClick} />
                 </Center>}
-                <Table size="sm">
+                <Table>
                     <Thead>
                         <Tr>
                             <Th>Name</Th>

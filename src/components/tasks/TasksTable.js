@@ -13,6 +13,7 @@ import TaskStatusFormatter from "./TaskStatusFormatter";
 const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project: '', status: '' }, destroy, showProjectColumn = true }) => {
 
     const showSelection = selectedTasks !== undefined;
+    const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
 
     const onSelectionChange = ev => {
         const target = ev.target;
@@ -24,7 +25,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
         }
     };
 
-    return <Table size="sm">
+    return <Table>
         <Thead>
             <Tr>
                 {showSelection && <Th style={{ width: "32px" }}>&nbsp;</Th>}
@@ -40,7 +41,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
         <Tbody>
             {tasks.length === 0 ?
                 <Tr>
-                    <Td colSpan={7}><NoResults /></Td>
+                    <Td colSpan={numColumns}><NoResults /></Td>
                 </Tr> :
                 tasks
                     .filter(task => task.project_id.toString().includes(filter.project))

@@ -10,7 +10,7 @@ const RecentActivityWidget = () => {
         <h4>Recent activity</h4>
 
         {auditLog && auditLog.length > 0 ?
-            <Table size="sm">
+            <Table>
                 <Thead>
                     <Tr>
                         <Th>Action</Th>

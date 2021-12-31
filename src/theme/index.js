@@ -3,7 +3,7 @@ import { mode } from '@chakra-ui/theme-tools';
 
 const ReconmapTheme = extendTheme({
     styles: {
-        global: (props) => ({
+        global: props => ({
             body: {
                 fontFamily: 'body',
                 color: mode('gray.800', 'whiteAlpha.900')(props),
@@ -25,8 +25,13 @@ const ReconmapTheme = extendTheme({
             }
         }),
     },
-    defaultProps: {
-        size: "sm",
+    components: {
+        Table: {
+            defaultProps: {
+                size: "sm",
+                variant: "simple"
+            },
+        }
     },
     config: {
         useSystemColorMode: false,

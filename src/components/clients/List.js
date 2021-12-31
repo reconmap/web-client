@@ -36,7 +36,7 @@ const ClientsList = () => {
 
         {!clients ?
             <Loading /> :
-            <Table size="sm">
+            <Table>
                 <Thead>
                     <Tr>
                         <Th>Name</Th>

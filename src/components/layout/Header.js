@@ -22,7 +22,7 @@ const Header = () => {
                     <Link to='/' style={{ cursor: 'pointer' }} className='logo'>
                         <h3>
                             <img alt='logo' src={path.join(Configuration.getContextPath(), 'logo.svg')} />
-                            <strong style={{ color: 'var(--white)' }} className='from-tablet'>
+                            <strong style={{ color: 'var(--text-color)' }} className='from-tablet'>
                                 Recon<span style={{ color: 'var(--primary-color)' }}>map</span>
                             </strong>
                         </h3>

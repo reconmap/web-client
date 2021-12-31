@@ -15,7 +15,7 @@ const RecentDocumentsWidget = () => {
         {documents.length === 0 ?
             <p>No documents to show.</p>
             :
-            <Table size="sm">
+            <Table>
                 <Thead>
                     <Tr>
                         <Th>Title</Th>

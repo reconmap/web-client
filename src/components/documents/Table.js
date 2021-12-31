@@ -8,7 +8,7 @@ import NoResultsTableRow from "../ui/NoResultsTableRow";
 import DocumentBadge from "./Badge";
 
 const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
-    return <Table size="sm">
+    return <Table>
         <Thead>
             <Tr>
                 <Th>Title</Th>

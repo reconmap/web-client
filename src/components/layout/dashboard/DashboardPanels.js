@@ -1,45 +1,66 @@
-import { Checkbox, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Button, Checkbox, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import Loading from 'components/ui/Loading';
+import { actionCompletedToast } from 'components/ui/toast';
 import Widgets from 'models/Widgets';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import secureApiFetch from 'services/api';
+import Auth from 'services/auth';
+import { initialiseUserPreferences } from 'services/userPreferences';
 import widgetIsVisible from 'services/widgets';
 import { IconChartBar } from "../../ui/Icons";
 import Title from "../../ui/Title";
 import WelcomeWidget from './widgets/WelcomeWidget';
 
-const DashboardPanels = () => {
-    const [dashboardConfig, setDashboardConfig] = useState(null);
+const InitialiseWidgetConfig = () => {
+    return Object.keys(Widgets).reduce((acc, key) => {
+        acc[key] = { visible: true };
+        return acc;
+    }, {});
+}
 
-    const onWidgetChange = (ev) => {
-        const dashboardConfigCopy = dashboardConfig;
-        dashboardConfigCopy[ev.target.name] = { visible: ev.target.checked };
-
-        localStorage.setItem('widget-config', JSON.stringify(dashboardConfigCopy));
-
-        setDashboardConfig({ ...dashboardConfig, [ev.target.name]: { ...dashboardConfig[ev.target.name], visible: ev.target.checked } });
-    }
-
-    useEffect(() => {
-        const localStorageConfig = localStorage.getItem('widget-config');
-        let memoryConfig;
-        if (localStorageConfig === null || localStorageConfig === undefined) {
-            memoryConfig = Object.keys(Widgets).reduce((acc, key) => {
-                acc[key] = { visible: true };
-                return acc;
-            }, {});
-        } else {
-            memoryConfig = JSON.parse(localStorageConfig);
-        }
-        setDashboardConfig(memoryConfig)
-    }, []);
-
-    const visibleWidgets = Object.keys(Widgets).map(widgetKey => {
+const filterWidgets = user => {
+    return Object.keys(Widgets).map(widgetKey => {
         const widget = Widgets[widgetKey];
-        if (widgetIsVisible(widgetKey)) {
+        if (widgetIsVisible(user.preferences['web-client.widgets'], widgetKey)) {
             return React.cloneElement(widget.component, { key: widgetKey });
         }
         return null;
-    }).filter(widget => widget !== null);
+    }).filter(widget => widget !== null)
+}
+
+const DashboardPanels = () => {
+    const user = Auth.getLoggedInUser();
+    user.preferences = initialiseUserPreferences(user);
+    const [dashboardConfig, setDashboardConfig] = useState(user?.preferences?.['web-client.widgets'] || InitialiseWidgetConfig());
+    const [visibleWidgets, setVisibleWidgets] = useState(filterWidgets(user));
+
+    const onWidgetChange = (ev) => {
+        //const dashboardConfigCopy = dashboardConfig;
+        //dashboardConfigCopy[ev.target.name] = { visible: ev.target.checked };
+
+        setDashboardConfig(prev => ({ ...prev, [ev.target.name]: { ...prev[ev.target.name], visible: ev.target.checked } }));
+    }
+
+    const onSave = () => {
+        const user = Auth.getLoggedInUser();
+        user.preferences = initialiseUserPreferences(user);
+
+        user.preferences['web-client.widgets'] = dashboardConfig;
+
+        secureApiFetch(`/users/${user.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ preferences: user.preferences })
+        })
+            .then(() => {
+                localStorage.setItem('user', JSON.stringify(user));
+
+                setVisibleWidgets(filterWidgets(user));
+
+                actionCompletedToast("Your preferences have been saved.");
+            })
+            .catch(err => console.error(err));
+
+    }
 
     if (dashboardConfig === null) return <Loading />
 
@@ -64,6 +85,8 @@ const DashboardPanels = () => {
                             return <Checkbox key={widgetKey} name={widgetKey} isChecked={dashboardConfig.hasOwnProperty(widgetKey) && dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{Widgets[widgetKey].title}. <em>{Widgets[widgetKey].description}</em></Checkbox>
                         })}
                     </Stack>
+
+                    <Button onClick={onSave}>Save</Button>
                 </TabPanel>
             </TabPanels>
         </Tabs>

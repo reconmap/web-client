@@ -6,7 +6,7 @@ import Tags from "components/ui/Tags";
 import CommandBadge from "./Badge";
 
 const CommandsTable = ({ commands, onDeleteCallback = null }) => {
-    return <Table size="sm">
+    return <Table>
         <Thead>
             <Tr>
                 <Th style={{ width: '190px' }}>Name</Th>

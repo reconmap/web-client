@@ -1,8 +1,7 @@
 
 const Auth = {
     removeSession: () => {
-        localStorage.removeItem('isAuth');
-        localStorage.removeItem('user');
+        localStorage.clear();
     },
 
     getLoggedInUser: () => {

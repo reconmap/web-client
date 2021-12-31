@@ -1,4 +1,4 @@
-import { Table, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
@@ -48,6 +48,8 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                 <Th>Downloads</Th>
                 <Th>&nbsp;</Th>
             </Tr>
+        </Thead>
+        <Tbody>
             {reports.length === 0 && <NoResultsTableRow numColumns={4} />}
             {reports.map((report, index) =>
                 <Tr key={index}>
@@ -66,7 +68,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                     </Td>
                 </Tr>
             )}
-        </Thead>
+        </Tbody>
     </Table>
 }
 

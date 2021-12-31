@@ -1,54 +1,62 @@
-import { Select, useColorMode } from '@chakra-ui/react';
+import { FormControl, FormLabel, Select, useColorMode } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
+import { actionCompletedToast } from 'components/ui/toast';
 import CountriesTimezones from 'countries-and-timezones';
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import Auth from 'services/auth';
+import { initialiseUserPreferences } from 'services/userPreferences';
 import ThemeContext from "../../contexts/ThemeContext";
 import secureApiFetch from '../../services/api';
 import setThemeColors from '../../utilities/setThemeColors';
 import Breadcrumb from '../ui/Breadcrumb';
 import Primary from '../ui/buttons/Primary';
-import SecondaryButton from "../ui/buttons/Secondary";
-import { IconDark, IconLight, IconPreferences, IconSave } from '../ui/Icons';
+import { IconPreferences } from '../ui/Icons';
 import Title from '../ui/Title';
 
 const UserPreferences = () => {
-    const navigate = useNavigate();
+
     const user = Auth.getLoggedInUser();
+    user.preferences = initialiseUserPreferences(user);
+
     const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
-    const [timezone, setTimezone] = useState(user.timezone);
+    const [timezone] = useState(user.timezone);
 
-    const { setTheme } = useContext(ThemeContext)
+    const { setTheme } = useContext(ThemeContext);
 
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { setColorMode } = useColorMode();
 
-    const handleSwitchTheme = () => {
-        setTheme(theme => {
-            setThemeColors(theme);
-            toggleColorMode();
-            return (colorMode === 'dark') ? 'light' : 'dark'
-        })
-    }
+    const [formValues, setFormValues] = useState({
+        timezone: user.timezone,
+        theme: user.preferences["web-client.theme"]
+    });
 
-    const handleChange = ev => {
-        setTimezone(ev.target.value);
+    const updateFormValues = ev => {
+        setFormValues({ ...formValues, [ev.target.name]: ev.target.value });
     }
 
     const onFormSubmit = ev => {
         ev.preventDefault();
 
+        user.timezone = timezone;
+        user.preferences = { ...initialiseUserPreferences(user), "web-client.theme": formValues.theme };
+
         secureApiFetch(`/users/${user.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({ timezone: timezone })
+            body: JSON.stringify({ timezone: formValues.timezone, preferences: user.preferences })
         })
             .then(() => {
-                user.timezone = timezone;
+                setTheme(theme => {
+                    setThemeColors(formValues.theme);
+                    setColorMode(formValues.theme);
+                    return formValues.theme;
+                });
+
                 localStorage.setItem('user', JSON.stringify(user));
-                navigate('/');
+
+                actionCompletedToast("Your preferences have been saved.");
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
     }
 
     return <>
@@ -57,23 +65,24 @@ const UserPreferences = () => {
             <Breadcrumb />
         </div>
         <Title type='User' title='Preferences' icon={<IconPreferences />} />
-        <form onSubmit={onFormSubmit} required>
-            <label>Timezone
-                <Select onChange={handleChange} defaultValue={user.timezone}>
+        <form onSubmit={onFormSubmit}>
+            <FormControl>
+                <FormLabel>Timezone</FormLabel>
+                <Select name="timezone" onChange={updateFormValues} defaultValue={user.timezone}>
                     {timezoneKeys.map((key, index) =>
                         <option key={index} value={timezones[key].name}>{timezones[key].name}</option>
                     )}
                 </Select>
-            </label>
-            <label>Theme
-                <SecondaryButton onClick={handleSwitchTheme}>
-                    {colorMode === 'dark' ?
-                        <><IconDark /> Dark</> : <><IconLight /> Light</>
-                    }
-                </SecondaryButton>
+            </FormControl>
+            <FormControl>
+                <FormLabel>Theme</FormLabel>
+                <Select name="theme" onChange={updateFormValues} defaultValue={formValues.theme || "dark"}>
+                    <option value="dark">Dark</option>
+                    <option value="light">Light</option>
+                </Select>
+            </FormControl>
 
-            </label>
-            <Primary type="submit"><IconSave /> Save</Primary>
+            <Primary type="submit">Save</Primary>
         </form>
     </>
 }

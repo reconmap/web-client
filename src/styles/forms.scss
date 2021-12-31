@@ -6,19 +6,16 @@ form {
     }
 
     label,
-    input:not([type="checkbox"]) {
+    input:not([type="checkbox"]),
+    select,
+    button {
         margin: var(--margin) auto;
         width: 100%;
     }
 }
 
-form input:required {
-    border: var(--borderWidth) solid var(--primary-color);
-}
-
-
 form legend {
-    color: var(--white);
+    color: var(--text-color);
 }
 
 form.crud fieldset legend {
@@ -45,6 +42,7 @@ input::placeholder {
 
 input:not([type="checkbox"]):not([type="button"]),
 textarea {
+    color: var(--text-color);
     padding: var(--paddingBox);
     background-color: var(--black);
     font-size: var(--fontSizeSmall);

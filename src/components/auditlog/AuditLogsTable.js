@@ -8,7 +8,8 @@ import UserLink from 'components/users/Link';
 
 const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
     const numColumns = hideUserColumns ? 4 : 6;
-    return <Table size="sm">
+
+    return <Table>
         <Thead>
             <Tr>
                 <Th>Event</Th>

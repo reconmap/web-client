@@ -7,7 +7,7 @@ import NoResults from "../ui/NoResults";
 import ProjectBadge from './ProjectBadge';
 
 const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) => {
-    return <Table size="sm">
+    return <Table>
         <Thead>
             <Tr>
                 <Th>Name</Th>

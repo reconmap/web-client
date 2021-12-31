@@ -1,11 +1,6 @@
 
-const widgetIsVisible = (widgetId) => {
-    const widgetConfigEncoded = localStorage.getItem('widget-config');
-    if (widgetConfigEncoded === undefined || widgetConfigEncoded === null) {
-        return true;
-    }
-
-    const widgetConfig = JSON.parse(widgetConfigEncoded);
+const widgetIsVisible = (widgetConfig, widgetId) => {
+    if (null === widgetConfig) { return true; }
     return widgetConfig.hasOwnProperty(widgetId) ? widgetConfig[widgetId].visible : true;
 }
 

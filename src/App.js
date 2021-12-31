@@ -2,6 +2,8 @@ import AuthLayout from 'components/auth/AuthLayout';
 import AuthRoutes from 'components/auth/Routes';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Auth from 'services/auth';
+import setThemeColors from 'utilities/setThemeColors';
 import AuditLogList from "./components/auditlog/List";
 import AuthRequired from './components/auth/AuthRequired';
 import ClientsRoutes from './components/clients/Routes';
@@ -27,57 +29,55 @@ import VulnerabilityTemplatesRoutes from './components/vulnerabilities/templates
 import Configuration from './Configuration';
 import { AuthProvider } from './contexts/AuthContext';
 import ThemeContext from './contexts/ThemeContext';
-import setThemeColors from './utilities/setThemeColors';
 
 const App = () => {
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
+    const user = Auth.getLoggedInUser();
+
+    const [theme, setTheme] = useState(user?.preferences?.['web-client.theme'] || 'dark');
 
     useEffect(() => {
-        localStorage.setItem('theme', theme)
         setThemeColors(theme)
     }, [theme])
 
-    return (
-        <BrowserRouter basename={Configuration.getContextPath()}>
-            <AuthProvider>
-                <ThemeContext.Provider value={{ theme, setTheme }}>
-                    <Routes>
-                        <Route element={<AuthLayout />}>
-                            {AuthRoutes.map((value, index) => React.cloneElement(value, { key: `auth_route_${index}` }))}
-                        </Route>
-                        <Route element={<AuthRequired><DashboardLayout /></AuthRequired>}>
-                            <Route path="/" element={<DashboardPanels />} index />
-                            {
-                                [
-                                    ...AuthRoutes,
-                                    ...ClientsRoutes,
-                                    ...CommandsRoutes,
-                                    ...DocumentsRoutes,
-                                    ...OrganisationRoutes,
-                                    ...ProjectTemplatesRoutes,
-                                    ...ProjectsRoutes,
-                                    ...ReportTemplatesRoutes,
-                                    ...ReportsRoutes,
-                                    ...SearchRoutes,
-                                    ...SupportRoutes,
-                                    ...SystemRoutes,
-                                    ...TargetRoutes,
-                                    ...TasksRoutes,
-                                    ...UsersRoutes,
-                                    ...VulnerabilitiesRoutes,
-                                    ...VulnerabilityCategoriesRoutes,
-                                    ...VulnerabilityTemplatesRoutes
-                                ]
-                                    .map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))
-                            }
-                            <Route path="/auditlog" element={<AuditLogList />} />
-                            <Route path="*" element={<PageNotFound />} />
-                        </Route>
-                    </Routes>
-                </ThemeContext.Provider>
-            </AuthProvider>
-        </BrowserRouter>
-    );
+    return <BrowserRouter basename={Configuration.getContextPath()}>
+        <AuthProvider>
+            <ThemeContext.Provider value={{ theme, setTheme }}>
+                <Routes>
+                    <Route element={<AuthLayout />}>
+                        {AuthRoutes.map((value, index) => React.cloneElement(value, { key: `auth_route_${index}` }))}
+                    </Route>
+                    <Route element={<AuthRequired><DashboardLayout /></AuthRequired>}>
+                        <Route path="/" element={<DashboardPanels />} index />
+                        {
+                            [
+                                ...AuthRoutes,
+                                ...ClientsRoutes,
+                                ...CommandsRoutes,
+                                ...DocumentsRoutes,
+                                ...OrganisationRoutes,
+                                ...ProjectTemplatesRoutes,
+                                ...ProjectsRoutes,
+                                ...ReportTemplatesRoutes,
+                                ...ReportsRoutes,
+                                ...SearchRoutes,
+                                ...SupportRoutes,
+                                ...SystemRoutes,
+                                ...TargetRoutes,
+                                ...TasksRoutes,
+                                ...UsersRoutes,
+                                ...VulnerabilitiesRoutes,
+                                ...VulnerabilityCategoriesRoutes,
+                                ...VulnerabilityTemplatesRoutes
+                            ]
+                                .map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))
+                        }
+                        <Route path="/auditlog" element={<AuditLogList />} />
+                        <Route path="*" element={<PageNotFound />} />
+                    </Route>
+                </Routes>
+            </ThemeContext.Provider>
+        </AuthProvider>
+    </BrowserRouter>
 };
 
 export default App;

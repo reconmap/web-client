@@ -53,61 +53,59 @@ const ProjectDetails = () => {
         return <Navigate to={`/projects/templates/${project.id}`} />
     }
 
-    return (
-        <>
-            <div className='heading'>
-                <Breadcrumb>
-                    <Link to="/projects">Projects</Link>
-                </Breadcrumb>
-                {project && <>
-                    <PageTitle value={`${project.name} project`} />
-                    <ProjectTeam project={project} users={users} />
+    return <>
+        <div className='heading'>
+            <Breadcrumb>
+                <Link to="/projects">Projects</Link>
+            </Breadcrumb>
+            {project && <>
+                <PageTitle value={`${project.name} project`} />
+                <ProjectTeam project={project} users={users} />
 
-                    <ButtonGroup>
-                        <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                            {!project.archived && <>
-                                <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
-                                <SecondaryButton onClick={handleGenerateReport}>
-                                    <IconClipboardCheck />
-                                    Generate Report
-                                </SecondaryButton>
-                                <SecondaryButton onClick={handleManageTeam}>
-                                    <IconUserGroup />
-                                    Manage Members
-                                </SecondaryButton>
-                            </>}
-                            <SecondaryButton onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</SecondaryButton>
-                            <DeleteButton onClick={() => destroy(project.id)} />
-                        </RestrictedComponent>
-                    </ButtonGroup>
-                </>}
-            </div>
-            {!project ? <Loading /> :
-                <>
-                    <Title title={project.name} type="Project" icon={<IconFolder />} />
+                <ButtonGroup isAttached>
+                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                        {!project.archived && <>
+                            <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
+                            <SecondaryButton onClick={handleGenerateReport}>
+                                <IconClipboardCheck />
+                                Generate Report
+                            </SecondaryButton>
+                            <SecondaryButton onClick={handleManageTeam}>
+                                <IconUserGroup />
+                                Manage Members
+                            </SecondaryButton>
+                        </>}
+                        <SecondaryButton onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</SecondaryButton>
+                        <DeleteButton onClick={() => destroy(project.id)} />
+                    </RestrictedComponent>
+                </ButtonGroup>
+            </>}
+        </div>
+        {!project ? <Loading /> :
+            <>
+                <Title title={project.name} type="Project" icon={<IconFolder />} />
 
-                    <Tabs>
-                        <TabList>
-                            <Tab>Details</Tab>
-                            <Tab>Targets</Tab>
-                            <Tab>Tasks</Tab>
-                            <Tab>Vulnerabilities</Tab>
-                            <Tab>Notes</Tab>
-                            <Tab>Attachments</Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel><ProjectDetailsTab project={project} /></TabPanel>
-                            <TabPanel><ProjectTargets project={project} /></TabPanel>
-                            <TabPanel><ProjectTasks project={project} /></TabPanel>
-                            <TabPanel><ProjectVulnerabilities project={project} /></TabPanel>
-                            <TabPanel><ProjectNotesTab project={project} /></TabPanel>
-                            <TabPanel><ProjectAttachmentsTab project={project} /></TabPanel>
-                        </TabPanels>
-                    </Tabs>
-                </>
-            }
-        </>
-    )
+                <Tabs>
+                    <TabList>
+                        <Tab>Details</Tab>
+                        <Tab>Targets</Tab>
+                        <Tab>Tasks</Tab>
+                        <Tab>Vulnerabilities</Tab>
+                        <Tab>Notes</Tab>
+                        <Tab>Attachments</Tab>
+                    </TabList>
+                    <TabPanels>
+                        <TabPanel><ProjectDetailsTab project={project} /></TabPanel>
+                        <TabPanel><ProjectTargets project={project} /></TabPanel>
+                        <TabPanel><ProjectTasks project={project} /></TabPanel>
+                        <TabPanel><ProjectVulnerabilities project={project} /></TabPanel>
+                        <TabPanel><ProjectNotesTab project={project} /></TabPanel>
+                        <TabPanel><ProjectAttachmentsTab project={project} /></TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </>
+        }
+    </>
 };
 
 export default ProjectDetails;

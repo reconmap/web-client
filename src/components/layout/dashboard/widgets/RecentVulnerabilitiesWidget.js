@@ -15,7 +15,7 @@ const RecentVulnerabilitiesWidget = () => {
         {vulnerabilities.length === 0 ?
             <p>No vulnerabilities to show.</p>
             :
-            <Table size="sm">
+            <Table>
                 <Thead>
                     <Tr>
                         <Th>Summary</Th>

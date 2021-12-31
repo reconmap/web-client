@@ -1,5 +1,6 @@
 import { Button, FormControl, Heading, Input, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import PageTitle from "components/logic/PageTitle";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthConsumer } from "../../contexts/AuthContext";
 
@@ -44,6 +45,7 @@ const Login = () => {
     return <AuthConsumer>
         {
             ({ login }) => <form onSubmit={ev => handleSubmit(ev, login)} style={{ width: '100%' }}>
+                <PageTitle value="Login" />
                 <FormControl as="fieldset">
                     <Heading as="legend" size="lg" > Login</Heading>
                     <label htmlFor="inputUsername" className="sr-only">Username</label>

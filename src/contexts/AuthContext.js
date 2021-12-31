@@ -1,12 +1,16 @@
-import React, { createContext, useState } from "react";
+import { useColorMode } from "@chakra-ui/react";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Auth from "services/auth";
+import { initialiseUserPreferences } from "services/userPreferences";
+import setThemeColors from "utilities/setThemeColors";
 import secureApiFetch from '../services/api';
 
 const AuthContext = createContext();
 
 function useAuth() {
     const navigate = useNavigate();
+    const { setColorMode } = useColorMode();
 
     const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
     const [user, setUser] = useState(Auth.getLoggedInUser());
@@ -34,10 +38,15 @@ function useAuth() {
                     return resp.json();
                 })
                 .then(data => {
+                    data.preferences = initialiseUserPreferences(data);
+
                     localStorage.setItem('isAuth', true);
                     localStorage.setItem('user', JSON.stringify(data));
 
                     setUser(data);
+
+                    setThemeColors(data.preferences['web-client.theme']);
+                    setColorMode(data.preferences['web-client.theme']);
 
                     if (data.mfa === 'setup') {
                         navigate('/auth/mfa-setup');
@@ -48,7 +57,6 @@ function useAuth() {
                     }
 
                     // eg mfa == disabled
-
                     setIsAuth(true);
                 })
                 .catch(err => {
@@ -64,6 +72,8 @@ function useAuth() {
             })
                 .finally(() => {
                     Auth.removeSession();
+                    setThemeColors('dark');
+                    setColorMode('dark');
                 });
         }
     };

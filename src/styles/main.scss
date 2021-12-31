@@ -109,15 +109,6 @@
     box-sizing: border-box;
 }
 
-::-moz-selection {
-    color: var(--primary-color);
-    background-color: var(--black);
-}
-::selection {
-    color: var(--primary-color);
-    background-color: var(--black);
-}
-
 body {
     color: var(--text-color);
     font-size: 15px;

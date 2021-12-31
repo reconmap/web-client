@@ -68,7 +68,7 @@ const VulnerabilityTemplatesList = () => {
             </div>
             <Title title='Vulnerability templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :
-                <Table size="sm">
+                <Table>
                     <Thead>
                         <Tr>
                             <Th>Summary</Th>

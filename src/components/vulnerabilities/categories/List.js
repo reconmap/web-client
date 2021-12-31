@@ -64,7 +64,7 @@ const VulnerabilityCategoriesPage = () => {
         </div>
         <Title title='Vulnerability categories' icon={<IconDocumentDuplicate />} />
         {!categories ? <Loading /> :
-            <Table size="sm">
+            <Table>
                 <Thead>
                     <Tr>
                         <Th style={{ width: '190px' }}>Name</Th>
