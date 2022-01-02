@@ -59,7 +59,7 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                                 </Td>
                             }
                             <Td><TaskBadge task={task} /></Td>
-                            <Td className='only-desktop truncate'>{task.description ? task.description.substring(0, 100) + "..." : "-"}</Td>
+                            <Td className="only-desktop">{task.description ? task.description.substring(0, 100) + "..." : "-"}</Td>
                             {showProjectColumn && <Td><ProjectBadge project={{ id: task.project_id, name: task.project_name }} /></Td>}
                             <Td>{task.priority}</Td>
                             <Td  >{task.assignee_uid ?

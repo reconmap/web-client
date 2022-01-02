@@ -5,6 +5,6 @@ interface ExportButtonProps {
     onClick: CallableFunction
 }
 
-const ExportButton = ({ onClick }: ExportButtonProps) => <SecondaryButton onClick={onClick}><IconSave styling={{ width: 24 }} />Export</SecondaryButton>
+const ExportButton = ({ onClick }: ExportButtonProps) => <SecondaryButton onClick={onClick} leftIcon={<IconSave styling={{ width: 24 }} />}>Export</SecondaryButton>
 
 export default ExportButton;

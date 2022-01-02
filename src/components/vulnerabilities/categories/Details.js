@@ -22,10 +22,10 @@ import secureApiFetch from 'services/api';
 import CvssAbbr from '../CvssAbbr';
 import VulnerabilityStatusBadge from '../StatusBadge';
 
-
-const TemplateDetails = ({ match }) => {
+const TemplateDetails = () => {
     const navigate = useNavigate();
-    const [vulnerability] = useFetch(`/vulnerabilities/${match.params.templateId}`)
+    const { templateId } = useParams();
+    const [vulnerability] = useFetch(`/vulnerabilities/${templateId}`)
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: 'POST' })
@@ -54,8 +54,7 @@ const TemplateDetails = ({ match }) => {
                         <Link to="/vulnerabilities/templates">Templates</Link>
                     </Breadcrumb>
                     <ButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)}><IconPlusCircle
-                        /> Clone and edit</PrimaryButton>
+                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)} leftIcon={<IconPlusCircle />}> Clone and edit</PrimaryButton>
 
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>

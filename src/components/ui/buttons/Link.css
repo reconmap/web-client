@@ -2,7 +2,7 @@
   padding: var(--paddingBox);
   display: inline-flex;
   align-items: center;
-  color: var(--white);
+  color: var(--text-color);
   font-size: var(--fontSizeSmall);
   border: var(--borderWidth) solid var(--black);
   background-color: transparent;

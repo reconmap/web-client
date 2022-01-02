@@ -41,7 +41,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
     return <Table>
         <Thead>
             <Tr>
-                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilities.length} /></Th>}
+                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilities.length} isDisabled={vulnerabilities.length === 0} /></Th>}
                 <Th style={{ width: '190px' }}>Summary</Th>
                 <Th style={{ width: '190px' }}>Project</Th>
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></Th>

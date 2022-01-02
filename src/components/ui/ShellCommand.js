@@ -1,3 +1,4 @@
+import { IconButton } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { actionCompletedToast } from '../../components/ui/toast';
 import { IconDocumentDuplicate } from './Icons';
@@ -20,9 +21,7 @@ const ShellCommand = ({ children, showPrompt = true }) => {
 
     return <code className={showPrompt ? 'prompt' : ''} ref={codeRef}>
         {children}
-        <button onClick={handleCopy}>
-            <IconDocumentDuplicate />
-        </button>
+        <IconButton onClick={handleCopy} icon={<IconDocumentDuplicate styling={{ width: "32px" }} />} />
     </code>
 }
 

@@ -1,3 +1,4 @@
+import { ListItem, Select, UnorderedList } from "@chakra-ui/react";
 import useFetch from "hooks/useFetch";
 import React, { useState } from "react";
 import secureApiFetch from "../../services/api";
@@ -44,19 +45,19 @@ const ExportForm = () => {
 
         <div style={{ marginTop: '5px', marginBottom: '5px' }}>
             Notes:
-            <ul>
-                <li>Select one or more entities to export.</li>
-                <li>The data will be returned in JSON format.</li>
-                <li>This operation can take up to one minute to complete depending on the size of your database.</li>
-            </ul>
+            <UnorderedList>
+                <ListItem>Select one or more entities to export.</ListItem>
+                <ListItem>The data will be returned in JSON format.</ListItem>
+                <ListItem>This operation can take up to one minute to complete depending on the size of your database.</ListItem>
+            </UnorderedList>
         </div>
 
-        <select multiple style={{ width: '80%', height: 250, marginTop: '5px', marginBottom: '5px' }} onChange={onEntitiesSelectionChange}>
+        <Select multiple style={{ width: '80%', height: 250 }} onChange={onEntitiesSelectionChange}>
             {entities && entities.map(entity => <option key={entity.key} value={entity.key}>{entity.description}</option>)}
-        </select>
+        </Select>
         <br />
         <PrimaryButton disabled={exportButtonDisabled}
-            onClick={onExportButtonClick}><IconDownload /> Export</PrimaryButton>
+            onClick={onExportButtonClick} leftIcon={<IconDownload />}>Export</PrimaryButton>
     </div>
 };
 

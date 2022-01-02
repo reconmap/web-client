@@ -66,14 +66,8 @@ const ProjectDetails = () => {
                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                         {!project.archived && <>
                             <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
-                            <SecondaryButton onClick={handleGenerateReport}>
-                                <IconClipboardCheck />
-                                Generate Report
-                            </SecondaryButton>
-                            <SecondaryButton onClick={handleManageTeam}>
-                                <IconUserGroup />
-                                Manage Members
-                            </SecondaryButton>
+                            <SecondaryButton onClick={handleGenerateReport} leftIcon={<IconClipboardCheck />}>Generate Report</SecondaryButton>
+                            <SecondaryButton onClick={handleManageTeam} leftIcon={<IconUserGroup />}>Manage Members</SecondaryButton>
                         </>}
                         <SecondaryButton onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</SecondaryButton>
                         <DeleteButton onClick={() => destroy(project.id)} />

@@ -237,11 +237,6 @@ section {
     }
 }
 
-.recharts-wrapper svg {
-    width: initial;
-    height: initial;
-}
-
 a,
 span,
 input,
@@ -258,7 +253,6 @@ h4 {
 }
 
 figure svg { margin: 0; }
-svg { margin: 0; max-width:24px; }
 
 dt {
     font-weight: bold;
@@ -305,6 +299,4 @@ dl {
     }
 }
 
-table {
-    table-layout: fixed;
-}
+td svg { max-width: 32px;}

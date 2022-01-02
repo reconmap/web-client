@@ -24,7 +24,7 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
             {documents.map((document, index) =>
                 <Tr key={`doc_${index}`}>
                     <Td><DocumentBadge document={document} /></Td>
-                    <Td className="truncate">{document.content}</Td>
+                    <Td>{document.content}</Td>
                     <Td><RelativeDateFormatter date={document.insert_ts} /></Td>
                     <Td><UserLink userId={document.user_id}>{document.user_name}</UserLink></Td>
                     <Td><VisibilityLegend visibility={document.visibility} /></Td>

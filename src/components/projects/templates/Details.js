@@ -44,8 +44,7 @@ const TemplateDetails = () => {
                 </Breadcrumb>
                 {template &&
                     <ButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(template.id)}><IconPlusCircle
-                        /> Create project from template</PrimaryButton>
+                        <PrimaryButton onClick={() => cloneProject(template.id)} leftIcon={<IconPlusCircle />}>Create project from template</PrimaryButton>
                         <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
                         <DeleteButton onClick={() => destroy(template.id)} />
                     </ButtonGroup>

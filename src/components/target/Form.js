@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Select } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
 import TargetKinds from '../../models/TargetKinds';
 
 const TargetForm = ({ newTarget, onFormSubmit, targetSetter: setTarget }) => {
@@ -14,28 +14,26 @@ const TargetForm = ({ newTarget, onFormSubmit, targetSetter: setTarget }) => {
         setTarget({ ...newTarget, [name]: value });
     };
 
-    return (
-        <div>
-            <form onSubmit={onFormSubmit}>
-                <FormControl id="name" isRequired>
-                    <FormLabel>Name</FormLabel>
-                    <input name="name" placeholder="e.g. 127.0.0.1" onChange={onFormChange} required autoFocus />
-                </FormControl>
-                <FormControl id="tags">
-                    <FormLabel>Tags</FormLabel>
-                    <input name="tags" placeholder="e.g. linux,production" onChange={onFormChange} />
-                </FormControl>
-                <FormControl id="kind" isRequired>
-                    <FormLabel>Kind</FormLabel>
-                    <Select name="kind" onChange={onFormChange}>
-                        {TargetKinds.map((targetKind, index) =>
-                            <option key={index} value={targetKind.value}>{targetKind.description}</option>
-                        )}
-                    </Select>
-                </FormControl>
-            </form>
-        </div>
-    )
+    return <div>
+        <form onSubmit={onFormSubmit}>
+            <FormControl id="name" isRequired>
+                <FormLabel>Name</FormLabel>
+                <Input name="name" placeholder="e.g. 127.0.0.1" onChange={onFormChange} isRequired autoFocus />
+            </FormControl>
+            <FormControl id="tags">
+                <FormLabel>Tags</FormLabel>
+                <Input name="tags" placeholder="e.g. linux,production" onChange={onFormChange} />
+            </FormControl>
+            <FormControl id="kind" isRequired>
+                <FormLabel>Kind</FormLabel>
+                <Select name="kind" onChange={onFormChange}>
+                    {TargetKinds.map((targetKind, index) =>
+                        <option key={index} value={targetKind.value}>{targetKind.description}</option>
+                    )}
+                </Select>
+            </FormControl>
+        </form>
+    </div>
 }
 
 export default TargetForm;

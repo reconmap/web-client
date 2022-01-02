@@ -17,13 +17,6 @@
 .from-tablet { display: none; }
 @media (min-width: 600px) { .from-tablet { display: table-cell; } }
 
-.truncate {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 100%;
-}
-
 .sr-only {
     position: absolute;
     width: 1px;

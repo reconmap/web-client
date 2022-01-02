@@ -45,8 +45,7 @@ const ReportTemplateDetails = () => {
                         <Link to="/vulnerabilities/templates">Templates</Link>
                     </Breadcrumb>
                     <ButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)}><IconPlusCircle
-                        /> Clone and edit</PrimaryButton>
+                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)} leftIcon={<IconPlusCircle />}>Clone and edit</PrimaryButton>
 
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>

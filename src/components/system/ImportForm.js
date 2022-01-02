@@ -1,5 +1,6 @@
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
+import { ListItem, UnorderedList } from '@chakra-ui/react';
 import ExternalLink from 'components/ui/ExternalLink';
 import React, { useState } from 'react';
 import secureApiFetch from '../../services/api';
@@ -35,50 +36,48 @@ const ImportForm = () => {
         setImportButtonDisabled(selectedFiles.length === 0);
     }
 
-    return (
-        <div>
-            <h3>Import system data</h3>
-            <form>
-                <div>
-                    Notes:
+    return <div>
+        <h3>Import system data</h3>
+        <form>
+            <div>
+                Notes:
+                <UnorderedList>
+                    <ListItem>Everything on the file will be attempted to be imported.</ListItem>
+                    <ListItem>If there is an error the import process will continue resulting on a partial import.</ListItem>
+                    <ListItem>If there are missing attributes, Reconmap will attempt to use defaults instead.</ListItem>
+                    <ListItem>Example of the files to import can be found on the following url: <ExternalLink href="https://github.com/reconmap/rest-api/tree/master/exports">https://github.com/reconmap/rest-api/tree/master/exports</ExternalLink> </ListItem>
+                </UnorderedList>
+            </div>
+            <FormControl id="importFile" isRequired>
+                <FormLabel>Import file</FormLabel>
+                <Input type="file" onChange={onImportFileChange} accept=".json,.js,application/json,text/json" isRequired />
+            </FormControl>
+
+            <PrimaryButton disabled={importButtonDisabled}
+                onClick={handleUploadClick} leftIcon={<IconUpload />}>Import</PrimaryButton>
+        </form>
+
+        {importResponse &&
+            <div>
+                <h4>Import completed</h4>
+
+                {importResponse.errors.length > 0 && <ul>
+                    {importResponse.errors.map(error => <li style={{ color: 'orange' }}>
+                        {error}
+                    </li>)}
+                </ul>}
+
+                {importResponse.results.length > 0 && <>
+                    <p>The number of imports per category are:</p>
                     <ul>
-                        <li>Everything on the file will be attempted to be imported.</li>
-                        <li>If there is an error the import process will continue resulting on a partial import.</li>
-                        <li>If there are missing attributes, Reconmap will attempt to use defaults instead.</li>
-                        <li>Example of the files to import can be found on the following url: <ExternalLink href="https://github.com/reconmap/rest-api/tree/master/exports">https://github.com/reconmap/rest-api/tree/master/exports</ExternalLink> </li>
+                        {importResponse.results.map(entityResult => {
+                            return <li>{entityResult.count} {entityResult.name} ({entityResult.errors.length} errors)</li>
+                        })}
                     </ul>
-                </div>
-                <FormControl id="importFile" isRequired>
-                    <FormLabel>Import file</FormLabel>
-                    <Input type="file" onChange={onImportFileChange} accept=".json,.js,application/json,text/json" isRequired />
-                </FormControl>
-
-                <PrimaryButton disabled={importButtonDisabled}
-                    onClick={handleUploadClick}><IconUpload /> Import</PrimaryButton>
-            </form>
-
-            {importResponse &&
-                <div>
-                    <h4>Import completed</h4>
-
-                    {importResponse.errors.length > 0 && <ul>
-                        {importResponse.errors.map(error => <li style={{ color: 'orange' }}>
-                            {error}
-                        </li>)}
-                    </ul>}
-
-                    {importResponse.results.length > 0 && <>
-                        <p>The number of imports per category are:</p>
-                        <ul>
-                            {importResponse.results.map(entityResult => {
-                                return <li>{entityResult.count} {entityResult.name} ({entityResult.errors.length} errors)</li>
-                            })}
-                        </ul>
-                    </>}
-                </div>
-            }
-        </div>
-    )
+                </>}
+            </div>
+        }
+    </div>
 }
 
 export default ImportForm;

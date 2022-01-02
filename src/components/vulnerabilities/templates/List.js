@@ -85,7 +85,7 @@ const VulnerabilityTemplatesList = () => {
                                     <Td><VulnerabilityCategorySpan name={template.category_name} parentName={template.parent_category_name} /></Td>
                                     <Td className='flex justify-end'>
                                         <PrimaryButton onClick={ev => cloneVulnerability(ev, template.id)} key={template.id}
-                                            title="Clone"><IconPlus />Clone and edit</PrimaryButton>
+                                            title="Clone" leftIcon={<IconPlus />}>Clone and edit</PrimaryButton>
                                         <LinkButton href={`/vulnerabilities/${template.id}/edit`}>Edit</LinkButton>
                                         <DeleteIconButton onClick={ev => deleteTemplate(ev, template.id)} />
                                     </Td>

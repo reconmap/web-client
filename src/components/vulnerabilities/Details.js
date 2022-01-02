@@ -5,7 +5,7 @@ import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import Tags from 'components/ui/Tags';
 import VulnerabilityStatuses from 'models/VulnerabilityStatuses';
-import { Link, Navigate, useMatch, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import DeleteButton from '../ui/buttons/Delete';
@@ -22,7 +22,7 @@ import VulnerabilityRemediationPanel from './VulnerabilityRemediationPanel';
 
 const VulnerabilityDetails = () => {
     const navigate = useNavigate();
-    const { vulnerabilityId } = useMatch()
+    const { vulnerabilityId } = useParams();
     const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`)
     const deleteVulnerability = useDelete(`/vulnerabilities/`)
 

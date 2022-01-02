@@ -1,8 +1,8 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import LinkButton from 'components/ui/buttons/Link';
 import ClientLink from "../clients/Link";
-import LinkButton from "../ui/buttons/Link";
 import NoResults from "../ui/NoResults";
 import ProjectBadge from './ProjectBadge';
 
@@ -12,7 +12,7 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
             <Tr>
                 <Th>Name</Th>
                 {showClientColumn && <Th>Client</Th>}
-                <Th className='only-desktop'>Description</Th>
+                <Th className="only-desktop">Description</Th>
                 <Th>Rules of engagement</Th>
                 <Th>Status</Th>
                 <Th>&nbsp;</Th>
@@ -34,7 +34,7 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
                                 <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>}
                             </Td>
                         }
-                        <Td className='only-desktop truncate'>{project.description}</Td>
+                        <Td className="only-desktop">{project.description}</Td>
                         <Td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</Td>
                         <Td>{project.archived ? 'Archived' : 'Active'}</Td>
                         <Td className='flex justify-end'>

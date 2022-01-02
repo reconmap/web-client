@@ -1,3 +1,4 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import BadgeOutline from 'components/badges/BadgeOutline';
 import PageTitle from 'components/logic/PageTitle';
 import ProjectBadge from 'components/projects/ProjectBadge';
@@ -45,50 +46,48 @@ const TemplatesList = () => {
         navigate(`/projects/create?isTemplate=true`)
     }
 
-    return (
-        <>
-            <PageTitle value="Project templates" />
-            <div className='heading'>
-                <Breadcrumb>
-                    <Link to="/projects">Projects</Link>
-                </Breadcrumb>
+    return <>
+        <PageTitle value="Project templates" />
+        <div className='heading'>
+            <Breadcrumb>
+                <Link to="/projects">Projects</Link>
+            </Breadcrumb>
 
-                <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
-            </div>
-            <Title title='Project templates' icon={<IconDocumentDuplicate />} />
-            {!templates ? <Loading /> :
-                <table>
-                    <thead>
-                        <tr>
-                            <th style={{ width: '190px' }}>Name</th>
-                            <th>Description</th>
-                            <th style={{ width: '16ch' }}>Number of tasks</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {templates.length === 0 ?
-                            <td colSpan={5}><NoResults /></td>
-                            :
-                            templates.map((template) =>
-                                <tr key={template.id} onClick={() => viewProject(template.id)}>
-                                    <td><ProjectBadge project={template} /></td>
-                                    <td className='truncate'>{template.description}</td>
-                                    <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
-                                    <td className='flex justify-end'>
-                                        <PrimaryButton onClick={ev => cloneProject(ev, template.id)} key={template.id}
-                                            title="Clone"><IconPlus />Clone and edit</PrimaryButton>
-                                        <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
-                                        <DeleteIconButton onClick={ev => deleteTemplate(ev, template.id)} />
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            }
-        </>
-    )
+            <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
+        </div>
+        <Title title='Project templates' icon={<IconDocumentDuplicate />} />
+        {!templates ? <Loading /> :
+            <Table>
+                <Thead>
+                    <Tr>
+                        <Th style={{ width: '190px' }}>Name</Th>
+                        <Th>Description</Th>
+                        <Th style={{ width: '16ch' }}>Number of tasks</Th>
+                        <Th>&nbsp;</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {templates.length === 0 ?
+                        <Td colSpan={4}><NoResults /></Td>
+                        :
+                        templates.map((template) =>
+                            <Tr key={template.id} onClick={() => viewProject(template.id)}>
+                                <Td><ProjectBadge project={template} /></Td>
+                                <Td>{template.description}</Td>
+                                <Td><BadgeOutline>{template.num_tasks}</BadgeOutline></Td>
+                                <Td className='flex justify-end'>
+                                    <PrimaryButton onClick={ev => cloneProject(ev, template.id)} key={template.id}
+                                        title="Clone" leftIcon={<IconPlus />}>Clone and edit</PrimaryButton>
+                                    <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
+                                    <DeleteIconButton onClick={ev => deleteTemplate(ev, template.id)} />
+                                </Td>
+                            </Tr>
+                        )
+                    }
+                </Tbody>
+            </Table>
+        }
+    </>
 }
 
 export default TemplatesList;

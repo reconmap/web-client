@@ -24,7 +24,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                 commands.map(command =>
                     <Tr key={command.id}>
                         <Td><CommandBadge command={command} /></Td>
-                        <Td className='only-desktop truncate'>
+                        <Td className="only-desktop">
                             {command.description}<br />
                             <Tags values={command.tags} />
                         </Td>

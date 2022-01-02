@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Select, Th } from "@chakra-ui/react";
+import { Alert, AlertIcon, Select } from "@chakra-ui/react";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import PageTitle from "components/logic/PageTitle";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -84,10 +84,10 @@ const ProjectMembership = () => {
             <table>
                 <thead>
                     <tr>
-                        <Th style={{ width: '80px' }}>&nbsp;</Th>
-                        <Th>Name</Th>
-                        <Th>Role</Th>
-                        <Th>&nbsp;</Th>
+                        <th style={{ width: '80px' }}>&nbsp;</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
