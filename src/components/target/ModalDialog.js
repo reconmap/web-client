@@ -7,7 +7,7 @@ import secureApiFetch from "services/api";
 import TargetForm from "./Form";
 
 const TargetModalDialog = ({ project, isOpen, onSubmit, onCancel }) => {
-    const emptyTarget = { projectId: project.id, name: null, kind: TargetKinds[0].value };
+    const emptyTarget = { project_id: project.id, name: null, kind: TargetKinds[0].value };
     const [target, setTarget] = useState(emptyTarget)
 
     const onAddTargetFormSubmit = ev => {

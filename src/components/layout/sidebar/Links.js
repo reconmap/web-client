@@ -1,3 +1,5 @@
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Configuration from "Configuration";
 import {
     IconBookOpen,
@@ -30,7 +32,7 @@ const Links = [
         title: 'Projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
             {
                 title: 'Create',
-                icon: <IconPlus size={5} />,
+                icon: <FontAwesomeIcon icon={faPlus} />,
                 to: '/projects/create',
                 permissions: 'projects.create'
             },

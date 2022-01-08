@@ -75,7 +75,7 @@ const CommandOutputs = ({ task }) => {
         {task.command_id &&
             <>
                 <ModalDialog visible={modalVisible} title="Preview output" onModalClose={onModalClose} style={{ width: '80%', height: '80%', maxHeight: '80%' }}>
-                    <textarea style={{ width: '100%', height: '90%' }}>
+                    <textarea style={{ width: '100%', height: '90%' }} readOnly>
                         {content}
                     </textarea>
                 </ModalDialog>

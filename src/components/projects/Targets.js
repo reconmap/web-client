@@ -5,13 +5,12 @@ import TargetModalDialog from "components/target/ModalDialog";
 import TargetBadge from "components/target/TargetBadge";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
-import LinkButton from "components/ui/buttons/Link";
 import Tags from "components/ui/Tags";
 import useQuery from "hooks/useQuery";
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import secureApiFetch from "../../services/api";
-import { IconPlus, IconServer } from '../ui/Icons';
+import { IconServer } from '../ui/Icons';
 import Loading from "../ui/Loading";
 import NoResultsTableRow from "../ui/NoResultsTableRow";
 
@@ -72,7 +71,6 @@ const ProjectTargets = ({ project }) => {
                 <ButtonGroup>
                     <TargetModalDialog project={project} isOpen={isAddTargetDialogOpen} onSubmit={onTargetFormSaved} onCancel={closeAddTargetDialog} />
                     <CreateButton onClick={openAddTargetDialog}>Add target...</CreateButton>
-                    <LinkButton href={`/projects/${project.id}/targets/add-multiple`}><IconPlus />Add targets</LinkButton>
                 </ButtonGroup>
             </RestrictedComponent>
         </h4>

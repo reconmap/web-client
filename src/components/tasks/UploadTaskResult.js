@@ -42,31 +42,29 @@ const UploadTaskResult = () => {
 
     if (!task) return <Loading />
 
-    return (
-        <div>
-            <PageTitle value="Upload Task" />
-            <div className='heading'>
-                <Breadcrumb>
-                    <Link to="/tasks">Tasks</Link>
-                    {task && <Link to={`/tasks/${task.id}`}>{task.summary}</Link>}
-                </Breadcrumb>
-            </div>
-            <article>
-                <Title title={`${task.summary} results`} />
-                <div className='items-start space-x-2'>
-                    <div className='card flex-1'>
-                        <h2>Upload {task.command_parser} output</h2>
-                        <form>
-                            <input type="file" id="resultFile" onChange={onFileSelect} />
-                            <PrimaryButton disabled={uploadButtonDisabled}
-                                onClick={handleUploadClick}><IconUpload /> Upload
-                                results</PrimaryButton>
-                        </form>
-                    </div>
-                </div>
-            </article>
+    return <div>
+        <PageTitle value="Upload Task" />
+        <div className='heading'>
+            <Breadcrumb>
+                <Link to="/tasks">Tasks</Link>
+                {task && <Link to={`/tasks/${task.id}`}>{task.summary}</Link>}
+            </Breadcrumb>
         </div>
-    )
+        <article>
+            <Title title={`${task.summary} results`} />
+            <div className='items-start space-x-2'>
+                <div className='card flex-1'>
+                    <h2>Upload {task.command_parser} output</h2>
+                    <form>
+                        <input type="file" id="resultFile" onChange={onFileSelect} />
+                        <PrimaryButton disabled={uploadButtonDisabled}
+                            onClick={handleUploadClick} leftIcon={<IconUpload />}>Upload
+                            results</PrimaryButton>
+                    </form>
+                </div>
+            </div>
+        </article>
+    </div>
 }
 
 export default UploadTaskResult;
