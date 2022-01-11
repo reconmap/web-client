@@ -5,7 +5,7 @@ import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
 import ReactMarkdown from "react-markdown";
 import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
-import NoResultsTableRow from "../ui/NoResultsTableRow";
+import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 
 const NotesTable = ({ notes, onDeleteButtonClick }) => {
     return <Table>

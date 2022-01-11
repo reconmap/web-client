@@ -2,7 +2,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import Badge from 'components/badges/Badge';
 import UserRoleBadge from 'components/badges/UserRoleBadge';
 import Ipv4Link from 'components/ui/Ipv4Link';
-import NoResultsTableRow from 'components/ui/NoResultsTableRow';
+import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import UserAgentLabel from 'components/ui/UserAgentLabel';
 import UserLink from 'components/users/Link';
 

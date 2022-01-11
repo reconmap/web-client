@@ -35,9 +35,6 @@ const DashboardPanels = () => {
     const [visibleWidgets, setVisibleWidgets] = useState(filterWidgets(user));
 
     const onWidgetChange = (ev) => {
-        //const dashboardConfigCopy = dashboardConfig;
-        //dashboardConfigCopy[ev.target.name] = { visible: ev.target.checked };
-
         setDashboardConfig(prev => ({ ...prev, [ev.target.name]: { ...prev[ev.target.name], visible: ev.target.checked } }));
     }
 

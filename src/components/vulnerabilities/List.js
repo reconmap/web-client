@@ -4,7 +4,6 @@ import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import DeleteButton from 'components/ui/buttons/Delete';
-import Loading from 'components/ui/Loading';
 import Title from 'components/ui/Title';
 import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
@@ -24,9 +23,9 @@ const VulnerabilitiesList = () => {
 
     const [selection, setSelection] = useState([]);
 
-    const [vulnerabilities, setVulnerabilities] = useState([]);
+    const [vulnerabilities, setVulnerabilities] = useState(null);
     const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
-    const [totalCount, setTotalCount] = useState(0);
+    const [totalCount, setTotalCount] = useState('?');
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
@@ -43,7 +42,7 @@ const VulnerabilitiesList = () => {
     }
 
     const reloadVulnerabilities = useCallback(() => {
-        setVulnerabilities([]);
+        setVulnerabilities(null);
 
         secureApiFetch(`/vulnerabilities?isTemplate=false&page=${apiPageNumber}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`, { method: 'GET' })
             .then(resp => {
@@ -55,7 +54,7 @@ const VulnerabilitiesList = () => {
                 }
                 return resp.json()
             })
-            .then((data) => {
+            .then(data => {
                 setVulnerabilities(data);
             });
     }, [apiPageNumber, sortBy]);
@@ -84,28 +83,23 @@ const VulnerabilitiesList = () => {
         reloadVulnerabilities()
     }, [reloadVulnerabilities])
 
-    return (
-        <>
-            <PageTitle value={`Vulnerabilities - Page ${pageNumber}`} />
-            <div className='heading'>
-                <Breadcrumb />
-                <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
-                <ButtonGroup>
-                    <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
-                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                        <DeleteButton onClick={onDeleteButtonClick} disabled={!selection.length}>
-                            Delete selected
-                        </DeleteButton>
-                    </RestrictedComponent>
-                </ButtonGroup>
-            </div>
-            {!vulnerabilities && <Title title='Vulnerabilities' icon={<IconFlag />} />}
-            {!vulnerabilities ? <Loading /> : <>
-                <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
-                <VulnerabilitiesTable vulnerabilities={vulnerabilities} onSortChange={onSortChange} selection={selection} setSelection={setSelection} reloadCallback={reloadVulnerabilities} />
-            </>}
-        </>
-    )
+    return <>
+        <PageTitle value={`Vulnerabilities - Page ${pageNumber}`} />
+        <div className='heading'>
+            <Breadcrumb />
+            <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
+            <ButtonGroup>
+                <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <DeleteButton onClick={onDeleteButtonClick} disabled={!selection.length}>
+                        Delete selected
+                    </DeleteButton>
+                </RestrictedComponent>
+            </ButtonGroup>
+        </div>
+        <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
+        <VulnerabilitiesTable vulnerabilities={vulnerabilities} onSortChange={onSortChange} selection={selection} setSelection={setSelection} reloadCallback={reloadVulnerabilities} />
+    </>
 }
 
 export default VulnerabilitiesList;

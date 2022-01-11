@@ -1,7 +1,8 @@
-import { Alert, AlertIcon, Select } from "@chakra-ui/react";
+import { Alert, AlertIcon, Select, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import PageTitle from "components/logic/PageTitle";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from '../../hooks/useFetch';
@@ -10,8 +11,7 @@ import UserAvatar from '../badges/UserAvatar';
 import Breadcrumb from '../ui/Breadcrumb';
 import PrimaryButton from '../ui/buttons/Primary';
 import { IconPlus } from '../ui/Icons';
-import Loading from '../ui/Loading';
-import NoResultsTableRow from '../ui/NoResultsTableRow';
+import NoResultsTableRow from '../ui/tables/NoResultsTableRow';
 import Title from '../ui/Title';
 import UserLink from "../users/Link";
 
@@ -71,7 +71,7 @@ const ProjectMembership = () => {
                         )}
                     </Select>
                 </label>
-                <PrimaryButton onClick={handleOnClick}><IconPlus /> Add as member</PrimaryButton>
+                <PrimaryButton onClick={handleOnClick} leftIcon={<IconPlus />}>Add as member</PrimaryButton>
             </form> :
             <Alert status="info">
                 <AlertIcon />
@@ -79,33 +79,33 @@ const ProjectMembership = () => {
             </Alert>
         }
 
-        {!members ?
-            <Loading /> :
-            <table>
-                <thead>
-                    <tr>
-                        <th style={{ width: '80px' }}>&nbsp;</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {members.length === 0 && <NoResultsTableRow numColumns={4} />}
-                    {members && members.map((member, index) =>
-                        <tr key={index}>
-                            <td><UserAvatar email={member.email} /></td>
-                            <td><UserLink userId={member.id}>{member.full_name}</UserLink></td>
-                            <td><UserRoleBadge role={member.role} /></td>
-                            <td className='text-right'>
-                                <DeleteIconButton onClick={() => handleDelete(member)} />
-                            </td>
-                        </tr>
-                    )
-                    }
-                </tbody>
-            </table>
-        }
+        <Table>
+            <Thead>
+                <Tr>
+                    <Th style={{ width: '80px' }}>&nbsp;</Th>
+                    <Th>Name</Th>
+                    <Th>Role</Th>
+                    <Th>&nbsp;</Th>
+                </Tr>
+            </Thead>
+            <Tbody>
+                {null === members &&
+                    <LoadingTableRow numColumns={4} />}
+                {null !== members && 0 === members.length &&
+                    <NoResultsTableRow numColumns={4} />}
+                {members && members.map((member, index) =>
+                    <Tr key={index}>
+                        <Td><UserAvatar email={member.email} /></Td>
+                        <Td><UserLink userId={member.id}>{member.full_name}</UserLink></Td>
+                        <Td><UserRoleBadge role={member.role} /></Td>
+                        <Td className='text-right'>
+                            <DeleteIconButton onClick={() => handleDelete(member)} />
+                        </Td>
+                    </Tr>
+                )
+                }
+            </Tbody>
+        </Table>
     </div>
 }
 

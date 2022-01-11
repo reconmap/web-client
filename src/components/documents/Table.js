@@ -4,7 +4,7 @@ import LinkButton from "components/ui/buttons/Link";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
-import NoResultsTableRow from "../ui/NoResultsTableRow";
+import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 import DocumentBadge from "./Badge";
 
 const DocumentsTable = ({ documents, onDeleteButtonClick }) => {

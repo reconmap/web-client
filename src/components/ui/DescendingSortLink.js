@@ -1,4 +1,4 @@
-import SortLink from "./SortLink";
+import SortLink from "./tables/SortLink";
 
 const DescendingSortLink = ({ callback, property }) => <SortLink callback={callback} property={property} direction="desc" />
 

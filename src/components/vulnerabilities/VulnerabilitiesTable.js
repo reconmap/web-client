@@ -5,7 +5,8 @@ import AscendingSortLink from "components/ui/AscendingSortLink";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
 import DescendingSortLink from "components/ui/DescendingSortLink";
-import NoResultsTableRow from "components/ui/NoResultsTableRow";
+import LoadingTableRow from "components/ui/tables/LoadingTableRow";
+import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import Tags from "components/ui/Tags";
 import useDelete from "hooks/useDelete";
 import CvssScore from '../badges/CvssScore';
@@ -36,12 +37,15 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
         }
     }
 
+    const numColumns = showSelection ? 8 : 7;
+    const vulnerabilitiesLength = null !== vulnerabilities ? vulnerabilities.length : 0;
+
     const deleteVulnerability = useDelete('/vulnerabilities/', reloadCallback, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
 
     return <Table>
         <Thead>
             <Tr>
-                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilities.length} isDisabled={vulnerabilities.length === 0} /></Th>}
+                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilitiesLength} isDisabled={vulnerabilitiesLength === 0} /></Th>}
                 <Th style={{ width: '190px' }}>Summary</Th>
                 <Th style={{ width: '190px' }}>Project</Th>
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></Th>
@@ -52,9 +56,11 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
             </Tr>
         </Thead>
         <Tbody>
-            {vulnerabilities.length === 0 ?
-                <NoResultsTableRow numColumns={showSelection ? 8 : 7} />
-                :
+            {null === vulnerabilities &&
+                <LoadingTableRow numColumns={numColumns} />}
+            {null !== vulnerabilities && 0 === vulnerabilities.length &&
+                <NoResultsTableRow numColumns={numColumns} />}
+            {null !== vulnerabilities && vulnerabilities.length > 0 &&
                 vulnerabilities.map((vulnerability, index) => {
                     return <Tr key={index}>
                         {showSelection &&

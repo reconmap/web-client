@@ -70,8 +70,7 @@ const TargetView = () => {
                 </div>
 
                 <h4>Vulnerabilities</h4>
-                {vulnerabilities &&
-                    <VulnerabilitiesTable vulnerabilities={vulnerabilities} />}
+                <VulnerabilitiesTable vulnerabilities={vulnerabilities} />
             </div>
         </article>
     </div>

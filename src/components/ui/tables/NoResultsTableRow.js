@@ -1,4 +1,4 @@
-import NoResults from "./NoResults";
+import NoResults from "../NoResults";
 
 const NoResultsTableRow = ({ numColumns }) => {
     return <tr>
