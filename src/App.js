@@ -1,5 +1,6 @@
 import AuthLayout from 'components/auth/AuthLayout';
 import AuthRoutes from 'components/auth/Routes';
+import NotificationsRoutes from 'components/notifications/Routes';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from 'services/auth';
@@ -59,6 +60,7 @@ const App = () => {
                                 ...ProjectsRoutes,
                                 ...ReportTemplatesRoutes,
                                 ...ReportsRoutes,
+                                ...NotificationsRoutes,
                                 ...SearchRoutes,
                                 ...SupportRoutes,
                                 ...SystemRoutes,

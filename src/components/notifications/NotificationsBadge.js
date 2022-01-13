@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/popover";
 import { PopoverFooter, Stack } from "@chakra-ui/react";
 import { Tag } from "@chakra-ui/tag";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Configuration from "../../Configuration";
 
@@ -116,13 +116,12 @@ const NotificationsBadge = () => {
                                 </div>
                             ))}
                         </Stack>
-                    ) : (
-                        <span>Nothing to see here.</span>
-                    )}
+                    ) : <span>Nothing to see here.</span>}
                 </PopoverBody>
                 {notifications.length > 0 && <PopoverFooter><Button variant="outline" onClick={onClearAllClick}>Clear all</Button></PopoverFooter>}
+                <PopoverFooter><Link to="/notifications">View all notifications</Link></PopoverFooter>
             </PopoverContent>
-        </Popover >
+        </Popover>
     );
 }
 

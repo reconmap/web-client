@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ServerIssuesUrl, UserManualUrl } from 'ServerUrls';
 import Configuration from '../../Configuration';
 import { AuthConsumer } from '../../contexts/AuthContext';
-import NotificationsBadge from '../badges/NotificationsBadge';
+import NotificationsBadge from '../notifications/NotificationsBadge';
 import SearchBox from "../search/Box";
 import LinkButton from '../ui/buttons/Link';
 import HeaderUserMenu from '../ui/HeaderUserMenu';
