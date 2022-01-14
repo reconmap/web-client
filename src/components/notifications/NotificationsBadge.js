@@ -3,30 +3,33 @@ import { BellIcon } from "@chakra-ui/icons";
 import {
     Popover,
     PopoverArrow,
-    PopoverBody,
-    PopoverCloseButton,
-    PopoverContent,
+    PopoverBody, PopoverContent,
     PopoverHeader,
     PopoverTrigger
 } from "@chakra-ui/popover";
-import { PopoverFooter, Stack } from "@chakra-ui/react";
+import { Alert, AlertDescription, AlertTitle, Box, CloseButton, Stack } from "@chakra-ui/react";
 import { Tag } from "@chakra-ui/tag";
-import { useCallback, useEffect, useRef, useState } from "react";
+import useFetch from "hooks/useFetch";
+import { useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import secureApiFetch from "services/api";
 import Configuration from "../../Configuration";
 
 const NotificationsBadge = () => {
-    const [notifications, setNotifications] = useState([]);
-
-    const onClearAllClick = ev => {
-        ev.preventDefault();
-
-        setNotifications([]);
-    }
+    const [notifications, fetchNotifications] = useFetch('/notifications?status=unread');
 
     const wsServerRef = useRef(null);
 
     let connectInterval = useRef(null);
+
+    const markAsRead = notification => {
+        secureApiFetch(`/notifications/${notification.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ status: 'read' })
+        }).then(() => {
+            fetchNotifications();
+        })
+    }
 
     const connect = useCallback(() => {
         console.debug('connecting to websocket server')
@@ -44,8 +47,7 @@ const NotificationsBadge = () => {
             };
 
             wsServerRef.current.onmessage = ev => {
-                const data = JSON.parse(ev.data);
-                setNotifications([...notifications, data]);
+                fetchNotifications();
             };
             wsServerRef.current.onerror = err => {
                 console.error(`websocket error: ${err.message}`);
@@ -65,7 +67,7 @@ const NotificationsBadge = () => {
         } catch (err) {
             console.error(err);
         }
-    }, [connectInterval, notifications]);
+    }, [connectInterval, fetchNotifications]);
 
     const disconnect = () => {
         console.debug('disconnecting websocket client');
@@ -75,7 +77,6 @@ const NotificationsBadge = () => {
     }
 
     useEffect(() => {
-
         const checkConnection = (() => {
             console.debug('checking if websocket connection is up')
             if (wsServerRef.current.readyState === WebSocket.CLOSED) {
@@ -91,35 +92,35 @@ const NotificationsBadge = () => {
     }, [notifications, connect]);
 
     return (
-        <Popover placement="bottom-end">
+        <Popover placement="bottom-end" closeOnBlur={true}>
             <PopoverTrigger>
-                <Button pr={notifications.length > 0 ? 1 : 2} variant="ghost" aria-label="Notifications" >
+                <Button pr={null !== notifications && notifications.length > 0 ? 1 : 2} variant="ghost" aria-label="Notifications" >
                     <BellIcon fontSize="xl" color="gray.500" />
-                    {notifications.length > 0 && (
+                    {null !== notifications && notifications.length > 0 && (
                         <Tag colorScheme='red'  >{notifications.length}</Tag>
                     )}
                 </Button>
             </PopoverTrigger>
             <PopoverContent>
                 <PopoverArrow />
-                <PopoverCloseButton />
                 <PopoverHeader px="3" pb="3" color="gray.500">
-                    Notifications
+                    <Link to="/notifications">Notifications</Link>
                 </PopoverHeader>
                 <PopoverBody>
-                    {notifications.length > 0 ? (
+                    {null !== notifications && notifications.length > 0 ? (
                         <Stack>
-                            {notifications.map((notification, index) => (
-                                <div key={index}>
-                                    {notification.time} <strong><Link to="/vulnerabilities">{notification.title}</Link></strong><br />
-                                    <small>{notification.detail}</small>
-                                </div>
-                            ))}
+                            {notifications.map(notification =>
+                                <Alert key={notification.id} status='info' variant="top-accent">
+                                    <Box flex='1'>
+                                        <AlertTitle>{notification.time} <strong><Link to="/vulnerabilities">{notification.title}</Link></strong></AlertTitle>
+                                        <AlertDescription display='block'>{notification.content}</AlertDescription>
+                                    </Box>
+                                    <CloseButton position='absolute' right='8px' top='8px' onClick={() => markAsRead(notification)} />
+                                </Alert>
+                            )}
                         </Stack>
                     ) : <span>Nothing to see here.</span>}
                 </PopoverBody>
-                {notifications.length > 0 && <PopoverFooter><Button variant="outline" onClick={onClearAllClick}>Clear all</Button></PopoverFooter>}
-                <PopoverFooter><Link to="/notifications">View all notifications</Link></PopoverFooter>
             </PopoverContent>
         </Popover>
     );
