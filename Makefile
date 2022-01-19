@@ -21,8 +21,8 @@ GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 .PHONY: prepare
 prepare:
 	docker build -f docker/node.Dockerfile -t $(DOCKER_DEV_TAG) .
-	docker run -u root --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install npm-check-updates
-	docker run -u root --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install
+	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install npm-check-updates
+	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install
 
 .PHONY: start
 start:
