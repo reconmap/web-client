@@ -38,7 +38,7 @@ jobs:
                   git config --global user.email github-actions@github.com
             - name: Increase version
               run: |
-                  npm version patch -m "Increment version to %s"
+                  make version-increase 
                   git push
             - name: Prepare
               run: make

@@ -24,6 +24,10 @@ prepare:
 	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install npm-check-updates
 	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install
 
+.PHONY: version-increase
+version-increase:
+	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
+
 .PHONY: start
 start:
 	docker run -u node --rm -it \
