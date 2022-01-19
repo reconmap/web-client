@@ -36,15 +36,16 @@ jobs:
               run: |
                   git config --global user.name github-actions
                   git config --global user.email github-actions@github.com
+            - name: Prepare
+              run: make
             - name: Increase version
               run: |
                   make version-increase 
                   git push
-            - name: Prepare
-              run: make
             - name: Run tests
               run: make tests-ci
             - name: Build
               run: make build
             - name: Push
               run: make push
+
