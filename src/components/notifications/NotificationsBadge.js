@@ -50,7 +50,8 @@ const NotificationsBadge = () => {
                 fetchNotifications();
             };
             wsServerRef.current.onerror = err => {
-                console.error(`websocket error: ${err.message}`);
+                console.error(`websocket error`);
+                console.dir(err);
 
                 wsServerRef.current.close();
             };
