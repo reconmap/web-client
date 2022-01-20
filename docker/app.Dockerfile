@@ -20,7 +20,7 @@ RUN touch /var/run/nginx.pid && \
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
 
-COPY --from=builder --chown=nginx:nginx /home/node/reconmap/build /usr/share/nginx/html
+COPY --from=builder --chown=nginx:nginx /home/reconmapper/build /usr/share/nginx/html
 
 EXPOSE 5500
 

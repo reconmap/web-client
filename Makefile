@@ -10,6 +10,10 @@ DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_DEV_TAG = reconmap/web-client:dev
 
+HOST_USER_ID=$(shell id -u)
+HOST_GROUP_ID=$(shell id -g)
+CONTAINER_UID_GID=$(HOST_USER_ID):$(HOST_GROUP_ID)
+
 ifdef TRAVIS_BRANCH
 GIT_BRANCH_NAME = $(TRAVIS_BRANCH)
 else
@@ -19,20 +23,23 @@ endif
 GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
-prepare:
-	docker build -f docker/node.Dockerfile -t $(DOCKER_DEV_TAG) .
-	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install npm-check-updates
-	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) install
+prepare: base-container
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install npm-check-updates
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install
+
+.PHONY: base-container
+base-container:
+	docker build -f docker/node.Dockerfile --build-arg HOST_USER_ID=$(HOST_USER_ID) --build-arg HOST_GROUP_ID=$(HOST_GROUP_ID) -t $(DOCKER_DEV_TAG) .
 
 .PHONY: version-increase
 version-increase:
-	docker run -u node --rm -t -v $(PWD):/home/node/reconmap --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
+	docker run -u $(CONTAINER_UID_GID)--rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
 
 .PHONY: start
 start:
-	docker run -u node --rm -it \
-		-v $(PWD):/home/node/reconmap \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/node/reconmap/public/environment.js \
+	docker run -u $(CONTAINER_UID_GID) --rm -it \
+		-v $(PWD):/home/reconmapper \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
 		-p 5500:5500 \
 		-e REACT_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
@@ -46,16 +53,16 @@ stop:
 
 .PHONY: tests
 tests:
-	docker run -u node --rm -it \
-		-v $(PWD):/home/node/reconmap \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/node/reconmap/public/environment.js \
+	docker run -u $(CONTAINER_UID_GID) --rm -it \
+		-v $(PWD):/home/reconmapper \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
 		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) test
 
 .PHONY: tests-ci
 tests-ci:
-	docker run -u node --rm -t \
-		-v $(PWD):/home/node/reconmap \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/node/reconmap/public/environment.js \
+	docker run -u $(CONTAINER_UID_GID) --rm -t \
+		-v $(PWD):/home/reconmapper \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
 		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) test:ci
 
 .PHONY: clean

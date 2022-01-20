@@ -40,7 +40,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "npm-check-updates": "^12.1.0",
+    "npm-check-updates": "^12.2.0",
     "sass": "^1.49.0"
   },
   "scripts": {
