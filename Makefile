@@ -10,9 +10,9 @@ DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_DEV_TAG = reconmap/web-client:dev
 
-HOST_USER_ID=$(shell id -u)
-HOST_GROUP_ID=$(shell id -g)
-CONTAINER_UID_GID=$(HOST_USER_ID):$(HOST_GROUP_ID)
+HOST_UID=$(shell id -u)
+HOST_GID=$(shell id -g)
+CONTAINER_UID_GID=$(HOST_UID):$(HOST_GID)
 
 ifdef TRAVIS_BRANCH
 GIT_BRANCH_NAME = $(TRAVIS_BRANCH)
@@ -29,11 +29,11 @@ prepare: base-container
 
 .PHONY: base-container
 base-container:
-	docker build -f docker/node.Dockerfile --build-arg HOST_USER_ID=$(HOST_USER_ID) --build-arg HOST_GROUP_ID=$(HOST_GROUP_ID) -t $(DOCKER_DEV_TAG) .
+	docker build -f docker/node.Dockerfile --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) -t $(DOCKER_DEV_TAG) .
 
 .PHONY: version-increase
 version-increase:
-	docker run -u $(CONTAINER_UID_GID)--rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
 
 .PHONY: start
 start:
