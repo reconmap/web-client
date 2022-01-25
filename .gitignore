@@ -15,3 +15,4 @@ environment.js
 .eslintcache
 tags
 tags.*
+.config

@@ -47,7 +47,7 @@ const ProjectReport = () => {
                 <TabList>
                     <Tab>Preview</Tab>
                     <Tab>Revisions</Tab>
-                    <Tab>Configuration</Tab>
+                    {false && <Tab>Configuration</Tab>}
                 </TabList>
                 <TabPanels>
                     <TabPanel>
@@ -58,9 +58,11 @@ const ProjectReport = () => {
                         <ReportRevisions projectId={projectId} />
                     </TabPanel>
 
-                    <TabPanel>
-                        <ReportConfigurationForm projectId={projectId} />
-                    </TabPanel>
+                    {false &&
+                        <TabPanel>
+                            <ReportConfigurationForm projectId={projectId} />
+                        </TabPanel>
+                    }
                 </TabPanels>
             </Tabs>
 

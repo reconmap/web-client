@@ -181,7 +181,7 @@ const Links = [
             {
                 title: 'User manual',
                 icon: <IconBookOpen size={5} />,
-                to: 'https://reconmap.org/user-manual/',
+                to: 'https://docs.reconmap.com/user-manual/',
                 external: true
             },
             {

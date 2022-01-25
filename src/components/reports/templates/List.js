@@ -16,6 +16,7 @@ import { resolveMime } from 'friendly-mimes';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { Link } from 'react-router-dom';
+import { UserManualUrl } from 'ServerUrls';
 import secureApiFetch from 'services/api';
 import ReportModalDialog from './ModalDialog';
 
@@ -64,62 +65,65 @@ const ReportTemplatesList = () => {
             return mimeType;
         }
     }
-    return (
-        <>
-            <PageTitle value="Report templates" />
-            <div className='heading'>
-                <Breadcrumb>
-                    <Link to="/reports">Reports</Link>
-                </Breadcrumb>
+    return <>
+        <PageTitle value="Report templates" />
+        <div className='heading'>
+            <Breadcrumb>
+                <Link to="/reports">Reports</Link>
+            </Breadcrumb>
 
-                <ReportModalDialog isOpen={isAddReportTemplateDialogOpen} onSubmit={onReportTemplateFormSaved} onCancel={closeAddReportTemplateDialog} />
-                <CreateButton onClick={openAddReportTemplateDialog}>Add report template...</CreateButton>
-            </div>
-            <Title title='Report templates' icon={<IconDocumentDuplicate />} />
+            <ReportModalDialog isOpen={isAddReportTemplateDialogOpen} onSubmit={onReportTemplateFormSaved} onCancel={closeAddReportTemplateDialog} />
+            <CreateButton onClick={openAddReportTemplateDialog}>Add report template...</CreateButton>
+        </div>
+        <Title title='Report templates' icon={<IconDocumentDuplicate />} />
 
-            <Alert status="info">
-                <AlertIcon />
-                Needing some inspiration? Have a look at hundred of penetration test reports available at&nbsp;<ExternalLink href="http://pentestreports.com/">http://pentestreports.com/</ExternalLink>
-            </Alert>
+        <Alert status="info">
+            <AlertIcon />
+            Needing some inspiration? Have a look at hundred of penetration test reports available at&nbsp;<ExternalLink href="http://pentestreports.com/">http://pentestreports.com/</ExternalLink>
+        </Alert>
 
-            {!templates ? <Loading /> :
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th style={{ width: '190px' }}>Name</Th>
-                            <Th>Description</Th>
-                            <Th style={{ width: '190px' }}>File name</Th>
-                            <Th>Mime type</Th>
-                            <Th>Downloads</Th>
-                            <Th>&nbsp;</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {templates.length === 0 ?
-                            <Tr><Td colSpan={3}><NoResults /></Td></Tr>
-                            :
-                            templates.map((template) =>
-                                <Tr key={template.id}>
-                                    <Td>{template.version_name}</Td>
-                                    <Td><EmptyField value={template.version_description} /></Td>
-                                    <Td>{template.client_file_name}</Td>
-                                    <Td><span title={safeResolveMime(template.file_mimetype)}>{template.file_mimetype}</span></Td>
-                                    <Td>
-                                        <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
-                                            <IconDocument /> DOCX
-                                        </SecondaryButton>
-                                    </Td>
-                                    <Td className="flex justify-end">
-                                        <DeleteIconButton disabled={template.generated_by_uid === 0} title={template.generated_by_uid === 0 ? "System templates cannot be deleted" : ""} onClick={ev => deleteTemplate(ev, template.id)} />
-                                    </Td>
-                                </Tr>
-                            )
-                        }
-                    </Tbody>
-                </Table>
-            }
-        </>
-    )
+        <Alert status="info">
+            <AlertIcon />
+            Visit this <ExternalLink href={UserManualUrl + 'reports/report-template-variables.html'}>user manual's page</ExternalLink> if you want to find out which variables are available to your report templates.
+        </Alert>
+
+        {!templates ? <Loading /> :
+            <Table variant="simple">
+                <Thead>
+                    <Tr>
+                        <Th style={{ width: '190px' }}>Name</Th>
+                        <Th>Description</Th>
+                        <Th style={{ width: '190px' }}>File name</Th>
+                        <Th>Mime type</Th>
+                        <Th>Downloads</Th>
+                        <Th>&nbsp;</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {templates.length === 0 ?
+                        <Tr><Td colSpan={3}><NoResults /></Td></Tr>
+                        :
+                        templates.map((template) =>
+                            <Tr key={template.id}>
+                                <Td>{template.version_name}</Td>
+                                <Td><EmptyField value={template.version_description} /></Td>
+                                <Td>{template.client_file_name}</Td>
+                                <Td><span title={safeResolveMime(template.file_mimetype)}>{template.file_mimetype}</span></Td>
+                                <Td>
+                                    <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
+                                        <IconDocument /> DOCX
+                                    </SecondaryButton>
+                                </Td>
+                                <Td className="flex justify-end">
+                                    <DeleteIconButton disabled={template.generated_by_uid === 0} title={template.generated_by_uid === 0 ? "System templates cannot be deleted" : ""} onClick={ev => deleteTemplate(ev, template.id)} />
+                                </Td>
+                            </Tr>
+                        )
+                    }
+                </Tbody>
+            </Table>
+        }
+    </>
 }
 
 export default ReportTemplatesList;
