@@ -10,8 +10,15 @@ DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_DEV_TAG = reconmap/web-client:dev
 
-HOST_UID=$(shell id -u)
-HOST_GID=$(shell id -g)
+# macOS is using different IDs than linux
+UNAME=$(shell uname)
+ifeq ($(UNAME),Darwin)
+	HOST_UID=1000
+	HOST_GID=1000
+else
+	HOST_UID=$(shell id -u)
+	HOST_GID=$(shell id -g)
+endif
 CONTAINER_UID_GID=$(HOST_UID):$(HOST_GID)
 
 ifdef TRAVIS_BRANCH
