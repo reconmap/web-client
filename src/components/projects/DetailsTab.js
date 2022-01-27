@@ -35,6 +35,11 @@ const ProjectDetailsTab = ({ project }) => {
 
                 <dt>Description</dt>
                 <dd>{project.description ? <ReactMarkdown>{project.description}</ReactMarkdown> : <EmptyField />}</dd>
+
+                {!isTemplate && <>
+                    <dt>External ID</dt>
+                    <dd>{project.external_id}</dd>
+                </>}
             </dl>
 
             <h4 style={{ marginTop: 20 }}>
