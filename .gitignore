@@ -16,3 +16,4 @@ environment.js
 tags
 tags.*
 .config
+*.code-workspace
