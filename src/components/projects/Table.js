@@ -14,6 +14,7 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
                 {showClientColumn && <Th>Client</Th>}
                 <Th className="only-desktop">Description</Th>
                 <Th>Rules of engagement</Th>
+                <Th>Vulnerability Metrics</Th>
                 <Th>Status</Th>
                 <Th>&nbsp;</Th>
             </Tr>
@@ -36,6 +37,7 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
                         }
                         <Td className="only-desktop">{project.description}</Td>
                         <Td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</Td>
+                        <Td>{project.vulnerability_metrics ? 'Metrics: ' + project.vulnerability_metrics : '(undefined)'}</Td>
                         <Td>{project.archived ? 'Archived' : 'Active'}</Td>
                         <Td className='flex justify-end'>
                             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
