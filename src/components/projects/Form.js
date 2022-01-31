@@ -49,7 +49,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                 </label>
 
                 <label>External ID
-                    <input type="text" name="external_id" onChange={handleFormChange} value={project.external_id || ""} required autoFocus />
+                    <input type="text" name="external_id" onChange={handleFormChange} value={project.external_id || ""} />
                 </label>
             </>}
 
