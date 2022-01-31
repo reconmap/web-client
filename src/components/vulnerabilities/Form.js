@@ -1,5 +1,6 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, FormControl, FormHelperText, FormLabel, Select } from '@chakra-ui/react';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
+import ProjectVulnerabilityMetrics from 'models/ProjectVulnerabilityMetrics';
 import RemediationComplexity from 'models/RemediationComplexity';
 import RemediationPriority from 'models/RemediationPriority';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import Primary from "../ui/buttons/Primary";
 import { parentChildNames } from './categories/Span';
 import CvssAbbr from './CvssAbbr';
 
+
 const VulnerabilityForm = ({
     isEditForm = false,
     vulnerability,
@@ -21,6 +23,7 @@ const VulnerabilityForm = ({
     const [projects, setProjects] = useState(null);
     const [categories, setCategories] = useState(null);
     const [targets, setTargets] = useState(null);
+    const [useOWASP, setMetrics] = useState(false)
 
     useEffect(() => {
         if (initialised) return;
@@ -36,6 +39,8 @@ const VulnerabilityForm = ({
             .then(([projects, categories]) => {
                 const defaultProjectId = projects.length ? projects[0].id : 0;
                 const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
+                setMetrics(isOwaspProject(projects, projectId))
+  
                 secureApiFetch(`/targets?projectId=${projectId}`, { method: 'GET' })
                     .then(resp => resp.json())
                     .then(targets => {
@@ -60,7 +65,7 @@ const VulnerabilityForm = ({
                         });
                     })
             });
-    }, [initialised, isEditForm, setProjects, setCategories, setTargets, setVulnerability, vulnerability.target_id, vulnerability.project_id]);
+    }, [initialised, isEditForm, setProjects, setCategories, setTargets, setMetrics, setVulnerability, vulnerability.target_id, vulnerability.project_id]);
 
     useEffect(() => {
         if (!initialised) return;
@@ -87,6 +92,16 @@ const VulnerabilityForm = ({
             if (el.id === parseInt(id)) return true;
         }
         return false;
+    }
+
+    const isOwaspProject = (elements, id) => {
+        let metrics = ProjectVulnerabilityMetrics[0].id;
+        for (const el of elements) {
+            if (el.id === parseInt(id)) {
+                metrics = el.vulnerability_metrics;
+            }
+        }
+        return (ProjectVulnerabilityMetrics[1].id === metrics);
     }
 
     const onFormChange = ev => {
@@ -162,13 +177,17 @@ const VulnerabilityForm = ({
                     <label>Impact
                         <MarkdownEditor name="impact" value={vulnerability.impact || ""} onChange={onFormChange} />
                     </label>
-                    <label>CVSS score
-                        <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
-                            onChange={onFormChange} />
-                    </label>
-                    <label><span><CvssAbbr /> vector</span>
-                        <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
-                    </label>
+                    {
+                    !useOWASP && <cvss>
+                            <label>CVSS score
+                                <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
+                                    onChange={onFormChange} />
+                            </label>
+                            <label><span><CvssAbbr /> vector</span>
+                                <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
+                            </label>
+                        </cvss>
+                    }
                 </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
