@@ -1,24 +1,19 @@
 import { HStack, Select } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import CreateButton from 'components/ui/buttons/Create';
-import React, { useState } from 'react';
+import VulnerabilityTableModel from 'components/vulnerabilities/VulnerabilityTableModel';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import { IconFlag } from '../ui/Icons';
-import Loading from '../ui/Loading';
 import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable';
 
 const ProjectVulnerabilities = ({ project }) => {
+    const [tableModel, setTableModel] = useState(new VulnerabilityTableModel)
+
     const navigate = useNavigate();
-    const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
 
-    const onSortChange = (ev, column, order) => {
-        ev.preventDefault();
-
-        setSortBy({ column: column, order: order });
-    }
-
-    const [vulnerabilities, reloadVulnerabilities] = useFetch(`/vulnerabilities?projectId=${project.id}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`)
+    const [vulnerabilities, reloadVulnerabilities] = useFetch(`/vulnerabilities?projectId=${project.id}&orderColumn=${tableModel.sortBy.column}&orderDirection=${tableModel.sortBy.order}`)
 
     const handleCreateVulnerability = () => {
         navigate(`/vulnerabilities/create?projectId=${project.id}`)
@@ -28,25 +23,25 @@ const ProjectVulnerabilities = ({ project }) => {
     const [risk, setRisk] = useState('')
     const [status, setStatus] = useState('')
 
+    useEffect(() => {
+        setTableModel(tableModel => ({ ...tableModel, vulnerabilities: vulnerabilities }));
+    }, [vulnerabilities])
+
     return <section>
         <h4><IconFlag />Vulnerabilities
             <HStack alignItems='flex-end'>
-                {vulnerabilities &&
-                    <VulnerabilityFilters vulnerabilities={vulnerabilities} setRisk={setRisk} setCategory={setCategory}
+                {tableModel.vulnerabilities &&
+                    <VulnerabilityFilters vulnerabilities={tableModel.vulnerabilities} setRisk={setRisk} setCategory={setCategory}
                         setStatus={setStatus} />}
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <CreateButton onClick={handleCreateVulnerability}>Add new vulnerability</CreateButton>
                 </RestrictedComponent>
             </HStack>
         </h4>
-        {
-            vulnerabilities ?
-                <VulnerabilitiesTable
-                    vulnerabilities={vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))}
-                    reloadCallback={reloadVulnerabilities} onSortChange={onSortChange}
-                />
-                : <Loading />
-        }
+        <VulnerabilitiesTable tableModel={tableModel} tableModelSetter={setTableModel}
+            vulnerabilities={tableModel.vulnerabilities.filter(vuln => ((vuln.category_name && vuln.category_name.includes(category)) || vuln.category_name === null) && vuln.risk.includes(risk) && vuln.status.includes(status))}
+            reloadCallback={reloadVulnerabilities}
+        />
     </section >
 }
 

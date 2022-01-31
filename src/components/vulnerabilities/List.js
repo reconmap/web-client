@@ -13,38 +13,30 @@ import secureApiFetch from '../../services/api';
 import CreateButton from '../ui/buttons/Create';
 import { IconFlag } from '../ui/Icons';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
+import VulnerabilityTableModel from './VulnerabilityTableModel';
 
 const VulnerabilitiesList = () => {
+    const [tableModel, setTableModel] = useState(new VulnerabilityTableModel)
     const navigate = useNavigate();
     const query = useQuery();
     let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
 
-    const [selection, setSelection] = useState([]);
-
-    const [vulnerabilities, setVulnerabilities] = useState(null);
-    const [sortBy, setSortBy] = useState({ column: 'insert_ts', order: 'DESC' })
     const [totalCount, setTotalCount] = useState('?');
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
-        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
+        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}&orderColumn=${tableModel.sortBy.column}&orderDirection=${tableModel.sortBy.order}`);
     }
     const handleNext = () => {
-        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`);
-    }
-
-    const onSortChange = (ev, column, order) => {
-        ev.preventDefault();
-
-        setSortBy({ column: column, order: order });
+        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}&orderColumn=${tableModel.sortBy.column}&orderDirection=${tableModel.sortBy.order}`);
     }
 
     const reloadVulnerabilities = useCallback(() => {
-        setVulnerabilities(null);
+        setTableModel(tableModel => ({ ...tableModel, vulnerabilities: null }));
 
-        secureApiFetch(`/vulnerabilities?isTemplate=false&page=${apiPageNumber}&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`, { method: 'GET' })
+        secureApiFetch(`/vulnerabilities?isTemplate=false&page=${apiPageNumber}&orderColumn=${tableModel.sortBy.column}&orderDirection=${tableModel.sortBy.order}`, { method: 'GET' })
             .then(resp => {
                 if (resp.headers.has('X-Page-Count')) {
                     setNumberPages(resp.headers.get('X-Page-Count'))
@@ -55,9 +47,9 @@ const VulnerabilitiesList = () => {
                 return resp.json()
             })
             .then(data => {
-                setVulnerabilities(data);
+                setTableModel(tableModel => ({ ...tableModel, vulnerabilities: data }));
             });
-    }, [apiPageNumber, sortBy]);
+    }, [setTableModel, apiPageNumber, tableModel.sortBy.column, tableModel.sortBy.order]);
 
     const onDeleteButtonClick = () => {
         secureApiFetch('/vulnerabilities', {
@@ -65,11 +57,11 @@ const VulnerabilitiesList = () => {
             headers: {
                 'Bulk-Operation': 'DELETE',
             },
-            body: JSON.stringify(selection),
+            body: JSON.stringify(tableModel.selection),
         })
             .then(reloadVulnerabilities)
             .then(() => {
-                setSelection([]);
+                setTableModel({ ...tableModel, selection: [] })
                 actionCompletedToast('All selected vulnerabilities were deleted.');
             })
             .catch(err => console.error(err));
@@ -91,14 +83,14 @@ const VulnerabilitiesList = () => {
             <ButtonGroup>
                 <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                    <DeleteButton onClick={onDeleteButtonClick} disabled={!selection.length}>
+                    <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
                         Delete selected
                     </DeleteButton>
                 </RestrictedComponent>
             </ButtonGroup>
         </div>
         <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
-        <VulnerabilitiesTable vulnerabilities={vulnerabilities} onSortChange={onSortChange} selection={selection} setSelection={setSelection} reloadCallback={reloadVulnerabilities} />
+        <VulnerabilitiesTable tableModel={tableModel} tableModelSetter={setTableModel} reloadCallback={reloadVulnerabilities} />
     </>
 }
 
