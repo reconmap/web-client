@@ -16,9 +16,7 @@ import LinkButton from "../ui/buttons/Link";
 import VulnerabilityCategorySpan from "./categories/Span";
 import VulnerabilityStatusBadge from "./StatusBadge";
 
-const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, reloadCallback }) => {
-    const showSelection = tableModel.selection !== undefined;
-
+const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, reloadCallback, showSelection = true, showProjectColumn = true }) => {
     const onSortChange = (ev, column, order) => {
         ev.preventDefault();
 
@@ -43,7 +41,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
         }
     }
 
-    const numColumns = showSelection ? 8 : 7;
+    const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
     const vulnerabilitiesLength = null !== tableModel.vulnerabilities ? tableModel.vulnerabilities.length : 0;
 
     const deleteVulnerability = useDelete('/vulnerabilities/', reloadCallback, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
@@ -53,7 +51,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
             <Tr>
                 {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={tableModel.selection.length && tableModel.selection.length === vulnerabilitiesLength} isDisabled={tableModel.vulnerabilitiesLength === 0} /></Th>}
                 <Th style={{ width: '190px' }}>Summary</Th>
-                <Th style={{ width: '190px' }}>Project</Th>
+                {showProjectColumn && <Th style={{ width: '190px' }}>Project</Th>}
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></Th>
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="risk" /> Risk <AscendingSortLink callback={onSortChange} property="risk" /></Th>
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="cvss_score" /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <AscendingSortLink callback={onSortChange} property="cvss_score" /></Th>
@@ -84,7 +82,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
                                 <div><Tags values={vulnerability.tags} /></div>
                             </Stack>
                         </Td>
-                        <Td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</Td>
+                        {showProjectColumn && <Td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</Td>}
                         <Td><VulnerabilityStatusBadge vulnerability={vulnerability} /></Td>
                         <Td><RiskBadge risk={vulnerability.risk} /></Td>
                         <Td><CvssScore score={vulnerability.cvss_score} /></Td>

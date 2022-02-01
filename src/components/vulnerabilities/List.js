@@ -1,4 +1,5 @@
 import { ButtonGroup } from '@chakra-ui/button';
+import { HStack } from '@chakra-ui/react';
 import Pagination from 'components/layout/Pagination';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
@@ -12,11 +13,12 @@ import { useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import CreateButton from '../ui/buttons/Create';
 import { IconFlag } from '../ui/Icons';
+import VulnerabilityFilters from './Filters';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 import VulnerabilityTableModel from './VulnerabilityTableModel';
 
 const VulnerabilitiesList = () => {
-    const [tableModel, setTableModel] = useState(new VulnerabilityTableModel)
+    const [tableModel, setTableModel] = useState(new VulnerabilityTableModel())
     const navigate = useNavigate();
     const query = useQuery();
     let pageNumber = query.get('page');
@@ -27,16 +29,41 @@ const VulnerabilitiesList = () => {
     const [numberPages, setNumberPages] = useState(1);
 
     const handlePrev = () => {
-        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber - 1}&orderColumn=${tableModel.sortBy.column}&orderDirection=${tableModel.sortBy.order}`);
+        const queryParams = new URLSearchParams();
+        queryParams.set('isTemplate', 'false');
+        queryParams.set('page', pageNumber - 1);
+        queryParams.set('orderColumn', tableModel.sortBy.column);
+        queryParams.set('orderDirection', tableModel.sortBy.order);
+        Object.keys(tableModel.filters)
+            .forEach(key => tableModel.filters[key] !== null && tableModel.filters[key].length !== 0 && queryParams.append(key, tableModel.filters[key]));
+        const url = `/vulnerabilities?${queryParams.toString()}`;
+        navigate(url);
     }
     const handleNext = () => {
-        navigate(`/vulnerabilities?isTemplate=false&page=${pageNumber + 1}&orderColumn=${tableModel.sortBy.column}&orderDirection=${tableModel.sortBy.order}`);
+        const queryParams = new URLSearchParams();
+        queryParams.set('isTemplate', 'false');
+        queryParams.set('page', pageNumber + 1);
+        queryParams.set('orderColumn', tableModel.sortBy.column);
+        queryParams.set('orderDirection', tableModel.sortBy.order);
+        Object.keys(tableModel.filters)
+            .forEach(key => tableModel.filters[key] !== null && tableModel.filters[key].length !== 0 && queryParams.append(key, tableModel.filters[key]));
+        const url = `/vulnerabilities?${queryParams.toString()}`;
+        navigate(url);
     }
 
     const reloadVulnerabilities = useCallback(() => {
         setTableModel(tableModel => ({ ...tableModel, vulnerabilities: null }));
 
-        secureApiFetch(`/vulnerabilities?isTemplate=false&page=${apiPageNumber}&orderColumn=${tableModel.sortBy.column}&orderDirection=${tableModel.sortBy.order}`, { method: 'GET' })
+        const queryParams = new URLSearchParams();
+        queryParams.set('isTemplate', 'false');
+        queryParams.set('page', apiPageNumber);
+        queryParams.set('orderColumn', tableModel.sortBy.column);
+        queryParams.set('orderDirection', tableModel.sortBy.order);
+        Object.keys(tableModel.filters)
+            .forEach(key => tableModel.filters[key] !== null && tableModel.filters[key].length !== 0 && queryParams.append(key, tableModel.filters[key]));
+        const url = `/vulnerabilities?${queryParams.toString()}`;
+
+        secureApiFetch(url, { method: 'GET' })
             .then(resp => {
                 if (resp.headers.has('X-Page-Count')) {
                     setNumberPages(resp.headers.get('X-Page-Count'))
@@ -49,7 +76,7 @@ const VulnerabilitiesList = () => {
             .then(data => {
                 setTableModel(tableModel => ({ ...tableModel, vulnerabilities: data }));
             });
-    }, [setTableModel, apiPageNumber, tableModel.sortBy.column, tableModel.sortBy.order]);
+    }, [setTableModel, apiPageNumber, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order]);
 
     const onDeleteButtonClick = () => {
         secureApiFetch('/vulnerabilities', {
@@ -73,21 +100,24 @@ const VulnerabilitiesList = () => {
 
     useEffect(() => {
         reloadVulnerabilities()
-    }, [reloadVulnerabilities])
+    }, [reloadVulnerabilities, tableModel.filters])
 
     return <>
         <PageTitle value={`Vulnerabilities - Page ${pageNumber}`} />
         <div className='heading'>
             <Breadcrumb />
             <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
-            <ButtonGroup>
-                <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
-                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                    <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
-                        Delete selected
-                    </DeleteButton>
-                </RestrictedComponent>
-            </ButtonGroup>
+            <HStack>
+                <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} />
+                <ButtonGroup>
+                    <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
+                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                        <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
+                            Delete selected
+                        </DeleteButton>
+                    </RestrictedComponent>
+                </ButtonGroup>
+            </HStack>
         </div>
         <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
         <VulnerabilitiesTable tableModel={tableModel} tableModelSetter={setTableModel} reloadCallback={reloadVulnerabilities} />
