@@ -11,6 +11,8 @@ import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
 import { parentChildNames } from './categories/Span';
 import CvssAbbr from './CvssAbbr';
+import OwaspRRRadarChart from './OwaspRRChart'
+import OwaspRRSelector from './OwaspRR'
 
 
 const VulnerabilityForm = ({
@@ -178,7 +180,7 @@ const VulnerabilityForm = ({
                         <MarkdownEditor name="impact" value={vulnerability.impact || ""} onChange={onFormChange} />
                     </label>
                     {
-                    !useOWASP && <cvss>
+                        !useOWASP && <cvss>
                             <label>CVSS score
                                 <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
                                     onChange={onFormChange} />
@@ -187,6 +189,46 @@ const VulnerabilityForm = ({
                                 <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
                             </label>
                         </cvss>
+                    }
+                    {
+                        useOWASP && <owasp>
+                            <label>OWASP Risk Rating vector
+                                <input type="text" name="owasp_vector" value={vulnerability.owasp_vector || ""}
+                                    onChange={onFormChange} />
+                            </label>
+                            <label>OWASP Likehoood score
+                                <input type="number" step="0.1" min="0" max="10" name="owasp_likehood" value={vulnerability.owasp_likehood || ""}
+                                    disabled />
+                            </label>
+                            <label>OWASP Impact score
+                                <input type="number" step="0.1" min="0" max="10" name="owasp_impact" value={vulnerability.owasp_impact || ""}
+                                    disabled />
+                            </label>
+                            <label>OWASP Overall score
+                                <input type="number" step="0.1" min="0" max="10" name="owasp_overall" value={vulnerability.owasp_overall || ""}
+                                    disabled />
+                            </label>
+                        </owasp>
+                    }
+                    </AccordionPanel>
+                </AccordionItem>
+                <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                        <Box flex="1" textAlign="left">
+                            Owasp Risk Rating calculator
+                        </Box>
+                        <AccordionIcon />
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    
+                    {
+                        useOWASP && <owasp>
+                            <label>Owasp Risk Rating Chart</label>
+                            <OwaspRRRadarChart />
+                            <OwaspRRSelector />
+                        </owasp>
                     }
                 </AccordionPanel>
             </AccordionItem>
