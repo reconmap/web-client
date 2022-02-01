@@ -11,7 +11,7 @@ import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
 import { parentChildNames } from './categories/Span';
 import CvssAbbr from './CvssAbbr';
-import OwaspRRSelector from './OwaspRR'
+import OwaspRR from './OwaspRR'
 
 
 const VulnerabilityForm = ({
@@ -225,7 +225,7 @@ const VulnerabilityForm = ({
                     {
                         useOWASP && <owasp>
                             <label>Owasp Risk Rating Chart</label>
-                            <OwaspRRSelector />
+                            <OwaspRR />
                         </owasp>
                     }
                 </AccordionPanel>
