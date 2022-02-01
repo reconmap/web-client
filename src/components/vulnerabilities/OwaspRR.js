@@ -1,4 +1,42 @@
 import Select from "react-select"
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
+
+
+const RISKS = {
+    'none': { label: 'None', color: '#f3f3f3' },
+    'low': { label: 'Low', color: 'var(--green)' },
+    'medium': { label: 'Medium', color: 'var(--yellow)' },
+    'high': { label: 'High', color: 'var(--purple)' },
+    'critical': { label: 'Critical', color: 'var(--primary-color)' }
+};
+
+let owaspRRChartData = [
+    { subject: 'Skills required', value: 1, id: "owasp_skills" },
+    { subject: 'Motive', value: 1, id: "owasp_motive" },
+    { subject: 'Opportunity', value: 0, id: "owasp_opportunity" },
+    { subject: 'Population size', value: 2, id: "owasp_size" },
+    { subject: 'Ease of discovery', value: 1, id: "owasp_discovery" },
+    { subject: 'Ease of exploit', value: 1, id: "owasp_exploit" },
+    { subject: 'Awareness', value: 1, id: "owasp_awareness" },
+    { subject: 'Intrusion detection', value: 1, id: "owasp_intrusion" },
+    { subject: 'Loss of confidentiality', value: 2, id: "owasp_confidentiality" },
+    { subject: 'Loss of integrity', value: 1, id: "owasp_integrity" },
+    { subject: 'Loss of availability', value: 1, id: "owasp_availability" },
+    { subject: 'Loss of accountability', value: 1, id: "owasp_accountability" },
+    { subject: 'Financial damage', value: 1, id: "owasp_financial" },
+    { subject: 'Reputation damage', value: 1, id: "owasp_reputation" },
+    { subject: 'Non-compliance', value: 2, id: "owasp_compliance" },
+    { subject: 'Privacy violation', value: 3, id: "owasp_privacy" },
+  ];
+
+const OwaspChart = () => (
+    <RadarChart outerRadius={180} width={900} height={550} data={owaspRRChartData}>
+        <PolarGrid />
+        <PolarAngleAxis dataKey="subject" />
+        <PolarRadiusAxis angle={90} domain={[0, 10]} />
+        <Radar name="OWASP Risk Rating" dataKey="value" stroke={RISKS["critical"].color} fill={RISKS["critical"].color} fillOpacity={0.7} />
+    </RadarChart>
+)
 
 const skillLevelOptions = [
     { value: 1, label: '1 - No technical skills' },
@@ -8,20 +46,20 @@ const skillLevelOptions = [
     { value: 9, label: '9 - Security penetration skills' }
   ]
   
-  const motiveOptions = [
+const motiveOptions = [
     { value: 1, label: '1 - Low or no reward' },
     { value: 4, label: '4 - Possible reward' },
     { value: 9, label: '9 - High reward' }
   ]
 
-  const opportunityOptions = [
+const opportunityOptions = [
     { value: 0, label: '0 - Full access or expensive resources required ' },
     { value: 4, label: '4 - Special access or resources required' },
     { value: 7, label: '7 - Some access or resources required' },
     { value: 9, label: '9 - No access or resources required' }
   ]
 
-  const sizeOptions = [
+const sizeOptions = [
     { value: 2, label: '2 - Developers, System administrators' },
     { value: 4, label: '4 - Intranet users' },
     { value: 5, label: '5 - Partners' },
@@ -29,11 +67,15 @@ const skillLevelOptions = [
     { value: 9, label: '9 - Anonymous Internet users' }
   ]
 
+ const doSomething = ev => {
+    owaspRRChartData[0].A = 5;
+};
+
 const ThreatAgentFactors = () => (
     <div>
         <h6>Threat agent factors</h6>
         <label>Skill level
-            <Select options={skillLevelOptions} />
+            <Select options={skillLevelOptions} name="owasp_skills" onChange={doSomething} />
         </label>
         <label>Motive
             <Select options={motiveOptions} />
@@ -167,7 +209,7 @@ const financialDamageOptions = [
     { value: 7, label: '7 - Thousands of people' },
     { value: 9, label: '9 - Millions of people' }
   ]
-  
+
   const BusinessImpactFactors = () => (
     <div>
         <h6>Business impact factors</h6>
@@ -189,6 +231,7 @@ const financialDamageOptions = [
 const OwaspRRSelector = () => {
     return (
         <div>
+            <OwaspChart />
             <ThreatAgentFactors />
             <VulnerabilityFactors />
             <TechnicalImpactFactors />

@@ -11,7 +11,6 @@ import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
 import { parentChildNames } from './categories/Span';
 import CvssAbbr from './CvssAbbr';
-import OwaspRRRadarChart from './OwaspRRChart'
 import OwaspRRSelector from './OwaspRR'
 
 
@@ -194,7 +193,7 @@ const VulnerabilityForm = ({
                         useOWASP && <owasp>
                             <label>OWASP Risk Rating vector
                                 <input type="text" name="owasp_vector" value={vulnerability.owasp_vector || ""}
-                                    onChange={onFormChange} />
+                                    onChange={onFormChange} placeholder="eg: (SL:9/M:1/O:7/S:2/ED:1/EE:1/A:6/ID:1/LC:9/LI:1/LAV:5/LAC:1/FD:1/RD:5/NC:2/PV:3)" />
                             </label>
                             <label>OWASP Likehoood score
                                 <input type="number" step="0.1" min="0" max="10" name="owasp_likehood" value={vulnerability.owasp_likehood || ""}
@@ -226,7 +225,6 @@ const VulnerabilityForm = ({
                     {
                         useOWASP && <owasp>
                             <label>Owasp Risk Rating Chart</label>
-                            <OwaspRRRadarChart />
                             <OwaspRRSelector />
                         </owasp>
                     }
