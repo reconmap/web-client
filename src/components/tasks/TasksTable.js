@@ -2,6 +2,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import ReloadButton from 'components/ui/buttons/Reload';
 import React from "react";
 import BadgeOutline from '../badges/BadgeOutline';
 import LinkButton from "../ui/buttons/Link";
@@ -10,7 +11,7 @@ import UserLink from "../users/Link";
 import TaskBadge from "./TaskBadge";
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
-const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project: '', status: '' }, destroy, showProjectColumn = true }) => {
+const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project: '', status: '' }, destroy, showProjectColumn = true, reloadCallback = null }) => {
 
     const showSelection = selectedTasks !== undefined;
     const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
@@ -35,7 +36,8 @@ const TasksTable = ({ tasks, selectedTasks, setSelectedTasks, filter = { project
                 <Th>Priority</Th>
                 <Th>Assignee</Th>
                 <Th style={{ width: '100px' }}>Status</Th>
-                <Th colSpan={2}>Command</Th>
+                <Th colSpan={reloadCallback ? 1 : 2}>Command</Th>
+                {reloadCallback && <Th style={{ width: '15%', textAlign: 'right' }}><ReloadButton onClick={reloadCallback} /></Th>}
             </Tr>
         </Thead>
         <Tbody>

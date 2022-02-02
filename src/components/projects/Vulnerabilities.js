@@ -16,6 +16,7 @@ const ProjectVulnerabilities = ({ project }) => {
     const fetchVulnerabilities = useCallback(() => {
         const queryParams = new URLSearchParams();
         queryParams.set('projectId', project.id);
+        queryParams.set('isTemplate', false);
         queryParams.set('orderColumn', tableModel.sortBy.column);
         queryParams.set('orderDirection', tableModel.sortBy.order);
         Object.keys(tableModel.filters)
