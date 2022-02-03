@@ -1,5 +1,5 @@
 import { ButtonGroup } from '@chakra-ui/button';
-import { HStack } from '@chakra-ui/react';
+import { Flex, HStack } from '@chakra-ui/react';
 import Pagination from 'components/layout/Pagination';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
@@ -108,7 +108,6 @@ const VulnerabilitiesList = () => {
             <Breadcrumb />
             <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
             <HStack>
-                <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} />
                 <ButtonGroup>
                     <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
@@ -120,6 +119,9 @@ const VulnerabilitiesList = () => {
             </HStack>
         </div>
         <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
+        <Flex>
+            <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} />
+        </Flex>
         <VulnerabilitiesTable tableModel={tableModel} tableModelSetter={setTableModel} reloadCallback={reloadVulnerabilities} />
     </>
 }
