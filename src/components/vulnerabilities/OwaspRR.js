@@ -1,8 +1,90 @@
 import Select from "react-select"
+import { Input } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 
-const  OwaspRR = () => {
+const  OwaspRR = ({
+  vulnerability,
+  vulnerabilitySetter: setVulnerability
+}) => {
+
+    const [isValidOwaspVector, setIsValidOwaspVector] = useState(true);
+
+    const onVectorChange = ev => {
+        const target = ev.target;
+        const name = target.name;
+        let value = target.value;
+        if (validateVector(value)) {
+            let scores = computeOwaspScores(value);
+            setVulnerability({ ...vulnerability, 'owasp_impact': scores[0], 'owasp_likehood': scores[1], 'owasp_overall': scores[2], [name]: value });
+        }
+        else {
+          setVulnerability({ ...vulnerability, [name]: value });
+        }
+  }
+
+    const validateVector = (vector) => {
+        const vectorRegex =  new RegExp(/^\(SL:[1,3,5,6,9]\/M:[1,4,9]\/O:[0,4,7,9]\/S:[2,4,5,6,9]\/ED:[1,3,7,9]\/EE:[1,3,5,9]\/A:[1,4,6,9]\/ID:[1,3,8,9]\/LC:[2,6,7,9]\/LI:[1,3,5,7,9]\/LAV:[1,5,7,9]\/LAC:[1,7,9]\/FD:[1,3,7,9]\/RD:[1,4,5,9]\/NC:[2,5,7]\/PV:[3,5,7,9]\)$/);
+        const isValid = vectorRegex.test(vector);
+        setIsValidOwaspVector(isValid);
+        return isValid;
+    }
+
+    const parseVector = (vector) => {
+        return vector.slice(1, -1).split(/\//).map(s => s.split(':'));
+    }
+
+    const computeLikehood = (fields) => {
+        let sum = 0;
+        fields.map(([key, value]) => {
+            if ((key === 'SL') || (key === 'M') || (key === 'O') || (key === 'S')
+                || (key === 'ED') || (key === 'EE') || (key === 'A') || (key === 'ID'))
+            {
+                sum += parseInt(value);
+            }
+        });
+        return sum/8;
+    }
+
+    const computeImpact = (fields) => {
+        let sum = 0;
+        fields.map(([key, value]) => {
+            if ((key === 'LC') || (key === 'LI') || (key === 'LAV') || (key === 'LAC')
+                || (key === 'FD') || (key === 'RD') || (key === 'NC') || (key === 'PV'))
+            {
+                sum += parseInt(value);
+            }
+        });
+        return sum/8;
+    }
+
+    const computeOverall = (impact, likehood) => {
+        if ((impact < 3) && (likehood < 3)) {
+            return 'note';
+        } else if (((impact < 3) && (likehood < 6)) || ((impact < 6) && (likehood < 3))) {
+            return 'low';
+        } else if ((impact < 3) || (likehood < 3) || ((impact < 6) && (likehood < 6))) {
+            return 'medium';
+        } else if ((impact < 6) || (likehood < 6)) {
+            return 'high';
+        } else {
+            return 'critical';
+        }
+    }
+
+    const computeValues = (fields) => {
+        const likehood = computeLikehood(fields);
+        const impact = computeImpact(fields);
+        const overall = computeOverall(impact, likehood);
+        return [impact, likehood, overall];
+    }
+
+
+    const computeOwaspScores = (vector) => {
+        let fields = parseVector(vector);
+        return computeValues(fields);
+    }
+
     const risk_colors = {
         'none': { label: 'None', color: '#f3f3f3' },
         'low': { label: 'Low', color: 'var(--green)' },
@@ -29,9 +111,9 @@ const  OwaspRR = () => {
         { subject: 'Non-compliance', value: 2, id: "owasp_compliance" },
         { subject: 'Privacy violation', value: 3, id: "owasp_privacy" },
       ];
-    
-    const [test, setTest] = useState(owaspRRChartData)
 
+      const [test, setTest] = useState(owaspRRChartData)
+    
     const OwaspChart = () => (
         <RadarChart outerRadius={180} width={900} height={550} data={test}>
             <PolarGrid />
@@ -78,6 +160,7 @@ const  OwaspRR = () => {
         });
         setTest(owaspRRChartData);
     };
+
 
     const ThreatAgentFactors = () => (
         <div>
@@ -239,6 +322,23 @@ const  OwaspRR = () => {
 
     return (
         <div>
+            <label>OWASP Risk Rating vector
+            <Input type="text" name="owasp_vector" value={vulnerability.owasp_vector || ""}
+              isInvalid={!isValidOwaspVector}
+              onChange={onVectorChange} placeholder="eg: (SL:1/M:1/O:0/S:2/ED:1/EE:1/A:1/ID:1/LC:2/LI:1/LAV:1/LAC:1/FD:1/RD:1/NC:2/PV:3)" />
+            </label>
+            <label>OWASP Likehoood score
+                <input type="number" step="0.1" min="0" max="10" name="owasp_likehood" value={vulnerability.owasp_likehood || 0.0}
+                    disabled />
+            </label>
+            <label>OWASP Impact score
+                <input type="number" step="0.1" min="0" max="10" name="owasp_impact" value={vulnerability.owasp_impact || 0.0}
+                    disabled />
+            </label>
+            <label>OWASP Overall score
+                <input type="text" name="owasp_overall" value={vulnerability.owasp_overall || "n/a"}
+                    disabled />
+            </label>
             <OwaspChart />
             <ThreatAgentFactors />
             <VulnerabilityFactors />
