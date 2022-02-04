@@ -121,11 +121,11 @@ const  OwaspRR = ({
     }
 
     const risk_colors = {
-        'none': { label: 'None', color: '#f3f3f3' },
+        'note': { label: 'None', color: 'var(--blue)' },
         'low': { label: 'Low', color: 'var(--green)' },
-        'medium': { label: 'Medium', color: 'var(--yellow)' },
-        'high': { label: 'High', color: 'var(--purple)' },
-        'critical': { label: 'Critical', color: 'var(--primary-color)' }
+        'medium': { label: 'Medium', color: '#FF8C00' },
+        'high': { label: 'High', color: 'var(--red)' },
+        'critical': { label: 'Critical', color: 'var(--purple)' }
     };
 
     const OwaspChart = () => (
@@ -133,7 +133,8 @@ const  OwaspRR = ({
             <PolarGrid />
             <PolarAngleAxis dataKey="subject" />
             <PolarRadiusAxis angle={90} domain={[0, 10]} />
-            <Radar name="OWASP Risk Rating" dataKey="value" stroke={risk_colors["critical"].color} fill={risk_colors["critical"].color} fillOpacity={0.7} />
+            <Radar name="OWASP Risk Rating" dataKey="value" stroke={risk_colors[vulnerability.owasp_overall].color}
+             fill={risk_colors[vulnerability.owasp_overall].color} fillOpacity={0.7} />
         </RadarChart>
     )
 
