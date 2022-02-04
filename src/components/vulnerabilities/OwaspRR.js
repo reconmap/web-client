@@ -193,7 +193,7 @@ const  OwaspRR = ({
               + "LC:" + getValue(fields, 'LC', name, newValue) + "/"
               + "LI:" + getValue(fields, 'LI', name, newValue) + "/"
               + "LAV:" + getValue(fields, 'LAV', name, newValue) + "/"
-              + "LAV:" + getValue(fields, 'LAC', name, newValue) + "/"
+              + "LAC:" + getValue(fields, 'LAC', name, newValue) + "/"
               + "FD:" + getValue(fields, 'FD', name, newValue) + "/"
               + "RD:" + getValue(fields, 'RD', name, newValue) + "/"
               + "NC:" + getValue(fields, 'NC', name, newValue) + "/"
@@ -262,20 +262,42 @@ const  OwaspRR = ({
         updateSelectedValue(event, id);
     };
 
+    const getCurrentValue = (options, name) => {
+        const vector = vulnerability.owasp_vector;
+        const fields = parseVector(vector);
+        const value = getValue(fields, name, '', 0);
+        let found = null;
+        options.forEach(element => {
+            if (element.value === parseInt(value)) {
+                found = element;
+            }
+        });
+        // if nothing found, fallback to default
+        if (!found)
+        {
+          found = options[0];
+        }
+        return found;
+    }
+
     const ThreatAgentFactors = () => (
         <div>
             <h6>Threat agent factors</h6>
             <label>Skill level
-                <Select options={skillLevelOptions}onChange={e => updateChart(e, "SL")} value={skillLevelValue}/>
+                <Select options={skillLevelOptions}onChange={e => updateChart(e, "SL")} 
+                value={skillLevelValue || getCurrentValue(skillLevelOptions, "SL")}/>
             </label>
             <label>Motive
-                <Select options={motiveOptions} onChange={e => updateChart(e, "M")} value={motiveValue} />
+                <Select options={motiveOptions} onChange={e => updateChart(e, "M")}
+                value={motiveValue || getCurrentValue(motiveOptions, "M")} />
             </label>
             <label>Opportunity
-                <Select options={opportunityOptions} onChange={e => updateChart(e, "O")} value={opportunityValue} />
+                <Select options={opportunityOptions} onChange={e => updateChart(e, "O")}
+                value={opportunityValue || getCurrentValue(opportunityOptions, "O")} />
             </label>
             <label> Size
-                <Select options={sizeOptions} onChange={e => updateChart(e, "S")} value={sizeValue} />
+                <Select options={sizeOptions} onChange={e => updateChart(e, "S")}
+                value={sizeValue || getCurrentValue(sizeOptions, "S")} />
             </label>
         </div>
     )
@@ -314,16 +336,20 @@ const  OwaspRR = ({
         <div>
             <h6>Technical impact factors</h6>
             <label>Loss of confidentiality
-                <Select options={lossOfConfidentialityOptions} onChange={e => updateChart(e, "LC")} value={lossOfConfidentialityValue} />
+                <Select options={lossOfConfidentialityOptions} onChange={e => updateChart(e, "LC")}
+                value={lossOfConfidentialityValue || getCurrentValue(lossOfConfidentialityOptions, "LC")} />
             </label>
             <label>Loss of integrity
-                <Select options={lossOfIntegrityOptions} onChange={e => updateChart(e, "LI")} value={lossOfIntegrityValue} />
+                <Select options={lossOfIntegrityOptions} onChange={e => updateChart(e, "LI")}
+                value={lossOfIntegrityValue || getCurrentValue(lossOfIntegrityOptions, "LI")} />
             </label>
             <label>Loss of availability
-                <Select options={lossOfAvailabilityOptions} onChange={e => updateChart(e, "LAV")} value={lossOfAvailabilityValue} />
+                <Select options={lossOfAvailabilityOptions} onChange={e => updateChart(e, "LAV")}
+                value={lossOfAvailabilityValue || getCurrentValue(lossOfAvailabilityOptions, "LAV")} />
             </label>
             <label> Loss of accountability
-                <Select options={lossOfAccountabilityOptions} onChange={e => updateChart(e, "LAC")} value={lossOfAccountabilityValue} />
+                <Select options={lossOfAccountabilityOptions} onChange={e => updateChart(e, "LAC")}
+                value={lossOfAccountabilityValue || getCurrentValue(lossOfAccountabilityOptions, "LAC")} />
             </label>
         </div>
     )
@@ -360,16 +386,20 @@ const  OwaspRR = ({
         <div>
             <h6>Vulnerability factors</h6>
             <label>Ease of discovery
-                <Select options={easeOfDiscoveryOptions} onChange={e => updateChart(e, "ED")} value={easeOfDiscoveryValue} />
+                <Select options={easeOfDiscoveryOptions} onChange={e => updateChart(e, "ED")}
+                value={easeOfDiscoveryValue || getCurrentValue(easeOfDiscoveryOptions, "ED")} />
             </label>
             <label>Ease of exploit
-                <Select options={easeOfExploitOptions} onChange={e => updateChart(e, "EE")} value={easeOfExploitValue} />
+                <Select options={easeOfExploitOptions} onChange={e => updateChart(e, "EE")}
+                value={easeOfExploitValue || getCurrentValue(easeOfExploitOptions, "EE")} />
             </label>
             <label>Awareness
-                <Select options={awarenessOptions} onChange={e => updateChart(e, "A")} value={awarenessValue} />
+                <Select options={awarenessOptions} onChange={e => updateChart(e, "A")}
+                value={awarenessValue || getCurrentValue(awarenessOptions, "A")} />
             </label>
             <label>Intrusion detection
-                <Select options={intrusionDetectionOptions} onChange={e => updateChart(e, "ID")} value={intrusionDetectionValue} />
+                <Select options={intrusionDetectionOptions} onChange={e => updateChart(e, "ID")}
+                value={intrusionDetectionValue || getCurrentValue(intrusionDetectionOptions, "ID")} />
             </label>
         </div>
     )
@@ -405,16 +435,20 @@ const  OwaspRR = ({
         <div>
             <h6>Business impact factors</h6>
             <label>Financial damage
-                <Select options={financialDamageOptions} onChange={e => updateChart(e, "FD")} value={financialDamageValue} />
+                <Select options={financialDamageOptions} onChange={e => updateChart(e, "FD")}
+                value={financialDamageValue || getCurrentValue(financialDamageOptions, "FD")} />
             </label>
             <label>Reputation damage
-                <Select options={reputationDamageOptions} onChange={e => updateChart(e, "RD")} value={reputationDamageValue} />
+                <Select options={reputationDamageOptions} onChange={e => updateChart(e, "RD")}
+                value={reputationDamageValue || getCurrentValue(reputationDamageOptions, "RD")} />
             </label>
             <label>Non-compliance
-                <Select options={nonComplianceOptions} onChange={e => updateChart(e, "NC")} value={nonComplianceValue} />
+                <Select options={nonComplianceOptions} onChange={e => updateChart(e, "NC")}
+                value={nonComplianceValue || getCurrentValue(nonComplianceOptions, "NC")} />
             </label>
             <label>Privacy violation
-            <Select options={privacyViolationOptions} onChange={e => updateChart(e, "PV")} value={privacyViolationValue} />
+            <Select options={privacyViolationOptions} onChange={e => updateChart(e, "PV")}
+            value={privacyViolationValue || getCurrentValue(privacyViolationOptions, "PV")} />
             </label>
         </div>
     )
