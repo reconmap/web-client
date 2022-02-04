@@ -114,23 +114,58 @@ const VulnerabilityForm = ({
     }
 
     const parseVector = (vector) => {
-        let fields = {};
-        return fields;
+        return vector.slice(1, -1).split(/\//).map(s => s.split(':'));
+    }
+
+    const computeLikehood = (fields) => {
+        let sum = 0;
+        fields.map(([key, value]) => {
+            if ((key === 'SL') || (key === 'M') || (key === 'O') || (key === 'S')
+                || (key === 'ED') || (key === 'EE') || (key === 'A') || (key === 'ID'))
+            {
+                sum += parseInt(value);
+            }
+        });
+        return sum/8;
+    }
+
+    const computeImpact = (fields) => {
+        let sum = 0;
+        fields.map(([key, value]) => {
+            if ((key === 'LC') || (key === 'LI') || (key === 'LAV') || (key === 'LAC')
+                || (key === 'FD') || (key === 'RD') || (key === 'NC') || (key === 'PV'))
+            {
+                sum += parseInt(value);
+            }
+        });
+        return sum/8;
+    }
+
+    const computeOverall = (impact, likehood) => {
+        if ((impact < 3) && (likehood < 3)) {
+            return 'note';
+        } else if (((impact < 3) && (likehood < 6)) || ((impact < 6) && (likehood < 3))) {
+            return 'low';
+        } else if ((impact < 3) || (likehood < 3) || ((impact < 6) && (likehood < 6))) {
+            return 'medium';
+        } else if ((impact < 6) || (likehood < 6)) {
+            return 'high';
+        } else {
+            return 'critical';
+        }
     }
 
     const computeValues = (fields) => {
-        
+        const likehood = computeLikehood(fields);
+        const impact = computeImpact(fields);
+        const overall = computeOverall(impact, likehood);
+        return [impact, likehood, overall];
     }
 
 
     const computeOwaspScores = (vector) => {
-        if (validateVector(vector)) {
-            let fields = parseVector(vector);
-            computeValues(fields);
-            return [8.1,9.2,6.3];
-        }
-        return [1.1,2.3,5];
-        
+        let fields = parseVector(vector);
+        return computeValues(fields);
     }
 
     const onFormChange = ev => {
@@ -141,9 +176,11 @@ const VulnerabilityForm = ({
         if ('tags' === name) {
             value = JSON.stringify(value.split(','));
         }
-        if ('owasp_vector' === name) {
-            let scores = computeOwaspScores(value)
-            setVulnerability({ ...vulnerability, 'owasp_overall': scores[0], 'owasp_impact': scores[1], 'owasp_likehood': scores[2], [name]: value });
+        if (('owasp_vector' === name) && validateVector(value))
+        {
+                let scores = computeOwaspScores(value);
+                setVulnerability({ ...vulnerability, 'owasp_impact': scores[0], 'owasp_likehood': scores[1], 'owasp_overall': scores[2], [name]: value });
+            
         }
         else
         {
@@ -239,7 +276,7 @@ const VulnerabilityForm = ({
                                     disabled />
                             </label>
                             <label>OWASP Overall score
-                                <input type="number" step="0.1" min="0" max="10" name="owasp_overall" value={vulnerability.owasp_overall || 0.0}
+                                <input type="text" name="owasp_overall" value={vulnerability.owasp_overall || "n/a"}
                                     disabled />
                             </label>
                         </>
