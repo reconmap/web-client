@@ -190,24 +190,22 @@ const VulnerabilityForm = ({
                     }
                     </AccordionPanel>
                 </AccordionItem>
-                <AccordionItem>
-                <h2>
-                    <AccordionButton>
-                        <Box flex="1" textAlign="left">
-                            Owasp Risk Rating calculator
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>
-                    {
-                        useOWASP && <>
+                { useOWASP &&
+                    <AccordionItem>
+                        <h2>
+                            <AccordionButton>
+                                <Box flex="1" textAlign="left">
+                                    Owasp Risk Rating calculator
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
                             <label>Owasp Risk Rating</label>
                             <OwaspRR vulnerability={vulnerability} vulnerabilitySetter={setVulnerability}/>
-                        </>
-                    }
-                </AccordionPanel>
-            </AccordionItem>
+                        </AccordionPanel>
+                    </AccordionItem>
+                }
             <AccordionItem>
                 <h2>
                     <AccordionButton>

@@ -121,7 +121,7 @@ const  OwaspRR = ({
     }
 
     const risk_colors = {
-        'note': { label: 'None', color: 'var(--blue)' },
+        'note': { label: 'Note', color: 'var(--blue)' },
         'low': { label: 'Low', color: 'var(--green)' },
         'medium': { label: 'Medium', color: '#FF8C00' },
         'high': { label: 'High', color: 'var(--red)' },
@@ -131,10 +131,10 @@ const  OwaspRR = ({
     const OwaspChart = () => (
         <RadarChart outerRadius={180} width={900} height={550} data={chartData}>
             <PolarGrid />
-            <PolarAngleAxis dataKey="subject" />
+            <PolarAngleAxis dataKey="subject"/>
             <PolarRadiusAxis angle={90} domain={[0, 10]} />
-            <Radar name="OWASP Risk Rating" dataKey="value" stroke={risk_colors[vulnerability.owasp_overall].color}
-             fill={risk_colors[vulnerability.owasp_overall].color} fillOpacity={0.7} />
+            <Radar name="OWASP Risk Rating" dataKey="value" stroke={risk_colors[vulnerability.owasp_overall || 'note'].color}
+             fill={risk_colors[vulnerability.owasp_overall || 'note'].color} fillOpacity={0.7} />
         </RadarChart>
     )
 
@@ -275,6 +275,10 @@ const  OwaspRR = ({
 
     const getCurrentValue = (options, name) => {
         const vector = vulnerability.owasp_vector;
+        if (!vector)
+        {
+          return options[0];
+        }
         const fields = parseVector(vector);
         const value = getValue(fields, name, '', 0);
         updateChart(name, value);
