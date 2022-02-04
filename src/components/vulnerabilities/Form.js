@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, FormControl, FormHelperText, FormLabel, Select } from '@chakra-ui/react';
+import { Input, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, FormControl, FormHelperText, FormLabel, Select } from '@chakra-ui/react';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import ProjectVulnerabilityMetrics from 'models/ProjectVulnerabilityMetrics';
 import RemediationComplexity from 'models/RemediationComplexity';
@@ -24,7 +24,8 @@ const VulnerabilityForm = ({
     const [projects, setProjects] = useState(null);
     const [categories, setCategories] = useState(null);
     const [targets, setTargets] = useState(null);
-    const [useOWASP, setMetrics] = useState(false)
+    const [useOWASP, setMetrics] = useState(false);
+    const [isValidOwaspVector, setIsValidOwaspVector] = useState(true);
 
     useEffect(() => {
         if (initialised) return;
@@ -105,6 +106,33 @@ const VulnerabilityForm = ({
         return (ProjectVulnerabilityMetrics[1].id === metrics);
     }
 
+    const validateVector = (vector) => {
+        const vectorRegex =  new RegExp(/^\(SL:[1,3,5,6,9]\/M:[1,4,9]\/O:[0,4,7,9]\/S:[2,4,5,6,9]\/ED:[1,3,7,9]\/EE:[1,3,5,9]\/A:[1,4,6,9]\/ID:[1,3,8,9]\/LC:[2,6,7,9]\/LI:[1,3,5,7,9]\/LAV:[1,5,7,9]\/LAC:[1,7,9]\/FD:[1,3,7,9]\/RD:[1,4,5,9]\/NC:[2,5,7]\/PV:[3,5,7,9]\)$/);
+        const isValid = vectorRegex.test(vector);
+        setIsValidOwaspVector(isValid);
+        return isValid;
+    }
+
+    const parseVector = (vector) => {
+        let fields = {};
+        return fields;
+    }
+
+    const computeValues = (fields) => {
+        
+    }
+
+
+    const computeOwaspScores = (vector) => {
+        if (validateVector(vector)) {
+            let fields = parseVector(vector);
+            computeValues(fields);
+            return [8.1,9.2,6.3];
+        }
+        return [1.1,2.3,5];
+        
+    }
+
     const onFormChange = ev => {
         const target = ev.target;
         const name = target.name;
@@ -113,8 +141,14 @@ const VulnerabilityForm = ({
         if ('tags' === name) {
             value = JSON.stringify(value.split(','));
         }
-
-        setVulnerability({ ...vulnerability, [name]: value });
+        if ('owasp_vector' === name) {
+            let scores = computeOwaspScores(value)
+            setVulnerability({ ...vulnerability, 'owasp_overall': scores[0], 'owasp_impact': scores[1], 'owasp_likehood': scores[2], [name]: value });
+        }
+        else
+        {
+            setVulnerability({ ...vulnerability, [name]: value });
+        }
     };
 
     return <form onSubmit={onFormSubmit} className="crud">
@@ -179,7 +213,7 @@ const VulnerabilityForm = ({
                         <MarkdownEditor name="impact" value={vulnerability.impact || ""} onChange={onFormChange} />
                     </label>
                     {
-                        !useOWASP && <cvss>
+                        !useOWASP && <>
                             <label>CVSS score
                                 <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
                                     onChange={onFormChange} />
@@ -187,27 +221,28 @@ const VulnerabilityForm = ({
                             <label><span><CvssAbbr /> vector</span>
                                 <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
                             </label>
-                        </cvss>
+                        </>
                     }
                     {
-                        useOWASP && <owasp>
+                        useOWASP && <>
                             <label>OWASP Risk Rating vector
-                                <input type="text" name="owasp_vector" value={vulnerability.owasp_vector || ""}
-                                    onChange={onFormChange} placeholder="eg: (SL:9/M:1/O:7/S:2/ED:1/EE:1/A:6/ID:1/LC:9/LI:1/LAV:5/LAC:1/FD:1/RD:5/NC:2/PV:3)" />
+                                <Input type="text" name="owasp_vector" value={vulnerability.owasp_vector || ""}
+                                    isInvalid={!isValidOwaspVector}
+                                    onChange={onFormChange} placeholder="eg: (SL:1/M:1/O:0/S:2/ED:1/EE:1/A:1/ID:1/LC:2/LI:1/LAV:1/LAC:1/FD:1/RD:1/NC:2/PV:3)" />
                             </label>
                             <label>OWASP Likehoood score
-                                <input type="number" step="0.1" min="0" max="10" name="owasp_likehood" value={vulnerability.owasp_likehood || ""}
+                                <input type="number" step="0.1" min="0" max="10" name="owasp_likehood" value={vulnerability.owasp_likehood || 0.0}
                                     disabled />
                             </label>
                             <label>OWASP Impact score
-                                <input type="number" step="0.1" min="0" max="10" name="owasp_impact" value={vulnerability.owasp_impact || ""}
+                                <input type="number" step="0.1" min="0" max="10" name="owasp_impact" value={vulnerability.owasp_impact || 0.0}
                                     disabled />
                             </label>
                             <label>OWASP Overall score
-                                <input type="number" step="0.1" min="0" max="10" name="owasp_overall" value={vulnerability.owasp_overall || ""}
+                                <input type="number" step="0.1" min="0" max="10" name="owasp_overall" value={vulnerability.owasp_overall || 0.0}
                                     disabled />
                             </label>
-                        </owasp>
+                        </>
                     }
                     </AccordionPanel>
                 </AccordionItem>
@@ -223,10 +258,10 @@ const VulnerabilityForm = ({
                 <AccordionPanel pb={4}>
                     
                     {
-                        useOWASP && <owasp>
+                        useOWASP && <>
                             <label>Owasp Risk Rating Chart</label>
                             <OwaspRR />
-                        </owasp>
+                        </>
                     }
                 </AccordionPanel>
             </AccordionItem>
