@@ -111,11 +111,9 @@ const  OwaspRR = ({
         { subject: 'Non-compliance', value: 2, id: "owasp_compliance" },
         { subject: 'Privacy violation', value: 3, id: "owasp_privacy" },
       ];
-
-      const [test, setTest] = useState(owaspRRChartData)
     
     const OwaspChart = () => (
-        <RadarChart outerRadius={180} width={900} height={550} data={test}>
+        <RadarChart outerRadius={180} width={900} height={550} data={owaspRRChartData}>
             <PolarGrid />
             <PolarAngleAxis dataKey="subject" />
             <PolarRadiusAxis angle={90} domain={[0, 10]} />
@@ -152,30 +150,64 @@ const  OwaspRR = ({
         { value: 9, label: '9 - Anonymous Internet users' }
       ]
 
+      const getValue = (fields, name, updateName, newValue) => {
+        if (updateName === name)
+          {
+            return newValue;
+          }
+        let temp = 0;
+        fields.map(([key, value]) => {
+              if (key === name) {
+                temp = value;
+              }
+          });
+          
+         return temp;
+      };
+
+      const produceVector = (fields, name, newValue) => {
+          return "(SL:" + getValue(fields, 'SL', name, newValue) + "/"
+              + "M:" + getValue(fields, 'M', name, newValue) + "/"
+              + "O:" + getValue(fields, 'O', name, newValue) + "/"
+              + "S:" + getValue(fields, 'S', name, newValue) + "/"
+              + "ED:" + getValue(fields, 'ED', name, newValue) + "/"
+              + "EE:" + getValue(fields, 'EE', name, newValue) + "/"
+              + "A:" + getValue(fields, 'A', name, newValue) + "/"
+              + "ID:" + getValue(fields, 'ID', name, newValue) + "/"
+              + "LC:" + getValue(fields, 'LC', name, newValue) + "/"
+              + "LI:" + getValue(fields, 'LI', name, newValue) + "/"
+              + "LAV:" + getValue(fields, 'LAV', name, newValue) + "/"
+              + "LAV:" + getValue(fields, 'LAC', name, newValue) + "/"
+              + "FD:" + getValue(fields, 'FD', name, newValue) + "/"
+              + "RD:" + getValue(fields, 'RD', name, newValue) + "/"
+              + "NC:" + getValue(fields, 'NC', name, newValue) + "/"
+              + "PV:" + getValue(fields, 'PV', name, newValue) + ")";
+      };
+
      const updateChart = (event, id) => {
-        owaspRRChartData.map(data => {
-            if (data.id === id) {
-              data.value = event.value
-            }
-        });
-        setTest(owaspRRChartData);
+        let vector = vulnerability.owasp_vector;
+        let fields = parseVector(vector);
+        vector = produceVector(fields, id, event.value);
+        let scores = computeOwaspScores(vector);
+        setVulnerability({ ...vulnerability, 'owasp_impact': scores[0], 'owasp_likehood': scores[1], 'owasp_overall': scores[2], ['owasp_vector']: vector });
     };
+
 
 
     const ThreatAgentFactors = () => (
         <div>
             <h6>Threat agent factors</h6>
             <label>Skill level
-                <Select options={skillLevelOptions} onChange={e => updateChart(e, "owasp_skills")} />
+                <Select options={skillLevelOptions}onChange={e => updateChart(e, "SL")} />
             </label>
             <label>Motive
-                <Select options={motiveOptions} onChange={e => updateChart(e, "owasp_motive")} />
+                <Select options={motiveOptions} onChange={e => updateChart(e, "M")} />
             </label>
             <label>Opportunity
-                <Select options={opportunityOptions} onChange={e => updateChart(e, "owasp_opportunity")} />
+                <Select options={opportunityOptions} onChange={e => updateChart(e, "O")} />
             </label>
             <label> Size
-                <Select options={sizeOptions} onChange={e => updateChart(e, "owasp_size")} />
+                <Select options={sizeOptions} onChange={e => updateChart(e, "S")} />
             </label>
         </div>
     )
@@ -214,16 +246,16 @@ const  OwaspRR = ({
         <div>
             <h6>Technical impact factors</h6>
             <label>Loss of confidentiality
-                <Select options={lossOfConfidentialityOptions} onChange={e => updateChart(e, "owasp_confidentiality")} />
+                <Select options={lossOfConfidentialityOptions} onChange={e => updateChart(e, "LC")} />
             </label>
             <label>Loss of integrity
-                <Select options={lossOfIntegrityOptions} onChange={e => updateChart(e, "owasp_integrity")} />
+                <Select options={lossOfIntegrityOptions} onChange={e => updateChart(e, "LI")} />
             </label>
             <label>Loss of availability
-                <Select options={lossOfAvailabilityOptions} onChange={e => updateChart(e, "owasp_availability")} />
+                <Select options={lossOfAvailabilityOptions} onChange={e => updateChart(e, "LAV")} />
             </label>
             <label> Loss of accountability
-                <Select options={lossOfAccountabilityOptions} onChange={e => updateChart(e, "owasp_accountability")} />
+                <Select options={lossOfAccountabilityOptions} onChange={e => updateChart(e, "LAC")} />
             </label>
         </div>
     )
@@ -260,16 +292,16 @@ const  OwaspRR = ({
         <div>
             <h6>Vulnerability factors</h6>
             <label>Ease of discovery
-                <Select options={easeOfDiscoveryOptions} onChange={e => updateChart(e, "owasp_discovery")} />
+                <Select options={easeOfDiscoveryOptions} onChange={e => updateChart(e, "ED")} />
             </label>
             <label>Ease of exploit
-                <Select options={easeOfExploitOptions} onChange={e => updateChart(e, "owasp_exploit")} />
+                <Select options={easeOfExploitOptions} onChange={e => updateChart(e, "EE")} />
             </label>
             <label>Awareness
-                <Select options={awarenessOptions} onChange={e => updateChart(e, "owasp_awareness")} />
+                <Select options={awarenessOptions} onChange={e => updateChart(e, "A")} />
             </label>
             <label>Intrusion detection
-                <Select options={intrusionDetectionOptions} onChange={e => updateChart(e, "owasp_intrusion")} />
+                <Select options={intrusionDetectionOptions} onChange={e => updateChart(e, "ID")} />
             </label>
         </div>
     )
@@ -305,20 +337,19 @@ const  OwaspRR = ({
         <div>
             <h6>Business impact factors</h6>
             <label>Financial damage
-                <Select options={financialDamageOptions} onChange={e => updateChart(e, "owasp_financial")} />
+                <Select options={financialDamageOptions} onChange={e => updateChart(e, "FD")} />
             </label>
             <label>Reputation damage
-                <Select options={reputationDamageOptions} onChange={e => updateChart(e, "owasp_reputation")} />
+                <Select options={reputationDamageOptions} onChange={e => updateChart(e, "RD")} />
             </label>
             <label>Non-compliance
-                <Select options={nonComplianceOptions} onChange={e => updateChart(e, "owasp_compliance")} />
+                <Select options={nonComplianceOptions} onChange={e => updateChart(e, "NC")} />
             </label>
             <label>Privacy violation
-            <Select options={privacyViolationOptions} onChange={e => updateChart(e, "owasp_privacy")} />
+            <Select options={privacyViolationOptions} onChange={e => updateChart(e, "PV")} />
             </label>
         </div>
     )
-
 
     return (
         <div>
