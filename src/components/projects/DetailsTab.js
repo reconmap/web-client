@@ -33,6 +33,11 @@ const ProjectDetailsTab = ({ project }) => {
                     <dd>{project.engagement_type}</dd>
                 </>}
 
+                {project.vulnerability_metrics && <>
+                    <dt>Vulnerability metrics</dt>
+                    <dd>{project.vulnerability_metrics}</dd>
+                </>}
+
                 <dt>Description</dt>
                 <dd>{project.description ? <ReactMarkdown>{project.description}</ReactMarkdown> : <EmptyField />}</dd>
 

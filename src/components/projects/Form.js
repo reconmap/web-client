@@ -3,6 +3,7 @@ import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import ProjectEngagementTypes from "../../models/ProjectEngagementTypes";
+import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
 
@@ -69,6 +70,15 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                 <Select name="engagement_type" value={project.engagement_type || ""} onChange={handleFormChange}>
                     <option value="">(undefined)</option>
                     {ProjectEngagementTypes.map(type => <option key={`engtype_${type.id}`} value={type.id}>{type.name}</option>)}
+                </Select>
+            </label>
+
+            <legend>Vulnerability Metrics</legend>
+            <label>
+                Type
+                <Select name="vulnerability_metrics" value={project.vulnerability_metrics || ""} onChange={handleFormChange}>
+                    <option value="">(undefined)</option>
+                    {ProjectVulnerabilityMetrics.map(type => <option key={`metrics_${type.id}`} value={type.id}>{type.name}</option>)}
                 </Select>
             </label>
 
