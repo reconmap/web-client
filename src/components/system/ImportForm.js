@@ -45,7 +45,7 @@ const ImportForm = () => {
                     <ListItem>Everything on the file will be attempted to be imported.</ListItem>
                     <ListItem>If there is an error the import process will continue resulting on a partial import.</ListItem>
                     <ListItem>If there are missing attributes, Reconmap will attempt to use defaults instead.</ListItem>
-                    <ListItem>Example of the files to import can be found on the following url: <ExternalLink href="https://github.com/reconmap/rest-api/tree/master/exports">https://github.com/reconmap/rest-api/tree/master/exports</ExternalLink> </ListItem>
+                    <ListItem>Example of the files to import can be found on the following url: <ExternalLink href="https://github.com/reconmap/reconmap/tree/master/imports">https://github.com/reconmap/reconmap/tree/master/imports</ExternalLink> </ListItem>
                 </UnorderedList>
             </div>
             <FormControl id="importFile" isRequired>

@@ -2,7 +2,6 @@ import { Select } from "@chakra-ui/react";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
-import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter: setCommand }) => {
@@ -36,6 +35,13 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
         <fieldset>
             <legend>Automation details</legend>
 
+            <label>Command line arguments
+                <input type="text" name="arguments" onChange={onFormChange} value={command.arguments || ""} /></label>
+
+            <label>Output filename
+                <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename || ""} />
+            </label>
+
             <label>Output parser
                 <Select name="output_parser" onChange={onFormChange} value={command.output_parser || ""}>
                     <option value="">(none)</option>
@@ -43,10 +49,11 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
                 </Select>
             </label>
         </fieldset>
-        <label>Executor type
+
+        <label>Execution environment
             <Select name="executable_type" onChange={onFormChange} value={command.executable_type} required>
-                <option value="custom">Custom</option>
-                <option value="rmap">Reconmap (rmap)</option>
+                <option value="custom">Host</option>
+                <option value="rmap">Container</option>
             </Select>
         </label>
         {command.executable_type === 'custom' && <>
@@ -54,15 +61,9 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
                 <input type="text" name="executable_path" onChange={onFormChange} value={command.executable_path || ""} /></label>
         </>
         }
-        <label>Command line arguments
-            <input type="text" name="arguments" onChange={onFormChange} value={command.arguments || ""} /></label>
         {command.executable_type === 'rmap' && <>
             <label>Docker image
                 <input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image || ""} /></label>
-
-            <label>Output filename
-                <input type="text" name="output_filename" onChange={onFormChange} value={command.output_filename || ""} />
-            </label>
         </>}
 
         <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
