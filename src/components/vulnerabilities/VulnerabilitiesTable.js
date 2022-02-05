@@ -16,38 +16,42 @@ import LinkButton from "../ui/buttons/Link";
 import VulnerabilityCategorySpan from "./categories/Span";
 import VulnerabilityStatusBadge from "./StatusBadge";
 
-const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reloadCallback, onSortChange }) => {
-    const showSelection = selection !== undefined;
+const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, reloadCallback, showSelection = true, showProjectColumn = true }) => {
+    const onSortChange = (ev, column, order) => {
+        ev.preventDefault();
+
+        setTableModel({ ...tableModel, sortBy: { column: column, order: order } })
+    }
 
     const onSelectionChange = ev => {
         const target = ev.target;
         const selectionId = parseInt(target.value);
         if (target.checked) {
-            setSelection([...selection, selectionId]);
+            setTableModel({ ...tableModel, selection: [...tableModel.selection, selectionId] })
         } else {
-            setSelection(selection.filter(value => value !== selectionId));
+            setTableModel({ ...tableModel, selection: tableModel.selection.filter(value => value !== selectionId) })
         }
     };
 
     const onHeaderCheckboxClick = ev => {
         if (ev.target.checked) {
-            setSelection(vulnerabilities.map(vulnerability => vulnerability.id));
+            setTableModel({ ...tableModel, selection: tableModel.vulnerabilities.map(vulnerability => vulnerability.id) })
         } else {
-            setSelection([]);
+            setTableModel({ ...tableModel, selection: [] })
         }
     }
 
-    const numColumns = showSelection ? 8 : 7;
-    const vulnerabilitiesLength = null !== vulnerabilities ? vulnerabilities.length : 0;
+    const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
+    const vulnerabilitiesLength = null !== tableModel.vulnerabilities ? tableModel.vulnerabilities.length : 0;
 
     const deleteVulnerability = useDelete('/vulnerabilities/', reloadCallback, 'Do you really want to delete this vulnerability?', 'The vulnerability has been deleted.');
 
     return <Table>
         <Thead>
             <Tr>
-                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={selection.length && selection.length === vulnerabilitiesLength} isDisabled={vulnerabilitiesLength === 0} /></Th>}
+                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={tableModel.selection.length && tableModel.selection.length === vulnerabilitiesLength} isDisabled={tableModel.vulnerabilitiesLength === 0} /></Th>}
                 <Th style={{ width: '190px' }}>Summary</Th>
-                <Th style={{ width: '190px' }}>Project</Th>
+                {showProjectColumn && <Th style={{ width: '190px' }}>Project</Th>}
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></Th>
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="risk" /> Risk <AscendingSortLink callback={onSortChange} property="risk" /></Th>
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="cvss_score" /> <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score <AscendingSortLink callback={onSortChange} property="cvss_score" /></Th>
@@ -56,19 +60,19 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
             </Tr>
         </Thead>
         <Tbody>
-            {null === vulnerabilities &&
+            {null === tableModel.vulnerabilities &&
                 <LoadingTableRow numColumns={numColumns} />}
-            {null !== vulnerabilities && 0 === vulnerabilities.length &&
+            {null !== tableModel.vulnerabilities && 0 === tableModel.vulnerabilities.length &&
                 <NoResultsTableRow numColumns={numColumns} />}
-            {null !== vulnerabilities && vulnerabilities.length > 0 &&
-                vulnerabilities.map((vulnerability, index) => {
+            {null !== tableModel.vulnerabilities && tableModel.vulnerabilities.length > 0 &&
+                tableModel.vulnerabilities.map((vulnerability, index) => {
                     return <Tr key={index}>
                         {showSelection &&
                             <Td>
                                 <Checkbox
                                     value={vulnerability.id}
                                     onChange={onSelectionChange}
-                                    isChecked={selection.includes(vulnerability.id)}
+                                    isChecked={tableModel.selection.includes(vulnerability.id)}
                                 />
                             </Td>
                         }
@@ -78,7 +82,7 @@ const VulnerabilitiesTable = ({ vulnerabilities, selection, setSelection, reload
                                 <div><Tags values={vulnerability.tags} /></div>
                             </Stack>
                         </Td>
-                        <Td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</Td>
+                        {showProjectColumn && <Td>{vulnerability.is_template ? <span title="Not applicable">(n/a)</span> : <ProjectBadge project={{ id: vulnerability.project_id, name: vulnerability.project_name }} />}</Td>}
                         <Td><VulnerabilityStatusBadge vulnerability={vulnerability} /></Td>
                         <Td><RiskBadge risk={vulnerability.risk} /></Td>
                         <Td><CvssScore score={vulnerability.cvss_score} /></Td>

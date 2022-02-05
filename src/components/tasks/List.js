@@ -2,7 +2,6 @@ import { HStack, Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteButton from 'components/ui/buttons/Delete';
-import ReloadButton from 'components/ui/buttons/Reload';
 import { actionCompletedToast } from 'components/ui/toast';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -24,8 +23,6 @@ const TasksList = () => {
 
     const [projects] = useFetch('/projects')
     const [filter, setFilter] = useState({ project: '', user: '', status: '' })
-
-    const [reloadButtonDisabled, setReloadButtonDisabled] = useState(false);
 
     const handleSetProject = (ev) => {
         setFilter({ ...filter, project: ev.target.value })
@@ -110,14 +107,13 @@ const TasksList = () => {
                         Delete selected
                     </DeleteButton>
                 </RestrictedComponent>
-                <ReloadButton onClick={async () => { setReloadButtonDisabled(true); await reloadTasks(); setReloadButtonDisabled(false); }} disabled={reloadButtonDisabled} />
             </HStack>
         </div>
         <Title title='Tasks' icon={<IconClipboardList />} />
 
         {!tasks ?
             <Loading /> :
-            <TasksTable tasks={tasks} selectedTasks={selectedTasks} setSelectedTasks={setSelectedTasks} filter={filter} destroy={destroy} />
+            <TasksTable tasks={tasks} selectedTasks={selectedTasks} setSelectedTasks={setSelectedTasks} filter={filter} destroy={destroy} reloadCallback={reloadTasks} />
         }
     </>
 }
