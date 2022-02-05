@@ -153,8 +153,7 @@ div form + aside {
 }
 
 label,
-small,
-details summary {
+small {
     font-size: var(--fontSizeSmall);
     color: var(--text-color);
 }
@@ -295,3 +294,19 @@ dl {
 }
 
 td svg { max-width: 32px;}
+
+details {
+    border: 1px solid var(--text-colorDark);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 2px 2px black;
+    padding: 10px;
+    summary {
+        font-weight: bold;
+        font-size: large;
+    }
+}
+
+details[open] summary {
+    margin-bottom: 10px;
+}

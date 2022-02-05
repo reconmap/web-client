@@ -30,7 +30,7 @@ const ProjectTasks = ({ project }) => {
             </RestrictedComponent>
         </h4>
 
-        {tasks ? <TasksTable tasks={tasks} showProjectColumn={false} destroy={onDeleteTask} /> : <Loading />}
+        {tasks ? <TasksTable tasks={tasks} showProjectColumn={false} destroy={onDeleteTask} reloadCallback={reloadTasks} /> : <Loading />}
     </section>
 }
 

@@ -2,7 +2,7 @@ import CommandsTable from 'components/commands/Table';
 import { useEffect, useState } from 'react';
 import secureApiFetch from '../../services/api';
 
-const CommandsSearchResults = ({ keywords }) => {
+const CommandsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }) => {
 
     const [commands, setCommands] = useState([]);
 
@@ -10,13 +10,16 @@ const CommandsSearchResults = ({ keywords }) => {
         const reloadData = () => {
             secureApiFetch(`/commands?keywords=${keywords}`, { method: 'GET' })
                 .then(resp => resp.json())
-                .then(json => {
-                    setCommands(json);
+                .then(commands => {
+                    setCommands(commands);
+                    setEmptyResults(emptyResults => (commands.length === 0 ? emptyResults.concat('commands') : emptyResults.filter(entity => entity !== 'commands')));
                 })
         }
 
         reloadData()
-    }, [keywords])
+    }, [keywords, setEmptyResults])
+
+    if (commands.length === 0) return <></>
 
     return <>
         <h3>{commands.length} matching commands</h3>
