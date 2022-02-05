@@ -265,6 +265,10 @@ const  OwaspRR = ({
 
      const updateValues = (event, id) => {
         let vector = vulnerability.owasp_vector;
+        if (!vector)
+        {
+          vector = "(SL:1/M:1/O:0/S:2/ED:1/EE:1/A:1/ID:1/LC:2/LI:1/LAV:1/LAC:1/FD:1/RD:1/NC:2/PV:3)";
+        }
         let fields = parseVector(vector);
         vector = produceVector(fields, id, event.value);
         let scores = computeOwaspScores(vector);
