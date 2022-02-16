@@ -8,6 +8,25 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
         setClient({ ...client, [name]: value });
     };
 
+    const onImageSelect = (image, name) => {
+        if(!image) {
+            return;
+          }
+      
+        fileToDataUri(image)
+            .then(dataUri => {
+                setClient({ ...client, [name]: dataUri });
+        });
+    }
+
+    const fileToDataUri = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          resolve(event.target.result)
+        };
+        reader.readAsDataURL(file);
+    });
+
     return <form onSubmit={onFormSubmit} className="crud">
         <fieldset>
             <legend>Company information</legend>
@@ -17,6 +36,18 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                 <input type="text" name="address" onChange={onFormChange} value={client.address || ""} /></label>
             <label>URL
                 <input type="text" name="url" onChange={onFormChange} value={client.url || ""} />
+            </label>
+            <label>Logo
+                <img src={client.logo || null} />
+            </label>
+            <label>Update logo
+                <input type="file" name="logo" onChange={(event) => onImageSelect(event.target.files[0] || null, "logo")}/>
+            </label>
+            <label>Small logo
+                <img src={client.small_logo || null} />
+            </label>
+            <label>Update small logo
+                <input type="file" name="small_logo" onChange={(event) => onImageSelect(event.target.files[0] || null, "small_logo")}/>
             </label>
         </fieldset>
         <fieldset>
