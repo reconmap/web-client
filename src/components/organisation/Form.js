@@ -32,37 +32,15 @@ const OrganisationForm = () => {
         setOrganisation({ ...organisation, [name]: value });
     };
 
-    const onImageSelect = (image, name) => {
-        if(!image) {
-            return;
-          }
-      
-        fileToDataUri(image)
-            .then(dataUri => {
-              setOrganisation({ ...organisation, [name]: dataUri });
-        });
-    }
-
-    const fileToDataUri = (file) => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          resolve(event.target.result)
-        };
-        reader.readAsDataURL(file);
-    });
-
     useEffect(() => {
         if (rootOrganisation)
-        {
             setOrganisation(rootOrganisation);
-        }
-
     }, [rootOrganisation]);
 
     if (!organisation) {
         return <Loading />
     }
- 
+
     return (
         <div>
             <div className='heading'>
@@ -85,18 +63,6 @@ const OrganisationForm = () => {
                 <label>Contact phone
                     <input type="tel" name="contact_phone" value={organisation.contact_phone}
                         onChange={handleFormChange} /></label>
-                <label>Logo
-                    <img src={organisation.logo || null} />
-                </label>
-                <label>Update logo
-                    <input type="file" name="logo" onChange={(event) => onImageSelect(event.target.files[0] || null, "logo")}/>
-                </label>
-                <label>Small logo
-                    <img src={organisation.small_logo || null} />
-                </label>
-                <label>Update small logo
-                    <input type="file" name="small_logo" onChange={(event) => onImageSelect(event.target.files[0] || null, "small_logo")}/>
-                </label>
                 <PrimaryButton type="submit"
                     disabled={loading}>Save</PrimaryButton>
             </form>

@@ -97,12 +97,6 @@ const ClientDetails = () => {
 
                                     <dt>Contact phone</dt>
                                     <dd><TelephoneLink number={client.contact_phone} /></dd>
-                                    
-                                    <dt>Logo</dt>
-                                    <dd><img src={client.logo} /></dd>
-
-                                    <dt>Small logo</dt>
-                                    <dd><img src={client.small_logo} /></dd>
                                 </dl>
                             </div>
 
