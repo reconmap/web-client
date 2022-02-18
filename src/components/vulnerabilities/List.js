@@ -18,12 +18,13 @@ import VulnerabilitiesTable from './VulnerabilitiesTable';
 import VulnerabilityTableModel from './VulnerabilityTableModel';
 
 const VulnerabilitiesList = () => {
-    const [tableModel, setTableModel] = useState(new VulnerabilityTableModel())
     const navigate = useNavigate();
     const query = useQuery();
     let pageNumber = query.get('page');
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
+
+    const [tableModel, setTableModel] = useState(new VulnerabilityTableModel())
 
     const [totalCount, setTotalCount] = useState('?');
     const [numberPages, setNumberPages] = useState(1);
@@ -39,6 +40,7 @@ const VulnerabilitiesList = () => {
         const url = `/vulnerabilities?${queryParams.toString()}`;
         navigate(url);
     }
+
     const handleNext = () => {
         const queryParams = new URLSearchParams();
         queryParams.set('isTemplate', 'false');

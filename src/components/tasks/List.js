@@ -1,38 +1,48 @@
-import { HStack, Select } from '@chakra-ui/react';
+import { Flex, HStack, Select } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteButton from 'components/ui/buttons/Delete';
 import { actionCompletedToast } from 'components/ui/toast';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
-import useFetch from '../../hooks/useFetch';
 import TaskStatuses from "../../models/TaskStatuses";
 import Breadcrumb from '../ui/Breadcrumb';
 import CreateButton from "../ui/buttons/Create";
 import { IconClipboardList } from '../ui/Icons';
-import Loading from '../ui/Loading';
 import Title from '../ui/Title';
+import TaskFilters from './Filters';
 import TasksTable from './TasksTable';
+import TaskTableModel from './TaskTableModel';
 
 const TasksList = () => {
     const navigate = useNavigate();
-    const [tasks, reloadTasks] = useFetch('/tasks');
-    const [selectedTasks, setSelectedTasks] = useState([]);
 
-    const [projects] = useFetch('/projects')
-    const [filter, setFilter] = useState({ project: '', user: '', status: '' })
+    const [tableModel, setTableModel] = useState(new TaskTableModel())
 
-    const handleSetProject = (ev) => {
-        setFilter({ ...filter, project: ev.target.value })
-    }
-    const handleSetStatus = (ev) => {
-        setFilter({ ...filter, status: ev.target.value })
-    }
     const handleCreateTask = () => {
         navigate(`/tasks/create`);
     }
+
+    const reloadTasks = useCallback(() => {
+        setTableModel(tableModel => ({ ...tableModel, tasks: null }));
+
+        const queryParams = new URLSearchParams();
+        queryParams.set('orderColumn', tableModel.sortBy.column);
+        queryParams.set('orderDirection', tableModel.sortBy.order);
+        Object.keys(tableModel.filters)
+            .forEach(key => tableModel.filters[key] !== null && tableModel.filters[key].length !== 0 && queryParams.append(key, tableModel.filters[key]));
+        const url = `/tasks?${queryParams.toString()}`;
+
+        secureApiFetch(url, { method: 'GET' })
+            .then(resp => {
+                return resp.json()
+            })
+            .then(data => {
+                setTableModel(tableModel => ({ ...tableModel, tasks: data }));
+            });
+    }, [setTableModel, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order]);
 
     const onStatusSelectChange = (ev) => {
         const newStatus = ev.target.value;
@@ -43,7 +53,7 @@ const TasksList = () => {
                 'Bulk-Operation': 'UPDATE',
             },
             body: JSON.stringify({
-                taskIds: selectedTasks,
+                taskIds: tableModel.selection,
                 newStatus: newStatus
             })
         })
@@ -61,11 +71,11 @@ const TasksList = () => {
             headers: {
                 'Bulk-Operation': 'DELETE',
             },
-            body: JSON.stringify(selectedTasks),
+            body: JSON.stringify(tableModel.selection),
         })
             .then(reloadTasks)
             .then(() => {
-                setSelectedTasks([]);
+                setTableModel({ ...tableModel, selection: [] })
                 actionCompletedToast('All selected tasks were deleted.');
             })
             .catch(err => console.error(err));
@@ -73,29 +83,18 @@ const TasksList = () => {
 
     const destroy = useDelete('/tasks/', reloadTasks);
 
+    useEffect(() => {
+        reloadTasks()
+    }, [reloadTasks, tableModel.filters])
+
     return <>
         <PageTitle value="Tasks" />
         <div className='heading'>
             <Breadcrumb />
             <HStack alignItems='flex-end'>
-                <div>
-                    <label>Project</label>
-                    <Select onChange={handleSetProject}>
-                        <option value="">(any)</option>
-                        {projects && projects.map(project => <option value={project.id}
-                            key={project.id}>{project.name}</option>)}
-                    </Select>
-                </div>
-                <div>
-                    <label>Status</label>
-                    <Select onChange={handleSetStatus}>
-                        <option value="">(any)</option>
-                        {TaskStatuses.map(status => <option key={`taskstatus_${status.id}`} value={status.id}>{status.name}</option>)}
-                    </Select>
-                </div>
                 <CreateButton onClick={handleCreateTask}>Create task</CreateButton>
                 <label>Transition to&nbsp;
-                    <Select disabled={!selectedTasks.length} onChange={onStatusSelectChange}>
+                    <Select disabled={!tableModel.selection.length} onChange={onStatusSelectChange}>
                         <option value="">(select)</option>
                         {TaskStatuses.map((status, index) =>
                             <option key={index} value={status.id}>{status.name}</option>
@@ -103,7 +102,7 @@ const TasksList = () => {
                     </Select>
                 </label>
                 <RestrictedComponent roles={['administrator']}>
-                    <DeleteButton onClick={onDeleteButtonClick} disabled={!selectedTasks.length}>
+                    <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
                         Delete selected
                     </DeleteButton>
                 </RestrictedComponent>
@@ -111,10 +110,11 @@ const TasksList = () => {
         </div>
         <Title title='Tasks' icon={<IconClipboardList />} />
 
-        {!tasks ?
-            <Loading /> :
-            <TasksTable tasks={tasks} selectedTasks={selectedTasks} setSelectedTasks={setSelectedTasks} filter={filter} destroy={destroy} reloadCallback={reloadTasks} />
-        }
+        <Flex>
+            <TaskFilters tableModel={tableModel} tableModelSetter={setTableModel} />
+        </Flex>
+
+        <TasksTable tableModel={tableModel} tableModelSetter={setTableModel} destroy={destroy} reloadCallback={reloadTasks} />
     </>
 }
 

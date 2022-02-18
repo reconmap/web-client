@@ -5,7 +5,6 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconFolder } from '../ui/Icons';
-import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import DocumentsTable from './Table';
 
@@ -27,7 +26,7 @@ const DocumentsListPage = () => {
             <CreateButton onClick={onAddCommandClick}>Create document</CreateButton>
         </div>
         <Title title="Documents" icon={<IconFolder />} />
-        {!documents ? <Loading /> : <DocumentsTable documents={documents} onDeleteButtonClick={destroy} />}
+        <DocumentsTable documents={documents} onDeleteButtonClick={destroy} />
     </div>
 }
 
