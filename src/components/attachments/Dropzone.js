@@ -31,7 +31,7 @@ const rejectStyle = {
     borderColor: 'var(--red)'
 };
 
-const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null }) => {
+const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, attachmentName = null, attachmentId = null }) => {
     const onFileDrop = (newFiles) => {
         setAcceptedFiles(newFiles);
     };
@@ -57,7 +57,14 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null }) 
             formData.append('attachment[]', file);
         })
 
-        secureApiFetch('/attachments', {
+        let uri = '/attachments';
+        if (attachmentId) {
+            formData.append('attachmentName', attachmentName);
+            formData.append('attachmentId', attachmentId);
+            uri = `/attachments/${attachmentId}`;
+        }
+
+        secureApiFetch(uri, {
             method: 'POST',
             body: formData
         })
