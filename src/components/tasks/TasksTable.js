@@ -12,9 +12,9 @@ import UserLink from "../users/Link";
 import TaskBadge from "./TaskBadge";
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
-const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, showProjectColumn = true, reloadCallback = null }) => {
-
-    const showSelection = tableModel.selection !== undefined;
+const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, reloadCallback = null }) => {
+    const showSelection = tableModel.columnsVisibility.selection;
+    const showProjectColumn = tableModel.columnsVisibility.project;
     const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
 
     const onSelectionChange = ev => {

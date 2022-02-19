@@ -19,7 +19,7 @@ import TaskTableModel from './TaskTableModel';
 const TasksList = () => {
     const navigate = useNavigate();
 
-    const [tableModel, setTableModel] = useState(new TaskTableModel())
+    const [tableModel, setTableModel] = useState(new TaskTableModel(true, true))
 
     const handleCreateTask = () => {
         navigate(`/tasks/create`);

@@ -12,7 +12,7 @@ const ProjectTasks = ({ project }) => {
     const navigate = useNavigate();
     const isTemplate = project.is_template === 1;
 
-    const [tableModel, setTableModel] = useState(new TaskTableModel())
+    const [tableModel, setTableModel] = useState(new TaskTableModel(false, false))
 
     const reloadTasks = useCallback(() => {
         setTableModel(tableModel => ({ ...tableModel, tasks: null }));

@@ -1,5 +1,6 @@
 
 interface Props {
+    columnsVisibility: { [key: string]: boolean };
     pageNumber: number;
     selection: string[];
     tasks?: object[];
@@ -9,6 +10,10 @@ interface Props {
 
 class TaskTableModel implements Props {
     pageNumber: number = 0;
+    columnsVisibility: { [key: string]: boolean } = {
+        'selection': false,
+        'project': true,
+    };
     selection: string[] = [];
     tasks?: object[] = [];
     filters: object = {
@@ -17,6 +22,11 @@ class TaskTableModel implements Props {
         status: null,
     };
     sortBy: object = { column: 'insert_ts', order: 'DESC' };
+
+    constructor(isSelectionColumnVisible: boolean = false, isProjectColumnVisible: boolean = true) {
+        this.columnsVisibility.selection = isSelectionColumnVisible;
+        this.columnsVisibility.project = isProjectColumnVisible;
+    }
 }
 
 export default TaskTableModel;
