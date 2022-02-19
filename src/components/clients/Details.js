@@ -1,4 +1,4 @@
-import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { ButtonGroup, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
@@ -37,7 +37,9 @@ const ClientDetails = () => {
     const { clientId } = useParams();
     const navigate = useNavigate();
 
-    const [client] = useFetch(`/clients/${clientId}`)
+    const [client] = useFetch(`/clients/${clientId}`);
+    const [contacts] = useFetch(`/clients/${clientId}/contacts`);
+
     const deleteClient = useDelete(`/clients/`)
 
     const handleDelete = async () => {
@@ -88,16 +90,34 @@ const ClientDetails = () => {
 
                                     <dt>URL</dt>
                                     <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
-
-                                    <dt>Contact name</dt>
-                                    <dd>{client.contact_name}</dd>
-
-                                    <dt>Contact email</dt>
-                                    <dd><MailLink email={client.contact_email} /></dd>
-
-                                    <dt>Contact phone</dt>
-                                    <dd><TelephoneLink number={client.contact_phone} /></dd>
                                 </dl>
+
+                                <h4>Contacts</h4>
+
+                                {contacts && <>
+                                    <Table>
+                                        <Thead>
+                                            <Tr>
+                                                <Th>Kind</Th>
+                                                <Th>Name</Th>
+                                                <Th>Role</Th>
+                                                <Th>Email</Th>
+                                                <Th>Phone</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
+                                            {contacts.map(contact => <>
+                                                <Tr>
+                                                    <Td>{contact.kind}</Td>
+                                                    <Td>{contact.name}</Td>
+                                                    <Td>{contact.role}</Td>
+                                                    <Td><MailLink email={contact.email} /></Td>
+                                                    <Td><TelephoneLink number={contact.phone} /></Td>
+                                                </Tr>
+                                            </>)}
+                                        </Tbody>
+                                    </Table>
+                                </>}
                             </div>
 
                             <div>
