@@ -1,10 +1,8 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import MailLink from "components/ui/MailLink";
 import LoadingTableRow from 'components/ui/tables/LoadingTableRow';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
-import TelephoneLink from "components/ui/TelephoneLink";
 import { useNavigate } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -40,22 +38,19 @@ const ClientsList = () => {
                     <Th>Name</Th>
                     <Th>Address</Th>
                     <Th>URL</Th>
-                    <Th>Contact name</Th>
-                    <Th>Contact email</Th>
-                    <Th colSpan={2}>Contact phone</Th>
+                    <Th>Number of contacts</Th>
+                    <Th>&nbsp;</Th>
                 </Tr>
             </Thead>
             <Tbody>
-                {null === clients && <LoadingTableRow numColumns={7} />}
-                {null !== clients && 0 === clients.length && <NoResultsTableRow numColumns={7} />}
+                {null === clients && <LoadingTableRow numColumns={5} />}
+                {null !== clients && 0 === clients.length && <NoResultsTableRow numColumns={5} />}
                 {null !== clients && 0 < clients.length && clients.map((client) =>
                     <Tr key={client.id}>
                         <Td><ClientLink clientId={client.id}>{client.name}</ClientLink></Td>
                         <Td>{client.address || '-'}</Td>
                         <Td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</Td>
-                        <Td>{client.contact_name || '-'}</Td>
-                        <Td><MailLink email={client.contact_email} /></Td>
-                        <Td><TelephoneLink number={client.contact_phone} /></Td>
+                        <Td>{client.num_contacts}</Td>
                         <Td className='flex justify-end'>
                             <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
                             <DeleteIconButton onClick={() => destroy(client.id)} />

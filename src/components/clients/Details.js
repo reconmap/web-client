@@ -1,9 +1,8 @@
-import { ButtonGroup, Input, Select, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, ButtonGroup, Input, Select, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import PrimaryButton from 'components/ui/buttons/Primary';
 import MailLink from 'components/ui/MailLink';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import TelephoneLink from 'components/ui/TelephoneLink';
@@ -182,12 +181,12 @@ const ClientDetails = () => {
                                                 <Input type="tel" name="phone" onChange={onContactFormChange} value={contact.phone || ""} />
                                             </Td>
                                             <Td>
-                                                <PrimaryButton type="submit">Add</PrimaryButton>
+                                                <Button type="submit">Add</Button>
                                             </Td>
                                         </Tr>
                                         {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
                                         {contacts.map(contact => <>
-                                            <Tr>
+                                            <Tr key={contact.id}>
                                                 <Td>{contact.kind}</Td>
                                                 <Td>{contact.name}</Td>
                                                 <Td>{contact.role}</Td>
