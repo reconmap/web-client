@@ -16,6 +16,8 @@ import Title from '../ui/Title';
 import useDelete from './../../hooks/useDelete';
 import useFetch from './../../hooks/useFetch';
 import Loading from './../ui/Loading';
+import secureApiFetch from '../../services/api';
+import { useEffect, useState } from 'react';
 
 const ClientProjectsTab = ({ clientId }) => {
     const [projects] = useFetch(`/projects?clientId=${clientId}`);
@@ -39,11 +41,46 @@ const ClientDetails = () => {
 
     const [client] = useFetch(`/clients/${clientId}`)
     const deleteClient = useDelete(`/clients/`)
+    const [logo, setLogo] = useState(null);
+    const [smallLogo, setSmallLogo] = useState(null);
 
     const handleDelete = async () => {
         const confirmed = await deleteClient(clientId);
         if (confirmed)
             navigate('/clients');
+    }
+
+    useEffect(() => {
+        if (client) {
+            if (client.small_logo_attachment_id)
+            {
+                downloadAndDisplayLogo(client.small_logo_attachment_id, 'small_logo');
+            }
+
+            if (client.logo_attachment_id)
+            {
+                downloadAndDisplayLogo(client.logo_attachment_id, 'logo');
+            }
+        }
+    }, [client]);
+
+    const downloadAndDisplayLogo = (logoId, type) => {
+        secureApiFetch(`/attachments/${logoId}`, { method: 'GET', headers: {} })
+            .then(resp => {
+                const contentDispositionHeader = resp.headers.get('Content-Disposition');
+                const filenameRe = new RegExp(/filename="(.*)";/)
+                const filename = filenameRe.exec(contentDispositionHeader)[1]
+                return Promise.all([resp.blob(), filename]);
+            })
+            .then((values) => {
+                const blob = values[0];
+                const url = URL.createObjectURL(blob);
+                if (type === 'small_logo') {
+                    setSmallLogo(url);
+                } else {
+                    setLogo(url);
+                }
+            })
     }
 
     if (!client) {
@@ -97,6 +134,12 @@ const ClientDetails = () => {
 
                                     <dt>Contact phone</dt>
                                     <dd><TelephoneLink number={client.contact_phone} /></dd>
+
+                                    <dt>Main Logo</dt>
+                                    <dd><img src={logo} alt="The main logo"/></dd>
+
+                                    <dt>Small Logo</dt>
+                                    <dd><img src={smallLogo} alt="The smaller version of the logo"/></dd>
                                 </dl>
                             </div>
 
