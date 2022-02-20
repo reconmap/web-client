@@ -20,7 +20,7 @@ const baseStyle = {
 };
 
 const activeStyle = {
-    borderColor: 'var(--yellow)'
+    borderColor: 'var(--yellow)',
 };
 
 const acceptStyle = {
@@ -39,7 +39,10 @@ const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = nul
     const {
         getRootProps, getInputProps,
         isDragActive, isDragAccept, isDragReject
-    } = useDropzone({ onDrop: onFileDrop });
+    } = useDropzone({
+            onDrop: onFileDrop,
+            accept: 'image/jpeg,image/png'
+        });
 
     const [acceptedFiles, setAcceptedFiles] = useState([]);
 
@@ -100,15 +103,16 @@ const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = nul
         <div className="container">
             <div {...getRootProps({ style })}>
                 <input {...getInputProps()} />
-                <p>Drag and drop some files here, or click to select files</p>
+                <p>Drag and drop some image(s) here, or click to select images</p>
+                <em>(Only *.jpeg and *.png images will be accepted)</em>
             </div>
             <aside>
-                <h4>Files to upload:</h4>
+                <h4>Image(s) to upload:</h4>
                 {acceptedFiles.length === 0 && <div>(empty)</div>}
                 {acceptedFiles.length > 0 && <ul>{files}</ul>}
             </aside>
             <hr />
-            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload attachment(s)</PrimaryButton>
+            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload image(s)</PrimaryButton>
         </div>
     );
 }
