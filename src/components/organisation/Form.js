@@ -8,12 +8,18 @@ import PrimaryButton from '../ui/buttons/Primary';
 import { IconPreferences } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from '../ui/Title';
+import AttachmentsImageDropzone from 'components/attachments/ImageDropzone';
+import RestrictedComponent from 'components/logic/RestrictedComponent';
 
 const OrganisationForm = () => {
     const [organisation, setOrganisation] = useState(Organisation);
 
-    const [rootOrganisation] = useFetch('/organisations/root');
+    const [rootOrganisation, refetchOrganisation] = useFetch('/organisations/root');
     const [loading, setLoading] = useState(false);
+    const parentType = 'organisation';
+    const parentId = organisation.id;
+    const [logo, setLogo] = useState(null);
+    const [smallLogo, setSmallLogo] = useState(null);
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
@@ -34,13 +40,56 @@ const OrganisationForm = () => {
 
     useEffect(() => {
         if (rootOrganisation)
+        {
             setOrganisation(rootOrganisation);
+            if (rootOrganisation.small_logo_attachment_id)
+            {
+                downloadAndDisplayLogo(rootOrganisation.small_logo_attachment_id, 'small_logo');
+            }
+    
+            if (rootOrganisation.logo_attachment_id)
+            {
+                downloadAndDisplayLogo(rootOrganisation.logo_attachment_id, 'logo');
+            }
+        }
     }, [rootOrganisation]);
+
+    const downloadAndDisplayLogo = (logoId, type) => {
+        secureApiFetch(`/attachments/${logoId}`, { method: 'GET', headers: {} })
+            .then(resp => {
+                const contentDispositionHeader = resp.headers.get('Content-Disposition');
+                const filenameRe = new RegExp(/filename="(.*)";/)
+                const filename = filenameRe.exec(contentDispositionHeader)[1]
+                return Promise.all([resp.blob(), filename]);
+            })
+            .then((values) => {
+                const blob = values[0];
+                const url = URL.createObjectURL(blob);
+                if (type === 'small_logo') {
+                    setSmallLogo(url);
+                } else {
+                    setLogo(url);
+                }
+            })
+    }
+
+    const onUploadFinished = (type, id) => {
+        
+        if (id)
+        {
+            setOrganisation({ ...organisation, [type]: id });
+            organisation[type] = id;
+            setLoading(true);
+            secureApiFetch(`/organisations/root`, { method: 'PUT', body: JSON.stringify(organisation) });
+            setLoading(false);
+        }
+        refetchOrganisation();
+    };
 
     if (!organisation) {
         return <Loading />
     }
-
+ 
     return (
         <div>
             <div className='heading'>
@@ -65,6 +114,25 @@ const OrganisationForm = () => {
                         onChange={handleFormChange} /></label>
                 <PrimaryButton type="submit"
                     disabled={loading}>Save</PrimaryButton>
+
+                <label>Main logo
+                    <img src={logo} alt="The main organisation logo"/>
+                </label>
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
+                <label>Main logo Upload
+                    <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="logo_attachment_id" attachmentId={organisation.logo_attachment_id} maxFileCount={1} />
+                </label>
+                </RestrictedComponent>
+
+                <label>Small Logo
+                    <img src={smallLogo} alt="The smaller version of the logo"/>
+                </label>
+
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
+                <label>Small logo Upload
+                    <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="small_logo_attachment_id" attachmentId={organisation.small_logo_attachment_id} maxFileCount={1} />
+                </label>
+                </RestrictedComponent>
             </form>
         </div>
     )

@@ -31,7 +31,7 @@ const rejectStyle = {
     borderColor: 'var(--red)'
 };
 
-const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, attachmentId = null }) => {
+const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = null, uploadFinishedParameter = null, attachmentId = null, maxFileCount = Infinity }) => {
     const onFileDrop = (newFiles) => {
         setAcceptedFiles(newFiles);
     };
@@ -67,9 +67,18 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
             method: 'POST',
             body: formData
         })
-            .then(() => {
+            .then(response => response.json())
+            .then(json => {
                 setAcceptedFiles([]);
-                if (onUploadFinished) onUploadFinished();
+                if (onUploadFinished) {
+                    if (!attachmentId && maxFileCount === 1)
+                    {
+                        const id = json[0].id;
+                        onUploadFinished(uploadFinishedParameter, id);
+                    } else {
+                        onUploadFinished(uploadFinishedParameter);
+                    }
+                }
             })
             .catch(err => console.error(err));
     }
@@ -78,11 +87,13 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
         ...baseStyle,
         ...(isDragActive ? activeStyle : {}),
         ...(isDragAccept ? acceptStyle : {}),
-        ...(isDragReject ? rejectStyle : {})
+        ...(isDragReject ? rejectStyle : {}),
+        ...{maxSize : maxFileCount},
     }), [
         isDragActive,
         isDragAccept,
-        isDragReject
+        isDragReject,
+        maxFileCount
     ]);
 
     return (
@@ -102,4 +113,4 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
     );
 }
 
-export default AttachmentsDropzone;
+export default AttachmentsImageDropzone;
