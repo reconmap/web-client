@@ -15,11 +15,9 @@ const PrimaryButton = ({
         external ? window.open(to, '_blank') : navigate(to)
     }
 
-    return (
-        <Button {...props} type={type ? type : "button"} onClick={onClick || handleOpen} isDisabled={disabled}>
-            {children}
-        </Button>
-    )
+    return <Button {...props} type={type ? type : "button"} onClick={onClick || handleOpen} isDisabled={disabled}>
+        {children}
+    </Button>
 }
 
 export default PrimaryButton;

@@ -1,4 +1,4 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBriefcase, faCog, faPlus, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Configuration from "Configuration";
 import {
@@ -15,10 +15,7 @@ import {
     IconEye,
     IconFlag,
     IconFolder,
-    IconPlus,
-    IconPreferences,
-
-    IconQuestionCircle,
+    IconPlus, IconQuestionCircle,
 
     IconSupport,
 
@@ -131,8 +128,21 @@ const Links = [
         permissions: 'users.*'
     },
     {
+        title: 'Settings',
+        icon: <FontAwesomeIcon icon={faWrench} />,
+        to: '/system',
+        sublinks: [
+            {
+                title: 'Organisation',
+                icon: <FontAwesomeIcon icon={faBriefcase} />,
+                to: '/organisation'
+            },
+        ],
+        permissions: 'system.*'
+    },
+    {
         title: 'System',
-        icon: <IconPreferences size={5} />,
+        icon: <FontAwesomeIcon icon={faCog} />,
         to: '/system',
         sublinks: [
             {

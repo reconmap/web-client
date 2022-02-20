@@ -1,3 +1,4 @@
+import { Input } from '@chakra-ui/react';
 import { actionCompletedToast } from 'components/ui/toast';
 import Organisation from 'models/Organisation';
 import { useEffect, useState } from 'react';
@@ -29,6 +30,7 @@ const OrganisationForm = () => {
         actionCompletedToast('The changes to the organisation has been saved.');
         setLoading(false);
     }
+
     const handleFormChange = ev => {
         const target = ev.target;
 
@@ -99,18 +101,18 @@ const OrganisationForm = () => {
             <form onSubmit={onFormSubmit}>
                 <Title title="Settings" type="Organisation" icon={<IconPreferences />} />
                 <label>Name
-                    <input type="text" name="name" value={organisation.name} onChange={handleFormChange} required
+                    <Input type="text" name="name" value={organisation.name} onChange={handleFormChange} required
                         autoFocus /></label>
                 <label>URL
-                    <input type="text" name="url" value={organisation.url} onChange={handleFormChange} /></label>
+                    <Input type="text" name="url" value={organisation.url} onChange={handleFormChange} /></label>
                 <label>Contact name
-                    <input type="text" name="contact_name" value={organisation.contact_name} onChange={handleFormChange}
+                    <Input type="text" name="contact_name" value={organisation.contact_name} onChange={handleFormChange}
                     /></label>
                 <label>Contact email
-                    <input type="email" name="contact_email" value={organisation.contact_email}
+                    <Input type="email" name="contact_email" value={organisation.contact_email}
                         onChange={handleFormChange} /></label>
                 <label>Contact phone
-                    <input type="tel" name="contact_phone" value={organisation.contact_phone}
+                    <Input type="tel" name="contact_phone" value={organisation.contact_phone}
                         onChange={handleFormChange} /></label>
                 <PrimaryButton type="submit"
                     disabled={loading}>Save</PrimaryButton>

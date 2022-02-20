@@ -21,13 +21,13 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
     return <details>
         <summary>Filters</summary>
         <div className='space-x-2 mx-auto flex items-center'>
-            <div>
-                <label>Risk</label>
-                <Select onChange={handleSetRisk}>
+            {showProjectFilter && <div>
+                <label>Project</label>
+                <Select onChange={handleSetProject}>
                     <option value=''>(any)</option>
-                    {Risks.map(risk => <option key={risk.id} value={risk.id}>{risk.name}</option>)}
+                    {projects !== null && projects.map(project => <option key={project.id} value={project.id}>{project.name}</option>)}
                 </Select>
-            </div>
+            </div>}
 
             <div>
                 <label>Status</label>
@@ -39,20 +39,20 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
             </div>
 
             <div>
+                <label>Risk</label>
+                <Select onChange={handleSetRisk}>
+                    <option value=''>(any)</option>
+                    {Risks.map(risk => <option key={risk.id} value={risk.id}>{risk.name}</option>)}
+                </Select>
+            </div>
+
+            <div>
                 <label>Category</label>
                 <Select onChange={handleSetCategory}>
                     <option value=''>(any)</option>
                     {categories !== null && categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
                 </Select>
             </div>
-
-            {showProjectFilter && <div>
-                <label>Project</label>
-                <Select onChange={handleSetProject}>
-                    <option value=''>(any)</option>
-                    {projects !== null && projects.map(project => <option key={project.id} value={project.id}>{project.name}</option>)}
-                </Select>
-            </div>}
         </div>
     </details>
 }

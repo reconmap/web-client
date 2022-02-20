@@ -1,8 +1,8 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import MailLink from "components/ui/MailLink";
-import TelephoneLink from "components/ui/TelephoneLink";
+import LoadingTableRow from 'components/ui/tables/LoadingTableRow';
+import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import { useNavigate } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
@@ -11,8 +11,6 @@ import CreateButton from "../ui/buttons/Create";
 import LinkButton from "../ui/buttons/Link";
 import ExternalLink from "../ui/ExternalLink";
 import { IconBriefcase } from '../ui/Icons';
-import Loading from '../ui/Loading';
-import NoResults from "../ui/NoResults";
 import Title from '../ui/Title';
 import ClientLink from "./Link";
 
@@ -34,42 +32,34 @@ const ClientsList = () => {
         </div>
         <Title title='Clients' icon={<IconBriefcase />} />
 
-        {!clients ?
-            <Loading /> :
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th>Name</Th>
-                        <Th>Address</Th>
-                        <Th>URL</Th>
-                        <Th>Contact name</Th>
-                        <Th>Contact email</Th>
-                        <Th colSpan={2}>Contact phone</Th>
+        <Table>
+            <Thead>
+                <Tr>
+                    <Th>Name</Th>
+                    <Th>Address</Th>
+                    <Th>URL</Th>
+                    <Th>Number of contacts</Th>
+                    <Th>&nbsp;</Th>
+                </Tr>
+            </Thead>
+            <Tbody>
+                {null === clients && <LoadingTableRow numColumns={5} />}
+                {null !== clients && 0 === clients.length && <NoResultsTableRow numColumns={5} />}
+                {null !== clients && 0 < clients.length && clients.map((client) =>
+                    <Tr key={client.id}>
+                        <Td><ClientLink clientId={client.id}>{client.name}</ClientLink></Td>
+                        <Td>{client.address || '-'}</Td>
+                        <Td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</Td>
+                        <Td>{client.num_contacts}</Td>
+                        <Td className='flex justify-end'>
+                            <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
+                            <DeleteIconButton onClick={() => destroy(client.id)} />
+                        </Td>
                     </Tr>
-                </Thead>
-                <Tbody>
-                    {clients.length === 0 ?
-                        <Tr>
-                            <Td colSpan={6}><NoResults /></Td>
-                        </Tr> :
-                        clients.map((client) =>
-                            <Tr key={client.id}>
-                                <Td><ClientLink clientId={client.id}>{client.name}</ClientLink></Td>
-                                <Td>{client.address || '-'}</Td>
-                                <Td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</Td>
-                                <Td>{client.contact_name || '-'}</Td>
-                                <Td><MailLink email={client.contact_email} /></Td>
-                                <Td><TelephoneLink number={client.contact_phone} /></Td>
-                                <Td className='flex justify-end'>
-                                    <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
-                                    <DeleteIconButton onClick={() => destroy(client.id)} />
-                                </Td>
-                            </Tr>
-                        )
-                    }
-                </Tbody>
-            </Table>
-        }
+                )
+                }
+            </Tbody>
+        </Table>
     </>
 }
 

@@ -2,6 +2,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
+import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
 import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
@@ -12,7 +13,6 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
         <Thead>
             <Tr>
                 <Th>Title</Th>
-                <Th>Content</Th>
                 <Th style={{ width: '200px' }}>Creation time</Th>
                 <Th style={{ width: '140px' }}>Author</Th>
                 <Th style={{ width: '140px' }}>Visibility</Th>
@@ -20,11 +20,11 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
             </Tr>
         </Thead>
         <Tbody>
-            {documents.length === 0 && <NoResultsTableRow numColumns={6} />}
-            {documents.map((document, index) =>
+            {null === documents && <LoadingTableRow numColumns={6} />}
+            {null !== documents && documents.length === 0 && <NoResultsTableRow numColumns={6} />}
+            {null !== documents && documents.map((document, index) =>
                 <Tr key={`doc_${index}`}>
                     <Td><DocumentBadge document={document} /></Td>
-                    <Td>{document.content}</Td>
                     <Td><RelativeDateFormatter date={document.insert_ts} /></Td>
                     <Td><UserLink userId={document.user_id}>{document.user_name}</UserLink></Td>
                     <Td><VisibilityLegend visibility={document.visibility} /></Td>

@@ -1,12 +1,18 @@
-import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Button, ButtonGroup, Input, Select, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
-import MailLink from "components/ui/MailLink";
-import TelephoneLink from "components/ui/TelephoneLink";
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import MailLink from 'components/ui/MailLink';
+import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
+import TelephoneLink from 'components/ui/TelephoneLink';
 import TimestampsSection from 'components/ui/TimestampsSection';
+import { actionCompletedToast, errorToast } from 'components/ui/toast';
 import UserLink from 'components/users/Link';
+import Contact from 'models/Contact';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import secureApiFetch from 'services/api';
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
@@ -39,7 +45,16 @@ const ClientDetails = () => {
     const { clientId } = useParams();
     const navigate = useNavigate();
 
-    const [client] = useFetch(`/clients/${clientId}`)
+    const [client] = useFetch(`/clients/${clientId}`);
+    const [contacts, fetchContacts] = useFetch(`/clients/${clientId}/contacts`);
+
+    const [contact, setContact] = useState(new Contact());
+
+    const onContactFormChange = ev => {
+        setContact({ ...contact, [ev.target.name]: ev.target.value });
+    }
+
+
     const deleteClient = useDelete(`/clients/`)
     const [logo, setLogo] = useState(null);
     const [smallLogo, setSmallLogo] = useState(null);
@@ -48,6 +63,30 @@ const ClientDetails = () => {
         const confirmed = await deleteClient(clientId);
         if (confirmed)
             navigate('/clients');
+    }
+
+    const onFormSubmit = ev => {
+        ev.preventDefault();
+
+        secureApiFetch(`/clients/${clientId}/contacts`, { method: 'POST', body: JSON.stringify(contact) })
+            .then(resp => {
+                if (resp.status === 201) {
+                    setContact(new Contact());
+                    fetchContacts();
+                    actionCompletedToast(`The contact has been added.`);
+                } else {
+                    errorToast("The contact could not be saved. Review the form data or check the application logs.")
+                }
+            })
+    }
+
+    const onContactDelete = contactId => {
+        secureApiFetch(`/contacts/${contactId}`, { method: 'DELETE' })
+            .then(() => {
+                fetchContacts();
+                actionCompletedToast("The contact has been deleted.");
+            })
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {
@@ -111,6 +150,7 @@ const ClientDetails = () => {
             <Tabs isLazy>
                 <TabList>
                     <Tab>Details</Tab>
+                    <Tab>Contacts</Tab>
                     <Tab>Projects</Tab>
                 </TabList>
                 <TabPanels>
@@ -125,15 +165,6 @@ const ClientDetails = () => {
 
                                     <dt>URL</dt>
                                     <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
-
-                                    <dt>Contact name</dt>
-                                    <dd>{client.contact_name}</dd>
-
-                                    <dt>Contact email</dt>
-                                    <dd><MailLink email={client.contact_email} /></dd>
-
-                                    <dt>Contact phone</dt>
-                                    <dd><TelephoneLink number={client.contact_phone} /></dd>
 
                                     <dt>Main Logo</dt>
                                     <dd><img src={logo} alt="The main logo"/></dd>
@@ -154,14 +185,72 @@ const ClientDetails = () => {
                             </div>
                         </div>
                     </TabPanel>
-                    <TabPanel >
+
+                    <TabPanel>
+                        <h4>Contacts</h4>
+
+                        {contacts && <>
+                            <form onSubmit={onFormSubmit}>
+                                <Table>
+                                    <Thead>
+                                        <Tr>
+                                            <Th>Kind</Th>
+                                            <Th>Name</Th>
+                                            <Th>Role</Th>
+                                            <Th>Email</Th>
+                                            <Th>Phone</Th>
+                                            <Th>&nbsp;</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                        <Tr>
+                                            <Td>
+                                                <Select name="kind" onChange={onContactFormChange} value={contact.kind || ""} isRequired>
+                                                    <option value="general">General</option>
+                                                    <option value="technical">Technical</option>
+                                                    <option value="billing">Billing</option>
+                                                </Select>
+                                            </Td>
+                                            <Td>
+                                                <Input type="text" name="name" onChange={onContactFormChange} value={contact.name || ""} isRequired />
+                                            </Td>
+                                            <Td>
+                                                <Input type="text" name="role" onChange={onContactFormChange} value={contact.role || ""} />
+                                            </Td>
+                                            <Td>
+                                                <Input type="email" name="email" onChange={onContactFormChange} value={contact.email || ""} isRequired />
+                                            </Td>
+                                            <Td>
+                                                <Input type="tel" name="phone" onChange={onContactFormChange} value={contact.phone || ""} />
+                                            </Td>
+                                            <Td>
+                                                <Button type="submit">Add</Button>
+                                            </Td>
+                                        </Tr>
+                                        {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
+                                        {contacts.map(contact => <>
+                                            <Tr key={contact.id}>
+                                                <Td>{contact.kind}</Td>
+                                                <Td>{contact.name}</Td>
+                                                <Td>{contact.role}</Td>
+                                                <Td><MailLink email={contact.email} /></Td>
+                                                <Td><TelephoneLink number={contact.phone} /></Td>
+                                                <Td><DeleteIconButton onClick={onContactDelete.bind(this, contact.id)} /></Td>
+                                            </Tr>
+                                        </>)}
+                                    </Tbody>
+                                </Table>
+                            </form>
+                        </>}
+                    </TabPanel>
+                    <TabPanel>
                         <ClientProjectsTab clientId={clientId} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
 
         </article>
-    </div>
+    </div >
 }
 
 export default ClientDetails;
