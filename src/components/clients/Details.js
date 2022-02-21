@@ -10,7 +10,7 @@ import TimestampsSection from 'components/ui/TimestampsSection';
 import { actionCompletedToast, errorToast } from 'components/ui/toast';
 import UserLink from 'components/users/Link';
 import Contact from 'models/Contact';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import Breadcrumb from "../ui/Breadcrumb";
@@ -54,6 +54,8 @@ const ClientDetails = () => {
 
 
     const deleteClient = useDelete(`/clients/`)
+    const [logo, setLogo] = useState(null);
+    const [smallLogo, setSmallLogo] = useState(null);
 
     const handleDelete = async () => {
         const confirmed = await deleteClient(clientId);
@@ -83,6 +85,39 @@ const ClientDetails = () => {
                 actionCompletedToast("The contact has been deleted.");
             })
             .catch(err => console.error(err))
+    }
+
+    useEffect(() => {
+        if (client) {
+            if (client.small_logo_attachment_id)
+            {
+                downloadAndDisplayLogo(client.small_logo_attachment_id, 'small_logo');
+            }
+
+            if (client.logo_attachment_id)
+            {
+                downloadAndDisplayLogo(client.logo_attachment_id, 'logo');
+            }
+        }
+    }, [client]);
+
+    const downloadAndDisplayLogo = (logoId, type) => {
+        secureApiFetch(`/attachments/${logoId}`, { method: 'GET', headers: {} })
+            .then(resp => {
+                const contentDispositionHeader = resp.headers.get('Content-Disposition');
+                const filenameRe = new RegExp(/filename="(.*)";/)
+                const filename = filenameRe.exec(contentDispositionHeader)[1]
+                return Promise.all([resp.blob(), filename]);
+            })
+            .then((values) => {
+                const blob = values[0];
+                const url = URL.createObjectURL(blob);
+                if (type === 'small_logo') {
+                    setSmallLogo(url);
+                } else {
+                    setLogo(url);
+                }
+            })
     }
 
     if (!client) {
@@ -128,6 +163,12 @@ const ClientDetails = () => {
 
                                     <dt>URL</dt>
                                     <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
+
+                                    <dt>Main Logo</dt>
+                                    <dd><img src={logo} alt="The main logo"/></dd>
+
+                                    <dt>Small Logo</dt>
+                                    <dd><img src={smallLogo} alt="The smaller version of the logo"/></dd>
                                 </dl>
                             </div>
 
