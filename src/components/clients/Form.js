@@ -55,7 +55,6 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
         {
             setClient({ ...client, [type]: id });
         }
-        //refetchOrganisation();
     };
 
     return <form onSubmit={onFormSubmit} className="crud">

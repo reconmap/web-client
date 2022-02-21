@@ -82,10 +82,15 @@ const OrganisationForm = () => {
             setOrganisation({ ...organisation, [type]: id });
             organisation[type] = id;
             setLoading(true);
-            secureApiFetch(`/organisations/root`, { method: 'PUT', body: JSON.stringify(organisation) });
+            secureApiFetch(`/organisations/root`, { method: 'PUT', body: JSON.stringify(organisation) })
+                .then( ev => {
+                    // has to be done after PUT is completed. Therefore it cannot be merged with the case when ID is null
+                    refetchOrganisation();
+                })
             setLoading(false);
+        } else {
+            refetchOrganisation();
         }
-        refetchOrganisation();
     };
 
     if (!organisation) {
