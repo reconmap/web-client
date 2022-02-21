@@ -4,14 +4,12 @@ import { useEffect, useState } from 'react';
 import AttachmentsImageDropzone from 'components/attachments/ImageDropzone';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import secureApiFetch from '../../services/api';
-import Select from "react-select";
 
 const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {
     const parentType = 'client';
     const parentId = client.id;
     const [logo, setLogo] = useState(null);
     const [smallLogo, setSmallLogo] = useState(null);
-    const [contactKindValue, setContactKindValue] = useState(client.contact_kind);
 
     const onFormChange = ev => {
         const target = ev.target;
@@ -59,17 +57,6 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
         }
     };
 
-    const onContactKindSelected = (ev) => {
-        setContactKindValue(ev);
-        setClient({ ...client, ['contact_kind']: ev.value });
-    };
-
-    const contactKindOptions = [
-        { value: 'general', label: 'General' },
-        { value: 'technical', label: 'Technical' },
-        { value: 'billing', label: 'Billing' }
-    ]
-
     return <form onSubmit={onFormSubmit} className="crud">
         <fieldset>
             <legend>Company information</legend>
@@ -81,27 +68,7 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                 <Input type="text" name="url" onChange={onFormChange} value={client.url || ""} />
             </label>
         </fieldset>
-        <fieldset>
-            <legend>Contact details</legend>
-            <label>Contact kind
-                <Select options={contactKindOptions} onChange={onContactKindSelected} value={contactKindValue || ""}  />
-            </label>
-            <label>Contact name
-                <Input type="text" name="contact_name" onChange={onFormChange} value={client.contact_name || ""}
-                    required /></label>
-            <label>Contact role
-                <Input type="text" name="contact_role" onChange={onFormChange} value={client.contact_role || ""}
-                /></label>
-            <label>Contact email
-                <Input type="email" name="contact_email" onChange={onFormChange} value={client.contact_email || ""}
-                    required /></label>
-            <label>Contact phone
-                <Input type="tel" name="contact_phone" onChange={onFormChange} value={client.contact_phone || ""} />
-            </label>
-        </fieldset>
-
         <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
-
 
         <label>Main logo
             <img src={logo} alt="The main logo of client"/>
