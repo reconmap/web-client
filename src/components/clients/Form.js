@@ -1,15 +1,17 @@
-import { Input, Select } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import PrimaryButton from "../ui/buttons/Primary";
 import { useEffect, useState } from 'react';
 import AttachmentsImageDropzone from 'components/attachments/ImageDropzone';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import secureApiFetch from '../../services/api';
+import Select from "react-select";
 
 const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {
     const parentType = 'client';
     const parentId = client.id;
     const [logo, setLogo] = useState(null);
     const [smallLogo, setSmallLogo] = useState(null);
+    const [contactKindValue, setContactKindValue] = useState(client.contact_kind);
 
     const onFormChange = ev => {
         const target = ev.target;
@@ -57,6 +59,17 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
         }
     };
 
+    const onContactKindSelected = (ev) => {
+        setContactKindValue(ev);
+        setClient({ ...client, ['contact_kind']: ev.value });
+    };
+
+    const contactKindOptions = [
+        { value: 'general', label: 'General' },
+        { value: 'technical', label: 'Technical' },
+        { value: 'billing', label: 'Billing' }
+    ]
+
     return <form onSubmit={onFormSubmit} className="crud">
         <fieldset>
             <legend>Company information</legend>
@@ -71,11 +84,7 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
         <fieldset>
             <legend>Contact details</legend>
             <label>Contact kind
-                <Select name="contact_kind" onChange={onFormChange} value={client.contact_kind || ""}>
-                    <option value="general">General</option>
-                    <option value="technical">Technical</option>
-                    <option value="billing">Billing</option>
-                </Select>
+                <Select options={contactKindOptions} onChange={onContactKindSelected} value={contactKindValue || ""}  />
             </label>
             <label>Contact name
                 <Input type="text" name="contact_name" onChange={onFormChange} value={client.contact_name || ""}
