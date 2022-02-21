@@ -20,7 +20,7 @@ const baseStyle = {
 };
 
 const activeStyle = {
-    borderColor: 'var(--yellow)'
+    borderColor: 'var(--yellow)',
 };
 
 const acceptStyle = {
@@ -31,7 +31,7 @@ const rejectStyle = {
     borderColor: 'var(--red)'
 };
 
-const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, attachmentId = null }) => {
+const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = null, uploadFinishedParameter = null, attachmentId = null, maxFileCount = Infinity }) => {
     const onFileDrop = (newFiles) => {
         setAcceptedFiles(newFiles);
     };
@@ -39,7 +39,10 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
     const {
         getRootProps, getInputProps,
         isDragActive, isDragAccept, isDragReject
-    } = useDropzone({ onDrop: onFileDrop });
+    } = useDropzone({
+            onDrop: onFileDrop,
+            accept: 'image/jpeg,image/png'
+        });
 
     const [acceptedFiles, setAcceptedFiles] = useState([]);
 
@@ -67,9 +70,18 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
             method: 'POST',
             body: formData
         })
-            .then(() => {
+            .then(response => response.json())
+            .then(json => {
                 setAcceptedFiles([]);
-                if (onUploadFinished) onUploadFinished();
+                if (onUploadFinished) {
+                    if (!attachmentId && maxFileCount === 1)
+                    {
+                        const id = json[0].id;
+                        onUploadFinished(uploadFinishedParameter, id);
+                    } else {
+                        onUploadFinished(uploadFinishedParameter);
+                    }
+                }
             })
             .catch(err => console.error(err));
     }
@@ -78,28 +90,31 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
         ...baseStyle,
         ...(isDragActive ? activeStyle : {}),
         ...(isDragAccept ? acceptStyle : {}),
-        ...(isDragReject ? rejectStyle : {})
+        ...(isDragReject ? rejectStyle : {}),
+        ...{maxSize : maxFileCount},
     }), [
         isDragActive,
         isDragAccept,
-        isDragReject
+        isDragReject,
+        maxFileCount
     ]);
 
     return (
         <div className="container">
             <div {...getRootProps({ style })}>
                 <input {...getInputProps()} />
-                <p>Drag and drop some files here, or click to select files</p>
+                <p>Drag and drop some image(s) here, or click to select images</p>
+                <em>(Only *.jpeg and *.png images will be accepted)</em>
             </div>
             <aside>
-                <h4>Files to upload:</h4>
+                <h4>Image(s) to upload:</h4>
                 {acceptedFiles.length === 0 && <div>(empty)</div>}
                 {acceptedFiles.length > 0 && <ul>{files}</ul>}
             </aside>
             <hr />
-            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload attachment(s)</PrimaryButton>
+            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload image(s)</PrimaryButton>
         </div>
     );
 }
 
-export default AttachmentsDropzone;
+export default AttachmentsImageDropzone;

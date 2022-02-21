@@ -3,9 +3,10 @@ const Client = {
     name: null,
     address: null,
     url: null,
-    contactName: null,
-    contactEmail: null,
-    contactPhone: null
+    contact_name: null,
+    contact_email: null,
+    contact_phone: null,
+    contact_kind: null
 };
 
 export default Client;
