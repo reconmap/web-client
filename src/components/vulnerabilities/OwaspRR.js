@@ -71,22 +71,24 @@ const OwaspRR = ({
 
     const computeLikehood = (fields) => {
         let sum = 0;
-        Object.entries(fields).forEach(([key, value]) => {
+        fields.map(([key, value]) => {
             if ((key === 'SL') || (key === 'M') || (key === 'O') || (key === 'S')
                 || (key === 'ED') || (key === 'EE') || (key === 'A') || (key === 'ID')) {
                 sum += parseInt(value);
             }
+            return sum;
         });
         return sum / 8;
     }
 
     const computeImpact = (fields) => {
         let sum = 0;
-        Object.entries(fields).forEach(([key, value]) => {
+        fields.map(([key, value]) => {
             if ((key === 'LC') || (key === 'LI') || (key === 'LAV') || (key === 'LAC')
                 || (key === 'FD') || (key === 'RD') || (key === 'NC') || (key === 'PV')) {
                 sum += parseInt(value);
             }
+            return sum;
         });
         return sum / 8;
     }
@@ -170,10 +172,11 @@ const OwaspRR = ({
             return newValue;
         }
         let temp = 0;
-        Object.entries(fields).forEach(([key, value]) => {
+        fields.map(([key, value]) => {
             if (key === name) {
                 temp = value;
             }
+            return temp;
         });
 
         return temp;
