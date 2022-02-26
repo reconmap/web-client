@@ -1,9 +1,9 @@
-import { Checkbox, Select } from "@chakra-ui/react";
+import { Checkbox, Input, Select } from "@chakra-ui/react";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
+import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import ProjectEngagementTypes from "../../models/ProjectEngagementTypes";
-import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
 
@@ -50,12 +50,12 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                 </label>
 
                 <label>External ID
-                    <input type="text" name="external_id" onChange={handleFormChange} value={project.external_id || ""} />
+                    <Input type="text" name="external_id" onChange={handleFormChange} value={project.external_id || ""} />
                 </label>
             </>}
 
             <label>Name
-                <input type="text" name="name" onChange={handleFormChange} value={project.name || ""} required autoFocus />
+                <Input type="text" name="name" onChange={handleFormChange} value={project.name || ""} required autoFocus />
             </label>
             <label>Description
                 <MarkdownEditor name="description" onChange={handleFormChange} value={project.description || ""} required />
@@ -84,12 +84,12 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             {!project.is_template && <>
                 <label>Start date
-                    <input type="date" name="engagement_start_date" value={project.engagement_start_date}
+                    <Input type="date" name="engagement_start_date" value={project.engagement_start_date}
                         onChange={handleFormChange} />
                 </label>
 
                 <label>End date
-                    <input type="date" name="engagement_end_date" value={project.engagement_end_date}
+                    <Input type="date" name="engagement_end_date" value={project.engagement_end_date}
                         onChange={handleFormChange} />
                 </label>
             </>}

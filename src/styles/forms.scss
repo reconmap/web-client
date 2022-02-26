@@ -36,10 +36,6 @@ textarea {
     height: 150px;
 }
 
-input::placeholder {
-    color: var(--text-color);
-}
-
 input:not([type="checkbox"]):not([type="button"]),
 textarea {
     color: var(--text-color);

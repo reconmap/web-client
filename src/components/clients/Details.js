@@ -3,6 +3,7 @@ import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import EmptyField from 'components/ui/EmptyField';
 import MailLink from 'components/ui/MailLink';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import TelephoneLink from 'components/ui/TelephoneLink';
@@ -10,7 +11,7 @@ import TimestampsSection from 'components/ui/TimestampsSection';
 import { actionCompletedToast, errorToast } from 'components/ui/toast';
 import UserLink from 'components/users/Link';
 import Contact from 'models/Contact';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import Breadcrumb from "../ui/Breadcrumb";
@@ -89,20 +90,18 @@ const ClientDetails = () => {
 
     useEffect(() => {
         if (client) {
-            if (client.small_logo_attachment_id)
-            {
+            if (client.small_logo_attachment_id) {
                 downloadAndDisplayLogo(client.small_logo_attachment_id, 'small_logo');
             }
 
-            if (client.logo_attachment_id)
-            {
+            if (client.logo_attachment_id) {
                 downloadAndDisplayLogo(client.logo_attachment_id, 'logo');
             }
         }
     }, [client]);
 
     const downloadAndDisplayLogo = (logoId, type) => {
-        secureApiFetch(`/attachments/${logoId}`, { method: 'GET', headers: {} })
+        secureApiFetch(`/attachments/${logoId}`, { method: 'GET' })
             .then(resp => {
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
@@ -163,12 +162,16 @@ const ClientDetails = () => {
 
                                     <dt>URL</dt>
                                     <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
+                                </dl>
 
-                                    <dt>Main Logo</dt>
-                                    <dd><img src={logo} alt="The main logo"/></dd>
+                                <h4>Branding</h4>
 
-                                    <dt>Small Logo</dt>
-                                    <dd><img src={smallLogo} alt="The smaller version of the logo"/></dd>
+                                <dl>
+                                    <dt>Main logo</dt>
+                                    <dd>{logo ? <img src={logo} alt="The main logo" /> : <EmptyField />}</dd>
+
+                                    <dt>Small logo</dt>
+                                    <dd>{smallLogo ? <img src={smallLogo} alt="The smaller version of the logo" /> : <EmptyField />}</dd>
                                 </dl>
                             </div>
 
@@ -248,7 +251,7 @@ const ClientDetails = () => {
             </Tabs>
 
         </article>
-    </div >
+    </div>
 }
 
 export default ClientDetails;
