@@ -6,6 +6,7 @@ import ShellCommand from "components/ui/ShellCommand";
 import { useEffect, useState } from "react";
 import { CliDownloadUrl } from "ServerUrls";
 import CommandService from "services/command";
+import parseArguments from "services/commands/arguments";
 
 const CommandInstructions = ({ command, task = null }) => {
     const [commandArgsRendered, setCommandArgsRendered] = useState('');
@@ -30,12 +31,13 @@ const CommandInstructions = ({ command, task = null }) => {
 
     useEffect(() => {
         if (command) {
-            const commandArgsParsed = CommandService.parseArguments(command);
+            const commandArgsParsed = parseArguments(command);
             setCommandArgs(commandArgsParsed);
         }
     }, [command]);
 
     if (!CommandService.hasCommand(command)) {
+
         return <p>This command has no instructions defined.</p>
     }
 
