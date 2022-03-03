@@ -40,9 +40,9 @@ const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = nul
         getRootProps, getInputProps,
         isDragActive, isDragAccept, isDragReject
     } = useDropzone({
-            onDrop: onFileDrop,
-            accept: 'image/jpeg,image/png'
-        });
+        onDrop: onFileDrop,
+        accept: 'image/jpeg,image/png'
+    });
 
     const [acceptedFiles, setAcceptedFiles] = useState([]);
 
@@ -74,8 +74,7 @@ const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = nul
             .then(json => {
                 setAcceptedFiles([]);
                 if (onUploadFinished) {
-                    if (!attachmentId && maxFileCount === 1)
-                    {
+                    if (!attachmentId && maxFileCount === 1) {
                         const id = json[0].id;
                         onUploadFinished(uploadFinishedParameter, id);
                     } else {
@@ -91,7 +90,7 @@ const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = nul
         ...(isDragActive ? activeStyle : {}),
         ...(isDragAccept ? acceptStyle : {}),
         ...(isDragReject ? rejectStyle : {}),
-        ...{maxSize : maxFileCount},
+        ...{ maxSize: maxFileCount },
     }), [
         isDragActive,
         isDragAccept,
@@ -99,22 +98,20 @@ const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = nul
         maxFileCount
     ]);
 
-    return (
-        <div className="container">
-            <div {...getRootProps({ style })}>
-                <input {...getInputProps()} />
-                <p>Drag and drop some image(s) here, or click to select images</p>
-                <em>(Only *.jpeg and *.png images will be accepted)</em>
-            </div>
-            <aside>
-                <h4>Image(s) to upload:</h4>
-                {acceptedFiles.length === 0 && <div>(empty)</div>}
-                {acceptedFiles.length > 0 && <ul>{files}</ul>}
-            </aside>
-            <hr />
-            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload image(s)</PrimaryButton>
+    return <div className="container">
+        <div {...getRootProps({ style })}>
+            <input {...getInputProps()} />
+            <p>Drag and drop some image(s) here, or click to select images</p>
+            <em>(Only *.jpeg and *.png images will be accepted)</em>
         </div>
-    );
+        <aside>
+            <h4>Upload list:</h4>
+            {acceptedFiles.length === 0 && <div>(empty)</div>}
+            {acceptedFiles.length > 0 && <ul>{files}</ul>}
+        </aside>
+        <hr />
+        <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload</PrimaryButton>
+    </div>
 }
 
 export default AttachmentsImageDropzone;

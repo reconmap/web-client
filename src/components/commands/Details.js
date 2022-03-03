@@ -105,9 +105,7 @@ const CommandDetails = () => {
                         </div>
                     </TabPanel>
                     <TabPanel>
-                        {(command.executable_path || command.docker_image) &&
-                            <CommandInstructions command={command} />
-                        }
+                        <CommandInstructions command={command} />
                     </TabPanel>
                     <TabPanel>
                         <CommandTerminal />

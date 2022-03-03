@@ -187,7 +187,6 @@ h4 {
     font-size: var(--fontSizeBody);
     display: flex;
     align-items: center;
-    margin: var(--padding) 0 var(--margin) 0;
 }
 
 h1,
@@ -198,6 +197,7 @@ h5,
 h6 {
     color: var(--primary-color);
     font-weight: 500;
+
     div {
         margin-left: auto;
     }

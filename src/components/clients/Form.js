@@ -1,9 +1,9 @@
 import { Input } from "@chakra-ui/react";
-import PrimaryButton from "../ui/buttons/Primary";
-import { useEffect, useState } from 'react';
 import AttachmentsImageDropzone from 'components/attachments/ImageDropzone';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import { useEffect, useState } from 'react';
 import secureApiFetch from '../../services/api';
+import PrimaryButton from "../ui/buttons/Primary";
 
 const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {
     const parentType = 'client';
@@ -20,13 +20,11 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
     };
 
     useEffect(() => {
-        if (client.small_logo_attachment_id)
-        {
+        if (client.small_logo_attachment_id) {
             downloadAndDisplayLogo(client.small_logo_attachment_id, 'small_logo');
         }
 
-        if (client.logo_attachment_id)
-        {
+        if (client.logo_attachment_id) {
             downloadAndDisplayLogo(client.logo_attachment_id, 'logo');
         }
     }, [client]);
@@ -51,15 +49,14 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
     }
 
     const onUploadFinished = (type, id) => {
-        if (id)
-        {
+        if (id) {
             setClient({ ...client, [type]: id });
         }
     };
 
     return <form onSubmit={onFormSubmit} className="crud">
         <fieldset>
-            <legend>Company information</legend>
+            <legend>Basic information</legend>
             <label>Name
                 <Input type="text" name="name" onChange={onFormChange} value={client.name || ""} required autoFocus /></label>
             <label>Address
@@ -68,26 +65,30 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                 <Input type="text" name="url" onChange={onFormChange} value={client.url || ""} />
             </label>
         </fieldset>
-        <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
 
-        <label>Main logo
-            <img src={logo} alt="The main logo of client"/>
-        </label>
-        <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
-        <label>Main logo Upload
-            <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="logo_attachment_id" attachmentId={client.logo_attachment_id} maxFileCount={1} />
-        </label>
-        </RestrictedComponent>
+        <fieldset>
+            <legend>Branding</legend>
 
-        <label>Small Logo
-            <img src={smallLogo} alt="The smaller version of the logo"/>
-        </label>
+            <label>Main logo
+                <div>
+                    {logo && <img src={logo} alt="The main logo of client" />}
+                    <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
+                        <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="logo_attachment_id" attachmentId={client.logo_attachment_id} maxFileCount={1} />
+                    </RestrictedComponent>
+                </div>
+            </label>
 
-        <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
-        <label>Small logo Upload
-            <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="small_logo_attachment_id" attachmentId={client.small_logo_attachment_id} maxFileCount={1} />
-        </label>
-        </RestrictedComponent>
+            <label>Small Logo
+                <div>
+                    {smallLogo && <img src={smallLogo} alt="The smaller version of the logo" />}
+                    <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
+                        <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="small_logo_attachment_id" attachmentId={client.small_logo_attachment_id} maxFileCount={1} />
+                    </RestrictedComponent>
+                </div>
+            </label>
+
+            <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
+        </fieldset>
     </form>
 }
 

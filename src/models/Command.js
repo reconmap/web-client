@@ -6,6 +6,7 @@ const Command = {
     more_info_url: null,
     output_parser: null,
     docker_image: null,
+    output_capture: 'disabled',
     executable_type: 'custom',
     executable_path: null,
     arguments: null,

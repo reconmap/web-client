@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, FormControl, FormHelperText, FormLabel, Select } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, FormControl, FormHelperText, FormLabel, Input, Select } from '@chakra-ui/react';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import ProjectVulnerabilityMetrics from 'models/ProjectVulnerabilityMetrics';
 import RemediationComplexity from 'models/RemediationComplexity';
@@ -11,7 +11,7 @@ import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
 import { parentChildNames } from './categories/Span';
 import CvssAbbr from './CvssAbbr';
-import OwaspRR from './OwaspRR'
+import OwaspRR from './OwaspRR';
 
 
 const VulnerabilityForm = ({
@@ -41,7 +41,7 @@ const VulnerabilityForm = ({
                 const defaultProjectId = projects.length ? projects[0].id : 0;
                 const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
                 setMetrics(isOwaspProject(projects, projectId))
-  
+
                 secureApiFetch(`/targets?projectId=${projectId}`, { method: 'GET' })
                     .then(resp => resp.json())
                     .then(targets => {
@@ -134,10 +134,10 @@ const VulnerabilityForm = ({
                         </div>
                     </label>
                     <label>External ID
-                        <input type="text" name="external_id" value={vulnerability.external_id || ""} onChange={onFormChange} />
+                        <Input type="text" name="external_id" value={vulnerability.external_id || ""} onChange={onFormChange} />
                     </label>
                     <label>Summary
-                        <input type="text" name="summary" value={vulnerability.summary || ""} onChange={onFormChange} required autoFocus />
+                        <Input type="text" name="summary" value={vulnerability.summary || ""} onChange={onFormChange} required autoFocus />
                     </label>
                     <label>Description
                         <MarkdownEditor name="description" value={vulnerability.description || ""} onChange={onFormChange} />
@@ -169,7 +169,7 @@ const VulnerabilityForm = ({
                         </Select>
                     </label>
                     <label>Tags
-                        <input type="text" name="tags" onChange={onFormChange} value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(',') : ''} />
+                        <Input type="text" name="tags" onChange={onFormChange} value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(',') : ''} />
                     </label>
                     <label>Proof of concept
                         <MarkdownEditor name="proof_of_concept" value={vulnerability.proof_of_concept || ""} onChange={onFormChange} />
@@ -180,32 +180,32 @@ const VulnerabilityForm = ({
                     {
                         !useOWASP && <>
                             <label>CVSS score
-                                <input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
+                                <Input type="number" step="0.1" min="0" max="10" name="cvss_score" value={vulnerability.cvss_score || ""}
                                     onChange={onFormChange} />
                             </label>
                             <label><span><CvssAbbr /> vector</span>
-                                <input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
+                                <Input type="text" name="cvss_vector" value={vulnerability.cvss_vector || ""} onChange={onFormChange} placeholder="eg: AV:N/AC:L/Au:S/C:P/I:P/A:N" />
                             </label>
                         </>
                     }
+                </AccordionPanel>
+            </AccordionItem>
+            {useOWASP &&
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box flex="1" textAlign="left">
+                                Owasp Risk Rating calculator
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                        <label>Owasp Risk Rating</label>
+                        <OwaspRR vulnerability={vulnerability} vulnerabilitySetter={setVulnerability} />
                     </AccordionPanel>
                 </AccordionItem>
-                { useOWASP &&
-                    <AccordionItem>
-                        <h2>
-                            <AccordionButton>
-                                <Box flex="1" textAlign="left">
-                                    Owasp Risk Rating calculator
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-                        </h2>
-                        <AccordionPanel pb={4}>
-                            <label>Owasp Risk Rating</label>
-                            <OwaspRR vulnerability={vulnerability} vulnerabilitySetter={setVulnerability}/>
-                        </AccordionPanel>
-                    </AccordionItem>
-                }
+            }
             <AccordionItem>
                 <h2>
                     <AccordionButton>
