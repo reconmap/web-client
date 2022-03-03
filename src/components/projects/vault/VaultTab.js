@@ -1,4 +1,4 @@
-import { ButtonGroup, Button, Input, Table, Tbody, Td, Th, Thead, Tr, Select, useDisclosure } from '@chakra-ui/react';
+import { Button, Input, Table, Tbody, Td, Th, Thead, Tr, Select } from '@chakra-ui/react';
 import { useState } from 'react';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
@@ -6,9 +6,8 @@ import RestrictedComponent from 'components/logic/RestrictedComponent';
 import useFetch from 'hooks/useFetch';
 import { actionCompletedToast, errorToast } from 'components/ui/toast';
 import secureApiFetch from 'services/api';
-import VaultItemModalDialog from "./VaultItemModal";
 import Vault from 'models/Vault';
-import CreateButton from "components/ui/buttons/Create";
+import LinkButton from "components/ui/buttons/Link";
 
 
 const ProjectVaultTab = ({ project }) => {
@@ -43,12 +42,6 @@ const ProjectVaultTab = ({ project }) => {
             })
     }
     
-    const onEditVaultItemSaved = () => {
-        refreshVault();
-        closeEditVaultItemDialog();
-    }
-    const { isOpen: isEditVaultItemDialogOpen, onOpen: openEditVaultItemDialog, onClose: closeEditVaultItemDialog } = useDisclosure();
-
     return <section>
         <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
             {vault && <>
@@ -69,10 +62,7 @@ const ProjectVaultTab = ({ project }) => {
                                 <Td>{item.note}</Td>
                                 <Td>{item.type}</Td>
                                 <Td className='flex justify-end'>
-                                    <ButtonGroup>
-                                        <VaultItemModalDialog projectId={project.id} vaultItemId={item.id} isOpen={isEditVaultItemDialogOpen} onSubmit={onEditVaultItemSaved} onCancel={closeEditVaultItemDialog} />
-                                        <CreateButton onClick={openEditVaultItemDialog}>View or Edit</CreateButton>
-                                    </ButtonGroup>
+                                    <LinkButton href={`/vault/${project.id}/${item.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton onClick={onVaultItemDelete.bind(this, item.id)} />
                                 </Td>
                             </Tr>
