@@ -1,3 +1,6 @@
+import { List, ListItem } from '@chakra-ui/react';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PrimaryButton from 'components/ui/buttons/Primary';
 import { useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -43,12 +46,6 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
 
     const [acceptedFiles, setAcceptedFiles] = useState([]);
 
-    const files = acceptedFiles.map(file => (
-        <li key={file.path}>
-            {file.path} - {file.size} bytes
-        </li>
-    ));
-
     const onUploadButtonClick = ev => {
         const formData = new FormData();
         formData.append('parentType', parentType);
@@ -92,9 +89,12 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
                 <p>Drag and drop some files here, or click to select files</p>
             </div>
             <aside>
-                <h4>Upload list:</h4>
-                {acceptedFiles.length === 0 && <div>(empty)</div>}
-                {acceptedFiles.length > 0 && <ul>{files}</ul>}
+                {acceptedFiles.length === 0 && <div>(upload list empty)</div>}
+                {acceptedFiles.length > 0 && <List spacing={3}>{acceptedFiles.map(file => (
+                    <ListItem key={file.path}>
+                        <FontAwesomeIcon color='var(--primary-color)' icon={faUpload} /> {file.path} - {file.size} bytes
+                    </ListItem>
+                ))}</List>}
             </aside>
             <hr />
             <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload file(s)</PrimaryButton>

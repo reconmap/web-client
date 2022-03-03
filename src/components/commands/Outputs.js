@@ -77,13 +77,13 @@ const CommandOutputs = ({ task }) => {
                     </textarea>
                 </ModalDialog>
 
-                <h4>
-                    Results
-                </h4>
-
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <AttachmentsDropzone parentType={"command"} parentId={task.id} onUploadFinished={updateCommandOutputs} />
                 </RestrictedComponent>
+
+                <h4>
+                    Command output list
+                </h4>
 
                 <Table>
                     <Thead>
