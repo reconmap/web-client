@@ -1,12 +1,12 @@
-import { Input, Table, Tbody, Td, Th, Thead, Tr, Select, Checkbox, Button } from '@chakra-ui/react';
+import { Button, Checkbox, Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { actionCompletedToast, errorToast } from "components/ui/toast";
-import { useState } from "react";
-import secureApiFetch from "services/api";
-import { useNavigate, useParams } from "react-router-dom";
 import Vault from 'models/Vault';
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import secureApiFetch from "services/api";
 
 const VaultItemEdit = () => {
-    const { projectId, vaultItemId} = useParams();
+    const { projectId, vaultItemId } = useParams();
     const navigate = useNavigate();
 
     const [item, setVaultItem] = useState(new Vault());
@@ -38,17 +38,14 @@ const VaultItemEdit = () => {
     const onPasswordProvided = ev => {
         ev.preventDefault();
 
-        secureApiFetch(`/vault/${projectId}/${vaultItemId}`, { method: 'POST', body: JSON.stringify({ 'password' : password }) })
+        secureApiFetch(`/vault/${projectId}/${vaultItemId}`, { method: 'POST', body: JSON.stringify({ 'password': password }) })
             .then(response => response.json())
             .then(json => {
-                debugger;
-                if (json['success'] === false)
-                {
+                if (json['success'] === false) {
                     errorToast("Seems like a wrong password.");
                     setPassword(null);
                 }
-                else 
-                {
+                else {
                     var newItem = new Vault();
                     newItem.name = json['name'];
                     newItem.note = json['note'];
@@ -69,59 +66,59 @@ const VaultItemEdit = () => {
         setPassword(ev.target.value);
     }
 
-    return (<div>
+    return <div>
         {item.name !== "" && <>
-                <form onSubmit={onFormSubmit}>
-                    <h3>Vault item</h3>
-                    <Table>
-                        <Thead>
-                            <Tr>
-                                <Th>Type</Th>
-                                <Th>Name</Th>
-                                <Th>Note</Th>
-                                <Th>Value</Th>
-                                <Th>Reportable</Th>
-                                <Th>&nbsp;</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            <Tr>
-                                <Td>
-                                    <Select name="type" onChange={onVaultItemFormChange} value={item.type || ""} isRequired>
-                                        <option value="password">Password</option>
-                                        <option value="note">Note</option>
-                                        <option value="token">Token</option>
-                                        <option value="key">Key</option>
-                                    </Select>
-                                </Td>
-                                <Td>
-                                    <Input type="text" name="name" onChange={onVaultItemFormChange} value={item.name || ""} isRequired />
-                                </Td>
-                                <Td>
-                                    <Input type="text" name="note" onChange={onVaultItemFormChange} value={item.note || ""} />
-                                </Td>
-                                <Td>
-                                    <Input type="text" name="value" onChange={onVaultItemFormChange} value={item.value || ""} isRequired />
-                                </Td>
-                                <Td>
-                                    <Checkbox name="reportable" onChange={onVaultItemFormChange} isChecked={item.reportable} />
-                                </Td>
-                                <Td>
-                                    <Button type="submit">Update</Button>
-                                </Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
-                </form>
-            </>}
-            {item.name === "" && <>
-                <h3>Please provide password</h3>
-                <form onSubmit={onPasswordProvided}>
-                        <Input type="password" name="password" onChange={onPasswordFormChanged} value={password || "" } isRequired />
-                        <Button type="submit">Send</Button>
-                </form>
-            </>}
-            </div>
-    )
+            <form onSubmit={onFormSubmit}>
+                <h3>Vault item</h3>
+                <Table>
+                    <Thead>
+                        <Tr>
+                            <Th>Type</Th>
+                            <Th>Name</Th>
+                            <Th>Note</Th>
+                            <Th>Value</Th>
+                            <Th>Reportable</Th>
+                            <Th>&nbsp;</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        <Tr>
+                            <Td>
+                                <Select name="type" onChange={onVaultItemFormChange} value={item.type || ""} isRequired>
+                                    <option value="password">Password</option>
+                                    <option value="note">Note</option>
+                                    <option value="token">Token</option>
+                                    <option value="key">Key</option>
+                                </Select>
+                            </Td>
+                            <Td>
+                                <Input type="text" name="name" onChange={onVaultItemFormChange} value={item.name || ""} isRequired />
+                            </Td>
+                            <Td>
+                                <Input type="text" name="note" onChange={onVaultItemFormChange} value={item.note || ""} />
+                            </Td>
+                            <Td>
+                                <Input type="text" name="value" onChange={onVaultItemFormChange} value={item.value || ""} isRequired />
+                            </Td>
+                            <Td>
+                                <Checkbox name="reportable" onChange={onVaultItemFormChange} isChecked={item.reportable} />
+                            </Td>
+                            <Td>
+                                <Button type="submit">Update</Button>
+                            </Td>
+                        </Tr>
+                    </Tbody>
+                </Table>
+            </form>
+        </>}
+        {item.name === "" && <>
+            <h3>Please provide password</h3>
+            <form onSubmit={onPasswordProvided}>
+                <Input type="password" name="password" onChange={onPasswordFormChanged} value={password || ""} isRequired />
+                <Button type="submit">Send</Button>
+            </form>
+        </>}
+    </div>
 }
+
 export default VaultItemEdit;
