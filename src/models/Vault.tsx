@@ -5,6 +5,7 @@ interface Props {
     note?: string;
     value: string;
     password?: string;
+    reportable: boolean;
 }
 
 class Vault implements Props {
@@ -13,6 +14,7 @@ class Vault implements Props {
     note?: string = undefined;
     value: string = '';
     password?: string = undefined;
+    reportable: boolean = false;
 }
 
 export default Vault;

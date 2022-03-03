@@ -1,5 +1,4 @@
-import { Button } from "@chakra-ui/react";
-import { Input, Table, Tbody, Td, Th, Thead, Tr, Select } from '@chakra-ui/react';
+import { Input, Table, Tbody, Td, Th, Thead, Tr, Select, Checkbox, Button } from '@chakra-ui/react';
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useState } from "react";
 import secureApiFetch from "services/api";
@@ -14,7 +13,8 @@ const VaultItemEdit = () => {
     const [password, setPassword] = useState(null);
 
     const onVaultItemFormChange = ev => {
-        setVaultItem({ ...item, [ev.target.name]: ev.target.value });
+        const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
+        setVaultItem({ ...item, [ev.target.name]: value });
     }
 
     const onFormSubmit = ev => {
@@ -54,6 +54,7 @@ const VaultItemEdit = () => {
                     newItem.note = json['note'];
                     newItem.value = json['value'];
                     newItem.type = json['type'];
+                    newItem.reportable = json['reportable'];
                     setVaultItem(newItem);
                     actionCompletedToast(`The vault item "${newItem.name}" has been loaded.`);
                 }
@@ -79,6 +80,7 @@ const VaultItemEdit = () => {
                                 <Th>Name</Th>
                                 <Th>Note</Th>
                                 <Th>Value</Th>
+                                <Th>Reportable</Th>
                                 <Th>&nbsp;</Th>
                             </Tr>
                         </Thead>
@@ -100,6 +102,9 @@ const VaultItemEdit = () => {
                                 </Td>
                                 <Td>
                                     <Input type="text" name="value" onChange={onVaultItemFormChange} value={item.value || ""} isRequired />
+                                </Td>
+                                <Td>
+                                    <Checkbox name="reportable" onChange={onVaultItemFormChange} isChecked={item.reportable} />
                                 </Td>
                                 <Td>
                                     <Button type="submit">Update</Button>

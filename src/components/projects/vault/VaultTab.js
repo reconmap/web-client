@@ -1,4 +1,4 @@
-import { Button, Input, Table, Tbody, Td, Th, Thead, Tr, Select } from '@chakra-ui/react';
+import { Button, Input, Table, Tbody, Td, Th, Thead, Tr, Select, Checkbox } from '@chakra-ui/react';
 import { useState } from 'react';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
@@ -15,7 +15,8 @@ const ProjectVaultTab = ({ project }) => {
     const [vaultItem, setVaultItem] = useState(new Vault());
 
     const onVaultItemFormChange = ev => {
-        setVaultItem({ ...vaultItem, [ev.target.name]: ev.target.value });
+        const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
+        setVaultItem({ ...vaultItem, [ev.target.name]: value });
     }
 
     const onVaultItemDelete = vaultItemId => {
@@ -51,6 +52,7 @@ const ProjectVaultTab = ({ project }) => {
                             <Th>Name</Th>
                             <Th>Note</Th>
                             <Th>Type</Th>
+                            <Th>Reportable</Th>
                             <Th>&nbsp;</Th>
                         </Tr>
                     </Thead>
@@ -61,6 +63,7 @@ const ProjectVaultTab = ({ project }) => {
                                 <Td>{item.name}</Td>
                                 <Td>{item.note}</Td>
                                 <Td>{item.type}</Td>
+                                <Td>{item.reportable}</Td>
                                 <Td className='flex justify-end'>
                                     <LinkButton href={`/vault/${project.id}/${item.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton onClick={onVaultItemDelete.bind(this, item.id)} />
@@ -79,6 +82,7 @@ const ProjectVaultTab = ({ project }) => {
                                 <Th>Note</Th>
                                 <Th>Value</Th>
                                 <Th>Password</Th>
+                                <Th>Reportable</Th>
                                 <Th>&nbsp;</Th>
                             </Tr>
                         </Thead>
@@ -103,6 +107,9 @@ const ProjectVaultTab = ({ project }) => {
                                 </Td>
                                 <Td>
                                     <Input type="password" name="password" onChange={onVaultItemFormChange}  value={vaultItem.password || ""} isRequired />
+                                </Td>
+                                <Td>
+                                    <Checkbox name="reportable" onChange={onVaultItemFormChange} isChecked={vaultItem.reportable} />
                                 </Td>
                                 <Td>
                                     <Button type="submit">Add</Button>
