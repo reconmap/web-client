@@ -7,6 +7,8 @@ import ProjectEdit from "./Edit";
 import ProjectsList from "./List";
 import ProjectMembership from "./Membership";
 import ProjectReport from "./Report";
+import VaultItemEdit from "./vault/VaultItemEdit"
+
 
 const ProjectsRoutes = [
     <Route path={`/projects`} element={<ProjectsList />} />,
@@ -16,7 +18,9 @@ const ProjectsRoutes = [
     <Route path={`/projects/:projectId/report/send`} element={<SendReport />} />,
     <Route path={`/projects/:projectId/membership`} element={<ProjectMembership />} />,
     <Route path={`/projects/:projectId/tasks/create`} element={<TaskCreationPage />} />,
-    <Route path={`/projects/:projectId`} element={<ProjectDetails />} />
+    <Route path={`/projects/:projectId`} element={<ProjectDetails />} />,
+
+    <Route path={`/vault/:projectId/:vaultItemId/edit`} element={<VaultItemEdit />} />,
 ]
 
 export default ProjectsRoutes;

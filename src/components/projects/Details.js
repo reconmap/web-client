@@ -19,6 +19,7 @@ import ProjectNotesTab from "./NotesTab";
 import ProjectTargets from './Targets';
 import ProjectTasks from './Tasks';
 import ProjectTeam from './Team';
+import ProjectVaultTab from './vault/VaultTab';
 import ProjectVulnerabilities from './Vulnerabilities';
 
 const ProjectDetails = () => {
@@ -87,6 +88,7 @@ const ProjectDetails = () => {
                         <Tab>Vulnerabilities</Tab>
                         <Tab>Notes</Tab>
                         <Tab>Attachments</Tab>
+                        <Tab>Vault</Tab>
                     </TabList>
                     <TabPanels>
                         <TabPanel><ProjectDetailsTab project={project} /></TabPanel>
@@ -95,6 +97,7 @@ const ProjectDetails = () => {
                         <TabPanel><ProjectVulnerabilities project={project} /></TabPanel>
                         <TabPanel><ProjectNotesTab project={project} /></TabPanel>
                         <TabPanel><ProjectAttachmentsTab project={project} /></TabPanel>
+                        <TabPanel><ProjectVaultTab project={project} /></TabPanel>
                     </TabPanels>
                 </Tabs>
             </>
