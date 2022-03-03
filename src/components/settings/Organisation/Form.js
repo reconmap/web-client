@@ -1,16 +1,15 @@
-import { Input } from '@chakra-ui/react';
+import { Breadcrumb, Input } from '@chakra-ui/react';
 import AttachmentsImageDropzone from 'components/attachments/ImageDropzone';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import PrimaryButton from 'components/ui/buttons/Primary';
+import { IconPreferences } from 'components/ui/Icons';
+import Loading from 'components/ui/Loading';
+import Title from 'components/ui/Title';
 import { actionCompletedToast } from 'components/ui/toast';
+import useFetch from 'hooks/useFetch';
 import Organisation from 'models/Organisation';
 import { useEffect, useState } from 'react';
-import useFetch from "../../hooks/useFetch";
-import secureApiFetch from '../../services/api';
-import Breadcrumb from '../ui/Breadcrumb';
-import PrimaryButton from '../ui/buttons/Primary';
-import { IconPreferences } from "../ui/Icons";
-import Loading from "../ui/Loading";
-import Title from '../ui/Title';
+import secureApiFetch from 'services/api';
 
 const OrganisationForm = () => {
     const [organisation, setOrganisation] = useState(Organisation);
@@ -94,8 +93,7 @@ const OrganisationForm = () => {
 
     return <div>
         <div className='heading'>
-            <Breadcrumb>
-            </Breadcrumb>
+            <Breadcrumb />
         </div>
         <form onSubmit={onFormSubmit}>
             <Title title="Settings" type="Organisation" icon={<IconPreferences />} />
@@ -113,6 +111,7 @@ const OrganisationForm = () => {
             <label>Contact phone
                 <Input type="tel" name="contact_phone" value={organisation.contact_phone}
                     onChange={handleFormChange} /></label>
+
             <PrimaryButton type="submit"
                 disabled={loading}>Save</PrimaryButton>
 

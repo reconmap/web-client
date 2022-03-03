@@ -1,4 +1,5 @@
 import { Button, Checkbox, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import { actionCompletedToast } from 'components/ui/toast';
 import Widgets from 'models/Widgets';
@@ -63,6 +64,7 @@ const DashboardPanels = () => {
 
     return <section>
         <Title type="Home" title="Dashboard" icon={<IconChartBar />} />
+        <PageTitle value="Dashboard" />
         <Tabs>
             <TabList>
                 <Tab>View</Tab>

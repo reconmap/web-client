@@ -130,15 +130,15 @@ const Links = [
     {
         title: 'Settings',
         icon: <FontAwesomeIcon icon={faWrench} />,
-        to: '/system',
+        to: '/settings',
         sublinks: [
             {
                 title: 'Organisation',
                 icon: <FontAwesomeIcon icon={faBriefcase} />,
-                to: '/organisation'
+                to: '/settings/organisation'
             },
         ],
-        permissions: 'system.*'
+        permissions: 'settings.*'
     },
     {
         title: 'System',

@@ -42,7 +42,7 @@ const HeaderUserMenu = () => {
                             <Text p="3" color="gray.500">
                                 Organisation
                             </Text>
-                            <Link to="/organisation">
+                            <Link to="/settings/organisation">
                                 <MenuItem>Settings</MenuItem>
                             </Link>
                         </RestrictedComponent>

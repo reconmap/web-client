@@ -92,12 +92,12 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
                 <p>Drag and drop some files here, or click to select files</p>
             </div>
             <aside>
-                <h4>Files to upload:</h4>
+                <h4>Upload list:</h4>
                 {acceptedFiles.length === 0 && <div>(empty)</div>}
                 {acceptedFiles.length > 0 && <ul>{files}</ul>}
             </aside>
             <hr />
-            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload attachment(s)</PrimaryButton>
+            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload file(s)</PrimaryButton>
         </div>
     );
 }

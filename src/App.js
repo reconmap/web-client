@@ -1,6 +1,7 @@
 import AuthLayout from 'components/auth/AuthLayout';
 import AuthRoutes from 'components/auth/Routes';
 import NotificationsRoutes from 'components/notifications/Routes';
+import SettingsRoutes from 'components/settings/Routes';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from 'services/auth';
@@ -13,7 +14,6 @@ import DocumentsRoutes from './components/documents/Routes';
 import DashboardLayout from './components/layout/dashboard/DashboardLayout';
 import DashboardPanels from './components/layout/dashboard/DashboardPanels';
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
-import OrganisationRoutes from './components/organisation/Routes';
 import ProjectsRoutes from './components/projects/Routes';
 import ProjectTemplatesRoutes from './components/projects/templates/Routes';
 import ReportsRoutes from './components/reports/Routes';
@@ -55,13 +55,13 @@ const App = () => {
                                 ...ClientsRoutes,
                                 ...CommandsRoutes,
                                 ...DocumentsRoutes,
-                                ...OrganisationRoutes,
                                 ...ProjectTemplatesRoutes,
                                 ...ProjectsRoutes,
                                 ...ReportTemplatesRoutes,
                                 ...ReportsRoutes,
                                 ...NotificationsRoutes,
                                 ...SearchRoutes,
+                                ...SettingsRoutes,
                                 ...SupportRoutes,
                                 ...SystemRoutes,
                                 ...TargetRoutes,

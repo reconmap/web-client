@@ -1,13 +1,12 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import AttachmentsDropzone from "components/attachments/Dropzone";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
-import PrimaryButton from "components/ui/buttons/Primary";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import FileSizeSpan from "components/ui/FileSizeSpan";
-import { IconUpload } from "components/ui/Icons";
-import Loading from "components/ui/Loading";
 import ModalDialog from "components/ui/ModalDIalog";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
+import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import UserLink from "components/users/Link";
 import useFetch from "hooks/useFetch";
@@ -69,8 +68,6 @@ const CommandOutputs = ({ task }) => {
         setModalVisible(false);
     }
 
-    if (!commandOutputs) return <Loading />
-
     return <>
         {task.command_id &&
             <>
@@ -82,44 +79,42 @@ const CommandOutputs = ({ task }) => {
 
                 <h4>
                     Results
-                    <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                        <PrimaryButton to={`/tasks/${task.id}/upload`}>
-                            <IconUpload /> Upload results
-                        </PrimaryButton>
-                    </RestrictedComponent>
                 </h4>
-                {!commandOutputs ? <Loading /> :
 
-                    <Table>
-                        <Thead>
-                            <Tr>
-                                <Th>Filename</Th>
-                                <Th>Mimetype</Th>
-                                <Th>File size</Th>
-                                <Th>Upload date</Th>
-                                <Th>Uploaded by</Th>
-                                <Th>&nbsp;</Th>
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <AttachmentsDropzone parentType={"command"} parentId={task.id} onUploadFinished={updateCommandOutputs} />
+                </RestrictedComponent>
+
+                <Table>
+                    <Thead>
+                        <Tr>
+                            <Th>Filename</Th>
+                            <Th>Mimetype</Th>
+                            <Th>File size</Th>
+                            <Th>Upload date</Th>
+                            <Th>Uploaded by</Th>
+                            <Th>&nbsp;</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {null === commandOutputs && <LoadingTableRow numColumns={6} />}
+                        {null !== commandOutputs && commandOutputs.length === 0 && <NoResultsTableRow numColumns={6} />}
+                        {null !== commandOutputs && commandOutputs.length !== 0 && commandOutputs.map((commandOutput, index) =>
+                            <Tr key={index}>
+                                <Td>{commandOutput.client_file_name}</Td>
+                                <Td>{commandOutput.file_mimetype}</Td>
+                                <Td><FileSizeSpan fileSize={commandOutput.file_size} /></Td>
+                                <Td><RelativeDateFormatter date={commandOutput.insert_ts} /></Td>
+                                <Td><UserLink userId={commandOutput.submitter_uid}>{commandOutput.submitter_name}</UserLink></Td>
+                                <Td className="flex justify-end">
+                                    <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
+                                    <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
+                                    <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
+                                </Td>
                             </Tr>
-                        </Thead>
-                        <Tbody>
-                            {commandOutputs.length === 0 && <NoResultsTableRow numColumns={6} />}
-                            {commandOutputs.map((commandOutput, index) =>
-                                <Tr key={index}>
-                                    <Td>{commandOutput.client_file_name}</Td>
-                                    <Td>{commandOutput.file_mimetype}</Td>
-                                    <Td><FileSizeSpan fileSize={commandOutput.file_size} /></Td>
-                                    <Td><RelativeDateFormatter date={commandOutput.insert_ts} /></Td>
-                                    <Td><UserLink userId={commandOutput.submitter_uid}>{commandOutput.submitter_name}</UserLink></Td>
-                                    <Td className="flex justify-end">
-                                        <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
-                                        <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
-                                        <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
-                                    </Td>
-                                </Tr>
-                            )}
-                        </Tbody>
-                    </Table>
-                }
+                        )}
+                    </Tbody>
+                </Table>
             </>
         }
     </>

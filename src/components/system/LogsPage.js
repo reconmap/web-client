@@ -1,6 +1,5 @@
 import { Textarea } from "@chakra-ui/react";
-import Loading from "components/ui/Loading";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import secureApiFetch from "services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import { IconDownloadDocument } from "../ui/Icons";
@@ -11,11 +10,9 @@ const SystemLogsPage = () => {
 
     useEffect(() => {
         secureApiFetch('/system/logs', { method: 'GET' })
-            .then(response => response.text())
+            .then(resp => resp.text())
             .then(text => setLogs(text));
     }, []);
-
-    if (null === logs) return <Loading />
 
     return <div style={{ height: '100%' }}>
         <div className='heading'>
@@ -23,8 +20,7 @@ const SystemLogsPage = () => {
         </div>
         <Title type="System" title="Logs" icon={<IconDownloadDocument />} />
 
-        <Textarea variant="filled" isReadOnly size="sm" style={{ height: '100%' }} value={logs} />
-
+        <Textarea variant="filled" isReadOnly size="sm" style={{ height: '100%' }} value={logs || "Loading..."} />
     </div>
 };
 
