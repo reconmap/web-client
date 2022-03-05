@@ -10,6 +10,8 @@ RUN userdel -r node && \
     groupadd -g ${HOST_GID} ${CONTAINER_GROUP} && \
     useradd -u ${HOST_UID} -g ${CONTAINER_GROUP} -s /bin/sh -m ${CONTAINER_USER}
 
+RUN apt-get install git
+
 ENV DISABLE_OPENCOLLECTIVE true
 ENV PATH /home/reconmapper/node_modules/.bin:$PATH
 
