@@ -1,5 +1,7 @@
 FROM node:14-bullseye-slim
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 ARG CONTAINER_USER=reconmapper
 ARG CONTAINER_GROUP=reconmapper
 
