@@ -1,3 +1,4 @@
+import { Input } from "@chakra-ui/react";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -52,30 +53,28 @@ const UserPasswordChange = () => {
         setSubmitButtonDisabled(passwords.newPassword !== passwords.newPasswordConfirmation);
     }, [passwords]);
 
-    return (
-        <div>
-            <div className='heading'>
-                <Breadcrumb />
-            </div>
-            <form onSubmit={handleCreate}>
-                <Title title="Password Change" type="User" icon={<IconPreferences />} />
-                <label>Current password
-                    <input type="password" name="currentPassword" value={passwords.currentPassword}
-                        onChange={handleFormChange} autoFocus required />
-                </label>
-                <label>New password
-                    <input type="password" name="newPassword" value={passwords.newPassword} onChange={handleFormChange}
-                        required />
-                </label>
-                <label>New password confirmation
-                    <input type="password" name="newPasswordConfirmation" value={passwords.newPasswordConfirmation}
-                        onChange={handleFormChange} required />
-                </label>
-                <PrimaryButton type="submit"
-                    disabled={submitButtonDisabled}>Update</PrimaryButton>
-            </form>
+    return <div>
+        <div className='heading'>
+            <Breadcrumb />
         </div>
-    )
+        <form onSubmit={handleCreate}>
+            <Title title="Password change" type="User" icon={<IconPreferences />} />
+            <label>Current password
+                <Input type="password" name="currentPassword" value={passwords.currentPassword}
+                    onChange={handleFormChange} autoFocus required />
+            </label>
+            <label>New password
+                <Input type="password" name="newPassword" value={passwords.newPassword} onChange={handleFormChange}
+                    required />
+            </label>
+            <label>New password confirmation
+                <Input type="password" name="newPasswordConfirmation" value={passwords.newPasswordConfirmation}
+                    onChange={handleFormChange} required />
+            </label>
+            <PrimaryButton type="submit"
+                disabled={submitButtonDisabled}>Update</PrimaryButton>
+        </form>
+    </div>
 }
 
 export default UserPasswordChange

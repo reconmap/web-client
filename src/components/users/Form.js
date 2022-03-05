@@ -65,7 +65,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                             </label>
                             <label>
                                 Send email to user
-                                <Input type="checkbox" name="sendEmailToUser" onChange={onFormChange} />
+                                <Checkbox name="sendEmailToUser" onChange={onFormChange} />
                             </label>
                         </>
                     }

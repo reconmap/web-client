@@ -1,4 +1,4 @@
-import { Button, FormControl, Heading, Input, Text } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Heading, Input, Text } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -47,26 +47,24 @@ const Login = () => {
             ({ login }) => <form onSubmit={ev => handleSubmit(ev, login)} style={{ width: '100%' }}>
                 <PageTitle value="Login" />
                 <FormControl as="fieldset">
-                    <Heading as="legend" size="lg" > Login</Heading>
-                    <label htmlFor="inputUsername" className="sr-only">Username</label>
-                    <Input
-                        autoFocus
-                        isInvalid={error}
-                        isRequired
-                        type="text"
-                        placeholder="Username"
-                        onChange={handleUsername}
-                        id="inputUsername"
-                    />
-                    <label htmlFor="inputPassword" className="sr-only">Password</label>
-                    <Input
-                        isRequired
-                        isInvalid={error}
-                        type="password"
-                        placeholder="Enter password"
-                        onChange={handlePassword}
-                        id="inputPassword"
-                    />
+                    <Heading as="legend" size="lg">Login</Heading>
+
+                    <FormControl isRequired>
+                        <FormLabel htmlFor="inputUsername">Username</FormLabel>
+                        <Input id="inputUsername" type="text"
+                            onChange={handleUsername}
+                            isInvalid={error} isRequired autoFocus
+                        />
+                    </FormControl>
+
+                    <FormControl isRequired>
+                        <FormLabel htmlFor="inputPassword">Password</FormLabel>
+                        <Input id="inputPassword" type="password"
+                            onChange={handlePassword}
+                            isInvalid={error} isRequired
+                        />
+                    </FormControl>
+
                     <Button
                         isLoading={loading}
                         loadingText="Processing..."
