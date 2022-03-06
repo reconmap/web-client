@@ -40,7 +40,7 @@ base-container:
 
 .PHONY: version-increase
 version-increase:
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper -v "${HOME}/.gitconfig:/home/reconmapper/.gitconfig" --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
 
 .PHONY: start
 start:
