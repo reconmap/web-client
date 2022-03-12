@@ -4,6 +4,7 @@ import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
 import Auth from "services/auth";
+import DashboardWidget from "./Widget";
 
 const MyTasksWidget = () => {
     const user = Auth.getLoggedInUser();
@@ -11,8 +12,7 @@ const MyTasksWidget = () => {
 
     if (!tasks) return <Loading />
 
-    return <article className="card">
-        <h4>My tasks</h4>
+    return <DashboardWidget title="My tasks">
 
         {tasks.length === 0 ?
             <p>You don't have any assigned tasks.</p>
@@ -32,7 +32,7 @@ const MyTasksWidget = () => {
                 </tbody>
             </table>
         }
-    </article>
+    </DashboardWidget>
 }
 
 export default MyTasksWidget;

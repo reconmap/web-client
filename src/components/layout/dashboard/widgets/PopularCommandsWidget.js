@@ -1,12 +1,12 @@
 import { Th } from "@chakra-ui/react";
 import CommandBadge from "components/commands/Badge";
 import useFetch from "hooks/useFetch";
+import DashboardWidget from "./Widget";
 
 const PopularCommandsWidget = () => {
     const [commands] = useFetch('/commands?limit=5');
 
-    return <article className="card">
-        <h4>Popular commands</h4>
+    return <DashboardWidget title="Popular commands">
 
         {commands && commands.length > 0 ?
             <table>
@@ -25,7 +25,7 @@ const PopularCommandsWidget = () => {
             </table> :
             <p>No commands to show.</p>
         }
-    </article>
+    </DashboardWidget>
 }
 
 export default PopularCommandsWidget;

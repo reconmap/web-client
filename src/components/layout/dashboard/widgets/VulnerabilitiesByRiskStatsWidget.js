@@ -1,6 +1,7 @@
 import useFetch from "hooks/useFetch";
 import PropTypes from 'prop-types';
 import { Cell, Pie, PieChart } from "recharts";
+import DashboardWidget from "./Widget";
 
 const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
     const RADIAN = Math.PI / 180;
@@ -30,8 +31,7 @@ const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
     const url = '/vulnerabilities/stats?groupBy=risk' + (null !== projectId ? '&projectId=' + encodeURIComponent(projectId) : '');
     const [vulnerabilitiesByRiskStats] = useFetch(url)
 
-    return <article className='card justify-center items-center'>
-        <h4>Vulnerabilities by risk</h4>
+    return <DashboardWidget title="Vulnerabilities by risk">
 
         {vulnerabilitiesByRiskStats && vulnerabilitiesByRiskStats.length > 0 ?
             <PieChart width={400} height={320} >
@@ -57,7 +57,7 @@ const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
             </PieChart> :
             <p>No enough data to generate the chart.</p>
         }
-    </article>
+    </DashboardWidget>
 }
 
 VulnerabilitiesByRiskStatsWidget.propTypes = {

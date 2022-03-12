@@ -31,15 +31,3 @@ form.crud fieldset legend {
         }
     }
 }
-
-textarea {
-    height: 150px;
-}
-
-input:not([type="checkbox"]):not([type="button"]),
-textarea {
-    color: var(--text-color);
-    padding: var(--paddingBox);
-    background-color: var(--black);
-    font-size: var(--fontSizeSmall);
-}

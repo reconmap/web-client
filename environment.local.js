@@ -10,6 +10,8 @@ window.env = {
     // hostname:port for the Reconmap's agent service
     REACT_APP_AGENT_SERVICE_HOST_PORT: 'localhost:5520',
 
+    REACT_APP_LOGO_URL: 'logo-name.png',
+
     // Web application context path e.g. / (for http://localhost:5500) or /reconmap (for http://localhost:5500/reconmap)
     // REACT_APP_CONTEXT_PATH: '/reconmap'
 };

@@ -2,12 +2,12 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import Badge from "components/badges/Badge";
 import UserLink from "components/users/Link";
 import useFetch from "hooks/useFetch";
+import DashboardWidget from "./Widget";
 
 const RecentActivityWidget = () => {
     const [auditLog] = useFetch('/auditlog?limit=5');
 
-    return <article className="card">
-        <h4>Recent activity</h4>
+    return <DashboardWidget title="Recent activity">
 
         {auditLog && auditLog.length > 0 ?
             <Table>
@@ -29,7 +29,7 @@ const RecentActivityWidget = () => {
             </Table> :
             <p>No activity to show.</p>
         }
-    </article>
+    </DashboardWidget>
 }
 
 export default RecentActivityWidget;

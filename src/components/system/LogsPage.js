@@ -1,18 +1,15 @@
-import { Textarea } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import secureApiFetch from "services/api";
+import { Button, Textarea } from "@chakra-ui/react";
+import { faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useFetch from "hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 import { IconDownloadDocument } from "../ui/Icons";
 import Title from "../ui/Title";
 
 const SystemLogsPage = () => {
-    const [logs, setLogs] = useState(null);
+    const [logs, fetchLogs] = useFetch('/system/logs', true);
 
-    useEffect(() => {
-        secureApiFetch('/system/logs', { method: 'GET' })
-            .then(resp => resp.text())
-            .then(text => setLogs(text));
-    }, []);
+    const isLoading = null === logs;
 
     return <div style={{ height: '100%' }}>
         <div className='heading'>
@@ -20,7 +17,8 @@ const SystemLogsPage = () => {
         </div>
         <Title type="System" title="Logs" icon={<IconDownloadDocument />} />
 
-        <Textarea variant="filled" isReadOnly size="sm" style={{ height: '100%' }} value={logs || "Loading..."} />
+        <Button leftIcon={<FontAwesomeIcon icon={faRefresh} />} onClick={fetchLogs} disabled={isLoading}>Refresh</Button>
+        <Textarea variant="filled" size="sm" style={{ height: '100%' }} value={isLoading ? "Loading..." : logs} isReadOnly />
     </div>
 };
 

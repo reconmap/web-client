@@ -1,3 +1,4 @@
+import { Input } from "@chakra-ui/react";
 import { createRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import isInputElement from "../../utilities/domUtils";
@@ -30,7 +31,7 @@ const SearchBox = () => {
         }
     }
 
-    return <input ref={inputRef} type="search" placeholder="Search..." onKeyDown={handleSearchKeyDown} />
+    return <Input w={200} ref={inputRef} type="search" placeholder="Search..." onKeyDown={handleSearchKeyDown} />
 }
 
 export default SearchBox;

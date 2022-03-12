@@ -3,14 +3,14 @@ import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
 import Loading from "components/ui/Loading";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import useFetch from "hooks/useFetch";
+import DashboardWidget from "./Widget";
 
 const RecentVulnerabilitiesWidget = () => {
     const [vulnerabilities] = useFetch(`/vulnerabilities?limit=5&orderColumn=insert_ts&orderDirection=desc`)
 
     if (!vulnerabilities) return <Loading />
 
-    return <article className="card">
-        <h4>Recent vulnerabilities</h4>
+    return <DashboardWidget title="Recent vulnerabilities">
 
         {vulnerabilities.length === 0 ?
             <p>No vulnerabilities to show.</p>
@@ -30,7 +30,7 @@ const RecentVulnerabilitiesWidget = () => {
                 </Tbody>
             </Table>
         }
-    </article>
+    </DashboardWidget>
 }
 
 export default RecentVulnerabilitiesWidget;

@@ -1,13 +1,14 @@
 import useFetch from "hooks/useFetch";
 import PropTypes from 'prop-types';
 import { Pie, PieChart } from "recharts";
+import DashboardWidget from "./Widget";
 
 const VulnerabilitiesByCategoryStatsWidget = ({ projectId = null }) => {
     const url = '/vulnerabilities/stats?groupBy=category' + (null !== projectId ? '&projectId=' + encodeURIComponent(projectId) : '');
     const [vulnerabilitiesByCategoryStats] = useFetch(url)
 
-    return <article className='card justify-center items-center'>
-        <h4>Vulnerabilities by category</h4>
+    return <DashboardWidget title="Vulnerabilities by category">
+
         {vulnerabilitiesByCategoryStats && vulnerabilitiesByCategoryStats.length > 0 ?
             <PieChart width={320} height={320}>
                 <Pie
@@ -29,7 +30,7 @@ const VulnerabilitiesByCategoryStatsWidget = ({ projectId = null }) => {
             </PieChart> :
             <p>No enough data to generate the chart.</p>
         }
-    </article>
+    </DashboardWidget>
 }
 
 VulnerabilitiesByCategoryStatsWidget.propTypes = {

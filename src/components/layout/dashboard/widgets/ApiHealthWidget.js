@@ -1,4 +1,5 @@
 import useFetch from "hooks/useFetch";
+import DashboardWidget from "./Widget";
 
 const GreenYes = () => <span style={{ color: 'green' }}>Yes</span>;
 const RedNo = () => <span style={{ color: 'red' }}>No</span>;
@@ -6,9 +7,7 @@ const RedNo = () => <span style={{ color: 'red' }}>No</span>;
 const ApiHealthWidget = () => {
     const [apiHealth] = useFetch('/system/health');
 
-    return <article className="card">
-        <h4>API health</h4>
-
+    return <DashboardWidget title="API health">
         {apiHealth && <>
             <dl>
                 <dt>Response</dt>
@@ -21,7 +20,7 @@ const ApiHealthWidget = () => {
                 <dd>{apiHealth.logsDirectory.writeable ? <GreenYes /> : <RedNo />}</dd>
             </dl>
         </>}
-    </article>
+    </DashboardWidget>
 }
 
 export default ApiHealthWidget;

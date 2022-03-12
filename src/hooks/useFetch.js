@@ -1,24 +1,25 @@
 import { useCallback, useEffect, useState } from 'react';
 import secureApiFetch from '../services/api';
 
-const useFetch = endpoint => {
-    const [response, setResponse] = useState(null);
+const useFetch = (endpoint, text = false) => {
+    const [responseBody, setResponseBody] = useState(null);
     const [error, setError] = useState(null);
     const fetchData = useCallback(async () => {
+        setResponseBody(null);
         try {
-            const response = await secureApiFetch(endpoint, { method: 'GET' })
-            const responseJSON = await response.json()
-            setResponse(responseJSON)
+            const resp = await secureApiFetch(endpoint, { method: 'GET' })
+            const body = await (text ? resp.text() : resp.json());
+            setResponseBody(body);
         } catch (err) {
             setError(err);
         }
-    }, [endpoint]);
+    }, [endpoint, text]);
 
     useEffect(() => {
         fetchData();
     }, [fetchData]);
 
-    return [response, fetchData, error];
+    return [responseBody, fetchData, error];
 }
 
 export default useFetch;

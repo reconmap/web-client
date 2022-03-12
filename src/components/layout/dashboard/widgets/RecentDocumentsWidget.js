@@ -3,14 +3,14 @@ import DocumentBadge from "components/documents/Badge";
 import Loading from "components/ui/Loading";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import useFetch from "hooks/useFetch";
+import DashboardWidget from "./Widget";
 
 const RecentDocumentsWidget = () => {
     const [documents] = useFetch(`/documents?limit=5`)
 
     if (!documents) return <Loading />
 
-    return <article className="card">
-        <h4>Recent documents</h4>
+    return <DashboardWidget title="Recent documents">
 
         {documents.length === 0 ?
             <p>No documents to show.</p>
@@ -30,7 +30,7 @@ const RecentDocumentsWidget = () => {
                 </Tbody>
             </Table>
         }
-    </article>
+    </DashboardWidget>
 }
 
 export default RecentDocumentsWidget;

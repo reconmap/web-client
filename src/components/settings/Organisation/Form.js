@@ -1,4 +1,4 @@
-import { Breadcrumb, Input } from '@chakra-ui/react';
+import { Breadcrumb, Button, Input } from '@chakra-ui/react';
 import AttachmentsImageDropzone from 'components/attachments/ImageDropzone';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import PrimaryButton from 'components/ui/buttons/Primary';
@@ -42,12 +42,16 @@ const OrganisationForm = () => {
     useEffect(() => {
         if (rootOrganisation) {
             setOrganisation(rootOrganisation);
-            if (rootOrganisation.small_logo_attachment_id) {
+            if (rootOrganisation.small_logo_attachment_id !== null) {
                 downloadAndDisplayLogo(rootOrganisation.small_logo_attachment_id, 'small_logo');
+            } else {
+                setSmallLogo(null);
             }
 
-            if (rootOrganisation.logo_attachment_id) {
+            if (rootOrganisation.logo_attachment_id !== null) {
                 downloadAndDisplayLogo(rootOrganisation.logo_attachment_id, 'logo');
+            } else {
+                setLogo(null);
             }
         }
     }, [rootOrganisation]);
@@ -55,6 +59,9 @@ const OrganisationForm = () => {
     const downloadAndDisplayLogo = (logoId, type) => {
         secureApiFetch(`/attachments/${logoId}`, { method: 'GET' })
             .then(resp => {
+                if (resp.status === 404) {
+                    return Promise.reject("Logo not found");
+                }
                 const contentDispositionHeader = resp.headers.get('Content-Disposition');
                 const filenameRe = new RegExp(/filename="(.*)";/)
                 const filename = filenameRe.exec(contentDispositionHeader)[1]
@@ -87,6 +94,16 @@ const OrganisationForm = () => {
         }
     };
 
+    const removeAttachment = (ev, id) => {
+        secureApiFetch(`/attachments/${id}`, { method: 'DELETE' })
+            .then(resp => {
+                if (resp.status === 204) {
+                    actionCompletedToast("Logo removed");
+                    refetchOrganisation();
+                }
+            })
+    }
+
     if (!organisation) {
         return <Loading />
     }
@@ -103,13 +120,13 @@ const OrganisationForm = () => {
             <label>URL
                 <Input type="text" name="url" value={organisation.url} onChange={handleFormChange} /></label>
             <label>Contact name
-                <Input type="text" name="contact_name" value={organisation.contact_name} onChange={handleFormChange}
+                <Input type="text" name="contact_name" value={organisation.contact_name || ""} onChange={handleFormChange}
                 /></label>
             <label>Contact email
-                <Input type="email" name="contact_email" value={organisation.contact_email}
+                <Input type="email" name="contact_email" value={organisation.contact_email || ""}
                     onChange={handleFormChange} /></label>
             <label>Contact phone
-                <Input type="tel" name="contact_phone" value={organisation.contact_phone}
+                <Input type="tel" name="contact_phone" value={organisation.contact_phone || ""}
                     onChange={handleFormChange} /></label>
 
             <PrimaryButton type="submit"
@@ -117,19 +134,19 @@ const OrganisationForm = () => {
 
             <label>Main logo
                 <div>
-                    {logo && <img src={logo} alt="The main organisation logo" />}
-                    <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
+                    {logo && <div><img src={logo} alt="The main organisation logo" /><br /><Button onClick={ev => removeAttachment(ev, organisation.logo_attachment_id)}>Remove</Button></div>}
+                    {logo === null && <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
                         <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="logo_attachment_id" attachmentId={organisation.logo_attachment_id} maxFileCount={1} />
-                    </RestrictedComponent>
+                    </RestrictedComponent>}
                 </div>
             </label>
 
             <label>Small logo
                 <div>
-                    {smallLogo && <img src={smallLogo} alt="The smaller version of the logo" />}
-                    <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
+                    {smallLogo && <div><img src={smallLogo} alt="The smaller version of the logo" /><br /><Button onClick={ev => removeAttachment(ev, organisation.small_logo_attachment_id)}>Remove</Button></div>}
+                    {smallLogo === null && <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
                         <AttachmentsImageDropzone parentType={parentType} parentId={parentId} onUploadFinished={onUploadFinished} uploadFinishedParameter="small_logo_attachment_id" attachmentId={organisation.small_logo_attachment_id} maxFileCount={1} />
-                    </RestrictedComponent>
+                    </RestrictedComponent>}
                 </div>
             </label>
 

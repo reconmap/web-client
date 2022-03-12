@@ -9,7 +9,9 @@ const Configuration = {
 
     getAgentServiceHostPort: () => window.env.REACT_APP_AGENT_SERVICE_HOST_PORT,
 
-    getContextPath: () => window.env.REACT_APP_CONTEXT_PATH || '/'
+    getContextPath: () => window.env.REACT_APP_CONTEXT_PATH || '/',
+
+    getLogoUrl: () => window.env.REACT_APP_LOGO_URL || '/logo-name.png'
 };
 
 export default Configuration;
