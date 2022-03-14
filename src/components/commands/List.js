@@ -5,7 +5,6 @@ import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconFolder } from '../ui/Icons';
-import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import CommandsTable from './Table';
 
@@ -27,7 +26,7 @@ const CommandsListPage = () => {
             <CreateButton onClick={onAddCommandClick}>Add command</CreateButton>
         </div>
         <Title title='Commands' icon={<IconFolder />} />
-        {!commands ? <Loading /> : <CommandsTable commands={commands} onDeleteCallback={destroy} />}
+        <CommandsTable commands={commands} onDeleteCallback={destroy} />
     </div>
 }
 

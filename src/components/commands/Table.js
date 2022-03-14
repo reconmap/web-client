@@ -1,7 +1,8 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
-import NoResults from "components/ui/NoResults";
+import LoadingTableRow from "components/ui/tables/LoadingTableRow";
+import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import Tags from "components/ui/Tags";
 import CommandBadge from "./Badge";
 
@@ -17,25 +18,23 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
             </Tr>
         </Thead>
         <Tbody>
-            {commands.length === 0 ?
-                <Tr>
-                    <Td colSpan={5}><NoResults /></Td>
-                </Tr> :
-                commands.map(command =>
-                    <Tr key={command.id}>
-                        <Td><CommandBadge command={command} /></Td>
-                        <Td className="only-desktop">
-                            {command.description}<br />
-                            <Tags values={command.tags} />
-                        </Td>
-                        <Td>{command.output_parser ?? '-'}</Td>
-                        <Td>{command.docker_image}</Td>
-                        <Td className='flex justify-end'>
-                            <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
-                            {onDeleteCallback && <DeleteIconButton onClick={() => onDeleteCallback(command.id)} />}
-                        </Td>
-                    </Tr>
-                )}
+            {null === commands && <LoadingTableRow numColumns={5} />}
+            {null !== commands && 0 === commands.length && <NoResultsTableRow numColumns={5} />}
+            {null !== commands && 0 !== commands.length && commands.map(command =>
+                <Tr key={command.id}>
+                    <Td><CommandBadge command={command} /></Td>
+                    <Td className="only-desktop">
+                        {command.description}<br />
+                        <Tags values={command.tags} />
+                    </Td>
+                    <Td>{command.output_parser ?? '-'}</Td>
+                    <Td>{command.docker_image}</Td>
+                    <Td className='flex justify-end'>
+                        <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
+                        {onDeleteCallback && <DeleteIconButton onClick={() => onDeleteCallback(command.id)} />}
+                    </Td>
+                </Tr>
+            )}
         </Tbody>
     </Table>
 }

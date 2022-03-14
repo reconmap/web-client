@@ -1,7 +1,6 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import Licenses from 'data/licenses.json';
-import React from "react";
 import Breadcrumb from "../ui/Breadcrumb";
 import { IconQuestionCircle } from "../ui/Icons";
 import Title from "../ui/Title";

@@ -7,8 +7,6 @@ import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
 import ExportButton from '../ui/buttons/Export';
 import { IconEye } from '../ui/Icons';
-import Loading from '../ui/Loading';
-import NoResults from '../ui/NoResults';
 import Title from '../ui/Title';
 import AuditLogsTable from "./AuditLogsTable";
 
@@ -75,8 +73,7 @@ const AuditLogList = () => {
             <ExportButton onClick={handleExport} />
         </div>
         <Title type="System" title='Audit Log' icon={<IconEye />} />
-        {!auditLog ? <Loading /> : auditLog.length === 0 ? <NoResults /> :
-            <AuditLogsTable auditLog={auditLog} />}
+        <AuditLogsTable auditLog={auditLog} />
     </>
 }
 

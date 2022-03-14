@@ -26,8 +26,8 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
             </Tr>
         </Thead>
         <Tbody>
-            {auditLog.length === 0 && <NoResultsTableRow numColumns={numColumns} />}
-            {auditLog.map(entry => {
+            {auditLog !== null && auditLog.length === 0 && <NoResultsTableRow numColumns={numColumns} />}
+            {auditLog !== null && auditLog.map(entry => {
                 return <Tr key={entry.id}>
                     <Td>
                         <Badge>{entry.action}</Badge>

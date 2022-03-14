@@ -1,3 +1,4 @@
+import { Textarea } from '@chakra-ui/react';
 import PrimaryButton from 'components/ui/buttons/Primary';
 import ExternalLink from 'components/ui/ExternalLink';
 import Configuration from 'Configuration';
@@ -51,7 +52,7 @@ Agent API (host:port)): ${Configuration.getAgentServiceHostPort()}
         <p>If there is something wrong with the app you can report it <ExternalLink href={ServerIssuesUrl}>here</ExternalLink>. Include the information below in the ticket
             if possible as this could accelerate its resolution.</p>
 
-        <textarea id="systemInfoControl" value={systemInfo} readOnly />
+        <Textarea id="systemInfoControl" value={systemInfo} readOnly />
         <PrimaryButton onClick={onCopyToClipboardClick}>Copy to clipboard</PrimaryButton>
     </div >
 }

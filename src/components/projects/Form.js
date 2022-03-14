@@ -17,7 +17,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
     };
 
     useEffect(() => {
-        if (clients && clients.length && project.client_id === null) {
+        if (clients && clients.length && (project.client_id === null || project.client_id === 0)) {
             setProject({ ...project, client_id: clients[0].id });
         }
     }, [project, clients, setProject]);
