@@ -9,7 +9,6 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 import Risks from "../../models/Risks";
 import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
-import { parentChildNames } from './categories/Span';
 import CvssAbbr from './CvssAbbr';
 import OwaspRR from './OwaspRR';
 
@@ -23,9 +22,10 @@ const VulnerabilityForm = ({
     const [initialised, setInitialised] = useState(false);
     const [projects, setProjects] = useState(null);
     const [categories, setCategories] = useState(null);
+    const [subCategories, setSubCategories] = useState(null);
     const [targets, setTargets] = useState(null);
     const [useOWASP, setMetrics] = useState(false);
-
+    
     useEffect(() => {
         if (initialised) return;
 
@@ -41,7 +41,17 @@ const VulnerabilityForm = ({
                 const defaultProjectId = projects.length ? projects[0].id : 0;
                 const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
                 setMetrics(isOwaspProject(projects, projectId))
-
+                
+                var subcategories = null;
+                if (vulnerability.parent_category_id)
+                {
+                    secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: 'GET' })
+                        .then(response => response.json())
+                        .then(json => {
+                            subcategories = json;
+                    })
+                }
+                
                 secureApiFetch(`/targets?projectId=${projectId}`, { method: 'GET' })
                     .then(resp => resp.json())
                     .then(targets => {
@@ -54,7 +64,7 @@ const VulnerabilityForm = ({
                                 if (!idExists(projects, prevVulnerability.project_id)) {
                                     updatedVulnerability.project_id = defaultProjectId;
                                 }
-                                if (!idExists(categories, prevVulnerability.category_id)) {
+                                if ((!idExists(categories, prevVulnerability.category_id)) && (!idExists(subcategories, prevVulnerability.category_id))) {
                                     updatedVulnerability.category_id = categories[0].id;
                                 }
                                 if (!idExists(targets, vulnerability.target_id)) {
@@ -66,10 +76,19 @@ const VulnerabilityForm = ({
                         });
                     })
             });
-    }, [initialised, isEditForm, setProjects, setCategories, setTargets, setMetrics, setVulnerability, vulnerability.target_id, vulnerability.project_id]);
+    }, [initialised, isEditForm, setProjects, setCategories, setTargets, setMetrics, setVulnerability, vulnerability.target_id, vulnerability.project_id, vulnerability.parent_category_id, subCategories, setSubCategories]);
 
     useEffect(() => {
         if (!initialised) return;
+
+        if (vulnerability.parent_category_id)
+        {
+            secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: 'GET' })
+                .then(response => response.json())
+                .then(json => {
+                    setSubCategories(json);
+                })
+        }
 
         const projectId = vulnerability.project_id;
         secureApiFetch(`/targets?projectId=${projectId}`, { method: 'GET' })
@@ -86,9 +105,10 @@ const VulnerabilityForm = ({
                     }
                 });
             })
-    }, [initialised, isEditForm, setTargets, setVulnerability, vulnerability.target_id, vulnerability.project_id]);
+    }, [initialised, isEditForm, setTargets, setVulnerability, vulnerability.target_id, vulnerability.project_id, vulnerability.parent_category_id]);
 
     const idExists = (elements, id) => {
+        if (!elements) return false;
         for (const el of elements) {
             if (el.id === parseInt(id)) return true;
         }
@@ -113,7 +133,24 @@ const VulnerabilityForm = ({
         if ('tags' === name) {
             value = JSON.stringify(value.split(','));
         }
-        setVulnerability({ ...vulnerability, [name]: value });
+
+        if ('category_id' === name) {
+            if (value !== '(none)')
+            {
+                secureApiFetch(`/vulnerabilities/categories/${value}`, { method: 'GET' })
+                    .then(response => response.json())
+                    .then(json => {
+                        setSubCategories(json);
+                    })
+                setVulnerability({ ...vulnerability, ['parent_category_id']: value, [name]: value });
+            } else {
+                setVulnerability({ ...vulnerability, ['category_id']: null });
+            }
+        } else if ('subcategory_id' === name) {
+            setVulnerability({ ...vulnerability, ['category_id']: value });
+        } else {
+            setVulnerability({ ...vulnerability, [name]: value });
+        }
     };
 
     return <form onSubmit={onFormSubmit} className="crud">
@@ -146,10 +183,18 @@ const VulnerabilityForm = ({
                         <MarkdownEditor name="external_refs" value={vulnerability.external_refs || ""} onChange={onFormChange} />
                     </label>
                     <label>Category
-                        <Select name="category_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
+                        <Select name="category_id" value={vulnerability.parent_category_id || ""} onChange={onFormChange} required>
                             <option>(none)</option>
-                            {categories && categories.map(category =>
-                                <option key={category.id} value={category.id}>{parentChildNames(category.parent_name, category.name)}</option>
+                            {categories && categories.map(cat =>
+                                <option key={cat.id} value={cat.id}>{cat.name}</option>
+                            )}
+                        </Select>
+                    </label>
+                    <label>Subcategory
+                        <Select name="subcategory_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
+                            <option>(none)</option>
+                            {subCategories && subCategories.map(subcat =>
+                                <option key={subcat.id} value={subcat.id}>{subcat.name}</option>
                             )}
                         </Select>
                     </label>
