@@ -16,9 +16,9 @@ import VulnerabilityCategoryAddModalDialog from './AddModalDialog';
 import VulnerabilityCategoryEditModalDialog from './EditModalDialog';
 
 const VulnerabilityCategoriesPage = () => {
-    const [categories, fetchCategories] = useFetch('/vulnerabilities/categories')
-
-    const destroy = useDelete('/vulnerabilities/categories/', fetchCategories);
+    const [categories, fetchParentCategories] = useFetch('/vulnerabilities/categories?parentsOnly=0')
+    
+    const destroy = useDelete('/vulnerabilities/categories/', fetchParentCategories);
 
     const [editCategory, setEditCategory] = useState({});
 
@@ -26,7 +26,7 @@ const VulnerabilityCategoriesPage = () => {
     const { isOpen: isEditCategoryDialogOpen, onOpen: openEditCategoryDialog, onClose: closeEditCategoryDialog } = useDisclosure();
 
     const onCategoryDialogClosed = () => {
-        fetchCategories();
+        fetchParentCategories();
 
         closeAddCategoryDialog();
         closeEditCategoryDialog();
