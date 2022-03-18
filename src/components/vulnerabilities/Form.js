@@ -142,12 +142,12 @@ const VulnerabilityForm = ({
                     .then(json => {
                         setSubCategories(json);
                     })
-                setVulnerability({ ...vulnerability, ['parent_category_id']: value, [name]: value });
+                setVulnerability({ ...vulnerability, 'parent_category_id': value, [name]: value });
             } else {
-                setVulnerability({ ...vulnerability, ['category_id']: null });
+                setVulnerability({ ...vulnerability, 'category_id': null });
             }
         } else if ('subcategory_id' === name) {
-            setVulnerability({ ...vulnerability, ['category_id']: value });
+            setVulnerability({ ...vulnerability, 'category_id': value });
         } else {
             setVulnerability({ ...vulnerability, [name]: value });
         }
