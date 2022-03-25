@@ -25,7 +25,7 @@ const VulnerabilityEdit = () => {
             method: 'PUT',
             body: JSON.stringify(clientVulnerability)
         }).then(resp => {
-            if (resp.status === 200) {
+            if (resp.status === 204) {
 
                 actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
 
