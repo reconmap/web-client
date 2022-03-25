@@ -1,5 +1,6 @@
 import Configuration from "Configuration";
 import { useEffect, useRef, useState } from "react";
+import Auth from "services/auth";
 import { Terminal } from "xterm";
 import 'xterm/css/xterm.css';
 
@@ -25,9 +26,10 @@ const CommandTerminal = ({ commands = [] }) => {
         let retryHandle = null;
 
         const connectTerminal = () => {
+            const user = Auth.getLoggedInUser();
             const agentServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
             const agentServiceHostPort = Configuration.getAgentServiceHostPort();
-            const webSocket = new WebSocket(`${agentServiceProtocol}://${agentServiceHostPort}/term`);
+            const webSocket = new WebSocket(`${agentServiceProtocol}://${agentServiceHostPort}/term?token=` + user.access_token);
             webSocket.binaryType = 'arraybuffer';
 
             term.onData(data => {
