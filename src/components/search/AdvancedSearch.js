@@ -1,4 +1,4 @@
-import { Button, Checkbox } from '@chakra-ui/react';
+import { Button, Checkbox, Input } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +38,6 @@ const AdvancedSearch = () => {
         setEntities(target.checked ? [...entities, value] : entities.filter(entity => entity !== value));
     };
 
-
     return <>
         <PageTitle value={`Advanced search`} />
         <div className='heading'>
@@ -47,7 +46,7 @@ const AdvancedSearch = () => {
         <Title type='Advanced search' title="Search form" icon={<IconSearch />} />
 
         <form onSubmit={onFormSubmit}>
-            <input type="search" name="keywords" value={keywords} onChange={onKeywordsChange} placeholder="Keywords" />
+            <Input type="search" name="keywords" value={keywords} onChange={onKeywordsChange} placeholder="Keywords" />
 
             {Object.keys(entityList).map((objectKey) =>
                 <Checkbox isChecked={entities.includes(objectKey)} value={objectKey} onChange={onFormInputChange}>{entityList[objectKey]}</Checkbox>

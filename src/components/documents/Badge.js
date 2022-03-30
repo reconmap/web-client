@@ -4,7 +4,7 @@ import { IconDocument } from '../ui/Icons'
 const DocumentBadge = ({ document }) => {
     const styles = {
         badge: {
-            color: `var(--white)`,
+            color: `var(--text-color)`,
             alignItems: 'center',
             display: `inline-flex`,
             borderRadius: 'var(--borderRadius, 3px)',
@@ -12,12 +12,10 @@ const DocumentBadge = ({ document }) => {
         }
     }
 
-    return (
-        <Link to={"/documents/" + document.id} style={styles.badge}>
-            <IconDocument />
-            {document.title}
-        </Link>
-    )
+    return <Link to={"/documents/" + document.id} style={styles.badge}>
+        <IconDocument />
+        {document.title}
+    </Link>
 }
 
 export default DocumentBadge;
