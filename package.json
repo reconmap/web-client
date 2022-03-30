@@ -18,7 +18,7 @@
     "@types/react-dom": "^17.0.14",
     "countries-and-timezones": "^3.3.0",
     "dayjs": "^1.11.0",
-    "framer-motion": "^4",
+    "framer-motion": "^6.2.8",
     "friendly-mimes": "^1.0.5",
     "javascript-time-ago": "^2.3.13",
     "path-browserify": "^1.0.1",
