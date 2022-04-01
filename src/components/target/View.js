@@ -1,7 +1,8 @@
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import TimestampsSection from 'components/ui/TimestampsSection';
-import React, { useEffect, useState } from 'react';
+import VulnerabilityTableModel from 'components/vulnerabilities/VulnerabilityTableModel';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
@@ -19,7 +20,25 @@ const TargetView = () => {
     const [target] = useFetch(`/targets/${targetId}`)
     const destroy = useDelete(`/targets/`);
     const [savedProject, setSavedProject] = useState(null);
-    const [vulnerabilities] = useFetch(`/vulnerabilities?targetId=${targetId}`);
+
+    const [tableModel, setTableModel] = useState(new VulnerabilityTableModel())
+
+    const fetchVulnerabilities = useCallback(() => {
+        const queryParams = new URLSearchParams();
+        queryParams.set('targetId', targetId);
+        queryParams.set('isTemplate', false);
+        queryParams.set('orderColumn', tableModel.sortBy.column);
+        queryParams.set('orderDirection', tableModel.sortBy.order);
+        Object.keys(tableModel.filters)
+            .forEach(key => tableModel.filters[key] !== null && tableModel.filters[key].length !== 0 && queryParams.append(key, tableModel.filters[key]));
+        const url = `/vulnerabilities?${queryParams.toString()}`;
+        secureApiFetch(url, { method: 'GET' })
+            .then(resp => resp.json())
+            .then(data => {
+                setTableModel(tableModel => ({ ...tableModel, vulnerabilities: data }));
+            })
+    }, [tableModel.filters, tableModel.sortBy, targetId])
+
 
     useEffect(() => {
         if (target) {
@@ -39,6 +58,10 @@ const TargetView = () => {
             })
             .catch(err => console.error(err))
     }
+
+    useEffect(() => {
+        fetchVulnerabilities();
+    }, [fetchVulnerabilities, tableModel.filters]);
 
     if (!target) return <Loading />
 
@@ -70,7 +93,7 @@ const TargetView = () => {
                 </div>
 
                 <h4>Vulnerabilities</h4>
-                <VulnerabilitiesTable vulnerabilities={vulnerabilities} />
+                <VulnerabilitiesTable tableModel={tableModel} tableModelSetter={setTableModel} reloadCallback={fetchVulnerabilities} showProjectColumn={false} showSelection={false} />
             </div>
         </article>
     </div>
