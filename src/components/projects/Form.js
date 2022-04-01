@@ -95,6 +95,18 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             </>}
         </fieldset>
 
+        <fieldset>
+            <legend>Vulnerabilities summary</legend>
+
+            <label>Management summary
+                <MarkdownEditor name="management_summary" onChange={handleFormChange} value={project.management_summary || ""} required />
+            </label>
+
+            <label>Conclusion
+                <MarkdownEditor name="management_conclusion" onChange={handleFormChange} value={project.management_conclusion || ""} required />
+            </label>
+        </fieldset>
+
         <PrimaryButton type="submit">{isEdit ? "Update" : "Create"}</PrimaryButton>
     </form>
 }

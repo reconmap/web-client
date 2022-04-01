@@ -47,6 +47,17 @@ const ProjectDetailsTab = ({ project }) => {
                 </>}
             </dl>
 
+            <h4>
+                Vulnerabilities summary
+            </h4>
+            <dl>
+                <dt>Management Summary</dt>
+                <dd>{project.management_summary ? <ReactMarkdown>{project.management_summary}</ReactMarkdown> : <EmptyField />}</dd>
+
+                <dt>Conclusion</dt>
+                <dd>{project.management_conclusion ? <ReactMarkdown>{project.management_conclusion}</ReactMarkdown> : <EmptyField />}</dd>
+            </dl>
+
             <h4 style={{ marginTop: 20 }}>
                 <IconChartBar /> Stats
             </h4>
