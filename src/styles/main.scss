@@ -2,13 +2,9 @@
 @import "forms";
 
 :root {
-    --tablet : 600px;
-    --desktop: 1200px;
-
     --base-hue: 336;
     --saturation: 50%;
     --value: 55%;
-    --tint: 2%;
     --distance: 60;
     --distance-analog: calc(var(--distance) / 2);
     --distance-secondary: calc(var(--distance) * -2);
@@ -55,7 +51,6 @@
     --black: var(--color-black);
     --bg-color: var(--color-gray-dark);
     --text-color: var(--color-gray-light);
-    --white: #fff;
 
     --red: var(--analog-color);
     --green: var(--complementary-color);
@@ -88,18 +83,13 @@
     --iconSizeSmall: 20px;
     --iconSize: 32px;
     --iconSizeLarge: 48px;
-    --iconSizeXLarge: 64px;
 
-    //typo
     --fontSizeTitle: 2.1rem;
     --fontSizeSubtitle: 1.75rem;
     --fontSizeHeader: 1.5rem;
-    --fontSizeAction: 1.2rem;
-    --fontSizeParagraph: 1rem;
     --fontSizeBody: 1rem;
     --fontSizeSmall: 0.85rem;
     --fontSizeXsmall: 0.75rem;
-    --fontSizeXxsmall: 0.65rem;
     --fontBold: 700;
     --transitionTime: 0.2s ease-out;
 }
@@ -111,15 +101,9 @@
 
 body {
     color: var(--text-color);
-    font-size: 15px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-    text-decoration: none;
     color: var(--text-color);
 }
 
@@ -168,23 +152,19 @@ p a {
 
 h1 {
     font-size: var(--fontSizeTitle);
-    font-weight: var(--fontBold);
 }
 
 h2 {
-    font-size: var(--fontSizeSubtitle);
     display: flex;
     align-items: center;
 }
 
 h3 {
-    font-size: var(--fontSizeHeader);
     display: flex;
     align-items: center;
 }
 
 h4 {
-    font-size: var(--fontSizeBody);
     display: flex;
     align-items: center;
 }
@@ -196,7 +176,6 @@ h4,
 h5,
 h6 {
     color: var(--primary-color);
-    font-weight: 500;
 
     div {
         margin-left: auto;

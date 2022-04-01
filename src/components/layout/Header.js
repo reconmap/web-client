@@ -16,7 +16,7 @@ const LINKS = [
 const Header = () => {
     return <AuthConsumer>{
         ({ isAuth, user }) => (
-            <nav>
+            <nav className="top-header">
                 <Link to='/' className="logo">
                     <HeaderLogo />
                 </Link>

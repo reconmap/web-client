@@ -11,9 +11,6 @@
     }
 }
 
-.only-desktop { display: none; }
-@media (min-width: 1200px) { .only-desktop { display: table-cell; } }
-
 .grid {
     display: grid;
     gap : var(--space);

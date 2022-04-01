@@ -5,5 +5,8 @@
     "eqeqeq": "error",
     "react-hooks/exhaustive-deps": "error",
     "import/no-anonymous-default-export": "error"
+  },
+  "globals": {
+    "globalThis": false
   }
 }
