@@ -40,4 +40,25 @@ function secureApiFetch(url, init) {
         });
 }
 
+const downloadFromApi = url => {
+    secureApiFetch(url, { method: 'GET' })
+        .then(resp => {
+            const contentDispositionHeader = resp.headers.get('Content-Disposition');
+            const filenameRe = new RegExp(/filename="(.*)";/)
+            const filename = filenameRe.exec(contentDispositionHeader)[1]
+            return Promise.all([resp.blob(), filename]);
+        })
+        .then(values => {
+            const blob = values[0];
+            const filename = values[1];
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+        })
+}
+
+export { downloadFromApi };
+
 export default secureApiFetch

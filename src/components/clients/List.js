@@ -1,9 +1,12 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { ButtonGroup, IconButton, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PageTitle from 'components/logic/PageTitle';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LoadingTableRow from 'components/ui/tables/LoadingTableRow';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import { useNavigate } from 'react-router-dom';
+import { downloadFromApi } from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -19,8 +22,13 @@ const ClientsList = () => {
     const [clients, updateTasks] = useFetch('/clients')
 
     const destroy = useDelete('/clients/', updateTasks);
+
     const handleCreateClient = () => {
         navigate(`/clients/create`)
+    }
+
+    const onExportClick = ev => {
+        downloadFromApi('/system/data?entities=client');
     }
 
     return <>
@@ -28,7 +36,15 @@ const ClientsList = () => {
         <div className='heading'>
             <Breadcrumb />
 
-            <CreateButton onClick={handleCreateClient}>Create Client</CreateButton>
+            <ButtonGroup>
+                <CreateButton onClick={handleCreateClient}>Add client</CreateButton>
+                <Menu>
+                    <MenuButton as={IconButton} aria-label='Options' icon={<FontAwesomeIcon icon={faEllipsis} />} variant='outline' />
+                    <MenuList>
+                        <MenuItem onClick={onExportClick}>Export</MenuItem>
+                    </MenuList>
+                </Menu>
+            </ButtonGroup>
         </div>
         <Title title='Clients' icon={<IconBriefcase />} />
 
@@ -45,7 +61,7 @@ const ClientsList = () => {
             <Tbody>
                 {null === clients && <LoadingTableRow numColumns={5} />}
                 {null !== clients && 0 === clients.length && <NoResultsTableRow numColumns={5} />}
-                {null !== clients && 0 < clients.length && clients.map((client) =>
+                {null !== clients && 0 < clients.length && clients.map(client =>
                     <Tr key={client.id}>
                         <Td><ClientLink clientId={client.id}>{client.name}</ClientLink></Td>
                         <Td>{client.address || '-'}</Td>

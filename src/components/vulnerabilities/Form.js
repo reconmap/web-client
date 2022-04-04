@@ -12,7 +12,6 @@ import Primary from "../ui/buttons/Primary";
 import CvssAbbr from './CvssAbbr';
 import OwaspRR from './OwaspRR';
 
-
 const VulnerabilityForm = ({
     isEditForm = false,
     vulnerability,
@@ -25,7 +24,7 @@ const VulnerabilityForm = ({
     const [subCategories, setSubCategories] = useState(null);
     const [targets, setTargets] = useState(null);
     const [useOWASP, setMetrics] = useState(false);
-    
+
     useEffect(() => {
         if (initialised) return;
 
@@ -41,17 +40,16 @@ const VulnerabilityForm = ({
                 const defaultProjectId = projects.length ? projects[0].id : 0;
                 const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
                 setMetrics(isOwaspProject(projects, projectId))
-                
+
                 var subcategories = null;
-                if (vulnerability.parent_category_id)
-                {
+                if (vulnerability.parent_category_id) {
                     secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: 'GET' })
                         .then(response => response.json())
                         .then(json => {
                             subcategories = json;
-                    })
+                        })
                 }
-                
+
                 secureApiFetch(`/targets?projectId=${projectId}`, { method: 'GET' })
                     .then(resp => resp.json())
                     .then(targets => {
@@ -81,8 +79,7 @@ const VulnerabilityForm = ({
     useEffect(() => {
         if (!initialised) return;
 
-        if (vulnerability.parent_category_id)
-        {
+        if (vulnerability.parent_category_id) {
             secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: 'GET' })
                 .then(response => response.json())
                 .then(json => {
@@ -135,8 +132,7 @@ const VulnerabilityForm = ({
         }
 
         if ('category_id' === name) {
-            if (value !== '(none)')
-            {
+            if (value !== '(none)') {
                 secureApiFetch(`/vulnerabilities/categories/${value}`, { method: 'GET' })
                     .then(response => response.json())
                     .then(json => {

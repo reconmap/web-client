@@ -44,8 +44,6 @@
     --color-gray-light: #748094;
     --color-gray-lightest: hsl(240, 1%, 94%);
 
-    --alpha: 0.7;
-
     --primary-color: #e56e6a;
 
     --black: var(--color-black);
@@ -195,10 +193,6 @@ h6 {
     label {
         margin-right: calc(var(--padding) / 2);
     }
-}
-
-p {
-    color: var(--text-color);
 }
 
 section {

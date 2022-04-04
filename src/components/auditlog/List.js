@@ -2,7 +2,7 @@ import PageTitle from 'components/logic/PageTitle';
 import useQuery from 'hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import secureApiFetch from '../../services/api';
+import secureApiFetch, { downloadFromApi } from '../../services/api';
 import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
 import ExportButton from '../ui/buttons/Export';
@@ -44,23 +44,8 @@ const AuditLogList = () => {
         reloadData()
     }, [reloadData])
 
-    const handleExport = () => {
-        secureApiFetch(`/system/data?entities=auditlog`, { method: 'GET' })
-            .then(resp => {
-                const contentDispositionHeader = resp.headers.get('Content-Disposition');
-                const filenameRe = new RegExp(/filename="(.*)";/)
-                const filename = filenameRe.exec(contentDispositionHeader)[1]
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                a.click();
-            })
+    const onExportClick = () => {
+        downloadFromApi('/system/data?entities=auditlog');
     }
 
     return <>
@@ -70,7 +55,7 @@ const AuditLogList = () => {
                 <div>System</div>
             </Breadcrumb>
             <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
-            <ExportButton onClick={handleExport} />
+            <ExportButton onClick={onExportClick} />
         </div>
         <Title type="System" title='Audit Log' icon={<IconEye />} />
         <AuditLogsTable auditLog={auditLog} />
