@@ -28,7 +28,7 @@ const ClientsList = () => {
     }
 
     const onExportClick = ev => {
-        downloadFromApi('/system/data?entities=client');
+        downloadFromApi('/system/data?entities=clients');
     }
 
     return <>

@@ -41,8 +41,8 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^14.0.4",
-    "npm-check-updates": "^12.5.5",
-    "sass": "^1.49.10"
+    "npm-check-updates": "^12.5.7",
+    "sass": "^1.49.11"
   },
   "scripts": {
     "lint": "eslint . --ext .js",
