@@ -36,8 +36,9 @@ const ClientsList = () => {
         <div className='heading'>
             <Breadcrumb />
 
-            <ButtonGroup>
+            <ButtonGroup isAttached>
                 <CreateButton onClick={handleCreateClient}>Add client</CreateButton>
+
                 <Menu>
                     <MenuButton as={IconButton} aria-label='Options' icon={<FontAwesomeIcon icon={faEllipsis} />} variant='outline' />
                     <MenuList>

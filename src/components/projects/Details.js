@@ -1,4 +1,6 @@
-import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { ButtonGroup, IconButton, Menu, MenuButton, MenuItem, MenuList, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
+import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
@@ -7,7 +9,6 @@ import secureApiFetch from "services/api";
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
-import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from '../ui/buttons/Secondary';
 import { IconClipboardCheck, IconFolder, IconUserGroup } from '../ui/Icons';
@@ -25,6 +26,7 @@ import ProjectVulnerabilities from './Vulnerabilities';
 const ProjectDetails = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
+    const { colorMode } = useColorMode()
 
     const [project, updateProject] = useFetch(`/projects/${projectId}`)
     const [users] = useFetch(`/projects/${projectId}/users`)
@@ -67,11 +69,17 @@ const ProjectDetails = () => {
                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                         {!project.archived && <>
                             <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
-                            <SecondaryButton onClick={handleGenerateReport} leftIcon={<IconClipboardCheck />}>Generate Report</SecondaryButton>
-                            <SecondaryButton onClick={handleManageTeam} leftIcon={<IconUserGroup />}>Manage Members</SecondaryButton>
+                            <SecondaryButton onClick={handleGenerateReport} leftIcon={<IconClipboardCheck />}>Report</SecondaryButton>
+                            <SecondaryButton onClick={handleManageTeam} leftIcon={<IconUserGroup />}>Membership</SecondaryButton>
                         </>}
-                        <SecondaryButton onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</SecondaryButton>
-                        <DeleteButton onClick={() => destroy(project.id)} />
+
+                        <Menu>
+                            <MenuButton as={IconButton} aria-label='Options' icon={<FontAwesomeIcon icon={faEllipsis} />} variant='outline' />
+                            <MenuList>
+                                <MenuItem onClick={() => onArchiveButtonClick(project)}>{project.archived ? 'Unarchive' : 'Archive'}</MenuItem>
+                                <MenuItem icon={<FontAwesomeIcon icon={faTrash} />} color={colorMode === "light" ? "red.500" : "red.400"} onClick={() => destroy(project.id)}>Delete</MenuItem>
+                            </MenuList>
+                        </Menu>
                     </RestrictedComponent>
                 </ButtonGroup>
             </>}
