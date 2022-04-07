@@ -13,7 +13,7 @@ const TasksSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }) =
                 .then(resp => resp.json())
                 .then(tasks => {
                     setTableModel(tableModel => ({ ...tableModel, tasks: tasks }));
-                    setEmptyResults(emptyResults => (tasks.length === 0 ? emptyResults.concat('tasks') : emptyResults.filter(entity => entity !== 'tasks')));
+                    setEmptyResults(emptyResults => 0 === tasks.length ? emptyResults.concat('tasks') : emptyResults.filter(value => value !== 'tasks'));
                 })
         }
 

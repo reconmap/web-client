@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import secureApiFetch from '../../services/api';
 
 const CommandsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }) => {
-
     const [commands, setCommands] = useState([]);
 
     useEffect(() => {
@@ -12,7 +11,7 @@ const CommandsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }
                 .then(resp => resp.json())
                 .then(commands => {
                     setCommands(commands);
-                    setEmptyResults(emptyResults => (commands.length === 0 ? emptyResults.concat('commands') : emptyResults.filter(entity => entity !== 'commands')));
+                    setEmptyResults(emptyResults => 0 === commands.length ? emptyResults.concat('commands') : emptyResults.filter(value => value !== 'commands'));
                 })
         }
 

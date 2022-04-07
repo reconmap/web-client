@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import secureApiFetch from '../../services/api';
 import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable';
 
-const VulnerabilitiesSearchResults = ({ keywords }) => {
+const VulnerabilitiesSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }) => {
 
     const [tableModel, setTableModel] = useState(new VulnerabilityTableModel());
 
@@ -11,13 +11,14 @@ const VulnerabilitiesSearchResults = ({ keywords }) => {
         const reloadData = () => {
             secureApiFetch(`/vulnerabilities?isTemplate=0&keywords=${keywords}`, { method: 'GET' })
                 .then(resp => resp.json())
-                .then(json => {
-                    setTableModel(tableModel => ({ ...tableModel, vulnerabilities: json }));
+                .then(vulnerabilities => {
+                    setTableModel(tableModel => ({ ...tableModel, vulnerabilities: vulnerabilities }));
+                    setEmptyResults(emptyResults => 0 === vulnerabilities.length ? emptyResults.concat('vulnerabilities') : emptyResults.filter(value => value !== 'vulnerabilities'));
                 })
         }
 
         reloadData()
-    }, [keywords, setTableModel])
+    }, [keywords, setTableModel, setEmptyResults])
 
     if (tableModel.vulnerabilities.length === 0) return <></>
 
