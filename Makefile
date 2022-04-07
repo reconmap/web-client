@@ -40,7 +40,9 @@ base-container:
 
 .PHONY: version-increase
 version-increase:
+	git stash
 	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper -v "${HOME}/.gitconfig:/home/reconmapper/.gitconfig" --entrypoint npm $(DOCKER_DEV_TAG) version patch -m "Increment version to %s"
+	git stash pop
 
 .PHONY: start
 start:
