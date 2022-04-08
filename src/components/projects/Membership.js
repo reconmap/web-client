@@ -98,7 +98,7 @@ const ProjectMembership = () => {
                         <Td><UserAvatar email={member.email} /></Td>
                         <Td><UserLink userId={member.id}>{member.full_name}</UserLink></Td>
                         <Td><UserRoleBadge role={member.role} /></Td>
-                        <Td className='text-right'>
+                        <Td textAlign="right">
                             <DeleteIconButton onClick={() => handleDelete(member)} />
                         </Td>
                     </Tr>

@@ -1,13 +1,13 @@
-import { Button, Input, Table, Tbody, Td, Th, Thead, Tr, Select, Checkbox } from '@chakra-ui/react';
-import { useState } from 'react';
-import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
+import { Button, Checkbox, Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
-import useFetch from 'hooks/useFetch';
-import { actionCompletedToast, errorToast } from 'components/ui/toast';
-import secureApiFetch from 'services/api';
-import Vault from 'models/Vault';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LinkButton from "components/ui/buttons/Link";
+import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
+import { actionCompletedToast, errorToast } from 'components/ui/toast';
+import useFetch from 'hooks/useFetch';
+import Vault from 'models/Vault';
+import { useState } from 'react';
+import secureApiFetch from 'services/api';
 
 
 const ProjectVaultTab = ({ project }) => {
@@ -42,7 +42,7 @@ const ProjectVaultTab = ({ project }) => {
                 }
             })
     }
-    
+
     return <section>
         <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
             {vault && <>
@@ -64,7 +64,7 @@ const ProjectVaultTab = ({ project }) => {
                                 <Td>{item.note}</Td>
                                 <Td>{item.type}</Td>
                                 <Td>{item.reportable}</Td>
-                                <Td className='flex justify-end'>
+                                <Td textAlign="right">
                                     <LinkButton href={`/vault/${project.id}/${item.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton onClick={onVaultItemDelete.bind(this, item.id)} />
                                 </Td>
@@ -106,7 +106,7 @@ const ProjectVaultTab = ({ project }) => {
                                     <Input type="text" name="value" onChange={onVaultItemFormChange} value={vaultItem.value || ""} isRequired />
                                 </Td>
                                 <Td>
-                                    <Input type="password" name="password" onChange={onVaultItemFormChange}  value={vaultItem.password || ""} isRequired />
+                                    <Input type="password" name="password" onChange={onVaultItemFormChange} value={vaultItem.password || ""} isRequired />
                                 </Td>
                                 <Td>
                                     <Checkbox name="reportable" onChange={onVaultItemFormChange} isChecked={vaultItem.reportable} />

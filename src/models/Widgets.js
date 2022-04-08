@@ -30,13 +30,15 @@ const Widgets = {
     'popular-commands': {
         title: 'Popular commands',
         visible: true,
-        component: <PopularCommandsWidget />
+        component: <PopularCommandsWidget />,
+        permissions: 'commands.'
     },
     'recent-documents': {
         title: 'Recent documents',
         visible: true,
         component: <RecentDocumentsWidget />,
-        description: 'It shows a list of the most recent documents.'
+        description: 'It shows a list of the most recent documents.',
+        permissions: 'documents.*'
     },
     'vulnerability-by-category-stats': {
         title: 'Vulnerability by category',
@@ -46,18 +48,21 @@ const Widgets = {
     'recent-activity': {
         title: 'Recent activity',
         visible: true,
-        component: <RecentActivityWidget />
+        component: <RecentActivityWidget />,
+        permissions: 'system.*'
     },
     'user-activity-stats': {
         title: 'User activity over time',
         visible: true,
-        component: <UserActivityStatsWidget />
+        component: <UserActivityStatsWidget />,
+        permissions: 'system.*'
     },
     'api-health': {
         title: 'API health',
         visible: true,
         component: <ApiHealthWidget />,
-        description: 'It presents information about the health of the API server.'
+        description: 'It presents information about the health of the API server.',
+        permissions: 'system.*'
     },
     'recent-vulnerabilities': {
         title: 'Recent vulnerabilities',

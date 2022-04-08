@@ -129,7 +129,7 @@ const UsersList = () => {
                             </Td>
                             <Td><BooleanText value={user.active} /></Td>
                             <Td><BooleanText value={user.mfa_enabled} /></Td>
-                            <Td className='flex justify-end'>
+                            <Td textAlign="right">
                                 <LinkButton href={`/users/${user.id}/edit`}>
                                     Edit
                                 </LinkButton>

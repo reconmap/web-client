@@ -106,7 +106,7 @@ const CommandOutputs = ({ task }) => {
                                 <Td><FileSizeSpan fileSize={commandOutput.file_size} /></Td>
                                 <Td><RelativeDateFormatter date={commandOutput.insert_ts} /></Td>
                                 <Td><UserLink userId={commandOutput.submitter_uid}>{commandOutput.submitter_name}</UserLink></Td>
-                                <Td className="flex justify-end">
+                                <Td textAlign="right">
                                     <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
                                     <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
                                     <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />

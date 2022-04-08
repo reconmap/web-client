@@ -29,7 +29,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                     </Td>
                     <Td>{command.output_parser ?? '-'}</Td>
                     <Td>{command.docker_image}</Td>
-                    <Td className='flex justify-end'>
+                    <Td textAlign="right">
                         <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
                         {onDeleteCallback && <DeleteIconButton onClick={() => onDeleteCallback(command.id)} />}
                     </Td>

@@ -68,7 +68,7 @@ const ClientsList = () => {
                         <Td>{client.address || '-'}</Td>
                         <Td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</Td>
                         <Td>{client.num_contacts}</Td>
-                        <Td className='flex justify-end'>
+                        <Td textAlign="right">
                             <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
                             <DeleteIconButton onClick={() => destroy(client.id)} />
                         </Td>

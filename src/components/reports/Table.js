@@ -61,7 +61,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                             <IconDocument /> DOCX
                         </SecondaryButton>
                     </Td>
-                    <Td className="flex justify-end">
+                    <Td textAlign="right">
                         <SecondaryButton onClick={() => handleSendByEmail(report.project_id)}>Send by email</SecondaryButton>
 
                         <DeleteIconButton onClick={() => deleteReport(report.id)} />

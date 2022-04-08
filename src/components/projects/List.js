@@ -8,7 +8,6 @@ import useDelete from '../../hooks/useDelete';
 import Breadcrumb from '../ui/Breadcrumb';
 import CreateButton from '../ui/buttons/Create';
 import { IconFolder } from '../ui/Icons';
-import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import ProjectsTable from './Table';
 
@@ -64,7 +63,7 @@ const ProjectsList = () => {
             </HStack>
         </div>
         <Title title='Projects' icon={<IconFolder />} />
-        {!projects ? <Loading /> : <ProjectsTable projects={projects} destroy={destroy} />}
+        <ProjectsTable projects={projects} destroy={destroy} />
     </div>
 }
 

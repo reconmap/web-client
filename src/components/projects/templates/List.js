@@ -75,7 +75,7 @@ const TemplatesList = () => {
                                 <Td><ProjectBadge project={template} /></Td>
                                 <Td>{template.description}</Td>
                                 <Td><BadgeOutline>{template.num_tasks}</BadgeOutline></Td>
-                                <Td className='flex justify-end'>
+                                <Td textAlign="right">
                                     <PrimaryButton onClick={ev => cloneProject(ev, template.id)} key={template.id}
                                         title="Clone" leftIcon={<IconPlus />}>Clone and edit</PrimaryButton>
                                     <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>

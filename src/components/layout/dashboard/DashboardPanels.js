@@ -6,6 +6,7 @@ import Widgets from 'models/Widgets';
 import React, { useState } from 'react';
 import secureApiFetch from 'services/api';
 import Auth from 'services/auth';
+import PermissionsService from 'services/permissions';
 import { initialiseUserPreferences } from 'services/userPreferences';
 import widgetIsVisible from 'services/widgets';
 import { IconChartBar } from "../../ui/Icons";
@@ -22,7 +23,9 @@ const InitialiseWidgetConfig = () => {
 const filterWidgets = user => {
     return Object.keys(Widgets).map(widgetKey => {
         const widget = Widgets[widgetKey];
-        if (widgetIsVisible(user.preferences['web-client.widgets'], widgetKey)) {
+        if ((!widget.hasOwnProperty("permissions") ||
+            PermissionsService.isAllowed(widget.permissions, user.permissions)) &&
+            widgetIsVisible(user.preferences['web-client.widgets'], widgetKey)) {
             return React.cloneElement(widget.component, { key: widgetKey });
         }
         return null;
@@ -81,7 +84,12 @@ const DashboardPanels = () => {
                     <br />
                     <Stack>
                         {Object.keys(Widgets).map(widgetKey => {
-                            return <Checkbox key={widgetKey} name={widgetKey} isChecked={dashboardConfig.hasOwnProperty(widgetKey) && dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{Widgets[widgetKey].title}. <em>{Widgets[widgetKey].description}</em></Checkbox>
+                            const widget = Widgets[widgetKey];
+                            if (!widget.hasOwnProperty("permissions") || PermissionsService.isAllowed(widget.permissions, user.permissions)) {
+                                return <Checkbox key={widgetKey} name={widgetKey} isChecked={dashboardConfig.hasOwnProperty(widgetKey) && dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{Widgets[widgetKey].title}. <em>{Widgets[widgetKey].description}</em></Checkbox>
+                            } else {
+                                return <></>
+                            }
                         })}
                     </Stack>
 

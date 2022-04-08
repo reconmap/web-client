@@ -64,7 +64,7 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                         <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</Td>
                     <Td><TaskStatusFormatter task={task} /></Td>
                     <Td>{task.command_name ? <BadgeOutline>{task.command_name}</BadgeOutline> : '-'}</Td>
-                    <Td className='flex justify-end'>
+                    <Td textAlign="right">
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
                             {destroy && <DeleteIconButton onClick={() => destroy(task.id)} />}

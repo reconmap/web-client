@@ -114,7 +114,7 @@ const ReportTemplatesList = () => {
                                         <IconDocument /> DOCX
                                     </SecondaryButton>
                                 </Td>
-                                <Td className="flex justify-end">
+                                <Td textAlign="right">
                                     <DeleteIconButton disabled={template.generated_by_uid === 0} title={template.generated_by_uid === 0 ? "System templates cannot be deleted" : ""} onClick={ev => deleteTemplate(ev, template.id)} />
                                 </Td>
                             </Tr>

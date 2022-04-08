@@ -17,7 +17,7 @@ import VulnerabilityCategoryEditModalDialog from './EditModalDialog';
 
 const VulnerabilityCategoriesPage = () => {
     const [categories, fetchParentCategories] = useFetch('/vulnerabilities/categories?parentsOnly=0')
-    
+
     const destroy = useDelete('/vulnerabilities/categories/', fetchParentCategories);
 
     const [editCategory, setEditCategory] = useState({});
@@ -81,7 +81,7 @@ const VulnerabilityCategoriesPage = () => {
                                 <Td><strong>{category.name}</strong></Td>
                                 <Td>{category.parent_name ?? '-'}</Td>
                                 <Td>{category.description}</Td>
-                                <Td className='flex justify-end'>
+                                <Td textAlign="right">
                                     <LinkButton href="#" onClick={ev => onEditClick(ev, category)}>Edit</LinkButton>
                                     <DeleteIconButton onClick={ev => onDeleteClick(ev, category.id)} />
                                 </Td>

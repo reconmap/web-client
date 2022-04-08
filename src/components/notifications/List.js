@@ -55,7 +55,7 @@ const NotificationsList = () => {
                                 <strong>{notification.title}</strong>
                                 <div>{notification.content}</div>
                             </Td>
-                            <Td className='flex justify-end'>
+                            <Td textAlign="right">
                                 <ButtonGroup>
                                     {notification.status === 'unread' && <Button onClick={() => markNotificationAsRead(notification)} leftIcon={<FontAwesomeIcon icon={faCheck} />}>Mark as read</Button>}
                                     <DeleteIconButton onClick={() => deleteNotification(notification.id)} />

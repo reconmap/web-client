@@ -89,7 +89,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
                         <Td className='only-desktop'>
                             <VulnerabilityCategorySpan name={vulnerability.category_name} parentName={vulnerability.parent_category_name} />
                         </Td>
-                        <Td className='flex justify-end'>
+                        <Td textAlign="right">
                             <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                                 <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                                 {reloadCallback &&

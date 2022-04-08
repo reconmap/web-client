@@ -105,7 +105,7 @@ const Links = [
                 to: '/documents/add',
             }
         ],
-        permissions: 'vulnerabilities.*'
+        permissions: 'documents.*'
     },
     {
         title: 'Clients', icon: <IconBriefcase size={5} />, to: '/clients', sublinks: [
@@ -144,6 +144,7 @@ const Links = [
         title: 'System',
         icon: <FontAwesomeIcon icon={faCog} />,
         to: '/system',
+        permissions: 'system.*',
         sublinks: [
             {
                 title: 'Audit log',
@@ -180,8 +181,7 @@ const Links = [
                 icon: <IconCheck size={5} />,
                 to: '/system/health',
             },
-        ],
-        permissions: 'system.*'
+        ]
     },
     {
         title: 'Help and support',
@@ -192,23 +192,26 @@ const Links = [
                 title: 'User manual',
                 icon: <IconBookOpen size={5} />,
                 to: 'https://docs.reconmap.com/user-manual/',
-                external: true
+                external: true,
             },
             {
                 title: 'API docs',
                 icon: <IconCode size={5} />,
                 to: `${Configuration.getDefaultApiUrl()}/docs/`,
-                external: true
+                external: true,
+                permissions: 'help.api',
             },
             {
                 title: 'Support',
                 icon: <IconSupport size={5} />,
                 to: '/support',
+                permissions: 'help.support',
             },
             {
                 title: 'Licenses',
                 icon: <IconSupport size={5} />,
                 to: '/licenses',
+                permissions: 'help.licenses',
             }
         ]
     }
