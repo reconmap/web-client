@@ -1,12 +1,12 @@
-import { ButtonGroup, IconButton, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { ButtonGroup, IconButton, Menu, MenuButton, MenuList, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PageTitle from 'components/logic/PageTitle';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import ExportMenuItem from 'components/ui/menuitems/ExportMenuItem';
 import LoadingTableRow from 'components/ui/tables/LoadingTableRow';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import { useNavigate } from 'react-router-dom';
-import { downloadFromApi } from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -27,10 +27,6 @@ const ClientsList = () => {
         navigate(`/clients/create`)
     }
 
-    const onExportClick = ev => {
-        downloadFromApi('/system/data?entities=clients');
-    }
-
     return <>
         <PageTitle value="Clients" />
         <div className='heading'>
@@ -42,7 +38,7 @@ const ClientsList = () => {
                 <Menu>
                     <MenuButton as={IconButton} aria-label='Options' icon={<FontAwesomeIcon icon={faEllipsis} />} variant='outline' />
                     <MenuList>
-                        <MenuItem onClick={onExportClick}>Export</MenuItem>
+                        <ExportMenuItem entity="clients" />
                     </MenuList>
                 </Menu>
             </ButtonGroup>

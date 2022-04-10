@@ -12,8 +12,8 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
             <Tr>
                 <Th style={{ width: '190px' }}>Name</Th>
                 <Th className='only-desktop'>Description</Th>
+                <Th>Execution environment</Th>
                 <Th>Output parser</Th>
-                <Th>Docker image</Th>
                 <Th>&nbsp;</Th>
             </Tr>
         </Thead>
@@ -27,8 +27,8 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                         {command.description}<br />
                         <Tags values={command.tags} />
                     </Td>
+                    <Td>{command.executable_type === 'custom' ? 'Host' : 'Container'}</Td>
                     <Td>{command.output_parser ?? '-'}</Td>
-                    <Td>{command.docker_image}</Td>
                     <Td textAlign="right">
                         <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
                         {onDeleteCallback && <DeleteIconButton onClick={() => onDeleteCallback(command.id)} />}
