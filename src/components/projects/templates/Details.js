@@ -35,40 +35,38 @@ const TemplateDetails = () => {
         return <Navigate to={`/projects/${template.id}`} />
     }
 
-    return (
-        <>
-            <div className='heading'>
-                <Breadcrumb>
-                    <Link to="/projects">Projects</Link>
-                    <Link to="/projects/templates">Templates</Link>
-                </Breadcrumb>
-                {template &&
-                    <ButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(template.id)} leftIcon={<IconPlusCircle />}>Create project from template</PrimaryButton>
-                        <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
-                        <DeleteButton onClick={() => destroy(template.id)} />
-                    </ButtonGroup>
-                }
-            </div>
-            {(!template) ?
-                <Loading /> :
-                <article>
-                    <PageTitle value={`${template.name} project template`} />
-                    <Title title={template.name} type='Project template' icon={<IconFolder />} />
+    return <>
+        <div className='heading'>
+            <Breadcrumb>
+                <Link to="/projects">Projects</Link>
+                <Link to="/projects/templates">Templates</Link>
+            </Breadcrumb>
+            {template &&
+                <ButtonGroup>
+                    <PrimaryButton onClick={() => cloneProject(template.id)} leftIcon={<IconPlusCircle />}>Create project from template</PrimaryButton>
+                    <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
+                    <DeleteButton onClick={() => destroy(template.id)} />
+                </ButtonGroup>
+            }
+        </div>
+        {!template ?
+            <Loading /> :
+            <article>
+                <PageTitle value={`${template.name} project template`} />
+                <Title title={template.name} type='Project template' icon={<IconFolder />} />
 
-                    <Tabs>
-                        <TabList>
-                            <Tab>Details</Tab>
-                            <Tab>Tasks</Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel><ProjectDetailsTab project={template} /></TabPanel>
-                            <TabPanel><ProjectTasks project={template} /></TabPanel>
-                        </TabPanels>
-                    </Tabs>
-                </article>}
-        </>
-    )
+                <Tabs>
+                    <TabList>
+                        <Tab>Details</Tab>
+                        <Tab>Tasks</Tab>
+                    </TabList>
+                    <TabPanels>
+                        <TabPanel><ProjectDetailsTab project={template} /></TabPanel>
+                        <TabPanel><ProjectTasks project={template} /></TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </article>}
+    </>
 }
 
 export default TemplateDetails;

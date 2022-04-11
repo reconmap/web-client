@@ -21,6 +21,7 @@ const ProjectTasks = ({ project }) => {
         queryParams.set('projectId', project.id);
         queryParams.set('orderColumn', tableModel.sortBy.column);
         queryParams.set('orderDirection', tableModel.sortBy.order);
+        queryParams.set('isTemplate', isTemplate);
         Object.keys(tableModel.filters)
             .forEach(key => tableModel.filters[key] !== null && tableModel.filters[key].length !== 0 && queryParams.append(key, tableModel.filters[key]));
         const url = `/tasks?${queryParams.toString()}`;
@@ -32,7 +33,7 @@ const ProjectTasks = ({ project }) => {
             .then(data => {
                 setTableModel(tableModel => ({ ...tableModel, tasks: data }));
             });
-    }, [setTableModel, project.id, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order]);
+    }, [setTableModel, project.id, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order, isTemplate]);
 
 
     const onAddTaskClick = ev => {
