@@ -29,21 +29,19 @@ const EditTaskPage = () => {
             setClientTask(serverTask);
     }, [serverTask]);
 
-    return (
-        <div>
-            <div className='heading'>
-                <Breadcrumb>
-                    <Link to="/tasks">Tasks</Link>
-                </Breadcrumb>
-            </div>
-
-            <Title title="Task details" icon={<IconPlus />} />
-
-            {!clientTask ? <Loading /> :
-                <TaskForm isEditForm={true} onFormSubmit={onFormSubmit} task={clientTask} taskSetter={setClientTask} />
-            }
+    return <div>
+        <div className='heading'>
+            <Breadcrumb>
+                <Link to="/tasks">Tasks</Link>
+            </Breadcrumb>
         </div>
-    )
+
+        <Title title="Task details" icon={<IconPlus />} />
+
+        {!clientTask ? <Loading /> :
+            <TaskForm isEditForm={true} onFormSubmit={onFormSubmit} task={clientTask} taskSetter={setClientTask} />
+        }
+    </div>
 }
 
 export default EditTaskPage;

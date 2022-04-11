@@ -42,7 +42,7 @@ const CommandInstructions = ({ command, task = null }) => {
     }
 
     return <>
-        <h4>Instructions</h4>
+        <h4>Instructions for command "{command.name}"</h4>
 
         <h4>1. Fill in the arguments</h4>
         {Object.keys(commandArgs).length > 0 &&
