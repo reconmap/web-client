@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Textarea, Th, Thead, Tr } from "@chakra-ui/react";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -72,9 +72,8 @@ const CommandOutputs = ({ task }) => {
         {task.command_id &&
             <>
                 <ModalDialog visible={modalVisible} title="Preview output" onModalClose={onModalClose} style={{ width: '80%', height: '80%', maxHeight: '80%' }}>
-                    <textarea style={{ width: '100%', height: '90%' }} readOnly>
-                        {content}
-                    </textarea>
+                    <Textarea style={{ width: '100%', height: '90%' }} defaultValue={content} readOnly>
+                    </Textarea>
                 </ModalDialog>
 
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>

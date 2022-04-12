@@ -1,7 +1,9 @@
 import AuthLayout from 'components/auth/AuthLayout';
 import AuthRoutes from 'components/auth/Routes';
+import Compose from 'components/Compose';
 import NotificationsRoutes from 'components/notifications/Routes';
 import SettingsRoutes from 'components/settings/Routes';
+import WebsocketProvider from 'contexts/WebsocketContext';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from 'services/auth';
@@ -41,7 +43,7 @@ const App = () => {
     }, [theme])
 
     return <BrowserRouter basename={Configuration.getContextPath()}>
-        <AuthProvider>
+        <Compose components={[WebsocketProvider, AuthProvider]}>
             <ThemeContext.Provider value={{ theme, setTheme }}>
                 <Routes>
                     <Route element={<AuthLayout />}>
@@ -78,7 +80,7 @@ const App = () => {
                     </Route>
                 </Routes>
             </ThemeContext.Provider>
-        </AuthProvider>
+        </Compose>
     </BrowserRouter>
 };
 
