@@ -11,6 +11,7 @@ import UserLink from 'components/users/Link';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Auth from 'services/auth';
 import useDelete from '../../hooks/useDelete';
 import TaskStatuses from "../../models/TaskStatuses";
 import secureApiFetch from '../../services/api';
@@ -26,6 +27,7 @@ import TaskCommandTab from './CommandTab';
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
 const TaskDetails = () => {
+    const loggedInUser = Auth.getLoggedInUser();
     const navigate = useNavigate();
     const { taskId } = useParams();
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
@@ -144,7 +146,7 @@ const TaskDetails = () => {
                                                 <Select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
                                                     <option value="">(nobody)</option>
                                                     {users.map((user, index) =>
-                                                        <option key={index} value={user.id}>{user.full_name}</option>
+                                                        <option key={index} value={user.id}>{user.full_name}{user.id === loggedInUser.id ? " (You)" : ""}</option>
                                                     )}
                                                 </Select>}
                                         </dd>

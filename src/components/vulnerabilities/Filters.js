@@ -6,24 +6,16 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
     const [categories] = useFetch('/vulnerabilities/categories?parentsOnly=true');
     const [projects] = useFetch('/projects?status=active');
 
-    const handleSetProject = ev => {
-        setTableModel({ ...tableModel, filters: { ...tableModel.filters, projectId: ev.target.value } });
+    const onFilterChange = ev => {
+        setTableModel({ ...tableModel, filters: { ...tableModel.filters, [ev.target.name]: ev.target.value } });
     }
-    const handleSetCategory = ev => {
-        setTableModel({ ...tableModel, filters: { ...tableModel.filters, categoryId: ev.target.value } });
-    }
-    const handleSetRisk = ev => {
-        setTableModel({ ...tableModel, filters: { ...tableModel.filters, risk: ev.target.value } });
-    }
-    const handleSetStatus = ev => {
-        setTableModel({ ...tableModel, filters: { ...tableModel.filters, status: ev.target.value } });
-    }
+
     return <details>
         <summary>Filters</summary>
         <div className='space-x-2 mx-auto flex items-center'>
             {showProjectFilter && <div>
                 <label>Project</label>
-                <Select onChange={handleSetProject}>
+                <Select name="projectId" onChange={onFilterChange}>
                     <option value=''>(any)</option>
                     {projects !== null && projects.map(project => <option key={project.id} value={project.id}>{project.name}</option>)}
                 </Select>
@@ -31,7 +23,7 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
 
             <div>
                 <label>Status</label>
-                <Select onChange={handleSetStatus}>
+                <Select name="status" onChange={onFilterChange}>
                     <option value=''>(any)</option>
                     <option value='open'>Open</option>
                     <option value='closed'>Closed</option>
@@ -40,7 +32,7 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
 
             <div>
                 <label>Risk</label>
-                <Select onChange={handleSetRisk}>
+                <Select name="risk" onChange={onFilterChange}>
                     <option value=''>(any)</option>
                     {Risks.map(risk => <option key={risk.id} value={risk.id}>{risk.name}</option>)}
                 </Select>
@@ -48,7 +40,7 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
 
             <div>
                 <label>Category</label>
-                <Select onChange={handleSetCategory}>
+                <Select name="categoryId" onChange={onFilterChange}>
                     <option value=''>(any)</option>
                     {categories !== null && categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
                 </Select>
