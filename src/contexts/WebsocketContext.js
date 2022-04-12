@@ -1,62 +1,48 @@
 import Configuration from "Configuration";
-import { createContext, useContext, useEffect, useRef } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-export const WebsocketContext = createContext({ connection: null });
-
-const WebsocketProvider = ({ children }) => {
-    const internal = useRef(null);
-
+const createWebsocketConnection = () => {
     const notificationServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
     const notificationServiceHostPort = Configuration.getNotificationsServiceHostPort();
-    internal.current = new WebSocket(`${notificationServiceProtocol}://${notificationServiceHostPort}/notifications`)
+    console.debug("reconmap-ws: connecting");
+    return new WebSocket(`${notificationServiceProtocol}://${notificationServiceHostPort}/notifications`);
+}
+
+const ws = createWebsocketConnection();
+export const WebsocketContext = createContext(ws);
+
+const WebsocketProvider = ({ children }) => {
+    const [wsState, setWsState] = useState(ws);
 
     useEffect(() => {
-        const connection = internal.current;
+        const onConnectionOpen = () => console.debug("reconmap-ws: connected");
+        ws.addEventListener('open', onConnectionOpen);
 
-        const connect = () => {
-            if (connection.readyState === WebSocket.CLOSED) {
-                console.debug('reconmap-ws: reconnecting');
-                const notificationServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
-                const notificationServiceHostPort = Configuration.getNotificationsServiceHostPort();
-                internal.current = new WebSocket(`${notificationServiceProtocol}://${notificationServiceHostPort}/notifications`)
-            }
-        }
+        const onConnectionError = ev => console.debug("reconmap-ws: errored", ev);
+        ws.addEventListener('error', onConnectionError);
 
-        const onConnectionOpen = ev => {
-            console.debug('reconmap-ws: connected');
+        const onConnectionClose = () => {
+            console.debug("reconmap-ws: disconnected");
+            setTimeout(() => {
+                setWsState(createWebsocketConnection());
+            }, 5000);
         }
-        const onConnectionClose = ev => {
-            console.debug('reconmap-ws: disconnected');
-            connect();
-        }
-        const onConnectionError = ev => {
-            console.debug('reconmap-ws: errored');
-            console.dir(ev);
-        }
-
-        connection.addEventListener('open', onConnectionOpen);
-        connection.addEventListener('error', onConnectionError);
-        connection.addEventListener('close', onConnectionClose);
-
-        connect();
+        ws.addEventListener('close', onConnectionClose);
 
         return () => {
-            if (connection.readyState !== WebSocket.CLOSED) {
-                connection.removeEventListener('open', onConnectionOpen);
-                connection.removeEventListener('error', onConnectionError);
-                connection.removeEventListener('close', onConnectionClose);
-                connection.close()
-            }
+            ws.removeEventListener('open', onConnectionOpen);
+            ws.removeEventListener('error', onConnectionError);
+            ws.removeEventListener('close', onConnectionClose);
         }
     }, []);
 
-    return <WebsocketContext.Provider value={{ connection: internal.current }}>{children}</WebsocketContext.Provider>
+    return <WebsocketContext.Provider value={wsState}>{children}</WebsocketContext.Provider>
 }
 
 export default WebsocketProvider;
 
 export const useWebsocketMessage = (onMessageHandler) => {
-    const { connection } = useContext(WebsocketContext);
+    const connection = useContext(WebsocketContext);
 
     useEffect(() => {
         connection.addEventListener('message', onMessageHandler);
