@@ -12,31 +12,21 @@
     --distance-third: calc(var(--distance) * -5);
     --distance-fourth: calc(var(--distance) * 5);
 
-    --complementary-color: hsl(
-        calc(var(--base-hue) + var(--distance-complementary)),
-        var(--saturation),
-        var(--value)
-    );
-    --secondary-color: hsl(
-        calc(var(--base-hue) + var(--distance-secondary)),
-        var(--saturation),
-        var(--value)
-    );
-    --analog-color: hsl(
-        calc(var(--base-hue) + var(--distance-analog)),
-        var(--saturation),
-        var(--value)
-    );
-    --third-color: hsl(
-        calc(var(--base-hue) + var(--distance-third)),
-        var(--saturation),
-        var(--value)
-    );
-    --fourth-color: hsl(
-        calc(var(--base-hue) + var(--distance-fourth)),
-        var(--saturation),
-        var(--value)
-    );
+    --complementary-color: hsl(calc(var(--base-hue) + var(--distance-complementary)),
+            var(--saturation),
+            var(--value));
+    --secondary-color: hsl(calc(var(--base-hue) + var(--distance-secondary)),
+            var(--saturation),
+            var(--value));
+    --analog-color: hsl(calc(var(--base-hue) + var(--distance-analog)),
+            var(--saturation),
+            var(--value));
+    --third-color: hsl(calc(var(--base-hue) + var(--distance-third)),
+            var(--saturation),
+            var(--value));
+    --fourth-color: hsl(calc(var(--base-hue) + var(--distance-fourth)),
+            var(--saturation),
+            var(--value));
 
     --color-black: #141820;
     --color-gray-dark: #1b202b;
@@ -78,7 +68,6 @@
     --borderWidth: 2px;
 
     //icons
-    --iconSizeSmall: 20px;
     --iconSize: 32px;
     --iconSizeLarge: 48px;
 
@@ -108,7 +97,7 @@ a {
 main {
     padding-top: 72px;
     background-color: var(--bg-color);
-    display: grid!important;
+    display: grid !important;
     transition: grid-template-columns 0.2s;
     grid-template-columns: var(--sidebarWidth) 1fr;
 
@@ -121,7 +110,8 @@ main {
     padding: var(--padding);
 }
 
-div form + aside {
+div form+aside {
+
     h1,
     h2,
     h3,
@@ -212,32 +202,29 @@ h2,
 h3,
 h4 {
     svg {
-        width: var(--iconSizeSmall);
-        height: var(--iconSizeSmall);
+        width: 24px;
+        height: 24px;
         padding: 0;
         flex-shrink: 0;
     }
 }
 
-figure svg { margin: 0; }
-
-dt {
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 10px;
+figure svg {
+    margin: 0;
 }
-dd {
-    margin-left: 20px;
-}
-
 
 dl {
     dt {
         font-weight: 500;
         font-size: var(--fontSizeSmall);
         margin-bottom: var(--space-sm);
+        margin-top: 10px;
         padding-bottom: var(--space-sm);
         border-bottom: var(--borderWidth) solid var(--black);
+    }
+
+    dd {
+        margin-left: 20px;
     }
 }
 
@@ -254,7 +241,9 @@ dl {
     color: var(--text-color);
 }
 
-td svg { max-width: 32px;}
+td svg {
+    max-width: 32px;
+}
 
 details {
     border: 1px solid var(--text-colorDark);
@@ -262,6 +251,7 @@ details {
     background-color: rgba(255, 255, 255, 0.05);
     box-shadow: 2px 2px black;
     padding: 10px;
+
     summary {
         font-weight: bold;
         font-size: large;

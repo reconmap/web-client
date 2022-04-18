@@ -1,7 +1,8 @@
 import { HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
-import CommandOutputs from 'components/commands/Outputs';
+import CommandBadge from 'components/commands/Badge';
+import CommandInstructions from 'components/commands/Instructions';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import EmptyField from 'components/ui/EmptyField';
@@ -23,7 +24,6 @@ import Loading from '../ui/Loading';
 import { actionCompletedToast } from "../ui/toast";
 import useFetch from './../../hooks/useFetch';
 import Title from './../ui/Title';
-import TaskCommandTab from './CommandTab';
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
 const TaskDetails = () => {
@@ -33,6 +33,7 @@ const TaskDetails = () => {
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)
     const [users] = useFetch(`/users`)
     const [project, setProject] = useState(null);
+    const [command, setCommand] = useState(null);
 
     const parentType = 'task';
     const parentId = taskId;
@@ -73,11 +74,16 @@ const TaskDetails = () => {
 
     useEffect(() => {
         if (task) {
+            if (task.command_id) {
+                secureApiFetch(`/commands/${task.command_id}`, { method: 'GET' })
+                    .then(resp => resp.json())
+                    .then(command => setCommand(command))
+                    .catch(err => console.error(err))
+            }
+
             secureApiFetch(`/projects/${task.project_id}`, { method: 'GET' })
                 .then(resp => resp.json())
-                .then(project => {
-                    setProject(project);
-                })
+                .then(project => setProject(project))
                 .catch(err => console.error(err))
         }
     }, [task])
@@ -113,11 +119,7 @@ const TaskDetails = () => {
                 <Tabs>
                     <TabList>
                         <Tab>Details</Tab>
-                        {task.command_id && <>
-                            <Tab>Command instructions</Tab>
-                            <Tab>Command outputs</Tab>
-                        </>
-                        }
+                        {null !== command && <Tab>Command instructions</Tab>}
                         <Tab>Attachments</Tab>
                     </TabList>
                     <TabPanels>
@@ -132,6 +134,10 @@ const TaskDetails = () => {
                                     <p style={{ display: 'flex', alignItems: 'center', columnGap: 'var(--margin)' }}>
                                         <TaskStatusFormatter task={task} />
                                     </p>
+                                    {task.command_id && <>
+                                        <h4>Command</h4>
+                                        <CommandBadge command={{ id: task.command_id, name: task.command_name }} />
+                                    </>}
                                 </div>
 
                                 <div>
@@ -162,14 +168,9 @@ const TaskDetails = () => {
                                 </div>
                             </div>
                         </TabPanel>
-                        {task.command_id &&
-                            <TabPanel>
-                                <TaskCommandTab task={task} />
-                            </TabPanel>}
-                        {task.command_id &&
-                            <TabPanel>
-                                <CommandOutputs task={task} />
-                            </TabPanel>}
+                        {null !== command && <TabPanel>
+                            <CommandInstructions command={command} task={task} />
+                        </TabPanel>}
                         <TabPanel>
                             <AttachmentsDropzone parentType={parentType} parentId={parentId} onUploadFinished={reloadAttachments} />
 

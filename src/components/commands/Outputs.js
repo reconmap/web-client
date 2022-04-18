@@ -14,8 +14,8 @@ import { useState } from "react";
 import secureApiFetch from "services/api";
 import { actionCompletedToast } from "../ui/toast";
 
-const CommandOutputs = ({ task }) => {
-    const [commandOutputs, updateCommandOutputs] = useFetch(`/attachments?parentType=command&parentId=${task.id}`)
+const CommandOutputs = ({ command }) => {
+    const [commandOutputs, updateCommandOutputs] = useFetch(`/attachments?parentType=command&parentId=${command.id}`)
     const [modalVisible, setModalVisible] = useState(false);
     const [content, setContent] = useState(null);
 
@@ -69,53 +69,49 @@ const CommandOutputs = ({ task }) => {
     }
 
     return <>
-        {task.command_id &&
-            <>
-                <ModalDialog visible={modalVisible} title="Preview output" onModalClose={onModalClose} style={{ width: '80%', height: '80%', maxHeight: '80%' }}>
-                    <Textarea style={{ width: '100%', height: '90%' }} defaultValue={content} readOnly>
-                    </Textarea>
-                </ModalDialog>
+        <ModalDialog visible={modalVisible} title="Preview output" onModalClose={onModalClose} style={{ width: '80%', height: '80%', maxHeight: '80%' }}>
+            <Textarea style={{ width: '100%', height: '90%' }} defaultValue={content} readOnly>
+            </Textarea>
+        </ModalDialog>
 
-                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                    <AttachmentsDropzone parentType={"command"} parentId={task.id} onUploadFinished={updateCommandOutputs} />
-                </RestrictedComponent>
+        <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+            <AttachmentsDropzone parentType={"command"} parentId={command.id} onUploadFinished={updateCommandOutputs} />
+        </RestrictedComponent>
 
-                <h4>
-                    Command output list
-                </h4>
+        <h4>
+            Command output list
+        </h4>
 
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th>Filename</Th>
-                            <Th>Mimetype</Th>
-                            <Th>File size</Th>
-                            <Th>Upload date</Th>
-                            <Th>Uploaded by</Th>
-                            <Th>&nbsp;</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {null === commandOutputs && <LoadingTableRow numColumns={6} />}
-                        {null !== commandOutputs && commandOutputs.length === 0 && <NoResultsTableRow numColumns={6} />}
-                        {null !== commandOutputs && commandOutputs.length !== 0 && commandOutputs.map((commandOutput, index) =>
-                            <Tr key={index}>
-                                <Td>{commandOutput.client_file_name}</Td>
-                                <Td>{commandOutput.file_mimetype}</Td>
-                                <Td><FileSizeSpan fileSize={commandOutput.file_size} /></Td>
-                                <Td><RelativeDateFormatter date={commandOutput.insert_ts} /></Td>
-                                <Td><UserLink userId={commandOutput.submitter_uid}>{commandOutput.submitter_name}</UserLink></Td>
-                                <Td textAlign="right">
-                                    <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
-                                    <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
-                                    <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
-                                </Td>
-                            </Tr>
-                        )}
-                    </Tbody>
-                </Table>
-            </>
-        }
+        <Table>
+            <Thead>
+                <Tr>
+                    <Th>Filename</Th>
+                    <Th>Mimetype</Th>
+                    <Th>File size</Th>
+                    <Th>Upload date</Th>
+                    <Th>Uploaded by</Th>
+                    <Th>&nbsp;</Th>
+                </Tr>
+            </Thead>
+            <Tbody>
+                {null === commandOutputs && <LoadingTableRow numColumns={6} />}
+                {null !== commandOutputs && commandOutputs.length === 0 && <NoResultsTableRow numColumns={6} />}
+                {null !== commandOutputs && commandOutputs.length !== 0 && commandOutputs.map((commandOutput, index) =>
+                    <Tr key={index}>
+                        <Td>{commandOutput.client_file_name}</Td>
+                        <Td>{commandOutput.file_mimetype}</Td>
+                        <Td><FileSizeSpan fileSize={commandOutput.file_size} /></Td>
+                        <Td><RelativeDateFormatter date={commandOutput.insert_ts} /></Td>
+                        <Td><UserLink userId={commandOutput.submitter_uid}>{commandOutput.submitter_name}</UserLink></Td>
+                        <Td textAlign="right">
+                            <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
+                            <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
+                            <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
+                        </Td>
+                    </Tr>
+                )}
+            </Tbody>
+        </Table>
     </>
 }
 

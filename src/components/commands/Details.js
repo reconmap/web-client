@@ -20,6 +20,7 @@ import { IconBriefcase } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
 import CommandInstructions from './Instructions';
+import CommandOutputs from './Outputs';
 
 const CommandDetails = () => {
     const { commandId } = useParams();
@@ -65,6 +66,7 @@ const CommandDetails = () => {
                 <TabList>
                     <Tab>Details</Tab>
                     <Tab>Run instructions</Tab>
+                    <Tab>Command outputs</Tab>
                     <Tab>Terminal</Tab>
                 </TabList>
                 <TabPanels>
@@ -106,6 +108,9 @@ const CommandDetails = () => {
                     </TabPanel>
                     <TabPanel>
                         <CommandInstructions command={command} />
+                    </TabPanel>
+                    <TabPanel>
+                        <CommandOutputs command={command} />
                     </TabPanel>
                     <TabPanel>
                         <CommandTerminal />

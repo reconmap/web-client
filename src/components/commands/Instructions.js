@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Input } from "@chakra-ui/react";
 import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
 import Help from "components/ui/Help";
@@ -51,7 +51,7 @@ const CommandInstructions = ({ command, task = null }) => {
                     <label htmlFor='commandArg'>
                         {commandArgs[key].name}
                     </label> <br />
-                    <input id='commandArg' name={commandArgs[key].name} value={commandArgs[key].placeholder} onChange={onArgUpdate} />
+                    <Input id='commandArg' name={commandArgs[key].name} value={commandArgs[key].placeholder} onChange={onArgUpdate} />
                 </p>
             )
         }

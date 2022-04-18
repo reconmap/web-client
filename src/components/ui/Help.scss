@@ -1,19 +1,20 @@
-
 .help {
     margin-bottom: var(--space);
     padding: var(--space);
 
     &__title {
-        margin-top : 0;
+        margin-top: 0;
         display: flex;
         align-items: center;
         margin-bottom: var(--space);
         color: var(--primary-color);
     }
+
     svg {
         margin-right: var(--space-sm);
-        width: var(--iconSizeSmall);
+        width: 24px;
     }
+
     &__desc {
         border: 1px solid red;
     }
