@@ -73,9 +73,8 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                 </Select>
             </label>
 
-            <legend>Vulnerability Metrics</legend>
             <label>
-                Type
+                Vulnerability metrics
                 <Select name="vulnerability_metrics" value={project.vulnerability_metrics || ""} onChange={handleFormChange}>
                     <option value="">(undefined)</option>
                     {ProjectVulnerabilityMetrics.map(type => <option key={`metrics_${type.id}`} value={type.id}>{type.name}</option>)}
