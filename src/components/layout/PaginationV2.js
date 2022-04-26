@@ -6,6 +6,7 @@ import { IconLeft, IconRight } from '../ui/Icons';
 import './Pagination.scss';
 
 const PaginationV2 = ({ page, total, onPageChange }) => {
+
     const previousEnabled = page + 1 > 1;
     const nextEnabled = page + 1 < total;
 
@@ -37,6 +38,10 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
             document.removeEventListener('keydown', onKeyDownListener);
         };
     }, [onKeyDownListener]);
+
+    if (parseInt(total) === 1) {
+        return <label>(no more pages)</label>
+    }
 
     return <div className='pagination'>
         <SecondaryButton tooltip='Previous [P]' disabled={!previousEnabled} onClick={onPreviousPageChange}><IconLeft styling={{ width: 12 }} /></SecondaryButton>
