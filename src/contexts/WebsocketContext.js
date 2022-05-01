@@ -1,54 +1,86 @@
 import Configuration from "Configuration";
 import { createContext, useContext, useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
-const createWebsocketConnection = () => {
+const createWebsocketConnection = (isAuth, user) => {
     const notificationServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
     const notificationServiceHostPort = Configuration.getNotificationsServiceHostPort();
     console.debug("reconmap-ws: connecting");
-    return new WebSocket(`${notificationServiceProtocol}://${notificationServiceHostPort}/notifications`);
-}
 
-const ws = createWebsocketConnection();
-export const WebsocketContext = createContext(ws);
+    const urlParams = new URLSearchParams();
+    urlParams.set('token', user.access_token);
+    const ws = new WebSocket(`${notificationServiceProtocol}://${notificationServiceHostPort}/notifications?` + urlParams.toString());
 
-const WebsocketProvider = ({ children }) => {
-    const [wsState, setWsState] = useState(ws);
+    const onConnectionOpen = () => console.debug("reconmap-ws: connected");
+    ws.addEventListener('open', onConnectionOpen);
 
-    useEffect(() => {
-        const onConnectionOpen = () => console.debug("reconmap-ws: connected");
-        ws.addEventListener('open', onConnectionOpen);
+    const onConnectionError = ev => console.debug("reconmap-ws: errored", ev);
+    ws.addEventListener('error', onConnectionError);
 
-        const onConnectionError = ev => console.debug("reconmap-ws: errored", ev);
-        ws.addEventListener('error', onConnectionError);
-
-        const onConnectionClose = () => {
-            console.debug("reconmap-ws: disconnected");
+    const onConnectionClose = () => {
+        console.debug("reconmap-ws: disconnected");
+        if (isAuth) {
             setTimeout(() => {
-                setWsState(createWebsocketConnection());
+                //setWsContextState(prevState => { return { ...prevState, connection: createWebsocketConnection() } });
             }, 5000);
         }
-        ws.addEventListener('close', onConnectionClose);
+    }
+    ws.addEventListener('close', onConnectionClose);
+
+    return { ws, onConnectionOpen, onConnectionError, onConnectionClose };
+}
+
+const wsContextData = {
+    connection: null
+};
+
+export const WebsocketContext = createContext(wsContextData);
+
+const WebsocketProvider = ({ children }) => {
+    const [wsContextState, setWsContextState] = useState(wsContextData);
+    const { user, isAuth } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (!isAuth) {
+            //if (wsContextState.connection) wsContextState.connection.close();
+            setWsContextState(prevState => { return { ...prevState, connection: null } })
+            return;
+        }
+
+        /*
+            if (wsContextState.connection && wsContextState.connection.readyState in [WebSocket.CONNECTING, WebSocket.OPEN]) {
+                return;
+            }
+        */
+
+        const { ws, onConnectionOpen, onConnectionError, onConnectionClose } = createWebsocketConnection(isAuth, user);
+        setWsContextState(prevSate => { return { ...prevSate, connection: ws } })
 
         return () => {
+            console.debug("reconmap-ws: removing listeners");
             ws.removeEventListener('open', onConnectionOpen);
             ws.removeEventListener('error', onConnectionError);
             ws.removeEventListener('close', onConnectionClose);
         }
-    }, []);
+    }, [isAuth, user]);
 
-    return <WebsocketContext.Provider value={wsState}>{children}</WebsocketContext.Provider>
+    return <WebsocketContext.Provider value={wsContextState}>{children}</WebsocketContext.Provider>
 }
 
 export default WebsocketProvider;
 
-export const useWebsocketMessage = (onMessageHandler) => {
-    const connection = useContext(WebsocketContext);
+export const useWebsocketMessage = onMessageHandler => {
+    const wsContextData = useContext(WebsocketContext);
 
     useEffect(() => {
-        connection.addEventListener('message', onMessageHandler);
+        if (wsContextData.connection) {
+            wsContextData.connection.addEventListener('message', onMessageHandler);
+        }
 
         return () => {
-            connection.removeEventListener('message', onMessageHandler);
+            if (wsContextData.connection) {
+                wsContextData.connection.removeEventListener('message', onMessageHandler);
+            }
         }
-    }, [connection, onMessageHandler]);
+    }, [wsContextData.connection, onMessageHandler]);
 }
