@@ -10,13 +10,10 @@ const ShellCommand = ({ children, showPrompt = true }) => {
     const handleCopy = () => {
         const code = codeRef.current.innerText
 
-        const textField = document.createElement('textarea')
-        textField.innerText = code
-        document.body.appendChild(textField)
-        textField.select()
-        document.execCommand('copy')
-        textField.remove()
-        actionCompletedToast('Copied to clipboard');
+        navigator.clipboard.writeText(code).then(() => {
+            actionCompletedToast('Copied to clipboard');
+        }, () => {
+        });
     }
 
     return <code className={showPrompt ? 'prompt' : ''} ref={codeRef}>

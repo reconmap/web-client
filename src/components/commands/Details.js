@@ -10,7 +10,7 @@ import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import CommandService from 'services/command';
+import CommandService, { HostCommandLineGenerator } from 'services/command';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from "../ui/Breadcrumb";
@@ -86,8 +86,14 @@ const CommandDetails = () => {
                                         <dl>{command.more_info_url ? <ExternalLink href={command.more_info_url}>{command.more_info_url}</ExternalLink> : <EmptyField />}</dl>
                                     </>}
 
-                                    {command.executable_path && <>
-                                        <dt>Command line example</dt>
+                                    {CommandService.hasCommand(command) && <>
+                                        {CommandService.isHost(command) && <>
+                                            <dt>Command line example</dt>
+                                            <dd>
+                                                <ShellCommand>{HostCommandLineGenerator.generateEntryPoint(command)} {HostCommandLineGenerator.renderArguments(command)}</ShellCommand>
+                                            </dd>
+                                        </>}
+                                        <dt>Command line example using rmap CLI</dt>
                                         <dd>
                                             <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
                                         </dd>

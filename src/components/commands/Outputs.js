@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Textarea, Th, Thead, Tr } from "@chakra-ui/react";
+import { ButtonGroup, Table, Tbody, Td, Textarea, Th, Thead, Tr } from "@chakra-ui/react";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -104,9 +104,11 @@ const CommandOutputs = ({ command }) => {
                         <Td><RelativeDateFormatter date={commandOutput.insert_ts} /></Td>
                         <Td><UserLink userId={commandOutput.submitter_uid}>{commandOutput.submitter_name}</UserLink></Td>
                         <Td textAlign="right">
-                            <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
-                            <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
-                            <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
+                            <ButtonGroup isAttached>
+                                <SecondaryButton onClick={ev => onViewClick(ev, commandOutput.id)}>View</SecondaryButton>
+                                <SecondaryButton onClick={ev => onDownloadClick(ev, commandOutput.id)}>Download</SecondaryButton>
+                                <DeleteIconButton onClick={ev => onDeleteOutputClick(ev, commandOutput.id)} />
+                            </ButtonGroup>
                         </Td>
                     </Tr>
                 )}
