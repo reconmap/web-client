@@ -1,4 +1,7 @@
 import PageTitle from 'components/logic/PageTitle';
+import { WebsocketContext } from 'contexts/WebsocketContext';
+import { useContext } from 'react';
+import convertReadyStateToText from 'utilities/WebsocketState';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconCheck } from '../ui/Icons';
@@ -8,6 +11,7 @@ const GreenYes = ({ label = 'Yes' }) => <span style={{ color: 'green' }}>{label}
 const RedNo = () => <span style={{ color: 'red' }}>No</span>;
 
 const SystemHealthPage = () => {
+    const wsContextData = useContext(WebsocketContext);
     const [apiHealth] = useFetch('/system/health');
 
     return <div>
@@ -20,12 +24,12 @@ const SystemHealthPage = () => {
         <Title title="System health" icon={<IconCheck />} />
 
         {apiHealth && <>
-            <table style={{ width: 'auto', borderSpacing: '10px', borderCollapse: 'separate' }}>
+            <table style={{ width: '40%', borderSpacing: '10px', borderCollapse: 'separate' }}>
                 <caption>API health</caption>
                 <tbody>
                     <tr>
                         <td>Response</td>
-                        <td><GreenYes label="Ok" /></td>
+                        <td width="20%"><GreenYes label="Ok" /></td>
                     </tr>
                     <tr>
                         <td>Database connection</td>
@@ -46,6 +50,15 @@ const SystemHealthPage = () => {
                     <tr>
                         <td>Logs directory is writeable</td>
                         <td>{apiHealth.logsDirectory.writeable ? <GreenYes /> : <RedNo />}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style={{ width: '40%', borderSpacing: '10px', borderCollapse: 'separate' }}>
+                <caption>Websocket health</caption>
+                <tbody>
+                    <tr>
+                        <td>Connection status</td>
+                        <td width="20%">{convertReadyStateToText(wsContextData.connection)}</td>
                     </tr>
                 </tbody>
             </table>

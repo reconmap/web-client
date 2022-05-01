@@ -1,9 +1,9 @@
+import PaginationV2 from 'components/layout/PaginationV2';
 import PageTitle from 'components/logic/PageTitle';
 import useQuery from 'hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import secureApiFetch, { downloadFromApi } from '../../services/api';
-import Pagination from '../layout/Pagination';
 import Breadcrumb from '../ui/Breadcrumb';
 import ExportButton from '../ui/buttons/Export';
 import { IconEye } from '../ui/Icons';
@@ -20,10 +20,7 @@ const AuditLogList = () => {
     const [auditLog, setAuditLog] = useState([]);
     const [numberPages, setNumberPages] = useState(1);
 
-    const handlePrev = () => {
-        navigate(`/auditlog?page=${pageNumber - 1}`);
-    }
-    const handleNext = () => {
+    const onPageChange = pageNumber => {
         navigate(`/auditlog?page=${pageNumber + 1}`);
     }
 
@@ -54,7 +51,7 @@ const AuditLogList = () => {
             <Breadcrumb>
                 <div>System</div>
             </Breadcrumb>
-            <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
+            <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
             <ExportButton onClick={onExportClick} />
         </div>
         <Title type="System" title='Audit Log' icon={<IconEye />} />

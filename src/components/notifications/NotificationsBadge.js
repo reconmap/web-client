@@ -17,7 +17,7 @@ import secureApiFetch from "services/api";
 const NotificationsBadge = () => {
     const [notifications, fetchNotifications] = useFetch('/notifications?status=unread');
 
-    const onMessageHandler = (ev) => {
+    const onMessageHandler = () => {
         fetchNotifications();
     }
 

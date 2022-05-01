@@ -43,7 +43,8 @@ const App = () => {
     }, [theme])
 
     return <BrowserRouter basename={Configuration.getContextPath()}>
-        <Compose components={[WebsocketProvider, AuthProvider]}>
+        {/* Order of provider components matters */}
+        <Compose components={[AuthProvider, WebsocketProvider]}>
             <ThemeContext.Provider value={{ theme, setTheme }}>
                 <Routes>
                     <Route element={<AuthLayout />}>

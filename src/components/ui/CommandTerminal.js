@@ -8,7 +8,7 @@ const arrayBufferToString = buf => {
     return String.fromCharCode.apply(null, new Uint8Array(buf));
 }
 
-const CommandTerminal = ({ commands = [] }) => {
+const CommandTerminal = ({ commands }) => {
 
     const terminalEl = useRef();
     const [terminalTitle, setTerminalTitle] = useState('Terminal');

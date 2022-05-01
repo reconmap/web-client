@@ -113,7 +113,7 @@ const CommandDetails = () => {
                         <CommandOutputs command={command} />
                     </TabPanel>
                     <TabPanel>
-                        <CommandTerminal />
+                        <CommandTerminal commands={[]} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
