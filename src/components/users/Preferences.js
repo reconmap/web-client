@@ -20,7 +20,6 @@ const UserPreferences = () => {
 
     const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
-    const [timezone] = useState(user.timezone);
 
     const { setTheme } = useContext(ThemeContext);
 
@@ -38,7 +37,7 @@ const UserPreferences = () => {
     const onFormSubmit = ev => {
         ev.preventDefault();
 
-        user.timezone = timezone;
+        user.timezone = formValues.timezone;
         user.preferences = { ...initialiseUserPreferences(user), "web-client.theme": formValues.theme };
 
         secureApiFetch(`/users/${user.id}`, {
@@ -67,18 +66,18 @@ const UserPreferences = () => {
         <Title type='User' title='Preferences' icon={<IconPreferences />} />
         <form onSubmit={onFormSubmit}>
             <FormControl>
+                <FormLabel>Theme</FormLabel>
+                <Select name="theme" onChange={updateFormValues} defaultValue={formValues.theme || "dark"}>
+                    <option value="dark">Dark</option>
+                    <option value="light">Light</option>
+                </Select>
+            </FormControl>
+            <FormControl>
                 <FormLabel>Timezone</FormLabel>
                 <Select name="timezone" onChange={updateFormValues} defaultValue={user.timezone}>
                     {timezoneKeys.map((key, index) =>
                         <option key={index} value={timezones[key].name}>{timezones[key].name}</option>
                     )}
-                </Select>
-            </FormControl>
-            <FormControl>
-                <FormLabel>Theme</FormLabel>
-                <Select name="theme" onChange={updateFormValues} defaultValue={formValues.theme || "dark"}>
-                    <option value="dark">Dark</option>
-                    <option value="light">Light</option>
                 </Select>
             </FormControl>
 
