@@ -4,7 +4,8 @@ const Project = {
     name: null,
     description: null,
     is_template: false,
-    visibility: 'public'
+    visibility: 'public',
+    category_id: null,
 };
 
 export default Project;

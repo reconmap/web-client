@@ -74,7 +74,7 @@ const UsersList = () => {
             <Breadcrumb />
             <ButtonGroup isAttached>
                 <CreateButton onClick={handleCreate}>
-                    Create User
+                    Create user
                 </CreateButton>
                 <RestrictedComponent roles={['administrator']}>
                     <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>

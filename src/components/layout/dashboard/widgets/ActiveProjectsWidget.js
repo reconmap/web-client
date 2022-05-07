@@ -5,7 +5,7 @@ import useFetch from "hooks/useFetch";
 import DashboardWidget from "./Widget";
 
 const ActiveProjectsWidget = () => {
-    const [projects] = useFetch(`/projects?status=active&limit=5`)
+    const [projects] = useFetch(`/projects?status=active&page=0&limit=5`)
 
     if (!projects) return <Loading />
 

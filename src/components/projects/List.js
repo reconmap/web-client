@@ -13,7 +13,6 @@ import { IconFolder } from '../ui/Icons';
 import Title from '../ui/Title';
 import ProjectsTable from './Table';
 
-
 const ProjectsList = () => {
     const navigate = useNavigate();
     const query = useQuery();
@@ -81,7 +80,7 @@ const ProjectsList = () => {
 
             <HStack>
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                    <CreateButton onClick={handleCreateProject}> Create Project</CreateButton>
+                    <CreateButton onClick={handleCreateProject}>Create project</CreateButton>
                 </RestrictedComponent>
             </HStack>
         </div>

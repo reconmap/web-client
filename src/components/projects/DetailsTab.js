@@ -28,9 +28,9 @@ const ProjectDetailsTab = ({ project }) => {
                     <dd>{project.archived ? 'Archived' : 'Active'}</dd>
                 </>}
 
-                {project.engagement_type && <>
-                    <dt>Engagement type</dt>
-                    <dd>{project.engagement_type}</dd>
+                {project.category_id && <>
+                    <dt>Category</dt>
+                    <dd>{project.category_name}</dd>
                 </>}
 
                 {project.vulnerability_metrics && <>

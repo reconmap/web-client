@@ -3,13 +3,13 @@ import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
-import ProjectEngagementTypes from "../../models/ProjectEngagementTypes";
 import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
 
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
 
     const [clients] = useFetch('/clients');
+    const [categories] = useFetch('/project/categories');
 
     const handleFormChange = ev => {
         const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
@@ -31,6 +31,16 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             <label>Is template?
                 <Checkbox name="is_template" onChange={handleFormChange} isChecked={project.is_template} />
+            </label>
+
+            <label>
+                Category
+                <Select name="category_id" value={project.category_id || ""} onChange={handleFormChange} required>
+                    {categories && <>
+                        <option value="">(undefined)</option>
+                        {categories.map(category => <option key={`category_${category.id}`} value={category.id}>{category.name}</option>)}
+                    </>}
+                </Select>
             </label>
 
             {!project.is_template && <>
@@ -64,14 +74,6 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
         <fieldset>
             <legend>Rules of engagement</legend>
-
-            <label>
-                Type
-                <Select name="engagement_type" value={project.engagement_type || ""} onChange={handleFormChange}>
-                    <option value="">(undefined)</option>
-                    {ProjectEngagementTypes.map(type => <option key={`engtype_${type.id}`} value={type.id}>{type.name}</option>)}
-                </Select>
-            </label>
 
             <label>
                 Vulnerability metrics

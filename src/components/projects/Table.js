@@ -16,7 +16,7 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
                 <Th>Name</Th>
                 {showClientColumn && <Th>Client</Th>}
                 <Th className="only-desktop">Description</Th>
-                <Th>Rules of engagement</Th>
+                <Th>Category</Th>
                 <Th>Vulnerability Metrics</Th>
                 <Th>Status</Th>
                 <Th>&nbsp;</Th>
@@ -37,7 +37,7 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
                         </Td>
                     }
                     <Td className="only-desktop">{project.description}</Td>
-                    <Td>{project.engagement_type ? 'Type: ' + project.engagement_type : '(undefined)'}</Td>
+                    <Td>{project.category_id !== null ? project.category_name : '(undefined)'}</Td>
                     <Td>{project.vulnerability_metrics ? project.vulnerability_metrics : '(undefined)'}</Td>
                     <Td>{project.archived ? 'Archived' : 'Active'}</Td>
                     <Td textAlign="right">
