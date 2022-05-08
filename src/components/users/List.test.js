@@ -21,5 +21,5 @@ it("renders with or without a name", () => {
     act(() => {
         ReactDOM.createRoot(container).render(<MemoryRouter><UsersList history={history} /></MemoryRouter>);
     });
-    expect(container.innerHTML).toMatch(/Create User<\/button>/);
+    expect(container.innerHTML).toMatch(/Create user<\/button>/);
 });
