@@ -18,7 +18,6 @@ import TaskStatuses from "../../models/TaskStatuses";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from "../ui/buttons/Delete";
-import PrimaryButton from '../ui/buttons/Primary';
 import { IconClipboard, IconDocument } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import { actionCompletedToast } from "../ui/toast";
@@ -97,7 +96,7 @@ const TaskDetails = () => {
             {task && users &&
                 <HStack alignItems='flex-end'>
                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                        <PrimaryButton to={`/tasks/${task.id}/edit`}>Edit</PrimaryButton>
+                        <Link to={`/tasks/${task.id}/edit`}>Edit</Link>
                         <label>Transition to&nbsp;
                             <Select onChange={onStatusChange} value={task.status}>
                                 {TaskStatuses.map((status, index) =>

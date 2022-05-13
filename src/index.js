@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { createStandaloneToast } from "@chakra-ui/toast";
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import React from 'react';
@@ -10,11 +11,14 @@ import './styles/main.scss';
 
 TimeAgo.addDefaultLocale(en);
 
+const { ToastContainer } = createStandaloneToast();
+
 const rootContainer = document.getElementById('root');
 const appRoot = ReactDOM.createRoot(rootContainer);
 appRoot.render(<React.StrictMode>
     <ChakraProvider theme={ReconmapTheme}>
         <App />
+        <ToastContainer />
     </ChakraProvider>
 </React.StrictMode>);
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthConsumer } from "../../contexts/AuthContext";
 
-const Login = () => {
+const LoginForm = () => {
     const [loading, setLoading] = useState(false);
     const [credentials, setCredentials] = useState({ username: null, password: null });
     const [error, setError] = useState(null);
@@ -69,7 +69,7 @@ const Login = () => {
                         isLoading={loading}
                         loadingText="Processing..."
                         type="submit"
-                        isFullWidth
+                        width="100%"
                         colorScheme="red"
                         isDisabled={
                             !credentials.password ||
@@ -85,4 +85,4 @@ const Login = () => {
     </AuthConsumer>
 };
 
-export default Login;
+export default LoginForm;

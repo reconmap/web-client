@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from 'services/auth';
 import setThemeColors from 'utilities/setThemeColors';
-import AuditLogList from "./components/auditlog/List";
 import AuthRequired from './components/auth/AuthRequired';
 import ClientsRoutes from './components/clients/Routes';
 import CommandsRoutes from './components/commands/Routes';
@@ -76,7 +75,6 @@ const App = () => {
                             ]
                                 .map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))
                         }
-                        <Route path="/auditlog" element={<AuditLogList />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Route>
                 </Routes>

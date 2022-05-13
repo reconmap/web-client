@@ -1,3 +1,4 @@
+import AuditLogList from "components/auditlog/List";
 import { Route } from "react-router-dom";
 import SystemIndexPage from ".";
 import ExportPage from "./ExportPage";
@@ -8,6 +9,7 @@ import SystemLogsPage from "./LogsPage";
 import SystemUsagePage from "./UsagePage";
 
 const SystemRoutes = [
+    <Route path="/auditlog" element={<AuditLogList />} />,
     <Route path={`/system`} element={<SystemIndexPage />} />,
     <Route path={`/system/integrations`} element={<SystemIntegrationsPage />} />,
     <Route path={`/system/health`} element={<SystemHealthPage />} />,

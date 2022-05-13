@@ -1,6 +1,6 @@
 import { createStandaloneToast } from "@chakra-ui/react";
 
-const toast = createStandaloneToast();
+const { toast } = createStandaloneToast();
 
 export function actionCompletedToast(description) {
     toast({
