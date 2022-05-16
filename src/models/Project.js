@@ -1,6 +1,6 @@
 
 const Project = {
-    client_id: 0,
+    client_id: null,
     name: null,
     description: null,
     is_template: false,
