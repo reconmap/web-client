@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
+import ReactTimeAgo from 'react-time-ago';
 
 const RelativeDateFormatter = ({ date: dateString }) => {
     let timestamp = Date.parse(dateString);
