@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
 import Loading from "components/ui/Loading";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";

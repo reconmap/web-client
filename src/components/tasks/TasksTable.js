@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";

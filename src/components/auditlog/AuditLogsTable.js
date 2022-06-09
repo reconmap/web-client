@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import Badge from 'components/badges/Badge';
 import UserRoleBadge from 'components/badges/UserRoleBadge';
 import Ipv4Link from 'components/ui/Ipv4Link';

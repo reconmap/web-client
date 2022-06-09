@@ -1,4 +1,3 @@
-import { Th } from "@chakra-ui/react";
 import TaskBadge from "components/tasks/TaskBadge";
 import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
@@ -20,8 +19,8 @@ const MyTasksWidget = () => {
             <table>
                 <thead>
                     <tr>
-                        <Th>Summary</Th>
-                        <Th>Status</Th>
+                        <th>Summary</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -43,7 +43,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.0",
     "npm-check-updates": "^13.1.2",
-    "sass": "^1.52.2"
+    "sass": "^1.52.3"
   },
   "scripts": {
     "lint": "eslint . --ext .js",

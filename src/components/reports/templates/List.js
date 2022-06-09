@@ -1,6 +1,6 @@
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { useDisclosure } from '@chakra-ui/hooks';
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import CreateButton from 'components/ui/buttons/Create';
