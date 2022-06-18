@@ -17,3 +17,4 @@ tags
 tags.*
 .config
 *.code-workspace
+.bash_history
