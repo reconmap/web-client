@@ -33,9 +33,6 @@ const HeaderUserMenu = () => {
             <Link to="/users/preferences">
                 <MenuItem>Preferences</MenuItem>
             </Link>
-            <Link to="/users/password-change">
-                <MenuItem>Change password</MenuItem>
-            </Link>
             <Divider />
             <Link to="/" onClick={logout}>
                 <MenuItem>Logout</MenuItem>
