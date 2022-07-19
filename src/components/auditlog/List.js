@@ -1,7 +1,7 @@
 import PaginationV2 from 'components/layout/PaginationV2';
 import PageTitle from 'components/logic/PageTitle';
 import useQuery from 'hooks/useQuery';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import secureApiFetch, { downloadFromApi } from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -42,7 +42,7 @@ const AuditLogList = () => {
     }, [reloadData])
 
     const onExportClick = () => {
-        downloadFromApi('/system/data?entities=auditlog');
+        downloadFromApi('/system/data?entities=audit_log');
     }
 
     return <>
