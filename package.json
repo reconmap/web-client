@@ -5,7 +5,7 @@
   "dependencies": {
     "@chakra-ui/css-reset": "^2.0.1",
     "@chakra-ui/icons": "^2.0.4",
-    "@chakra-ui/react": "^2.2",
+    "@chakra-ui/react": "^2.2.3",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@fortawesome/fontawesome": "^1.1.8",
