@@ -7,7 +7,7 @@ COPY tsconfig.json package.json package-lock.json ./
 COPY public ./public
 COPY src ./src
 
-RUN npm install && npm run build
+RUN npm install --legacy-peer-deps && npm run build
 
 FROM nginx:stable
 
