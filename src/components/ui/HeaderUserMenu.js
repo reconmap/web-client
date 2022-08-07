@@ -24,14 +24,14 @@ const HeaderUserMenu = () => {
                 <Text color="gray.500">{KeyCloakService.GetUsername()}</Text>
                 <Badge colorScheme="red">{user.role}</Badge>
             </HStack>
-            <ChakraLink href={KeyCloakService.GetProfileUrl()} isExternal>
-                <MenuItem>Your kc profile</MenuItem>
+            <ChakraLink href={KeyCloakService.getProfileUrl()} isExternal>
+                <MenuItem>Identity settings</MenuItem>
             </ChakraLink>
             <Link to={`/users/${user.id}`}>
-                <MenuItem>Your profile</MenuItem>
+                <MenuItem>Application profile</MenuItem>
             </Link>
             <Link to="/users/preferences">
-                <MenuItem>Preferences</MenuItem>
+                <MenuItem>Application preferences</MenuItem>
             </Link>
             <Divider />
             <Link to="/" onClick={logout}>

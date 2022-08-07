@@ -30,7 +30,7 @@ const KeyCloakService = {
     Logout: keycloakInstance.logout,
     IsAuthenticated: keycloakInstance.authenticated,
     GetInstance: () => keycloakInstance,
-    GetProfileUrl: () => keycloakInstance.createAccountUrl()
+    getProfileUrl: () => keycloakInstance.createAccountUrl({ redirectUri: window.location.href })
 };
 
 export default KeyCloakService;
