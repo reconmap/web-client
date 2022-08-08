@@ -24,7 +24,7 @@ const HeaderUserMenu = () => {
                 <Text color="gray.500">{KeyCloakService.GetUsername()}</Text>
                 <Badge colorScheme="red">{user.role}</Badge>
             </HStack>
-            <ChakraLink onClick={() => KeyCloakService.redirectToAccountManagement()} isExternal>
+            <ChakraLink href={KeyCloakService.getProfileUrl()} isExternal>
                 <MenuItem>Identity settings</MenuItem>
             </ChakraLink>
             <Link to={`/users/${user.id}`}>

@@ -10,7 +10,7 @@ const Login = (onLoginSuccess: Function, onLoginFailure: Function) => {
     keycloakInstance
         .init({
             onLoad: 'login-required',
-            redirectUri: redirectionUrl
+            // redirectUri: redirectionUrl
         })
         .then((authenticated) => {
             if (authenticated)
