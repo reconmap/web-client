@@ -32,7 +32,7 @@ function useAuth() {
                 setThemeColors(data.preferences['web-client.theme']);
                 setColorMode(data.preferences['web-client.theme']);
 
-                setIsAuth(KeyCloakService.GetInstance().authenticated)
+                setIsAuth(KeyCloakService.getInstance().authenticated)
             })
             .catch(err => {
                 throw err;

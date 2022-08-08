@@ -7,7 +7,7 @@ const Auth = {
     },
 
     getLoggedInUser: () => {
-        const kcInstance = KeyCloakService.GetInstance();
+        const kcInstance = KeyCloakService.getInstance();
         if (kcInstance.authenticated) {
             const role = kcInstance.resourceAccess['web-client']?.roles[0];
             const user = {
