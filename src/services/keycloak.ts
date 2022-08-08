@@ -3,11 +3,14 @@ import Keycloak from "keycloak-js";
 
 const keycloakInstance = new Keycloak(Configuration.getKeycloakConfig());
 
+const redirectionUrl = window.location.protocol + "//" + window.location.hostname + ("https" === window.location.protocol ? "" : ":" + window.location.port) + Configuration.getContextPath();
+
 const Login = (onLoginSuccess: Function, onLoginFailure: Function) => {
 
     keycloakInstance
         .init({
-            onLoad: 'login-required'
+            onLoad: 'login-required',
+            redirectUri: redirectionUrl
         })
         .then((authenticated) => {
             if (authenticated)
@@ -30,7 +33,7 @@ const KeyCloakService = {
     Logout: keycloakInstance.logout,
     IsAuthenticated: keycloakInstance.authenticated,
     getInstance: () => keycloakInstance,
-    getProfileUrl: () => keycloakInstance.createAccountUrl({ redirectUri: window.location.href }),
+    getProfileUrl: () => keycloakInstance.createAccountUrl({ redirectUri: redirectionUrl }),
     redirectToAccountManagement: () => keycloakInstance.accountManagement()
 };
 
