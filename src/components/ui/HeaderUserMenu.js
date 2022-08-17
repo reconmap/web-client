@@ -4,11 +4,13 @@ import { Link as ChakraLink } from '@chakra-ui/react';
 import UserAvatar from "components/badges/UserAvatar";
 import { AuthContext } from "contexts/AuthContext";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import KeyCloakService from "services/keycloak";
 
 const HeaderUserMenu = () => {
     const { user, logout } = useContext(AuthContext);
+    const { i18n } = useTranslation();
 
     return <Menu closeOnBlur closeOnSelect>
         <MenuButton>
@@ -33,6 +35,10 @@ const HeaderUserMenu = () => {
             <Link to="/users/preferences">
                 <MenuItem>Application preferences</MenuItem>
             </Link>
+            {'en' === i18n.language ?
+                <MenuItem onClick={() => i18n.changeLanguage('es')}>Change language to Spanish</MenuItem> :
+                <MenuItem onClick={() => i18n.changeLanguage('en')}>Change language to English</MenuItem>
+            }
             <Divider />
             <Link to="/" onClick={logout}>
                 <MenuItem>Logout</MenuItem>

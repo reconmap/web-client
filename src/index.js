@@ -1,5 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { createStandaloneToast } from "@chakra-ui/toast";
+import 'bootstrap/i18n';
 import HeaderLogo from 'components/layout/HeaderLogo';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
