@@ -1,5 +1,7 @@
 {
     "ui": {
-        "button.delete": "Eliminar"
+        "button.create": "Crear",
+        "button.delete": "Eliminar",
+        "button.edit": "Editar"
     }
 }

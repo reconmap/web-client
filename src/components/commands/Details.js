@@ -49,7 +49,7 @@ const CommandDetails = () => {
                     <EditButton onClick={(ev) => {
                         ev.preventDefault();
                         navigate(`/commands/${command.id}/edit`)
-                    }}>Edit</EditButton>
+                    }} />
                     <DeleteButton onClick={handleDelete} />
                 </RestrictedComponent>
             </ButtonGroup>

@@ -1,4 +1,5 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
 import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
@@ -9,6 +10,8 @@ import './Sidebar.scss';
 
 export default function Sidebar(props) {
     const { setSidebarCollapsed, sidebarCollapsed } = props
+
+    const [t] = useTranslation();
 
     const user = Auth.getLoggedInUser();
 
@@ -56,7 +59,7 @@ export default function Sidebar(props) {
                     <div onClick={ev => onParentClick(ev, link)}>
                         <NavLink to={link.to} data-label={link.title} className={data => data.isActive ? "active" : ""}>
                             {link.icon}
-                            <span>{link.title}</span>
+                            <span>{t(link.title)}</span>
                             {subLinks.length > 0 && <IconChevronDown styling={{ transform: sectionStatuses[link.title] && 'rotate(180deg)' }} />}
                         </NavLink>
                     </div>
