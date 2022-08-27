@@ -26,7 +26,7 @@ import {
 
 const Links = [
     {
-        title: 'projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
+        title: 'Projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
             {
                 title: 'Create',
                 icon: <FontAwesomeIcon icon={faPlus} />,
@@ -42,7 +42,7 @@ const Links = [
         ]
     },
     {
-        title: 'tasks',
+        title: 'Tasks',
         icon: <IconClipboardList size={5} />,
         to: '/tasks',
         sublinks: [
@@ -87,7 +87,7 @@ const Links = [
         permissions: 'vulnerabilities.*'
     },
     {
-        title: 'reports', icon: <IconFlag size={5} />, to: '/reports', sublinks: [
+        title: 'Reports', icon: <IconFlag size={5} />, to: '/reports', sublinks: [
             {
                 title: 'Templates',
                 icon: <IconDocumentDuplicate size={5} />,

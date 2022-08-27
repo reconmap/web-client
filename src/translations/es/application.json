@@ -1,5 +1,14 @@
 {
-    "projects": "Proyectos",
-    "tasks": "Tareas",
-    "reports": "Informes"
+    "Dashboard": "Cuadro de mandos",
+    "Projects": "Proyectos",
+    "Tasks": "Tareas",
+    "Commands": "Comandos",
+    "Vulnerabilities": "Vulnerabilidades",
+    "Reports": "Informes",
+    "Documents": "Documentos",
+    "Clients": "Clientes",
+    "Users": "Usuarios",
+    "Settings": "Configuracion",
+    "System": "Sistema",
+    "Help and support": "Ayuda y soporte"
 }

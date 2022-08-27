@@ -51,7 +51,7 @@ export default function Sidebar(props) {
 
             <Link to={'/'} data-label='Dashboard'>
                 <IconDashboard size={5} />
-                <span>Dashboard</span>
+                <span>{t('Dashboard')}</span>
             </Link>
             {Links.filter(filterByRole).map((link, index) => {
                 const subLinks = link.sublinks.filter(filterByRole);
