@@ -1,5 +1,6 @@
 import { useColorMode } from "@chakra-ui/react";
 import { createContext, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Auth from "services/auth";
 import KeyCloakService from "services/keycloak";
 import { initialiseUserPreferences } from "services/userPreferences";
@@ -10,6 +11,7 @@ const AuthContext = createContext();
 
 function useAuth() {
     const { setColorMode } = useColorMode();
+    const { i18n } = useTranslation();
 
     const [isAuth, setIsAuth] = useState(KeyCloakService.IsAuthenticated);
     const [user, setUser] = useState(Auth.getLoggedInUser());
@@ -27,17 +29,17 @@ function useAuth() {
                 localStorage.setItem('user', JSON.stringify(data));
 
                 setUser(Auth.getLoggedInUser())
-                //                setUser(data);
 
                 setThemeColors(data.preferences['web-client.theme']);
                 setColorMode(data.preferences['web-client.theme']);
+                i18n.changeLanguage(data.preferences['web-client.language'])
 
                 setIsAuth(KeyCloakService.getInstance().authenticated)
             })
             .catch(err => {
                 throw err;
             });
-    }, [setColorMode])
+    }, [setColorMode, i18n])
 
     const logout = () => {
         setIsAuth(false);

@@ -1,8 +1,11 @@
 import { FormControl, FormLabel, Select, useColorMode } from '@chakra-ui/react';
+import { LanguageList } from 'bootstrap/LanguageList';
 import PageTitle from 'components/logic/PageTitle';
+import { ThemeList } from 'components/ui/themes';
 import { actionCompletedToast } from 'components/ui/toast';
 import CountriesTimezones from 'countries-and-timezones';
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Auth from 'services/auth';
 import { initialiseUserPreferences } from 'services/userPreferences';
 import ThemeContext from "../../contexts/ThemeContext";
@@ -14,6 +17,8 @@ import { IconPreferences } from '../ui/Icons';
 import Title from '../ui/Title';
 
 const UserPreferences = () => {
+
+    const { i18n } = useTranslation();
 
     const user = Auth.getLoggedInUser();
     user.preferences = initialiseUserPreferences(user);
@@ -27,6 +32,7 @@ const UserPreferences = () => {
 
     const [formValues, setFormValues] = useState({
         timezone: user.timezone,
+        language: user.preferences["web-client.language"],
         theme: user.preferences["web-client.theme"]
     });
 
@@ -38,7 +44,11 @@ const UserPreferences = () => {
         ev.preventDefault();
 
         user.timezone = formValues.timezone;
-        user.preferences = { ...initialiseUserPreferences(user), "web-client.theme": formValues.theme };
+        user.preferences = {
+            ...initialiseUserPreferences(user),
+            "web-client.theme": formValues.theme,
+            "web-client.language": formValues.language,
+        };
 
         secureApiFetch(`/users/${user.id}`, {
             method: 'PATCH',
@@ -50,6 +60,7 @@ const UserPreferences = () => {
                     setColorMode(formValues.theme);
                     return formValues.theme;
                 });
+                i18n.changeLanguage(formValues.language)
 
                 localStorage.setItem('user', JSON.stringify(user));
 
@@ -66,10 +77,15 @@ const UserPreferences = () => {
         <Title type='User' title='Preferences' icon={<IconPreferences />} />
         <form onSubmit={onFormSubmit}>
             <FormControl>
+                <FormLabel>Language</FormLabel>
+                <Select name="language" onChange={updateFormValues} defaultValue={user.preferences.language}>
+                    {LanguageList.map(lang => <option key={lang.id} value={lang.id}>{lang.name}</option>)}
+                </Select>
+            </FormControl>
+            <FormControl>
                 <FormLabel>Theme</FormLabel>
-                <Select name="theme" onChange={updateFormValues} defaultValue={formValues.theme || "dark"}>
-                    <option value="dark">Dark</option>
-                    <option value="light">Light</option>
+                <Select name="theme" onChange={updateFormValues} defaultValue={user.preferences.theme}>
+                    {ThemeList.map(theme => <option key={theme.id} value={theme.id}>{theme.name}</option>)}
                 </Select>
             </FormControl>
             <FormControl>

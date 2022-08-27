@@ -1,6 +1,7 @@
 
 const DefaultUserPreferences = {
     "web-client.theme": "dark",
+    "web-client.language": "en",
     "web-client.widgets": null,
 }
 
