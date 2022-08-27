@@ -1,5 +1,5 @@
 import { actionCompletedToast } from 'components/ui/toast';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';
@@ -39,7 +39,7 @@ const EditTaskPage = () => {
         <Title title="Task details" icon={<IconPlus />} />
 
         {!clientTask ? <Loading /> :
-            <TaskForm isEditForm={true} onFormSubmit={onFormSubmit} task={clientTask} taskSetter={setClientTask} />
+            <TaskForm isEditForm={true} forTemplate={clientTask.project_is_template === 1} onFormSubmit={onFormSubmit} task={clientTask} taskSetter={setClientTask} />
         }
     </div>
 }
