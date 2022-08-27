@@ -9,7 +9,7 @@ import EmptyField from 'components/ui/EmptyField';
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter';
 import TimestampsSection from 'components/ui/TimestampsSection';
 import UserLink from 'components/users/Link';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Auth from 'services/auth';
@@ -97,13 +97,15 @@ const TaskDetails = () => {
                 <HStack alignItems='flex-end'>
                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                         <Link to={`/tasks/${task.id}/edit`}>Edit</Link>
-                        <label>Transition to&nbsp;
-                            <Select onChange={onStatusChange} value={task.status}>
-                                {TaskStatuses.map((status, index) =>
-                                    <option key={index} value={status.id}>{status.name}</option>
-                                )}
-                            </Select>
-                        </label>
+                        {1 !== task.project_is_template &&
+                            <label>Transition to&nbsp;
+                                <Select onChange={onStatusChange} value={task.status}>
+                                    {TaskStatuses.map((status, index) =>
+                                        <option key={index} value={status.id}>{status.name}</option>
+                                    )}
+                                </Select>
+                            </label>
+                        }
                         <DeleteButton onClick={() => handleDelete(task.id)} />
                     </RestrictedComponent>
                 </HStack>
@@ -145,16 +147,18 @@ const TaskDetails = () => {
                                         <dt>Created by</dt>
                                         <dd><UserLink userId={task.creator_uid}>{task.creator_full_name}</UserLink></dd>
 
-                                        <dt>Assigned to</dt>
-                                        <dd>
-                                            {users &&
-                                                <Select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
-                                                    <option value="">(nobody)</option>
-                                                    {users.map((user, index) =>
-                                                        <option key={index} value={user.id}>{user.full_name}{user.id === loggedInUser.id ? " (You)" : ""}</option>
-                                                    )}
-                                                </Select>}
-                                        </dd>
+                                        {1 !== task.project_is_template && <>
+                                            <dt>Assigned to</dt>
+                                            <dd>
+                                                {users &&
+                                                    <Select onChange={onAssigneeChange} defaultValue={task.assignee_uid}>
+                                                        <option value="">(nobody)</option>
+                                                        {users.map((user, index) =>
+                                                            <option key={index} value={user.id}>{user.full_name}{user.id === loggedInUser.id ? " (You)" : ""}</option>
+                                                        )}
+                                                    </Select>}
+                                            </dd>
+                                        </>}
                                     </dl>
 
                                     <TimestampsSection entity={task} />
