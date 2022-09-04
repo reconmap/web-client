@@ -27,8 +27,9 @@ Build: ${process.env.REACT_APP_GIT_COMMIT_HASH}
 Server
 ------
 API URL: ${Configuration.getDefaultApiUrl()}
-Notifications API (host:port): ${Configuration.getNotificationsServiceHostPort()}
-Agent API (host:port)): ${Configuration.getAgentServiceHostPort()}
+Notifications API: ${Configuration.getNotificationsServiceHostPort()}
+Agent API: ${Configuration.getAgentServiceHostPort()}
+Keycloak URL: ${Configuration.getKeycloakConfig().url}
 
 `;
 

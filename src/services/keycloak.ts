@@ -10,7 +10,6 @@ const Login = (onLoginSuccess: Function, onLoginFailure: Function) => {
     keycloakInstance
         .init({
             onLoad: 'login-required',
-            // redirectUri: redirectionUrl
         })
         .then((authenticated) => {
             if (authenticated)
@@ -19,7 +18,7 @@ const Login = (onLoginSuccess: Function, onLoginFailure: Function) => {
                 onLoginFailure();
         })
         .catch(err => {
-            console.dir(err);
+            console.error(err);
             console.log(`keycloak init exception: ${err}`);
             onLoginFailure(err.error);
         });
