@@ -1,10 +1,17 @@
-import { Button, Input } from "@chakra-ui/react";
+import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
 import Help from "components/ui/Help";
 import ShellCommand from "components/ui/ShellCommand";
+import { actionCompletedToast, errorToast } from "components/ui/toast";
+import { parseExpression } from "cron-parser";
+import { toString as CronExpressionToString } from 'cronstrue';
+import useFetch from "hooks/useFetch";
+import { StatusCodes } from "http-status-codes";
 import { useEffect, useState } from "react";
 import { CliDownloadUrl } from "ServerUrls";
+import secureApiFetch from "services/api";
 import CommandService from "services/command";
 import parseArguments from "services/commands/arguments";
 
@@ -14,12 +21,59 @@ const CommandInstructions = ({ command, task = null }) => {
     const usesContainer = command.executable_type === 'rmap';
     const [showTerminal, setShowTerminal] = useState(false);
 
+    const [cronExpresion, setCronExpresion] = useState('');
+    const [isCronExpressionInvalid, setCronExpressionInvalid] = useState(true);
+    const [cronExpressionErrorMessage, setCronExpressionErrorMessage] = useState(null);
+
+    const [scheduledCommands, fetchScheduledCommands] = useFetch('/commands/schedules');
+
     const onArgUpdate = ev => {
         setCommandArgs({ ...commandArgs, [ev.target.name]: { name: ev.target.name, placeholder: ev.target.value } });
     };
 
     const runOnTerminal = ev => {
         setShowTerminal(true);
+    }
+
+    const onCronExpresionChange = ev => {
+        setCronExpresion(ev.target.value);
+        try {
+            parseExpression(ev.target.value);
+            setCronExpressionInvalid(false)
+        } catch (err) {
+            setCronExpressionInvalid(true)
+            setCronExpressionErrorMessage(err.message);
+        }
+    }
+
+    const saveScheduledCommand = ev => {
+        const schedule = {
+            command_id: command.id,
+            argument_values: CommandService.generateEntryPoint(command, task) + " " + commandArgsRendered,
+            cron_expression: cronExpresion
+        }
+
+        secureApiFetch(`/commands/${command.id}/schedule`, { method: 'POST', body: JSON.stringify(schedule) })
+            .then(resp => {
+                if (resp.status === StatusCodes.CREATED) {
+                    fetchScheduledCommands();
+                    actionCompletedToast(`The schedule has been saved.`);
+                } else {
+                    errorToast("The schedule could not be saved. Review the form data or check the application logs.")
+                }
+            })
+            .catch(reason => {
+                errorToast(reason)
+            })
+    }
+
+    const deleteScheduledCommand = (ev, commandSchedule) => {
+        secureApiFetch(`/commands/schedules/${commandSchedule.id}`, { method: 'DELETE' })
+            .then(() => {
+                fetchScheduledCommands();
+                actionCompletedToast("The scheduled command has been deleted.");
+            })
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {
@@ -77,6 +131,37 @@ const CommandInstructions = ({ command, task = null }) => {
             Reconmap will invoke the command <strong>{command.name}</strong> from a <strong>{command.docker_image}</strong> container using the arguments <strong>{command.arguments}</strong> and upload the results to this server for analysis.
         </Help>
         }
+
+        {scheduledCommands &&
+            <Table>
+                <Thead>
+                    <Tr>
+                        <Th>Cron expression</Th>
+                        <Th>Description</Th>
+                        <Th>Argument values</Th>
+                        <Th>&nbsp;</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {scheduledCommands.map(scheduleCommand => <Tr>
+                        <Td>{scheduleCommand.cron_expression}</Td>
+                        <Td>{CronExpressionToString(scheduleCommand.cron_expression)}</Td>
+                        <Td>{scheduleCommand.argument_values}</Td>
+                        <Td>
+                            <DeleteIconButton onClick={ev => deleteScheduledCommand(ev, scheduleCommand)} />
+                        </Td>
+                    </Tr>)}
+                </Tbody>
+            </Table>}
+
+        <h3>Run on schedule</h3>
+        <FormControl isInvalid={isCronExpressionInvalid}>
+            <FormLabel>Cron expression</FormLabel>
+            <Input type="text" name="cronExpresion" placeholder="*/1 * * * *" value={cronExpresion} onChange={onCronExpresionChange} />
+            <FormErrorMessage>{cronExpressionErrorMessage}</FormErrorMessage>
+            <FormHelperText>Learn about cron expressions <ExternalLink href="https://en.wikipedia.org/wiki/Cron#CRON_expression">here</ExternalLink></FormHelperText>
+        </FormControl>
+        <Button disabled={cronExpresion === ''} onClick={saveScheduledCommand}>Save scheduled command</Button>
     </>
 }
 
