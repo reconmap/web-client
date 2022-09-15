@@ -35,7 +35,7 @@
     "react-i18next": "^11.18.5",
     "react-markdown": "^8.0.3",
     "react-mde": "^11.5.0",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.4.0",
     "react-scripts": "^5.0.1",
     "react-select": "^5.4.0",
     "react-time-ago": "^7.2.1",
