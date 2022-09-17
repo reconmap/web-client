@@ -25,7 +25,7 @@ const CommandInstructions = ({ command, task = null }) => {
     const [isCronExpressionInvalid, setCronExpressionInvalid] = useState(true);
     const [cronExpressionErrorMessage, setCronExpressionErrorMessage] = useState(null);
 
-    const [scheduledCommands, fetchScheduledCommands] = useFetch('/commands/schedules');
+    const [scheduledCommands, fetchScheduledCommands] = useFetch(`/commands/${command.id}/schedules`);
 
     const onArgUpdate = ev => {
         setCommandArgs({ ...commandArgs, [ev.target.name]: { name: ev.target.name, placeholder: ev.target.value } });
@@ -56,6 +56,7 @@ const CommandInstructions = ({ command, task = null }) => {
         secureApiFetch(`/commands/${command.id}/schedule`, { method: 'POST', body: JSON.stringify(schedule) })
             .then(resp => {
                 if (resp.status === StatusCodes.CREATED) {
+                    setCronExpresion('');
                     fetchScheduledCommands();
                     actionCompletedToast(`The schedule has been saved.`);
                 } else {
