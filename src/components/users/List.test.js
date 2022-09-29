@@ -1,9 +1,14 @@
 import { AuthContext } from 'contexts/AuthContext';
-import { createMemoryHistory } from 'history';
 import ReactDOM from 'react-dom/client';
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import UsersList from "./List";
+
+jest.mock('react-i18next', () => ({
+    useTranslation: () => [
+        (key) => key.toUpperCase()
+    ]
+}))
 
 let container = null;
 
@@ -18,7 +23,6 @@ afterEach(() => {
 });
 
 it("renders with or without a name", () => {
-    const history = createMemoryHistory();
     act(() => {
         ReactDOM.createRoot(container)
             .render(<MemoryRouter>

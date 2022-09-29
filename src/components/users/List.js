@@ -7,7 +7,7 @@ import EllipsisMenuButton from "components/ui/buttons/EllipsisMenuButton";
 import ExportMenuItem from "components/ui/menuitems/ExportMenuItem";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Auth from "services/auth";
 import CreateButton from "../../components/ui/buttons/Create";
