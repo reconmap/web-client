@@ -1,10 +1,11 @@
-import { HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Button, HStack, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import AttachmentsTable from 'components/attachments/AttachmentsTable';
 import AttachmentsDropzone from 'components/attachments/Dropzone';
 import CommandBadge from 'components/commands/Badge';
 import CommandInstructions from 'components/commands/Instructions';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
+import EditButton from 'components/ui/buttons/Edit';
 import EmptyField from 'components/ui/EmptyField';
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter';
 import TimestampsSection from 'components/ui/TimestampsSection';
@@ -58,6 +59,14 @@ const TaskDetails = () => {
             .catch(err => console.error(err))
     }
 
+    const cloneTask = () => {
+        secureApiFetch(`/tasks/${task.id}/clone`, { method: 'POST' })
+            .then(resp => resp.json())
+            .then(data => {
+                navigate(`/tasks/${data.taskId}/edit`);
+            });
+    }
+
     const onStatusChange = ev => {
         const status = ev.target.value;
         secureApiFetch(`/tasks/${task.id}`, {
@@ -96,7 +105,8 @@ const TaskDetails = () => {
             {task && users &&
                 <HStack alignItems='flex-end'>
                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                        <Link to={`/tasks/${task.id}/edit`}>Edit</Link>
+                        <EditButton onClick={() => navigate(`/tasks/${task.id}/edit`)}>Edit</EditButton>
+                        <Button onClick={cloneTask}>Clone and edit</Button>
                         {1 !== task.project_is_template &&
                             <label>Transition to&nbsp;
                                 <Select onChange={onStatusChange} value={task.status}>

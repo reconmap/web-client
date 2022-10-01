@@ -19,7 +19,7 @@ const TemplateDetails = () => {
     const { templateId } = useParams();
     const [template] = useFetch(`/projects/${templateId}`)
 
-    const cloneProject = async (templateId) => {
+    const cloneProject = templateId => {
         secureApiFetch(`/projects/${templateId}/clone`, { method: 'POST' })
             .then(resp => resp.json())
             .then(data => {

@@ -9,7 +9,7 @@ import { TaskPriorityList } from "../../models/TaskPriority";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
-    const [projects] = useFetch('/projects?isTemplate=' + (forTemplate ? 1 : 0));
+    const [projects] = useFetch('/projects');
     const [commands] = useFetch('/commands');
 
     const onFormChange = ev => {
@@ -43,11 +43,17 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
     return <form onSubmit={onFormSubmit}>
         <label>
             Project
-            <Select name="project_id" onChange={onFormChange}
-                value={task.project_id} required>
-                {projects && projects.map((project, index) =>
-                    <option key={index} value={project.id}>{project.name}</option>
-                )}
+            <Select name="project_id" onChange={onFormChange} value={task.project_id} required>
+                <optgroup label="Projects">
+                    {projects && projects.filter(project => project.is_template === 0).map((project, index) =>
+                        <option key={index} value={project.id}>{project.name}</option>
+                    )}
+                </optgroup>
+                <optgroup label="Project templates">
+                    {projects && projects.filter(project => project.is_template === 1).map((project, index) =>
+                        <option key={index} value={project.id}>{project.name}</option>
+                    )}
+                </optgroup>
             </Select>
         </label>
         <label>Summary
