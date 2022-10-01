@@ -27,7 +27,7 @@ it("renders with or without a name", () => {
         ReactDOM.createRoot(container)
             .render(<MemoryRouter>
                 <AuthContext.Provider value={{ user: null }}>
-                    <UsersList history={history} />
+                    <UsersList />
                 </AuthContext.Provider>
             </MemoryRouter>
             );
