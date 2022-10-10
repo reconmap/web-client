@@ -3,7 +3,7 @@
   "version": "0.9.118",
   "private": true,
   "dependencies": {
-    "@chakra-ui/css-reset": "^2.0.7",
+    "@chakra-ui/css-reset": "^2.0.8",
     "@chakra-ui/icons": "^2.0.10",
     "@chakra-ui/react": "^2.3.3",
     "@emotion/react": "^11.10.4",
