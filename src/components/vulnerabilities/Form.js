@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, FormControl, FormHelperText, FormLabel, Input, Select } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, Input, Select } from '@chakra-ui/react';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import ProjectVulnerabilityMetrics from 'models/ProjectVulnerabilityMetrics';
 import RemediationComplexity from 'models/RemediationComplexity';
@@ -194,14 +194,14 @@ const VulnerabilityForm = ({
                             )}
                         </Select>
                     </label>
-                    <FormControl id="visibility" isRequired>
-                        <FormLabel>Visibility</FormLabel>
-                        <Select name="visibility" value={vulnerability.visibility || ""} onChange={onFormChange}>
+                    <label>
+                        Visibility
+                        <Select name="visibility" value={vulnerability.visibility || ""} onChange={onFormChange} required>
                             <option value="public">Public</option>
                             <option value="private">Private</option>
                         </Select>
-                        <FormHelperText>Private makes this vulnerability not visible to the client.</FormHelperText>
-                    </FormControl>
+                        <span className="field-explanation">Private makes this vulnerability not visible to the client.</span>
+                    </label>
                     <label>Risk
                         <Select name="risk" value={vulnerability.risk || ""} onChange={onFormChange} required>
                             {Risks.map(risk =>
