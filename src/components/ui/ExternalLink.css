@@ -1,5 +1,4 @@
 .ExternalLink {
-    display: inline-flex;
-    color: var(--primary-color);
-    border-bottom: var(--borderWidth) solid var(--primary-color);
+  color: var(--primary-color);
+  border-bottom: var(--borderWidth) solid var(--primary-color);
 }

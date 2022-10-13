@@ -1,9 +1,10 @@
 .UserLink {
-    align-items: center;
-    display: inline-flex;
-    border-radius: var(--borderRadius);
-    font-weight: var(--fontBold);
-    font-size: var(--fontSizeSmall);
-    background-color: var(--black);
-    padding: calc(var(--padding) / 2) var(--margin);
+  align-items: center;
+  vertical-align: auto;
+  display: inline-flex;
+  border-radius: var(--borderRadius);
+  font-weight: var(--fontBold);
+  font-size: var(--fontSizeSmall);
+  background-color: var(--black);
+  padding: 2px;
 }
