@@ -8,7 +8,7 @@ import DashboardWidget from "./Widget";
 
 const MyTasksWidget = () => {
     const { user } = useContext(AuthContext);
-    const [tasks] = useFetch(`/tasks?assigneeUid=${user.id}&limit=5`)
+    const [tasks] = useFetch(`/tasks?assigneeUid=${user.id}&limit=5&projectIsArchived=0`)
 
     if (!tasks) return <Loading />
 
