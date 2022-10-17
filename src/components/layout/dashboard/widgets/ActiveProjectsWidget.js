@@ -1,4 +1,3 @@
-import { Stack } from "@chakra-ui/react";
 import ProjectBadge from "components/projects/ProjectBadge";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
@@ -14,12 +13,22 @@ const ActiveProjectsWidget = () => {
         {projects.length === 0 ?
             <p>No projects to show.</p>
             :
-            <Stack>
-                <h5>Links</h5>
-                {projects.map(project => <ProjectBadge key={project.id} project={project} />)}
-            </Stack>
+            <table className="full-width">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Client</th>
+                    </tr>
+                </thead>
+                <tbody>{projects.map(project => <tr>
+                    <td><ProjectBadge key={project.id} project={project} /></td>
+                    <td>{project.client_name ?? '-'}</td>
+                </tr>)}
+                </tbody>
+            </table>
+
         }
-    </DashboardWidget>
+    </DashboardWidget >
 }
 
 export default ActiveProjectsWidget;

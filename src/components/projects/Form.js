@@ -1,7 +1,6 @@
 import { Checkbox, Input, Select } from "@chakra-ui/react";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
-import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
@@ -16,12 +15,6 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
         setProject({ ...project, [ev.target.name]: value });
     };
 
-    useEffect(() => {
-        if (clients && clients.length && (project.client_id === null || project.client_id === 0)) {
-            setProject({ ...project, client_id: clients[0].id });
-        }
-    }, [project, clients, setProject]);
-
     if (!project && !clients) return <Loading />
 
     return <form onSubmit={onFormSubmit} className="crud">
@@ -35,11 +28,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             <label>
                 Category
-                <Select name="category_id" value={project.category_id || ""} onChange={handleFormChange} required>
-                    {categories && <>
-                        <option value="">(undefined)</option>
-                        {categories.map(category => <option key={`category_${category.id}`} value={category.id}>{category.name}</option>)}
-                    </>}
+                <Select name="category_id" onChange={handleFormChange} value={project.category_id || ""}>
+                    <option value="">(none)</option>
+                    {categories && categories.map(category => <option key={`category_${category.id}`} value={category.id}>{category.name}</option>)}
                 </Select>
             </label>
 
@@ -53,6 +44,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
                 <label>Client
                     <Select name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
+                        <option value="">(none)</option>
                         {clients && clients.map((client, index) =>
                             <option key={index} value={client.id}>{client.name}</option>
                         )}

@@ -1,12 +1,13 @@
 import TaskBadge from "components/tasks/TaskBadge";
 import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
+import { AuthContext } from "contexts/AuthContext";
 import useFetch from "hooks/useFetch";
-import Auth from "services/auth";
+import { useContext } from "react";
 import DashboardWidget from "./Widget";
 
 const MyTasksWidget = () => {
-    const user = Auth.getLoggedInUser();
+    const { user } = useContext(AuthContext);
     const [tasks] = useFetch(`/tasks?assigneeUid=${user.id}&limit=5`)
 
     if (!tasks) return <Loading />
@@ -16,7 +17,7 @@ const MyTasksWidget = () => {
         {tasks.length === 0 ?
             <p>You don't have any assigned tasks.</p>
             :
-            <table>
+            <table className="full-width">
                 <thead>
                     <tr>
                         <th>Summary</th>
