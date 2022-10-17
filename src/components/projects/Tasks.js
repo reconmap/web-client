@@ -53,9 +53,11 @@ const ProjectTasks = ({ project }) => {
                 <>&nbsp;<small>({tableModel.tasks && tableModel.tasks.reduce((total, task) => {
                     return task.status === 'done' ? total + 1 : total;
                 }, 0)}/{tableModel.tasks && tableModel.tasks.length} completed)</small></>}
-            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                <CreateButton onClick={onAddTaskClick}>Add task</CreateButton>
-            </RestrictedComponent>
+            {!project.archived &&
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <CreateButton onClick={onAddTaskClick}>Add task</CreateButton>
+                </RestrictedComponent>
+            }
         </h4>
 
         <TasksTable tableModel={tableModel} showProjectColumn={false} destroy={onDeleteTask} reloadCallback={reloadTasks} />

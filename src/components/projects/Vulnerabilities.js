@@ -3,7 +3,7 @@ import RestrictedComponent from 'components/logic/RestrictedComponent';
 import CreateButton from 'components/ui/buttons/Create';
 import VulnerabilityFilters from 'components/vulnerabilities/Filters';
 import VulnerabilityTableModel from 'components/vulnerabilities/VulnerabilityTableModel';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import VulnerabilitiesTable from '../vulnerabilities/VulnerabilitiesTable';
@@ -41,9 +41,11 @@ const ProjectVulnerabilities = ({ project }) => {
         <Flex>
             <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} showProjectFilter={false} />
             <Spacer />
-            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                <CreateButton onClick={handleCreateVulnerability}>Add new vulnerability</CreateButton>
-            </RestrictedComponent>
+            {!project.archived &&
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <CreateButton onClick={handleCreateVulnerability}>Add new vulnerability</CreateButton>
+                </RestrictedComponent>
+            }
         </Flex>
         <VulnerabilitiesTable tableModel={tableModel} tableModelSetter={setTableModel} reloadCallback={fetchVulnerabilities} showProjectColumn={false} showSelection={false} />
     </section >

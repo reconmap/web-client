@@ -7,7 +7,7 @@ import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import Tags from "components/ui/Tags";
 import useQuery from "hooks/useQuery";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import secureApiFetch from "../../services/api";
 import { IconServer } from '../ui/Icons';
@@ -67,12 +67,14 @@ const ProjectTargets = ({ project }) => {
     return <section>
         <h4>
             <IconServer />Targets
-            <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                <ButtonGroup>
-                    <TargetModalDialog project={project} isOpen={isAddTargetDialogOpen} onSubmit={onTargetFormSaved} onCancel={closeAddTargetDialog} />
-                    <CreateButton onClick={openAddTargetDialog}>Add target...</CreateButton>
-                </ButtonGroup>
-            </RestrictedComponent>
+            {!project.archived &&
+                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
+                    <ButtonGroup>
+                        <TargetModalDialog project={project} isOpen={isAddTargetDialogOpen} onSubmit={onTargetFormSaved} onCancel={closeAddTargetDialog} />
+                        <CreateButton onClick={openAddTargetDialog}>Add target...</CreateButton>
+                    </ButtonGroup>
+                </RestrictedComponent>
+            }
         </h4>
         {!targets ? <Loading /> :
             <>
