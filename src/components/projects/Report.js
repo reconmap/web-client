@@ -3,9 +3,9 @@ import PageTitle from 'components/logic/PageTitle';
 import ReportConfigurationForm from 'components/reports/ConfigurationForm';
 import ReportRevisions from 'components/reports/Revisions';
 import Configuration from 'Configuration';
-import React, { useEffect, useState } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import Auth from 'services/auth';
 import secureApiFetch from '../../services/api';
 import { IconReport } from '../ui/Icons';
 import Loading from "../ui/Loading";
@@ -73,7 +73,7 @@ const ProjectReport = () => {
 export default ProjectReport;
 
 const ReportPreview = ({ projectId }) => {
-    const user = Auth.getLoggedInUser();
+    const { user } = useContext(AuthContext);
 
     return <iframe title="Report preview" style={{ width: '50%', margin: '20px auto' }} id="report" src={Configuration.getDefaultApiUrl() + `/reports/preview?projectId=${projectId}&accessToken=${user.access_token}`}></iframe>
 }

@@ -1,5 +1,5 @@
 import { Button, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select } from "@chakra-ui/react";
-import { actionCompletedToast } from "components/ui/toast";
+import { actionCompletedToast, errorToast } from "components/ui/toast";
 import useFetch from "hooks/useFetch";
 import { ReactComponent as TargetIcon } from 'images/icons/target.svg';
 import { useEffect, useState } from "react";
@@ -32,11 +32,16 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
         };
 
         secureApiFetch(`/reports`, { method: 'POST', body: JSON.stringify(params) })
-            .then(() => {
-                onSubmit();
-                actionCompletedToast(`The report version "${formValues.name}" has been added.`);
+            .then(resp => {
+                if (resp.ok) {
+                    onSubmit();
+                    actionCompletedToast(`The report version "${formValues.name}" has been added.`);
+                } else {
+                    throw new Error(resp.statusText);
+                }
             })
             .catch(err => {
+                errorToast(err.message);
                 console.error(err);
             })
             .finally(() => {
