@@ -167,11 +167,6 @@ const Links = [
                 to: '/system/usage',
             },
             {
-                title: 'Application logs',
-                icon: <IconEye size={5} />,
-                to: '/system/logs'
-            },
-            {
                 title: 'Integrations',
                 icon: <IconExtensions size={5} />,
                 to: '/system/integrations',
