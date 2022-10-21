@@ -7,9 +7,9 @@ import EllipsisMenuButton from "components/ui/buttons/EllipsisMenuButton";
 import ExportMenuItem from "components/ui/menuitems/ExportMenuItem";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import { useState } from "react";
+import { AuthContext } from "contexts/AuthContext";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Auth from "services/auth";
 import CreateButton from "../../components/ui/buttons/Create";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -26,7 +26,7 @@ import UserLink from "./Link";
 
 const UsersList = () => {
     const navigate = useNavigate();
-    const loggedInUser = Auth.getLoggedInUser();
+    const { user: loggedInUser } = useContext(AuthContext);
     const [users, updateUsers] = useFetch("/users");
     const deleteUser = useDelete("/users/", updateUsers);
     const handleCreate = () => {
@@ -64,7 +64,7 @@ const UsersList = () => {
     };
 
     const handleDelete = (id) => {
-        deleteUser(id);
+        deleteUser(id)
         updateUsers();
     };
 

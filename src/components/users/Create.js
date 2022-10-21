@@ -1,11 +1,11 @@
 import User from 'models/User';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPlus } from "../ui/Icons";
 import Title from '../ui/Title';
-import { actionCompletedToast } from '../ui/toast';
+import { actionCompletedToast, errorToast } from '../ui/toast';
 import UserForm from "./Form";
 
 const CreateUserPage = () => {
@@ -18,9 +18,13 @@ const CreateUserPage = () => {
         await secureApiFetch(`/users`, {
             method: 'POST',
             body: JSON.stringify(userData)
-        }).then(() => {
-            navigate('/users/')
-            actionCompletedToast(`The user "${userData.full_name}" has been created.`);
+        }).then(resp => {
+            if (resp.ok) {
+                navigate('/users/')
+                actionCompletedToast(`The user "${userData.full_name}" has been created.`);
+            } else {
+                errorToast("Unable to create user: " + resp.status);
+            }
         })
     }
 
