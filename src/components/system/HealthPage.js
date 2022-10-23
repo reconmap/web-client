@@ -43,14 +43,6 @@ const SystemHealthPage = () => {
                         <td>Attachments directory is writeable</td>
                         <td>{apiHealth.attachmentsDirectory.writeable ? <GreenYes /> : <RedNo />}</td>
                     </tr>
-                    <tr>
-                        <td>Logs directory exists</td>
-                        <td>{apiHealth.logsDirectory.exists ? <GreenYes /> : <RedNo />}</td>
-                    </tr>
-                    <tr>
-                        <td>Logs directory is writeable</td>
-                        <td>{apiHealth.logsDirectory.writeable ? <GreenYes /> : <RedNo />}</td>
-                    </tr>
                 </tbody>
             </table>
             <table style={{ width: '40%', borderSpacing: '10px', borderCollapse: 'separate' }}>

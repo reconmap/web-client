@@ -15,9 +15,6 @@ const ApiHealthWidget = () => {
 
                 <dt>Attachments directory is writeable</dt>
                 <dd>{apiHealth.attachmentsDirectory.writeable ? <GreenYes /> : <RedNo />}</dd>
-
-                <dt>Logs directory is writeable</dt>
-                <dd>{apiHealth.logsDirectory.writeable ? <GreenYes /> : <RedNo />}</dd>
             </dl>
         </>}
     </DashboardWidget>
