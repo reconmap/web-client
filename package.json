@@ -16,7 +16,7 @@
     "@types/jest": "^29.2.0",
     "@types/node": "^18.11.3",
     "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
+    "@types/react-dom": "^18.0.9",
     "countries-and-timezones": "^3.3.0",
     "cron-parser": "^4.6.0",
     "cronstrue": "^2.14.0",
