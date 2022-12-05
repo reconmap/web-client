@@ -14,7 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/jest": "^29.2.3",
-    "@types/node": "^18.11.10",
+    "@types/node": "^18.11.11",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "countries-and-timezones": "^3.3.0",
