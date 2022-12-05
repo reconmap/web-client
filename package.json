@@ -15,7 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.10",
-    "@types/react": "^18.0.25",
+    "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "countries-and-timezones": "^3.3.0",
     "cron-parser": "^4.7.0",
