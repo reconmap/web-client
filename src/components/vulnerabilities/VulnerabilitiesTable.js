@@ -1,4 +1,5 @@
-import { Checkbox, Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import Checkbox from "components/form/Checkbox";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import AscendingSortLink from "components/ui/AscendingSortLink";
