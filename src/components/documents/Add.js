@@ -1,5 +1,5 @@
 import { actionCompletedToast } from 'components/ui/toast';
-import DocumentModel from 'models/Document';
+import Document from 'models/Document';
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from '../../services/api';
@@ -10,7 +10,7 @@ import DocumentForm from './Form';
 
 const AddDocumentPage = () => {
     const navigate = useNavigate();
-    const [newDocument, setNewDocument] = useState({ ...DocumentModel, parent_type: 'library' });
+    const [newDocument, setNewDocument] = useState({ ...Document, parent_type: 'library' });
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
