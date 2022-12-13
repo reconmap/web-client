@@ -1,8 +1,8 @@
 import PageTitle from 'components/logic/PageTitle';
 import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
-import TaskModel from 'models/Task';
-import React, { useRef, useState } from 'react';
+import Task from 'models/Task';
+import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
 import Breadcrumb from '../ui/Breadcrumb';
@@ -17,7 +17,7 @@ const TaskCreationPage = () => {
     const projectIdParam = useRef(query.get('projectId') || defaultProjectId);
     const forTemplate = parseInt(query.get('forTemplate')) === 1;
 
-    const [newTask, setNewTask] = useState({ ...TaskModel, project_id: projectIdParam.current })
+    const [newTask, setNewTask] = useState({ ...Task, project_id: projectIdParam.current })
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();

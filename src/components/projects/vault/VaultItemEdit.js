@@ -9,7 +9,7 @@ const VaultItemEdit = () => {
     const { projectId, vaultItemId } = useParams();
     const navigate = useNavigate();
 
-    const [item, setVaultItem] = useState(new Vault());
+    const [item, setVaultItem] = useState({ ...Vault });
     const [password, setPassword] = useState(null);
 
     const onVaultItemFormChange = ev => {
@@ -25,7 +25,7 @@ const VaultItemEdit = () => {
         secureApiFetch(`/vault/${projectId}/${vaultItemId}`, { method: 'PUT', body: JSON.stringify(item) })
             .then(resp => {
                 if (resp.status === 201) {
-                    setVaultItem(new Vault());
+                    setVaultItem({ ...Vault });
                     setPassword(null);
                     actionCompletedToast(`The vault item has been modified.`);
                     navigate(`/projects/${projectId}`);
@@ -46,7 +46,7 @@ const VaultItemEdit = () => {
                     setPassword(null);
                 }
                 else {
-                    var newItem = new Vault();
+                    var newItem = { ...Vault };
                     newItem.name = json['name'];
                     newItem.note = json['note'];
                     newItem.value = json['value'];

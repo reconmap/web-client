@@ -47,7 +47,7 @@ const ClientDetails = () => {
     const [client] = useFetch(`/clients/${clientId}`);
     const [contacts, fetchContacts] = useFetch(`/clients/${clientId}/contacts`);
 
-    const [contact, setContact] = useState(new Contact());
+    const [contact, setContact] = useState({ ...Contact });
 
     const onContactFormChange = ev => {
         setContact({ ...contact, [ev.target.name]: ev.target.value });
@@ -70,7 +70,7 @@ const ClientDetails = () => {
         secureApiFetch(`/clients/${clientId}/contacts`, { method: 'POST', body: JSON.stringify(contact) })
             .then(resp => {
                 if (resp.status === 201) {
-                    setContact(new Contact());
+                    setContact({ ...Contact });
                     fetchContacts();
                     actionCompletedToast(`The contact has been added.`);
                 } else {

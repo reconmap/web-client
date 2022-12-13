@@ -12,7 +12,7 @@ import secureApiFetch from 'services/api';
 
 const ProjectVaultTab = ({ project }) => {
     const [vault, refreshVault] = useFetch(`/vault/${project.id}`);
-    const [vaultItem, setVaultItem] = useState(new Vault());
+    const [vaultItem, setVaultItem] = useState({ ...Vault });
 
     const onVaultItemFormChange = ev => {
         const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
@@ -34,7 +34,7 @@ const ProjectVaultTab = ({ project }) => {
         secureApiFetch(`/vault/${project.id}`, { method: 'POST', body: JSON.stringify(vaultItem) })
             .then(resp => {
                 if (resp.status === 201) {
-                    setVaultItem(new Vault());
+                    setVaultItem({ ...Vault });
                     refreshVault();
                     actionCompletedToast(`The vault item has been added.`);
                 } else {

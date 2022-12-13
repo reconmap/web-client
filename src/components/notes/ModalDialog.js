@@ -1,12 +1,12 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { actionCompletedToast } from "components/ui/toast";
-import NoteModel from "models/NoteModel";
+import Note from "models/Note";
 import { useState } from "react";
 import secureApiFetch from "services/api";
 import NotesForm from "./Form";
 
 const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
-    const emptyNote = { ...NoteModel, parent_type: parentType, parent_id: parent.id }
+    const emptyNote = { ...Note, parent_type: parentType, parent_id: parent.id }
     const [newNote, updateNewNote] = useState(emptyNote)
 
     const beforeCancelCallback = ev => {
