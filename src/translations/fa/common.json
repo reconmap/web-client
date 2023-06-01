@@ -1,0 +1,7 @@
+{
+    "ui": {
+        "button.create": "ایجاد",
+        "button.delete": "حذف",
+        "button.edit": "ویرایش"
+    }
+}
