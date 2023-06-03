@@ -1,22 +1,22 @@
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { UserManualUrl } from 'ServerUrls';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
-import CreateButton from 'components/ui/buttons/Create';
-import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import SecondaryButton from 'components/ui/buttons/Secondary';
 import EmptyField from 'components/ui/EmptyField';
 import ExternalLink from 'components/ui/ExternalLink';
 import { IconDocument, IconDocumentDuplicate } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import NoResults from 'components/ui/NoResults';
 import Title from 'components/ui/Title';
+import CreateButton from 'components/ui/buttons/Create';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import SecondaryButton from 'components/ui/buttons/Secondary';
 import { resolveMime } from 'friendly-mimes';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { Link } from 'react-router-dom';
-import { UserManualUrl } from 'ServerUrls';
 import secureApiFetch from 'services/api';
 import ReportModalDialog from './ModalDialog';
 
@@ -79,7 +79,7 @@ const ReportTemplatesList = () => {
 
         <Alert status="info">
             <AlertIcon />
-            Needing some inspiration? Have a look at hundred of penetration test reports available at&nbsp;<ExternalLink href="http://pentestreports.com/">http://pentestreports.com/</ExternalLink>
+            Needing some inspiration? Have a look at hundred of penetration test reports available at&nbsp;<ExternalLink href="https://pentestreports.com/">https://pentestreports.com/</ExternalLink>
         </Alert>
 
         <Alert status="info">
