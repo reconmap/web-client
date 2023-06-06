@@ -1,10 +1,9 @@
-import { BellIcon } from '@chakra-ui/icons';
 import { Button, ButtonGroup, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PageTitle from 'components/logic/PageTitle';
-import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LoadingTableRow from 'components/ui/tables/LoadingTableRow';
 import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import secureApiFetch from 'services/api';
@@ -32,7 +31,7 @@ const NotificationsList = () => {
         <div className='heading'>
             <Breadcrumb />
         </div>
-        <Title title='Notifications' icon={<BellIcon />} />
+        <Title title='Notifications' icon={<faBell />} />
 
         <Table>
             <Thead>

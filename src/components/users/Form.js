@@ -1,4 +1,5 @@
-import { Checkbox, Input, Select } from "@chakra-ui/react";
+import { Input, Select } from "@chakra-ui/react";
+import Checkbox from "components/form/Checkbox";
 import { useState } from "react";
 import UserRoles from "../../models/UserRoles";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -39,8 +40,8 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             </label>
             <label>Properties
                 <div>
-                    <Checkbox name="active" isChecked={user.active} onChange={onFormChange}>Active</Checkbox>
-                    <Checkbox name="mfa_enabled" isChecked={user.mfa_enabled} onChange={onFormChange}>2FA enabled</Checkbox>
+                    <Checkbox name="active" checked={user.active} onChange={onFormChange}>Active</Checkbox>
+                    <Checkbox name="mfa_enabled" checked={user.mfa_enabled} onChange={onFormChange}>2FA enabled</Checkbox>
                 </div>
             </label>
         </fieldset>

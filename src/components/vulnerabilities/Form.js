@@ -1,4 +1,5 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Checkbox, Input, Select } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Input, Select } from '@chakra-ui/react';
+import Checkbox from 'components/form/Checkbox';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import ProjectVulnerabilityMetrics from 'models/ProjectVulnerabilityMetrics';
 import RemediationComplexity from 'models/RemediationComplexity';
@@ -163,7 +164,7 @@ const VulnerabilityForm = ({
                 <AccordionPanel pb={4}>
                     <label>Properties
                         <div>
-                            <Checkbox name="is_template" onChange={onFormChange} isChecked={vulnerability.is_template}>Is template</Checkbox>
+                            <Checkbox name="is_template" onChange={onFormChange} checked={vulnerability.is_template}>Is template</Checkbox>
                         </div>
                     </label>
                     <label>External ID

@@ -1,5 +1,4 @@
 import { Button } from "@chakra-ui/button";
-import { BellIcon } from "@chakra-ui/icons";
 import {
     Popover,
     PopoverArrow,
@@ -9,6 +8,8 @@ import {
 } from "@chakra-ui/popover";
 import { Alert, AlertDescription, AlertTitle, Box, CloseButton, Stack } from "@chakra-ui/react";
 import { Tag } from "@chakra-ui/tag";
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useWebsocketMessage } from "contexts/WebsocketContext";
 import useFetch from "hooks/useFetch";
 import { Link } from "react-router-dom";
@@ -35,7 +36,7 @@ const NotificationsBadge = () => {
     return <Popover placement="bottom-end" closeOnBlur={true}>
         <PopoverTrigger>
             <Button pr={null !== notifications && notifications.length > 0 ? 1 : 2} variant="ghost" aria-label="Notifications" >
-                <BellIcon fontSize="xl" color="gray.500" />
+                <FontAwesomeIcon icon={faBell} />
                 {null !== notifications && notifications.length > 0 && (
                     <Tag colorScheme='red'  >{notifications.length}</Tag>
                 )}

@@ -1,6 +1,6 @@
 
-const Checkbox = ({ ...props }: any) => {
-    return <input type="checkbox" {...props} />
+const Checkbox = ({ children, ...props }: any) => {
+    return <label><input type="checkbox" {...props} /> {children}</label>
 }
 
 export default Checkbox;

@@ -1,9 +1,10 @@
-import { Checkbox, Input, Select } from "@chakra-ui/react";
+import { Input, Select } from "@chakra-ui/react";
+import Checkbox from "components/form/Checkbox";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import useFetch from "../../hooks/useFetch";
-import PrimaryButton from "../ui/buttons/Primary";
 import Loading from "../ui/Loading";
+import PrimaryButton from "../ui/buttons/Primary";
 
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
 
@@ -23,7 +24,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             <legend>Basic information</legend>
 
             <label>Is template?
-                <Checkbox name="is_template" onChange={handleFormChange} isChecked={project.is_template} />
+                <Checkbox name="is_template" onChange={handleFormChange} checked={project.is_template} />
             </label>
 
             <label>

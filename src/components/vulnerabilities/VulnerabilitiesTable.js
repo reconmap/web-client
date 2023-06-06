@@ -3,19 +3,19 @@ import Checkbox from "components/form/Checkbox";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import AscendingSortLink from "components/ui/AscendingSortLink";
+import DescendingSortLink from "components/ui/DescendingSortLink";
+import Tags from "components/ui/Tags";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
-import DescendingSortLink from "components/ui/DescendingSortLink";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import Tags from "components/ui/Tags";
 import useDelete from "hooks/useDelete";
 import CvssScore from '../badges/CvssScore';
 import RiskBadge from '../badges/RiskBadge';
 import VulnerabilityBadge from '../badges/VulnerabilityBadge';
 import LinkButton from "../ui/buttons/Link";
-import VulnerabilityCategorySpan from "./categories/Span";
 import VulnerabilityStatusBadge from "./StatusBadge";
+import VulnerabilityCategorySpan from "./categories/Span";
 
 const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, reloadCallback, showSelection = true, showProjectColumn = true }) => {
     const onSortChange = (ev, column, order) => {
@@ -50,7 +50,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
     return <Table>
         <Thead>
             <Tr>
-                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} isChecked={tableModel.selection.length && tableModel.selection.length === vulnerabilitiesLength} isDisabled={tableModel.vulnerabilitiesLength === 0} /></Th>}
+                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} checked={tableModel.selection.length && tableModel.selection.length === vulnerabilitiesLength} disabled={tableModel.vulnerabilitiesLength === 0} /></Th>}
                 <Th style={{ width: '190px' }}>Summary</Th>
                 {showProjectColumn && <Th style={{ width: '190px' }}>Project</Th>}
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></Th>
@@ -73,7 +73,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
                                 <Checkbox
                                     value={vulnerability.id}
                                     onChange={onSelectionChange}
-                                    isChecked={tableModel.selection.includes(vulnerability.id)}
+                                    checked={tableModel.selection.includes(vulnerability.id)}
                                 />
                             </Td>
                         }

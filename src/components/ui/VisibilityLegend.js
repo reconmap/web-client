@@ -1,10 +1,13 @@
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-export default function VisibilityLegend({ visibility }) {
-    return <>{visibility === 'public' ? <><ViewIcon /> Public</> : <><ViewOffIcon /> Private</>}</>
+const VisibilityLegend = ({ visibility }) => {
+    return <>{visibility === 'public' ? <><FontAwesomeIcon icon={faEye} /> Public</> : <><FontAwesomeIcon icon={faEyeSlash} /> Private</>}</>
 }
 
 VisibilityLegend.propTypes = {
     visibility: PropTypes.string.isRequired
 }
+
+export default VisibilityLegend;

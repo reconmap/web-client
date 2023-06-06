@@ -20,7 +20,7 @@ const ActiveProjectsWidget = () => {
                         <th>Client</th>
                     </tr>
                 </thead>
-                <tbody>{projects.map(project => <tr>
+                <tbody>{projects.map(project => <tr key={project.id}>
                     <td><ProjectBadge key={project.id} project={project} /></td>
                     <td>{project.client_name ?? '-'}</td>
                 </tr>)}

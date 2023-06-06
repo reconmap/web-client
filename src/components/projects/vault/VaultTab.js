@@ -1,4 +1,5 @@
-import { Button, Checkbox, Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import Checkbox from 'components/form/Checkbox';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LinkButton from "components/ui/buttons/Link";
@@ -109,7 +110,7 @@ const ProjectVaultTab = ({ project }) => {
                                     <Input type="password" name="password" onChange={onVaultItemFormChange} value={vaultItem.password || ""} isRequired />
                                 </Td>
                                 <Td>
-                                    <Checkbox name="reportable" onChange={onVaultItemFormChange} isChecked={vaultItem.reportable} />
+                                    <Checkbox name="reportable" onChange={onVaultItemFormChange} checked={vaultItem.reportable} />
                                 </Td>
                                 <Td>
                                     <Button type="submit">Add</Button>
