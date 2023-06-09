@@ -1,4 +1,4 @@
-.ExternalLink {
+.external-link {
   color: var(--primary-color);
   border-bottom: var(--borderWidth) solid var(--primary-color);
 }

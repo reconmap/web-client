@@ -6,7 +6,6 @@ import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";
 import { IconDocument } from '../ui/Icons';
-import Loading from "../ui/Loading";
 
 const VulnerabilitiesNotesTab = ({ vulnerability }) => {
     const [notes, reloadNotes] = useFetch(`/notes?parentType=vulnerability&parentId=${vulnerability.id}`)
@@ -24,12 +23,7 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
         onClose();
     }
 
-    if (!notes) {
-        return <Loading />
-    }
-
-    return (
-        <section>
+    return <section>
             <NoteModalDialog parentType="vulnerability" parent={vulnerability} isOpen={isOpen} onClose={onNoteFormSaved} onCancel={onClose} />
             <h4>
                 <IconDocument />Vulnerability notes
@@ -39,8 +33,7 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
                 </RestrictedComponent>
             </h4>
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
-        </section>
-    )
+    </section>
 }
 
 export default VulnerabilitiesNotesTab;

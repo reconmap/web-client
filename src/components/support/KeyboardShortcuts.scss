@@ -1,19 +1,5 @@
 
 .KeyboardShortcutsPopup {
-  z-index: 101;
-  border-radius: var(--borderRadius);
-  position: absolute;
-  backdrop-filter: blur(10px);
-  top: 0;
-  width: 90%;
-  height: max-content;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  background-color: rgba(0, 0, 0, .5);
-  padding: var(--space-lg);
-
   li {
     display: flex;
     justify-content: space-between;

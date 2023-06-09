@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from '../../services/api';

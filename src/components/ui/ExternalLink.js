@@ -5,7 +5,7 @@ const ExternalLink = (props) => {
         return "-"
     }
 
-    return <><a target="_blank" rel="noopener noreferrer" {...props} className="ExternalLink">
+    return <><a target="_blank" rel="noopener noreferrer" {...props} className="external-link">
         {props.children}
     </a> <sup title="External link">🡥</sup></>
 }

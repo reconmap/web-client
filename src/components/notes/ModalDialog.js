@@ -1,4 +1,5 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
+import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast } from "components/ui/toast";
 import Note from "models/Note";
 import { useState } from "react";
@@ -29,21 +30,14 @@ const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
             })
     }
 
-    return <Modal size="xl" isOpen={isOpen} onClose={beforeCancelCallback}>
-        <ModalOverlay />
-        <ModalContent>
-            <ModalHeader>New notes details</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-                <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
-            </ModalBody>
+    return <ModalDialog visible={isOpen} onClose={beforeCancelCallback} title="New notes details">
+        <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
 
-            <ModalFooter>
+        <div>
                 <Button onClick={beforeCancelCallback} mr={3}>Cancel</Button>
                 <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>Save</Button>
-            </ModalFooter>
-        </ModalContent>
-    </Modal>
+        </div>
+    </ModalDialog>
 }
 
 export default NoteModalDialog;

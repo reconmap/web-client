@@ -66,6 +66,10 @@ tests:
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
 		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) test
+	docker run -u $(CONTAINER_UID_GID) --rm -it \
+		-v $(PWD):/home/reconmapper \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
+		--entrypoint npx -e CI=true $(DOCKER_DEV_TAG) npx stylelint "**/*.{css,scss}"
 
 .PHONY: tests-ci
 tests-ci:

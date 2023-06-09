@@ -16,6 +16,7 @@ const KeyboardShortcuts = () => {
             ev.preventDefault();
 
             setModalVisible(!modalVisible);
+
         }
     }, [modalVisible]);
 
@@ -31,30 +32,32 @@ const KeyboardShortcuts = () => {
     }, [onKeyDownListener]);
 
     return <ModalDialog title="Keyboard shortcuts" visible={modalVisible} onModalClose={onModalClose} style={{ maxWidth: '500px' }}>
-        <h4>General</h4>
-        <ul>
-            <li>
-                Show/Hide keyboard shortcuts
-                <Kbd>?</Kbd>
-            </li>
-            <li>
-                Search
-                <Kbd>/</Kbd>
-            </li>
-        </ul>
-        <Divider />
+        <div className="KeyboardShortcutsPopup">
+            <h4>General</h4>
+            <ul>
+                <li>
+                    Show/Hide keyboard shortcuts
+                    <Kbd>?</Kbd>
+                </li>
+                <li>
+                    Search
+                    <Kbd>/</Kbd>
+                </li>
+            </ul>
+            <Divider />
 
-        <h4>Pagination</h4>
-        <ul>
-            <li>
-                Previous page
-                <Kbd>p</Kbd>
-            </li>
-            <li>
-                Next page
-                <Kbd>n</Kbd>
-            </li>
-        </ul>
+            <h4>Pagination</h4>
+            <ul>
+                <li>
+                    Previous page
+                    <Kbd>p</Kbd>
+                </li>
+                <li>
+                    Next page
+                    <Kbd>n</Kbd>
+                </li>
+            </ul>
+        </div>
     </ModalDialog>
 };
 

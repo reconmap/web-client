@@ -1,10 +1,10 @@
 import { Textarea } from '@chakra-ui/react';
-import PrimaryButton from 'components/ui/buttons/Primary';
-import ExternalLink from 'components/ui/ExternalLink';
 import Configuration from 'Configuration';
+import { ServerIssuesUrl } from 'ServerUrls';
+import ExternalLink from 'components/ui/ExternalLink';
+import PrimaryButton from 'components/ui/buttons/Primary';
 import { AuthContext } from 'contexts/AuthContext';
 import { useContext } from 'react';
-import { ServerIssuesUrl } from 'ServerUrls';
 import './Form.css';
 
 const SupportForm = () => {
@@ -49,7 +49,7 @@ Keycloak URL: ${Configuration.getKeycloakConfig().url}
         }, 2000);
     }
 
-    return <div className="SupportForm">
+    return <div className="support-form">
         <h2>Support</h2>
 
         <p>If there is something wrong with the app you can report it <ExternalLink href={ServerIssuesUrl}>here</ExternalLink>. Include the information below in the ticket

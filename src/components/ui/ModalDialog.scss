@@ -1,9 +1,9 @@
-.modaldialog-backdrop {
-    background-color: var(--bg-color);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 100;
-  }
+.html-dialog {
+    border-radius: calc(var(--borderRadius)*3);
+    padding: var(--space-lg);
+    width: 60%;
+}
+
+.html-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
