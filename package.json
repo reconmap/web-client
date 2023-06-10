@@ -47,7 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
     "@vitejs/plugin-react": "^4.0.0",
-    "c8": "^7.14.0",
+    "@vitest/coverage-v8": "^0.32.0",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
@@ -71,9 +71,9 @@
     "start": "VITE_VERSION=$npm_package_version PORT=5500 BROWSER=none vite",
     "build": "VITE_VERSION=$npm_package_version tsc && vite build",
     "test": "vitest run",
-    " :watch": "vitest watch",
+    "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
-    "test:ci": "CI=true vitest run --no-watchman --all",
+    "test:ci": "CI=true vitest run --coverage",
     "serve": "vite preview"
   },
   "eslintConfig": {
