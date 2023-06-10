@@ -1,7 +1,7 @@
 FROM reconmap/web-client:dev AS builder
 
 ARG RECONMAP_APP_GIT_COMMIT_HASH
-ENV REACT_APP_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
+ENV VITE_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
 COPY --chown=reconmapper:reconmapper tsconfig.json package.json package-lock.json ./
 COPY public ./public

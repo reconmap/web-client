@@ -1,7 +1,7 @@
 import parseArguments from "./commands/arguments";
 
 const HostCommandLineGenerator = {
-    generateEntryPoint: (command, task = null) => {
+    generateEntryPoint: (command) => {
         return command.executable_path;
     },
 

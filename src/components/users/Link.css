@@ -2,9 +2,9 @@
   align-items: center;
   vertical-align: auto;
   display: inline-flex;
-  border-radius: var(--borderRadius);
-  font-weight: var(--fontBold);
-  font-size: var(--fontSizeSmall);
-  background-color: var(--black);
+  border-radius: 0.3rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    background-color: #141820;
   padding: 2px;
 }

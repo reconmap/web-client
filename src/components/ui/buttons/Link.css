@@ -1,10 +1,10 @@
 .link-button {
-  padding: var(--paddingBox);
+  padding: 0.3rem 0.9rem;
   display: inline-flex;
   align-items: center;
-  color: var(--text-color);
-  font-size: var(--fontSizeSmall);
-  border: var(--borderWidth) solid var(--black);
+  color: #748094;
+    font-size: 0.85rem;
+    border: 2px solid #141820;
   background-color: transparent;
-  border-radius: var(--borderRadius);
+  border-radius: 0.3rem;
 }

@@ -50,7 +50,7 @@ start:
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
 		-p 5500:5500 \
-		-e REACT_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
+		-e VITE_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \
 		--name $(DOCKER_CONTAINER_NAME) \
@@ -69,7 +69,7 @@ tests:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
-		--entrypoint npx -e CI=true $(DOCKER_DEV_TAG) npx stylelint "**/*.{css,scss}"
+		--entrypoint npx -e CI=true $(DOCKER_DEV_TAG) npx stylelint "**/*.css"
 
 .PHONY: tests-ci
 tests-ci:

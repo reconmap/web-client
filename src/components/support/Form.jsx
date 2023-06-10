@@ -21,8 +21,8 @@ Client
 ------
 URL: ${document.location.protocol + "//" + document.location.host}
 User agent: ${navigator.userAgent}
-Version: ${process.env.REACT_APP_VERSION}
-Build: ${process.env.REACT_APP_GIT_COMMIT_HASH}
+Version: ${import.meta.env.VITE_VERSION}
+Build: ${import.meta.env.VITE_GIT_COMMIT_HASH}
 
 Server
 ------

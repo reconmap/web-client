@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import UsersList from "./List";
 
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
     useTranslation: () => [
         (key) => key.toUpperCase()
     ]
