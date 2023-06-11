@@ -4,8 +4,8 @@ ARG RECONMAP_APP_GIT_COMMIT_HASH
 ENV VITE_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
 COPY --chown=reconmapper:reconmapper index.html vite.config.js tsconfig.json package.json package-lock.json ./
-COPY public ./public
-COPY src ./src
+COPY --chown=reconmapper:reconmapper public ./public
+COPY --chown=reconmapper:reconmapper src ./src
 
 RUN npm install --legacy-peer-deps && npm run build
 
