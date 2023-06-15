@@ -6,7 +6,6 @@ import RemediationComplexity from 'models/RemediationComplexity';
 import RemediationPriority from 'models/RemediationPriority';
 import { useEffect, useState } from 'react';
 import { unstable_batchedUpdates } from "react-dom";
-import 'react-mde/lib/styles/css/react-mde-all.css';
 import Risks from "../../models/Risks";
 import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";

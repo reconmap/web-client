@@ -31,8 +31,8 @@ GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
 prepare: base-container
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install --legacy-peer-deps npm-check-updates
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install --legacy-peer-deps
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install npm-check-updates
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install
 
 .PHONY: base-container
 base-container:

@@ -1,22 +1,11 @@
 
-import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import ReactMde from 'react-mde';
 import './MarkdownEditor.css';
+
+import MDEditor from "@uiw/react-md-editor";
 
 const MarkdownEditor = ({ name: editorName, value, onChange: onFormChange }) => {
 
-    const [selectedTab, setSelectedTab] = useState('write');
-
-    return <ReactMde
-        value={value}
-        onChange={editorValue => onFormChange({ target: { name: editorName, value: editorValue } })}
-        selectedTab={selectedTab}
-        onTabChange={setSelectedTab}
-        generateMarkdownPreview={markdown =>
-            Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
-        }
-    />
+    return <MDEditor height={200} value={value} onChange={editorValue => onFormChange({ target: { name: editorName, value: editorValue } })} />
 }
 
 export default MarkdownEditor;

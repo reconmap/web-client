@@ -7,7 +7,7 @@ COPY --chown=reconmapper:reconmapper index.html vite.config.js tsconfig.json pac
 COPY --chown=reconmapper:reconmapper public ./public
 COPY --chown=reconmapper:reconmapper src ./src
 
-RUN npm install --legacy-peer-deps && npm run build
+RUN npm install && npm run build
 
 FROM nginx:stable
 
