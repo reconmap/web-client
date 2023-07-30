@@ -11,7 +11,7 @@ jobs:
         steps:
             - name: Fix folder permissions
               run: sudo chown -R $USER:$USER ${{ github.workspace }}
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - name: Login to Quay
@@ -24,7 +24,7 @@ jobs:
               run: make
             - name: Increase version
               run: |
-                  make version-increase 
+                  make version-increase
                   git push
             - name: Run tests
               run: make tests-ci
