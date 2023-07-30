@@ -6,8 +6,7 @@ form {
     }
 
     label,
-    input:not([type="checkbox"]),
-    select,
+        input:not([type="checkbox"]),
     button {
         margin: var(--margin) auto;
         width: 100%;

@@ -1,5 +1,6 @@
 import { Input, Select } from "@chakra-ui/react";
 import Checkbox from "components/form/Checkbox";
+import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import useFetch from "../../hooks/useFetch";
@@ -29,10 +30,10 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             <label>
                 Category
-                <Select name="category_id" onChange={handleFormChange} value={project.category_id || ""}>
+                <NativeSelect name="category_id" onChange={handleFormChange} value={project.category_id || ""}>
                     <option value="">(none)</option>
                     {categories && categories.map(category => <option key={`category_${category.id}`} value={category.id}>{category.name}</option>)}
-                </Select>
+                </NativeSelect>
             </label>
 
             {!project.is_template && <>
