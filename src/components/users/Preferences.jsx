@@ -1,5 +1,6 @@
-import { FormControl, FormLabel, Select, useColorMode } from '@chakra-ui/react';
+import { FormControl, FormLabel, useColorMode } from '@chakra-ui/react';
 import { LanguageList } from 'bootstrap/LanguageList';
+import NativeSelect from 'components/form/NativeSelect';
 import PageTitle from 'components/logic/PageTitle';
 import { ThemeList } from 'components/ui/themes';
 import { actionCompletedToast } from 'components/ui/toast';
@@ -12,9 +13,9 @@ import ThemeContext from "../../contexts/ThemeContext";
 import secureApiFetch from '../../services/api';
 import setThemeColors from '../../utilities/setThemeColors';
 import Breadcrumb from '../ui/Breadcrumb';
-import Primary from '../ui/buttons/Primary';
 import { IconPreferences } from '../ui/Icons';
 import Title from '../ui/Title';
+import Primary from '../ui/buttons/Primary';
 
 const UserPreferences = () => {
 
@@ -78,23 +79,23 @@ const UserPreferences = () => {
         <form onSubmit={onFormSubmit}>
             <FormControl>
                 <FormLabel>Language</FormLabel>
-                <Select name="language" onChange={updateFormValues} defaultValue={user.preferences.language}>
+                <NativeSelect name="language" onChange={updateFormValues} defaultValue={user.preferences.language}>
                     {LanguageList.map(lang => <option key={lang.id} value={lang.id}>{lang.name}</option>)}
-                </Select>
+                </NativeSelect>
             </FormControl>
             <FormControl>
                 <FormLabel>Theme</FormLabel>
-                <Select name="theme" onChange={updateFormValues} defaultValue={user.preferences.theme}>
+                <NativeSelect name="theme" onChange={updateFormValues} defaultValue={user.preferences.theme}>
                     {ThemeList.map(theme => <option key={theme.id} value={theme.id}>{theme.name}</option>)}
-                </Select>
+                </NativeSelect>
             </FormControl>
             <FormControl>
                 <FormLabel>Timezone</FormLabel>
-                <Select name="timezone" onChange={updateFormValues} defaultValue={user.timezone}>
+                <NativeSelect name="timezone" onChange={updateFormValues} defaultValue={user.timezone}>
                     {timezoneKeys.map((key, index) =>
                         <option key={index} value={timezones[key].name}>{timezones[key].name}</option>
                     )}
-                </Select>
+                </NativeSelect>
             </FormControl>
 
             <Primary type="submit">Save</Primary>

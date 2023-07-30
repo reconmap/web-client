@@ -1,10 +1,15 @@
 import i18next from 'i18next';
 import I18nextBrowserLanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
+
+import APP_TRANSLATIONS_CN from 'translations/cn/application.json';
+import COMMON_TRANSLATIONS_CN from 'translations/cn/common.json';
 import APP_TRANSLATIONS_EN from 'translations/en/application.json';
 import COMMON_TRANSLATIONS_EN from 'translations/en/common.json';
 import APP_TRANSLATIONS_ES from 'translations/es/application.json';
 import COMMON_TRANSLATIONS_ES from 'translations/es/common.json';
+import APP_TRANSLATIONS_FA from 'translations/fa/application.json';
+import COMMON_TRANSLATIONS_FA from 'translations/fa/common.json';
 
 i18next
     .use(I18nextBrowserLanguageDetector)
@@ -22,6 +27,14 @@ i18next
             es: {
                 app: APP_TRANSLATIONS_ES,
                 common: COMMON_TRANSLATIONS_ES
+            },
+            fa: {
+                app: APP_TRANSLATIONS_FA,
+                common: COMMON_TRANSLATIONS_FA
+            },
+            cn: {
+                app: APP_TRANSLATIONS_CN,
+                common: COMMON_TRANSLATIONS_CN
             }
         }
     });
