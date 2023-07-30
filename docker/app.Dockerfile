@@ -3,7 +3,7 @@ FROM reconmap/web-client:dev AS builder
 ARG RECONMAP_APP_GIT_COMMIT_HASH
 ENV VITE_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
-COPY --chown=reconmapper:reconmapper index.html vite.config.js tsconfig.json package.json package-lock.json ./
+COPY --chown=reconmapper:reconmapper index.html vite.config.js tsconfig.json package.json yarn.lock .yarnrc.yml ./
 COPY --chown=reconmapper:reconmapper public ./public
 COPY --chown=reconmapper:reconmapper src ./src
 
