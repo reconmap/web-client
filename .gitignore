@@ -19,3 +19,4 @@ tags.*
 *.code-workspace
 .bash_history
 coverage/
+package-lock.json
