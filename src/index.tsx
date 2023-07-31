@@ -18,7 +18,7 @@ TimeAgo.addDefaultLocale(en);
 const { ToastContainer } = createStandaloneToast();
 
 const rootContainer = document.getElementById('root');
-const appRoot = ReactDOM.createRoot(rootContainer);
+const appRoot = ReactDOM.createRoot(rootContainer as Element);
 
 appRoot.render(<BrowserRouter><div>
     <Link to='/' className="logo">
@@ -36,7 +36,7 @@ const onAuthSuccess = () => {
     </React.StrictMode>);
 }
 
-const onAuthFailure = (message) => {
+const onAuthFailure = (message: string) => {
     appRoot.render(<BrowserRouter><div>
         <Link to='/' className="logo">
             <HeaderLogo />
