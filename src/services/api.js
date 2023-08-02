@@ -1,4 +1,3 @@
-// import toast from "../components/ui/toast";
 import { errorToast } from 'components/ui/toast';
 import Configuration from '../Configuration';
 import Auth from "./auth";
@@ -22,6 +21,7 @@ function secureApiFetch(url, init) {
     } else {
         initWithAuth.headers = headers;
     }
+    init.credentials = 'include';
 
     return fetch(Configuration.getDefaultApiUrl() + url, init)
         .then(resp => {

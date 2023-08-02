@@ -4,10 +4,10 @@ import NativeSelect from 'components/form/NativeSelect';
 import PageTitle from 'components/logic/PageTitle';
 import { ThemeList } from 'components/ui/themes';
 import { actionCompletedToast } from 'components/ui/toast';
+import { useAuth } from 'contexts/AuthContext';
 import CountriesTimezones from 'countries-and-timezones';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Auth from 'services/auth';
 import { initialiseUserPreferences } from 'services/userPreferences';
 import ThemeContext from "../../contexts/ThemeContext";
 import secureApiFetch from '../../services/api';
@@ -21,7 +21,7 @@ const UserPreferences = () => {
 
     const { i18n } = useTranslation();
 
-    const user = Auth.getLoggedInUser();
+    const { user } = useAuth();
     user.preferences = initialiseUserPreferences(user);
 
     const timezones = CountriesTimezones.getAllTimezones();

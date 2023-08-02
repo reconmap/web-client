@@ -1,11 +1,11 @@
 import { Select } from "@chakra-ui/react";
+import { useAuth } from "contexts/AuthContext";
 import useFetch from "hooks/useFetch";
 import { TaskPriorityList } from "models/TaskPriority";
 import TaskStatuses from "models/TaskStatuses";
-import Auth from "services/auth";
 
 const TaskFilters = ({ tableModel, tableModelSetter: setTableModel }) => {
-    const loggedInUser = Auth.getLoggedInUser();
+    const { user: loggedInUser } = useAuth();
     const [projects] = useFetch('/projects');
     const [users] = useFetch('/users');
 

@@ -5,29 +5,29 @@ import CommandBadge from 'components/commands/Badge';
 import CommandInstructions from 'components/commands/Instructions';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
-import EditButton from 'components/ui/buttons/Edit';
 import EmptyField from 'components/ui/EmptyField';
 import RelativeDateFormatter from 'components/ui/RelativeDateFormatter';
 import TimestampsSection from 'components/ui/TimestampsSection';
+import EditButton from 'components/ui/buttons/Edit';
 import UserLink from 'components/users/Link';
+import { useAuth } from 'contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Auth from 'services/auth';
 import useDelete from '../../hooks/useDelete';
 import TaskStatuses from "../../models/TaskStatuses";
 import secureApiFetch from '../../services/api';
 import Breadcrumb from "../ui/Breadcrumb";
-import DeleteButton from "../ui/buttons/Delete";
 import { IconClipboard, IconDocument } from '../ui/Icons';
 import Loading from '../ui/Loading';
+import DeleteButton from "../ui/buttons/Delete";
 import { actionCompletedToast } from "../ui/toast";
 import useFetch from './../../hooks/useFetch';
 import Title from './../ui/Title';
 import TaskStatusFormatter from "./TaskStatusFormatter";
 
 const TaskDetails = () => {
-    const loggedInUser = Auth.getLoggedInUser();
+    const { user: loggedInUser } = useAuth();
     const navigate = useNavigate();
     const { taskId } = useParams();
     const [task, fetchTask] = useFetch(`/tasks/${taskId}`)

@@ -1,7 +1,7 @@
+import { useAuth } from 'contexts/AuthContext';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
-import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
 import { IconChevronDown, IconDashboard } from '../../ui/Icons';
 import IconCollapse from './../../../images/icons/collapse';
@@ -13,7 +13,7 @@ export default function Sidebar(props) {
 
     const [t] = useTranslation();
 
-    const user = Auth.getLoggedInUser();
+    const { user } = useAuth();
 
     const filterByRole = (link) => {
         if (!link.hasOwnProperty('permissions')) {

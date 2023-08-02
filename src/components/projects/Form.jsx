@@ -1,4 +1,4 @@
-import { Input, Select } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import Checkbox from "components/form/Checkbox";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
@@ -38,19 +38,19 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             {!project.is_template && <>
                 <label>Visibility
-                    <Select name="visibility" onChange={handleFormChange} value={project.visibility}>
+                    <NativeSelect name="visibility" onChange={handleFormChange} value={project.visibility}>
                         <option value="public">Public</option>
                         <option value="private">Private</option>
-                    </Select>
+                    </NativeSelect>
                 </label>
 
                 <label>Client
-                    <Select name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
+                    <NativeSelect name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
                         <option value="">(none)</option>
                         {clients && clients.map((client, index) =>
                             <option key={index} value={client.id}>{client.name}</option>
                         )}
-                    </Select>
+                    </NativeSelect>
                 </label>
 
                 <label>External ID
@@ -71,10 +71,10 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
             <label>
                 Vulnerability metrics
-                <Select name="vulnerability_metrics" value={project.vulnerability_metrics || ""} onChange={handleFormChange}>
+                <NativeSelect name="vulnerability_metrics" value={project.vulnerability_metrics || ""} onChange={handleFormChange}>
                     <option value="">(undefined)</option>
                     {ProjectVulnerabilityMetrics.map(type => <option key={`metrics_${type.id}`} value={type.id}>{type.name}</option>)}
-                </Select>
+                </NativeSelect>
             </label>
 
             {!project.is_template && <>

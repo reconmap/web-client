@@ -4,8 +4,8 @@ import SettingsRoutes from 'components/settings/Routes';
 import WebsocketProvider from 'contexts/WebsocketContext';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Auth from 'services/auth';
 import setThemeColors from 'utilities/setThemeColors';
+import Configuration from './Configuration';
 import ClientsRoutes from './components/clients/Routes';
 import CommandsRoutes from './components/commands/Routes';
 import DocumentsRoutes from './components/documents/Routes';
@@ -22,15 +22,14 @@ import SystemRoutes from './components/system/Routes';
 import TargetRoutes from './components/target/Routes';
 import TasksRoutes from './components/tasks/Routes';
 import UsersRoutes from './components/users/Routes';
-import VulnerabilityCategoriesRoutes from './components/vulnerabilities/categories/Routes';
 import VulnerabilitiesRoutes from './components/vulnerabilities/Routes';
+import VulnerabilityCategoriesRoutes from './components/vulnerabilities/categories/Routes';
 import VulnerabilityTemplatesRoutes from './components/vulnerabilities/templates/Routes';
-import Configuration from './Configuration';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ThemeContext from './contexts/ThemeContext';
 
 const App = () => {
-    const user = Auth.getLoggedInUser();
+    const { user } = useAuth();
 
     const [theme, setTheme] = useState(user?.preferences?.['web-client.theme'] || 'dark');
 

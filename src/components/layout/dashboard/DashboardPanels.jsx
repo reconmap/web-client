@@ -3,10 +3,10 @@ import Checkbox from 'components/form/Checkbox';
 import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import { actionCompletedToast } from 'components/ui/toast';
+import { useAuth } from 'contexts/AuthContext';
 import Widgets from 'models/Widgets';
 import React, { useState } from 'react';
 import secureApiFetch from 'services/api';
-import Auth from 'services/auth';
 import PermissionsService from 'services/permissions';
 import { initialiseUserPreferences } from 'services/userPreferences';
 import widgetIsVisible from 'services/widgets';
@@ -34,7 +34,7 @@ const filterWidgets = user => {
 }
 
 const DashboardPanels = () => {
-    const user = Auth.getLoggedInUser();
+    const { user } = useAuth();
     user.preferences = initialiseUserPreferences(user);
     const [dashboardConfig, setDashboardConfig] = useState(user?.preferences?.['web-client.widgets'] || InitialiseWidgetConfig());
     const [visibleWidgets, setVisibleWidgets] = useState(filterWidgets(user));
@@ -43,8 +43,8 @@ const DashboardPanels = () => {
         setDashboardConfig(prev => ({ ...prev, [ev.target.name]: { ...prev[ev.target.name], visible: ev.target.checked } }));
     }
 
-    const onSave = () => {
-        const user = Auth.getLoggedInUser();
+    const onSave = (ev, loggedInUser) => {
+        const user = loggedInUser;
         user.preferences = initialiseUserPreferences(user);
 
         user.preferences['web-client.widgets'] = dashboardConfig;
@@ -93,7 +93,7 @@ const DashboardPanels = () => {
                         })}
                     </Stack>
 
-                    <Button onClick={onSave}>Save</Button>
+                    <Button onClick={ev => onSave(ev, user)}>Save</Button>
                 </TabPanel>
             </TabPanels>
         </Tabs>
