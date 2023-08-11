@@ -1,4 +1,5 @@
-import { Button, ButtonGroup, Input, Select, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, ButtonGroup, Input, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import NativeSelect from 'components/form/NativeSelect';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
@@ -206,11 +207,11 @@ const ClientDetails = () => {
                                     <Tbody>
                                         <Tr>
                                             <Td>
-                                                <Select name="kind" onChange={onContactFormChange} value={contact.kind || ""} isRequired>
+                                                <NativeSelect name="kind" onChange={onContactFormChange} value={contact.kind || ""} isRequired>
                                                     <option value="general">General</option>
                                                     <option value="technical">Technical</option>
                                                     <option value="billing">Billing</option>
-                                                </Select>
+                                                </NativeSelect>
                                             </Td>
                                             <Td>
                                                 <Input type="text" name="name" onChange={onContactFormChange} value={contact.name || ""} isRequired />

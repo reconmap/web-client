@@ -1,5 +1,6 @@
-import { Input, Select } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import Checkbox from "components/form/Checkbox";
+import NativeSelect from "components/form/NativeSelect";
 import { useState } from "react";
 import UserRoles from "../../models/UserRoles";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -34,9 +35,9 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                 <Input type="email" name="email" value={user.email || ""} onChange={onFormChange} required />
             </label>
             <label>Role
-                <Select name="role" onChange={onFormChange} value={user.role} required>
+                <NativeSelect name="role" onChange={onFormChange} value={user.role} required>
                     {UserRoles.map(role => <option key={`role_${role.id}`} value={role.id}>{role.name}</option>)}
-                </Select>
+                </NativeSelect>
             </label>
             <label>Properties
                 <div>
@@ -54,10 +55,10 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             {!isEdit &&
                 <>
                     <label htmlFor="passwordGenerationMethod">Password generation method
-                        <Select name="passwordGenerationMethod" onChange={onPasswordGenerationMethodChange}>
+                    <NativeSelect name="passwordGenerationMethod" onChange={onPasswordGenerationMethodChange}>
                             <option value="auto">Auto-generated</option>
                             <option value="manual">Manual</option>
-                        </Select>
+                    </NativeSelect>
                     </label>
                     {passwordGenerationMethod === 'manual' &&
                         <>

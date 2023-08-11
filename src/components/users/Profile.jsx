@@ -11,10 +11,10 @@ import AuditLogsTable from '../auditlog/AuditLogsTable';
 import UserAvatar from '../badges/UserAvatar';
 import UserRoleBadge from '../badges/UserRoleBadge';
 import Breadcrumb from '../ui/Breadcrumb';
-import DeleteButton from "../ui/buttons/Delete";
-import LinkButton from "../ui/buttons/Link";
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
+import DeleteButton from "../ui/buttons/Delete";
+import LinkButton from "../ui/buttons/Link";
 
 const UserProfile = () => {
     const navigate = useNavigate();
