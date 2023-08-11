@@ -1,9 +1,10 @@
-import { ListItem, Select, UnorderedList } from "@chakra-ui/react";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
+import NativeSelect from "components/form/NativeSelect";
 import useFetch from "hooks/useFetch";
-import React, { useState } from "react";
+import { useState } from "react";
 import secureApiFetch from "../../services/api";
-import PrimaryButton from "../ui/buttons/Primary";
 import { IconDownload } from "../ui/Icons";
+import PrimaryButton from "../ui/buttons/Primary";
 
 const ExportForm = () => {
     const [entities] = useFetch('/system/exportables');
@@ -52,9 +53,9 @@ const ExportForm = () => {
             </UnorderedList>
         </div>
 
-        <Select multiple style={{ width: '80%', height: 250 }} onChange={onEntitiesSelectionChange}>
+        <NativeSelect multiple style={{ width: '80%', height: 250 }} onChange={onEntitiesSelectionChange}>
             {entities && entities.map(entity => <option key={entity.key} value={entity.key}>{entity.description}</option>)}
-        </Select>
+        </NativeSelect>
         <br />
         <PrimaryButton disabled={exportButtonDisabled}
             onClick={onExportButtonClick} leftIcon={<IconDownload />}>Export</PrimaryButton>

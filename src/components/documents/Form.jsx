@@ -1,6 +1,6 @@
-import { FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
-import React from "react";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditForm = false }) => {
@@ -28,10 +28,10 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
 
         <FormControl>
             <FormLabel htmlFor="visibility">Visibility</FormLabel>
-            <Select name="visibility" id="visibility" value={document.visibility} onChange={onFormInputChange} required>
+            <NativeSelect name="visibility" id="visibility" value={document.visibility} onChange={onFormInputChange} required>
                 <option value="private">Private</option>
                 <option value="public">Public</option>
-            </Select>
+            </NativeSelect>
         </FormControl>
 
         <PrimaryButton type="submit">{isEditForm ? "Update" : "Create"}</PrimaryButton>

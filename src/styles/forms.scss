@@ -5,12 +5,9 @@ form {
         grid-template-columns: 220px 1fr;
     }
 
-    label,
-        input:not([type="checkbox"]),
-    button {
-        margin: var(--margin) auto;
-        width: 100%;
-    }
+         label {
+               margin: var(--margin) auto;
+        }
 }
 
 form legend {

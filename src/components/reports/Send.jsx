@@ -1,13 +1,14 @@
-import { FormControl, FormHelperText, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
+import { FormControl, FormHelperText, FormLabel, Input, Textarea } from '@chakra-ui/react';
+import NativeSelect from 'components/form/NativeSelect';
 import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import useFetch from 'hooks/useFetch';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from "../../services/api";
 import Breadcrumb from '../ui/Breadcrumb';
-import PrimaryButton from '../ui/buttons/Primary';
 import Title from '../ui/Title';
+import PrimaryButton from '../ui/buttons/Primary';
 
 const SendReport = () => {
     const navigate = useNavigate();
@@ -61,9 +62,9 @@ const SendReport = () => {
             <Title title='Send report' />
             <FormControl isRequired>
                 <FormLabel for="reportId">Revision</FormLabel>
-                <Select id="reportId" name="report_id" onChange={handleFormChange}>
+                <NativeSelect id="reportId" name="report_id" onChange={handleFormChange}>
                     {revisions && revisions.map(revision => <option value={revision.id}>{revision.version_name}</option>)}
-                </Select>
+                </NativeSelect>
             </FormControl>
             <FormControl isRequired>
                 <FormLabel>Recipients</FormLabel>

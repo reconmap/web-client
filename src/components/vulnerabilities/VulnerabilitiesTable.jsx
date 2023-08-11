@@ -1,5 +1,5 @@
 import { Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import Checkbox from "components/form/Checkbox";
+import NativeCheckbox from "components/form/NativeCheckbox";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import AscendingSortLink from "components/ui/AscendingSortLink";
@@ -50,7 +50,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
     return <Table>
         <Thead>
             <Tr>
-                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><Checkbox onChange={onHeaderCheckboxClick} checked={tableModel.selection.length && tableModel.selection.length === vulnerabilitiesLength} disabled={tableModel.vulnerabilitiesLength === 0} /></Th>}
+                {showSelection && <Th style={{ width: "32px", textAlign: "left" }}><NativeCheckbox onChange={onHeaderCheckboxClick} checked={tableModel.selection.length && tableModel.selection.length === vulnerabilitiesLength} disabled={tableModel.vulnerabilitiesLength === 0} /></Th>}
                 <Th style={{ width: '190px' }}>Summary</Th>
                 {showProjectColumn && <Th style={{ width: '190px' }}>Project</Th>}
                 <Th style={{ width: '120px' }}><DescendingSortLink callback={onSortChange} property="status" /> Status <AscendingSortLink callback={onSortChange} property="status" /></Th>
@@ -70,7 +70,7 @@ const VulnerabilitiesTable = ({ tableModel, tableModelSetter: setTableModel, rel
                     return <Tr key={index}>
                         {showSelection &&
                             <Td>
-                                <Checkbox
+                                <NativeCheckbox
                                     value={vulnerability.id}
                                     onChange={onSelectionChange}
                                     checked={tableModel.selection.includes(vulnerability.id)}

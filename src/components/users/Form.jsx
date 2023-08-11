@@ -1,5 +1,5 @@
 import { Input } from "@chakra-ui/react";
-import Checkbox from "components/form/Checkbox";
+import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeSelect from "components/form/NativeSelect";
 import { useState } from "react";
 import UserRoles from "../../models/UserRoles";
@@ -41,8 +41,8 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             </label>
             <label>Properties
                 <div>
-                    <Checkbox name="active" checked={user.active} onChange={onFormChange}>Active</Checkbox>
-                    <Checkbox name="mfa_enabled" checked={user.mfa_enabled} onChange={onFormChange}>2FA enabled</Checkbox>
+                    <NativeCheckbox name="active" checked={user.active} onChange={onFormChange}>Active</NativeCheckbox>
+                    <NativeCheckbox name="mfa_enabled" checked={user.mfa_enabled} onChange={onFormChange}>2FA enabled</NativeCheckbox>
                 </div>
             </label>
         </fieldset>
@@ -67,7 +67,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                             </label>
                             <label>
                                 Send email to user
-                                <Checkbox name="sendEmailToUser" onChange={onFormChange} />
+                        <NativeCheckbox name="sendEmailToUser" onChange={onFormChange} />
                             </label>
                         </>
                     }

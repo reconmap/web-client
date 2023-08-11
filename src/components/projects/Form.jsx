@@ -1,5 +1,5 @@
 import { Input } from "@chakra-ui/react";
-import Checkbox from "components/form/Checkbox";
+import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
@@ -25,7 +25,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             <legend>Basic information</legend>
 
             <label>Is template?
-                <Checkbox name="is_template" onChange={handleFormChange} checked={project.is_template} />
+                <NativeCheckbox name="is_template" onChange={handleFormChange} checked={project.is_template} />
             </label>
 
             <label>

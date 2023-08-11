@@ -1,6 +1,7 @@
-import { Input, Select } from "@chakra-ui/react";
-import MarkdownEditor from "components/ui/forms/MarkdownEditor";
+import { Input } from "@chakra-ui/react";
+import NativeSelect from "components/form/NativeSelect";
 import Loading from "components/ui/Loading";
+import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import secureApiFetch from "services/api";
@@ -43,7 +44,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
     return <form onSubmit={onFormSubmit}>
         <label>
             Project
-            <Select name="project_id" onChange={onFormChange} value={task.project_id} required>
+            <NativeSelect name="project_id" onChange={onFormChange} value={task.project_id} required>
                 <optgroup label="Projects">
                     {projects && projects.filter(project => project.is_template === 0).map((project, index) =>
                         <option key={index} value={project.id}>{project.name}</option>
@@ -54,7 +55,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                         <option key={index} value={project.id}>{project.name}</option>
                     )}
                 </optgroup>
-            </Select>
+            </NativeSelect>
         </label>
         <label>Summary
             <Input type="text" name="summary" onChange={onFormChange} required autoFocus
@@ -63,9 +64,9 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
             <MarkdownEditor name="description" onChange={onFormChange} required
                 value={task.description || ''} /></label>
         <label>Priority
-            <Select name="priority" onChange={onFormChange} value={task.priority || "medium"}>
+            <NativeSelect name="priority" onChange={onFormChange} value={task.priority || "medium"}>
                 {TaskPriorityList.map(priority => <option value={priority.value}>{priority.name}</option>)}
-            </Select>
+            </NativeSelect>
         </label>
         <label>Due date
             <Input type="date" name="due_date" onChange={onFormChange} value={task.due_date} /></label>

@@ -1,5 +1,6 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Input, Select } from '@chakra-ui/react';
-import Checkbox from 'components/form/Checkbox';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Input } from '@chakra-ui/react';
+import NativeCheckbox from 'components/form/NativeCheckbox';
+import NativeSelect from 'components/form/NativeSelect';
 import MarkdownEditor from 'components/ui/forms/MarkdownEditor';
 import ProjectVulnerabilityMetrics from 'models/ProjectVulnerabilityMetrics';
 import RemediationComplexity from 'models/RemediationComplexity';
@@ -163,7 +164,7 @@ const VulnerabilityForm = ({
                 <AccordionPanel pb={4}>
                     <label>Properties
                         <div>
-                            <Checkbox name="is_template" onChange={onFormChange} checked={vulnerability.is_template}>Is template</Checkbox>
+                            <NativeCheckbox name="is_template" onChange={onFormChange} checked={vulnerability.is_template}>Is template</NativeCheckbox>
                         </div>
                     </label>
                     <label>External ID
@@ -179,35 +180,35 @@ const VulnerabilityForm = ({
                         <MarkdownEditor name="external_refs" value={vulnerability.external_refs || ""} onChange={onFormChange} />
                     </label>
                     <label>Category
-                        <Select name="category_id" value={vulnerability.parent_category_id || ""} onChange={onFormChange} required>
+                        <NativeSelect name="category_id" value={vulnerability.parent_category_id || ""} onChange={onFormChange} required>
                             <option>(none)</option>
                             {categories && categories.map(cat =>
                                 <option key={cat.id} value={cat.id}>{cat.name}</option>
                             )}
-                        </Select>
+                        </NativeSelect>
                     </label>
                     <label>Subcategory
-                        <Select name="subcategory_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
+                        <NativeSelect name="subcategory_id" value={vulnerability.category_id || ""} onChange={onFormChange} required>
                             <option>(none)</option>
                             {subCategories && subCategories.map(subcat =>
                                 <option key={subcat.id} value={subcat.id}>{subcat.name}</option>
                             )}
-                        </Select>
+                        </NativeSelect>
                     </label>
                     <label>
                         Visibility
-                        <Select name="visibility" value={vulnerability.visibility || ""} onChange={onFormChange} required>
+                        <NativeSelect name="visibility" value={vulnerability.visibility || ""} onChange={onFormChange} required>
                             <option value="public">Public</option>
                             <option value="private">Private</option>
-                        </Select>
+                        </NativeSelect>
                         <span className="field-explanation">Private makes this vulnerability not visible to the client.</span>
                     </label>
                     <label>Risk
-                        <Select name="risk" value={vulnerability.risk || ""} onChange={onFormChange} required>
+                        <NativeSelect name="risk" value={vulnerability.risk || ""} onChange={onFormChange} required>
                             {Risks.map(risk =>
                                 <option key={risk.id} value={risk.id}>{risk.name}</option>
                             )}
-                        </Select>
+                        </NativeSelect>
                     </label>
                     <label>Tags
                         <Input type="text" name="tags" onChange={onFormChange} value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(',') : ''} />
@@ -262,18 +263,18 @@ const VulnerabilityForm = ({
                         <MarkdownEditor name="remediation" value={vulnerability.remediation || ""} onChange={onFormChange} />
                     </label>
                     <label>Remediation complexity
-                        <Select name="remediation_complexity" value={vulnerability.remediation_complexity || ""} onChange={onFormChange} required>
+                        <NativeSelect name="remediation_complexity" value={vulnerability.remediation_complexity || ""} onChange={onFormChange} required>
                             {RemediationComplexity.map(complexity =>
                                 <option key={complexity.id} value={complexity.id}>{complexity.name}</option>
                             )}
-                        </Select>
+                        </NativeSelect>
                     </label>
                     <label>Remediation priority
-                        <Select name="remediation_priority" value={vulnerability.remediation_priority || ""} onChange={onFormChange} required>
+                        <NativeSelect name="remediation_priority" value={vulnerability.remediation_priority || ""} onChange={onFormChange} required>
                             {RemediationPriority.map(priority =>
                                 <option key={priority.id} value={priority.id}>{priority.name}</option>
                             )}
-                        </Select>
+                        </NativeSelect>
                     </label>
                 </AccordionPanel>
             </AccordionItem>
@@ -291,20 +292,20 @@ const VulnerabilityForm = ({
                     <AccordionPanel pb={4}>
 
                         <label>Project
-                            <Select name="project_id" value={vulnerability.project_id || ""} onChange={onFormChange} required>
+                            <NativeSelect name="project_id" value={vulnerability.project_id || ""} onChange={onFormChange} required>
                                 {projects && projects.map((project, index) =>
                                     <option key={index} value={project.id}>{project.name}</option>
                                 )}
-                            </Select>
+                            </NativeSelect>
                         </label>
 
                         <label>Affected target
-                            <Select name="target_id" value={vulnerability.target_id || ""} onChange={onFormChange}>
+                            <NativeSelect name="target_id" value={vulnerability.target_id || ""} onChange={onFormChange}>
                                 <option value="0">(none)</option>
                                 {targets && targets.map((target, index) =>
                                     <option key={index} value={target.id}>{target.name}</option>
                                 )}
-                            </Select>
+                            </NativeSelect>
                         </label>
                     </AccordionPanel>
                 </AccordionItem>

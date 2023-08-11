@@ -1,5 +1,5 @@
 import { Button, Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
-import Checkbox from 'components/form/Checkbox';
+import NativeCheckbox from 'components/form/NativeCheckbox';
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import Vault from 'models/Vault';
 import { useState } from "react";
@@ -102,7 +102,7 @@ const VaultItemEdit = () => {
                                 <Input type="text" name="value" onChange={onVaultItemFormChange} value={item.value || ""} isRequired />
                             </Td>
                             <Td>
-                                <Checkbox name="reportable" onChange={onVaultItemFormChange} checked={item.reportable} />
+                                <NativeCheckbox name="reportable" onChange={onVaultItemFormChange} checked={item.reportable} />
                             </Td>
                             <Td>
                                 <Button type="submit">Update</Button>

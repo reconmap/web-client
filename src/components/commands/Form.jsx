@@ -1,6 +1,7 @@
-import { Input, Select } from "@chakra-ui/react";
-import MarkdownEditor from "components/ui/forms/MarkdownEditor";
+import { Input } from "@chakra-ui/react";
+import NativeSelect from "components/form/NativeSelect";
 import Loading from "components/ui/Loading";
+import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import useFetch from "hooks/useFetch";
 import PrimaryButton from "../ui/buttons/Primary";
 
@@ -45,10 +46,10 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
             <legend>Automation details</legend>
 
             <label>Execution environment
-                <Select name="executable_type" onChange={onFormChange} value={command.executable_type} required>
+                <NativeSelect name="executable_type" onChange={onFormChange} value={command.executable_type} required>
                     <option value="custom">Host</option>
                     <option value="rmap">Container</option>
-                </Select>
+                </NativeSelect>
             </label>
             {command.executable_type === 'custom' && <>
                 <label>Executable path
@@ -64,11 +65,11 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
                 <Input type="text" name="arguments" onChange={onFormChange} value={command.arguments || ""} /></label>
 
             <label>Output capture
-                <Select name="output_capture" onChange={onFormChange} value={command.output_capture || "disabled"} required>
+                <NativeSelect name="output_capture" onChange={onFormChange} value={command.output_capture || "disabled"} required>
                     <option value="disabled">Disabled</option>
                     <option value="stdout">Standard output</option>
                     <option value="path">File path</option>
-                </Select>
+                </NativeSelect>
             </label>
 
             {command.output_capture === 'path' && <label>Output filename
@@ -76,10 +77,10 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
             </label>}
 
             {command.output_capture !== 'disabled' && <label>Output parser
-                <Select name="output_parser" onChange={onFormChange} value={command.output_parser || ""}>
+                <NativeSelect name="output_parser" onChange={onFormChange} value={command.output_parser || ""}>
                     <option value="">(none)</option>
                     {parsers.map(parser => <option key={`parser_${parser.code}`} value={parser.code}>{parser.name}</option>)}
-                </Select>
+                </NativeSelect>
             </label>}
         </fieldset>
 

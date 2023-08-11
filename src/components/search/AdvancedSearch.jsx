@@ -1,5 +1,5 @@
 import { Button, Input } from '@chakra-ui/react';
-import Checkbox from 'components/form/Checkbox';
+import NativeCheckbox from 'components/form/NativeCheckbox';
 import PageTitle from 'components/logic/PageTitle';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -50,7 +50,7 @@ const AdvancedSearch = () => {
             <Input type="search" name="keywords" value={keywords} onChange={onKeywordsChange} placeholder="Keywords" />
 
             {Object.keys(entityList).map((objectKey) =>
-                <Checkbox checked={entities.includes(objectKey)} value={objectKey} onChange={onFormInputChange}>{entityList[objectKey]}</Checkbox>
+                <NativeCheckbox checked={entities.includes(objectKey)} value={objectKey} onChange={onFormInputChange}>{entityList[objectKey]}</NativeCheckbox>
             )}
 
             <Button type="submit" isDisabled={keywords.trim().length === 0 || entities.length === 0}>Search</Button>

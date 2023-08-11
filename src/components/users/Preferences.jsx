@@ -1,6 +1,7 @@
 import { FormControl, FormLabel, useColorMode } from '@chakra-ui/react';
 import { LanguageList } from 'bootstrap/LanguageList';
 import NativeSelect from 'components/form/NativeSelect';
+import NativeSubmitButton from 'components/form/NativeSubmitButton';
 import PageTitle from 'components/logic/PageTitle';
 import { ThemeList } from 'components/ui/themes';
 import { actionCompletedToast } from 'components/ui/toast';
@@ -15,7 +16,6 @@ import setThemeColors from '../../utilities/setThemeColors';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconPreferences } from '../ui/Icons';
 import Title from '../ui/Title';
-import Primary from '../ui/buttons/Primary';
 
 const UserPreferences = () => {
 
@@ -98,7 +98,7 @@ const UserPreferences = () => {
                 </NativeSelect>
             </FormControl>
 
-            <Primary type="submit">Save</Primary>
+            <NativeSubmitButton>Save</NativeSubmitButton>
         </form>
     </>
 }

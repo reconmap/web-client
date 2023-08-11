@@ -1,5 +1,5 @@
 import { Button, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import Checkbox from 'components/form/Checkbox';
+import NativeCheckbox from 'components/form/NativeCheckbox';
 import PageTitle from 'components/logic/PageTitle';
 import Loading from 'components/ui/Loading';
 import { actionCompletedToast } from 'components/ui/toast';
@@ -86,7 +86,7 @@ const DashboardPanels = () => {
                         {Object.keys(Widgets).map(widgetKey => {
                             const widget = Widgets[widgetKey];
                             if (!widget.hasOwnProperty("permissions") || PermissionsService.isAllowed(widget.permissions, user.permissions)) {
-                                return <Checkbox key={widgetKey} name={widgetKey} checked={dashboardConfig.hasOwnProperty(widgetKey) && dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{Widgets[widgetKey].title}. <em>{Widgets[widgetKey].description}</em></Checkbox>
+                                return <NativeCheckbox key={widgetKey} name={widgetKey} checked={dashboardConfig.hasOwnProperty(widgetKey) && dashboardConfig[widgetKey].visible} onChange={onWidgetChange}>{Widgets[widgetKey].title}. <em>{Widgets[widgetKey].description}</em></NativeCheckbox>
                             } else {
                                 return <></>
                             }
