@@ -66,7 +66,13 @@ const onImagePasted = async (ev: any, setMarkdown: (value: SetStateAction<string
     return a.join('');
 };
 
-const MarkdownEditor = ({ name: editorName, value, onChange: onFormChange }) => {
+interface MarkdownEditorProps {
+    name: string;
+    value: string;
+    onChange: any
+}
+
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ name: editorName, value, onChange: onFormChange }) => {
 
     const [markdown, setMarkdown] = useState<string | undefined>(value);
 
