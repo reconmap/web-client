@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import BadgeOutline from 'components/badges/BadgeOutline';
 import PageTitle from 'components/logic/PageTitle';
 import ProjectBadge from 'components/projects/ProjectBadge';
@@ -10,7 +9,6 @@ import PrimaryButton from 'components/ui/buttons/Primary';
 import { IconDocumentDuplicate, IconPlus } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import NoResults from 'components/ui/NoResults';
-import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { Link, useNavigate } from 'react-router-dom';
@@ -55,37 +53,37 @@ const TemplatesList = () => {
 
             <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
         </div>
-        <Title title='Project templates' icon={<IconDocumentDuplicate />} />
+        <title title='Project templates' icon={<IconDocumentDuplicate />} />
         {!templates ? <Loading /> :
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th style={{ width: '190px' }}>Name</Th>
-                        <Th>Description</Th>
-                        <Th style={{ width: '16ch' }}>Number of tasks</Th>
-                        <Th>&nbsp;</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
+            <table>
+                <thead>
+                    <tr>
+                        <th style={{ width: '190px' }}>Name</th>
+                        <th>Description</th>
+                        <th style={{ width: '16ch' }}>Number of tasks</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {templates.length === 0 ?
-                        <Td colSpan={4}><NoResults /></Td>
+                        <td colSpan={4}><NoResults /></td>
                         :
                         templates.map((template) =>
-                            <Tr key={template.id} onClick={() => viewProject(template.id)}>
-                                <Td><ProjectBadge project={template} /></Td>
-                                <Td>{template.description}</Td>
-                                <Td><BadgeOutline>{template.num_tasks}</BadgeOutline></Td>
-                                <Td textAlign="right">
+                            <tr key={template.id} onClick={() => viewProject(template.id)}>
+                                <td><ProjectBadge project={template} /></td>
+                                <td>{template.description}</td>
+                                <td><BadgeOutline>{template.num_tasks}</BadgeOutline></td>
+                                <td textAlign="right">
                                     <PrimaryButton onClick={ev => cloneProject(ev, template.id)} key={template.id}
                                         title="Clone" leftIcon={<IconPlus />}>Clone and edit</PrimaryButton>
                                     <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton onClick={ev => deleteTemplate(ev, template.id)} />
-                                </Td>
-                            </Tr>
+                                </td>
+                            </tr>
                         )
                     }
-                </Tbody>
-            </Table>
+                </tbody>
+            </table>
         }
     </>
 }

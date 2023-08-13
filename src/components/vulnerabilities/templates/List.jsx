@@ -1,17 +1,15 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import VulnerabilityBadge from 'components/badges/VulnerabilityBadge';
 import PageTitle from 'components/logic/PageTitle';
 import AscendingSortLink from 'components/ui/AscendingSortLink';
 import Breadcrumb from 'components/ui/Breadcrumb';
-import CreateButton from 'components/ui/buttons/Create';
-import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import LinkButton from 'components/ui/buttons/Link';
-import PrimaryButton from 'components/ui/buttons/Primary';
 import DescendingSortLink from 'components/ui/DescendingSortLink';
 import { IconDocumentDuplicate, IconPlus } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import NoResults from 'components/ui/NoResults';
-import Title from 'components/ui/Title';
+import CreateButton from 'components/ui/buttons/Create';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import LinkButton from 'components/ui/buttons/Link';
+import PrimaryButton from 'components/ui/buttons/Primary';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { useState } from 'react';
@@ -66,34 +64,34 @@ const VulnerabilityTemplatesList = () => {
 
                 <CreateButton onClick={onAddVulnerabilityTemplateClick}>Add vulnerability template</CreateButton>
             </div>
-            <Title title='Vulnerability templates' icon={<IconDocumentDuplicate />} />
+            <title title='Vulnerability templates' icon={<IconDocumentDuplicate />} />
             {!templates ? <Loading /> :
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th>Summary</Th>
-                            <Th colSpan={2}><DescendingSortLink callback={onSortChange} property="category_name" /> Category <AscendingSortLink callback={onSortChange} property="category_name" /></Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Summary</th>
+                            <th colSpan={2}><DescendingSortLink callback={onSortChange} property="category_name" /> Category <AscendingSortLink callback={onSortChange} property="category_name" /></th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {templates.length === 0 ?
-                            <Tr><Td colSpan={3}><NoResults /></Td></Tr>
+                            <tr><td colSpan={3}><NoResults /></td></tr>
                             :
                             templates.map((template) =>
-                                <Tr key={template.id} onClick={() => viewTemplate(template.id)}>
-                                    <Td><VulnerabilityBadge vulnerability={template} /></Td>
-                                    <Td><VulnerabilityCategorySpan name={template.category_name} parentName={template.parent_category_name} /></Td>
-                                    <Td textAlign="right">
+                                <tr key={template.id} onClick={() => viewTemplate(template.id)}>
+                                    <td><VulnerabilityBadge vulnerability={template} /></td>
+                                    <td><VulnerabilityCategorySpan name={template.category_name} parentName={template.parent_category_name} /></td>
+                                    <td textAlign="right">
                                         <PrimaryButton onClick={ev => cloneVulnerability(ev, template.id)} key={template.id}
                                             title="Clone" leftIcon={<IconPlus />}>Clone and edit</PrimaryButton>
                                         <LinkButton href={`/vulnerabilities/${template.id}/edit`}>Edit</LinkButton>
                                         <DeleteIconButton onClick={ev => deleteTemplate(ev, template.id)} />
-                                    </Td>
-                                </Tr>
+                                    </td>
+                                </tr>
                             )
                         }
-                    </Tbody>
-                </Table>
+                    </tbody>
+                </table>
             }
         </>
     )

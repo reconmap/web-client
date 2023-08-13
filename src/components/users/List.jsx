@@ -1,4 +1,4 @@
-import { ButtonGroup, Menu, MenuList, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { ButtonGroup, Menu, MenuList } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
@@ -17,10 +17,9 @@ import secureApiFetch from "../../services/api";
 import UserAvatar from "../badges/UserAvatar";
 import UserRoleBadge from "../badges/UserRoleBadge";
 import Breadcrumb from "../ui/Breadcrumb";
+import { IconUserGroup } from "../ui/Icons";
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
-import { IconUserGroup } from "../ui/Icons";
-import Title from "../ui/Title";
 import { actionCompletedToast } from "../ui/toast";
 import UserLink from "./Link";
 
@@ -89,52 +88,52 @@ const UsersList = () => {
                 </Menu>
             </ButtonGroup>
         </div>
-        <Title title="Users and roles" icon={<IconUserGroup />} />
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th style={{ width: "32px" }}>&nbsp;</Th>
-                    <Th style={{ width: "64px" }}>&nbsp;</Th>
-                    <Th>Full name</Th>
-                    <Th>Username</Th>
-                    <Th>Role</Th>
-                    <Th>Active?</Th>
-                    <Th>2FA enabled?</Th>
-                    <Th>&nbsp;</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
+        <title title="Users and roles" icon={<IconUserGroup />} />
+        <table className="rm-listing">
+            <thead>
+                <tr>
+                    <th style={{ width: "32px" }}>&nbsp;</th>
+                    <th style={{ width: "64px" }}>&nbsp;</th>
+                    <th>Full name</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Active?</th>
+                    <th>2FA enabled?</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
                 {null === users && <LoadingTableRow numColumns={8} />}
                 {null !== users && 0 === users.length && <NoResultsTableRow numColumns={8} />}
                 {null !== users && 0 !== users.length && users.map((user, index) => (
-                    <Tr key={index}>
-                        <Td>
+                    <tr key={index}>
+                        <td>
                             <input
                                 type="checkbox"
                                 value={user.id}
                                 onChange={onTaskCheckboxChange}
                                 checked={selectedUsers.includes(user.id)}
                             />
-                        </Td>
-                        <Td>
+                        </td>
+                        <td>
                             <UserAvatar email={user.email} />
-                        </Td>
-                        <Td>
+                        </td>
+                        <td>
                             <Link to={`/users/${user.id}`}>
                                 {user.full_name}
                             </Link>
-                        </Td>
-                        <Td>
+                        </td>
+                        <td>
                             <UserLink userId={user.id}>
                                 {user.username}
                             </UserLink>
-                        </Td>
-                        <Td>
+                        </td>
+                        <td>
                             <UserRoleBadge role={user.role} />
-                        </Td>
-                        <Td><BooleanText value={user.active} /></Td>
-                        <Td><BooleanText value={user.mfa_enabled} /></Td>
-                        <Td textAlign="right">
+                        </td>
+                        <td><BooleanText value={user.active} /></td>
+                        <td><BooleanText value={user.mfa_enabled} /></td>
+                        <td textAlign="right">
                             <LinkButton href={`/users/${user.id}/edit`}>
                                 Edit
                             </LinkButton>
@@ -147,11 +146,11 @@ const UsersList = () => {
                                         : ""
                                 }
                             />
-                        </Td>
-                    </Tr>
+                        </td>
+                    </tr>
                 ))}
-            </Tbody>
-        </Table>
+            </tbody>
+        </table>
     </>
 };
 

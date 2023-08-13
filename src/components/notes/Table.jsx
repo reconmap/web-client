@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import VisibilityLegend from "components/ui/VisibilityLegend";
@@ -8,34 +7,34 @@ import ReactMarkdown from "react-markdown";
 import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 
 const NotesTable = ({ notes, onDeleteButtonClick }) => {
-    return <Table>
-        <Thead>
-            <Tr>
-                <Th>Content</Th>
-                <Th style={{ width: '200px' }}>Creation time</Th>
-                <Th style={{ width: '140px' }}>Author</Th>
-                <Th style={{ width: '140px' }}>Visibility</Th>
-                <Th>&nbsp;</Th>
-            </Tr>
-        </Thead>
+    return <table>
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th style={{ width: '200px' }}>Creation time</th>
+                <th style={{ width: '140px' }}>Author</th>
+                <th style={{ width: '140px' }}>Visibility</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
         {notes &&
-        <Tbody>
+        <tbody>
             {notes.length === 0 && <NoResultsTableRow numColumns={5} />}
             {notes.map((note, index) =>
-                <Tr key={index}>
-                    <Td><ReactMarkdown>{note.content}</ReactMarkdown></Td>
-                    <Td><RelativeDateFormatter date={note.insert_ts} /></Td>
-                    <Td><UserLink userId={note.user_id}>{note.user_name}</UserLink></Td>
-                    <Td><VisibilityLegend visibility={note.visibility} /></Td>
-                    <Td>
+                <tr key={index}>
+                    <td><ReactMarkdown>{note.content}</ReactMarkdown></td>
+                    <td><RelativeDateFormatter date={note.insert_ts} /></td>
+                    <td><UserLink userId={note.user_id}>{note.user_name}</UserLink></td>
+                    <td><VisibilityLegend visibility={note.visibility} /></td>
+                    <td>
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <DeleteIconButton onClick={ev => onDeleteButtonClick(ev, note)} />
                         </RestrictedComponent>
-                    </Td>
-                </Tr>
+                    </td>
+                </tr>
             )}
-            </Tbody>}
-    </Table>
+            </tbody>}
+    </table>
 }
 
 export default NotesTable;

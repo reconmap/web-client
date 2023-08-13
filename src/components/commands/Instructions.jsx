@@ -1,4 +1,4 @@
-import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
@@ -134,26 +134,26 @@ const CommandInstructions = ({ command, task = null }) => {
         }
 
         {scheduledCommands &&
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th>Cron expression</Th>
-                        <Th>Description</Th>
-                        <Th>Argument values</Th>
-                        <Th>&nbsp;</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {scheduledCommands.map(scheduleCommand => <Tr>
-                        <Td>{scheduleCommand.cron_expression}</Td>
-                        <Td>{CronExpressionToString(scheduleCommand.cron_expression)}</Td>
-                        <Td>{scheduleCommand.argument_values}</Td>
-                        <Td>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cron expression</th>
+                        <th>Description</th>
+                        <th>Argument values</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {scheduledCommands.map(scheduleCommand => <tr>
+                        <td>{scheduleCommand.cron_expression}</td>
+                        <td>{CronExpressionToString(scheduleCommand.cron_expression)}</td>
+                        <td>{scheduleCommand.argument_values}</td>
+                        <td>
                             <DeleteIconButton onClick={ev => deleteScheduledCommand(ev, scheduleCommand)} />
-                        </Td>
-                    </Tr>)}
-                </Tbody>
-            </Table>}
+                        </td>
+                    </tr>)}
+                </tbody>
+            </table>}
 
         <h3>Run on schedule</h3>
         <FormControl isInvalid={isCronExpressionInvalid}>

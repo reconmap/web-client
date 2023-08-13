@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import ExternalLink from 'components/ui/ExternalLink';
 import LoadingTableRow from 'components/ui/tables/LoadingTableRow';
@@ -6,7 +5,6 @@ import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
 import { IconExtensions } from '../ui/Icons';
-import Title from "../ui/Title";
 
 const SystemIntegrationsPage = () => {
     const [integrations] = useFetch('/system/integrations')
@@ -18,32 +16,32 @@ const SystemIntegrationsPage = () => {
                 <div>System</div>
             </Breadcrumb>
         </div>
-        <Title title="Integrations" icon={<IconExtensions />} />
+        <title title="Integrations" icon={<IconExtensions />} />
 
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th>Name</Th>
-                    <Th>Description</Th>
-                    <Th>External URL</Th>
-                    <Th>Configured?</Th>
-                    <Th>&nbsp;</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
+        <table className='rm-listing'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>External URL</th>
+                    <th>Configured?</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
                 {null === integrations && <LoadingTableRow numColumns={5} />}
                 {null !== integrations && 0 === integrations.length && <NoResultsTableRow numColumns={5} />}
                 {null !== integrations && 0 !== integrations.length && integrations.map((integration, index) =>
-                    <Tr key={index}>
-                        <Td>{integration.name}</Td>
-                        <Td>{integration.description}</Td>
-                        <Td><ExternalLink href={integration.externalUrl}>{integration.externalUrl}</ExternalLink></Td>
-                        <Td>{integration.configured ? 'Yes' : 'No'}</Td>
-                        <Td>-</Td>
-                    </Tr>
+                    <tr key={index}>
+                        <td>{integration.name}</td>
+                        <td>{integration.description}</td>
+                        <td><ExternalLink href={integration.externalUrl}>{integration.externalUrl}</ExternalLink></td>
+                        <td>{integration.configured ? 'Yes' : 'No'}</td>
+                        <td>-</td>
+                    </tr>
                 )}
-            </Tbody>
-        </Table>
+            </tbody>
+        </table>
     </div>
 }
 

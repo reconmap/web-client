@@ -1,7 +1,7 @@
 import { ButtonGroup, IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Pagination from 'components/layout/Pagination';
+import PaginationV2 from 'components/layout/PaginationV2';
 import PageTitle from 'components/logic/PageTitle';
 import CreateButton from 'components/ui/buttons/Create';
 import ExportMenuItem from 'components/ui/menuitems/ExportMenuItem';
@@ -33,14 +33,7 @@ const CommandsListPage = () => {
         navigate('/commands/add');
     }
 
-    const handlePrev = () => {
-        const queryParams = new URLSearchParams();
-        queryParams.set('page', pageNumber - 1);
-        const url = `/commands?${queryParams.toString()}`;
-        navigate(url);
-    }
-
-    const handleNext = () => {
+    const onPageChange = pageNumber => {
         const queryParams = new URLSearchParams();
         queryParams.set('page', pageNumber + 1);
         const url = `/commands?${queryParams.toString()}`;
@@ -79,7 +72,7 @@ const CommandsListPage = () => {
         <PageTitle value="Commands" />
         <div className='heading'>
             <Breadcrumb />
-            <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
+            <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
 
             <ButtonGroup isAttached>
                 <CreateButton onClick={onAddCommandClick}>Add command</CreateButton>

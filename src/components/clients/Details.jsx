@@ -1,14 +1,14 @@
-import { Button, ButtonGroup, Input, Tab, Table, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, ButtonGroup, Input, Tab, TabList, Tabs } from '@chakra-ui/react';
 import NativeSelect from 'components/form/NativeSelect';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import ProjectsTable from 'components/projects/Table';
-import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import EmptyField from 'components/ui/EmptyField';
 import MailLink from 'components/ui/MailLink';
-import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import TelephoneLink from 'components/ui/TelephoneLink';
 import TimestampsSection from 'components/ui/TimestampsSection';
+import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
+import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
 import { actionCompletedToast, errorToast } from 'components/ui/toast';
 import UserLink from 'components/users/Link';
 import Contact from 'models/Contact';
@@ -16,11 +16,11 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import secureApiFetch from 'services/api';
 import Breadcrumb from "../ui/Breadcrumb";
-import DeleteButton from '../ui/buttons/Delete';
-import EditButton from "../ui/buttons/Edit";
 import ExternalLink from "../ui/ExternalLink";
 import { IconBriefcase } from '../ui/Icons';
 import Title from '../ui/Title';
+import DeleteButton from '../ui/buttons/Delete';
+import EditButton from "../ui/buttons/Edit";
 import useDelete from './../../hooks/useDelete';
 import useFetch from './../../hooks/useFetch';
 import Loading from './../ui/Loading';
@@ -151,8 +151,8 @@ const ClientDetails = () => {
                     <Tab>Contacts</Tab>
                     <Tab>Projects</Tab>
                 </TabList>
-                <TabPanels>
-                    <TabPanel>
+                <tabPanels>
+                    <tabPanel>
                         <div className="grid grid-two">
                             <div>
                                 <h4>Properties</h4>
@@ -186,69 +186,69 @@ const ClientDetails = () => {
                                 <TimestampsSection entity={client} />
                             </div>
                         </div>
-                    </TabPanel>
+                    </tabPanel>
 
-                    <TabPanel>
+                    <tabPanel>
                         <h4>Contacts</h4>
 
                         {contacts && <>
                             <form onSubmit={onFormSubmit}>
-                                <Table>
-                                    <Thead>
-                                        <Tr>
-                                            <Th>Kind</Th>
-                                            <Th>Name</Th>
-                                            <Th>Role</Th>
-                                            <Th>Email</Th>
-                                            <Th>Phone</Th>
-                                            <Th>&nbsp;</Th>
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody>
-                                        <Tr>
-                                            <Td>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Kind</th>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
                                                 <NativeSelect name="kind" onChange={onContactFormChange} value={contact.kind || ""} isRequired>
                                                     <option value="general">General</option>
                                                     <option value="technical">Technical</option>
                                                     <option value="billing">Billing</option>
                                                 </NativeSelect>
-                                            </Td>
-                                            <Td>
+                                            </td>
+                                            <td>
                                                 <Input type="text" name="name" onChange={onContactFormChange} value={contact.name || ""} isRequired />
-                                            </Td>
-                                            <Td>
+                                            </td>
+                                            <td>
                                                 <Input type="text" name="role" onChange={onContactFormChange} value={contact.role || ""} />
-                                            </Td>
-                                            <Td>
+                                            </td>
+                                            <td>
                                                 <Input type="email" name="email" onChange={onContactFormChange} value={contact.email || ""} isRequired />
-                                            </Td>
-                                            <Td>
+                                            </td>
+                                            <td>
                                                 <Input type="tel" name="phone" onChange={onContactFormChange} value={contact.phone || ""} />
-                                            </Td>
-                                            <Td>
+                                            </td>
+                                            <td>
                                                 <Button type="submit">Add</Button>
-                                            </Td>
-                                        </Tr>
+                                            </td>
+                                        </tr>
                                         {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
                                         {contacts.map(contact => <>
-                                            <Tr key={contact.id}>
-                                                <Td>{contact.kind}</Td>
-                                                <Td>{contact.name}</Td>
-                                                <Td>{contact.role}</Td>
-                                                <Td><MailLink email={contact.email} /></Td>
-                                                <Td><TelephoneLink number={contact.phone} /></Td>
-                                                <Td><DeleteIconButton onClick={onContactDelete.bind(this, contact.id)} /></Td>
-                                            </Tr>
+                                            <tr key={contact.id}>
+                                                <td>{contact.kind}</td>
+                                                <td>{contact.name}</td>
+                                                <td>{contact.role}</td>
+                                                <td><MailLink email={contact.email} /></td>
+                                                <td><TelephoneLink number={contact.phone} /></td>
+                                                <td><DeleteIconButton onClick={onContactDelete.bind(this, contact.id)} /></td>
+                                            </tr>
                                         </>)}
-                                    </Tbody>
-                                </Table>
+                                    </tbody>
+                                </table>
                             </form>
                         </>}
-                    </TabPanel>
-                    <TabPanel>
+                    </tabPanel>
+                    <tabPanel>
                         <ClientProjectsTab clientId={clientId} />
-                    </TabPanel>
-                </TabPanels>
+                    </tabPanel>
+                </tabPanels>
             </Tabs>
 
         </article>

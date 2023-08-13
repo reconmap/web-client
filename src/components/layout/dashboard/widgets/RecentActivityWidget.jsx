@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import Badge from "components/badges/Badge";
 import UserLink from "components/users/Link";
 import useFetch from "hooks/useFetch";
@@ -10,23 +9,23 @@ const RecentActivityWidget = () => {
     return <DashboardWidget title="Recent activity">
 
         {auditLog && auditLog.length > 0 ?
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th>Action</Th>
-                        <Th>User</Th>
-                        <Th>Date/Time</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {auditLog.map(log => <Tr key={log.id}>
-                        <Td><Badge>{log.action}</Badge></Td>
-                        <Td>{log.user_name ?
-                            <UserLink userId={log.user_id}>{log.user_name}</UserLink> : '-'}</Td>
-                        <Td>{log.insert_ts}</Td>
-                    </Tr>)}
-                </Tbody>
-            </Table> :
+            <table className="rm-listing">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Date/Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {auditLog.map(log => <tr key={log.id}>
+                        <td><Badge>{log.action}</Badge></td>
+                        <td>{log.user_name ?
+                            <UserLink userId={log.user_id}>{log.user_name}</UserLink> : '-'}</td>
+                        <td>{log.insert_ts}</td>
+                    </tr>)}
+                </tbody>
+            </table> :
             <p>No activity to show.</p>
         }
     </DashboardWidget>

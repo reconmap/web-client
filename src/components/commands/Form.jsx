@@ -32,7 +32,7 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
         <fieldset>
             <legend>Basic information</legend>
             <label>Name
-                <Input type="text" name="name" onChange={onFormChange} value={command.name || ""} required autoFocus /></label>
+                <input type="text" name="name" onChange={onFormChange} value={command.name || ""} required autoFocus /></label>
             <label>Description
                 <MarkdownEditor name="description" onChange={onFormChange} value={command.description || ""} required />
             </label>

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PageTitle from 'components/logic/PageTitle';
@@ -10,7 +10,6 @@ import secureApiFetch from 'services/api';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
-import Title from '../ui/Title';
 
 const NotificationsList = () => {
     const [notifications, fetchNotifications] = useFetch('/notifications')
@@ -31,40 +30,40 @@ const NotificationsList = () => {
         <div className='heading'>
             <Breadcrumb />
         </div>
-        <Title title='Notifications' icon={<faBell />} />
+        <title title='Notifications' icon={<faBell />} />
 
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th w={50}>&nbsp;</Th>
-                    <Th w={200}>Date/time</Th>
-                    <Th>Content</Th>
-                    <Th>&nbsp;</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
+        <table>
+            <thead>
+                <tr>
+                    <th w={50}>&nbsp;</th>
+                    <th w={200}>Date/time</th>
+                    <th>Content</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
                 {null === notifications && <LoadingTableRow numColumns={3} />}
                 {null !== notifications && notifications.length === 0 && <NoResultsTableRow numColumns={3} />}
                 {null !== notifications && notifications.length > 0 &&
                     notifications.map(notification =>
-                        <Tr key={notification.id}>
-                            <Th>{notification.status === 'read' ? <FontAwesomeIcon icon={faCheck} /> : <>&nbsp;</>}</Th>
-                            <Td><RelativeDateFormatter date={notification.insert_ts} /></Td>
-                            <Td>
+                        <tr key={notification.id}>
+                            <th>{notification.status === 'read' ? <FontAwesomeIcon icon={faCheck} /> : <>&nbsp;</>}</th>
+                            <td><RelativeDateFormatter date={notification.insert_ts} /></td>
+                            <td>
                                 <strong>{notification.title}</strong>
                                 <div>{notification.content}</div>
-                            </Td>
-                            <Td textAlign="right">
+                            </td>
+                            <td textAlign="right">
                                 <ButtonGroup>
                                     {notification.status === 'unread' && <Button onClick={() => markNotificationAsRead(notification)} leftIcon={<FontAwesomeIcon icon={faCheck} />}>Mark as read</Button>}
                                     <DeleteIconButton onClick={() => deleteNotification(notification.id)} />
                                 </ButtonGroup>
-                            </Td>
-                        </Tr>
+                            </td>
+                        </tr>
                     )
                 }
-            </Tbody>
-        </Table>
+            </tbody>
+        </table>
     </>
 }
 

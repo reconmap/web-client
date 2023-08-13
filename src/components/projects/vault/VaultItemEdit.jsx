@@ -1,4 +1,4 @@
-import { Button, Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Input, Select } from '@chakra-ui/react';
 import NativeCheckbox from 'components/form/NativeCheckbox';
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import Vault from 'models/Vault';
@@ -71,45 +71,45 @@ const VaultItemEdit = () => {
         {item.name !== "" && <>
             <form onSubmit={onFormSubmit}>
                 <h3>Vault item</h3>
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th>Type</Th>
-                            <Th>Name</Th>
-                            <Th>Note</Th>
-                            <Th>Value</Th>
-                            <Th>Reportable</Th>
-                            <Th>&nbsp;</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        <Tr>
-                            <Td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Note</th>
+                            <th>Value</th>
+                            <th>Reportable</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
                                 <Select name="type" onChange={onVaultItemFormChange} value={item.type || ""} isRequired>
                                     <option value="password">Password</option>
                                     <option value="note">Note</option>
                                     <option value="token">Token</option>
                                     <option value="key">Key</option>
                                 </Select>
-                            </Td>
-                            <Td>
+                            </td>
+                            <td>
                                 <Input type="text" name="name" onChange={onVaultItemFormChange} value={item.name || ""} isRequired />
-                            </Td>
-                            <Td>
+                            </td>
+                            <td>
                                 <Input type="text" name="note" onChange={onVaultItemFormChange} value={item.note || ""} />
-                            </Td>
-                            <Td>
+                            </td>
+                            <td>
                                 <Input type="text" name="value" onChange={onVaultItemFormChange} value={item.value || ""} isRequired />
-                            </Td>
-                            <Td>
+                            </td>
+                            <td>
                                 <NativeCheckbox name="reportable" onChange={onVaultItemFormChange} checked={item.reportable} />
-                            </Td>
-                            <Td>
+                            </td>
+                            <td>
                                 <Button type="submit">Update</Button>
-                            </Td>
-                        </Tr>
-                    </Tbody>
-                </Table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </form>
         </>}
         {item.name === "" && <>

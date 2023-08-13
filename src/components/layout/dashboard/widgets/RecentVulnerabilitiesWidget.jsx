@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
 import Loading from "components/ui/Loading";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
@@ -15,20 +14,20 @@ const RecentVulnerabilitiesWidget = () => {
         {vulnerabilities.length === 0 ?
             <p>No vulnerabilities to show.</p>
             :
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th>Summary</Th>
-                        <Th>Created</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {vulnerabilities.map(vulnerability => <Tr key={vulnerability.id}>
-                        <Td><VulnerabilityBadge key={vulnerability.id} vulnerability={vulnerability} /></Td>
-                        <Td><RelativeDateFormatter date={vulnerability.insert_ts} /></Td>
-                    </Tr>)}
-                </Tbody>
-            </Table>
+            <table className="rm-listing">
+                <thead>
+                    <tr>
+                        <th>Summary</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {vulnerabilities.map(vulnerability => <tr key={vulnerability.id}>
+                        <td><VulnerabilityBadge key={vulnerability.id} vulnerability={vulnerability} /></td>
+                        <td><RelativeDateFormatter date={vulnerability.insert_ts} /></td>
+                    </tr>)}
+                </tbody>
+            </table>
         }
     </DashboardWidget>
 }

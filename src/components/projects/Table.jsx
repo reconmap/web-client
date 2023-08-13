@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LinkButton from 'components/ui/buttons/Link';
@@ -10,48 +9,48 @@ import ProjectBadge from './ProjectBadge';
 const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) => {
     const numColumns = showClientColumn ? 7 : 6;
 
-    return <Table>
-        <Thead>
-            <Tr>
-                <Th>Name</Th>
-                {showClientColumn && <Th>Client</Th>}
-                <Th className="only-desktop">Description</Th>
-                <Th>Category</Th>
-                <Th>Vulnerability Metrics</Th>
-                <Th>Status</Th>
-                <Th>&nbsp;</Th>
-            </Tr>
-        </Thead>
-        <Tbody>
+    return <table className="rm-listing">
+        <thead>
+            <tr>
+                <th>Name</th>
+                {showClientColumn && <th>Client</th>}
+                <th className="only-desktop">Description</th>
+                <th>Category</th>
+                <th>Vulnerability Metrics</th>
+                <th>Status</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
             {null === projects && <LoadingTableRow numColumns={numColumns} />}
             {null !== projects && 0 === projects.length && <NoResultsTableRow numColumns={numColumns} />}
             {null !== projects && 0 !== projects.length && projects.map(project =>
-                <Tr key={project.id}>
-                    <Td>
+                <tr key={project.id}>
+                    <td>
                         <ProjectBadge project={project} />
-                    </Td>
+                    </td>
                     {showClientColumn &&
-                        <Td>{project.is_template ?
+                        <td>{project.is_template ?
                             <span title="Not applicable">(n/a)</span> :
                             <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>}
-                        </Td>
+                        </td>
                     }
-                    <Td className="only-desktop">{project.description}</Td>
-                    <Td>{project.category_id !== null ? project.category_name : '(undefined)'}</Td>
-                    <Td>{project.vulnerability_metrics ? project.vulnerability_metrics : '(undefined)'}</Td>
-                    <Td>{project.archived ? 'Archived' : 'Active'}</Td>
-                    <Td textAlign="right">
+                    <td className="only-desktop">{project.description}</td>
+                    <td>{project.category_id !== null ? project.category_name : '(undefined)'}</td>
+                    <td>{project.vulnerability_metrics ? project.vulnerability_metrics : '(undefined)'}</td>
+                    <td>{project.archived ? 'Archived' : 'Active'}</td>
+                    <td textAlign="right">
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                             <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
                             {destroy &&
                                 <DeleteIconButton onClick={() => destroy(project.id)} />
                             }
                         </RestrictedComponent>
-                    </Td>
-                </Tr>
+                    </td>
+                </tr>
             )}
-        </Tbody>
-    </Table>
+        </tbody>
+    </table>
 }
 
 export default ProjectsTable;

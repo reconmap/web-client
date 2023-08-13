@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import DocumentBadge from "components/documents/Badge";
 import Loading from "components/ui/Loading";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
@@ -15,20 +14,20 @@ const RecentDocumentsWidget = () => {
         {documents.length === 0 ?
             <p>No documents to show.</p>
             :
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th>Title</Th>
-                        <Th>Created</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {documents.map(doc => <Tr key={doc.id}>
-                        <Td><DocumentBadge key={doc.id} document={doc} /></Td>
-                        <Td><RelativeDateFormatter date={doc.insert_ts} /></Td>
-                    </Tr>)}
-                </Tbody>
-            </Table>
+            <table className='rm-listing'>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {documents.map(doc => <tr key={doc.id}>
+                        <td><DocumentBadge key={doc.id} document={doc} /></td>
+                        <td><RelativeDateFormatter date={doc.insert_ts} /></td>
+                    </tr>)}
+                </tbody>
+            </table>
         }
     </DashboardWidget>
 }

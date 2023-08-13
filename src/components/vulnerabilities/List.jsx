@@ -1,18 +1,18 @@
 import { ButtonGroup } from '@chakra-ui/button';
 import { Flex, HStack } from '@chakra-ui/react';
-import Pagination from 'components/layout/Pagination';
+import PaginationV2 from 'components/layout/PaginationV2';
 import PageTitle from 'components/logic/PageTitle';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import Breadcrumb from 'components/ui/Breadcrumb';
-import DeleteButton from 'components/ui/buttons/Delete';
 import Title from 'components/ui/Title';
+import DeleteButton from 'components/ui/buttons/Delete';
 import { actionCompletedToast } from 'components/ui/toast';
 import useQuery from 'hooks/useQuery';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import secureApiFetch from '../../services/api';
-import CreateButton from '../ui/buttons/Create';
 import { IconFlag } from '../ui/Icons';
+import CreateButton from '../ui/buttons/Create';
 import VulnerabilityFilters from './Filters';
 import VulnerabilitiesTable from './VulnerabilitiesTable';
 import VulnerabilityTableModel from './VulnerabilityTableModel';
@@ -29,22 +29,10 @@ const VulnerabilitiesList = () => {
     const [totalCount, setTotalCount] = useState('?');
     const [numberPages, setNumberPages] = useState(1);
 
-    const handlePrev = () => {
+    const onPageChange = pageNumber => {
         const queryParams = new URLSearchParams();
         queryParams.set('isTemplate', 'false');
-        queryParams.set('page', pageNumber - 1);
-        queryParams.set('orderColumn', tableModel.sortBy.column);
-        queryParams.set('orderDirection', tableModel.sortBy.order);
-        Object.keys(tableModel.filters)
-            .forEach(key => tableModel.filters[key] !== null && tableModel.filters[key].length !== 0 && queryParams.append(key, tableModel.filters[key]));
-        const url = `/vulnerabilities?${queryParams.toString()}`;
-        navigate(url);
-    }
-
-    const handleNext = () => {
-        const queryParams = new URLSearchParams();
-        queryParams.set('isTemplate', 'false');
-        queryParams.set('page', pageNumber + 1);
+        queryParams.set('page', pageNumber);
         queryParams.set('orderColumn', tableModel.sortBy.column);
         queryParams.set('orderDirection', tableModel.sortBy.order);
         Object.keys(tableModel.filters)
@@ -108,7 +96,7 @@ const VulnerabilitiesList = () => {
         <PageTitle value={`Vulnerabilities - Page ${pageNumber}`} />
         <div className='heading'>
             <Breadcrumb />
-            <Pagination page={apiPageNumber} total={numberPages} handlePrev={handlePrev} handleNext={handleNext} />
+            <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
             <HStack>
                 <ButtonGroup>
                     <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>

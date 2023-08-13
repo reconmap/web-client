@@ -17,7 +17,7 @@ const MyTasksWidget = () => {
         {tasks.length === 0 ?
             <p>You don't have any assigned tasks.</p>
             :
-            <table className="full-width">
+            <table className="rm-listing">
                 <thead>
                     <tr>
                         <th>Summary</th>

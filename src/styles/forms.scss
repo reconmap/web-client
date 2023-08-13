@@ -32,3 +32,27 @@ label span.field-explanation {
     color: lightcoral;
     font-style: italic;
 }
+
+table.rm-listing {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0 2px;
+
+    thead {
+        tr {
+            th {
+                border-bottom: 1px solid gray;
+                font-variant: small-caps;
+            }
+        }
+    }
+
+    tr:nth-child(even) {
+        background-color: hsla(var(--base-hue), 3%, 50%, 0.25);;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+}

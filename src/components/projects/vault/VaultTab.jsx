@@ -1,4 +1,4 @@
-import { Button, Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Input, Select } from '@chakra-ui/react';
 import NativeCheckbox from 'components/form/NativeCheckbox';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
@@ -47,77 +47,77 @@ const ProjectVaultTab = ({ project }) => {
     return <section>
         <RestrictedComponent roles={['administrator', 'superuser', 'user']} message="(access restricted)">
             {vault && <>
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th>Name</Th>
-                            <Th>Note</Th>
-                            <Th>Type</Th>
-                            <Th>Reportable</Th>
-                            <Th>&nbsp;</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Note</th>
+                            <th>Type</th>
+                            <th>Reportable</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {0 === vault.length && <NoResultsTableRow numColumns={3} />}
                         {vault.map(item => <>
-                            <Tr key={item.id}>
-                                <Td>{item.name}</Td>
-                                <Td>{item.note}</Td>
-                                <Td>{item.type}</Td>
-                                <Td>{item.reportable}</Td>
-                                <Td textAlign="right">
+                            <tr key={item.id}>
+                                <td>{item.name}</td>
+                                <td>{item.note}</td>
+                                <td>{item.type}</td>
+                                <td>{item.reportable}</td>
+                                <td textAlign="right">
                                     <LinkButton href={`/vault/${project.id}/${item.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton onClick={onVaultItemDelete.bind(this, item.id)} />
-                                </Td>
-                            </Tr>
+                                </td>
+                            </tr>
                         </>)}
-                    </Tbody>
-                </Table>
+                    </tbody>
+                </table>
                 <form onSubmit={onFormSubmit}>
                     <h3>New vault item</h3>
-                    <Table>
-                        <Thead>
-                            <Tr>
-                                <Th>Type</Th>
-                                <Th>Name</Th>
-                                <Th>Note</Th>
-                                <Th>Value</Th>
-                                <Th>Password</Th>
-                                <Th>Reportable</Th>
-                                <Th>&nbsp;</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            <Tr>
-                                <Td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Name</th>
+                                <th>Note</th>
+                                <th>Value</th>
+                                <th>Password</th>
+                                <th>Reportable</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
                                     <Select name="type" onChange={onVaultItemFormChange} value={vaultItem.type || ""} isRequired>
                                         <option value="password">Password</option>
                                         <option value="note">Note</option>
                                         <option value="token">Token</option>
                                         <option value="key">Key</option>
                                     </Select>
-                                </Td>
-                                <Td>
+                                </td>
+                                <td>
                                     <Input type="text" name="name" onChange={onVaultItemFormChange} value={vaultItem.name || ""} isRequired />
-                                </Td>
-                                <Td>
+                                </td>
+                                <td>
                                     <Input type="text" name="note" onChange={onVaultItemFormChange} value={vaultItem.note || ""} />
-                                </Td>
-                                <Td>
+                                </td>
+                                <td>
                                     <Input type="text" name="value" onChange={onVaultItemFormChange} value={vaultItem.value || ""} isRequired />
-                                </Td>
-                                <Td>
+                                </td>
+                                <td>
                                     <Input type="password" name="password" onChange={onVaultItemFormChange} value={vaultItem.password || ""} isRequired />
-                                </Td>
-                                <Td>
+                                </td>
+                                <td>
                                     <NativeCheckbox name="reportable" onChange={onVaultItemFormChange} checked={vaultItem.reportable} />
-                                </Td>
-                                <Td>
+                                </td>
+                                <td>
                                     <Button type="submit">Add</Button>
-                                </Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
             </>}
         </RestrictedComponent>

@@ -1,9 +1,7 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import Licenses from 'data/licenses.json';
 import Breadcrumb from "../ui/Breadcrumb";
 import { IconQuestionCircle } from "../ui/Icons";
-import Title from "../ui/Title";
 
 const LicensesPage = () => {
 
@@ -13,22 +11,24 @@ const LicensesPage = () => {
         <div className='heading'>
             <Breadcrumb />
         </div>
-        <Title title="Licenses" icon={<IconQuestionCircle />} />
+        <title title="Licenses" icon={<IconQuestionCircle />} />
 
-        <Table>
-            <Thead>
-                <Th>Dependency</Th>
-                <Th>License</Th>
-                <Th>Url</Th>
-            </Thead>
-            <Tbody>
-                {Object.entries(Licenses).map(entry => <Tr>
-                    <Td>{entry[0]}</Td>
-                    <Td>{entry[1].licenses}</Td>
-                    <Td>{entry[1].url}</Td>
-                </Tr>)}
-            </Tbody>
-        </Table>
+        <table className="rm-listing">
+            <thead>
+                <tr>
+                    <th>Dependency</th>
+                    <th>License</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Object.entries(Licenses).map(entry => <tr>
+                    <td>{entry[0]}</td>
+                    <td>{entry[1].licenses}</td>
+                    <td>{entry[1].url}</td>
+                </tr>)}
+            </tbody>
+        </table>
 
     </div>
 };

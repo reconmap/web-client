@@ -1,4 +1,4 @@
-import { ButtonGroup, IconButton, Menu, MenuButton, MenuList, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { ButtonGroup, IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PageTitle from 'components/logic/PageTitle';
@@ -10,11 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from '../ui/Breadcrumb';
-import CreateButton from "../ui/buttons/Create";
-import LinkButton from "../ui/buttons/Link";
 import ExternalLink from "../ui/ExternalLink";
 import { IconBriefcase } from '../ui/Icons';
-import Title from '../ui/Title';
+import CreateButton from "../ui/buttons/Create";
+import LinkButton from "../ui/buttons/Link";
 import ClientLink from "./Link";
 
 const ClientsList = () => {
@@ -43,36 +42,36 @@ const ClientsList = () => {
                 </Menu>
             </ButtonGroup>
         </div>
-        <Title title='Clients' icon={<IconBriefcase />} />
+        <title title='Clients' icon={<IconBriefcase />} />
 
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th>Name</Th>
-                    <Th>Address</Th>
-                    <Th>URL</Th>
-                    <Th>Number of contacts</Th>
-                    <Th>&nbsp;</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
+        <table className='rm-listing'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>URL</th>
+                    <th>Number of contacts</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
                 {null === clients && <LoadingTableRow numColumns={5} />}
                 {null !== clients && 0 === clients.length && <NoResultsTableRow numColumns={5} />}
                 {null !== clients && 0 < clients.length && clients.map(client =>
-                    <Tr key={client.id}>
-                        <Td><ClientLink clientId={client.id}>{client.name}</ClientLink></Td>
-                        <Td>{client.address || '-'}</Td>
-                        <Td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</Td>
-                        <Td>{client.num_contacts}</Td>
-                        <Td textAlign="right">
+                    <tr key={client.id}>
+                        <td><ClientLink clientId={client.id}>{client.name}</ClientLink></td>
+                        <td>{client.address || '-'}</td>
+                        <td>{client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : '-'}</td>
+                        <td>{client.num_contacts}</td>
+                        <td textAlign="right">
                             <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
                             <DeleteIconButton onClick={() => destroy(client.id)} />
-                        </Td>
-                    </Tr>
+                        </td>
+                    </tr>
                 )
                 }
-            </Tbody>
-        </Table>
+            </tbody>
+        </table>
     </>
 }
 

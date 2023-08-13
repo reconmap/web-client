@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import Badge from 'components/badges/Badge';
 import UserRoleBadge from 'components/badges/UserRoleBadge';
 import EmptyField from 'components/ui/EmptyField';
@@ -11,49 +10,49 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
     const hasUserLocations = auditLog.some(entry => entry.hasOwnProperty("user_location"));
     const numColumns = 4 + (hideUserColumns ? 0 : 2) + (hasUserLocations ? 1 : 0);
 
-    return <Table size="sm">
-        <Thead>
-            <Tr>
+    return <table className='rm-listing'>
+        <thead>
+            <tr>
                 {/** Who */}
                 {!hideUserColumns &&
                     <>
-                        <Th>User</Th>
-                        <Th>Role</Th>
+                        <th>User</th>
+                        <th>Role</th>
                     </>
                 }
-                <Th>IP address</Th>
-                {hasUserLocations && <Th>Location</Th>}
-                <Th>User agent</Th>
+                <th>IP address</th>
+                {hasUserLocations && <th>Location</th>}
+                <th>User agent</th>
                 {/** What */}
-                <Th>Event</Th>
-                <Th>Data</Th>
+                <th>Event</th>
+                <th>Data</th>
                 {/** When */}
-                <Th>Date/Time</Th>
-            </Tr>
-        </Thead>
-        <Tbody>
+                <th>Date/Time</th>
+            </tr>
+        </thead>
+        <tbody>
             {auditLog !== null && auditLog.length === 0 && <NoResultsTableRow numColumns={numColumns} />}
             {auditLog !== null && auditLog.map(entry => {
-                return <Tr key={entry.id}>
+                return <tr key={entry.id}>
                     {!hideUserColumns &&
                         <>
-                            <Td>{entry.user_name ?
-                                <UserLink userId={entry.user_id}>{entry.user_name}</UserLink> : '-'}</Td>
-                            <Td><UserRoleBadge role={entry.user_role} /></Td>
+                            <td>{entry.user_name ?
+                                <UserLink userId={entry.user_id}>{entry.user_name}</UserLink> : '-'}</td>
+                            <td><UserRoleBadge role={entry.user_role} /></td>
                         </>
                     }
-                    <Td><Ipv4Link value={entry.client_ip} /></Td>
-                    {hasUserLocations && <Td>{entry.user_location ? entry.user_location : <EmptyField />}</Td>}
-                    <Td>{entry.user_agent ? <UserAgentLabel userAgent={entry.user_agent} /> : '-'}</Td>
-                    <Td>
+                    <td><Ipv4Link value={entry.client_ip} /></td>
+                    {hasUserLocations && <td>{entry.user_location ? entry.user_location : <EmptyField />}</td>}
+                    <td>{entry.user_agent ? <UserAgentLabel userAgent={entry.user_agent} /> : '-'}</td>
+                    <td>
                         <Badge>{entry.action}</Badge>
-                    </Td>
-                    <Td>{entry.object}</Td>
-                    <Td>{entry.insert_ts}</Td>
-                </Tr>
+                    </td>
+                    <td>{entry.object}</td>
+                    <td>{entry.insert_ts}</td>
+                </tr>
             })}
-        </Tbody>
-    </Table>
+        </tbody>
+    </table>
 }
 
 export default AuditLogsTable;

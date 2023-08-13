@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import FileSizeSpan from "components/ui/FileSizeSpan";
@@ -87,35 +86,35 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
             {content}
         </ModalDialog>
 
-        <Table>
-            <Thead>
-                <Tr>
-                    <Th>Filename</Th>
-                    <Th>Mimetype</Th>
-                    <Th>File size</Th>
-                    <Th>Upload date</Th>
-                    <Th>Uploaded by</Th>
-                    <Th>&nbsp;</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
+        <table>
+            <thead>
+                <tr>
+                    <th>Filename</th>
+                    <th>Mimetype</th>
+                    <th>File size</th>
+                    <th>Upload date</th>
+                    <th>Uploaded by</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
                 {attachments.length === 0 && <NoResultsTableRow numColumns={6} />}
                 {attachments.map((attachment, index) =>
-                    <Tr key={index}>
-                        <Td>{attachment.client_file_name}</Td>
-                        <Td><span title={safeResolveMime(attachment.file_mimetype)}>{attachment.file_mimetype}</span></Td>
-                        <Td><FileSizeSpan fileSize={attachment.file_size} /></Td>
-                        <Td><RelativeDateFormatter date={attachment.insert_ts} /></Td>
-                        <Td><UserLink userId={attachment.submitter_uid}>{attachment.submitter_name}</UserLink></Td>
-                        <Td style={{ display: "flex" }}>
+                    <tr key={index}>
+                        <td>{attachment.client_file_name}</td>
+                        <td><span title={safeResolveMime(attachment.file_mimetype)}>{attachment.file_mimetype}</span></td>
+                        <td><FileSizeSpan fileSize={attachment.file_size} /></td>
+                        <td><RelativeDateFormatter date={attachment.insert_ts} /></td>
+                        <td><UserLink userId={attachment.submitter_uid}>{attachment.submitter_name}</UserLink></td>
+                        <td style={{ display: "flex" }}>
                             <SecondaryButton onClick={ev => onViewClick(ev, attachment.id)}>View</SecondaryButton>
                             <SecondaryButton onClick={ev => onDownloadClick(ev, attachment.id)}>Download</SecondaryButton>
                             <DeleteIconButton onClick={ev => onDeleteAttachmentClick(ev, attachment.id)} />
-                        </Td>
-                    </Tr>
+                        </td>
+                    </tr>
                 )}
-            </Tbody>
-        </Table>
+            </tbody>
+        </table>
     </>
 }
 

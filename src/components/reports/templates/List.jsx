@@ -1,6 +1,5 @@
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { useDisclosure } from '@chakra-ui/hooks';
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { UserManualUrl } from 'ServerUrls';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
@@ -9,7 +8,6 @@ import ExternalLink from 'components/ui/ExternalLink';
 import { IconDocument, IconDocumentDuplicate } from 'components/ui/Icons';
 import Loading from 'components/ui/Loading';
 import NoResults from 'components/ui/NoResults';
-import Title from 'components/ui/Title';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import SecondaryButton from 'components/ui/buttons/Secondary';
@@ -75,7 +73,7 @@ const ReportTemplatesList = () => {
             <ReportModalDialog isOpen={isAddReportTemplateDialogOpen} onSubmit={onReportTemplateFormSaved} onCancel={closeAddReportTemplateDialog} />
             <CreateButton onClick={openAddReportTemplateDialog}>Add report template...</CreateButton>
         </div>
-        <Title title='Report templates' icon={<IconDocumentDuplicate />} />
+        <title title='Report templates' icon={<IconDocumentDuplicate />} />
 
         <Alert status="info">
             <AlertIcon />
@@ -88,40 +86,40 @@ const ReportTemplatesList = () => {
         </Alert>
 
         {!templates ? <Loading /> :
-            <Table variant="simple">
-                <Thead>
-                    <Tr>
-                        <Th style={{ width: '190px' }}>Name</Th>
-                        <Th>Description</Th>
-                        <Th style={{ width: '190px' }}>File name</Th>
-                        <Th>Mime type</Th>
-                        <Th>Downloads</Th>
-                        <Th>&nbsp;</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
+            <table className='rm-listing'>
+                <thead>
+                    <tr>
+                        <th style={{ width: '190px' }}>Name</th>
+                        <th>Description</th>
+                        <th style={{ width: '190px' }}>File name</th>
+                        <th>Mime type</th>
+                        <th>Downloads</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {templates.length === 0 ?
-                        <Tr><Td colSpan={3}><NoResults /></Td></Tr>
+                        <tr><td colSpan={3}><NoResults /></td></tr>
                         :
                         templates.map((template) =>
-                            <Tr key={template.id}>
-                                <Td>{template.version_name}</Td>
-                                <Td><EmptyField value={template.version_description} /></Td>
-                                <Td>{template.client_file_name}</Td>
-                                <Td><span title={safeResolveMime(template.file_mimetype)}>{template.file_mimetype}</span></Td>
-                                <Td>
+                            <tr key={template.id}>
+                                <td>{template.version_name}</td>
+                                <td><EmptyField value={template.version_description} /></td>
+                                <td>{template.client_file_name}</td>
+                                <td><span title={safeResolveMime(template.file_mimetype)}>{template.file_mimetype}</span></td>
+                                <td>
                                     <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
                                         <IconDocument /> DOCX
                                     </SecondaryButton>
-                                </Td>
-                                <Td textAlign="right">
+                                </td>
+                                <td textAlign="right">
                                     <DeleteIconButton disabled={template.generated_by_uid === 0} title={template.generated_by_uid === 0 ? "System templates cannot be deleted" : ""} onClick={ev => deleteTemplate(ev, template.id)} />
-                                </Td>
-                            </Tr>
+                                </td>
+                            </tr>
                         )
                     }
-                </Tbody>
-            </Table>
+                </tbody>
+            </table>
         }
     </>
 }

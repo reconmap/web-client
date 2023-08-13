@@ -1,4 +1,3 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
@@ -39,37 +38,37 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
         navigate(`/projects/${projectId}/report/send`);
     }
 
-    return <Table>
-        <Thead>
-            <Tr>
-                <Th>Name (Description)</Th>
-                {includeProjectColumn && <Th>Project</Th>}
-                <Th>Datetime</Th>
-                <Th>Downloads</Th>
-                <Th>&nbsp;</Th>
-            </Tr>
-        </Thead>
-        <Tbody>
+    return <table className="rm-listing">
+        <thead>
+            <tr>
+                <th>Name (Description)</th>
+                {includeProjectColumn && <th>Project</th>}
+                <th>Datetime</th>
+                <th>Downloads</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
             {reports.length === 0 && <NoResultsTableRow numColumns={4} />}
             {reports.map((report, index) =>
-                <Tr key={index}>
-                    <Td>{report.version_name} ({report.version_description})</Td>
-                    {includeProjectColumn && <Td><ProjectBadge project={{ id: report.project_id, name: report.project_name }} /></Td>}
-                    <Td><RelativeDateFormatter date={report.insert_ts} /></Td>
-                    <Td>
+                <tr key={index}>
+                    <td>{report.version_name} ({report.version_description})</td>
+                    {includeProjectColumn && <td><ProjectBadge project={{ id: report.project_id, name: report.project_name }} /></td>}
+                    <td><RelativeDateFormatter date={report.insert_ts} /></td>
+                    <td>
                         <SecondaryButton onClick={() => handleDownload(report.docx_attachment_id)}>
                             <IconDocument /> DOCX
                         </SecondaryButton>
-                    </Td>
-                    <Td textAlign="right">
+                    </td>
+                    <td textAlign="right">
                         <SecondaryButton onClick={() => handleSendByEmail(report.project_id)}>Send by email</SecondaryButton>
 
                         <DeleteIconButton onClick={() => deleteReport(report.id)} />
-                    </Td>
-                </Tr>
+                    </td>
+                </tr>
             )}
-        </Tbody>
-    </Table>
+        </tbody>
+    </table>
 }
 
 ReportsTable.propTypes = {

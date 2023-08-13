@@ -1,13 +1,11 @@
-import { Table, Tbody, Td, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import PageTitle from 'components/logic/PageTitle';
 import Breadcrumb from 'components/ui/Breadcrumb';
+import { IconDocumentDuplicate } from 'components/ui/Icons';
+import NoResults from 'components/ui/NoResults';
 import CreateButton from 'components/ui/buttons/Create';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LinkButton from 'components/ui/buttons/Link';
-import { IconDocumentDuplicate } from 'components/ui/Icons';
-import Loading from 'components/ui/Loading';
-import NoResults from 'components/ui/NoResults';
-import Title from 'components/ui/Title';
 import useDelete from 'hooks/useDelete';
 import useFetch from 'hooks/useFetch';
 import { useState } from 'react';
@@ -62,35 +60,34 @@ const VulnerabilityCategoriesPage = () => {
             {isEditCategoryDialogOpen && <VulnerabilityCategoryEditModalDialog category={editCategory} isOpen={isEditCategoryDialogOpen} onClose={onCategoryDialogClosed} onCancel={closeEditCategoryDialog} />}
             <CreateButton onClick={onAddClick}>Add vulnerability category...</CreateButton>
         </div>
-        <Title title='Vulnerability categories' icon={<IconDocumentDuplicate />} />
-        {!categories ? <Loading /> :
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th style={{ width: '190px' }}>Name</Th>
-                        <Th>Parent category</Th>
-                        <Th colSpan={2}>Description</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {categories.length === 0 ?
-                        <Tr><Td colSpan={3}><NoResults /></Td></Tr>
-                        :
-                        categories.map(category =>
-                            <Tr key={category.id}>
-                                <Td><strong>{category.name}</strong></Td>
-                                <Td>{category.parent_name ?? '-'}</Td>
-                                <Td>{category.description}</Td>
-                                <Td textAlign="right">
-                                    <LinkButton href="#" onClick={ev => onEditClick(ev, category)}>Edit</LinkButton>
-                                    <DeleteIconButton onClick={ev => onDeleteClick(ev, category.id)} />
-                                </Td>
-                            </Tr>
-                        )
-                    }
-                </Tbody>
-            </Table>
-        }
+        <title title='Vulnerability categories' icon={<IconDocumentDuplicate />} />
+
+        <table className='rm-listing'>
+            <thead>
+                <tr>
+                    <th style={{ width: '190px' }}>Name</th>
+                    <th>Parent category</th>
+                    <th colSpan={2}>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {null === categories || categories.length === 0 ?
+                    <tr><td colSpan={3}><NoResults /></td></tr>
+                    :
+                    categories.map(category =>
+                        <tr key={category.id}>
+                            <td><strong>{category.name}</strong></td>
+                            <td>{category.parent_name ?? '-'}</td>
+                            <td>{category.description}</td>
+                            <td textAlign="right">
+                                <LinkButton href="#" onClick={ev => onEditClick(ev, category)}>Edit</LinkButton>
+                                <DeleteIconButton onClick={ev => onDeleteClick(ev, category.id)} />
+                            </td>
+                        </tr>
+                    )
+                }
+            </tbody>
+        </table>
     </>
 }
 

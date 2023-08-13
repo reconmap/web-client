@@ -13,7 +13,7 @@ const ActiveProjectsWidget = () => {
         {projects.length === 0 ?
             <p>No projects to show.</p>
             :
-            <table className="full-width">
+            <table className="rm-listing">
                 <thead>
                     <tr>
                         <th>Name</th>

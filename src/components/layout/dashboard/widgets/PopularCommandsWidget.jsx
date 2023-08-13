@@ -8,7 +8,7 @@ const PopularCommandsWidget = () => {
     return <DashboardWidget title="Popular commands">
 
         {commands && commands.length > 0 ?
-            <table>
+            <table className="rm-listing">
                 <thead>
                     <tr>
                         <th>Short name</th>
