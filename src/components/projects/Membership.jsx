@@ -1,5 +1,6 @@
-import { Alert, AlertIcon, Select } from "@chakra-ui/react";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 import UserRoleBadge from "components/badges/UserRoleBadge";
+import NativeSelect from "components/form/NativeSelect";
 import PageTitle from "components/logic/PageTitle";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
@@ -64,11 +65,11 @@ const ProjectMembership = () => {
             <form>
                 <label>
                     Select user
-                    <Select id="userId">
+                    <NativeSelect id="userId">
                         {availableUsers && availableUsers.map((user, index) =>
                             <option key={index} value={user.id}>{user.full_name}</option>
                         )}
-                    </Select>
+                    </NativeSelect>
                 </label>
                 <PrimaryButton onClick={handleOnClick} leftIcon={<IconPlus />}>Add as member</PrimaryButton>
             </form> :
@@ -78,7 +79,7 @@ const ProjectMembership = () => {
             </Alert>
         }
 
-        <table>
+        <table className="rm-listing">
             <thead>
                 <tr>
                     <th style={{ width: '80px' }}>&nbsp;</th>

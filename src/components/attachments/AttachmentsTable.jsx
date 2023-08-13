@@ -86,7 +86,7 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
             {content}
         </ModalDialog>
 
-        <table>
+        <table className="rm-listing">
             <thead>
                 <tr>
                     <th>Filename</th>

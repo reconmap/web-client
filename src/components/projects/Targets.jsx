@@ -1,6 +1,7 @@
 import { ButtonGroup, Center, HStack, useDisclosure } from "@chakra-ui/react";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import TargetModalDialog from "components/target/ModalDialog";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import useQuery from "hooks/useQuery";
@@ -64,7 +65,7 @@ const ProjectTargets = ({ project }) => {
             {!project.archived &&
                 <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
                     <ButtonGroup>
-                        <targetModalDialog project={project} isOpen={isAddTargetDialogOpen} onSubmit={onTargetFormSaved} onCancel={closeAddTargetDialog} />
+                        <TargetModalDialog project={project} isOpen={isAddTargetDialogOpen} onSubmit={onTargetFormSaved} onCancel={closeAddTargetDialog} />
                         <CreateButton onClick={openAddTargetDialog}>Add target...</CreateButton>
                     </ButtonGroup>
                 </RestrictedComponent>
@@ -75,7 +76,7 @@ const ProjectTargets = ({ project }) => {
                 {numberPages > 1 && <Center>
                     <PaginationV2 page={pageNumber - 1} total={numberPages} onPageChange={onPageChange} />
                 </Center>}
-                <table>
+                <table className="rm-listing">
                     <thead>
                         <tr>
                             <th>Name</th>

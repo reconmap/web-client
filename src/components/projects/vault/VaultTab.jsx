@@ -1,5 +1,6 @@
-import { Button, Input, Select } from '@chakra-ui/react';
+import { Button, Input } from '@chakra-ui/react';
 import NativeCheckbox from 'components/form/NativeCheckbox';
+import NativeSelect from 'components/form/NativeSelect';
 import RestrictedComponent from 'components/logic/RestrictedComponent';
 import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
 import LinkButton from "components/ui/buttons/Link";
@@ -90,12 +91,12 @@ const ProjectVaultTab = ({ project }) => {
                         <tbody>
                             <tr>
                                 <td>
-                                    <Select name="type" onChange={onVaultItemFormChange} value={vaultItem.type || ""} isRequired>
+                                    <NativeSelect name="type" onChange={onVaultItemFormChange} value={vaultItem.type || ""} isRequired>
                                         <option value="password">Password</option>
                                         <option value="note">Note</option>
                                         <option value="token">Token</option>
                                         <option value="key">Key</option>
-                                    </Select>
+                                    </NativeSelect>
                                 </td>
                                 <td>
                                     <Input type="text" name="name" onChange={onVaultItemFormChange} value={vaultItem.name || ""} isRequired />

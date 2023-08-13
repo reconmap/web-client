@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 
 const NotesTable = ({ notes, onDeleteButtonClick }) => {
-    return <table>
+    return <table className="rm-listing">
         <thead>
             <tr>
                 <th>Content</th>
