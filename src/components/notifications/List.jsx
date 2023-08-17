@@ -32,7 +32,7 @@ const NotificationsList = () => {
         </div>
         <title title='Notifications' icon={<faBell />} />
 
-        <table>
+        <table className='rm-listing'>
             <thead>
                 <tr>
                     <th w={50}>&nbsp;</th>

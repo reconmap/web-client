@@ -87,6 +87,8 @@
 
 body {
     color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0;
 }
 
 a {
@@ -94,7 +96,6 @@ a {
 }
 
 main {
-    background-color: var(--bg-color);
     display: grid !important;
     transition: grid-template-columns 0.2s;
     grid-template-columns: var(--sidebarWidth) 1fr;

@@ -8,6 +8,7 @@ import BadgeOutline from '../badges/BadgeOutline';
 import LinkButton from "../ui/buttons/Link";
 import UserLink from "../users/Link";
 import TaskBadge from "./TaskBadge";
+import TaskStatusFormatter from "./TaskStatusFormatter";
 
 const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, reloadCallback = null }) => {
     const showSelection = tableModel.columnsVisibility.selection;
@@ -59,7 +60,7 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                     <td>{task.priority}</td>
                     <td  >{task.assignee_uid ?
                         <UserLink userId={task.assignee_uid}>{task.assignee_full_name}</UserLink> : '(nobody)'}</td>
-                    <td><taskStatusFormatter task={task} /></td>
+                    <td><TaskStatusFormatter task={task} /></td>
                     <td>{task.command_name ? <BadgeOutline>{task.command_name}</BadgeOutline> : '-'}</td>
                     <td textAlign="right">
                         <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
