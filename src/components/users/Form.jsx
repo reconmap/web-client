@@ -25,7 +25,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
             <legend>Basic information</legend>
 
             <label>Full name
-                <Input type="text" name="full_name" value={user.full_name || ""} onChange={onFormChange} required />
+                <input type="text" name="full_name" value={user.full_name || ""} onChange={onFormChange} required />
             </label>
             <label>Short bio
                 <Input type="text" name="short_bio" value={user.short_bio || ""} onChange={onFormChange}
