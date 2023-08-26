@@ -82,7 +82,7 @@ const CommandOutputs = ({ command }) => {
             Command output list
         </h4>
 
-        <table>
+        <table className="rm-listing">
             <thead>
                 <tr>
                     <th>Filename</th>

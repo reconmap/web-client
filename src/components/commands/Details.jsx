@@ -14,11 +14,11 @@ import CommandService, { HostCommandLineGenerator } from 'services/command';
 import useDelete from '../../hooks/useDelete';
 import useFetch from '../../hooks/useFetch';
 import Breadcrumb from "../ui/Breadcrumb";
-import DeleteButton from '../ui/buttons/Delete';
-import EditButton from "../ui/buttons/Edit";
 import { IconBriefcase } from '../ui/Icons';
 import Loading from '../ui/Loading';
 import Title from '../ui/Title';
+import DeleteButton from '../ui/buttons/Delete';
+import EditButton from "../ui/buttons/Edit";
 import CommandInstructions from './Instructions';
 import CommandOutputs from './Outputs';
 
@@ -34,6 +34,8 @@ const CommandDetails = () => {
         if (confirmed)
             navigate('/commands');
     }
+
+    const [commandUsages] = useFetch(`/commands/${commandId}/usages`)
 
     if (!command) {
         return <Loading />
@@ -85,20 +87,29 @@ const CommandDetails = () => {
                                         <dt>More information URL</dt>
                                         <dl>{command.more_info_url ? <ExternalLink href={command.more_info_url}>{command.more_info_url}</ExternalLink> : <EmptyField />}</dl>
                                     </>}
+                                </dl>
 
-                                    {CommandService.hasCommand(command) && <>
-                                        {CommandService.isHost(command) && <>
-                                            <dt>Command line example</dt>
-                                            <dd>
+                                <h3>Usages</h3>
+
+                                {commandUsages !== null && <>
+                {commandUsages.map(command => <div>
+                                                        {CommandService.hasCommand(command) && <>
+                                        {CommandService.isHost(command) ? <>
+                                            <dt>{command.description}</dt>
+                                           <dd>
                                                 <ShellCommand>{HostCommandLineGenerator.generateEntryPoint(command)} {HostCommandLineGenerator.renderArguments(command)}</ShellCommand>
                                             </dd>
-                                        </>}
+                                       </>: <>
                                         <dt>Command line example using rmap CLI</dt>
-                                        <dd>
+                                       <dd>
                                             <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
                                         </dd>
+                                        </>}
                                     </>}
-                                </dl>
+
+
+                </div>)}
+            </>}
                             </div>
 
                             <div>
@@ -113,7 +124,7 @@ const CommandDetails = () => {
                         </div>
                     </TabPanel>
                     <TabPanel>
-                        <CommandInstructions command={command} />
+                        {commandUsages !== null && <CommandInstructions command={commandUsages[0]} usages={commandUsages} />}
                     </TabPanel>
                     <TabPanel>
                         <CommandOutputs command={command} />

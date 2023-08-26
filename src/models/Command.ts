@@ -4,13 +4,7 @@ interface CommandInterface {
 	id?: number;
 	creator_uid?: number;
 	name?: string;
-	output_parser?: string;
 	description?: string;
-	executable_type?: string;
-	executable_path?: string;
-	docker_image?: string;
-	arguments?: string;
-	output_filename?: string;
 	more_info_url?: string;
 	tags?: string;
 }
@@ -21,7 +15,6 @@ interface CommandInterface {
  */
 const Command : CommandInterface = {
 
-	executable_type: 'custom',
 }
 
 export default Command;

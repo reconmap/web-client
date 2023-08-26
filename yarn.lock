@@ -8149,9 +8149,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^16.11.1":
-  version: 16.11.1
-  resolution: "npm-check-updates@npm:16.11.1"
+"npm-check-updates@npm:^16.13.1":
+  version: 16.13.1
+  resolution: "npm-check-updates@npm:16.13.1"
   dependencies:
     chalk: ^5.3.0
     cli-table3: ^0.6.3
@@ -8167,6 +8167,7 @@ __metadata:
     json-parse-helpfulerror: ^1.0.3
     jsonlines: ^0.1.1
     lodash: ^4.17.21
+    make-fetch-happen: ^11.1.1
     minimatch: ^9.0.3
     p-map: ^4.0.0
     pacote: 15.2.0
@@ -8186,7 +8187,7 @@ __metadata:
   bin:
     ncu: build/src/bin/cli.js
     npm-check-updates: build/src/bin/cli.js
-  checksum: 8d77f2f71b4d7a84e390fc67ac4f690d21952b2047e6239101c35bbf8855f53e04c979f76c7f86709e26a4d3f167526f23c32d8dcb159a00addbac09ab3b7950
+  checksum: cc5c123c59ca7edf97bb070ac565f3fad694fa8f47193f9805234444ed2aa4efc1eca5e6911c24ffd3639e7d48490b71d7120dbd484f6900cdfe0baf418f5b9e
   languageName: node
   linkType: hard
 
@@ -9357,7 +9358,7 @@ __metadata:
     javascript-time-ago: ^2.5.9
     jsdom: ^22.1.0
     keycloak-js: ^22.0.1
-    npm-check-updates: ^16.11.1
+    npm-check-updates: ^16.13.1
     path-browserify: ^1.0.1
     prettier: ^3.0.1
     react: ^18.2.0

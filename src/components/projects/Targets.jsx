@@ -2,6 +2,7 @@ import { ButtonGroup, Center, HStack, useDisclosure } from "@chakra-ui/react";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetModalDialog from "components/target/ModalDialog";
+import Tags from "components/ui/Tags";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import useQuery from "hooks/useQuery";
@@ -104,7 +105,7 @@ const ProjectTargets = ({ project }) => {
                                     <>
                                         <Link to={`/targets/${target.id}`}><targetBadge name={target.name} /></Link>
                                     </> : '-'}</td>
-                                <td>{target.kind} <tags values={target.tags} /></td>
+                                <td>{target.kind} <Tags values={target.tags} /></td>
                                 <td>{target.num_vulnerabilities > 0 ? `Yes (${target.num_vulnerabilities} vulnerabilities found)` : "No"}</td>
                                 <td>
                                     <RestrictedComponent roles={['administrator', 'superuser', 'user']}>

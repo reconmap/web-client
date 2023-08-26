@@ -1,3 +1,4 @@
+import Tags from "components/ui/Tags";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
@@ -23,7 +24,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                     <td><CommandBadge command={command} /></td>
                     <td className="only-desktop">
                         {command.description}<br />
-                        <tags values={command.tags} />
+                        <Tags values={command.tags} />
                     </td>
                     <td>{command.executable_type === 'custom' ? 'Host' : 'Container'}</td>
                     <td>{command.output_parser ?? '-'}</td>

@@ -12,6 +12,7 @@ const CommandTerminal = ({ commands }) => {
 
     const terminalEl = useRef();
     const [terminalTitle, setTerminalTitle] = useState('Terminal');
+    const { user } = useAuth();
 
     useEffect(() => {
         const textEncoder = new TextEncoder();
@@ -26,7 +27,6 @@ const CommandTerminal = ({ commands }) => {
         let retryHandle = null;
 
         const connectTerminal = () => {
-            const { user } = useAuth();
             const agentServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
             const agentServiceHostPort = Configuration.getAgentServiceHostPort();
             const webSocket = new WebSocket(`${agentServiceProtocol}://${agentServiceHostPort}/term?token=` + user.access_token);
