@@ -41,7 +41,7 @@
     "xterm": "^5.2.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.1.1",
+    "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
