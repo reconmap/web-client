@@ -13,7 +13,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/node": "^20.5.4",
     "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
+    "@types/react-dom": "^18.2.18",
     "@uiw/react-md-editor": "^3.23.5",
     "countries-and-timezones": "^3.5.1",
     "cron-parser": "^4.9.0",
