@@ -11,7 +11,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@types/node": "^20.5.4",
+    "@types/node": "^20.11.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@uiw/react-md-editor": "^3.23.5",
