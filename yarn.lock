@@ -7600,10 +7600,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-sha256@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "js-sha256@npm:0.9.0"
-  checksum: ffad54b3373f81581e245866abfda50a62c483803a28176dd5c28fd2d313e0bdf830e77dac7ff8afd193c53031618920f3d98daf21cbbe80082753ab639c0365
+"js-sha256@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "js-sha256@npm:0.10.1"
+  checksum: 6eb5c9f95aa902cec1930f036deb3bc664024b75fede456c0ac74b855797776c18620f47efec36787077a56ba2f3b8d6aacc7733ff8a2b5bb9ce6b655a35c5e6
   languageName: node
   linkType: hard
 
@@ -7774,13 +7774,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keycloak-js@npm:^22.0.5":
-  version: 22.0.5
-  resolution: "keycloak-js@npm:22.0.5"
+"jwt-decode@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "jwt-decode@npm:4.0.0"
+  checksum: 390e2edcb31a92e86c8cbdd1edeea4c0d62acd371f8a8f0a8878e499390c0ecf4c658b365c4e941e4ef37d0170e4ca650aaa49f99a45c0b9695a235b210154b0
+  languageName: node
+  linkType: hard
+
+"keycloak-js@npm:^23.0.5":
+  version: 23.0.5
+  resolution: "keycloak-js@npm:23.0.5"
   dependencies:
     base64-js: ^1.5.1
-    js-sha256: ^0.9.0
-  checksum: e3790656f5cfd25b2e89e508d7d96d47c4557f4125ecef131905a7c1f3177a89ed7d38163a1af7d6a739ba7af0397dba726ca337254eb675a22d8a9340710313
+    js-sha256: ^0.10.1
+    jwt-decode: ^4.0.0
+  checksum: e70bcd6b17243a4454f2c69feafba183733c35ac71da3d0fc0d7fa4b67dd8bdf873b363063736f81944eb93a7f68e4e1077a2fb80044caf445315c980c4d4872
   languageName: node
   linkType: hard
 
@@ -10195,7 +10203,7 @@ __metadata:
     i18next-browser-languagedetector: ^7.2.0
     javascript-time-ago: ^2.5.9
     jsdom: ^22.1.0
-    keycloak-js: ^22.0.5
+    keycloak-js: ^23.0.5
     npm-check-updates: ^16.14.14
     path-browserify: ^1.0.1
     prettier: ^3.2.4
