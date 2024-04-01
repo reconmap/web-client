@@ -3284,12 +3284,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.2.18":
-  version: 18.2.18
-  resolution: "@types/react-dom@npm:18.2.18"
+"@types/react-dom@npm:^18.2.23":
+  version: 18.2.23
+  resolution: "@types/react-dom@npm:18.2.23"
   dependencies:
     "@types/react": "*"
-  checksum: 8e3da404c980e2b2a76da3852f812ea6d8b9d0e7f5923fbaf3bfbbbfa1d59116ff91c129de8f68e9b7668a67ae34484fe9df74d5a7518cf8591ec07a0c4dad57
+  checksum: ebed13ffc393f96b3dbe2f959c857c3124c20e84718cded13016eaa2e3b650590557ea75584c4d3d3f226b0aae206167c9c81e971632c1f24bbd258f1d295b96
   languageName: node
   linkType: hard
 
@@ -10063,7 +10063,7 @@ __metadata:
     "@testing-library/user-event": ^14.5.2
     "@types/node": ^20.11.7
     "@types/react": ^18.2.48
-    "@types/react-dom": ^18.2.18
+    "@types/react-dom": ^18.2.23
     "@typescript-eslint/eslint-plugin": ^6.19.1
     "@typescript-eslint/parser": ^6.19.1
     "@uiw/react-md-editor": ^3.25.6
