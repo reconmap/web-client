@@ -34,7 +34,7 @@
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.21.3",
     "react-select": "^5.8.0",
-    "react-time-ago": "^7.2.1",
+    "react-time-ago": "^7.3.3",
     "recharts": "^2.10.4",
     "typescript": "^5.4.3",
     "ua-parser-js": "^1.0.37",
