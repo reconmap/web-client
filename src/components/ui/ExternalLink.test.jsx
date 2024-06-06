@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 import ExternalLink from "./ExternalLink";
 
 let container = null;

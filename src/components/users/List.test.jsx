@@ -1,6 +1,6 @@
 import { AuthContext } from 'contexts/AuthContext';
 import ReactDOM from 'react-dom/client';
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 import { MemoryRouter } from "react-router-dom";
 import UsersList from "./List";
 
