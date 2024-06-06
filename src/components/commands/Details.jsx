@@ -21,6 +21,10 @@ import DeleteButton from '../ui/buttons/Delete';
 import EditButton from "../ui/buttons/Edit";
 import CommandInstructions from './Instructions';
 import CommandOutputs from './Outputs';
+import CommandUsageForm from './UsageForm';
+import { useState } from 'react';
+import CommandUsage from 'models/CommandUsage';
+import secureApiFetch from 'services/api';
 
 const CommandDetails = () => {
     const { commandId } = useParams();
@@ -33,6 +37,20 @@ const CommandDetails = () => {
         const confirmed = await deleteClient(commandId);
         if (confirmed)
             navigate('/commands');
+    }
+
+    const [commandUsage, setCommandUsage] = useState({command_id: commandId})
+
+    const onCommandUsageSubmit = ev => {
+        ev.preventDefault();
+
+        secureApiFetch(`/commands/${commandId}/usages`, {
+            method: 'POST',
+            body: JSON.stringify(commandUsage)
+        }).then(() => {
+           
+        })
+        return false;
     }
 
     const [commandUsages] = useFetch(`/commands/${commandId}/usages`)
@@ -90,21 +108,14 @@ const CommandDetails = () => {
                                 </dl>
 
                                 <h3>Usages</h3>
-
+<CommandUsageForm onFormSubmit={onCommandUsageSubmit} command={commandUsage} isEditForm={false} commandSetter={setCommandUsage} />
                                 {commandUsages !== null && <>
                 {commandUsages.map(command => <div>
                                                         {CommandService.hasCommand(command) && <>
-                                        {CommandService.isHost(command) ? <>
                                             <dt>{command.description}</dt>
                                            <dd>
                                                 <ShellCommand>{HostCommandLineGenerator.generateEntryPoint(command)} {HostCommandLineGenerator.renderArguments(command)}</ShellCommand>
                                             </dd>
-                                       </>: <>
-                                        <dt>Command line example using rmap CLI</dt>
-                                       <dd>
-                                            <ShellCommand>{CommandService.generateEntryPoint(command)} {CommandService.renderArguments(command)}</ShellCommand>
-                                        </dd>
-                                        </>}
                                     </>}
 
 
@@ -124,7 +135,7 @@ const CommandDetails = () => {
                         </div>
                     </TabPanel>
                     <TabPanel>
-                        {commandUsages !== null && <CommandInstructions command={commandUsages[0]} usages={commandUsages} />}
+                        {commandUsages !== null && <CommandInstructions command={command} usages={commandUsages} />}
                     </TabPanel>
                     <TabPanel>
                         <CommandOutputs command={command} />

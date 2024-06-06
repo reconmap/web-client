@@ -45,21 +45,8 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
         <fieldset>
             <legend>Automation details</legend>
 
-            <label>Execution environment
-                <NativeSelect name="executable_type" onChange={onFormChange} value={command.executable_type} required>
-                    <option value="custom">Host</option>
-                    <option value="rmap">Container</option>
-                </NativeSelect>
-            </label>
-            {command.executable_type === 'custom' && <>
                 <label>Executable path
                     <Input type="text" name="executable_path" onChange={onFormChange} value={command.executable_path || ""} /></label>
-            </>
-            }
-            {command.executable_type === 'rmap' && <>
-                <label>Docker image
-                    <Input type="text" name="docker_image" onChange={onFormChange} value={command.docker_image || ""} /></label>
-            </>}
 
             <label>Command line arguments
                 <Input type="text" name="arguments" onChange={onFormChange} value={command.arguments || ""} /></label>

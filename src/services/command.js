@@ -49,11 +49,7 @@ const RmapCommandLineGenerator = {
 
 const CommandService = {
     hasCommand: command => {
-        return (command.executable_type === 'rmap' && command.docker_image !== null && command.docker_image.length > 0) || (command.executable_type !== 'rmap' && command.executable_path !== null && command.executable_path.length > 0);
-    },
-
-    isHost: command => {
-        return command.executable_type === 'custom';
+        return (command !== null && command !== undefined && command.executable_path !== null && command.executable_path.length > 0);
     },
 
     generateEntryPoint: (command, task = null) => {

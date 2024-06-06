@@ -5,9 +5,7 @@ interface CommandUsageInterface {
 	command_id?: number;
 	creator_uid?: number;
 	description?: string;
-	executable_type?: string;
 	executable_path?: string;
-	docker_image?: string;
 	arguments?: string;
 	output_filename?: string;
 	output_parser?: string;
@@ -19,7 +17,6 @@ interface CommandUsageInterface {
  */
 const CommandUsage : CommandUsageInterface = {
 
-	executable_type: 'custom',
 }
 
 export default CommandUsage;
