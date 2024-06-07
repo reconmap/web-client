@@ -4,6 +4,7 @@ interface CommandUsageInterface {
 	id?: number;
 	command_id?: number;
 	creator_uid?: number;
+	name?: string;
 	description?: string;
 	executable_path?: string;
 	arguments?: string;

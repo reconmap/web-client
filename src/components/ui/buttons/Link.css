@@ -1,10 +1,4 @@
 .link-button {
-  padding: 0.3rem 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  color: #748094;
-    font-size: 0.85rem;
-    border: 2px solid #141820;
-  background-color: transparent;
-  border-radius: 0.3rem;
+  text-decoration: underline;
+  margin: auto 10px;
 }
