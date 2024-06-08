@@ -1,45 +1,59 @@
-import { Button, ButtonGroup, Input, Tab, TabList, Tabs } from '@chakra-ui/react';
-import NativeSelect from 'components/form/NativeSelect';
-import PageTitle from 'components/logic/PageTitle';
-import RestrictedComponent from 'components/logic/RestrictedComponent';
-import ProjectsTable from 'components/projects/Table';
-import EmptyField from 'components/ui/EmptyField';
-import MailLink from 'components/ui/MailLink';
-import TelephoneLink from 'components/ui/TelephoneLink';
-import TimestampsSection from 'components/ui/TimestampsSection';
-import DeleteIconButton from 'components/ui/buttons/DeleteIconButton';
-import NoResultsTableRow from 'components/ui/tables/NoResultsTableRow';
-import { actionCompletedToast, errorToast } from 'components/ui/toast';
-import UserLink from 'components/users/Link';
-import Contact from 'models/Contact';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import secureApiFetch from 'services/api';
+import {
+    Button,
+    ButtonGroup,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
+} from "@chakra-ui/react";
+import NativeInput from "components/form/NativeInput";
+import NativeSelect from "components/form/NativeSelect";
+import PageTitle from "components/logic/PageTitle";
+import RestrictedComponent from "components/logic/RestrictedComponent";
+import ProjectsTable from "components/projects/Table";
+import EmptyField from "components/ui/EmptyField";
+import MailLink from "components/ui/MailLink";
+import TelephoneLink from "components/ui/TelephoneLink";
+import TimestampsSection from "components/ui/TimestampsSection";
+import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import LinkButton from "components/ui/buttons/Link";
+import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import { actionCompletedToast, errorToast } from "components/ui/toast";
+import UserLink from "components/users/Link";
+import Contact from "models/Contact";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import secureApiFetch from "services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
-import { IconBriefcase } from '../ui/Icons';
-import Title from '../ui/Title';
-import DeleteButton from '../ui/buttons/Delete';
-import EditButton from "../ui/buttons/Edit";
-import useDelete from './../../hooks/useDelete';
-import useFetch from './../../hooks/useFetch';
-import Loading from './../ui/Loading';
+import { IconBriefcase } from "../ui/Icons";
+import Title from "../ui/Title";
+import DeleteButton from "../ui/buttons/Delete";
+import useDelete from "./../../hooks/useDelete";
+import useFetch from "./../../hooks/useFetch";
+import Loading from "./../ui/Loading";
 
 const ClientProjectsTab = ({ clientId }) => {
     const [projects] = useFetch(`/projects?clientId=${clientId}`);
 
-    if (!projects) return <Loading />
+    if (!projects) return <Loading />;
 
     if (projects.length === 0) {
-        return <div>
-            This client has no projects. You can see all projects and their clients <Link to="/projects">here</Link>.
-        </div>
+        return (
+            <div>
+                This client has no projects. You can see all projects and their
+                clients <Link to="/projects">here</Link>.
+            </div>
+        );
     }
 
-    return <div>
-        <ProjectsTable projects={projects} showClientColumn={false} />
-    </div>
-}
+    return (
+        <div>
+            <ProjectsTable projects={projects} showClientColumn={false} />
+        </div>
+    );
+};
 
 const ClientDetails = () => {
     const { clientId } = useParams();
@@ -50,209 +64,343 @@ const ClientDetails = () => {
 
     const [contact, setContact] = useState({ ...Contact });
 
-    const onContactFormChange = ev => {
+    const onContactFormChange = (ev) => {
         setContact({ ...contact, [ev.target.name]: ev.target.value });
-    }
+    };
 
-
-    const deleteClient = useDelete(`/clients/`)
+    const deleteClient = useDelete(`/clients/`);
     const [logo, setLogo] = useState(null);
     const [smallLogo, setSmallLogo] = useState(null);
 
     const handleDelete = async () => {
         const confirmed = await deleteClient(clientId);
-        if (confirmed)
-            navigate('/clients');
-    }
+        if (confirmed) navigate("/clients");
+    };
 
-    const onFormSubmit = ev => {
+    const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/clients/${clientId}/contacts`, { method: 'POST', body: JSON.stringify(contact) })
-            .then(resp => {
-                if (resp.status === 201) {
-                    setContact({ ...Contact });
-                    fetchContacts();
-                    actionCompletedToast(`The contact has been added.`);
-                } else {
-                    errorToast("The contact could not be saved. Review the form data or check the application logs.")
-                }
-            })
-    }
+        secureApiFetch(`/clients/${clientId}/contacts`, {
+            method: "POST",
+            body: JSON.stringify(contact),
+        }).then((resp) => {
+            if (resp.status === 201) {
+                setContact({ ...Contact });
+                fetchContacts();
+                actionCompletedToast(`The contact has been added.`);
+            } else {
+                errorToast(
+                    "The contact could not be saved. Review the form data or check the application logs.",
+                );
+            }
+        });
+    };
 
-    const onContactDelete = contactId => {
-        secureApiFetch(`/contacts/${contactId}`, { method: 'DELETE' })
+    const onContactDelete = (contactId) => {
+        secureApiFetch(`/contacts/${contactId}`, { method: "DELETE" })
             .then(() => {
                 fetchContacts();
                 actionCompletedToast("The contact has been deleted.");
             })
-            .catch(err => console.error(err))
-    }
+            .catch((err) => console.error(err));
+    };
 
     useEffect(() => {
         if (client) {
             if (client.small_logo_attachment_id) {
-                downloadAndDisplayLogo(client.small_logo_attachment_id, 'small_logo');
+                downloadAndDisplayLogo(
+                    client.small_logo_attachment_id,
+                    "small_logo",
+                );
             }
 
             if (client.logo_attachment_id) {
-                downloadAndDisplayLogo(client.logo_attachment_id, 'logo');
+                downloadAndDisplayLogo(client.logo_attachment_id, "logo");
             }
         }
     }, [client]);
 
     const downloadAndDisplayLogo = (logoId, type) => {
-        secureApiFetch(`/attachments/${logoId}`, { method: 'GET' })
-            .then(resp => {
-                const contentDispositionHeader = resp.headers.get('Content-Disposition');
-                const filenameRe = new RegExp(/filename="(.*)";/)
-                const filename = filenameRe.exec(contentDispositionHeader)[1]
+        secureApiFetch(`/attachments/${logoId}`, { method: "GET" })
+            .then((resp) => {
+                const contentDispositionHeader = resp.headers.get(
+                    "Content-Disposition",
+                );
+                const filenameRe = new RegExp(/filename="(.*)";/);
+                const filename = filenameRe.exec(contentDispositionHeader)[1];
                 return Promise.all([resp.blob(), filename]);
             })
             .then((values) => {
                 const blob = values[0];
                 const url = URL.createObjectURL(blob);
-                if (type === 'small_logo') {
+                if (type === "small_logo") {
                     setSmallLogo(url);
                 } else {
                     setLogo(url);
                 }
-            })
-    }
+            });
+    };
 
     if (!client) {
-        return <Loading />
+        return <Loading />;
     }
 
-    return <div>
-        <div className='heading'>
-            <Breadcrumb>
-                <Link to="/clients">Clients</Link>
-            </Breadcrumb>
-            <ButtonGroup>
-                <RestrictedComponent roles={['administrator', 'superuser', 'user']}>
-                    <EditButton onClick={(ev) => {
-                        ev.preventDefault();
-                        navigate(`/clients/${client.id}/edit`)
-                    }}>Edit</EditButton>
-                    <DeleteButton onClick={handleDelete} />
-                </RestrictedComponent>
-            </ButtonGroup>
-        </div>
-        <article>
-            <div>
-                <PageTitle value={`${client.name} client`} />
-                <Title type='Client' title={client.name} icon={<IconBriefcase />} />
+    return (
+        <div>
+            <div className="heading">
+                <Breadcrumb>
+                    <Link to="/clients">Clients</Link>
+                </Breadcrumb>
+                <ButtonGroup>
+                    <RestrictedComponent
+                        roles={["administrator", "superuser", "user"]}
+                    >
+                        <LinkButton href={`/clients/${client.id}/edit`}>
+                            Edit
+                        </LinkButton>
+                        <DeleteButton onClick={handleDelete} />
+                    </RestrictedComponent>
+                </ButtonGroup>
             </div>
+            <article>
+                <div>
+                    <PageTitle value={`${client.name} client`} />
+                    <Title
+                        type="Client"
+                        title={client.name}
+                        icon={<IconBriefcase />}
+                    />
+                </div>
 
-            <Tabs isLazy>
-                <TabList>
-                    <Tab>Details</Tab>
-                    <Tab>Contacts</Tab>
-                    <Tab>Projects</Tab>
-                </TabList>
-                <tabPanels>
-                    <tabPanel>
-                        <div className="grid grid-two">
-                            <div>
-                                <h4>Properties</h4>
+                <Tabs isLazy>
+                    <TabList>
+                        <Tab>Details</Tab>
+                        <Tab>Contacts</Tab>
+                        <Tab>Projects</Tab>
+                    </TabList>
+                    <TabPanels>
+                        <TabPanel>
+                            <div className="grid grid-two">
+                                <div>
+                                    <h4>Properties</h4>
 
-                                <dl>
-                                    <dt>Address</dt>
-                                    <dd>{client.address ?? '-'}</dd>
+                                    <dl>
+                                        <dt>Address</dt>
+                                        <dd>{client.address ?? "-"}</dd>
 
-                                    <dt>URL</dt>
-                                    <dd><ExternalLink href={client.url}>{client.url}</ExternalLink></dd>
-                                </dl>
+                                        <dt>URL</dt>
+                                        <dd>
+                                            <ExternalLink href={client.url}>
+                                                {client.url}
+                                            </ExternalLink>
+                                        </dd>
+                                    </dl>
 
-                                <h4>Branding</h4>
+                                    <h4>Branding</h4>
 
-                                <dl>
-                                    <dt>Main logo</dt>
-                                    <dd>{logo ? <img src={logo} alt="The main logo" /> : <EmptyField />}</dd>
+                                    <dl>
+                                        <dt>Main logo</dt>
+                                        <dd>
+                                            {logo ? (
+                                                <img
+                                                    src={logo}
+                                                    alt="The main logo"
+                                                />
+                                            ) : (
+                                                <EmptyField />
+                                            )}
+                                        </dd>
 
-                                    <dt>Small logo</dt>
-                                    <dd>{smallLogo ? <img src={smallLogo} alt="The smaller version of the logo" /> : <EmptyField />}</dd>
-                                </dl>
+                                        <dt>Small logo</dt>
+                                        <dd>
+                                            {smallLogo ? (
+                                                <img
+                                                    src={smallLogo}
+                                                    alt="The smaller version of the logo"
+                                                />
+                                            ) : (
+                                                <EmptyField />
+                                            )}
+                                        </dd>
+                                    </dl>
+                                </div>
+
+                                <div>
+                                    <h4>Relations</h4>
+                                    <dl>
+                                        <dt>Created by</dt>
+                                        <dd>
+                                            <UserLink
+                                                userId={client.creator_uid}
+                                            >
+                                                {client.creator_full_name}
+                                            </UserLink>
+                                        </dd>
+                                    </dl>
+
+                                    <TimestampsSection entity={client} />
+                                </div>
                             </div>
+                        </TabPanel>
 
-                            <div>
-                                <h4>Relations</h4>
-                                <dl>
-                                    <dt>Created by</dt>
-                                    <dd><UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink></dd>
-                                </dl>
+                        <TabPanel>
+                            <h4>Contacts</h4>
 
-                                <TimestampsSection entity={client} />
-                            </div>
-                        </div>
-                    </tabPanel>
-
-                    <tabPanel>
-                        <h4>Contacts</h4>
-
-                        {contacts && <>
-                            <form onSubmit={onFormSubmit}>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Kind</th>
-                                            <th>Name</th>
-                                            <th>Role</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <NativeSelect name="kind" onChange={onContactFormChange} value={contact.kind || ""} isRequired>
-                                                    <option value="general">General</option>
-                                                    <option value="technical">Technical</option>
-                                                    <option value="billing">Billing</option>
-                                                </NativeSelect>
-                                            </td>
-                                            <td>
-                                                <Input type="text" name="name" onChange={onContactFormChange} value={contact.name || ""} isRequired />
-                                            </td>
-                                            <td>
-                                                <Input type="text" name="role" onChange={onContactFormChange} value={contact.role || ""} />
-                                            </td>
-                                            <td>
-                                                <Input type="email" name="email" onChange={onContactFormChange} value={contact.email || ""} isRequired />
-                                            </td>
-                                            <td>
-                                                <Input type="tel" name="phone" onChange={onContactFormChange} value={contact.phone || ""} />
-                                            </td>
-                                            <td>
-                                                <Button type="submit">Add</Button>
-                                            </td>
-                                        </tr>
-                                        {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
-                                        {contacts.map(contact => <>
-                                            <tr key={contact.id}>
-                                                <td>{contact.kind}</td>
-                                                <td>{contact.name}</td>
-                                                <td>{contact.role}</td>
-                                                <td><MailLink email={contact.email} /></td>
-                                                <td><TelephoneLink number={contact.phone} /></td>
-                                                <td><DeleteIconButton onClick={onContactDelete.bind(this, contact.id)} /></td>
-                                            </tr>
-                                        </>)}
-                                    </tbody>
-                                </table>
-                            </form>
-                        </>}
-                    </tabPanel>
-                    <tabPanel>
-                        <ClientProjectsTab clientId={clientId} />
-                    </tabPanel>
-                </tabPanels>
-            </Tabs>
-
-        </article>
-    </div>
-}
+                            {contacts && (
+                                <>
+                                    <form onSubmit={onFormSubmit}>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Kind</th>
+                                                    <th>Name</th>
+                                                    <th>Role</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <NativeSelect
+                                                            name="kind"
+                                                            onChange={
+                                                                onContactFormChange
+                                                            }
+                                                            value={
+                                                                contact.kind ||
+                                                                ""
+                                                            }
+                                                            isRequired
+                                                        >
+                                                            <option value="general">
+                                                                General
+                                                            </option>
+                                                            <option value="technical">
+                                                                Technical
+                                                            </option>
+                                                            <option value="billing">
+                                                                Billing
+                                                            </option>
+                                                        </NativeSelect>
+                                                    </td>
+                                                    <td>
+                                                        <NativeInput
+                                                            type="text"
+                                                            name="name"
+                                                            onChange={
+                                                                onContactFormChange
+                                                            }
+                                                            value={
+                                                                contact.name ||
+                                                                ""
+                                                            }
+                                                            required
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <NativeInput
+                                                            type="text"
+                                                            name="role"
+                                                            onChange={
+                                                                onContactFormChange
+                                                            }
+                                                            value={
+                                                                contact.role ||
+                                                                ""
+                                                            }
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <NativeInput
+                                                            type="email"
+                                                            name="email"
+                                                            onChange={
+                                                                onContactFormChange
+                                                            }
+                                                            value={
+                                                                contact.email ||
+                                                                ""
+                                                            }
+                                                            required
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <NativeInput
+                                                            type="tel"
+                                                            name="phone"
+                                                            onChange={
+                                                                onContactFormChange
+                                                            }
+                                                            value={
+                                                                contact.phone ||
+                                                                ""
+                                                            }
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <Button type="submit">
+                                                            Add
+                                                        </Button>
+                                                    </td>
+                                                </tr>
+                                                {0 === contacts.length && (
+                                                    <NoResultsTableRow
+                                                        numColumns={6}
+                                                    />
+                                                )}
+                                                {contacts.map((contact) => (
+                                                    <>
+                                                        <tr key={contact.id}>
+                                                            <td>
+                                                                {contact.kind}
+                                                            </td>
+                                                            <td>
+                                                                {contact.name}
+                                                            </td>
+                                                            <td>
+                                                                {contact.role}
+                                                            </td>
+                                                            <td>
+                                                                <MailLink
+                                                                    email={
+                                                                        contact.email
+                                                                    }
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                <TelephoneLink
+                                                                    number={
+                                                                        contact.phone
+                                                                    }
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                <DeleteIconButton
+                                                                    onClick={onContactDelete.bind(
+                                                                        this,
+                                                                        contact.id,
+                                                                    )}
+                                                                />
+                                                            </td>
+                                                        </tr>
+                                                    </>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </>
+                            )}
+                        </TabPanel>
+                        <TabPanel>
+                            <ClientProjectsTab clientId={clientId} />
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </article>
+        </div>
+    );
+};
 
 export default ClientDetails;
