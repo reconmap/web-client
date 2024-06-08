@@ -1,0 +1,8 @@
+.native {
+    composes: native from "../../form/NativeButton.module.scss";
+    background-color: lightcoral;
+
+    &:hover {
+        color: red;
+    }
+}

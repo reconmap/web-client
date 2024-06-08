@@ -1,7 +1,12 @@
-import { IconButton } from "@chakra-ui/react";
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import NativeButton from "components/form/NativeButton";
+import styles from "./DeleteIconButton.module.scss";
 
-const DeleteIconButton = (props) => <IconButton colorScheme="red" onClick={props.onClick} {...props} icon={<FontAwesomeIcon icon={faTrashCan} />} />
+const DeleteIconButton = (props) => (
+    <NativeButton className={styles.native} onClick={props.onClick} {...props}>
+        <FontAwesomeIcon icon={faTrashCan} />
+    </NativeButton>
+);
 
 export default DeleteIconButton;
