@@ -8,7 +8,7 @@ interface VaultInterface {
 	value?: string;
 	reportable?: boolean;
 	note?: string;
-	type: string;
+	type: string | undefined;
 	project_id?: number;
 }
 
@@ -27,6 +27,7 @@ const Vault : VaultInterface = {
 	note: undefined,
 	type: 'password',
 	project_id: undefined,
+
 }
 
 export default Vault;

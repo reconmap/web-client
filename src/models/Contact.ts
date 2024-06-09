@@ -2,7 +2,7 @@
 interface ContactInterface {
 
 	id?: number;
-	kind: string;
+	kind: string | undefined;
 	name?: string;
 	email?: string;
 	phone?: string;
@@ -21,6 +21,7 @@ const Contact : ContactInterface = {
 	email: undefined,
 	phone: undefined,
 	role: undefined,
+
 }
 
 export default Contact;

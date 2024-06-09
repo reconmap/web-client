@@ -2,7 +2,7 @@
 interface NoteInterface {
 
 	user_id?: number;
-	visibility: string;
+	visibility: string | undefined;
 	parent_id?: number;
 	parent_type?: string;
 	content?: string;
@@ -15,6 +15,7 @@ interface NoteInterface {
 const Note : NoteInterface = {
 
 	visibility: 'private',
+
 }
 
 export default Note;

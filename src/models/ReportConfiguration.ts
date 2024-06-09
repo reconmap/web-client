@@ -1,15 +1,15 @@
 
 interface ReportConfigurationInterface {
 
-	id: number;
-	project_id: number;
-	include_toc: boolean;
-	include_revisions_table: boolean;
-	include_team_bios: boolean;
-	include_findings_overview: boolean;
-	include_cover: string;
-	include_header: string;
-	include_footer: string;
+	id: number | undefined;
+	project_id: number | undefined;
+	include_toc: boolean | undefined;
+	include_revisions_table: boolean | undefined;
+	include_team_bios: boolean | undefined;
+	include_findings_overview: boolean | undefined;
+	include_cover: string | undefined;
+	include_header: string | undefined;
+	include_footer: string | undefined;
 	custom_cover?: string;
 	custom_header?: string;
 	custom_footer?: string;
@@ -28,6 +28,9 @@ const ReportConfiguration : ReportConfigurationInterface = {
 	include_cover: 'default',
 	include_header: 'default',
 	include_footer: 'default',
+
+	id: undefined,
+	project_id: undefined,
 }
 
 export default ReportConfiguration;

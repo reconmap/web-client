@@ -2,7 +2,7 @@
 interface DocumentInterface {
 
 	user_id?: number;
-	visibility: string;
+	visibility: string | undefined;
 	parent_id?: number;
 	parent_type?: string;
 	content?: string;
@@ -16,6 +16,7 @@ interface DocumentInterface {
 const Document : DocumentInterface = {
 
 	visibility: 'private',
+
 }
 
 export default Document;

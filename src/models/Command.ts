@@ -15,6 +15,7 @@ interface CommandInterface {
  */
 const Command : CommandInterface = {
 
+
 }
 
 export default Command;

@@ -3,6 +3,8 @@ interface ClientInterface {
 
 	id?: number;
 	creator_uid?: number;
+	insert_ts?: string;
+	update_ts?: string;
 	name?: string;
 	address?: string;
 	url?: string;
@@ -18,6 +20,7 @@ const Client : ClientInterface = {
 
 	logo_attachment_id: undefined,
 	small_logo_attachment_id: undefined,
+
 }
 
 export default Client;

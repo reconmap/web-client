@@ -1,9 +1,9 @@
 
 interface NotificationInterface {
 
-	toUserId: number;
+	toUserId: number | undefined;
 	title?: string;
-	content: string;
+	content: string | undefined;
 }
 
 
@@ -12,6 +12,9 @@ interface NotificationInterface {
  */
 const Notification : NotificationInterface = {
 
+
+	toUserId: undefined,
+	content: undefined,
 }
 
 export default Notification;

@@ -2,8 +2,11 @@
 interface OrganisationInterface {
 
 	id?: number;
-	name: string;
+	insert_ts?: string;
+	update_ts?: string;
+	name: string | undefined;
 	url?: string;
+	contact_id?: number;
 	contact_name?: string;
 	contact_email?: string;
 	contact_phone?: string;
@@ -20,11 +23,13 @@ const Organisation : OrganisationInterface = {
 	id: undefined,
 	name: '',
 	url: undefined,
+	contact_id: undefined,
 	contact_name: undefined,
 	contact_email: undefined,
 	contact_phone: undefined,
 	logo_attachment_id: undefined,
 	small_logo_attachment_id: undefined,
+
 }
 
 export default Organisation;

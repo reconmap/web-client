@@ -1,10 +1,10 @@
 
 interface TargetInterface {
 
-	project_id: number;
+	project_id: number | undefined;
 	parent_id?: number;
-	name: string;
-	kind: string;
+	name: string | undefined;
+	kind: string | undefined;
 	tags?: string;
 }
 
@@ -15,6 +15,10 @@ interface TargetInterface {
 const Target : TargetInterface = {
 
 	parent_id: undefined,
+
+	project_id: undefined,
+	name: undefined,
+	kind: undefined,
 }
 
 export default Target;

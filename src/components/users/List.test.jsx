@@ -1,14 +1,8 @@
-import { AuthContext } from 'contexts/AuthContext';
-import ReactDOM from 'react-dom/client';
+import { AuthContext } from "contexts/AuthContext";
 import { act } from "react";
+import ReactDOM from "react-dom/client";
 import { MemoryRouter } from "react-router-dom";
 import UsersList from "./List";
-
-vi.mock('react-i18next', () => ({
-    useTranslation: () => [
-        (key) => key.toUpperCase()
-    ]
-}))
 
 let container = null;
 
@@ -18,19 +12,23 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-    container.remove();
+    document.body.remove(container);
     container = null;
 });
 
-it("renders with or without a name", () => {
-    act(() => {
-        ReactDOM.createRoot(container)
-            .render(<MemoryRouter>
+it("renders with or without a name", async () => {
+    vi.mock("react-i18next", () => ({
+        useTranslation: () => [(key) => key.toUpperCase()],
+    }));
+
+    await act(async () => {
+        ReactDOM.createRoot(container).render(
+            <MemoryRouter>
                 <AuthContext.Provider value={{ user: null }}>
                     <UsersList />
                 </AuthContext.Provider>
-            </MemoryRouter>
-            );
+            </MemoryRouter>,
+        );
     });
     expect(container.innerHTML).toMatch(/Create user<\/button>/);
 });

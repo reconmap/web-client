@@ -7,7 +7,7 @@ interface ProjectInterface {
 	name?: string;
 	description?: string;
 	visibility?: string;
-	is_template: boolean;
+	is_template: boolean | undefined;
 	category_id?: number;
 	engagement_start_date?: string;
 	engagement_end_date?: string;
@@ -26,6 +26,7 @@ const Project : ProjectInterface = {
 	id: undefined,
 	visibility: 'public',
 	is_template: false,
+
 }
 
 export default Project;

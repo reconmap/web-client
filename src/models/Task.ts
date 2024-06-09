@@ -7,10 +7,10 @@ interface TaskInterface {
 	assignee_uid?: number;
 	insert_ts?: string;
 	update_ts?: string;
-	priority: string;
-	summary: string;
+	priority: string | undefined;
+	summary: string | undefined;
 	description?: string;
-	status: string;
+	status: string | undefined;
 	due_date?: string;
 	command_id?: number;
 	command?: string;
@@ -28,6 +28,7 @@ const Task : TaskInterface = {
 	description: '',
 	status: 'todo',
 	due_date: undefined,
+
 }
 
 export default Task;
