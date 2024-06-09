@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react';
-import { ReactElement } from 'react-markdown/lib/react-markdown';
+import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface SecondaryButtonProps {
