@@ -8054,13 +8054,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keycloak-js@npm:^24.0.5":
-  version: 24.0.5
-  resolution: "keycloak-js@npm:24.0.5"
+"keycloak-js@npm:^25.0.0":
+  version: 25.0.0
+  resolution: "keycloak-js@npm:25.0.0"
   dependencies:
     js-sha256: "npm:^0.11.0"
     jwt-decode: "npm:^4.0.0"
-  checksum: 10/ff0be3b03b4a30c8c9c705a515fadb3440d9e7ba4e2398f7ad6d487c007a363104de045e376779892c204e63e4a11263ac6c3dd3d17ea6d64b9db1eaf2fc3ce8
+  checksum: 10/8cccbebd622413e45811737b5034648b50a34730da1be97ff8cc36c45f09ff688a57e29ffdc4df5f0316ef1ee1e3eee5465f5640d1c2f0aa64466bb1004dd2d7
   languageName: node
   linkType: hard
 
@@ -10516,7 +10516,7 @@ __metadata:
     i18next-browser-languagedetector: "npm:^8.0.0"
     javascript-time-ago: "npm:^2.5.10"
     jsdom: "npm:^24.1.0"
-    keycloak-js: "npm:^24.0.5"
+    keycloak-js: "npm:^25.0.0"
     npm-check-updates: "npm:^16.14.20"
     path-browserify: "npm:^1.0.1"
     prettier: "npm:^3.3.1"
