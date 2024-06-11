@@ -7,37 +7,58 @@ import secureApiFetch from "services/api";
 import NotesForm from "./Form";
 
 const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
-    const emptyNote = { ...Note, parent_type: parentType, parent_id: parent.id }
-    const [newNote, updateNewNote] = useState(emptyNote)
+    const emptyNote = {
+        ...Note,
+        content: "",
+        parent_type: parentType,
+        parent_id: parent.id,
+        visibility: "public",
+    };
+    const [newNote, updateNewNote] = useState(emptyNote);
 
-    const beforeCancelCallback = ev => {
-        updateNewNote(emptyNote)
+    const beforeCancelCallback = (ev) => {
+        updateNewNote(emptyNote);
         onCancel(ev);
-    }
+    };
 
     const onCreateNoteFormSubmit = async (ev) => {
         ev.preventDefault();
 
         await secureApiFetch(`/notes`, {
-            method: 'POST',
-            body: JSON.stringify(newNote)
-        }).then(() => {
-            onClose();
-            actionCompletedToast(`The note has been created.`);
+            method: "POST",
+            body: JSON.stringify(newNote),
         })
-            .finally(() => {
-                updateNewNote(emptyNote)
+            .then(() => {
+                onClose();
+                actionCompletedToast(`The note has been created.`);
             })
-    }
+            .finally(() => {
+                updateNewNote(emptyNote);
+            });
+    };
 
-    return <ModalDialog visible={isOpen} onClose={beforeCancelCallback} title="New notes details">
-        <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
+    return (
+        <ModalDialog
+            title="New notes details"
+            visible={isOpen}
+            onModalClose={beforeCancelCallback}
+        >
+            <NotesForm
+                note={newNote}
+                onFormSubmit={onCreateNoteFormSubmit}
+                noteSetter={updateNewNote}
+            />
 
-        <div>
-                <Button onClick={beforeCancelCallback} mr={3}>Cancel</Button>
-                <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>Save</Button>
-        </div>
-    </ModalDialog>
-}
+            <div style={{ paddingTop: "20px" }}>
+                <Button onClick={beforeCancelCallback} mr={3}>
+                    Cancel
+                </Button>
+                <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>
+                    Save
+                </Button>
+            </div>
+        </ModalDialog>
+    );
+};
 
 export default NoteModalDialog;

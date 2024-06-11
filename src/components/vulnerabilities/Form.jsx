@@ -7,6 +7,7 @@ import {
     Box,
 } from "@chakra-ui/react";
 import NativeCheckbox from "components/form/NativeCheckbox";
+import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
@@ -19,7 +20,6 @@ import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
 import CvssAbbr from "./CvssAbbr";
 import OwaspRR from "./OwaspRR";
-import NativeInput from "components/form/NativeInput";
 
 const VulnerabilityForm = ({
     isEditForm = false,
@@ -216,7 +216,7 @@ const VulnerabilityForm = ({
 
     return (
         <form onSubmit={onFormSubmit} className="crud">
-            <Accordion defaultIndex={0} allowToggle allowMultiple>
+            <Accordion defaultIndex={0} allowMultiple>
                 <AccordionItem index={0}>
                     <h2>
                         <AccordionButton>

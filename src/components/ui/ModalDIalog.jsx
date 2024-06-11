@@ -1,30 +1,39 @@
 import { Divider } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
-import './ModalDialog.scss';
+import "./ModalDialog.scss";
 
-const ModalDialog = ({ title, children, visible, onModalClose, style = {} }) => {
-
+const ModalDialog = ({
+    title,
+    children,
+    visible,
+    onModalClose,
+    style = {},
+}) => {
     const htmlRef = useRef(null);
 
-    const closeDialog = ev => {
+    const closeDialog = (ev) => {
         htmlRef.current?.close();
-    }
+    };
 
+    const isClickInsideRectangle = (ev, element) => {
+        return true;
+        if (ev.target.nodeName === "OPTION") return true;
 
-    const isClickInsideRectangle = (e, element) => {
         const r = element.getBoundingClientRect();
 
         return (
-            e.clientX > r.left &&
-            e.clientX < r.right &&
-            e.clientY > r.top &&
-            e.clientY < r.bottom
+            ev.clientX > r.left &&
+            ev.clientX < r.right &&
+            ev.clientY > r.top &&
+            ev.clientY < r.bottom
         );
     };
 
     useEffect(() => {
-        htmlRef.current?.addEventListener('close', onModalClose);
-    }, [onModalClose])
+        htmlRef.current?.addEventListener("close", onModalClose);
+        return () =>
+            htmlRef.current?.removeEventListener("close", onModalClose);
+    }, [onModalClose]);
 
     useEffect(() => {
         if (visible) {
@@ -32,14 +41,25 @@ const ModalDialog = ({ title, children, visible, onModalClose, style = {} }) => 
         } else {
             htmlRef.current?.close();
         }
-    }, [visible])
+    }, [visible]);
 
-    return <dialog ref={htmlRef} className="html-dialog" onClick={(ev) => htmlRef.current && !isClickInsideRectangle(ev, htmlRef.current) && closeDialog()} style={style}>
-        <h3>{title}</h3>
-        <Divider />
+    return (
+        <dialog
+            ref={htmlRef}
+            className="html-dialog"
+            onClick={(ev) =>
+                htmlRef.current &&
+                !isClickInsideRectangle(ev, htmlRef.current) &&
+                closeDialog()
+            }
+            style={style}
+        >
+            <h3>{title}</h3>
+            <Divider />
 
-        {children}
-    </dialog >
-}
+            {children}
+        </dialog>
+    );
+};
 
 export default ModalDialog;

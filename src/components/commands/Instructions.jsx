@@ -9,7 +9,6 @@ import {
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
-import Help from "components/ui/Help";
 import ShellCommand from "components/ui/ShellCommand";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { parseExpression } from "cron-parser";
@@ -67,13 +66,10 @@ const UsageDetail = ({ command, task, usage }) => {
     const [showTerminal, setShowTerminal] = useState(false);
 
     useEffect(() => {
-        console.dir(commandArgs);
-        console.dir(usage.arguments);
         const commandArgsRendered = CommandService.renderArguments(
             usage,
             commandArgs,
         );
-        console.log(commandArgsRendered);
         setCommandArgsRendered(commandArgsRendered);
     }, [commandArgs]);
 

@@ -1,3 +1,4 @@
+import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import Loading from "components/ui/Loading";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
@@ -7,7 +8,6 @@ import secureApiFetch from "services/api";
 import useFetch from "../../hooks/useFetch";
 import { TaskPriorityList } from "../../models/TaskPriority";
 import PrimaryButton from "../ui/buttons/Primary";
-import NativeInput from "components/form/NativeInput";
 
 const TaskForm = ({
     isEditForm = false,
@@ -109,8 +109,10 @@ const TaskForm = ({
                     onChange={onFormChange}
                     value={task.priority || "medium"}
                 >
-                    {TaskPriorityList.map((priority) => (
-                        <option value={priority.value}>{priority.name}</option>
+                    {TaskPriorityList.map((priority, index) => (
+                        <option key={index} value={priority.value}>
+                            {priority.name}
+                        </option>
                     ))}
                 </NativeSelect>
             </label>

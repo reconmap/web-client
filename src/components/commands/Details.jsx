@@ -11,13 +11,15 @@ import RestrictedComponent from "components/logic/RestrictedComponent";
 import CommandTerminal from "components/ui/CommandTerminal";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
-import ShellCommand from "components/ui/ShellCommand";
 import Tags from "components/ui/Tags";
 import TimestampsSection from "components/ui/TimestampsSection";
+import LinkButton from "components/ui/buttons/Link";
 import UserLink from "components/users/Link";
+import CommandUsage from "models/CommandUsage";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import CommandService, { HostCommandLineGenerator } from "services/command";
+import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -25,13 +27,9 @@ import { IconBriefcase } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
-import EditButton from "../ui/buttons/Edit";
 import CommandInstructions from "./Instructions";
 import CommandOutputs from "./Outputs";
 import CommandUsageForm from "./UsageForm";
-import { useState } from "react";
-import CommandUsage from "models/CommandUsage";
-import secureApiFetch from "services/api";
 
 const CommandDetails = () => {
     const { commandId } = useParams();
@@ -86,12 +84,9 @@ const CommandDetails = () => {
                     <RestrictedComponent
                         roles={["administrator", "superuser", "user"]}
                     >
-                        <EditButton
-                            onClick={(ev) => {
-                                ev.preventDefault();
-                                navigate(`/commands/${command.id}/edit`);
-                            }}
-                        />
+                        <LinkButton href={`/commands/${command.id}/edit`}>
+                            Edit
+                        </LinkButton>
                         <DeleteButton onClick={handleDelete} />
                     </RestrictedComponent>
                 </ButtonGroup>

@@ -19,7 +19,6 @@ const Login = (onLoginSuccess: Function, onLoginFailure: Function) => {
         })
         .catch(err => {
             console.error(err);
-            console.log(`keycloak init exception: ${err}`);
             onLoginFailure(err.error);
         });
 };

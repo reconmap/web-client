@@ -62,7 +62,7 @@ const onImagePasted = async (ev: any, setMarkdown: (value: SetStateAction<string
             return insertedMarkdown;
         }),
     );
-    console.dir(a);
+
     return a.join('');
 };
 
