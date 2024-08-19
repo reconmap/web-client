@@ -1,7 +1,6 @@
 import {
     Button,
     HStack,
-    Select,
     Tab,
     TabList,
     TabPanel,
@@ -135,7 +134,7 @@ const TaskDetails = () => {
                             {1 !== task.project_is_template && (
                                 <label>
                                     Transition to&nbsp;
-                                    <Select
+                                    <NativeSelect
                                         onChange={onStatusChange}
                                         value={task.status}
                                     >
@@ -147,7 +146,7 @@ const TaskDetails = () => {
                                                 {status.name}
                                             </option>
                                         ))}
-                                    </Select>
+                                    </NativeSelect>
                                 </label>
                             )}
                             <DeleteButton

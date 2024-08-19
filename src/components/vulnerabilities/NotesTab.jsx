@@ -1,7 +1,10 @@
-import { useDisclosure } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
-import NoteModalDialog from "components/notes/ModalDialog";
-import CreateButton from "components/ui/buttons/Create";
+import NotesForm from "components/notes/Form";
+import { actionCompletedToast } from "components/ui/toast";
+import Note from "models/Note";
+import { useState } from "react";
+import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";
@@ -12,11 +15,14 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
         `/notes?parentType=vulnerability&parentId=${vulnerability.id}`,
     );
     const deleteNoteById = useDelete("/notes/", reloadNotes);
-    const {
-        isOpen: isDialogOpen,
-        onOpen: openDialog,
-        onClose: closeDialog,
-    } = useDisclosure();
+    const emptyNote = {
+        ...Note,
+        content: "",
+        parent_type: "vulnerability",
+        parent_id: vulnerability.id,
+        visibility: "public",
+    };
+    const [newNote, updateNewNote] = useState(emptyNote);
 
     const onDeleteButtonClick = (ev, note) => {
         ev.preventDefault();
@@ -24,31 +30,43 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
         deleteNoteById(note.id);
     };
 
-    const onNoteFormSaved = () => {
-        reloadNotes();
-        closeDialog();
+    const onCreateNoteFormSubmit = async (ev) => {
+        ev.preventDefault();
+
+        await secureApiFetch(`/notes`, {
+            method: "POST",
+            body: JSON.stringify(newNote),
+        })
+            .then(() => {
+                actionCompletedToast(`The note has been created.`);
+                reloadNotes();
+            })
+            .finally(() => {
+                updateNewNote({ ...emptyNote, content: "" });
+            });
     };
 
     return (
         <section>
-            <NoteModalDialog
-                parentType="vulnerability"
-                parent={vulnerability}
-                isOpen={isDialogOpen}
-                onClose={onNoteFormSaved}
-                onCancel={closeDialog}
-            />
             <h4>
                 <IconDocument />
-                Vulnerability notes
-                <RestrictedComponent
-                    roles={["administrator", "superuser", "user"]}
-                >
-                    <CreateButton onClick={openDialog}>
-                        Add note...
-                    </CreateButton>
-                </RestrictedComponent>
+                Vulnerability comments
             </h4>
+
+            <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                <NotesForm
+                    note={newNote}
+                    onFormSubmit={onCreateNoteFormSubmit}
+                    noteSetter={updateNewNote}
+                />
+            </RestrictedComponent>
+
+            <div style={{ paddingTop: "20px" }}>
+                <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>
+                    Save
+                </Button>
+            </div>
+
             <NotesTable
                 notes={notes}
                 onDeleteButtonClick={onDeleteButtonClick}

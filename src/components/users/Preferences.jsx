@@ -70,7 +70,7 @@ const UserPreferences = () => {
     };
 
     useEffect(() => {
-        if (userData) {
+        if (userData && userData.preferences) {
             setFormValues({
                 timezone: userData.timezone,
                 theme: userData.preferences["web-client.theme"],
@@ -79,7 +79,7 @@ const UserPreferences = () => {
         }
     }, [userData]);
 
-    if (!userData || !formValues) {
+    if (!userData) {
         return <>Loading...</>;
     }
 
@@ -97,7 +97,9 @@ const UserPreferences = () => {
                         name="language"
                         onChange={updateFormValues}
                         defaultValue={
-                            userData.preferences["web-client.language"]
+                            userData.preferences
+                                ? userData.preferences["web-client.language"]
+                                : LanguageList[0].id
                         }
                     >
                         {LanguageList.map((lang) => (
@@ -112,7 +114,11 @@ const UserPreferences = () => {
                     <NativeSelect
                         name="theme"
                         onChange={updateFormValues}
-                        defaultValue={userData.preferences["web-client.theme"]}
+                        defaultValue={
+                            userData.preferences
+                                ? userData.preferences["web-client.theme"]
+                                : ThemeList[0].id
+                        }
                     >
                         {ThemeList.map((theme) => (
                             <option key={theme.id} value={theme.id}>

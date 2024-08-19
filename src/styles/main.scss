@@ -110,6 +110,7 @@ main {
 }
 
 div form+aside {
+    border-radius: var(--borderRadius);
 
     h1,
     h2,
@@ -119,8 +120,6 @@ div form+aside {
     h6 {
         color: var(--primary-color);
     }
-
-    border-radius: var(--borderRadius);
 }
 
 label,

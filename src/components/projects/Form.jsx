@@ -1,11 +1,11 @@
 import NativeCheckbox from "components/form/NativeCheckbox";
+import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
-import NativeInput from "components/form/NativeInput";
 
 const ProjectForm = ({
     isEdit = false,
@@ -165,30 +165,6 @@ const ProjectForm = ({
                         </label>
                     </>
                 )}
-            </fieldset>
-
-            <fieldset>
-                <legend>Vulnerabilities summary</legend>
-
-                <label>
-                    Management summary
-                    <MarkdownEditor
-                        name="management_summary"
-                        onChange={handleFormChange}
-                        value={project.management_summary || ""}
-                        required
-                    />
-                </label>
-
-                <label>
-                    Conclusion
-                    <MarkdownEditor
-                        name="management_conclusion"
-                        onChange={handleFormChange}
-                        value={project.management_conclusion || ""}
-                        required
-                    />
-                </label>
             </fieldset>
 
             <PrimaryButton type="submit">

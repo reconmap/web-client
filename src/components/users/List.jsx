@@ -41,7 +41,7 @@ const UsersList = () => {
             setSelectedUsers([...selectedUsers, targetUserId]);
         } else {
             setSelectedUsers(
-                selectedUsers.filter(value => value !== targetUserId)
+                selectedUsers.filter((value) => value !== targetUserId),
             );
         }
     };
@@ -59,99 +59,114 @@ const UsersList = () => {
                 setSelectedUsers([]);
                 actionCompletedToast("All selected users were deleted.");
             })
-            .catch(err => console.error(err));
+            .catch((err) => console.error(err));
     };
 
     const handleDelete = (id) => {
-        deleteUser(id)
+        deleteUser(id);
         updateUsers();
     };
 
-    return <>
-        <PageTitle value="Users" />
-        <div className="heading">
-            <Breadcrumb />
-            <ButtonGroup isAttached>
-                <CreateButton onClick={handleCreate}>
-                    Create user
-                </CreateButton>
-                <RestrictedComponent roles={['administrator']}>
-                    <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>
-                        Delete selected
-                    </DeleteButton>
-                </RestrictedComponent>
-                <Menu>
-                    <EllipsisMenuButton />
-                    <MenuList>
-                        <ExportMenuItem entity="users" />
-                    </MenuList>
-                </Menu>
-            </ButtonGroup>
-        </div>
-        <title title="Users and roles" icon={<IconUserGroup />} />
-        <table className="rm-listing">
-            <thead>
-                <tr>
-                    <th style={{ width: "32px" }}>&nbsp;</th>
-                    <th style={{ width: "64px" }}>&nbsp;</th>
-                    <th>Full name</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Active?</th>
-                    <th>2FA enabled?</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody>
-                {null === users && <LoadingTableRow numColumns={8} />}
-                {null !== users && 0 === users.length && <NoResultsTableRow numColumns={8} />}
-                {null !== users && 0 !== users.length && users.map((user, index) => (
-                    <tr key={index}>
-                        <td>
-                            <input
-                                type="checkbox"
-                                value={user.id}
-                                onChange={onTaskCheckboxChange}
-                                checked={selectedUsers.includes(user.id)}
-                            />
-                        </td>
-                        <td>
-                            <UserAvatar email={user.email} />
-                        </td>
-                        <td>
-                            <Link to={`/users/${user.id}`}>
-                                {user.full_name}
-                            </Link>
-                        </td>
-                        <td>
-                            <UserLink userId={user.id}>
-                                {user.username}
-                            </UserLink>
-                        </td>
-                        <td>
-                            <UserRoleBadge role={user.role} />
-                        </td>
-                        <td><BooleanText value={user.active} /></td>
-                        <td><BooleanText value={user.mfa_enabled} /></td>
-                        <td textAlign="right">
-                            <LinkButton href={`/users/${user.id}/edit`}>
-                                Edit
-                            </LinkButton>
-                            <DeleteIconButton
-                                onClick={() => handleDelete(user.id)}
-                                disabled={
-                                    parseInt(user.id) ===
-                                        loggedInUser.id
-                                        ? "disabled"
-                                        : ""
-                                }
-                            />
-                        </td>
+    return (
+        <>
+            <PageTitle value="Users" />
+            <div className="heading">
+                <Breadcrumb />
+                <ButtonGroup isAttached>
+                    <CreateButton onClick={handleCreate}>
+                        Create user
+                    </CreateButton>
+                    <RestrictedComponent roles={["administrator"]}>
+                        <DeleteButton
+                            onClick={handleBulkDelete}
+                            disabled={selectedUsers.length === 0}
+                        >
+                            Delete selected
+                        </DeleteButton>
+                    </RestrictedComponent>
+                    <Menu>
+                        <EllipsisMenuButton />
+                        <MenuList>
+                            <ExportMenuItem entity="users" />
+                        </MenuList>
+                    </Menu>
+                </ButtonGroup>
+            </div>
+            <title title="Users and roles" icon={<IconUserGroup />} />
+            <table className="rm-listing">
+                <thead>
+                    <tr>
+                        <th style={{ width: "32px" }}>&nbsp;</th>
+                        <th style={{ width: "64px" }}>&nbsp;</th>
+                        <th>Full name</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Active?</th>
+                        <th>2FA enabled?</th>
+                        <th>&nbsp;</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
-    </>
+                </thead>
+                <tbody>
+                    {null === users && <LoadingTableRow numColumns={8} />}
+                    {null !== users && 0 === users.length && (
+                        <NoResultsTableRow numColumns={8} />
+                    )}
+                    {null !== users &&
+                        0 !== users.length &&
+                        users.map((user, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        value={user.id}
+                                        onChange={onTaskCheckboxChange}
+                                        checked={selectedUsers.includes(
+                                            user.id,
+                                        )}
+                                    />
+                                </td>
+                                <td>
+                                    <UserAvatar email={user.email} />
+                                </td>
+                                <td>
+                                    <Link to={`/users/${user.id}`}>
+                                        {user.full_name}
+                                    </Link>
+                                </td>
+                                <td>
+                                    <UserLink userId={user.id}>
+                                        {user.username}
+                                    </UserLink>
+                                </td>
+                                <td>
+                                    <UserRoleBadge role={user.role} />
+                                </td>
+                                <td>
+                                    <BooleanText value={user.active} />
+                                </td>
+                                <td>
+                                    <BooleanText value={user.mfa_enabled} />
+                                </td>
+                                <td style={{ textAlign: "right" }}>
+                                    <LinkButton href={`/users/${user.id}/edit`}>
+                                        Edit
+                                    </LinkButton>
+                                    <DeleteIconButton
+                                        onClick={() => handleDelete(user.id)}
+                                        disabled={
+                                            parseInt(user.id) ===
+                                            loggedInUser.id
+                                                ? "disabled"
+                                                : ""
+                                        }
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                </tbody>
+            </table>
+        </>
+    );
 };
 
 export default UsersList;

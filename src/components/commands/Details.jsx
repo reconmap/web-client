@@ -62,8 +62,9 @@ const CommandDetails = () => {
     const deleteUsage = (usage) => {
         secureApiFetch(`/commands/usage/${usage.id}`, {
             method: "DELETE",
+        }).finally(() => {
+            fetchCommandUsages();
         });
-        fetchCommandUsages();
     };
 
     const [commandUsages, fetchCommandUsages] = useFetch(
@@ -197,7 +198,7 @@ const CommandDetails = () => {
                                         </thead>
                                         <tbody>
                                             {commandUsages.map((command) => (
-                                                <tr>
+                                                <tr key={command.id}>
                                                     <td>{command.name}</td>
                                                     <td>
                                                         <DeleteButton

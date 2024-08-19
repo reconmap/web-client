@@ -69,7 +69,7 @@ const ProjectsTable = ({
                                     : "(undefined)"}
                             </td>
                             <td>{project.archived ? "Archived" : "Active"}</td>
-                            <td textAlign="right">
+                            <td style={{ textAlign: "right" }}>
                                 <RestrictedComponent
                                     roles={[
                                         "administrator",

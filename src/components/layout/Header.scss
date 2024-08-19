@@ -16,10 +16,10 @@ nav.top-header {
     }
 
     >a.logo {
+        margin-right: auto;
+
         img {
             margin: 0 var(--space);
         }
-
-        margin-right: auto;
     }
 }

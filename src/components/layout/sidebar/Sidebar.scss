@@ -30,6 +30,11 @@ aside.sidebar {
   position: sticky;
   top: 72px;
   height: min-content;
+  padding: var(--padding);
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--padding) / 2);
+
   #collapse--button{
     position: absolute;
     top:var(--space-lg);
@@ -45,10 +50,6 @@ aside.sidebar {
       background-color: var(--primary-color);
     }
   }
-  padding: var(--padding);
-  display: flex;
-  flex-direction: column;
-  row-gap: calc(var(--padding) / 2);
 
   a {
     position: relative;

@@ -136,7 +136,7 @@ const VulnerabilityDetails = () => {
                     <TabList>
                         <Tab>Description</Tab>
                         <Tab>Remediation</Tab>
-                        <Tab>Notes</Tab>
+                        <Tab>Comments</Tab>
                         <Tab>Attachments</Tab>
                     </TabList>
                     <TabPanels>
