@@ -20,7 +20,7 @@
     "cron-parser": "^4.9.0",
     "cronstrue": "^2.50.0",
     "dayjs": "^1.11.11",
-    "framer-motion": "^11.2.10",
+    "framer-motion": "^11.3.19",
     "friendly-mimes": "^2.0.0",
     "http-status-codes": "^2.3.0",
     "i18next": "^23.11.5",
