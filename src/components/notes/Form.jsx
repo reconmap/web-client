@@ -20,6 +20,7 @@ const NotesForm = ({ note, onFormSubmit, noteSetter: setNote }) => {
                     style={{ width: "100%" }}
                     onChange={onFormInputChange}
                     value={note.content}
+                    required
                     autoFocus
                 ></NativeTextArea>
                 <br />
