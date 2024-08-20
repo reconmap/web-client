@@ -21,6 +21,7 @@ import { IconUserGroup } from "../ui/Icons";
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import { actionCompletedToast } from "../ui/toast";
+import { LastLogin } from "./LastLogin";
 import UserLink from "./Link";
 
 const UsersList = () => {
@@ -102,6 +103,7 @@ const UsersList = () => {
                         <th>Username</th>
                         <th>Role</th>
                         <th>Active?</th>
+                        <th>Last login time</th>
                         <th>2FA enabled?</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -143,6 +145,9 @@ const UsersList = () => {
                                 </td>
                                 <td>
                                     <BooleanText value={user.active} />
+                                </td>
+                                <td>
+                                    <LastLogin user={user} />{" "}
                                 </td>
                                 <td>
                                     <BooleanText value={user.mfa_enabled} />

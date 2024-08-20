@@ -22,6 +22,7 @@ import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
+import { LastLogin } from "./LastLogin";
 
 const UserProfile = () => {
     const navigate = useNavigate();
@@ -111,6 +112,12 @@ const UserProfile = () => {
 
                                 <div>
                                     <TimestampsSection entity={user} />
+                                    <dl>
+                                        <dt>Last login</dt>
+                                        <dd>
+                                            <LastLogin user={user} />
+                                        </dd>
+                                    </dl>
                                 </div>
                             </div>
                         </TabPanel>
