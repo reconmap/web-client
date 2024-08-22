@@ -1,14 +1,13 @@
-import { Textarea } from '@chakra-ui/react';
-import Configuration from 'Configuration';
-import { ServerIssuesUrl } from 'ServerUrls';
-import ExternalLink from 'components/ui/ExternalLink';
-import PrimaryButton from 'components/ui/buttons/Primary';
-import { AuthContext } from 'contexts/AuthContext';
-import { useContext } from 'react';
-import './Form.css';
+import { Textarea } from "@chakra-ui/react";
+import Configuration from "Configuration";
+import { ServerIssuesUrl } from "ServerUrls";
+import ExternalLink from "components/ui/ExternalLink";
+import PrimaryButton from "components/ui/buttons/Primary";
+import { AuthContext } from "contexts/AuthContext";
+import { useContext } from "react";
+import "./Form.css";
 
 const SupportForm = () => {
-
     const { user } = useContext(AuthContext);
 
     const systemInfo = `User
@@ -33,31 +32,42 @@ Keycloak URL: ${Configuration.getKeycloakConfig().url}
 
 `;
 
-    const onCopyToClipboardClick = ev => {
+    const onCopyToClipboardClick = (ev) => {
         ev.preventDefault();
 
-        navigator.clipboard.writeText(systemInfo).then(() => {
-            ev.target.innerText = 'Copied!';
-        }, () => {
-            ev.target.innerText = 'Unable to copy.'
-        });
+        navigator.clipboard.writeText(systemInfo).then(
+            () => {
+                ev.target.innerText = "Copied!";
+            },
+            () => {
+                ev.target.innerText = "Unable to copy.";
+            },
+        );
 
         const target = ev.target;
 
         setInterval(() => {
-            target.innerText = 'Copy to clipboard';
+            target.innerText = "Copy to clipboard";
         }, 2000);
-    }
+    };
 
-    return <div className="support-form">
-        <h2>Support</h2>
+    return (
+        <div className="support-form">
+            <h2>Support information</h2>
 
-        <p>If there is something wrong with the app you can report it <ExternalLink href={ServerIssuesUrl}>here</ExternalLink>. Include the information below in the ticket
-            if possible as this could accelerate its resolution.</p>
+            <p>
+                If there is something wrong with the app you can report it{" "}
+                <ExternalLink href={ServerIssuesUrl}>here</ExternalLink>.
+                Include the information below in the ticket if possible as this
+                could accelerate its resolution.
+            </p>
 
-        <Textarea id="systemInfoControl" value={systemInfo} readOnly />
-        <PrimaryButton onClick={onCopyToClipboardClick}>Copy to clipboard</PrimaryButton>
-    </div >
-}
+            <Textarea id="systemInfoControl" value={systemInfo} readOnly />
+            <PrimaryButton onClick={onCopyToClipboardClick}>
+                Copy to clipboard
+            </PrimaryButton>
+        </div>
+    );
+};
 
 export default SupportForm;

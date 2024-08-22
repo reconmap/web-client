@@ -1,5 +1,13 @@
-import { faBriefcase, faCog, faPlus, faWrench } from "@fortawesome/free-solid-svg-icons";
+import {
+    faBriefcase,
+    faCode,
+    faCog,
+    faMagnifyingGlass,
+    faPlus,
+    faWrench,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchUrls from "components/search/SearchUrls";
 import Configuration from "Configuration";
 import {
     IconBookOpen,
@@ -15,201 +23,232 @@ import {
     IconEye,
     IconFlag,
     IconFolder,
-    IconPlus, IconQuestionCircle,
-
+    IconInformation,
+    IconPlus,
+    IconQuestionCircle,
     IconSupport,
-
     IconTerminal,
     IconUpload,
-    IconUserGroup
+    IconUserGroup,
 } from "../../ui/Icons";
 
 const Links = [
     {
-        title: 'Projects', icon: <IconFolder size={5} />, to: '/projects', sublinks: [
+        title: "Projects",
+        icon: <IconFolder size={5} />,
+        to: "/projects",
+        sublinks: [
             {
-                title: 'Create',
+                title: "Create",
                 icon: <FontAwesomeIcon icon={faPlus} />,
-                to: '/projects/create',
-                permissions: 'projects.create'
+                to: "/projects/create",
+                permissions: "projects.create",
             },
             {
-                title: 'Templates',
+                title: "Templates",
                 icon: <IconDocumentDuplicate size={5} />,
-                to: '/projects/templates',
-                permissions: 'projects.templates'
-            }
-        ]
+                to: "/projects/templates",
+                permissions: "projects.templates",
+            },
+        ],
     },
     {
-        title: 'Tasks',
+        title: "Tasks",
         icon: <IconClipboardList size={5} />,
-        to: '/tasks',
+        to: "/tasks",
         sublinks: [
             {
-                title: 'Create',
+                title: "Create",
                 icon: <IconPlus size={5} />,
-                to: '/tasks/create',
-            }
+                to: "/tasks/create",
+            },
         ],
-        permissions: 'tasks.create'
+        permissions: "tasks.create",
     },
     {
-        title: 'Commands', icon: <IconTerminal size={5} />, to: '/commands', sublinks: [
+        title: "Commands",
+        icon: <IconTerminal size={5} />,
+        to: "/commands",
+        sublinks: [
             {
-                title: 'Add',
+                title: "Add",
                 icon: <IconPlus size={5} />,
-                to: '/commands/add',
-            }
+                to: "/commands/add",
+            },
         ],
-        permissions: 'commands.*'
+        permissions: "commands.*",
     },
     {
-        title: 'Vulnerabilities', icon: <IconFlag size={5} />, to: '/vulnerabilities', sublinks: [
+        title: "Vulnerabilities",
+        icon: <IconFlag size={5} />,
+        to: "/vulnerabilities",
+        sublinks: [
             {
-                title: 'Add',
+                title: "Add",
                 icon: <IconPlus size={5} />,
-                to: '/vulnerabilities/create',
+                to: "/vulnerabilities/create",
             },
             {
-                title: 'Templates',
+                title: "Templates",
                 icon: <IconDocumentDuplicate size={5} />,
-                to: '/vulnerabilities/templates',
-                permissions: 'vulnerabilities.templates'
+                to: "/vulnerabilities/templates",
+                permissions: "vulnerabilities.templates",
             },
             {
-                title: 'Categories',
+                title: "Categories",
                 icon: <IconDocumentDuplicate size={5} />,
-                to: '/vulnerabilities/categories',
-                permissions: 'vulnerabilities.categories'
-            }
+                to: "/vulnerabilities/categories",
+                permissions: "vulnerabilities.categories",
+            },
         ],
-        permissions: 'vulnerabilities.*'
+        permissions: "vulnerabilities.*",
     },
     {
-        title: 'Reports', icon: <IconFlag size={5} />, to: '/reports', sublinks: [
+        title: "Reports",
+        icon: <IconFlag size={5} />,
+        to: "/reports",
+        sublinks: [
             {
-                title: 'Templates',
+                title: "Templates",
                 icon: <IconDocumentDuplicate size={5} />,
-                to: '/reports/templates',
-                permissions: 'reports.templates'
-            }
+                to: "/reports/templates",
+                permissions: "reports.templates",
+            },
         ],
-        permissions: 'reports.*'
+        permissions: "reports.*",
     },
     {
-        title: 'Documents', icon: <IconDocument size={5} />, to: '/documents', sublinks: [
+        title: "Documents",
+        icon: <IconDocument size={5} />,
+        to: "/documents",
+        sublinks: [
             {
-                title: 'Add',
+                title: "Add",
                 icon: <IconPlus size={5} />,
-                to: '/documents/add',
-            }
+                to: "/documents/add",
+            },
         ],
-        permissions: 'documents.*'
+        permissions: "documents.*",
     },
     {
-        title: 'Clients', icon: <IconBriefcase size={5} />, to: '/clients', sublinks: [
+        title: "Clients",
+        icon: <IconBriefcase size={5} />,
+        to: "/clients",
+        sublinks: [
             {
-                title: 'Create',
+                title: "Create",
                 icon: <IconPlus size={5} />,
-                to: '/clients/create',
-            }
+                to: "/clients/create",
+            },
         ],
-        permissions: 'clients.*'
+        permissions: "clients.*",
     },
     {
-        title: 'Users', icon: <IconUserGroup size={5} />, to: '/users', sublinks: [
+        title: "Users",
+        icon: <IconUserGroup size={5} />,
+        to: "/users",
+        sublinks: [
             {
-                title: 'Create',
+                title: "Create",
                 icon: <IconPlus size={5} />,
-                to: '/users/create',
-            }
+                to: "/users/create",
+            },
         ],
-        permissions: 'users.*'
+        permissions: "users.*",
     },
     {
-        title: 'Settings',
+        title: "Settings",
         icon: <FontAwesomeIcon icon={faWrench} />,
-        to: '/settings',
+        to: "/settings",
         sublinks: [
             {
-                title: 'Organisation',
+                title: "Custom fields",
+                icon: <FontAwesomeIcon icon={faCode} />,
+                to: "/settings/custom-fields",
+            },
+            {
+                title: "Organisation",
                 icon: <FontAwesomeIcon icon={faBriefcase} />,
-                to: '/settings/organisation'
+                to: "/settings/organisation",
             },
         ],
-        permissions: 'settings.*'
+        permissions: "settings.*",
     },
     {
-        title: 'System',
+        title: "System",
         icon: <FontAwesomeIcon icon={faCog} />,
-        to: '/system',
-        permissions: 'system.*',
+        to: "/system",
+        permissions: "system.*",
         sublinks: [
             {
-                title: 'Audit log',
+                title: "Audit log",
                 icon: <IconEye size={5} />,
-                to: '/auditlog'
+                to: "/auditlog",
             },
             {
-                title: 'Import data',
+                title: "Search",
+                icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+                to: SearchUrls.AdvancedSearch,
+            },
+            {
+                title: "Import data",
                 icon: <IconUpload size={5} />,
-                to: '/system/import-data',
+                to: "/system/import-data",
             },
             {
-                title: 'Export data',
+                title: "Export data",
                 icon: <IconDownload size={5} />,
-                to: '/system/export-data',
+                to: "/system/export-data",
             },
             {
-                title: 'Usage',
+                title: "Usage",
                 icon: <IconCube size={5} />,
-                to: '/system/usage',
+                to: "/system/usage",
             },
             {
-                title: 'Integrations',
+                title: "Integrations",
                 icon: <IconExtensions size={5} />,
-                to: '/system/integrations',
+                to: "/system/integrations",
             },
-            {
-                title: 'Health',
-                icon: <IconCheck size={5} />,
-                to: '/system/health',
-            },
-        ]
+        ],
     },
     {
-        title: 'Help and support',
+        title: "Help and support",
         icon: <IconQuestionCircle size={5} />,
-        to: '/help',
+        to: "/help",
         sublinks: [
             {
-                title: 'User manual',
+                title: "User manual",
                 icon: <IconBookOpen size={5} />,
-                to: 'https://docs.reconmap.com/user-manual/',
+                to: "https://docs.reconmap.com/user-manual/",
                 external: true,
             },
             {
-                title: 'API docs',
+                title: "API docs",
                 icon: <IconCode size={5} />,
                 to: `${Configuration.getDefaultApiUrl()}/docs/`,
                 external: true,
-                permissions: 'help.api',
+                permissions: "help.api",
             },
             {
-                title: 'Support',
-                icon: <IconSupport size={5} />,
-                to: '/support',
-                permissions: 'help.support',
+                title: "Support info",
+                icon: <IconInformation size={5} />,
+                to: "/support",
+                permissions: "help.support",
             },
             {
-                title: 'Licenses',
+                title: "Health",
+                icon: <IconCheck size={5} />,
+                to: "/system/health",
+            },
+            {
+                title: "Licenses",
                 icon: <IconSupport size={5} />,
-                to: '/licenses',
-                permissions: 'help.licenses',
-            }
-        ]
-    }
-]
+                to: "/licenses",
+                permissions: "help.licenses",
+            },
+        ],
+    },
+];
 
 export default Links;
