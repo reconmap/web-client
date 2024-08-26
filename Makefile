@@ -97,3 +97,7 @@ push:
 shell:
 	docker exec -it $(DOCKER_CONTAINER_NAME) bash
 
+.PHONY: sudo-shell
+sudo-shell:
+	docker exec -u 0 -it $(DOCKER_CONTAINER_NAME) bash
+

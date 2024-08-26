@@ -20,7 +20,7 @@
     "cron-parser": "^4.9.0",
     "cronstrue": "^2.50.0",
     "dayjs": "^1.11.13",
-    "framer-motion": "^11.3.29",
+    "framer-motion": "^11.3.30",
     "friendly-mimes": "^2.0.0",
     "http-status-codes": "^2.3.0",
     "i18next": "^23.14.0",
@@ -42,20 +42,20 @@
     "xterm": "^5.3.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
-    "@typescript-eslint/eslint-plugin": "^8.2.0",
-    "@typescript-eslint/parser": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^2.0.5",
-    "eslint": "^9.9.0",
+    "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "jsdom": "^24.1.1",
+    "jsdom": "^25.0.0",
     "npm-check-updates": "^17.1.0",
     "prettier": "^3.3.3",
     "sass": "^1.77.8",
@@ -89,5 +89,5 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "yarn@4.4.1"
 }

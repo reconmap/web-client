@@ -1,38 +1,40 @@
 const Title = ({ type, title, icon }) => {
     const styles = {
         container: {
-            margin: 'var(--padding) 0 var(--margin) 0',
-            display: 'flex',
-            alignItems: 'center',
+            margin: "var(--padding) 0 var(--margin) 0",
+            display: "flex",
+            alignItems: "center",
         },
         subtitle: {
             margin: 0,
-            marginBottom: '-6px',
-            color: 'var(--primary-color)'
+            marginBottom: "-6px",
+            color: "var(--primary-color)",
         },
         title: {
-            marginTop: 'var(--space-sm)',
-            color: 'var(--text-color)'
+            marginTop: "var(--space-sm)",
+            color: "var(--text-color)",
         },
         icon: {
-            backgroundColor: 'var(--black)',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginRight: 'var(--padding)',
-            width: 'var(--iconSizeLarge)',
-            height: 'var(--iconSizeLarge)',
-            color: 'var(--primary-color)'
-        }
-    }
-    return <div style={styles.container}>
-        {icon && <figure style={styles.icon}>{icon}</figure>}
-        <div>
-            {type && <p style={styles.subtitle}>{type}</p>}
-            <h2 style={styles.title}>{title}</h2>
+            backgroundColor: "var(--black)",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginRight: "var(--padding)",
+            width: "var(--iconSizeLarge)",
+            height: "var(--iconSizeLarge)",
+            color: "var(--primary-color)",
+        },
+    };
+    return (
+        <div style={styles.container}>
+            {icon && <figure style={styles.icon}>{icon}</figure>}
+            <div>
+                {type && <p style={styles.subtitle}>{type}</p>}
+                <h2 style={styles.title}>{title}</h2>
+            </div>
         </div>
-    </div>
-}
+    );
+};
 
-export default Title
+export default Title;

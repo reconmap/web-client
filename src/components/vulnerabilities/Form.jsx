@@ -1,15 +1,10 @@
-import {
-    Accordion,
-    AccordionButton,
-    AccordionIcon,
-    AccordionItem,
-    AccordionPanel,
-    Box,
-} from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
+import DynamicForm from "components/form/DynamicForm";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
+import useFetch from "hooks/useFetch";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import RemediationComplexity from "models/RemediationComplexity";
 import RemediationPriority from "models/RemediationPriority";
@@ -33,6 +28,7 @@ const VulnerabilityForm = ({
     const [subCategories, setSubCategories] = useState(null);
     const [targets, setTargets] = useState(null);
     const [useOWASP, setMetrics] = useState(false);
+    const [customFields] = useFetch("/system/custom-fields");
 
     useEffect(() => {
         if (initialised) return;
@@ -47,17 +43,12 @@ const VulnerabilityForm = ({
             })
             .then(([projects, categories]) => {
                 const defaultProjectId = projects.length ? projects[0].id : 0;
-                const projectId = isEditForm
-                    ? vulnerability.project_id
-                    : defaultProjectId;
+                const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
                 setMetrics(isOwaspProject(projects, projectId));
 
                 var subcategories = null;
                 if (vulnerability.parent_category_id) {
-                    secureApiFetch(
-                        `/vulnerabilities/categories/${vulnerability.parent_category_id}`,
-                        { method: "GET" },
-                    )
+                    secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: "GET" })
                         .then((response) => response.json())
                         .then((json) => {
                             subcategories = json;
@@ -75,31 +66,16 @@ const VulnerabilityForm = ({
                             setTargets(targets);
                             setVulnerability((prevVulnerability) => {
                                 let updatedVulnerability = prevVulnerability;
-                                if (
-                                    !idExists(
-                                        projects,
-                                        prevVulnerability.project_id,
-                                    )
-                                ) {
-                                    updatedVulnerability.project_id =
-                                        defaultProjectId;
+                                if (!idExists(projects, prevVulnerability.project_id)) {
+                                    updatedVulnerability.project_id = defaultProjectId;
                                 }
                                 if (
-                                    !idExists(
-                                        categories,
-                                        prevVulnerability.category_id,
-                                    ) &&
-                                    !idExists(
-                                        subcategories,
-                                        prevVulnerability.category_id,
-                                    )
+                                    !idExists(categories, prevVulnerability.category_id) &&
+                                    !idExists(subcategories, prevVulnerability.category_id)
                                 ) {
-                                    updatedVulnerability.category_id =
-                                        categories[0].id;
+                                    updatedVulnerability.category_id = categories[0].id;
                                 }
-                                if (
-                                    !idExists(targets, vulnerability.target_id)
-                                ) {
+                                if (!idExists(targets, vulnerability.target_id)) {
                                     updatedVulnerability.target_id = null;
                                 }
                                 return updatedVulnerability;
@@ -127,10 +103,9 @@ const VulnerabilityForm = ({
         if (!initialised) return;
 
         if (vulnerability.parent_category_id) {
-            secureApiFetch(
-                `/vulnerabilities/categories/${vulnerability.parent_category_id}`,
-                { method: "GET" },
-            )
+            secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, {
+                method: "GET",
+            })
                 .then((response) => response.json())
                 .then((json) => {
                     setSubCategories(json);
@@ -303,10 +278,7 @@ const VulnerabilityForm = ({
                                 <option>(none)</option>
                                 {subCategories &&
                                     subCategories.map((subcat) => (
-                                        <option
-                                            key={subcat.id}
-                                            value={subcat.id}
-                                        >
+                                        <option key={subcat.id} value={subcat.id}>
                                             {subcat.name}
                                         </option>
                                     ))}
@@ -324,18 +296,12 @@ const VulnerabilityForm = ({
                                 <option value="private">Private</option>
                             </NativeSelect>
                             <span className="field-explanation">
-                                Private makes this vulnerability not visible to
-                                the client.
+                                Private makes this vulnerability not visible to the client.
                             </span>
                         </label>
                         <label>
                             Risk
-                            <NativeSelect
-                                name="risk"
-                                value={vulnerability.risk || ""}
-                                onChange={onFormChange}
-                                required
-                            >
+                            <NativeSelect name="risk" value={vulnerability.risk || ""} onChange={onFormChange} required>
                                 {Risks.map((risk) => (
                                     <option key={risk.id} value={risk.id}>
                                         {risk.name}
@@ -349,13 +315,7 @@ const VulnerabilityForm = ({
                                 type="text"
                                 name="tags"
                                 onChange={onFormChange}
-                                value={
-                                    vulnerability.tags
-                                        ? JSON.parse(vulnerability.tags).join(
-                                              ",",
-                                          )
-                                        : ""
-                                }
+                                value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(",") : ""}
                             />
                         </label>
                         <label>
@@ -368,11 +328,7 @@ const VulnerabilityForm = ({
                         </label>
                         <label>
                             Impact
-                            <MarkdownEditor
-                                name="impact"
-                                value={vulnerability.impact || ""}
-                                onChange={onFormChange}
-                            />
+                            <MarkdownEditor name="impact" value={vulnerability.impact || ""} onChange={onFormChange} />
                         </label>
                         {!useOWASP && (
                             <>
@@ -416,10 +372,7 @@ const VulnerabilityForm = ({
                         </h2>
                         <AccordionPanel pb={4}>
                             <label>Owasp Risk Rating</label>
-                            <OwaspRR
-                                vulnerability={vulnerability}
-                                vulnerabilitySetter={setVulnerability}
-                            />
+                            <OwaspRR vulnerability={vulnerability} vulnerabilitySetter={setVulnerability} />
                         </AccordionPanel>
                     </AccordionItem>
                 )}
@@ -445,17 +398,12 @@ const VulnerabilityForm = ({
                             Remediation complexity
                             <NativeSelect
                                 name="remediation_complexity"
-                                value={
-                                    vulnerability.remediation_complexity || ""
-                                }
+                                value={vulnerability.remediation_complexity || ""}
                                 onChange={onFormChange}
                                 required
                             >
                                 {RemediationComplexity.map((complexity) => (
-                                    <option
-                                        key={complexity.id}
-                                        value={complexity.id}
-                                    >
+                                    <option key={complexity.id} value={complexity.id}>
                                         {complexity.name}
                                     </option>
                                 ))}
@@ -470,10 +418,7 @@ const VulnerabilityForm = ({
                                 required
                             >
                                 {RemediationPriority.map((priority) => (
-                                    <option
-                                        key={priority.id}
-                                        value={priority.id}
-                                    >
+                                    <option key={priority.id} value={priority.id}>
                                         {priority.name}
                                     </option>
                                 ))}
@@ -503,10 +448,7 @@ const VulnerabilityForm = ({
                                 >
                                     {projects &&
                                         projects.map((project, index) => (
-                                            <option
-                                                key={index}
-                                                value={project.id}
-                                            >
+                                            <option key={index} value={project.id}>
                                                 {project.name}
                                             </option>
                                         ))}
@@ -523,10 +465,7 @@ const VulnerabilityForm = ({
                                     <option value="0">(none)</option>
                                     {targets &&
                                         targets.map((target, index) => (
-                                            <option
-                                                key={index}
-                                                value={target.id}
-                                            >
+                                            <option key={index} value={target.id}>
                                                 {target.name}
                                             </option>
                                         ))}
@@ -536,6 +475,8 @@ const VulnerabilityForm = ({
                     </AccordionItem>
                 )}
             </Accordion>
+
+            {customFields && <DynamicForm fields={customFields} />}
 
             <Primary type="submit">{isEditForm ? "Save" : "Add"}</Primary>
         </form>

@@ -123,7 +123,7 @@ const VulnerabilitiesTable = ({
                             property="risk"
                         />
                     </th>
-                    <th style={{ width: "120px" }}>
+                    <th style={{ width: "70px" }}>
                         <DescendingSortLink
                             callback={onSortChange}
                             property="cvss_score"

@@ -98,7 +98,12 @@ aside.sidebar {
   }
 
   a.sublink {
-    padding-left: calc(var(--space) * 2.5);
+    padding-left: calc(var(--space) * 1.5);
     font-size: var(--fontSizeSmall);
+
+    i {
+      font-size: large;
+      margin-right: 3px;
+    }
   }
 }
