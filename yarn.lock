@@ -9056,13 +9056,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^17.1.0":
-  version: 17.1.0
-  resolution: "npm-check-updates@npm:17.1.0"
+"npm-check-updates@npm:^17.1.3":
+  version: 17.1.3
+  resolution: "npm-check-updates@npm:17.1.3"
   bin:
     ncu: build/cli.js
     npm-check-updates: build/cli.js
-  checksum: 10/f46370795ea1dc20f3e25ea0318bce3e855b56228371333a152943d957b90a1bee49f564b92e3b4a5b8083bef0af6a69a87bbe1600e38622856b0b570521d6c5
+  checksum: 10/11dd2d2955f8e5614861a5e588f5794ddaa902bd25203d847e602313756cf1b02baacd04c77c5e536d508dedfa023ab90ffb4c0a9def3ad85457d37dc08acd18
   languageName: node
   linkType: hard
 
@@ -10011,7 +10011,7 @@ __metadata:
     javascript-time-ago: "npm:^2.5.10"
     jsdom: "npm:^25.0.0"
     keycloak-js: "npm:^25.0.4"
-    npm-check-updates: "npm:^17.1.0"
+    npm-check-updates: "npm:^17.1.3"
     path-browserify: "npm:^1.0.1"
     prettier: "npm:^3.3.3"
     react: "npm:^18.3.1"
