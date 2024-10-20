@@ -21,12 +21,24 @@ const VulnerabilityCreate = () => {
         is_template: isTemplate,
         project_id: urlProjectId.current,
     });
-    const [customFields, setCustomFields] = useState(null);
 
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/vulnerabilities`, { method: "POST", body: JSON.stringify(vulnerability) }).then(() => {
+        var formData = new FormData(document.getElementById("vulnerabilityCreateForm"));
+        var fields = Object.fromEntries(formData);
+        fields.tags = JSON.stringify(fields.tags.split(","));
+        console.log(fields.target_id);
+        fields.target_id = null;
+        console.log(fields.category_id);
+        fields.category_id = null;
+        console.dir(fields);
+        if (!fields.hasOwnProperty("is_template")) {
+            fields.is_template = "0";
+        }
+        console.dir(fields);
+
+        secureApiFetch(`/vulnerabilities`, { method: "POST", body: JSON.stringify(fields) }).then(() => {
             if (vulnerability.is_template) {
                 navigate("/vulnerabilities/templates");
             } else {

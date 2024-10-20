@@ -14,8 +14,8 @@ RUN userdel -r node && \
 
 RUN apt-get update && apt-get install -y git
 
-ENV DISABLE_OPENCOLLECTIVE true
-ENV PATH /home/reconmapper/node_modules/.bin:$PATH
+ENV DISABLE_OPENCOLLECTIVE=true
+ENV PATH=/home/reconmapper/node_modules/.bin:$PATH
 
 WORKDIR /home/reconmapper
 USER reconmapper

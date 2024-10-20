@@ -21,12 +21,7 @@ else
 endif
 CONTAINER_UID_GID=$(HOST_UID):$(HOST_GID)
 
-ifdef TRAVIS_BRANCH
-GIT_BRANCH_NAME = $(TRAVIS_BRANCH)
-else
 GIT_BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD)
-endif
-
 GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare

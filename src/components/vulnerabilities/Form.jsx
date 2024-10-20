@@ -161,10 +161,6 @@ const VulnerabilityForm = ({
         const name = target.name;
         let value = target.type === "checkbox" ? target.checked : target.value;
 
-        if ("tags" === name) {
-            value = JSON.stringify(value.split(","));
-        }
-
         if ("category_id" === name) {
             if (value !== "(none)") {
                 secureApiFetch(`/vulnerabilities/categories/${value}`, {
@@ -190,7 +186,7 @@ const VulnerabilityForm = ({
     };
 
     return (
-        <form onSubmit={onFormSubmit} className="crud">
+        <form id="vulnerabilityCreateForm" onSubmit={onFormSubmit} className="crud">
             <Accordion defaultIndex={0} allowMultiple>
                 <AccordionItem index={0}>
                     <h2>
