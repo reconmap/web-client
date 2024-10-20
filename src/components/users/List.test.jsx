@@ -1,3 +1,4 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import { AuthContext } from "contexts/AuthContext";
 import { act } from "react";
 import ReactDOM from "react-dom/client";
@@ -23,11 +24,13 @@ it("renders with or without a name", async () => {
 
     await act(async () => {
         ReactDOM.createRoot(container).render(
-            <MemoryRouter>
-                <AuthContext.Provider value={{ user: null }}>
-                    <UsersList />
-                </AuthContext.Provider>
-            </MemoryRouter>,
+            <ChakraProvider>
+                <MemoryRouter>
+                    <AuthContext.Provider value={{ user: null }}>
+                        <UsersList />
+                    </AuthContext.Provider>
+                </MemoryRouter>
+            </ChakraProvider>,
         );
     });
     expect(container.innerHTML).toMatch(/Create user<\/button>/);

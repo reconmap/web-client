@@ -1,5 +1,4 @@
-import { ButtonGroup } from "@chakra-ui/button";
-import { Flex, HStack } from "@chakra-ui/react";
+import { ButtonGroup, Flex, HStack } from "@chakra-ui/react";
 import PaginationV2 from "components/layout/PaginationV2";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -80,13 +79,7 @@ const VulnerabilitiesList = () => {
                     vulnerabilities: data,
                 }));
             });
-    }, [
-        setTableModel,
-        apiPageNumber,
-        tableModel.filters,
-        tableModel.sortBy.column,
-        tableModel.sortBy.order,
-    ]);
+    }, [setTableModel, apiPageNumber, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order]);
 
     const onDeleteButtonClick = () => {
         secureApiFetch("/vulnerabilities", {
@@ -99,9 +92,7 @@ const VulnerabilitiesList = () => {
             .then(reloadVulnerabilities)
             .then(() => {
                 setTableModel({ ...tableModel, selection: [] });
-                actionCompletedToast(
-                    "All selected vulnerabilities were deleted.",
-                );
+                actionCompletedToast("All selected vulnerabilities were deleted.");
             })
             .catch((err) => console.error(err));
     };
@@ -119,38 +110,21 @@ const VulnerabilitiesList = () => {
             <PageTitle value={`Vulnerabilities - Page ${pageNumber}`} />
             <div className="heading">
                 <Breadcrumb />
-                <PaginationV2
-                    page={apiPageNumber}
-                    total={numberPages}
-                    onPageChange={onPageChange}
-                />
+                <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
                 <HStack>
                     <ButtonGroup>
-                        <CreateButton onClick={onAddVulnerabilityClick}>
-                            Add vulnerability
-                        </CreateButton>
-                        <RestrictedComponent
-                            roles={["administrator", "superuser", "user"]}
-                        >
-                            <DeleteButton
-                                onClick={onDeleteButtonClick}
-                                disabled={!tableModel.selection.length}
-                            >
+                        <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
+                        <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                            <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
                                 Delete selected
                             </DeleteButton>
                         </RestrictedComponent>
                     </ButtonGroup>
                 </HStack>
             </div>
-            <Title
-                title={`Vulnerabilities (${totalCount})`}
-                icon={<IconFlag />}
-            />
+            <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
             <Flex>
-                <VulnerabilityFilters
-                    tableModel={tableModel}
-                    tableModelSetter={setTableModel}
-                />
+                <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} />
             </Flex>
             <VulnerabilitiesTable
                 tableModel={tableModel}

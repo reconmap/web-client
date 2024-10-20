@@ -1,8 +1,7 @@
-import { Avatar } from '@chakra-ui/avatar';
-import MD5 from '../../services/md5';
+import { Avatar } from "@chakra-ui/react";
+import MD5 from "../../services/md5";
 
-const UserAvatar = ({ email, size = 'sm', onClick }) => {
-
+const UserAvatar = ({ email, size = "sm", onClick }) => {
     return (
         <Avatar
             onClick={onClick}
@@ -11,8 +10,7 @@ const UserAvatar = ({ email, size = 'sm', onClick }) => {
             backgroundColor={"gray.700"}
             src={`https://www.gravatar.com/avatar/${MD5(email)}?s=200&d=robohash`}
         />
-
-    )
-}
+    );
+};
 
 export default UserAvatar;

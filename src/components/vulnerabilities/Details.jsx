@@ -1,15 +1,7 @@
-import {
-    HStack,
-    Select,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-    Tag,
-} from "@chakra-ui/react";
+import { HStack, Tab, TabList, TabPanel, TabPanels, Tabs, Tag } from "@chakra-ui/react";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
+import NativeSelect from "components/form/NativeSelect";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Tags from "components/ui/Tags";
@@ -32,16 +24,12 @@ import VulnerabilityRemediationPanel from "./VulnerabilityRemediationPanel";
 const VulnerabilityDetails = () => {
     const navigate = useNavigate();
     const { vulnerabilityId } = useParams();
-    const [vulnerability, updateVulnerability] = useFetch(
-        `/vulnerabilities/${vulnerabilityId}`,
-    );
+    const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`);
     const deleteVulnerability = useDelete(`/vulnerabilities/`);
 
     const parentType = "vulnerability";
     const parentId = vulnerabilityId;
-    const [attachments, reloadAttachments] = useFetch(
-        `/attachments?parentType=${parentType}&parentId=${parentId}`,
-    );
+    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`);
 
     const handleDelete = async () => {
         const confirmed = await deleteVulnerability(vulnerabilityId);
@@ -64,9 +52,7 @@ const VulnerabilityDetails = () => {
     if (!vulnerability) return <Loading />;
 
     if (vulnerability && vulnerability.is_template) {
-        return (
-            <Navigate to={`/vulnerabilities/templates/${vulnerability.id}`} />
-        );
+        return <Navigate to={`/vulnerabilities/templates/${vulnerability.id}`} />;
     }
 
     return (
@@ -76,34 +62,21 @@ const VulnerabilityDetails = () => {
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
                 <HStack alignItems="flex-end">
-                    <RestrictedComponent
-                        roles={["administrator", "superuser", "user"]}
-                    >
-                        <LinkButton
-                            href={`/vulnerabilities/${vulnerability.id}/edit`}
-                        >
-                            Edit
-                        </LinkButton>
+                    <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                        <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
 
                         <label>
                             Transition to&nbsp;
-                            <Select
+                            <NativeSelect
                                 onChange={onStatusChange}
-                                value={
-                                    vulnerability.status +
-                                    "-" +
-                                    vulnerability.substatus
-                                }
+                                value={vulnerability.status + "-" + vulnerability.substatus}
                             >
                                 {VulnerabilityStatuses.map((status) => (
-                                    <option
-                                        key={`vulnstatus_${status.id}`}
-                                        value={status.id}
-                                    >
+                                    <option key={`vulnstatus_${status.id}`} value={status.id}>
                                         {status.name}
                                     </option>
                                 ))}
-                            </Select>
+                            </NativeSelect>
                         </label>
 
                         <DeleteButton onClick={handleDelete} />
@@ -117,9 +90,7 @@ const VulnerabilityDetails = () => {
                     title={
                         vulnerability.external_id ? (
                             <>
-                                <strong>
-                                    {vulnerability.external_id.toUpperCase()}
-                                </strong>
+                                <strong>{vulnerability.external_id.toUpperCase()}</strong>
                                 &nbsp;{vulnerability.summary}
                             </>
                         ) : (
@@ -141,19 +112,13 @@ const VulnerabilityDetails = () => {
                     </TabList>
                     <TabPanels>
                         <TabPanel>
-                            <VulnerabilityDescriptionPanel
-                                vulnerability={vulnerability}
-                            />
+                            <VulnerabilityDescriptionPanel vulnerability={vulnerability} />
                         </TabPanel>
                         <TabPanel>
-                            <VulnerabilityRemediationPanel
-                                vulnerability={vulnerability}
-                            />
+                            <VulnerabilityRemediationPanel vulnerability={vulnerability} />
                         </TabPanel>
                         <TabPanel>
-                            <VulnerabilitiesNotesTab
-                                vulnerability={vulnerability}
-                            />
+                            <VulnerabilitiesNotesTab vulnerability={vulnerability} />
                         </TabPanel>
                         <TabPanel>
                             <AttachmentsDropzone
@@ -166,10 +131,7 @@ const VulnerabilityDetails = () => {
                                 <IconDocument />
                                 Attachment list
                             </h4>
-                            <AttachmentsTable
-                                attachments={attachments}
-                                reloadAttachments={reloadAttachments}
-                            />
+                            <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
                         </TabPanel>
                     </TabPanels>
                 </Tabs>
