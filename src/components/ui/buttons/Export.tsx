@@ -1,5 +1,5 @@
-import { IconSave } from 'components/ui/Icons';
-import SecondaryButton from "./Secondary";
+import { IconSave } from 'components/ui/Icons.jsx';
+import SecondaryButton from "./Secondary.js";
 
 interface ExportButtonProps {
     onClick: CallableFunction

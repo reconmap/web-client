@@ -1,4 +1,4 @@
-import Configuration from "Configuration";
+import Configuration from "Configuration.js";
 import Keycloak from "keycloak-js";
 
 const keycloakInstance = new Keycloak(Configuration.getKeycloakConfig());
@@ -11,13 +11,13 @@ const Login = (onLoginSuccess: Function, onLoginFailure: Function) => {
         .init({
             onLoad: 'login-required',
         })
-        .then((authenticated) => {
+        .then((authenticated:boolean) => {
             if (authenticated)
                 onLoginSuccess();
             else
                 onLoginFailure();
         })
-        .catch(err => {
+        .catch((err:any) => {
             console.error(err);
             onLoginFailure(err.error);
         });

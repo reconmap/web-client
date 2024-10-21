@@ -1,4 +1,4 @@
-import Loading from "../Loading";
+import Loading from "../Loading.jsx";
 
 interface Props {
     numColumns: number;

@@ -2,7 +2,7 @@
     "compilerOptions": {
         "outDir": "build",
         "target": "ESNext", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-        "moduleResolution": "node",
+        "moduleResolution": "node16",
         "lib": [
             "dom",
             "dom.iterable",
@@ -14,7 +14,7 @@
             "vitest/globals"
         ],
         "jsx": "react-jsx",
-        "module": "ESNext", /* Specify what module code is generated. */
+        "module": "Node16", /* Specify what module code is generated. */
         "baseUrl": "src", /* Specify the base directory to resolve non-relative module names. */
         "resolveJsonModule": true, /* Enable importing .json files */
         "allowJs": true, /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */

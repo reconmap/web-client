@@ -1,6 +1,6 @@
-import NativeButton from "components/form/NativeButton";
+import NativeButton from "components/form/NativeButton.js";
 import { ReactElement } from "react";
-import { downloadFromApi } from "services/api";
+import { downloadFromApi } from "services/api.js";
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
     entity: string;

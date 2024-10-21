@@ -1,29 +1,28 @@
-
-import { SetStateAction, useState } from 'react';
-import './MarkdownEditor.css';
+import { useState } from "react";
+import "./MarkdownEditor.css";
 
 import MDEditor from "@uiw/react-md-editor";
-import Configuration from 'Configuration';
-import secureApiFetch from 'services/api';
+import Configuration from "Configuration.js";
+import secureApiFetch from "services/api.js";
 
-const fileUpload = async (file: File) => {
+const fileUpload = async (file) => {
     const formData = new FormData();
-    formData.append('parentType', "project");
-    formData.append('parentId', "1");
-    formData.append('attachment[]', file);
+    formData.append("parentType", "project");
+    formData.append("parentId", "1");
+    formData.append("attachment[]", file);
 
-    let uri = '/attachments';
+    let uri = "/attachments";
 
     const resp = await secureApiFetch(uri, {
-        method: 'POST',
-        body: formData
+        method: "POST",
+        body: formData,
     });
     const json = await resp.json();
     var attachmentId = json[0].id;
-    return Configuration.getDefaultApiUrl() + `/image/${attachmentId}`
-}
+    return Configuration.getDefaultApiUrl() + `/image/${attachmentId}`;
+};
 
-const insertToTextArea = (textarea: any, intsertString: string) => {
+const insertToTextArea = (textarea, intsertString) => {
     let sentence = textarea.value;
     const len = sentence.length;
     const pos = textarea.selectionStart;
@@ -40,9 +39,9 @@ const insertToTextArea = (textarea: any, intsertString: string) => {
     return sentence;
 };
 
-const onImagePasted = async (ev: any, setMarkdown: (value: SetStateAction<string | undefined>) => void) => {
+const onImagePasted = async (ev, setMarkdown) => {
     const dataTransfer = ev.clipboardData;
-    const files: File[] = [];
+    const files = [];
     for (let index = 0; index < dataTransfer.items.length; index += 1) {
         const file = dataTransfer.files.item(index);
 
@@ -63,31 +62,28 @@ const onImagePasted = async (ev: any, setMarkdown: (value: SetStateAction<string
         }),
     );
 
-    return a.join('');
+    return a.join("");
 };
 
-interface MarkdownEditorProps {
-    name: string;
-    value: string;
-    onChange: any
-}
+const MarkdownEditor = ({ name: editorName, value, onChange: onFormChange }) => {
+    const [markdown, setMarkdown] = useState(value);
 
-const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ name: editorName, value, onChange: onFormChange }) => {
-
-    const [markdown, setMarkdown] = useState<string | undefined>(value);
-
-    const onEditorPaste = async (ev: any) => {
+    const onEditorPaste = async (ev) => {
         const a = await onImagePasted(ev, setMarkdown);
         onFormChange({ target: { name: editorName, value: a } });
-    }
+    };
 
-    return <MDEditor height={200} value={markdown}
-        onPaste={onEditorPaste}
-        onChange={editorValue => {
-            setMarkdown(editorValue);
-            onFormChange({ target: { name: editorName, value: editorValue } });
-        }
-        } />
-}
+    return (
+        <MDEditor
+            height={200}
+            value={markdown}
+            onPaste={onEditorPaste}
+            onChange={(editorValue) => {
+                setMarkdown(editorValue);
+                onFormChange({ target: { name: editorName, value: editorValue } });
+            }}
+        />
+    );
+};
 
 export default MarkdownEditor;

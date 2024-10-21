@@ -1,5 +1,5 @@
 
-import EmptyField from 'components/ui/EmptyField';
+import EmptyField from 'components/ui/EmptyField.js';
 
 interface TelephoneLinkProps {
     number: string | null;

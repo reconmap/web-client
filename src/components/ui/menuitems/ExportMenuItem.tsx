@@ -1,6 +1,6 @@
 import { MenuItem } from "@chakra-ui/react";
 import { ReactElement } from "react";
-import { downloadFromApi } from "services/api";
+import { downloadFromApi } from "services/api.js";
 
 interface Props {
     entity: string;
