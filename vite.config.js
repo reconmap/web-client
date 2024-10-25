@@ -1,7 +1,7 @@
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
-import svgrPlugin from 'vite-plugin-svgr';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import svgrPlugin from "vite-plugin-svgr";
+import viteTsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 /** @type {import('vite').UserConfig} */
@@ -11,20 +11,24 @@ export default defineConfig({
         port: 5500,
     },
     build: {
-        outDir: 'build',
+        outDir: "build",
     },
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: "modern-compiler",
+            },
+        },
+    },
     test: {
         globals: true,
-        environment: 'jsdom',
-        setupFiles: './src/setupTests.js',
+        environment: "jsdom",
+        setupFiles: "./src/setupTests.js",
         coverage: {
-        	provider: 'v8',
-            reporter: ['text', 'html'],
-            exclude: [
-                'node_modules/',
-                'src/setupTests.js',
-            ],
+            provider: "v8",
+            reporter: ["text", "html"],
+            exclude: ["node_modules/", "src/setupTests.js"],
         },
     },
 });
