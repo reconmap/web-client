@@ -12,7 +12,7 @@ const HeaderUserMenu = () => {
     return (
         <Menu closeOnBlur closeOnSelect>
             <MenuButton>
-                <UserAvatar email={user.email} name={user.name} />
+                <UserAvatar email={user.email} />
             </MenuButton>
             <MenuList>
                 <HStack px="3" pb="3" justifyContent="space-between" alignItems="center">
