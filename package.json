@@ -18,7 +18,7 @@
     "@uiw/react-md-editor": "^4.0.4",
     "countries-and-timezones": "^3.7.2",
     "cron-parser": "^4.9.0",
-    "cronstrue": "^2.50.0",
+    "cronstrue": "^2.51.0",
     "dayjs": "^1.11.13",
     "framer-motion": "^11.11.10",
     "friendly-mimes": "^2.0.0",
