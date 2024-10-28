@@ -1,41 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import useFetch from "../../hooks/useFetch";
-import secureApiFetch from '../../services/api';
-import Breadcrumb from '../ui/Breadcrumb';
+import { getUser, updateUser } from "api/users";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Breadcrumb from "../ui/Breadcrumb";
 import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
-import Title from '../ui/Title';
-import { actionCompletedToast } from '../ui/toast';
+import Title from "../ui/Title";
+import { actionCompletedToast } from "../ui/toast";
 import UserForm from "./Form";
 
 const EditUserPage = () => {
     const navigate = useNavigate();
     const { userId } = useParams();
-    const [serverUser] = useFetch(`/users/${userId}`);
     const [clientUser, setClientUser] = useState(null);
 
     const handleCreate = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/users/${userId}`, {
-            method: 'PATCH',
-            body: JSON.stringify(clientUser)
-        }).then(() => {
-            navigate(`/users/${userId}`)
+        updateUser(clientUser).then(() => {
+            navigate(`/users/${userId}`);
             actionCompletedToast(`The user "${clientUser.full_name}" has been updated.`);
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        setClientUser(serverUser);
-    }, [serverUser]);
+        async function fetchUser() {
+            const user = await getUser(userId);
+            setClientUser(await user.json());
+        }
+        fetchUser();
+    }, []);
 
-    if (!serverUser || !clientUser) return <Loading />
+    if (!clientUser) return <Loading />;
 
     return (
         <div>
-            <div className='heading'>
+            <div className="heading">
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
                 </Breadcrumb>
@@ -45,8 +44,7 @@ const EditUserPage = () => {
 
             <UserForm isEdit={true} user={clientUser} userSetter={setClientUser} onFormSubmit={handleCreate} />
         </div>
-    )
-}
+    );
+};
 
 export default EditUserPage;
-

@@ -1,4 +1,5 @@
 import { ButtonGroup, Menu, MenuList } from "@chakra-ui/react";
+import { deleteUser, deleteUsers } from "api/users";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
@@ -11,9 +12,7 @@ import { AuthContext } from "contexts/AuthContext";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CreateButton from "../../components/ui/buttons/Create";
-import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
-import secureApiFetch from "../../services/api";
 import UserAvatar from "../badges/UserAvatar";
 import UserRoleBadge from "../badges/UserRoleBadge";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -28,7 +27,7 @@ const UsersList = () => {
     const navigate = useNavigate();
     const { user: loggedInUser } = useContext(AuthContext);
     const [users, updateUsers] = useFetch("/users");
-    const deleteUser = useDelete("/users/", updateUsers);
+
     const handleCreate = () => {
         navigate("/users/create");
     };
@@ -41,20 +40,12 @@ const UsersList = () => {
         if (target.checked) {
             setSelectedUsers([...selectedUsers, targetUserId]);
         } else {
-            setSelectedUsers(
-                selectedUsers.filter((value) => value !== targetUserId),
-            );
+            setSelectedUsers(selectedUsers.filter((value) => value !== targetUserId));
         }
     };
 
     const handleBulkDelete = () => {
-        secureApiFetch(`/users`, {
-            method: "PATCH",
-            headers: {
-                "Bulk-Operation": "DELETE",
-            },
-            body: JSON.stringify(selectedUsers),
-        })
+        deleteUsers(selectedUsers)
             .then(updateUsers)
             .then(() => {
                 setSelectedUsers([]);
@@ -64,8 +55,9 @@ const UsersList = () => {
     };
 
     const handleDelete = (id) => {
-        deleteUser(id);
-        updateUsers();
+        deleteUser(id).then(() => {
+            updateUsers();
+        });
     };
 
     return (
@@ -74,14 +66,9 @@ const UsersList = () => {
             <div className="heading">
                 <Breadcrumb />
                 <ButtonGroup isAttached>
-                    <CreateButton onClick={handleCreate}>
-                        Create user
-                    </CreateButton>
+                    <CreateButton onClick={handleCreate}>Create user</CreateButton>
                     <RestrictedComponent roles={["administrator"]}>
-                        <DeleteButton
-                            onClick={handleBulkDelete}
-                            disabled={selectedUsers.length === 0}
-                        >
+                        <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>
                             Delete selected
                         </DeleteButton>
                     </RestrictedComponent>
@@ -110,9 +97,7 @@ const UsersList = () => {
                 </thead>
                 <tbody>
                     {null === users && <LoadingTableRow numColumns={8} />}
-                    {null !== users && 0 === users.length && (
-                        <NoResultsTableRow numColumns={8} />
-                    )}
+                    {null !== users && 0 === users.length && <NoResultsTableRow numColumns={8} />}
                     {null !== users &&
                         0 !== users.length &&
                         users.map((user, index) => (
@@ -122,23 +107,17 @@ const UsersList = () => {
                                         type="checkbox"
                                         value={user.id}
                                         onChange={onTaskCheckboxChange}
-                                        checked={selectedUsers.includes(
-                                            user.id,
-                                        )}
+                                        checked={selectedUsers.includes(user.id)}
                                     />
                                 </td>
                                 <td>
                                     <UserAvatar email={user.email} />
                                 </td>
                                 <td>
-                                    <Link to={`/users/${user.id}`}>
-                                        {user.full_name}
-                                    </Link>
+                                    <Link to={`/users/${user.id}`}>{user.full_name}</Link>
                                 </td>
                                 <td>
-                                    <UserLink userId={user.id}>
-                                        {user.username}
-                                    </UserLink>
+                                    <UserLink userId={user.id}>{user.username}</UserLink>
                                 </td>
                                 <td>
                                     <UserRoleBadge role={user.role} />
@@ -153,17 +132,10 @@ const UsersList = () => {
                                     <BooleanText value={user.mfa_enabled} />
                                 </td>
                                 <td style={{ textAlign: "right" }}>
-                                    <LinkButton href={`/users/${user.id}/edit`}>
-                                        Edit
-                                    </LinkButton>
+                                    <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton
                                         onClick={() => handleDelete(user.id)}
-                                        disabled={
-                                            parseInt(user.id) ===
-                                            loggedInUser.id
-                                                ? "disabled"
-                                                : ""
-                                        }
+                                        disabled={parseInt(user.id) === loggedInUser.id ? "disabled" : ""}
                                     />
                                 </td>
                             </tr>

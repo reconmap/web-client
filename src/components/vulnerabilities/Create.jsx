@@ -1,7 +1,7 @@
 import PageTitle from "components/logic/PageTitle";
 import { actionCompletedToast } from "components/ui/toast";
 import useQuery from "hooks/useQuery";
-import VulnerabilityModel from "models/Vulnerability";
+import defaultVulnerability from "models/Vulnerability";
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "../../services/api";
@@ -17,7 +17,7 @@ const VulnerabilityCreate = () => {
     const isTemplate = "true" === query.get("isTemplate");
 
     const [vulnerability, setVulnerability] = useState({
-        ...VulnerabilityModel,
+        ...defaultVulnerability,
         is_template: isTemplate,
         project_id: urlProjectId.current,
     });

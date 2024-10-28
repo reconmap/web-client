@@ -1,5 +1,5 @@
 import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import NativeButton from "components/form/NativeButton.js";
+import NativeButton from "components/form/NativeButton";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
