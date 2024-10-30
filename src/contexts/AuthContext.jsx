@@ -5,7 +5,7 @@ import Auth from "services/auth";
 import KeyCloakService from "services/keycloak";
 import { initialiseUserPreferences } from "services/userPreferences";
 import setThemeColors from "utilities/setThemeColors";
-import secureApiFetch from '../services/api';
+import secureApiFetch from "../services/api";
 
 const AuthContext = createContext();
 
@@ -18,47 +18,46 @@ function useAuth() {
 
     const login = useCallback(() => {
         return secureApiFetch(`/users/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
         })
-            .then(resp => resp.json())
-            .then(data => {
+            .then((resp) => resp.json())
+            .then((data) => {
                 data.preferences = initialiseUserPreferences(data);
 
-                localStorage.setItem('isAuth', true);
-                localStorage.setItem('user', JSON.stringify(data));
+                localStorage.setItem("isAuth", true);
+                localStorage.setItem("user", JSON.stringify(data));
 
-                setUser(Auth.getLoggedInUser())
+                setUser(Auth.getLoggedInUser());
 
-                setThemeColors(data.preferences['web-client.theme']);
-                setColorMode(data.preferences['web-client.theme']);
-                i18n.changeLanguage(data.preferences['web-client.language'])
+                setThemeColors(data.preferences["web-client.theme"]);
+                setColorMode(data.preferences["web-client.theme"]);
+                i18n.changeLanguage(data.preferences["web-client.language"]);
 
-                setIsAuth(KeyCloakService.getInstance().authenticated)
+                setIsAuth(KeyCloakService.getInstance().authenticated);
             })
-            .catch(err => {
+            .catch((err) => {
                 throw err;
             });
-    }, [setColorMode, i18n])
+    }, [setColorMode, i18n]);
 
     const logout = () => {
         setIsAuth(false);
 
         secureApiFetch(`/users/logout`, {
-            method: 'POST',
-        })
-            .finally(() => {
-                Auth.removeSession();
-                setThemeColors('dark');
-                setColorMode('dark');
+            method: "POST",
+        }).finally(() => {
+            Auth.removeSession();
+            setThemeColors("dark");
+            setColorMode("dark");
 
-                KeyCloakService.Logout();
-            });
-    }
+            KeyCloakService.logout();
+        });
+    };
 
     useEffect(() => {
         login();
-    }, [login])
+    }, [login]);
 
     return { user, isAuth, login, logout };
 }
@@ -66,12 +65,9 @@ function useAuth() {
 const AuthProvider = ({ children }) => {
     const auth = useAuth();
 
-    return <AuthContext.Provider value={auth}>
-        {children}
-    </AuthContext.Provider>
-}
+    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+};
 
 const AuthConsumer = AuthContext.Consumer;
 
-export { useAuth, AuthContext, AuthProvider, AuthConsumer };
-
+export { AuthConsumer, AuthContext, AuthProvider, useAuth };

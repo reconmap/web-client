@@ -16,7 +16,7 @@ const HeaderUserMenu = () => {
             </MenuButton>
             <MenuList>
                 <HStack px="3" pb="3" justifyContent="space-between" alignItems="center">
-                    <Text color="gray.500">{KeyCloakService.GetUsername()}</Text>
+                    <Text color="gray.500">{KeyCloakService.getUsername()}</Text>
                     <Badge colorScheme="red">{user.role}</Badge>
                 </HStack>
                 <MenuItem>

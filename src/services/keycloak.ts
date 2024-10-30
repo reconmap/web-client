@@ -1,38 +1,39 @@
 import Configuration from "Configuration.js";
 import Keycloak from "keycloak-js";
 
-const keycloakInstance = new Keycloak(Configuration.getKeycloakConfig());
+const keycloak: Keycloak = new Keycloak(Configuration.getKeycloakConfig());
 
-const redirectionUrl = window.location.protocol + "//" + window.location.hostname + ("https" === window.location.protocol ? "" : ":" + window.location.port) + Configuration.getContextPath();
+const redirectionUrl: string =
+    window.location.protocol +
+    "//" +
+    window.location.hostname +
+    ("https" === window.location.protocol ? "" : ":" + window.location.port) +
+    Configuration.getContextPath();
 
-const Login = (onLoginSuccess: Function, onLoginFailure: Function) => {
-
-    keycloakInstance
+const login = (onLoginSuccess: Function, onLoginFailure: Function) => {
+    keycloak
         .init({
-            onLoad: 'login-required',
+            onLoad: "login-required",
+            messageReceiveTimeout: 2500,
         })
-        .then((authenticated:boolean) => {
-            if (authenticated)
-                onLoginSuccess();
-            else
-                onLoginFailure();
+        .then((authenticated: boolean) => {
+            if (authenticated) onLoginSuccess();
+            else onLoginFailure();
         })
-        .catch((err:any) => {
+        .catch((err: any) => {
             console.error(err);
             onLoginFailure(err.error);
         });
 };
 
-const Username = () => keycloakInstance.tokenParsed?.preferred_username;
-
 const KeyCloakService = {
-    CallLogin: Login,
-    GetUsername: Username,
-    Logout: keycloakInstance.logout,
-    IsAuthenticated: keycloakInstance.authenticated,
-    getInstance: () => keycloakInstance,
-    getProfileUrl: () => keycloakInstance.createAccountUrl({ redirectUri: redirectionUrl }),
-    redirectToAccountManagement: () => keycloakInstance.accountManagement()
+    login: login,
+    getUsername: () => keycloak.tokenParsed?.preferred_username,
+    logout: keycloak.logout,
+    IsAuthenticated: keycloak.authenticated,
+    getInstance: () => keycloak,
+    getProfileUrl: () => keycloak.createAccountUrl({ redirectUri: redirectionUrl }),
+    redirectToAccountManagement: () => keycloak.accountManagement(),
 };
 
 export default KeyCloakService;
