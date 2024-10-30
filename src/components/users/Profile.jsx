@@ -1,4 +1,5 @@
 import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { resetPassword } from "api/users";
 import NativeButton from "components/form/NativeButton";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -7,7 +8,6 @@ import EmptyField from "components/ui/EmptyField";
 import TimestampsSection from "components/ui/TimestampsSection";
 import { actionCompletedToast } from "components/ui/toast.js";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api.js";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import AuditLogsTable from "../auditlog/AuditLogsTable";
@@ -37,8 +37,14 @@ const UserProfile = () => {
     };
 
     const enableMfa = () => {
-        secureApiFetch(`/users/${userId}/enable-mfa`, { method: "POST" }).then(() => {
+        enableMfa(userId).then(() => {
             actionCompletedToast("MFA enabled");
+        });
+    };
+
+    const onResetPasswordClick = () => {
+        resetPassword(userId).then(() => {
+            actionCompletedToast("Password reset");
         });
     };
 
@@ -54,6 +60,7 @@ const UserProfile = () => {
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                         <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
                         {!user.mfa_enabled && <NativeButton onClick={enableMfa}>Enable MFA</NativeButton>}
+                        <NativeButton onClick={onResetPasswordClick}>Reset password</NativeButton>
                         <DeleteButton onClick={onDeleteButtonClick} />
                     </RestrictedComponent>
                 </ButtonGroup>

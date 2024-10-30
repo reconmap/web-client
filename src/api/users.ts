@@ -52,4 +52,22 @@ const deleteUsers = (userIds: number[]): Promise<Response> => {
     });
 };
 
-export { createUserApi, deleteUser, deleteUsers, getUser, getUsers, updateUser };
+const requestUserAction = (userId: number, action: string): Promise<Response> => {
+    return secureApiFetch(`${API_PREFIX}/${userId}/actions`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: action }),
+    });
+};
+
+const enableMfaApi = (userId: number): Promise<Response> => {
+    return requestUserAction(userId, "enable-mfa");
+};
+
+const resetPassword = (userId: number): Promise<Response> => {
+    return requestUserAction(userId, "reset-password");
+};
+
+export { createUserApi, deleteUser, deleteUsers, enableMfaApi, getUser, getUsers, resetPassword, updateUser };
