@@ -9,7 +9,7 @@ import KeyCloakService from 'services/keycloak.js';
 import ReconmapTheme from 'theme/index.js';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker.js';
-import './styles/main.scss';
+import './styles/main.css';
 
 const rootContainer = document.getElementById('root');
 const appRoot = ReactDOM.createRoot(rootContainer as Element);

@@ -1,5 +1,5 @@
-@use "utilities";
-@use "forms";
+@import "_utilities";
+@import "forms";
 
 :root {
     --base-hue: 336;
@@ -49,7 +49,7 @@
 
     --text-colorDark: hsla(var(--base-hue), 3%, 50%, 0.25);
 
-    //spacing
+    /*spacing*/
     --space: 0.9rem;
     --space-xs: 0.1rem;
     --space-sm: calc(var(--space) / 2);
@@ -62,12 +62,12 @@
     --marginBox: calc(var(--space) / 2) 0;
     --borderRadius: calc(var(--space) / 3);
 
-    //width
+    /*width*/
     --sidebarWidth: 200px;
     --sidebarCollapsedWidth: 64px;
     --borderWidth: 2px;
 
-    //icons
+    /*icons*/
     --iconSize: 32px;
     --iconSizeLarge: 48px;
 

@@ -6,7 +6,7 @@ import PermissionsService from "services/permissions";
 import { IconChevronDown, IconDashboard } from "../../ui/Icons";
 import IconCollapse from "./../../../images/icons/collapse";
 import Links from "./Links";
-import "./Sidebar.scss";
+import "./Sidebar.css";
 
 export default function Sidebar(props) {
     const { setSidebarCollapsed, sidebarCollapsed } = props;
@@ -19,10 +19,7 @@ export default function Sidebar(props) {
         if (!link.hasOwnProperty("permissions")) {
             return true;
         }
-        return (
-            user &&
-            PermissionsService.isAllowed(link.permissions, user.permissions)
-        );
+        return user && PermissionsService.isAllowed(link.permissions, user.permissions);
     };
 
     const watchClientWidth = useCallback(
@@ -40,13 +37,8 @@ export default function Sidebar(props) {
         };
     }, [watchClientWidth, setSidebarCollapsed]);
 
-    const defaultSectionStatuses = Object.assign(
-        {},
-        ...Links.map((link) => ({ [link.title]: false })),
-    );
-    const [sectionStatuses, updateSectionStatuses] = useState(
-        defaultSectionStatuses,
-    );
+    const defaultSectionStatuses = Object.assign({}, ...Links.map((link) => ({ [link.title]: false })));
+    const [sectionStatuses, updateSectionStatuses] = useState(defaultSectionStatuses);
 
     const onParentClick = (ev, link) => {
         ev.preventDefault();
@@ -60,9 +52,7 @@ export default function Sidebar(props) {
         <aside
             className="sidebar "
             style={{
-                paddingTop: sidebarCollapsed
-                    ? "calc(var(--space) * 4)"
-                    : "var(--space)",
+                paddingTop: sidebarCollapsed ? "calc(var(--space) * 4)" : "var(--space)",
             }}
         >
             <button
@@ -84,9 +74,7 @@ export default function Sidebar(props) {
                         margin: 0,
                         padding: 0,
                         transformOrigin: "center center",
-                        transform: sidebarCollapsed
-                            ? `rotate(180deg)`
-                            : `rotate(0deg)`,
+                        transform: sidebarCollapsed ? `rotate(180deg)` : `rotate(0deg)`,
                         display: "block",
                     }}
                 >
@@ -106,18 +94,14 @@ export default function Sidebar(props) {
                             <NavLink
                                 to={link.to}
                                 data-label={link.title}
-                                className={(data) =>
-                                    data.isActive ? "active" : ""
-                                }
+                                className={(data) => (data.isActive ? "active" : "")}
                             >
                                 {link.icon}
                                 <span>{t(link.title)}</span>
                                 {subLinks.length > 0 && (
                                     <IconChevronDown
                                         styling={{
-                                            transform:
-                                                sectionStatuses[link.title] &&
-                                                "rotate(180deg)",
+                                            transform: sectionStatuses[link.title] && "rotate(180deg)",
                                         }}
                                     />
                                 )}
@@ -135,22 +119,16 @@ export default function Sidebar(props) {
                                             data-label={sublink.title}
                                             className="sublink"
                                         >
-                                            <i>‣</i>{" "}
-                                            <span>{sublink.title}</span>
+                                            <i>‣</i> <span>{sublink.title}</span>
                                         </a>
                                     ) : (
                                         <NavLink
                                             key={`sublink_${index}`}
                                             to={sublink.to}
                                             data-label={sublink.title}
-                                            className={(data) =>
-                                                data.isActive
-                                                    ? "sublink active"
-                                                    : "sublink"
-                                            }
+                                            className={(data) => (data.isActive ? "sublink active" : "sublink")}
                                         >
-                                            <i>‣</i>{" "}
-                                            <span>{sublink.title}</span>
+                                            <i>‣</i> <span>{sublink.title}</span>
                                         </NavLink>
                                     ),
                                 )}

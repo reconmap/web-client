@@ -16,7 +16,7 @@ indent_size = 2
 [.eslintrc]
 indent_size = 2
 
-[*.{css, scss, sass}]
+[*.{css}]
 indent_size = 2
 
 [*.md]

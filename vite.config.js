@@ -14,13 +14,6 @@ export default defineConfig({
         outDir: "build",
     },
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
-    css: {
-        preprocessorOptions: {
-            scss: {
-                api: "modern-compiler",
-            },
-        },
-    },
     test: {
         globals: true,
         environment: "jsdom",

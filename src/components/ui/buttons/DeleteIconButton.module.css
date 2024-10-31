@@ -1,5 +1,5 @@
 .native {
-    composes: native from "../../form/NativeButton.module.scss";
+    composes: native from "../../form/NativeButton.module.css";
     background-color: lightcoral;
 
     &:hover {

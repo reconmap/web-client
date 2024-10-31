@@ -17,8 +17,10 @@
     gap : var(--space);
 }
 
+/*
 // grid-two
 // |------2fr------|---1fr---|
+*/
 .grid-two { grid-template-columns: 2fr 1fr; }
 @media screen and (max-width : 900px){
     .grid-two {
