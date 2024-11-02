@@ -1,6 +1,6 @@
 {
   "name": "reconmap-web-client",
-  "version": "0.9.193",
+  "version": "0.9.194",
   "private": true,
   "type": "module",
   "dependencies": {
