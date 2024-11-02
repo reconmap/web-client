@@ -1,4 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import TargetKinds from "../../models/TargetKinds";
@@ -19,8 +18,8 @@ const TargetForm = ({ newTarget, onFormSubmit, targetSetter: setTarget }) => {
     return (
         <div>
             <form onSubmit={onFormSubmit}>
-                <FormControl id="name" isRequired>
-                    <FormLabel>Name</FormLabel>
+                <div id="name" isRequired>
+                    <label>Name</label>
                     <NativeInput
                         name="name"
                         placeholder="e.g. 127.0.0.1"
@@ -28,17 +27,13 @@ const TargetForm = ({ newTarget, onFormSubmit, targetSetter: setTarget }) => {
                         isRequired
                         autoFocus
                     />
-                </FormControl>
-                <FormControl id="tags">
-                    <FormLabel>Tags</FormLabel>
-                    <NativeInput
-                        name="tags"
-                        placeholder="e.g. linux,production"
-                        onChange={onFormChange}
-                    />
-                </FormControl>
-                <FormControl id="kind" isRequired>
-                    <FormLabel>Kind</FormLabel>
+                </div>
+                <div id="tags">
+                    <label>Tags</label>
+                    <NativeInput name="tags" placeholder="e.g. linux,production" onChange={onFormChange} />
+                </div>
+                <div id="kind" isRequired>
+                    <label>Kind</label>
                     <NativeSelect name="kind" onChange={onFormChange}>
                         {TargetKinds.map((targetKind, index) => (
                             <option key={index} value={targetKind.value}>
@@ -46,7 +41,7 @@ const TargetForm = ({ newTarget, onFormSubmit, targetSetter: setTarget }) => {
                             </option>
                         ))}
                     </NativeSelect>
-                </FormControl>
+                </div>
             </form>
         </div>
     );

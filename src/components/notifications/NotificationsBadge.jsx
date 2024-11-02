@@ -1,28 +1,15 @@
-import {
-    Alert,
-    AlertDescription,
-    AlertTitle,
-    Box,
-    Button,
-    CloseButton,
-    Popover,
-    PopoverArrow,
-    PopoverBody,
-    PopoverContent,
-    PopoverHeader,
-    PopoverTrigger,
-    Stack,
-    Tag,
-} from "@chakra-ui/react";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import NativeButton from "components/form/NativeButton";
 import { useWebsocketMessage } from "contexts/WebsocketContext";
 import useFetch from "hooks/useFetch";
+import useToggle from "hooks/useToggle";
 import { Link } from "react-router-dom";
 import secureApiFetch from "services/api";
 
 const NotificationsBadge = () => {
     const [notifications, fetchNotifications] = useFetch("/notifications?status=unread");
+    const { value, toggle } = useToggle(false);
 
     const onMessageHandler = () => {
         fetchNotifications();
@@ -40,53 +27,55 @@ const NotificationsBadge = () => {
     };
 
     return (
-        <Popover placement="bottom-end" closeOnBlur={true}>
-            <PopoverTrigger>
-                <Button
+        <div className={`dropdown ${value ? "is-active" : ""}`}>
+            <div className="dropdown-trigger">
+                <NativeButton
                     pr={null !== notifications && notifications.length > 0 ? 1 : 2}
                     variant="ghost"
                     aria-label="Notifications"
+                    onClick={toggle}
                 >
                     <FontAwesomeIcon icon={faBell} />
                     {null !== notifications && notifications.length > 0 && (
                         <Tag colorScheme="red">{notifications.length}</Tag>
                     )}
-                </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-                <PopoverArrow />
-                <PopoverHeader px="3" pb="3" color="gray.500">
-                    <Link to="/notifications">Notifications</Link>
-                </PopoverHeader>
-                <PopoverBody>
-                    {null !== notifications && notifications.length > 0 ? (
-                        <Stack>
-                            {notifications.map((notification) => (
-                                <Alert key={notification.id} status="info" variant="top-accent">
-                                    <Box flex="1">
-                                        <AlertTitle>
-                                            {notification.time}{" "}
-                                            <strong>
-                                                <Link to="/vulnerabilities">{notification.title}</Link>
-                                            </strong>
-                                        </AlertTitle>
-                                        <AlertDescription display="block">{notification.content}</AlertDescription>
-                                    </Box>
-                                    <CloseButton
-                                        position="absolute"
-                                        right="8px"
-                                        top="8px"
-                                        onClick={() => markAsRead(notification)}
-                                    />
-                                </Alert>
-                            ))}
-                        </Stack>
-                    ) : (
-                        <span>Nothing to see here.</span>
-                    )}
-                </PopoverBody>
-            </PopoverContent>
-        </Popover>
+                </NativeButton>
+            </div>
+            <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                <div className="dropdown-content">
+                    <div className="dropdown-item">
+                        <Link to="/notifications">Notifications</Link>
+                    </div>
+                    <div className="dropdown-item">
+                        {null !== notifications && notifications.length > 0 ? (
+                            <div>
+                                {notifications.map((notification) => (
+                                    <div key={notification.id} status="info" variant="top-accent">
+                                        <div flex="1">
+                                            <div>
+                                                {notification.time}{" "}
+                                                <strong>
+                                                    <Link to="/vulnerabilities">{notification.title}</Link>
+                                                </strong>
+                                            </div>
+                                            <div display="block">{notification.content}</div>
+                                        </div>
+                                        <NativeButton
+                                            position="absolute"
+                                            right="8px"
+                                            top="8px"
+                                            onClick={() => markAsRead(notification)}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <span>Nothing to see here.</span>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 

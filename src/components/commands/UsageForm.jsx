@@ -1,16 +1,11 @@
+import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import Loading from "components/ui/Loading";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import useFetch from "hooks/useFetch";
 import PrimaryButton from "../ui/buttons/Primary";
-import NativeInput from "components/form/NativeInput";
 
-const CommandUsageForm = ({
-    isEditForm = false,
-    onFormSubmit,
-    command,
-    commandSetter: setCommand,
-}) => {
+const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSetter: setCommand }) => {
     const onFormChange = (ev) => {
         const target = ev.target;
         let name = target.name;
@@ -19,12 +14,7 @@ const CommandUsageForm = ({
             value = JSON.stringify(value.split(","));
         }
         if ("output_capture" === name) {
-            const outputFileName =
-                value === "disabled"
-                    ? null
-                    : value === "stdout"
-                      ? "{{{STDOUT}}}"
-                      : "";
+            const outputFileName = value === "disabled" ? null : value === "stdout" ? "{{{STDOUT}}}" : "";
 
             setCommand({
                 ...command,
@@ -41,7 +31,7 @@ const CommandUsageForm = ({
     if (!parsers) return <Loading />;
 
     return (
-        <form onSubmit={onFormSubmit} className="crud">
+        <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
                 <label>
@@ -70,11 +60,7 @@ const CommandUsageForm = ({
                         type="text"
                         name="tags"
                         onChange={onFormChange}
-                        value={
-                            command.tags
-                                ? JSON.parse(command.tags).join(",")
-                                : ""
-                        }
+                        value={command.tags ? JSON.parse(command.tags).join(",") : ""}
                     />
                 </label>
                 <label>
@@ -103,12 +89,7 @@ const CommandUsageForm = ({
 
                 <label>
                     Command line arguments
-                    <NativeInput
-                        type="text"
-                        name="arguments"
-                        onChange={onFormChange}
-                        value={command.arguments || ""}
-                    />
+                    <NativeInput type="text" name="arguments" onChange={onFormChange} value={command.arguments || ""} />
                 </label>
 
                 <label>
@@ -140,17 +121,10 @@ const CommandUsageForm = ({
                 {command.output_capture !== "disabled" && (
                     <label>
                         Output parser
-                        <NativeSelect
-                            name="output_parser"
-                            onChange={onFormChange}
-                            value={command.output_parser || ""}
-                        >
+                        <NativeSelect name="output_parser" onChange={onFormChange} value={command.output_parser || ""}>
                             <option value="">(none)</option>
                             {parsers.map((parser) => (
-                                <option
-                                    key={`parser_${parser.code}`}
-                                    value={parser.code}
-                                >
+                                <option key={`parser_${parser.code}`} value={parser.code}>
                                     {parser.name}
                                 </option>
                             ))}
@@ -159,9 +133,7 @@ const CommandUsageForm = ({
                 )}
             </fieldset>
 
-            <PrimaryButton type="submit">
-                {isEditForm ? "Save" : "Add"}
-            </PrimaryButton>
+            <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
         </form>
     );
 };

@@ -1,9 +1,9 @@
-import { ButtonGroup } from "@chakra-ui/react";
-import PageTitle from "components/logic/PageTitle";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import { useNavigate } from "react-router-dom";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -24,25 +24,21 @@ const ClientsList = () => {
         navigate(`/clients/create`);
     };
 
+    useDocumentTitle("Clients");
+
     return (
         <>
-            <PageTitle value="Clients" />
             <div className="heading">
                 <Breadcrumb />
 
-                <ButtonGroup isAttached>
-                    <CreateButton onClick={handleCreateClient}>
-                        Add client
-                    </CreateButton>
-                    <ExportButton
-                        entity="clients"
-                        disabled={clients === null || clients?.length === 0}
-                    />
-                </ButtonGroup>
+                <NativeButtonGroup>
+                    <CreateButton onClick={handleCreateClient}>Add client</CreateButton>
+                    <ExportButton entity="clients" disabled={clients === null || clients?.length === 0} />
+                </NativeButtonGroup>
             </div>
             <title title="Clients" icon={<IconBriefcase />} />
 
-            <table className="rm-listing">
+            <table className="table is-fullwidth">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -54,38 +50,22 @@ const ClientsList = () => {
                 </thead>
                 <tbody>
                     {null === clients && <LoadingTableRow numColumns={5} />}
-                    {null !== clients && 0 === clients.length && (
-                        <NoResultsTableRow numColumns={5} />
-                    )}
+                    {null !== clients && 0 === clients.length && <NoResultsTableRow numColumns={5} />}
                     {null !== clients &&
                         0 < clients.length &&
                         clients.map((client) => (
                             <tr key={client.id}>
                                 <td>
-                                    <ClientLink clientId={client.id}>
-                                        {client.name}
-                                    </ClientLink>
+                                    <ClientLink clientId={client.id}>{client.name}</ClientLink>
                                 </td>
                                 <td>{client.address || "-"}</td>
                                 <td>
-                                    {client.url ? (
-                                        <ExternalLink href={client.url}>
-                                            {client.url}
-                                        </ExternalLink>
-                                    ) : (
-                                        "-"
-                                    )}
+                                    {client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : "-"}
                                 </td>
                                 <td>{client.num_contacts}</td>
                                 <td textAlign="right">
-                                    <LinkButton
-                                        href={`/clients/${client.id}/edit`}
-                                    >
-                                        Edit
-                                    </LinkButton>
-                                    <DeleteIconButton
-                                        onClick={() => destroy(client.id)}
-                                    />
+                                    <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
+                                    <DeleteIconButton onClick={() => destroy(client.id)} />
                                 </td>
                             </tr>
                         ))}

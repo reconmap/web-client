@@ -36,6 +36,7 @@ const SearchBox = () => {
 
     return (
         <NativeInput
+            className="input is-rounded"
             ref={inputRef}
             type="search"
             placeholder="Search..."

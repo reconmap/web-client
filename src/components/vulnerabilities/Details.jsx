@@ -1,4 +1,3 @@
-import { HStack, Tab, TabList, TabPanel, TabPanels, Tabs, Tag } from "@chakra-ui/react";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeSelect from "components/form/NativeSelect";
@@ -61,7 +60,7 @@ const VulnerabilityDetails = () => {
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
-                <HStack alignItems="flex-end">
+                <div>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                         <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
 
@@ -81,7 +80,7 @@ const VulnerabilityDetails = () => {
 
                         <DeleteButton onClick={handleDelete} />
                     </RestrictedComponent>
-                </HStack>
+                </div>
             </div>
             <article>
                 <PageTitle value={`${vulnerability.summary} vulnerability`} />

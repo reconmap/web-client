@@ -1,12 +1,14 @@
-import { ButtonGroup, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { resetPassword } from "api/users";
 import NativeButton from "components/form/NativeButton";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import EmptyField from "components/ui/EmptyField";
 import TimestampsSection from "components/ui/TimestampsSection";
-import { actionCompletedToast } from "components/ui/toast.js";
+import { actionCompletedToast } from "components/ui/toast";
+import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -27,6 +29,8 @@ const UserProfile = () => {
     const [user] = useFetch(`/users/${userId}`);
     const [auditLog] = useFetch(`/users/${userId}/activity`);
     const deleteUser = useDelete("/users/");
+
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     const onDeleteButtonClick = (ev) => {
         ev.preventDefault();
@@ -56,14 +60,14 @@ const UserProfile = () => {
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
                 </Breadcrumb>
-                <ButtonGroup>
+                <NativeButtonGroup>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                         <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
                         {!user.mfa_enabled && <NativeButton onClick={enableMfa}>Enable MFA</NativeButton>}
                         <NativeButton onClick={onResetPasswordClick}>Reset password</NativeButton>
                         <DeleteButton onClick={onDeleteButtonClick} />
                     </RestrictedComponent>
-                </ButtonGroup>
+                </NativeButtonGroup>
             </div>
             <div>
                 <PageTitle value={`${user.full_name} user`} />
@@ -73,13 +77,12 @@ const UserProfile = () => {
                     title={user.full_name}
                     icon={user.email ? <UserAvatar email={user.email} /> : null}
                 />
-                <Tabs isLazy>
-                    <TabList>
-                        <Tab>Details</Tab>
-                        <Tab>Activity</Tab>
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel>
+
+                <NativeTabs labels={["Details", "Activity"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
+
+                <div>
+                    {0 === tabIndex && (
+                        <div>
                             <div className="grid grid-two">
                                 <div>
                                     <h4>Properties</h4>
@@ -118,15 +121,17 @@ const UserProfile = () => {
                                     </dl>
                                 </div>
                             </div>
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                    )}
+                    {1 === tabIndex && (
+                        <div>
                             <h4>
                                 Activity (<Link to="/auditlog">view full audit log</Link>)
                             </h4>
                             {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true" /> : <Loading />}
-                        </TabPanel>
-                    </TabPanels>
-                </Tabs>
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );

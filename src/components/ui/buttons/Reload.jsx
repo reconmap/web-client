@@ -1,8 +1,8 @@
-import { IconButton } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
 import ReloadIcon from "images/icons/reload.svg?react";
 
 const ReloadButton = (props) => (
-    <IconButton
+    <NativeButton
         icon={
             <ReloadIcon
                 style={{

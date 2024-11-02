@@ -1,17 +1,17 @@
-import { Button } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
 
-const PrimaryButton = ({
-    type,
-    onClick,
-    children,
-    disabled = false,
-    external = false,
-    ...props
-}) => {
-
-    return <Button {...props} type={type ? type : "button"} onClick={onClick} isDisabled={disabled}>
-        {children}
-    </Button>
-}
+const PrimaryButton = ({ type, onClick, children, disabled = false, external = false, ...props }) => {
+    return (
+        <NativeButton
+            className="button is-primary"
+            {...props}
+            type={type ? type : "button"}
+            onClick={onClick}
+            isDisabled={disabled}
+        >
+            {children}
+        </NativeButton>
+    );
+};
 
 export default PrimaryButton;

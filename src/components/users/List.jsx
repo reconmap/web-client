@@ -1,10 +1,9 @@
-import { ButtonGroup, Menu, MenuList } from "@chakra-ui/react";
 import { deleteUser, deleteUsers } from "api/users";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
-import EllipsisMenuButton from "components/ui/buttons/EllipsisMenuButton";
 import ExportMenuItem from "components/ui/menuitems/ExportMenuItem";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
@@ -65,23 +64,22 @@ const UsersList = () => {
             <PageTitle value="Users" />
             <div className="heading">
                 <Breadcrumb />
-                <ButtonGroup isAttached>
+                <NativeButtonGroup>
                     <CreateButton onClick={handleCreate}>Create user</CreateButton>
                     <RestrictedComponent roles={["administrator"]}>
                         <DeleteButton onClick={handleBulkDelete} disabled={selectedUsers.length === 0}>
                             Delete selected
                         </DeleteButton>
                     </RestrictedComponent>
-                    <Menu>
-                        <EllipsisMenuButton />
-                        <MenuList>
+                    <ul>
+                        <li>
                             <ExportMenuItem entity="users" />
-                        </MenuList>
-                    </Menu>
-                </ButtonGroup>
+                        </li>
+                    </ul>
+                </NativeButtonGroup>
             </div>
             <title title="Users and roles" icon={<IconUserGroup />} />
-            <table className="rm-listing">
+            <table className="table is-fullwidth">
                 <thead>
                     <tr>
                         <th style={{ width: "32px" }}>&nbsp;</th>

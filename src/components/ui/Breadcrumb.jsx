@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Breadcrumb.css";
 import { IconLeft } from "./Icons";
 
 const Breadcrumb = (props) => {
@@ -15,35 +14,22 @@ const Breadcrumb = (props) => {
         navigate(-1);
     };
 
-    let links = [];
-    let linkIndex = 0;
-    if (navigate && navigate.length > 0) {
-        links.push(
-            <span key={linkIndex++} className="Arrow">
-                <a href="/" title="Go back" onClick={onGoBackClicked}>
-                    <IconLeft />
-                </a>
-            </span>,
-        );
-    }
-    if (childrenCount > 0) {
-        links.push(
-            <span key={linkIndex++} className="Slash">
-                /
-            </span>,
-        );
-    }
-    children.forEach((child, index) => {
-        links.push(React.cloneElement(child, { key: linkIndex++ }));
-        if (index < childrenCount - 1)
-            links.push(
-                <span key={linkIndex++} className="Slash">
-                    /
-                </span>,
-            );
-    });
-
-    return <div className="Breadcrumb">{links}</div>;
+    return (
+        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+            <ul>
+                {navigate && navigate.length > 0 && (
+                    <li>
+                        <a href="/" title="Go back" onClick={onGoBackClicked}>
+                            <IconLeft />
+                        </a>
+                    </li>
+                )}
+                {children.map((child, index) => (
+                    <li className={index === childrenCount - 1 ? "is-active" : ""}>{child}</li>
+                ))}
+            </ul>
+        </nav>
+    );
 };
 
 export default Breadcrumb;

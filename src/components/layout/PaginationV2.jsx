@@ -1,9 +1,8 @@
-import { Input } from "@chakra-ui/react";
+import NativeInput from "components/form/NativeInput";
 import { useCallback, useEffect } from "react";
+import { Link } from "react-router-dom";
 import isInputElement from "../../utilities/domUtils";
-import SecondaryButton from "../ui/buttons/Secondary";
 import { IconLeft, IconRight } from "../ui/Icons";
-import "./Pagination.css";
 
 const PaginationV2 = ({ page, total, onPageChange }) => {
     const previousEnabled = page + 1 > 1;
@@ -46,27 +45,49 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
     }
 
     return (
-        <div className="pagination">
-            <SecondaryButton tooltip="Previous [P]" disabled={!previousEnabled} onClick={onPreviousPageChange}>
-                <IconLeft styling={{ width: 12 }} />
-            </SecondaryButton>
-            <label>
-                Page{" "}
-                <Input
-                    value={page + 1}
-                    maxLength={4}
-                    size="xs"
-                    w={10}
-                    textAlign="center"
-                    max={total}
-                    onInput={(ev) => onPageChange(isNaN(parseInt(ev.target.value)) ? 1 : parseInt(ev.target.value) - 1)}
-                />{" "}
-                of {total}
-            </label>
-            <SecondaryButton tooltip="Next [N]" disabled={!nextEnabled} onClick={onNextPageChange}>
-                <IconRight styling={{ width: 12 }} />
-            </SecondaryButton>
-        </div>
+        <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+                <li>
+                    {" "}
+                    <Link
+                        to={`/auditlog?page=${page}`}
+                        class="pagination-link"
+                        tooltip="Previous [P]"
+                        disabled={!previousEnabled}
+                    >
+                        <IconLeft styling={{ width: 12 }} />
+                    </Link>
+                </li>
+                <li>
+                    <label>
+                        Page{" "}
+                        <NativeInput
+                            className="pagination-link"
+                            value={page + 1}
+                            maxLength={4}
+                            size="xs"
+                            w={10}
+                            textAlign="center"
+                            max={total}
+                            onInput={(ev) =>
+                                onPageChange(isNaN(parseInt(ev.target.value)) ? 1 : parseInt(ev.target.value) - 1)
+                            }
+                        />{" "}
+                        of {total}
+                    </label>
+                </li>
+                <li>
+                    <Link
+                        to={`/auditlog?page=${page + 2}`}
+                        className="pagination-link"
+                        tooltip="Next [N]"
+                        disabled={!nextEnabled}
+                    >
+                        <IconRight styling={{ width: 12 }} />
+                    </Link>
+                </li>
+            </ul>
+        </nav>
     );
 };
 

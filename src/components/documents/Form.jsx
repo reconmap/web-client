@@ -1,15 +1,10 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
+import LabelledField from "components/form/LabelledField";
+import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import PrimaryButton from "../ui/buttons/Primary";
-import NativeInput from "components/form/NativeInput";
 
-const DocumentForm = ({
-    document,
-    onFormSubmit,
-    documentSetter: setNote,
-    isEditForm = false,
-}) => {
+const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditForm = false }) => {
     const onFormInputChange = (ev) => {
         const target = ev.target;
         const name = target.name;
@@ -23,8 +18,8 @@ const DocumentForm = ({
 
     return (
         <form onSubmit={onFormSubmit}>
-            <FormControl isRequired>
-                <FormLabel htmlFor="title">Title</FormLabel>
+            <div isRequired>
+                <label htmlFor="title">Title</label>
                 <NativeInput
                     type="text"
                     name="title"
@@ -33,12 +28,10 @@ const DocumentForm = ({
                     onChange={onFormInputChange}
                     autoFocus
                 />
-            </FormControl>
+            </div>
 
-            <FormControl isRequired>
-                <FormLabel htmlFor="content">
-                    Content (markdown supported)
-                </FormLabel>
+            <div isRequired>
+                <label htmlFor="content">Content (markdown supported)</label>
                 <MarkdownEditor
                     name="content"
                     style={{ width: "100%" }}
@@ -47,25 +40,26 @@ const DocumentForm = ({
                     onChange={onFormInputChange}
                 />
                 <br />
-            </FormControl>
+            </div>
 
-            <FormControl>
-                <FormLabel htmlFor="visibility">Visibility</FormLabel>
-                <NativeSelect
-                    name="visibility"
-                    id="visibility"
-                    value={document.visibility}
-                    onChange={onFormInputChange}
-                    required
-                >
-                    <option value="private">Private</option>
-                    <option value="public">Public</option>
-                </NativeSelect>
-            </FormControl>
+            <LabelledField
+                label="Visibility"
+                htmlFor="visibility"
+                control={
+                    <NativeSelect
+                        name="visibility"
+                        id="visibility"
+                        value={document.visibility}
+                        onChange={onFormInputChange}
+                        required
+                    >
+                        <option value="private">Private</option>
+                        <option value="public">Public</option>
+                    </NativeSelect>
+                }
+            />
 
-            <PrimaryButton type="submit">
-                {isEditForm ? "Update" : "Create"}
-            </PrimaryButton>
+            <PrimaryButton type="submit">{isEditForm ? "Update" : "Create"}</PrimaryButton>
         </form>
     );
 };

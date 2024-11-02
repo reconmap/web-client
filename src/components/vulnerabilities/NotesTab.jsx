@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import NotesForm from "components/notes/Form";
 import { actionCompletedToast } from "components/ui/toast";
@@ -11,9 +11,7 @@ import NotesTable from "../notes/Table";
 import { IconDocument } from "../ui/Icons";
 
 const VulnerabilitiesNotesTab = ({ vulnerability }) => {
-    const [notes, reloadNotes] = useFetch(
-        `/notes?parentType=vulnerability&parentId=${vulnerability.id}`,
-    );
+    const [notes, reloadNotes] = useFetch(`/notes?parentType=vulnerability&parentId=${vulnerability.id}`);
     const deleteNoteById = useDelete("/notes/", reloadNotes);
     const emptyNote = {
         ...Note,
@@ -54,23 +52,16 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
             </h4>
 
             <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                <NotesForm
-                    note={newNote}
-                    onFormSubmit={onCreateNoteFormSubmit}
-                    noteSetter={updateNewNote}
-                />
+                <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
             </RestrictedComponent>
 
             <div style={{ paddingTop: "20px" }}>
-                <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>
+                <NativeButton colorScheme="blue" onClick={onCreateNoteFormSubmit}>
                     Save
-                </Button>
+                </NativeButton>
             </div>
 
-            <NotesTable
-                notes={notes}
-                onDeleteButtonClick={onDeleteButtonClick}
-            />
+            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
         </section>
     );
 };

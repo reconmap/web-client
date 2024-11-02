@@ -1,3 +1,4 @@
+import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -7,66 +8,61 @@ import useFetch from "../../hooks/useFetch";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 
-const ProjectForm = ({
-    isEdit = false,
-    project,
-    projectSetter: setProject,
-    onFormSubmit,
-}) => {
+const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
     const [clients] = useFetch("/clients");
     const [categories] = useFetch("/project/categories");
 
     const handleFormChange = (ev) => {
-        const value =
-            ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
+        const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
         setProject({ ...project, [ev.target.name]: value });
     };
 
     if (!project && !clients) return <Loading />;
 
     return (
-        <form onSubmit={onFormSubmit} className="crud">
+        <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
 
-                <label>
-                    Is template?
-                    <NativeCheckbox
-                        name="is_template"
-                        onChange={handleFormChange}
-                        checked={project.is_template}
-                    />
-                </label>
+                <HorizontalLabelledField
+                    control={
+                        <NativeCheckbox
+                            id="isTemplate"
+                            name="is_template"
+                            onChange={handleFormChange}
+                            checked={project.is_template}
+                        >
+                            Project template
+                        </NativeCheckbox>
+                    }
+                />
 
-                <label>
-                    Category
-                    <NativeSelect
-                        name="category_id"
-                        onChange={handleFormChange}
-                        value={project.category_id || ""}
-                    >
-                        <option value="">(none)</option>
-                        {categories &&
-                            categories.map((category) => (
-                                <option
-                                    key={`category_${category.id}`}
-                                    value={category.id}
-                                >
-                                    {category.name}
-                                </option>
-                            ))}
-                    </NativeSelect>
-                </label>
+                <HorizontalLabelledField
+                    label="Category"
+                    htmlFor="categoryId"
+                    control={
+                        <NativeSelect
+                            id="categoryId"
+                            name="category_id"
+                            onChange={handleFormChange}
+                            value={project.category_id || ""}
+                        >
+                            <option value="">(none)</option>
+                            {categories &&
+                                categories.map((category) => (
+                                    <option key={`category_${category.id}`} value={category.id}>
+                                        {category.name}
+                                    </option>
+                                ))}
+                        </NativeSelect>
+                    }
+                />
 
                 {!project.is_template && (
                     <>
                         <label>
                             Visibility
-                            <NativeSelect
-                                name="visibility"
-                                onChange={handleFormChange}
-                                value={project.visibility}
-                            >
+                            <NativeSelect name="visibility" onChange={handleFormChange} value={project.visibility}>
                                 <option value="public">Public</option>
                                 <option value="private">Private</option>
                             </NativeSelect>
@@ -74,11 +70,7 @@ const ProjectForm = ({
 
                         <label>
                             Client
-                            <NativeSelect
-                                name="client_id"
-                                onChange={handleFormChange}
-                                value={project.client_id || ""}
-                            >
+                            <NativeSelect name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
                                 <option value="">(none)</option>
                                 {clients &&
                                     clients.map((client, index) => (
@@ -144,32 +136,33 @@ const ProjectForm = ({
 
                 {!project.is_template && (
                     <>
-                        <label>
-                            Start date
-                            <NativeInput
-                                type="date"
-                                name="engagement_start_date"
-                                value={project.engagement_start_date}
-                                onChange={handleFormChange}
-                            />
-                        </label>
-
-                        <label>
-                            End date
-                            <NativeInput
-                                type="date"
-                                name="engagement_end_date"
-                                value={project.engagement_end_date}
-                                onChange={handleFormChange}
-                            />
-                        </label>
+                        <HorizontalLabelledField
+                            label="Start date"
+                            control={
+                                <NativeInput
+                                    type="date"
+                                    name="engagement_start_date"
+                                    value={project.engagement_start_date}
+                                    onChange={handleFormChange}
+                                />
+                            }
+                        />
+                        <HorizontalLabelledField
+                            label="End date"
+                            control={
+                                <NativeInput
+                                    type="date"
+                                    name="engagement_end_date"
+                                    value={project.engagement_end_date}
+                                    onChange={handleFormChange}
+                                />
+                            }
+                        />{" "}
                     </>
                 )}
             </fieldset>
 
-            <PrimaryButton type="submit">
-                {isEdit ? "Update" : "Create"}
-            </PrimaryButton>
+            <PrimaryButton type="submit">{isEdit ? "Update" : "Create"}</PrimaryButton>
         </form>
     );
 };

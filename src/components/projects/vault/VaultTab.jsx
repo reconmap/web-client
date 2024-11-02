@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -17,8 +17,7 @@ const ProjectVaultTab = ({ project }) => {
     const [vaultItem, setVaultItem] = useState({ ...Vault });
 
     const onVaultItemFormChange = (ev) => {
-        const value =
-            ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
+        const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
         setVaultItem({ ...vaultItem, [ev.target.name]: value });
     };
 
@@ -45,22 +44,17 @@ const ProjectVaultTab = ({ project }) => {
                 refreshVault();
                 actionCompletedToast(`The vault item has been added.`);
             } else {
-                errorToast(
-                    "The vault item could not be saved. Review the form data or check the application logs.",
-                );
+                errorToast("The vault item could not be saved. Review the form data or check the application logs.");
             }
         });
     };
 
     return (
         <section>
-            <RestrictedComponent
-                roles={["administrator", "superuser", "user"]}
-                message="(access restricted)"
-            >
+            <RestrictedComponent roles={["administrator", "superuser", "user"]} message="(access restricted)">
                 {vault && (
                     <>
-                        <table className="rm-listing">
+                        <table className="table is-fullwidth">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -71,9 +65,7 @@ const ProjectVaultTab = ({ project }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {0 === vault.length && (
-                                    <NoResultsTableRow numColumns={3} />
-                                )}
+                                {0 === vault.length && <NoResultsTableRow numColumns={3} />}
                                 {vault.map((item) => (
                                     <>
                                         <tr key={item.id}>
@@ -82,17 +74,10 @@ const ProjectVaultTab = ({ project }) => {
                                             <td>{item.type}</td>
                                             <td>{item.reportable}</td>
                                             <td textAlign="right">
-                                                <LinkButton
-                                                    href={`/vault/${project.id}/${item.id}/edit`}
-                                                >
+                                                <LinkButton href={`/vault/${project.id}/${item.id}/edit`}>
                                                     Edit
                                                 </LinkButton>
-                                                <DeleteIconButton
-                                                    onClick={onVaultItemDelete.bind(
-                                                        this,
-                                                        item.id,
-                                                    )}
-                                                />
+                                                <DeleteIconButton onClick={onVaultItemDelete.bind(this, item.id)} />
                                             </td>
                                         </tr>
                                     </>
@@ -122,15 +107,9 @@ const ProjectVaultTab = ({ project }) => {
                                                 value={vaultItem.type || ""}
                                                 required
                                             >
-                                                <option value="password">
-                                                    Password
-                                                </option>
-                                                <option value="note">
-                                                    Note
-                                                </option>
-                                                <option value="token">
-                                                    Token
-                                                </option>
+                                                <option value="password">Password</option>
+                                                <option value="note">Note</option>
+                                                <option value="token">Token</option>
                                                 <option value="key">Key</option>
                                             </NativeSelect>
                                         </td>
@@ -177,7 +156,7 @@ const ProjectVaultTab = ({ project }) => {
                                             />
                                         </td>
                                         <td>
-                                            <Button type="submit">Add</Button>
+                                            <NativeButton type="submit">Add</NativeButton>
                                         </td>
                                     </tr>
                                 </tbody>

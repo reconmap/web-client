@@ -1,30 +1,13 @@
-import {
-    Button,
-    FormControl,
-    FormLabel,
-    HStack,
-    Input,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    Select,
-} from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
+import NativeInput from "components/form/NativeInput";
+import NativeSelect from "components/form/NativeSelect";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import useFetch from "hooks/useFetch";
 import TargetIcon from "images/icons/target.svg?react";
 import { useEffect, useState } from "react";
 import secureApiFetch from "services/api";
 
-const ReportVersionModalDialog = ({
-    projectId,
-    isOpen,
-    onSubmit,
-    onCancel,
-}) => {
+const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => {
     const defaultFormValues = {
         reportTemplateId: 0,
         name: "",
@@ -61,9 +44,7 @@ const ReportVersionModalDialog = ({
             .then((resp) => {
                 if (resp.ok) {
                     onSubmit();
-                    actionCompletedToast(
-                        `The report version "${formValues.name}" has been added.`,
-                    );
+                    actionCompletedToast(`The report version "${formValues.name}" has been added.`);
                 } else {
                     throw new Error(resp.statusText);
                 }
@@ -91,42 +72,33 @@ const ReportVersionModalDialog = ({
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>
-                    <HStack>
-                        <TargetIcon style={{ width: "24px" }} />{" "}
-                        <h4>New report version details</h4>
-                    </HStack>
+                    <div>
+                        <TargetIcon style={{ width: "24px" }} /> <h4>New report version details</h4>
+                    </div>
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <form
-                        id="reportVersionReportForm"
-                        onSubmit={onFormSubmit}
-                        className="crud"
-                        style={{ marginTop: "20px" }}
-                    >
+                    <form id="reportVersionReportForm" onSubmit={onFormSubmit} style={{ marginTop: "20px" }}>
                         <FormControl isRequired>
                             <FormLabel>Template</FormLabel>
                             {templates && (
-                                <Select
+                                <NativeSelect
                                     name="reportTemplateId"
                                     value={formValues.reportTemplateId}
                                     onChange={onFormValueChange}
                                 >
                                     {templates.map((template) => (
-                                        <option
-                                            key={template.id}
-                                            value={template.id}
-                                        >
+                                        <option key={template.id} value={template.id}>
                                             {template.version_name}
                                         </option>
                                     ))}
-                                </Select>
+                                </NativeSelect>
                             )}
                         </FormControl>
 
                         <FormControl isRequired>
                             <FormLabel>Name</FormLabel>
-                            <Input
+                            <NativeInput
                                 type="text"
                                 name="name"
                                 value={formValues.name}
@@ -138,7 +110,7 @@ const ReportVersionModalDialog = ({
 
                         <FormControl isRequired>
                             <FormLabel>Description</FormLabel>
-                            <Input
+                            <NativeInput
                                 type="text"
                                 name="description"
                                 value={formValues.description}
@@ -150,16 +122,12 @@ const ReportVersionModalDialog = ({
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button onClick={beforeCancelCallback} mr={3}>
+                    <NativeButton onClick={beforeCancelCallback} mr={3}>
                         Cancel
-                    </Button>
-                    <Button
-                        form="reportVersionReportForm"
-                        type="submit"
-                        colorScheme="blue"
-                    >
+                    </NativeButton>
+                    <NativeButton form="reportVersionReportForm" type="submit" colorScheme="blue">
                         Save
-                    </Button>
+                    </NativeButton>
                 </ModalFooter>
             </ModalContent>
         </Modal>

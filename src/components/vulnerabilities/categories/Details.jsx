@@ -1,6 +1,6 @@
-import { ButtonGroup } from "@chakra-ui/react";
 import CvssScore from "components/badges/CvssScore";
 import RiskBadge from "components/badges/RiskBadge";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -53,7 +53,7 @@ const TemplateDetails = () => {
                         <Link to="/vulnerabilities">Vulnerabilities</Link>
                         <Link to="/vulnerabilities/templates">Templates</Link>
                     </Breadcrumb>
-                    <ButtonGroup>
+                    <NativeButtonGroup>
                         <PrimaryButton onClick={() => cloneProject(vulnerability.id)} leftIcon={<IconPlusCircle />}>
                             {" "}
                             Clone and edit
@@ -63,7 +63,7 @@ const TemplateDetails = () => {
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                             <DeleteButton onClick={() => destroy(vulnerability.id)} />
                         </RestrictedComponent>
-                    </ButtonGroup>
+                    </NativeButtonGroup>
                 </div>
                 <article>
                     <PageTitle value={`${vulnerability.summary} vulnerability template`} />

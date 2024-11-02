@@ -1,4 +1,3 @@
-import { SimpleGrid } from "@chakra-ui/react";
 import ClientLink from "components/clients/Link";
 import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget";
 import VulnerabilitiesByRiskStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget";
@@ -24,9 +23,7 @@ const ProjectDetailsTab = ({ project }) => {
                         <>
                             <dt>Visibility</dt>
                             <dd>
-                                <VisibilityLegend
-                                    visibility={project.visibility}
-                                />
+                                <VisibilityLegend visibility={project.visibility} />
                             </dd>
 
                             <dt>Status</dt>
@@ -50,11 +47,7 @@ const ProjectDetailsTab = ({ project }) => {
 
                     <dt>Description</dt>
                     <dd>
-                        {project.description ? (
-                            <ReactMarkdown>{project.description}</ReactMarkdown>
-                        ) : (
-                            <EmptyField />
-                        )}
+                        {project.description ? <ReactMarkdown>{project.description}</ReactMarkdown> : <EmptyField />}
                     </dd>
 
                     {!isTemplate && (
@@ -69,12 +62,10 @@ const ProjectDetailsTab = ({ project }) => {
                     <IconChartBar /> Stats
                 </h4>
 
-                <SimpleGrid gap="3" columns={{ base: "1", md: "2", xl: "3" }}>
+                <div>
                     <VulnerabilitiesByRiskStatsWidget projectId={project.id} />
-                    <VulnerabilitiesByCategoryStatsWidget
-                        projectId={project.id}
-                    />
-                </SimpleGrid>
+                    <VulnerabilitiesByCategoryStatsWidget projectId={project.id} />
+                </div>
             </div>
 
             <div>
@@ -84,33 +75,26 @@ const ProjectDetailsTab = ({ project }) => {
                         <>
                             <dt>Client</dt>
                             <dd>
-                                <ClientLink clientId={project.client_id}>
-                                    {project.client_name}
-                                </ClientLink>
+                                <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>
                             </dd>
                         </>
                     )}
 
                     <dt>Created by</dt>
                     <dd>
-                        <UserLink userId={project.creator_uid}>
-                            {project.creator_full_name}
-                        </UserLink>
+                        <UserLink userId={project.creator_uid}>{project.creator_full_name}</UserLink>
                     </dd>
                 </dl>
 
                 <TimestampsSection entity={project} />
 
-                {(project.engagement_start_date ||
-                    project.engagement_end_date) && (
+                {(project.engagement_start_date || project.engagement_end_date) && (
                     <dl>
                         {project.engagement_start_date && (
                             <>
                                 <dt>Engagement start date</dt>
                                 <dd>
-                                    <RelativeDateFormatter
-                                        date={project.engagement_start_date}
-                                    />
+                                    <RelativeDateFormatter date={project.engagement_start_date} />
                                 </dd>
                             </>
                         )}
@@ -119,9 +103,7 @@ const ProjectDetailsTab = ({ project }) => {
                             <>
                                 <dt>Engagement end date</dt>
                                 <dd>
-                                    <RelativeDateFormatter
-                                        date={project.engagement_end_date}
-                                    />
+                                    <RelativeDateFormatter date={project.engagement_end_date} />
                                 </dd>
                             </>
                         )}

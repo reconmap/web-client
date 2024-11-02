@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import ReportConfigurationForm from "components/reports/ConfigurationForm";
 import ReportRevisions from "components/reports/Revisions";
@@ -16,6 +16,8 @@ import "./Report.css";
 const ProjectReport = () => {
     const { projectId } = useParams();
     const [project, setProject] = useState(null);
+
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     useEffect(() => {
         secureApiFetch(`/projects/${projectId}`, {
@@ -42,28 +44,15 @@ const ProjectReport = () => {
             </div>
             <Title type="Project reporting" title="Project report" icon={<IconReport />} />
 
-            <Tabs>
-                <TabList>
-                    <Tab>Preview</Tab>
-                    <Tab>Revisions</Tab>
-                    {false && <Tab>Configuration</Tab>}
-                </TabList>
-                <TabPanels>
-                    <TabPanel>
-                        <ReportPreview projectId={projectId} />
-                    </TabPanel>
+            <NativeTabs
+                labels={["Preview", "Revisions", "Configuration"]}
+                tabIndex={tabIndex}
+                tabIndexSetter={tabIndexSetter}
+            />
 
-                    <TabPanel>
-                        <ReportRevisions projectId={projectId} />
-                    </TabPanel>
-
-                    {false && (
-                        <TabPanel>
-                            <ReportConfigurationForm projectId={projectId} />
-                        </TabPanel>
-                    )}
-                </TabPanels>
-            </Tabs>
+            {0 === tabIndex && <ReportPreview projectId={projectId} />}
+            {1 === tabIndex && <ReportRevisions projectId={projectId} />}
+            {2 === tabIndex && <ReportConfigurationForm projectId={projectId} />}
         </>
     );
 };

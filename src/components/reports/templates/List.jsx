@@ -1,5 +1,3 @@
-import { useDisclosure } from "@chakra-ui/hooks";
-import { Alert, AlertIcon } from "@chakra-ui/react";
 import { UserManualUrl } from "ServerUrls";
 import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -12,6 +10,7 @@ import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import { resolveMime } from "friendly-mimes";
+import useBoolean from "hooks/useBoolean";
 import useDelete from "hooks/useDelete";
 import useFetch from "hooks/useFetch";
 import { Link } from "react-router-dom";
@@ -30,10 +29,10 @@ const ReportTemplatesList = () => {
     };
 
     const {
-        isOpen: isAddReportTemplateDialogOpen,
-        onOpen: openAddReportTemplateDialog,
-        onClose: closeAddReportTemplateDialog,
-    } = useDisclosure();
+        value: isAddReportTemplateDialogOpen,
+        setTrue: openAddReportTemplateDialog,
+        setFalse: closeAddReportTemplateDialog,
+    } = useBoolean();
 
     const onReportTemplateFormSaved = () => {
         refetchTemplates();
@@ -84,25 +83,23 @@ const ReportTemplatesList = () => {
             </div>
             <title title="Report templates" icon={<IconDocumentDuplicate />} />
 
-            <Alert status="info">
-                <AlertIcon />
+            <div status="info">
                 Needing some inspiration? Have a look at hundred of penetration test reports available at&nbsp;
                 <ExternalLink href="https://pentestreports.com/">https://pentestreports.com/</ExternalLink>
-            </Alert>
+            </div>
 
-            <Alert status="info">
-                <AlertIcon />
+            <div status="info">
                 Visit this{" "}
                 <ExternalLink href={UserManualUrl + "reports/report-template-variables.html"}>
                     user manual's page
                 </ExternalLink>{" "}
                 if you want to find out which variables are available to your report templates.
-            </Alert>
+            </div>
 
             {!templates ? (
                 <Loading />
             ) : (
-                <table className="rm-listing">
+                <table className="table is-fullwidth">
                     <thead>
                         <tr>
                             <th style={{ width: "190px" }}>Name</th>

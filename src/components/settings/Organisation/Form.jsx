@@ -1,5 +1,5 @@
-import { Breadcrumb, Button } from "@chakra-ui/react";
 import AttachmentsImageDropzone from "components/attachments/ImageDropzone";
+import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import PrimaryButton from "components/ui/buttons/Primary";
@@ -15,9 +15,7 @@ import secureApiFetch from "services/api";
 const OrganisationForm = () => {
     const [organisation, setOrganisation] = useState(Organisation);
 
-    const [rootOrganisation, refetchOrganisation] = useFetch(
-        "/organisations/root",
-    );
+    const [rootOrganisation, refetchOrganisation] = useFetch("/organisations/root");
     const [loading, setLoading] = useState(false);
     const parentType = "organisation";
     const parentId = organisation.id;
@@ -49,19 +47,13 @@ const OrganisationForm = () => {
         if (rootOrganisation) {
             setOrganisation(rootOrganisation);
             if (rootOrganisation.small_logo_attachment_id !== null) {
-                downloadAndDisplayLogo(
-                    rootOrganisation.small_logo_attachment_id,
-                    "small_logo",
-                );
+                downloadAndDisplayLogo(rootOrganisation.small_logo_attachment_id, "small_logo");
             } else {
                 setSmallLogo(null);
             }
 
             if (rootOrganisation.logo_attachment_id !== null) {
-                downloadAndDisplayLogo(
-                    rootOrganisation.logo_attachment_id,
-                    "logo",
-                );
+                downloadAndDisplayLogo(rootOrganisation.logo_attachment_id, "logo");
             } else {
                 setLogo(null);
             }
@@ -74,9 +66,7 @@ const OrganisationForm = () => {
                 if (resp.status === 404) {
                     return Promise.reject("Logo not found");
                 }
-                const contentDispositionHeader = resp.headers.get(
-                    "Content-Disposition",
-                );
+                const contentDispositionHeader = resp.headers.get("Content-Disposition");
                 const filenameRe = new RegExp(/filename="(.*)";/);
                 const filename = filenameRe.exec(contentDispositionHeader)[1];
                 return Promise.all([resp.blob(), filename]);
@@ -111,14 +101,12 @@ const OrganisationForm = () => {
     };
 
     const removeAttachment = (ev, id) => {
-        secureApiFetch(`/attachments/${id}`, { method: "DELETE" }).then(
-            (resp) => {
-                if (resp.status === 204) {
-                    actionCompletedToast("Logo removed");
-                    refetchOrganisation();
-                }
-            },
-        );
+        secureApiFetch(`/attachments/${id}`, { method: "DELETE" }).then((resp) => {
+            if (resp.status === 204) {
+                actionCompletedToast("Logo removed");
+                refetchOrganisation();
+            }
+        });
     };
 
     if (!organisation) {
@@ -127,15 +115,9 @@ const OrganisationForm = () => {
 
     return (
         <div>
-            <div className="heading">
-                <Breadcrumb />
-            </div>
+            <div className="heading">Breadcrumb?</div>
             <form onSubmit={onFormSubmit}>
-                <Title
-                    title="Settings"
-                    type="Organisation"
-                    icon={<IconPreferences />}
-                />
+                <Title title="Settings" type="Organisation" icon={<IconPreferences />} />
                 <label>
                     Name
                     <NativeInput
@@ -149,12 +131,7 @@ const OrganisationForm = () => {
                 </label>
                 <label>
                     URL
-                    <NativeInput
-                        type="text"
-                        name="url"
-                        value={organisation.url}
-                        onChange={handleFormChange}
-                    />
+                    <NativeInput type="text" name="url" value={organisation.url} onChange={handleFormChange} />
                 </label>
                 <label>
                     Contact name
@@ -193,21 +170,11 @@ const OrganisationForm = () => {
                     <div>
                         {logo && (
                             <div>
-                                <img
-                                    src={logo}
-                                    alt="The main organisation logo"
-                                />
+                                <img src={logo} alt="The main organisation logo" />
                                 <br />
-                                <Button
-                                    onClick={(ev) =>
-                                        removeAttachment(
-                                            ev,
-                                            organisation.logo_attachment_id,
-                                        )
-                                    }
-                                >
+                                <NativeButton onClick={(ev) => removeAttachment(ev, organisation.logo_attachment_id)}>
                                     Remove
-                                </Button>
+                                </NativeButton>
                             </div>
                         )}
                         {logo === null && (
@@ -220,9 +187,7 @@ const OrganisationForm = () => {
                                     parentId={parentId}
                                     onUploadFinished={onUploadFinished}
                                     uploadFinishedParameter="logo_attachment_id"
-                                    attachmentId={
-                                        organisation.logo_attachment_id
-                                    }
+                                    attachmentId={organisation.logo_attachment_id}
                                     maxFileCount={1}
                                 />
                             </RestrictedComponent>
@@ -235,21 +200,13 @@ const OrganisationForm = () => {
                     <div>
                         {smallLogo && (
                             <div>
-                                <img
-                                    src={smallLogo}
-                                    alt="The smaller version of the logo"
-                                />
+                                <img src={smallLogo} alt="The smaller version of the logo" />
                                 <br />
-                                <Button
-                                    onClick={(ev) =>
-                                        removeAttachment(
-                                            ev,
-                                            organisation.small_logo_attachment_id,
-                                        )
-                                    }
+                                <NativeButton
+                                    onClick={(ev) => removeAttachment(ev, organisation.small_logo_attachment_id)}
                                 >
                                     Remove
-                                </Button>
+                                </NativeButton>
                             </div>
                         )}
                         {smallLogo === null && (
@@ -262,9 +219,7 @@ const OrganisationForm = () => {
                                     parentId={parentId}
                                     onUploadFinished={onUploadFinished}
                                     uploadFinishedParameter="small_logo_attachment_id"
-                                    attachmentId={
-                                        organisation.small_logo_attachment_id
-                                    }
+                                    attachmentId={organisation.small_logo_attachment_id}
                                     maxFileCount={1}
                                 />
                             </RestrictedComponent>

@@ -1,13 +1,8 @@
+import NativeInput from "components/form/NativeInput";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import PrimaryButton from "../ui/buttons/Primary";
-import NativeInput from "components/form/NativeInput";
 
-const CommandForm = ({
-    isEditForm = false,
-    onFormSubmit,
-    command,
-    commandSetter: setCommand,
-}) => {
+const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter: setCommand }) => {
     const onFormChange = (ev) => {
         const target = ev.target;
         let name = target.name;
@@ -19,7 +14,7 @@ const CommandForm = ({
     };
 
     return (
-        <form onSubmit={onFormSubmit} className="crud">
+        <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
                 <label>
@@ -48,11 +43,7 @@ const CommandForm = ({
                         type="text"
                         name="tags"
                         onChange={onFormChange}
-                        value={
-                            command.tags
-                                ? JSON.parse(command.tags).join(",")
-                                : ""
-                        }
+                        value={command.tags ? JSON.parse(command.tags).join(",") : ""}
                     />
                 </label>
                 <label>
@@ -66,9 +57,7 @@ const CommandForm = ({
                 </label>
             </fieldset>
 
-            <PrimaryButton type="submit">
-                {isEditForm ? "Save" : "Add"}
-            </PrimaryButton>
+            <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
         </form>
     );
 };

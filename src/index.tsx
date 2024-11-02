@@ -1,12 +1,11 @@
-import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react';
 import 'bootstrap/i18n';
 import HeaderLogo from 'components/layout/HeaderLogo.jsx';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 import KeyCloakService from 'services/keycloak.js';
-import ReconmapTheme from 'theme/index.js';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker.js';
 import './styles/main.css';
@@ -26,13 +25,9 @@ appRoot.render(
 const onAuthSuccess = () => {
     TimeAgo.addDefaultLocale(en);
 
-    const { ToastContainer } = createStandaloneToast();
-
     appRoot.render(<React.StrictMode>
-        <ChakraProvider theme={ReconmapTheme}>
             <App />
-            <ToastContainer />
-        </ChakraProvider>
+            <Toaster />
     </React.StrictMode>);
 }
 

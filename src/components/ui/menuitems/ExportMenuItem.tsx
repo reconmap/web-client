@@ -1,4 +1,4 @@
-import { MenuItem } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton.js";
 import { ReactElement } from "react";
 import { downloadFromApi } from "services/api.js";
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ExportMenuItem: React.FC<Props> = ({ entity }: Props): ReactElement => {
-    return <MenuItem onClick={() => downloadFromApi('/system/data?entities=' + entity)}>Export</MenuItem>;
+    return <NativeButton onClick={() => downloadFromApi('/system/data?entities=' + entity)}>Export</NativeButton>;
 }
 
 export default ExportMenuItem;

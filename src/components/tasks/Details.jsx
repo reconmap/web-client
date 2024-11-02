@@ -1,16 +1,8 @@
-import {
-    Button,
-    HStack,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-} from "@chakra-ui/react";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import CommandBadge from "components/commands/Badge";
 import CommandInstructions from "components/commands/Instructions";
+import NativeButton from "components/form/NativeButton";
 import NativeSelect from "components/form/NativeSelect";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -46,9 +38,7 @@ const TaskDetails = () => {
 
     const parentType = "task";
     const parentId = taskId;
-    const [attachments, reloadAttachments] = useFetch(
-        `/attachments?parentType=${parentType}&parentId=${parentId}`,
-    );
+    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`);
 
     const destroy = useDelete("/tasks/", fetchTask);
 
@@ -116,44 +106,28 @@ const TaskDetails = () => {
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/tasks">Tasks</Link>
-                    {project && (
-                        <Link to={`/projects/${project.id}`}>
-                            {project.name}
-                        </Link>
-                    )}
+                    {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
                 </Breadcrumb>
                 {task && users && (
-                    <HStack alignItems="flex-end">
-                        <RestrictedComponent
-                            roles={["administrator", "superuser", "user"]}
-                        >
-                            <LinkButton href={`/tasks/${task.id}/edit`}>
-                                Edit
-                            </LinkButton>
-                            <Button onClick={cloneTask}>Clone and edit</Button>
+                    <div>
+                        <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                            <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
+                            <NativeButton onClick={cloneTask}>Clone and edit</NativeButton>
                             {1 !== task.project_is_template && (
                                 <label>
                                     Transition to&nbsp;
-                                    <NativeSelect
-                                        onChange={onStatusChange}
-                                        value={task.status}
-                                    >
+                                    <NativeSelect onChange={onStatusChange} value={task.status}>
                                         {TaskStatuses.map((status, index) => (
-                                            <option
-                                                key={index}
-                                                value={status.id}
-                                            >
+                                            <option key={index} value={status.id}>
                                                 {status.name}
                                             </option>
                                         ))}
                                     </NativeSelect>
                                 </label>
                             )}
-                            <DeleteButton
-                                onClick={() => handleDelete(task.id)}
-                            />
+                            <DeleteButton onClick={() => handleDelete(task.id)} />
                         </RestrictedComponent>
-                    </HStack>
+                    </div>
                 )}
             </div>
             {!task ? (
@@ -162,29 +136,21 @@ const TaskDetails = () => {
                 <article>
                     <PageTitle value={`${task.summary} task`} />
 
-                    <Title
-                        title={task.summary}
-                        type="Task"
-                        icon={<IconClipboard />}
-                    />
+                    <Title title={task.summary} type="Task" icon={<IconClipboard />} />
 
-                    <Tabs>
-                        <TabList>
-                            <Tab>Details</Tab>
-                            {null !== command && (
-                                <Tab>Command instructions</Tab>
-                            )}
-                            <Tab>Attachments</Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel>
+                    <div>
+                        <div>
+                            <div>Details</div>
+                            {null !== command && <div>Command instructions</div>}
+                            <div>Attachments</div>
+                        </div>
+                        <div>
+                            <div>
                                 <div className="grid grid-two">
                                     <div>
                                         <h4>Description</h4>
                                         {task.description ? (
-                                            <ReactMarkdown>
-                                                {task.description}
-                                            </ReactMarkdown>
+                                            <ReactMarkdown>{task.description}</ReactMarkdown>
                                         ) : (
                                             <EmptyField />
                                         )}
@@ -218,11 +184,7 @@ const TaskDetails = () => {
                                         <dl>
                                             <dt>Created by</dt>
                                             <dd>
-                                                <UserLink
-                                                    userId={task.creator_uid}
-                                                >
-                                                    {task.creator_full_name}
-                                                </UserLink>
+                                                <UserLink userId={task.creator_uid}>{task.creator_full_name}</UserLink>
                                             </dd>
 
                                             {1 !== task.project_is_template && (
@@ -231,39 +193,16 @@ const TaskDetails = () => {
                                                     <dd>
                                                         {users && (
                                                             <NativeSelect
-                                                                onChange={
-                                                                    onAssigneeChange
-                                                                }
-                                                                defaultValue={
-                                                                    task.assignee_uid
-                                                                }
+                                                                onChange={onAssigneeChange}
+                                                                defaultValue={task.assignee_uid}
                                                             >
-                                                                <option value="">
-                                                                    (nobody)
-                                                                </option>
-                                                                {users.map(
-                                                                    (
-                                                                        user,
-                                                                        index,
-                                                                    ) => (
-                                                                        <option
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                            value={
-                                                                                user.id
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                user.full_name
-                                                                            }
-                                                                            {user.id ===
-                                                                            loggedInUser.id
-                                                                                ? " (You)"
-                                                                                : ""}
-                                                                        </option>
-                                                                    ),
-                                                                )}
+                                                                <option value="">(nobody)</option>
+                                                                {users.map((user, index) => (
+                                                                    <option key={index} value={user.id}>
+                                                                        {user.full_name}
+                                                                        {user.id === loggedInUser.id ? " (You)" : ""}
+                                                                    </option>
+                                                                ))}
                                                             </NativeSelect>
                                                         )}
                                                     </dd>
@@ -276,24 +215,19 @@ const TaskDetails = () => {
                                             <dl>
                                                 <dt>Due date</dt>
                                                 <dd>
-                                                    <RelativeDateFormatter
-                                                        date={task.due_date}
-                                                    />
+                                                    <RelativeDateFormatter date={task.due_date} />
                                                 </dd>
                                             </dl>
                                         )}
                                     </div>
                                 </div>
-                            </TabPanel>
+                            </div>
                             {null !== command && (
-                                <TabPanel>
-                                    <CommandInstructions
-                                        command={command}
-                                        task={task}
-                                    />
-                                </TabPanel>
+                                <div>
+                                    <CommandInstructions command={command} task={task} />
+                                </div>
                             )}
-                            <TabPanel>
+                            <div>
                                 <AttachmentsDropzone
                                     parentType={parentType}
                                     parentId={parentId}
@@ -304,13 +238,10 @@ const TaskDetails = () => {
                                     <IconDocument />
                                     Attachment list
                                 </h4>
-                                <AttachmentsTable
-                                    attachments={attachments}
-                                    reloadAttachments={reloadAttachments}
-                                />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
+                                <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                            </div>
+                        </div>
+                    </div>
                 </article>
             )}
         </div>

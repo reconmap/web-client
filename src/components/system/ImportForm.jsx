@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input, ListItem, UnorderedList } from "@chakra-ui/react";
+import NativeInput from "components/form/NativeInput";
 import ExternalLink from "components/ui/ExternalLink";
 import { useState } from "react";
 import secureApiFetch from "../../services/api";
@@ -37,33 +37,29 @@ const ImportForm = () => {
         <div>
             <h3>Import system data</h3>
             <form>
-                <div>
+                <div className="content">
                     Notes:
-                    <UnorderedList>
-                        <ListItem>Everything on the file will be attempted to be imported.</ListItem>
-                        <ListItem>
-                            If there is an error the import process will continue resulting on a partial import.
-                        </ListItem>
-                        <ListItem>
-                            If there are missing attributes, Reconmap will attempt to use defaults instead.
-                        </ListItem>
-                        <ListItem>
+                    <ul>
+                        <li>Everything on the file will be attempted to be imported.</li>
+                        <li>If there is an error the import process will continue resulting on a partial import.</li>
+                        <li>If there are missing attributes, Reconmap will attempt to use defaults instead.</li>
+                        <li>
                             Example of the files to import can be found on the following url:{" "}
                             <ExternalLink href="https://github.com/reconmap/reconmap/tree/master/imports">
                                 https://github.com/reconmap/reconmap/tree/master/imports
                             </ExternalLink>{" "}
-                        </ListItem>
-                    </UnorderedList>
+                        </li>
+                    </ul>
                 </div>
-                <FormControl id="importFile" isRequired>
-                    <FormLabel>Import file</FormLabel>
-                    <Input
+                <div id="importFile" isRequired>
+                    <label>Import file</label>
+                    <NativeInput
                         type="file"
                         onChange={onImportFileChange}
                         accept=".json,.js,application/json,text/json"
                         isRequired
                     />
-                </FormControl>
+                </div>
 
                 <PrimaryButton disabled={importButtonDisabled} onClick={handleUploadClick} leftIcon={<IconUpload />}>
                     Import

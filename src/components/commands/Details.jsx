@@ -1,11 +1,5 @@
-import {
-    ButtonGroup,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-} from "@chakra-ui/react";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import CommandTerminal from "components/ui/CommandTerminal";
@@ -67,9 +61,7 @@ const CommandDetails = () => {
         });
     };
 
-    const [commandUsages, fetchCommandUsages] = useFetch(
-        `/commands/${commandId}/usages`,
-    );
+    const [commandUsages, fetchCommandUsages] = useFetch(`/commands/${commandId}/usages`);
 
     if (!command) {
         return <Loading />;
@@ -81,48 +73,33 @@ const CommandDetails = () => {
                 <Breadcrumb>
                     <Link to="/commands">Commands</Link>
                 </Breadcrumb>
-                <ButtonGroup>
-                    <RestrictedComponent
-                        roles={["administrator", "superuser", "user"]}
-                    >
-                        <LinkButton href={`/commands/${command.id}/edit`}>
-                            Edit
-                        </LinkButton>
+                <NativeButtonGroup>
+                    <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                        <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
                         <DeleteButton onClick={handleDelete} />
                     </RestrictedComponent>
-                </ButtonGroup>
+                </NativeButtonGroup>
             </div>
             <article>
                 <div>
                     <PageTitle value={`${command.name} command`} />
 
-                    <Title
-                        type="Command"
-                        title={command.name}
-                        icon={<IconBriefcase />}
-                    />
+                    <Title type="Command" title={command.name} icon={<IconBriefcase />} />
                     <Tags values={command.tags} />
                 </div>
 
-                <Tabs>
-                    <TabList>
-                        <Tab>Details</Tab>
-                        <Tab>Usages</Tab>
-                        <Tab>Run instructions</Tab>
-                        <Tab>Command outputs</Tab>
-                        <Tab>Terminal</Tab>
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel>
+                <NativeTabs labels={["Details", "Usages", "Run instructions", "Command outputs", "Terminal"]} />
+
+                <div>
+                    <div>
+                        <div>
                             <div className="grid grid-two">
                                 <div>
                                     <dl>
                                         <dt>Description</dt>
                                         <dd>
                                             {command.description ? (
-                                                <ReactMarkdown>
-                                                    {command.description}
-                                                </ReactMarkdown>
+                                                <ReactMarkdown>{command.description}</ReactMarkdown>
                                             ) : (
                                                 <EmptyField />
                                             )}
@@ -131,10 +108,7 @@ const CommandDetails = () => {
                                         {command.output_parser && (
                                             <>
                                                 <dt>Output parser support</dt>
-                                                <dl>
-                                                    Yes ({command.output_parser}
-                                                    )
-                                                </dl>
+                                                <dl>Yes ({command.output_parser})</dl>
                                             </>
                                         )}
                                         {command.more_info_url && (
@@ -142,14 +116,8 @@ const CommandDetails = () => {
                                                 <dt>More information URL</dt>
                                                 <dl>
                                                     {command.more_info_url ? (
-                                                        <ExternalLink
-                                                            href={
-                                                                command.more_info_url
-                                                            }
-                                                        >
-                                                            {
-                                                                command.more_info_url
-                                                            }
+                                                        <ExternalLink href={command.more_info_url}>
+                                                            {command.more_info_url}
                                                         </ExternalLink>
                                                     ) : (
                                                         <EmptyField />
@@ -165,9 +133,7 @@ const CommandDetails = () => {
                                     <dl>
                                         <dt>Created by</dt>
                                         <dd>
-                                            <UserLink
-                                                userId={command.creator_uid}
-                                            >
+                                            <UserLink userId={command.creator_uid}>
                                                 {command.creator_full_name}
                                             </UserLink>
                                         </dd>
@@ -176,8 +142,8 @@ const CommandDetails = () => {
                                     <TimestampsSection entity={command} />
                                 </div>
                             </div>
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                        <div>
                             <h3>Usages</h3>
 
                             <CommandUsageForm
@@ -189,7 +155,7 @@ const CommandDetails = () => {
 
                             {commandUsages !== null && (
                                 <>
-                                    <table className="rm-listing">
+                                    <table className="table is-fullwidth">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
@@ -201,13 +167,7 @@ const CommandDetails = () => {
                                                 <tr key={command.id}>
                                                     <td>{command.name}</td>
                                                     <td>
-                                                        <DeleteButton
-                                                            onClick={(ev) =>
-                                                                deleteUsage(
-                                                                    command,
-                                                                )
-                                                            }
-                                                        />
+                                                        <DeleteButton onClick={(ev) => deleteUsage(command)} />
                                                     </td>
                                                 </tr>
                                             ))}
@@ -215,23 +175,18 @@ const CommandDetails = () => {
                                     </table>
                                 </>
                             )}
-                        </TabPanel>
-                        <TabPanel>
-                            {commandUsages !== null && (
-                                <CommandInstructions
-                                    command={command}
-                                    usages={commandUsages}
-                                />
-                            )}
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                        <div>
+                            {commandUsages !== null && <CommandInstructions command={command} usages={commandUsages} />}
+                        </div>
+                        <div>
                             <CommandOutputs command={command} />
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                        <div>
                             <CommandTerminal commands={[]} />
-                        </TabPanel>
-                    </TabPanels>
-                </Tabs>
+                        </div>
+                    </div>
+                </div>
             </article>
         </div>
     );

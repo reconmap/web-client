@@ -1,15 +1,7 @@
-import {
-    Button,
-    ButtonGroup,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-} from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectsTable from "components/projects/Table";
 import EmptyField from "components/ui/EmptyField";
@@ -21,6 +13,7 @@ import LinkButton from "components/ui/buttons/Link";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import UserLink from "components/users/Link";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import Contact from "models/Contact";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -42,8 +35,8 @@ const ClientProjectsTab = ({ clientId }) => {
     if (projects.length === 0) {
         return (
             <div>
-                This client has no projects. You can see all projects and their
-                clients <Link to="/projects">here</Link>.
+                This client has no projects. You can see all projects and their clients <Link to="/projects">here</Link>
+                .
             </div>
         );
     }
@@ -89,9 +82,7 @@ const ClientDetails = () => {
                 fetchContacts();
                 actionCompletedToast(`The contact has been added.`);
             } else {
-                errorToast(
-                    "The contact could not be saved. Review the form data or check the application logs.",
-                );
+                errorToast("The contact could not be saved. Review the form data or check the application logs.");
             }
         });
     };
@@ -108,10 +99,7 @@ const ClientDetails = () => {
     useEffect(() => {
         if (client) {
             if (client.small_logo_attachment_id) {
-                downloadAndDisplayLogo(
-                    client.small_logo_attachment_id,
-                    "small_logo",
-                );
+                downloadAndDisplayLogo(client.small_logo_attachment_id, "small_logo");
             }
 
             if (client.logo_attachment_id) {
@@ -123,9 +111,7 @@ const ClientDetails = () => {
     const downloadAndDisplayLogo = (logoId, type) => {
         secureApiFetch(`/attachments/${logoId}`, { method: "GET" })
             .then((resp) => {
-                const contentDispositionHeader = resp.headers.get(
-                    "Content-Disposition",
-                );
+                const contentDispositionHeader = resp.headers.get("Content-Disposition");
                 const filenameRe = new RegExp(/filename="(.*)";/);
                 const filename = filenameRe.exec(contentDispositionHeader)[1];
                 return Promise.all([resp.blob(), filename]);
@@ -145,41 +131,34 @@ const ClientDetails = () => {
         return <Loading />;
     }
 
+    useDocumentTitle(`${client.name} client`);
+
     return (
         <div>
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/clients">Clients</Link>
                 </Breadcrumb>
-                <ButtonGroup>
-                    <RestrictedComponent
-                        roles={["administrator", "superuser", "user"]}
-                    >
-                        <LinkButton href={`/clients/${client.id}/edit`}>
-                            Edit
-                        </LinkButton>
+                <NativeButtonGroup>
+                    <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                        <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
                         <DeleteButton onClick={handleDelete} />
                     </RestrictedComponent>
-                </ButtonGroup>
+                </NativeButtonGroup>
             </div>
             <article>
                 <div>
-                    <PageTitle value={`${client.name} client`} />
-                    <Title
-                        type="Client"
-                        title={client.name}
-                        icon={<IconBriefcase />}
-                    />
+                    <Title type="Client" title={client.name} icon={<IconBriefcase />} />
                 </div>
 
-                <Tabs isLazy>
-                    <TabList>
-                        <Tab>Details</Tab>
-                        <Tab>Contacts</Tab>
-                        <Tab>Projects</Tab>
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel>
+                <div>
+                    <div>
+                        <div>Details</div>
+                        <div>Contacts</div>
+                        <div>Projects</div>
+                    </div>
+                    <div>
+                        <div>
                             <div className="grid grid-two">
                                 <div>
                                     <h4>Properties</h4>
@@ -190,9 +169,7 @@ const ClientDetails = () => {
 
                                         <dt>URL</dt>
                                         <dd>
-                                            <ExternalLink href={client.url}>
-                                                {client.url}
-                                            </ExternalLink>
+                                            <ExternalLink href={client.url}>{client.url}</ExternalLink>
                                         </dd>
                                     </dl>
 
@@ -200,24 +177,12 @@ const ClientDetails = () => {
 
                                     <dl>
                                         <dt>Main logo</dt>
-                                        <dd>
-                                            {logo ? (
-                                                <img
-                                                    src={logo}
-                                                    alt="The main logo"
-                                                />
-                                            ) : (
-                                                <EmptyField />
-                                            )}
-                                        </dd>
+                                        <dd>{logo ? <img src={logo} alt="The main logo" /> : <EmptyField />}</dd>
 
                                         <dt>Small logo</dt>
                                         <dd>
                                             {smallLogo ? (
-                                                <img
-                                                    src={smallLogo}
-                                                    alt="The smaller version of the logo"
-                                                />
+                                                <img src={smallLogo} alt="The smaller version of the logo" />
                                             ) : (
                                                 <EmptyField />
                                             )}
@@ -230,20 +195,16 @@ const ClientDetails = () => {
                                     <dl>
                                         <dt>Created by</dt>
                                         <dd>
-                                            <UserLink
-                                                userId={client.creator_uid}
-                                            >
-                                                {client.creator_full_name}
-                                            </UserLink>
+                                            <UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink>
                                         </dd>
                                     </dl>
 
                                     <TimestampsSection entity={client} />
                                 </div>
                             </div>
-                        </TabPanel>
+                        </div>
 
-                        <TabPanel>
+                        <div>
                             <h4>Contacts</h4>
 
                             {contacts && (
@@ -265,37 +226,21 @@ const ClientDetails = () => {
                                                     <td>
                                                         <NativeSelect
                                                             name="kind"
-                                                            onChange={
-                                                                onContactFormChange
-                                                            }
-                                                            value={
-                                                                contact.kind ||
-                                                                ""
-                                                            }
+                                                            onChange={onContactFormChange}
+                                                            value={contact.kind || ""}
                                                             isRequired
                                                         >
-                                                            <option value="general">
-                                                                General
-                                                            </option>
-                                                            <option value="technical">
-                                                                Technical
-                                                            </option>
-                                                            <option value="billing">
-                                                                Billing
-                                                            </option>
+                                                            <option value="general">General</option>
+                                                            <option value="technical">Technical</option>
+                                                            <option value="billing">Billing</option>
                                                         </NativeSelect>
                                                     </td>
                                                     <td>
                                                         <NativeInput
                                                             type="text"
                                                             name="name"
-                                                            onChange={
-                                                                onContactFormChange
-                                                            }
-                                                            value={
-                                                                contact.name ||
-                                                                ""
-                                                            }
+                                                            onChange={onContactFormChange}
+                                                            value={contact.name || ""}
                                                             required
                                                         />
                                                     </td>
@@ -303,26 +248,16 @@ const ClientDetails = () => {
                                                         <NativeInput
                                                             type="text"
                                                             name="role"
-                                                            onChange={
-                                                                onContactFormChange
-                                                            }
-                                                            value={
-                                                                contact.role ||
-                                                                ""
-                                                            }
+                                                            onChange={onContactFormChange}
+                                                            value={contact.role || ""}
                                                         />
                                                     </td>
                                                     <td>
                                                         <NativeInput
                                                             type="email"
                                                             name="email"
-                                                            onChange={
-                                                                onContactFormChange
-                                                            }
-                                                            value={
-                                                                contact.email ||
-                                                                ""
-                                                            }
+                                                            onChange={onContactFormChange}
+                                                            value={contact.email || ""}
                                                             required
                                                         />
                                                     </td>
@@ -330,58 +265,30 @@ const ClientDetails = () => {
                                                         <NativeInput
                                                             type="tel"
                                                             name="phone"
-                                                            onChange={
-                                                                onContactFormChange
-                                                            }
-                                                            value={
-                                                                contact.phone ||
-                                                                ""
-                                                            }
+                                                            onChange={onContactFormChange}
+                                                            value={contact.phone || ""}
                                                         />
                                                     </td>
                                                     <td>
-                                                        <Button type="submit">
-                                                            Add
-                                                        </Button>
+                                                        <NativeButton type="submit">Add</NativeButton>
                                                     </td>
                                                 </tr>
-                                                {0 === contacts.length && (
-                                                    <NoResultsTableRow
-                                                        numColumns={6}
-                                                    />
-                                                )}
+                                                {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
                                                 {contacts.map((contact) => (
                                                     <>
                                                         <tr key={contact.id}>
+                                                            <td>{contact.kind}</td>
+                                                            <td>{contact.name}</td>
+                                                            <td>{contact.role}</td>
                                                             <td>
-                                                                {contact.kind}
+                                                                <MailLink email={contact.email} />
                                                             </td>
                                                             <td>
-                                                                {contact.name}
-                                                            </td>
-                                                            <td>
-                                                                {contact.role}
-                                                            </td>
-                                                            <td>
-                                                                <MailLink
-                                                                    email={
-                                                                        contact.email
-                                                                    }
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                <TelephoneLink
-                                                                    number={
-                                                                        contact.phone
-                                                                    }
-                                                                />
+                                                                <TelephoneLink number={contact.phone} />
                                                             </td>
                                                             <td>
                                                                 <DeleteIconButton
-                                                                    onClick={onContactDelete.bind(
-                                                                        this,
-                                                                        contact.id,
-                                                                    )}
+                                                                    onClick={onContactDelete.bind(this, contact.id)}
                                                                 />
                                                             </td>
                                                         </tr>
@@ -392,12 +299,12 @@ const ClientDetails = () => {
                                     </form>
                                 </>
                             )}
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                        <div>
                             <ClientProjectsTab clientId={clientId} />
-                        </TabPanel>
-                    </TabPanels>
-                </Tabs>
+                        </div>
+                    </div>
+                </div>
             </article>
         </div>
     );

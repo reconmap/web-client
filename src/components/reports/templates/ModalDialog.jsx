@@ -1,5 +1,5 @@
-
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
+import NativeButton from "components/form/NativeButton";
+import NativeInput from "components/form/NativeInput";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useRef, useState } from "react";
 import secureApiFetch from "services/api";
@@ -11,62 +11,69 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
         version_name: "",
         version_description: null,
         resultFile: null,
-    }
-    const [reportTemplate, setReportTemplate] = useState(emptyReportTemplate)
+    };
+    const [reportTemplate, setReportTemplate] = useState(emptyReportTemplate);
 
-    const onCreateReportFormSubmit = ev => {
+    const onCreateReportFormSubmit = (ev) => {
         ev.preventDefault();
 
         const formData = new FormData();
-        formData.append('version_name', reportTemplate.version_name);
-        formData.append('version_description', reportTemplate.version_description);
-        formData.append('resultFile', fileRef.current.files[0]);
+        formData.append("version_name", reportTemplate.version_name);
+        formData.append("version_description", reportTemplate.version_description);
+        formData.append("resultFile", fileRef.current.files[0]);
 
-        secureApiFetch(`/reports/templates`, { method: 'POST', body: formData })
+        secureApiFetch(`/reports/templates`, { method: "POST", body: formData })
             .then(() => {
                 onSubmit();
                 actionCompletedToast(`The report template "${reportTemplate.version_name}" has been added.`);
             })
-            .catch(err => {
+            .catch((err) => {
                 errorToast(err);
             })
             .finally(() => {
-                setReportTemplate(emptyReportTemplate)
-            })
-    }
+                setReportTemplate(emptyReportTemplate);
+            });
+    };
 
-    const onFormChange = ev => {
-        setReportTemplate({ ...reportTemplate, [ev.target.name]: ev.target.value })
-    }
+    const onFormChange = (ev) => {
+        setReportTemplate({ ...reportTemplate, [ev.target.name]: ev.target.value });
+    };
 
-    return <Modal size="xl" isOpen={isOpen} onClose={onCancel}>
-        <ModalOverlay />
-        <ModalContent>
-            <ModalHeader><h4>New report template details</h4></ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-                <form id="reportTemplateForm" onSubmit={onCreateReportFormSubmit}>
-                    <FormControl isRequired>
-                        <FormLabel>Version name</FormLabel>
-                        <Input type="text" name="version_name" onChange={onFormChange} autoFocus />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Version description</FormLabel>
-                        <Input type="text" name="version_description" onChange={onFormChange} />
-                    </FormControl>
-                    <FormControl isRequired>
-                        <FormLabel>File</FormLabel>
-                        <Input type="file" ref={fileRef} name="resultFile" onChange={onFormChange} />
-                    </FormControl>
-                </form>
-            </ModalBody>
+    return (
+        <div size="xl" isOpen={isOpen} onClose={onCancel}>
+            <div />
+            <div>
+                <div>
+                    <h4>New report template details</h4>
+                </div>
+                <div>
+                    <form id="reportTemplateForm" onSubmit={onCreateReportFormSubmit}>
+                        <div isRequired>
+                            <label>Version name</label>
+                            <NativeInput type="text" name="version_name" onChange={onFormChange} autoFocus />
+                        </div>
+                        <div>
+                            <label>Version description</label>
+                            <NativeInput type="text" name="version_description" onChange={onFormChange} />
+                        </div>
+                        <div isRequired>
+                            <label>File</label>
+                            <NativeInput type="file" ref={fileRef} name="resultFile" onChange={onFormChange} />
+                        </div>
+                    </form>
+                </div>
 
-            <ModalFooter>
-                <Button onClick={onCancel} mr={3}>Cancel</Button>
-                <Button form="reportTemplateForm" type="submit" colorScheme="blue">Save</Button>
-            </ModalFooter>
-        </ModalContent>
-    </Modal>
-}
+                <div>
+                    <NativeButton onClick={onCancel} mr={3}>
+                        Cancel
+                    </NativeButton>
+                    <NativeButton form="reportTemplateForm" type="submit" colorScheme="blue">
+                        Save
+                    </NativeButton>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export default ReportModalDialog;

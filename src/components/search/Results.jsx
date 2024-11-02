@@ -1,4 +1,3 @@
-import { Alert, AlertIcon } from "@chakra-ui/react";
 import PageTitle from "components/logic/PageTitle";
 import LinkButton from "components/ui/buttons/Link";
 import useQuery from "hooks/useQuery";
@@ -33,60 +32,32 @@ const SearchResults = React.memo(() => {
             <div className="heading">
                 <Breadcrumb />
                 <div>
-                    <LinkButton href={SearchUrls.AdvancedSearch}>
-                        Advanced search
-                    </LinkButton>
+                    <LinkButton href={SearchUrls.AdvancedSearch}>Advanced search</LinkButton>
                 </div>
             </div>
-            <Title
-                type="Search results"
-                title={`For ${keywords}`}
-                icon={<IconSearch />}
-            />
+            <Title type="Search results" title={`For ${keywords}`} icon={<IconSearch />} />
 
             {emptyResults.length > 0 && (
-                <Alert status="warning">
-                    <AlertIcon />
-                    No results were found for:{" "}
-                    {[...new Set([...emptyResults])].join(", ")}
-                </Alert>
+                <div status="warning">No results were found for: {[...new Set([...emptyResults])].join(", ")}</div>
             )}
 
             {entities.includes("commands") && (
-                <CommandsSearchResults
-                    keywords={keywords}
-                    emptyResultsSetter={setEmptyResults}
-                />
+                <CommandsSearchResults keywords={keywords} emptyResultsSetter={setEmptyResults} />
             )}
             {entities.includes("tasks") && (
-                <TasksSearchResults
-                    keywords={keywords}
-                    emptyResultsSetter={setEmptyResults}
-                />
+                <TasksSearchResults keywords={keywords} emptyResultsSetter={setEmptyResults} />
             )}
             {entities.includes("vulnerabilities") && (
-                <VulnerabilitiesSearchResults
-                    keywords={keywords}
-                    emptyResultsSetter={setEmptyResults}
-                />
+                <VulnerabilitiesSearchResults keywords={keywords} emptyResultsSetter={setEmptyResults} />
             )}
             {entities.includes("vulnerability_templates") && (
-                <VulnerabilityTemplatesSearchResults
-                    keywords={keywords}
-                    emptyResultsSetter={setEmptyResults}
-                />
+                <VulnerabilityTemplatesSearchResults keywords={keywords} emptyResultsSetter={setEmptyResults} />
             )}
             {entities.includes("projects") && (
-                <ProjectsSearchResults
-                    keywords={keywords}
-                    emptyResultsSetter={setEmptyResults}
-                />
+                <ProjectsSearchResults keywords={keywords} emptyResultsSetter={setEmptyResults} />
             )}
             {entities.includes("project_templates") && (
-                <ProjectTemplatesSearchResults
-                    keywords={keywords}
-                    emptyResultsSetter={setEmptyResults}
-                />
+                <ProjectTemplatesSearchResults keywords={keywords} emptyResultsSetter={setEmptyResults} />
             )}
         </>
     );

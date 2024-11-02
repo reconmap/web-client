@@ -1,4 +1,3 @@
-import { Flex, HStack } from "@chakra-ui/react";
 import NativeSelect from "components/form/NativeSelect";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -20,9 +19,7 @@ import TaskTableModel from "./TaskTableModel";
 const TasksList = () => {
     const navigate = useNavigate();
 
-    const [tableModel, setTableModel] = useState(
-        new TaskTableModel(true, true),
-    );
+    const [tableModel, setTableModel] = useState(new TaskTableModel(true, true));
 
     const handleCreateTask = () => {
         navigate(`/tasks/create`);
@@ -49,12 +46,7 @@ const TasksList = () => {
             .then((data) => {
                 setTableModel((tableModel) => ({ ...tableModel, tasks: data }));
             });
-    }, [
-        setTableModel,
-        tableModel.filters,
-        tableModel.sortBy.column,
-        tableModel.sortBy.order,
-    ]);
+    }, [setTableModel, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order]);
 
     const onStatusSelectChange = (ev) => {
         const newStatus = ev.target.value;
@@ -71,9 +63,7 @@ const TasksList = () => {
         })
             .then(reloadTasks)
             .then(() => {
-                actionCompletedToast(
-                    `All selected tasks have been transitioned to "${newStatus}".`,
-                );
+                actionCompletedToast(`All selected tasks have been transitioned to "${newStatus}".`);
                 ev.target.value = "";
             })
             .catch((err) => console.error(err));
@@ -106,16 +96,11 @@ const TasksList = () => {
             <PageTitle value="Tasks" />
             <div className="heading">
                 <Breadcrumb />
-                <HStack alignItems="flex-end">
-                    <CreateButton onClick={handleCreateTask}>
-                        Create task
-                    </CreateButton>
+                <div>
+                    <CreateButton onClick={handleCreateTask}>Create task</CreateButton>
                     <label>
                         Transition to&nbsp;
-                        <NativeSelect
-                            disabled={!tableModel.selection.length}
-                            onChange={onStatusSelectChange}
-                        >
+                        <NativeSelect disabled={!tableModel.selection.length} onChange={onStatusSelectChange}>
                             <option value="">(select)</option>
                             {TaskStatuses.map((status, index) => (
                                 <option key={index} value={status.id}>
@@ -125,23 +110,17 @@ const TasksList = () => {
                         </NativeSelect>
                     </label>
                     <RestrictedComponent roles={["administrator"]}>
-                        <DeleteButton
-                            onClick={onDeleteButtonClick}
-                            disabled={!tableModel.selection.length}
-                        >
+                        <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
                             Delete selected
                         </DeleteButton>
                     </RestrictedComponent>
-                </HStack>
+                </div>
             </div>
             <Title title="Tasks" icon={<IconClipboardList />} />
 
-            <Flex>
-                <TaskFilters
-                    tableModel={tableModel}
-                    tableModelSetter={setTableModel}
-                />
-            </Flex>
+            <div>
+                <TaskFilters tableModel={tableModel} tableModelSetter={setTableModel} />
+            </div>
 
             <TasksTable
                 tableModel={tableModel}

@@ -1,8 +1,10 @@
-import { Spinner } from '@chakra-ui/react'
+import NativeSpinner from "components/NativeSpinner";
 
 export default function Loading() {
-    return <figure className='message__container'>
-        <Spinner />
-        Loading...
-    </figure>
+    return (
+        <figure className="message__container">
+            <NativeSpinner />
+            Loading...
+        </figure>
+    );
 }

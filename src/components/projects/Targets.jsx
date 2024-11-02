@@ -1,4 +1,4 @@
-import { ButtonGroup, Center, HStack, useDisclosure } from "@chakra-ui/react";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetModalDialog from "components/target/ModalDialog";
@@ -6,6 +6,7 @@ import TargetBadge from "components/target/TargetBadge";
 import Tags from "components/ui/Tags";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import useBoolean from "hooks/useBoolean";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,27 +17,20 @@ import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 
 const ProjectTargets = ({ project }) => {
     const query = useQuery();
-    const urlPageNumber =
-        query.get("page") !== null ? parseInt(query.get("page")) : 1;
+    const urlPageNumber = query.get("page") !== null ? parseInt(query.get("page")) : 1;
     const [pageNumber, setPageNumber] = useState(urlPageNumber);
 
     const [numberPages, setNumberPages] = useState(1);
     const [targets, setTargets] = useState([]);
 
-    const {
-        isOpen: isAddTargetDialogOpen,
-        onOpen: openAddTargetDialog,
-        onClose: closeAddTargetDialog,
-    } = useDisclosure();
+    const { value: isAddTargetDialogOpen, setTrue: openAddTargetDialog, setFalse: closeAddTargetDialog } = useBoolean();
 
     const onDeleteButtonClick = (ev, targetId) => {
         ev.preventDefault();
 
-        secureApiFetch(`/targets/${targetId}`, { method: "DELETE" }).then(
-            () => {
-                reloadTargets();
-            },
-        );
+        secureApiFetch(`/targets/${targetId}`, { method: "DELETE" }).then(() => {
+            reloadTargets();
+        });
     };
 
     const onTargetFormSaved = () => {
@@ -47,10 +41,7 @@ const ProjectTargets = ({ project }) => {
     const reloadTargets = useCallback(() => {
         setTargets([]);
 
-        secureApiFetch(
-            `/targets?projectId=${project.id}&page=${pageNumber - 1}`,
-            { method: "GET" },
-        )
+        secureApiFetch(`/targets?projectId=${project.id}&page=${pageNumber - 1}`, { method: "GET" })
             .then((resp) => {
                 if (resp.headers.has("X-Page-Count")) {
                     setNumberPages(resp.headers.get("X-Page-Count"));
@@ -76,20 +67,16 @@ const ProjectTargets = ({ project }) => {
                 <IconServer />
                 Targets
                 {!project.archived && (
-                    <RestrictedComponent
-                        roles={["administrator", "superuser", "user"]}
-                    >
-                        <ButtonGroup>
+                    <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                        <NativeButtonGroup>
                             <TargetModalDialog
                                 project={project}
                                 isOpen={isAddTargetDialogOpen}
                                 onSubmit={onTargetFormSaved}
                                 onCancel={closeAddTargetDialog}
                             />
-                            <CreateButton onClick={openAddTargetDialog}>
-                                Add target...
-                            </CreateButton>
-                        </ButtonGroup>
+                            <CreateButton onClick={openAddTargetDialog}>Add target...</CreateButton>
+                        </NativeButtonGroup>
                     </RestrictedComponent>
                 )}
             </h4>
@@ -98,15 +85,11 @@ const ProjectTargets = ({ project }) => {
             ) : (
                 <>
                     {numberPages > 1 && (
-                        <Center>
-                            <PaginationV2
-                                page={pageNumber - 1}
-                                total={numberPages}
-                                onPageChange={onPageChange}
-                            />
-                        </Center>
+                        <center>
+                            <PaginationV2 page={pageNumber - 1} total={numberPages} onPageChange={onPageChange} />
+                        </center>
                     )}
-                    <table className="rm-listing">
+                    <table className="table is-fullwidth">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -117,36 +100,24 @@ const ProjectTargets = ({ project }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {targets.length === 0 && (
-                                <NoResultsTableRow numColumns={4} />
-                            )}
+                            {targets.length === 0 && <NoResultsTableRow numColumns={4} />}
                             {targets.map((target, index) => (
                                 <tr key={index}>
                                     <td>
                                         {!target.parent_id && (
-                                            <HStack>
-                                                <Link
-                                                    to={`/targets/${target.id}`}
-                                                >
-                                                    <TargetBadge
-                                                        name={target.name}
-                                                    />
+                                            <div>
+                                                <Link to={`/targets/${target.id}`}>
+                                                    <TargetBadge name={target.name} />
                                                 </Link>
-                                            </HStack>
+                                            </div>
                                         )}
-                                        {target.parent_id !== null && (
-                                            <>{target.parent_name ?? "-"}</>
-                                        )}
+                                        {target.parent_id !== null && <>{target.parent_name ?? "-"}</>}
                                     </td>
                                     <td>
                                         {target.parent_id !== null ? (
                                             <>
-                                                <Link
-                                                    to={`/targets/${target.id}`}
-                                                >
-                                                    <TargetBadge
-                                                        name={target.name}
-                                                    />
+                                                <Link to={`/targets/${target.id}`}>
+                                                    <TargetBadge name={target.name} />
                                                 </Link>
                                             </>
                                         ) : (
@@ -154,8 +125,7 @@ const ProjectTargets = ({ project }) => {
                                         )}
                                     </td>
                                     <td>
-                                        {target.kind}{" "}
-                                        <Tags values={target.tags} />
+                                        {target.kind} <Tags values={target.tags} />
                                     </td>
                                     <td>
                                         {target.num_vulnerabilities > 0
@@ -163,21 +133,8 @@ const ProjectTargets = ({ project }) => {
                                             : "No"}
                                     </td>
                                     <td>
-                                        <RestrictedComponent
-                                            roles={[
-                                                "administrator",
-                                                "superuser",
-                                                "user",
-                                            ]}
-                                        >
-                                            <DeleteIconButton
-                                                onClick={(ev) =>
-                                                    onDeleteButtonClick(
-                                                        ev,
-                                                        target.id,
-                                                    )
-                                                }
-                                            />
+                                        <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                                            <DeleteIconButton onClick={(ev) => onDeleteButtonClick(ev, target.id)} />
                                         </RestrictedComponent>
                                     </td>
                                 </tr>

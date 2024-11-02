@@ -6,15 +6,11 @@ import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import ClientLink from "../clients/Link";
 import ProjectBadge from "./ProjectBadge";
 
-const ProjectsTable = ({
-    projects,
-    destroy = null,
-    showClientColumn = true,
-}) => {
+const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) => {
     const numColumns = showClientColumn ? 7 : 6;
 
     return (
-        <table className="rm-listing">
+        <table className="table is-fullwidth">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -27,12 +23,8 @@ const ProjectsTable = ({
                 </tr>
             </thead>
             <tbody>
-                {null === projects && (
-                    <LoadingTableRow numColumns={numColumns} />
-                )}
-                {null !== projects && 0 === projects.length && (
-                    <NoResultsTableRow numColumns={numColumns} />
-                )}
+                {null === projects && <LoadingTableRow numColumns={numColumns} />}
+                {null !== projects && 0 === projects.length && <NoResultsTableRow numColumns={numColumns} />}
                 {null !== projects &&
                     0 !== projects.length &&
                     projects.map((project) => (
@@ -43,50 +35,20 @@ const ProjectsTable = ({
                             {showClientColumn && (
                                 <td>
                                     {project.is_template ? (
-                                        <span title="Not applicable">
-                                            (n/a)
-                                        </span>
+                                        <span title="Not applicable">(n/a)</span>
                                     ) : (
-                                        <ClientLink
-                                            clientId={project.client_id}
-                                        >
-                                            {project.client_name}
-                                        </ClientLink>
+                                        <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>
                                     )}
                                 </td>
                             )}
-                            <td className="only-desktop">
-                                {project.description}
-                            </td>
-                            <td>
-                                {project.category_id !== null
-                                    ? project.category_name
-                                    : "(undefined)"}
-                            </td>
-                            <td>
-                                {project.vulnerability_metrics
-                                    ? project.vulnerability_metrics
-                                    : "(undefined)"}
-                            </td>
+                            <td className="only-desktop">{project.description}</td>
+                            <td>{project.category_id !== null ? project.category_name : "(undefined)"}</td>
+                            <td>{project.vulnerability_metrics ? project.vulnerability_metrics : "(undefined)"}</td>
                             <td>{project.archived ? "Archived" : "Active"}</td>
                             <td style={{ textAlign: "right" }}>
-                                <RestrictedComponent
-                                    roles={[
-                                        "administrator",
-                                        "superuser",
-                                        "user",
-                                    ]}
-                                >
-                                    <LinkButton
-                                        href={`/projects/${project.id}/edit`}
-                                    >
-                                        Edit
-                                    </LinkButton>
-                                    {destroy && (
-                                        <DeleteIconButton
-                                            onClick={() => destroy(project.id)}
-                                        />
-                                    )}
+                                <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                                    <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
+                                    {destroy && <DeleteIconButton onClick={() => destroy(project.id)} />}
                                 </RestrictedComponent>
                             </td>
                         </tr>

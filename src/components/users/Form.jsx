@@ -1,3 +1,4 @@
+import LabelledField from "components/form/LabelledField";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -20,101 +21,139 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
     };
 
     return (
-        <form onSubmit={onFormSubmit} className="crud">
+        <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
 
-                <label>
-                    Full name
-                    <NativeInput
-                        type="text"
-                        name="full_name"
-                        value={user.full_name || ""}
-                        onChange={onFormChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Short bio
-                    <NativeInput
-                        type="text"
-                        name="short_bio"
-                        value={user.short_bio || ""}
-                        onChange={onFormChange}
-                        placeholder="DevSecOps, or Project Manager"
-                    />
-                </label>
-                <label>
-                    Email
-                    <NativeInput type="email" name="email" value={user.email || ""} onChange={onFormChange} required />
-                </label>
-                <label>
-                    Role
-                    <NativeSelect name="role" onChange={onFormChange} value={user.role} required>
-                        {UserRoles.map((role) => (
-                            <option key={`role_${role.id}`} value={role.id}>
-                                {role.name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </label>
-                <label>
-                    Properties
-                    <div>
-                        <NativeCheckbox name="active" checked={user.active} onChange={onFormChange}>
-                            Active
-                        </NativeCheckbox>
-                        <NativeCheckbox name="mfa_enabled" checked={user.mfa_enabled} onChange={onFormChange}>
-                            2FA enabled
-                        </NativeCheckbox>
-                    </div>
-                </label>
+                <LabelledField
+                    id="fullName"
+                    label="Full name"
+                    control={
+                        <NativeInput
+                            id="fullName"
+                            type="text"
+                            name="full_name"
+                            value={user.full_name || ""}
+                            onChange={onFormChange}
+                            required
+                        />
+                    }
+                />
+                <LabelledField
+                    label="Short bio"
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="short_bio"
+                            value={user.short_bio || ""}
+                            onChange={onFormChange}
+                            placeholder="DevSecOps, or Project Manager"
+                        />
+                    }
+                />
+                <LabelledField
+                    label="Email"
+                    control={
+                        <NativeInput
+                            type="email"
+                            name="email"
+                            value={user.email || ""}
+                            onChange={onFormChange}
+                            required
+                        />
+                    }
+                />
+                <LabelledField
+                    label="Role"
+                    control={
+                        <NativeSelect name="role" onChange={onFormChange} value={user.role} required>
+                            {UserRoles.map((role) => (
+                                <option key={`role_${role.id}`} value={role.id}>
+                                    {role.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    }
+                />
+                <LabelledField
+                    label="Properties"
+                    control={
+                        <div>
+                            <NativeCheckbox name="active" checked={user.active} onChange={onFormChange}>
+                                Active
+                            </NativeCheckbox>
+                            <NativeCheckbox name="mfa_enabled" checked={user.mfa_enabled} onChange={onFormChange}>
+                                2FA enabled
+                            </NativeCheckbox>
+                        </div>
+                    }
+                />
             </fieldset>
 
             <fieldset>
                 <legend>Credentials</legend>
-                <label>
-                    Username
-                    <NativeInput
-                        type="text"
-                        name="username"
-                        value={user.username || ""}
-                        onChange={onFormChange}
-                        autoFocus
-                        required
-                    />
-                </label>
+                <LabelledField
+                    label="Username"
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="username"
+                            value={user.username || ""}
+                            onChange={onFormChange}
+                            autoFocus
+                            required
+                        />
+                    }
+                />
                 {!isEdit && (
                     <>
-                        <label htmlFor="passwordGenerationMethod">
-                            Password generation method
-                            <NativeSelect name="passwordGenerationMethod" onChange={onPasswordGenerationMethodChange}>
-                                <option value="auto">Auto-generated</option>
-                                <option value="manual">Manual</option>
-                            </NativeSelect>
-                        </label>
+                        <LabelledField
+                            label="Password generation method"
+                            control={
+                                <NativeSelect
+                                    name="passwordGenerationMethod"
+                                    onChange={onPasswordGenerationMethodChange}
+                                >
+                                    <option value="auto">Auto-generated</option>
+                                    <option value="manual">Manual</option>
+                                </NativeSelect>
+                            }
+                        />
                         {passwordGenerationMethod === "manual" && (
                             <>
-                                <label>
-                                    Password
-                                    <NativeInput
-                                        type="password"
-                                        name="unencryptedPassword"
-                                        onChange={onFormChange}
-                                        required
-                                    />
-                                </label>
-                                <label>
-                                    Send email to user
-                                    <NativeCheckbox name="sendEmailToUser" onChange={onFormChange} />
-                                </label>
+                                <LabelledField
+                                    label="Password"
+                                    control={
+                                        <NativeInput
+                                            type="password"
+                                            name="unencryptedPassword"
+                                            onChange={onFormChange}
+                                            required
+                                        />
+                                    }
+                                />
+                                <LabelledField
+                                    label=""
+                                    control={
+                                        <NativeCheckbox name="sendEmailToUser" onChange={onFormChange}>
+                                            Send email to user
+                                        </NativeCheckbox>
+                                    }
+                                />
                             </>
                         )}
                     </>
                 )}
             </fieldset>
 
-            <PrimaryButton type="submit">{isEdit ? "Update" : "Create"}</PrimaryButton>
+            <LabelledField
+                label=""
+                control={
+                    <div className="control">
+                        <PrimaryButton type="submit">{isEdit ? "Update" : "Create"}</PrimaryButton>
+                    </div>
+                }
+            />
         </form>
     );
 };

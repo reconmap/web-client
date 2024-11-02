@@ -1,11 +1,10 @@
-import { Button } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
 import { useTranslation } from "react-i18next";
 
 const EditButton = (props) => {
-    const [t] = useTranslation('common');
+    const [t] = useTranslation("common");
 
-    return <Button {...props}>{t('ui.button.edit')}</Button>
+    return <NativeButton {...props}>{t("ui.button.edit")}</NativeButton>;
 };
 
 export default EditButton;
-

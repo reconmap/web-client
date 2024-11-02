@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast } from "components/ui/toast";
 import Note from "models/Note";
@@ -38,24 +38,16 @@ const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
     };
 
     return (
-        <ModalDialog
-            title="New notes details"
-            visible={isOpen}
-            onModalClose={beforeCancelCallback}
-        >
-            <NotesForm
-                note={newNote}
-                onFormSubmit={onCreateNoteFormSubmit}
-                noteSetter={updateNewNote}
-            />
+        <ModalDialog title="New notes details" visible={isOpen} onModalClose={beforeCancelCallback}>
+            <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
 
             <div style={{ paddingTop: "20px" }}>
-                <Button onClick={beforeCancelCallback} mr={3}>
+                <NativeButton onClick={beforeCancelCallback} mr={3}>
                     Cancel
-                </Button>
-                <Button colorScheme="blue" onClick={onCreateNoteFormSubmit}>
+                </NativeButton>
+                <NativeButton colorScheme="blue" onClick={onCreateNoteFormSubmit}>
                     Save
-                </Button>
+                </NativeButton>
             </div>
         </ModalDialog>
     );

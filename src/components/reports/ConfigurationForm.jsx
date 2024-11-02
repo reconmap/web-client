@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import secureApiFetch from "services/api";
 
 const ReportConfigurationForm = ({ projectId }) => {
-
     const [serverConfiguration] = useFetch(`/reports/${projectId}/configuration`);
 
     const [clientConfiguration, updateClientConfiguration] = useState(null);
@@ -15,12 +14,12 @@ const ReportConfigurationForm = ({ projectId }) => {
         ev.preventDefault();
 
         secureApiFetch(`/reports/${projectId}/configuration`, {
-            method: 'PUT',
-            body: JSON.stringify(clientConfiguration)
-        })
+            method: "PUT",
+            body: JSON.stringify(clientConfiguration),
+        });
 
         actionCompletedToast(`Configuration updated.`);
-    }
+    };
 
     const onFormChange = (ev) => {
         ev.preventDefault();
@@ -31,8 +30,7 @@ const ReportConfigurationForm = ({ projectId }) => {
         }
 
         updateClientConfiguration({ ...clientConfiguration, [ev.target.name]: value });
-    }
-
+    };
 
     useEffect(() => {
         if (serverConfiguration) {
@@ -40,46 +38,60 @@ const ReportConfigurationForm = ({ projectId }) => {
         }
     }, [serverConfiguration]);
 
-    if (!clientConfiguration) return <Loading />
+    if (!clientConfiguration) return <Loading />;
 
-    return <>
-        <form onSubmit={onConfigurationFormSubmit} className="crud">
-            <fieldset>
-                <legend>Optional sections</legend>
+    return (
+        <>
+            <form onSubmit={onConfigurationFormSubmit}>
+                <fieldset>
+                    <legend>Optional sections</legend>
 
-                <label>
-                    Include table of contents
-                    <select name="include_toc" value={clientConfiguration.include_toc} onChange={onFormChange}>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                </label>
-                <label>
-                    Include revisions table
-                    <select name="include_revisions_table" value={clientConfiguration.include_revisions_table} onChange={onFormChange}>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                </label>
-                <label>
-                    Include team bios
-                    <select name="include_team_bios" value={clientConfiguration.include_team_bios} onChange={onFormChange}>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                </label>
-                <label>
-                    Include findings overview
-                    <select name="include_findings_overview" value={clientConfiguration.include_findings_overview} onChange={onFormChange}>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                </label>
-            </fieldset>
+                    <label>
+                        Include table of contents
+                        <select name="include_toc" value={clientConfiguration.include_toc} onChange={onFormChange}>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </label>
+                    <label>
+                        Include revisions table
+                        <select
+                            name="include_revisions_table"
+                            value={clientConfiguration.include_revisions_table}
+                            onChange={onFormChange}
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </label>
+                    <label>
+                        Include team bios
+                        <select
+                            name="include_team_bios"
+                            value={clientConfiguration.include_team_bios}
+                            onChange={onFormChange}
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </label>
+                    <label>
+                        Include findings overview
+                        <select
+                            name="include_findings_overview"
+                            value={clientConfiguration.include_findings_overview}
+                            onChange={onFormChange}
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </label>
+                </fieldset>
 
-            <PrimaryButton type="submit">Save configuration</PrimaryButton>
-        </form>
-    </>
-}
+                <PrimaryButton type="submit">Save configuration</PrimaryButton>
+            </form>
+        </>
+    );
+};
 
 export default ReportConfigurationForm;

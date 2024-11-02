@@ -52,15 +52,13 @@ const TemplatesList = () => {
                     <Link to="/projects">Projects</Link>
                 </Breadcrumb>
 
-                <CreateButton onClick={onAddProjectTemplateClick}>
-                    Add project template
-                </CreateButton>
+                <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
             </div>
             <title title="Project templates" icon={<IconDocumentDuplicate />} />
             {!templates ? (
                 <Loading />
             ) : (
-                <table className="rm-listing">
+                <table className="table is-fullwidth">
                     <thead>
                         <tr>
                             <th style={{ width: "190px" }}>Name</th>
@@ -78,40 +76,25 @@ const TemplatesList = () => {
                             </tr>
                         ) : (
                             templates.map((template) => (
-                                <tr
-                                    key={template.id}
-                                    onClick={() => viewProject(template.id)}
-                                >
+                                <tr key={template.id} onClick={() => viewProject(template.id)}>
                                     <td>
                                         <ProjectBadge project={template} />
                                     </td>
                                     <td>{template.description}</td>
                                     <td>
-                                        <BadgeOutline>
-                                            {template.num_tasks}
-                                        </BadgeOutline>
+                                        <BadgeOutline>{template.num_tasks}</BadgeOutline>
                                     </td>
                                     <td textAlign="right">
                                         <PrimaryButton
-                                            onClick={(ev) =>
-                                                cloneProject(ev, template.id)
-                                            }
+                                            onClick={(ev) => cloneProject(ev, template.id)}
                                             key={template.id}
                                             title="Clone"
                                             leftIcon={<IconPlus />}
                                         >
                                             Clone and edit
                                         </PrimaryButton>
-                                        <LinkButton
-                                            href={`/projects/${template.id}/edit`}
-                                        >
-                                            Edit
-                                        </LinkButton>
-                                        <DeleteIconButton
-                                            onClick={(ev) =>
-                                                deleteTemplate(ev, template.id)
-                                            }
-                                        />
+                                        <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
+                                        <DeleteIconButton onClick={(ev) => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>
                             ))

@@ -1,7 +1,7 @@
-import { useDisclosure } from "@chakra-ui/react";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import NoteModalDialog from "components/notes/ModalDialog";
 import CreateButton from "components/ui/buttons/Create";
+import useBoolean from "hooks/useBoolean";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";
@@ -9,11 +9,9 @@ import { IconDocument } from "../ui/Icons";
 import Loading from "../ui/Loading";
 
 const ProjectNotesTab = ({ project }) => {
-    const [notes, reloadNotes] = useFetch(
-        `/notes?parentType=project&parentId=${project.id}`,
-    );
+    const [notes, reloadNotes] = useFetch(`/notes?parentType=project&parentId=${project.id}`);
     const deleteNoteById = useDelete("/notes/", reloadNotes);
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { value: isOpen, setTrue: openDialog, setFalse: closeDialog } = useBoolean();
 
     const onDeleteButtonClick = (ev, note) => {
         ev.preventDefault();
@@ -35,23 +33,18 @@ const ProjectNotesTab = ({ project }) => {
             <h4>
                 <IconDocument />
                 Project comments
-                <RestrictedComponent
-                    roles={["administrator", "superuser", "user"]}
-                >
+                <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                     <NoteModalDialog
                         parentType="project"
                         parent={project}
                         isOpen={isOpen}
                         onClose={onNoteFormSaved}
-                        onCancel={onClose}
+                        onCancel={closeDialog}
                     />
-                    <CreateButton onClick={onOpen}>Add note...</CreateButton>
+                    <CreateButton onClick={openDialog}>Add note...</CreateButton>
                 </RestrictedComponent>
             </h4>
-            <NotesTable
-                notes={notes}
-                onDeleteButtonClick={onDeleteButtonClick}
-            />
+            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
         </section>
     );
 };

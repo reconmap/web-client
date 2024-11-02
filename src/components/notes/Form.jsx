@@ -1,4 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTextArea from "components/form/NativeTextArea";
 
@@ -13,8 +12,8 @@ const NotesForm = ({ note, onFormSubmit, noteSetter: setNote }) => {
 
     return (
         <form onSubmit={onFormSubmit}>
-            <FormControl id="content" isRequired>
-                <FormLabel>Content</FormLabel>
+            <div id="content" isRequired>
+                <label>Content</label>
                 <NativeTextArea
                     name="content"
                     style={{ width: "100%" }}
@@ -24,18 +23,14 @@ const NotesForm = ({ note, onFormSubmit, noteSetter: setNote }) => {
                     autoFocus
                 ></NativeTextArea>
                 <br />
-            </FormControl>
-            <FormControl id="visibility" isRequired>
-                <FormLabel>Visibility</FormLabel>
-                <NativeSelect
-                    name="visibility"
-                    value={note.visibility}
-                    onChange={onFormInputChange}
-                >
+            </div>
+            <div id="visibility" isRequired>
+                <label>Visibility</label>
+                <NativeSelect name="visibility" value={note.visibility} onChange={onFormInputChange}>
                     <option value="private">Private</option>
                     <option value="public">Public</option>
                 </NativeSelect>
-            </FormControl>
+            </div>
         </form>
     );
 };

@@ -1,10 +1,8 @@
-import styles from "./NativeSelect.module.css";
-
 const NativeSelect = ({ children, ...props }) => {
     return (
-        <select className={styles.native} {...props}>
-            {children}
-        </select>
+        <div className="select">
+            <select {...props}>{children}</select>
+        </div>
     );
 };
 

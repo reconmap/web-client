@@ -1,27 +1,16 @@
-import {
-    ButtonGroup,
-    IconButton,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-    useColorMode,
-} from "@chakra-ui/react";
 import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import NativeButton from "components/form/NativeButton";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { actionCompletedToast } from "components/ui/toast";
+import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
-import Breadcrumb from "../ui/Breadcrumb";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from "../ui/buttons/Secondary";
 import { IconClipboardCheck, IconFolder, IconUserGroup } from "../ui/Icons";
@@ -39,11 +28,12 @@ import ProjectVulnerabilities from "./Vulnerabilities";
 const ProjectDetails = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
-    const { colorMode } = useColorMode();
 
     const [project, updateProject] = useFetch(`/projects/${projectId}`);
     const [users] = useFetch(`/projects/${projectId}/users`);
     const destroy = useDelete(`/projects/`, updateProject);
+
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     const handleGenerateReport = () => {
         navigate(`/projects/${project.id}/report`);
@@ -72,80 +62,51 @@ const ProjectDetails = () => {
     return (
         <>
             <div className="heading">
-                <Breadcrumb>
+                <div>
                     <Link to="/projects">Projects</Link>
-                </Breadcrumb>
+                </div>
                 {project && (
                     <>
                         <PageTitle value={`${project.name} project`} />
                         <ProjectTeam project={project} users={users} />
 
-                        <ButtonGroup isAttached>
-                            <RestrictedComponent
-                                roles={["administrator", "superuser", "user"]}
-                            >
+                        <NativeButtonGroup>
+                            <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                                 {!project.archived && (
                                     <>
-                                        <LinkButton
-                                            href={`/projects/${project.id}/edit`}
-                                        >
-                                            Edit
-                                        </LinkButton>
+                                        <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
                                         <SecondaryButton
                                             onClick={handleGenerateReport}
                                             leftIcon={<IconClipboardCheck />}
                                         >
                                             Report
                                         </SecondaryButton>
-                                        <SecondaryButton
-                                            onClick={handleManageTeam}
-                                            leftIcon={<IconUserGroup />}
-                                        >
+                                        <SecondaryButton onClick={handleManageTeam} leftIcon={<IconUserGroup />}>
                                             Membership
                                         </SecondaryButton>
                                     </>
                                 )}
 
-                                <Menu>
-                                    <MenuButton
-                                        as={IconButton}
+                                <div>
+                                    <NativeButton
                                         aria-label="Options"
-                                        icon={
-                                            <FontAwesomeIcon
-                                                icon={faEllipsis}
-                                            />
-                                        }
+                                        icon={<FontAwesomeIcon icon={faEllipsis} />}
                                         variant="outline"
                                     />
-                                    <MenuList>
-                                        <MenuItem
-                                            onClick={() =>
-                                                onArchiveButtonClick(project)
-                                            }
-                                        >
-                                            {project.archived
-                                                ? "Unarchive"
-                                                : "Archive"}
-                                        </MenuItem>
-                                        <MenuItem
-                                            icon={
-                                                <FontAwesomeIcon
-                                                    icon={faTrash}
-                                                />
-                                            }
-                                            color={
-                                                colorMode === "light"
-                                                    ? "red.500"
-                                                    : "red.400"
-                                            }
+                                    <div>
+                                        <div onClick={() => onArchiveButtonClick(project)}>
+                                            {project.archived ? "Unarchive" : "Archive"}
+                                        </div>
+                                        <div
+                                            icon={<FontAwesomeIcon icon={faTrash} />}
                                             onClick={() => destroy(project.id)}
                                         >
                                             Delete
-                                        </MenuItem>
-                                    </MenuList>
-                                </Menu>
+                                        </div>
+                                    </div>
+                                </div>
                             </RestrictedComponent>
-                        </ButtonGroup>
+                        </NativeButtonGroup>
                     </>
                 )}
             </div>
@@ -153,46 +114,51 @@ const ProjectDetails = () => {
                 <Loading />
             ) : (
                 <>
-                    <Title
-                        title={project.name}
-                        type="Project"
-                        icon={<IconFolder />}
+                    <Title title={project.name} type="Project" icon={<IconFolder />} />
+
+                    <NativeTabs
+                        labels={["Details", "Targets", "Tasks", "Vulnerabilities", "Comments", "Attachments", "Vault"]}
+                        tabIndex={tabIndex}
+                        tabIndexSetter={tabIndexSetter}
                     />
 
-                    <Tabs>
-                        <TabList>
-                            <Tab>Details</Tab>
-                            <Tab>Targets</Tab>
-                            <Tab>Tasks</Tab>
-                            <Tab>Vulnerabilities</Tab>
-                            <Tab>Comments</Tab>
-                            <Tab>Attachments</Tab>
-                            <Tab>Vault</Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel>
+                    <div>
+                        {0 === tabIndex && (
+                            <div>
                                 <ProjectDetailsTab project={project} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                        )}
+                        {1 === tabIndex && (
+                            <div>
                                 <ProjectTargets project={project} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                        )}
+                        {2 === tabIndex && (
+                            <div>
                                 <ProjectTasks project={project} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                        )}
+                        {3 === tabIndex && (
+                            <div>
                                 <ProjectVulnerabilities project={project} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                        )}
+                        {4 === tabIndex && (
+                            <div>
                                 <ProjectNotesTab project={project} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                        )}
+                        {5 === tabIndex && (
+                            <div>
                                 <ProjectAttachmentsTab project={project} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                        )}
+                        {6 === tabIndex && (
+                            <div>
                                 <ProjectVaultTab project={project} />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
+                            </div>
+                        )}
+                    </div>
                 </>
             )}
         </>

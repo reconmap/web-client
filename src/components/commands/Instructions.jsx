@@ -1,11 +1,5 @@
-import {
-    Button,
-    FormControl,
-    FormErrorMessage,
-    FormHelperText,
-    FormLabel,
-    Input,
-} from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
+import NativeInput from "components/form/NativeInput";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
@@ -27,9 +21,7 @@ const CommandInstructions = ({ command, task = null }) => {
     const [usage, setUsage] = useState(null);
 
     const onUsageChange = (ev) => {
-        const usage = commandUsages.find(
-            (usage) => usage.id === parseInt(ev.target.value),
-        );
+        const usage = commandUsages.find((usage) => usage.id === parseInt(ev.target.value));
         setUsage(usage || null);
     };
 
@@ -66,20 +58,14 @@ const UsageDetail = ({ command, task, usage }) => {
     const [showTerminal, setShowTerminal] = useState(false);
 
     useEffect(() => {
-        const commandArgsRendered = CommandService.renderArguments(
-            usage,
-            commandArgs,
-        );
+        const commandArgsRendered = CommandService.renderArguments(usage, commandArgs);
         setCommandArgsRendered(commandArgsRendered);
     }, [commandArgs]);
 
-    const [scheduledCommands, fetchScheduledCommands] = useFetch(
-        `/commands/${command?.id}/schedules`,
-    );
+    const [scheduledCommands, fetchScheduledCommands] = useFetch(`/commands/${command?.id}/schedules`);
     const [cronExpresion, setCronExpresion] = useState("");
     const [isCronExpressionInvalid, setCronExpressionInvalid] = useState(true);
-    const [cronExpressionErrorMessage, setCronExpressionErrorMessage] =
-        useState(null);
+    const [cronExpressionErrorMessage, setCronExpressionErrorMessage] = useState(null);
 
     const onArgUpdate = (ev, usage) => {
         setCommandArgs({
@@ -119,10 +105,7 @@ const UsageDetail = ({ command, task, usage }) => {
     const saveScheduledCommand = (ev, command, usage, commandArgsRendered) => {
         const schedule = {
             command_id: command.id,
-            argument_values:
-                CommandService.generateEntryPoint(command, task) +
-                " " +
-                commandArgsRendered,
+            argument_values: CommandService.generateEntryPoint(command, task) + " " + commandArgsRendered,
             cron_expression: cronExpresion,
         };
 
@@ -136,9 +119,7 @@ const UsageDetail = ({ command, task, usage }) => {
                     fetchScheduledCommands();
                     actionCompletedToast(`The schedule has been saved.`);
                 } else {
-                    errorToast(
-                        "The schedule could not be saved. Review the form data or check the application logs.",
-                    );
+                    errorToast("The schedule could not be saved. Review the form data or check the application logs.");
                 }
             })
             .catch((reason) => {
@@ -151,11 +132,8 @@ const UsageDetail = ({ command, task, usage }) => {
             {Object.keys(commandArgs).length > 0 &&
                 Object.keys(commandArgs).map((key) => (
                     <p key={`command_${key}`}>
-                        <label htmlFor="commandArg">
-                            {commandArgs[key].name}
-                        </label>{" "}
-                        <br />
-                        <Input
+                        <label htmlFor="commandArg">{commandArgs[key].name}</label> <br />
+                        <NativeInput
                             id="commandArg"
                             name={commandArgs[key].name}
                             value={commandArgs[key].placeholder}
@@ -163,32 +141,21 @@ const UsageDetail = ({ command, task, usage }) => {
                         />
                     </p>
                 ))}
-            {Object.keys(commandArgs).length === 0 && (
-                <p>No arguments required.</p>
-            )}
+            {Object.keys(commandArgs).length === 0 && <p>No arguments required.</p>}
             <h4>
                 2. Execute <strong>rmap</strong> on any terminal
             </h4>
             <div>
-                Make sure you have a copy of <strong>rmap</strong> on a machine
-                you trust. Download the CLI for Macos/Linux and Windows from{" "}
-                <ExternalLink href={CliDownloadUrl}>Github</ExternalLink>.<br />
-                Once <strong>rmap</strong> is within reach execute the command
-                shown below.
+                Make sure you have a copy of <strong>rmap</strong> on a machine you trust. Download the CLI for
+                Macos/Linux and Windows from <ExternalLink href={CliDownloadUrl}>Github</ExternalLink>.<br />
+                Once <strong>rmap</strong> is within reach execute the command shown below.
                 <ShellCommand>
-                    {CommandService.generateEntryPoint(usage, task)}{" "}
-                    {commandArgsRendered}
+                    {CommandService.generateEntryPoint(usage, task)} {commandArgsRendered}
                 </ShellCommand>
-                <Button onClick={runOnTerminal}>
-                    Run on a browser terminal
-                </Button>
+                <NativeButton onClick={runOnTerminal}>Run on a browser terminal</NativeButton>
                 {showTerminal && (
                     <CommandTerminal
-                        commands={[
-                            CommandService.generateEntryPoint(usage, task) +
-                                " " +
-                                commandArgsRendered,
-                        ]}
+                        commands={[CommandService.generateEntryPoint(usage, task) + " " + commandArgsRendered]}
                     />
                 )}
             </div>
@@ -198,11 +165,9 @@ const UsageDetail = ({ command, task, usage }) => {
                     <h4>3. Wait for results</h4>
 
                     <div>
-                        The <strong>rmap</strong> command will automatically
-                        capture the output of the previous command and upload it
-                        to the server for analysis. If there are new hosts
-                        discovered, or new vulnerabilities detected, they will
-                        be reported in the dashboard.
+                        The <strong>rmap</strong> command will automatically capture the output of the previous command
+                        and upload it to the server for analysis. If there are new hosts discovered, or new
+                        vulnerabilities detected, they will be reported in the dashboard.
                     </div>
                 </>
             )}
@@ -222,21 +187,13 @@ const UsageDetail = ({ command, task, usage }) => {
                             <tr>
                                 <td>{scheduleCommand.cron_expression}</td>
                                 <td>
-                                    {CronExpressionToString(
-                                        scheduleCommand.cron_expression,
-                                        { throwExceptionOnParseError: false },
-                                    )}
+                                    {CronExpressionToString(scheduleCommand.cron_expression, {
+                                        throwExceptionOnParseError: false,
+                                    })}
                                 </td>
                                 <td>{scheduleCommand.argument_values}</td>
                                 <td>
-                                    <DeleteIconButton
-                                        onClick={(ev) =>
-                                            deleteScheduledCommand(
-                                                ev,
-                                                scheduleCommand,
-                                            )
-                                        }
-                                    />
+                                    <DeleteIconButton onClick={(ev) => deleteScheduledCommand(ev, scheduleCommand)} />
                                 </td>
                             </tr>
                         ))}
@@ -245,38 +202,27 @@ const UsageDetail = ({ command, task, usage }) => {
             )}
 
             <h3>Run on schedule</h3>
-            <FormControl isInvalid={isCronExpressionInvalid}>
-                <FormLabel>Cron expression</FormLabel>
-                <Input
+            <div isInvalid={isCronExpressionInvalid}>
+                <label>Cron expression</label>
+                <NativeInput
                     type="text"
                     name="cronExpresion"
                     placeholder="*/1 * * * *"
                     value={cronExpresion}
                     onChange={onCronExpresionChange}
                 />
-                <FormErrorMessage>
-                    {cronExpressionErrorMessage}
-                </FormErrorMessage>
-                <FormHelperText>
+                <div>{cronExpressionErrorMessage}</div>
+                <div>
                     Learn about cron expressions{" "}
-                    <ExternalLink href="https://en.wikipedia.org/wiki/Cron#CRON_expression">
-                        here
-                    </ExternalLink>
-                </FormHelperText>
-            </FormControl>
-            <Button
+                    <ExternalLink href="https://en.wikipedia.org/wiki/Cron#CRON_expression">here</ExternalLink>
+                </div>
+            </div>
+            <NativeButton
                 disabled={cronExpresion === ""}
-                onClick={(ev) =>
-                    saveScheduledCommand(
-                        ev,
-                        command,
-                        usage,
-                        commandArgsRendered,
-                    )
-                }
+                onClick={(ev) => saveScheduledCommand(ev, command, usage, commandArgsRendered)}
             >
                 Save scheduled command
-            </Button>
+            </NativeButton>
         </>
     );
 };

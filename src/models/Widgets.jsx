@@ -10,65 +10,65 @@ import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/wi
 import VulnerabilitiesByRiskStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget";
 
 const Widgets = {
-    'my-tasks': {
-        title: 'My tasks',
-        description: 'It shows a list of all open tasks assigned to you.',
+    "my-tasks": {
+        title: "My tasks",
+        description: "It shows a list of all open tasks assigned to you.",
         visible: true,
-        component: <MyTasksWidget />
+        component: <MyTasksWidget />,
     },
-    'vulnerability-by-risk-stats': {
-        title: 'Vulnerability by risk',
+    "vulnerability-by-risk-stats": {
+        title: "Vulnerability by risk",
         visible: true,
-        component: <VulnerabilitiesByRiskStatsWidget />
+        component: <VulnerabilitiesByRiskStatsWidget />,
     },
-    'active-projects': {
-        title: 'Active projects',
+    "active-projects": {
+        title: "Active projects",
         visible: true,
         component: <ActiveProjectsWidget />,
-        description: 'It shows a list of all non-archived projects.'
+        description: "It shows a list of all non-archived projects.",
     },
-    'popular-commands': {
-        title: 'Popular commands',
+    "popular-commands": {
+        title: "Popular commands",
         visible: true,
         component: <PopularCommandsWidget />,
-        permissions: 'commands.'
+        permissions: "commands.",
     },
-    'recent-documents': {
-        title: 'Recent documents',
+    "recent-documents": {
+        title: "Recent documents",
         visible: true,
         component: <RecentDocumentsWidget />,
-        description: 'It shows a list of the most recent documents.',
-        permissions: 'documents.*'
+        description: "It shows a list of the most recent documents.",
+        permissions: "documents.*",
     },
-    'vulnerability-by-category-stats': {
-        title: 'Vulnerability by category',
+    "vulnerability-by-category-stats": {
+        title: "Vulnerability by category",
         visible: true,
-        component: <VulnerabilitiesByCategoryStatsWidget />
+        component: <VulnerabilitiesByCategoryStatsWidget />,
     },
-    'recent-activity': {
-        title: 'Recent activity',
+    "recent-activity": {
+        title: "Recent activity",
         visible: true,
         component: <RecentActivityWidget />,
-        permissions: 'system.*'
+        permissions: "system.*",
     },
-    'user-activity-stats': {
-        title: 'User activity over time',
+    "user-activity-stats": {
+        title: "User activity over time",
         visible: true,
         component: <UserActivityStatsWidget />,
-        permissions: 'system.*'
+        permissions: "system.*",
     },
-    'api-health': {
-        title: 'API health',
+    "api-health": {
+        title: "API health",
         visible: true,
         component: <ApiHealthWidget />,
-        description: 'It presents information about the health of the API server.',
-        permissions: 'system.*'
+        description: "It presents information about the health of the API server.",
+        permissions: "system.*",
     },
-    'recent-vulnerabilities': {
-        title: 'Recent vulnerabilities',
+    "recent-vulnerabilities": {
+        title: "Recent vulnerabilities",
         visible: true,
         component: <RecentVulnerabilitiesWidget />,
-        description: 'It shows the most recently reported vulnerabilities.'
+        description: "It shows the most recently reported vulnerabilities.",
     },
 };
 

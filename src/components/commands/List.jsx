@@ -1,16 +1,13 @@
-import { ButtonGroup, IconButton, Menu, MenuButton, MenuList } from "@chakra-ui/react";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
-import PageTitle from "components/logic/PageTitle";
 import CreateButton from "components/ui/buttons/Create";
 import ExportMenuItem from "components/ui/menuitems/ExportMenuItem";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
-import Breadcrumb from "../ui/Breadcrumb";
 import { IconFolder } from "../ui/Icons";
 import Title from "../ui/Title";
 import CommandsTable from "./Table";
@@ -68,27 +65,17 @@ const CommandsListPage = () => {
         reloadCommands();
     }, [reloadCommands]);
 
+    useDocumentTitle("Commands");
+
     return (
         <div>
-            <PageTitle value="Commands" />
             <div className="heading">
-                <Breadcrumb />
                 <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
 
-                <ButtonGroup isAttached>
+                <NativeButtonGroup>
                     <CreateButton onClick={onAddCommandClick}>Add command</CreateButton>
-                    <Menu>
-                        <MenuButton
-                            as={IconButton}
-                            aria-label="Options"
-                            icon={<FontAwesomeIcon icon={faEllipsis} />}
-                            variant="outline"
-                        />
-                        <MenuList>
-                            <ExportMenuItem entity="commands" />
-                        </MenuList>
-                    </Menu>
-                </ButtonGroup>
+                    <ExportMenuItem entity="commands" />
+                </NativeButtonGroup>
             </div>
             <Title title={`Commands (${totalCount})`} icon={<IconFolder />} />
             <CommandsTable commands={commands} onDeleteCallback={destroy} />

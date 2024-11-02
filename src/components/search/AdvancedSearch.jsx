@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import NativeButton from "components/form/NativeButton";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import PageTitle from "components/logic/PageTitle";
@@ -40,11 +40,7 @@ const AdvancedSearch = () => {
         const target = ev.target;
         const value = target.value;
 
-        setEntities(
-            target.checked
-                ? [...entities, value]
-                : entities.filter((entity) => entity !== value),
-        );
+        setEntities(target.checked ? [...entities, value] : entities.filter((entity) => entity !== value));
     };
 
     return (
@@ -54,60 +50,51 @@ const AdvancedSearch = () => {
                 <Breadcrumb />
             </div>
 
-            <h3>Recent searches</h3>
-            {recentSearches === null ? (
-                <>No searches.</>
-            ) : (
-                <ol>
-                    {recentSearches.map((search) => (
-                        <li>
-                            <Link
-                                to={SearchUrls.KeywordsSearch.replace(
-                                    ":keywords",
-                                    search,
-                                )}
+            <Title type="Advanced search" title="Search form" icon={<IconSearch />} />
+
+            <div className="columns">
+                <div className="column is-three-quarters">
+                    <form onSubmit={onFormSubmit}>
+                        <NativeInput
+                            type="search"
+                            name="keywords"
+                            value={keywords}
+                            onChange={onKeywordsChange}
+                            placeholder="Keywords..."
+                            autoFocus
+                            required
+                        />
+
+                        {Object.keys(entityList).map((objectKey) => (
+                            <NativeCheckbox
+                                checked={entities.includes(objectKey)}
+                                value={objectKey}
+                                onChange={onFormInputChange}
                             >
-                                {search}
-                            </Link>
-                        </li>
-                    ))}
-                </ol>
-            )}
-            <Title
-                type="Advanced search"
-                title="Search form"
-                icon={<IconSearch />}
-            />
+                                {entityList[objectKey]}
+                            </NativeCheckbox>
+                        ))}
 
-            <form onSubmit={onFormSubmit}>
-                <NativeInput
-                    type="search"
-                    name="keywords"
-                    value={keywords}
-                    onChange={onKeywordsChange}
-                    placeholder="Keywords..."
-                    autoFocus
-                />
-
-                {Object.keys(entityList).map((objectKey) => (
-                    <NativeCheckbox
-                        checked={entities.includes(objectKey)}
-                        value={objectKey}
-                        onChange={onFormInputChange}
-                    >
-                        {entityList[objectKey]}
-                    </NativeCheckbox>
-                ))}
-
-                <Button
-                    type="submit"
-                    isDisabled={
-                        keywords.trim().length === 0 || entities.length === 0
-                    }
-                >
-                    Search
-                </Button>
-            </form>
+                        <NativeButton type="submit" isDisabled={keywords.trim().length === 0 || entities.length === 0}>
+                            Search
+                        </NativeButton>
+                    </form>
+                </div>
+                <div className="column">
+                    <h4 className="is-size-4">Recent searches</h4>
+                    {recentSearches === null ? (
+                        <>No searches.</>
+                    ) : (
+                        <ol>
+                            {recentSearches.map((search) => (
+                                <li>
+                                    <Link to={SearchUrls.KeywordsSearch.replace(":keywords", search)}>{search}</Link>
+                                </li>
+                            ))}
+                        </ol>
+                    )}
+                </div>
+            </div>
         </>
     );
 };

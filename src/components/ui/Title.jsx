@@ -5,15 +5,6 @@ const Title = ({ type, title, icon }) => {
             display: "flex",
             alignItems: "center",
         },
-        subtitle: {
-            margin: 0,
-            marginBottom: "-6px",
-            color: "var(--primary-color)",
-        },
-        title: {
-            marginTop: "var(--space-sm)",
-            color: "var(--text-color)",
-        },
         icon: {
             backgroundColor: "var(--black)",
             borderRadius: "50%",
@@ -30,8 +21,8 @@ const Title = ({ type, title, icon }) => {
         <div style={styles.container}>
             {icon && <figure style={styles.icon}>{icon}</figure>}
             <div>
-                {type && <p style={styles.subtitle}>{type}</p>}
-                <h2 style={styles.title}>{title}</h2>
+                {type && <h2 className="subtitle">{type}</h2>}
+                <h1 className="title">{title}</h1>
             </div>
         </div>
     );

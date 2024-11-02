@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
-import Breadcrumb from '../ui/Breadcrumb';
+import Breadcrumb from "../ui/Breadcrumb";
 import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
-import Title from '../ui/Title';
+import Title from "../ui/Title";
 import { actionCompletedToast } from "../ui/toast";
 import ProjectForm from "./Form";
 
@@ -18,7 +18,7 @@ const ProjectEdit = () => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/projects/${projectId}`, { method: 'PUT', body: JSON.stringify(clientProject) })
+        await secureApiFetch(`/projects/${projectId}`, { method: "PUT", body: JSON.stringify(clientProject) });
         actionCompletedToast(`The project "${clientProject.name}" has been updated.`);
 
         if (clientProject.is_template) {
@@ -33,7 +33,7 @@ const ProjectEdit = () => {
     }, [serverProject]);
 
     if (!serverProject || !clientProject) {
-        return <Loading />
+        return <Loading />;
     }
 
     return (
@@ -46,10 +46,14 @@ const ProjectEdit = () => {
             </div>
             <Title title="Project details" icon={<IconPlus />} />
 
-            <ProjectForm isEdit={true} project={clientProject} projectSetter={setClientProject}
-                onFormSubmit={onFormSubmit} />
+            <ProjectForm
+                isEdit={true}
+                project={clientProject}
+                projectSetter={setClientProject}
+                onFormSubmit={onFormSubmit}
+            />
         </div>
-    )
-}
+    );
+};
 
 export default ProjectEdit;

@@ -1,4 +1,3 @@
-import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/react";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTextArea from "components/form/NativeTextArea";
@@ -67,37 +66,21 @@ const SendReport = () => {
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
-                    {project && (
-                        <Link to={`/projects/${project.id}`}>
-                            {project.name}
-                        </Link>
-                    )}
-                    {project && (
-                        <Link to={`/projects/${project.id}/report`}>
-                            Report
-                        </Link>
-                    )}
+                    {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
+                    {project && <Link to={`/projects/${project.id}/report`}>Report</Link>}
                 </Breadcrumb>
             </div>
             <form onSubmit={handleSend}>
                 <Title title="Send report" />
-                <FormControl isRequired>
-                    <FormLabel htmlFor="reportId">Revision</FormLabel>
-                    <NativeSelect
-                        id="reportId"
-                        name="report_id"
-                        onChange={handleFormChange}
-                    >
+                <div isRequired>
+                    <label htmlFor="reportId">Revision</label>
+                    <NativeSelect id="reportId" name="report_id" onChange={handleFormChange}>
                         {revisions &&
-                            revisions.map((revision) => (
-                                <option value={revision.id}>
-                                    {revision.version_name}
-                                </option>
-                            ))}
+                            revisions.map((revision) => <option value={revision.id}>{revision.version_name}</option>)}
                     </NativeSelect>
-                </FormControl>
-                <FormControl isRequired>
-                    <FormLabel>Recipients</FormLabel>
+                </div>
+                <div isRequired>
+                    <label>Recipients</label>
                     <NativeInput
                         type="text"
                         name="recipients"
@@ -106,12 +89,10 @@ const SendReport = () => {
                         required
                         placeholder="foo@bar.sec"
                     />
-                    <FormHelperText>
-                        Comma separated list of email addresses.
-                    </FormHelperText>
-                </FormControl>
-                <FormControl isRequired>
-                    <FormLabel>Subject</FormLabel>
+                    <div>Comma separated list of email addresses.</div>
+                </div>
+                <div isRequired>
+                    <label>Subject</label>
                     <NativeInput
                         type="text"
                         name="subject"
@@ -119,15 +100,11 @@ const SendReport = () => {
                         value={deliverySettings.subject}
                         required
                     />
-                </FormControl>
-                <FormControl isRequired>
-                    <FormLabel>Body</FormLabel>
-                    <NativeTextArea
-                        name="body"
-                        onChange={handleFormChange}
-                        value={deliverySettings.body}
-                    />
-                </FormControl>
+                </div>
+                <div isRequired>
+                    <label>Body</label>
+                    <NativeTextArea name="body" onChange={handleFormChange} value={deliverySettings.body} />
+                </div>
 
                 <PrimaryButton type="submit">Send</PrimaryButton>
             </form>

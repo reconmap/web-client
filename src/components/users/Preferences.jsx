@@ -1,12 +1,11 @@
-import { FormControl, FormLabel, useColorMode } from "@chakra-ui/react";
 import { LanguageList } from "bootstrap/LanguageList";
 import NativeSelect from "components/form/NativeSelect";
-import NativeSubmitButton from "components/form/NativeSubmitButton";
-import PageTitle from "components/logic/PageTitle";
+import PrimaryButton from "components/ui/buttons/Primary";
 import { ThemeList } from "components/ui/themes";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
 import CountriesTimezones from "countries-and-timezones";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetch from "hooks/useFetch";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,6 +18,8 @@ import { IconPreferences } from "../ui/Icons";
 import Title from "../ui/Title";
 
 const UserPreferences = () => {
+    useDocumentTitle("User preferences");
+
     const { i18n } = useTranslation();
 
     const { user } = useAuth();
@@ -29,8 +30,6 @@ const UserPreferences = () => {
     const timezoneKeys = Object.keys(timezones).sort();
 
     const { setTheme } = useContext(ThemeContext);
-
-    const { setColorMode } = useColorMode();
 
     const [formValues, setFormValues] = useState(null);
 
@@ -57,7 +56,6 @@ const UserPreferences = () => {
             .then(() => {
                 setTheme((theme) => {
                     setThemeColors(formValues.theme);
-                    setColorMode(formValues.theme);
                     return formValues.theme;
                 });
                 i18n.changeLanguage(formValues.language);
@@ -85,64 +83,67 @@ const UserPreferences = () => {
 
     return (
         <>
-            <PageTitle value="Preferences" />
             <div className="heading">
                 <Breadcrumb />
             </div>
             <Title type="User" title="Preferences" icon={<IconPreferences />} />
             <form onSubmit={onFormSubmit}>
-                <FormControl>
-                    <FormLabel>Language</FormLabel>
-                    <NativeSelect
-                        name="language"
-                        onChange={updateFormValues}
-                        defaultValue={
-                            userData.preferences
-                                ? userData.preferences["web-client.language"]
-                                : LanguageList[0].id
-                        }
-                    >
-                        {LanguageList.map((lang) => (
-                            <option key={lang.id} value={lang.id}>
-                                {lang.name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </FormControl>
-                <FormControl>
-                    <FormLabel>Theme</FormLabel>
-                    <NativeSelect
-                        name="theme"
-                        onChange={updateFormValues}
-                        defaultValue={
-                            userData.preferences
-                                ? userData.preferences["web-client.theme"]
-                                : ThemeList[0].id
-                        }
-                    >
-                        {ThemeList.map((theme) => (
-                            <option key={theme.id} value={theme.id}>
-                                {theme.name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </FormControl>
-                <FormControl>
-                    <FormLabel>Timezone</FormLabel>
-                    <NativeSelect
-                        name="timezone"
-                        onChange={updateFormValues}
-                        defaultValue={userData.timezone}
-                    >
-                        {timezoneKeys.map((key, index) => (
-                            <option key={index} value={timezones[key].name}>
-                                {timezones[key].name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </FormControl>
+                <div className="field">
+                    <label className="label">Language</label>
+                    <div className="control">
+                        <NativeSelect
+                            className="input"
+                            name="language"
+                            onChange={updateFormValues}
+                            defaultValue={
+                                userData.preferences ? userData.preferences["web-client.language"] : LanguageList[0].id
+                            }
+                        >
+                            {LanguageList.map((lang) => (
+                                <option key={lang.id} value={lang.id}>
+                                    {lang.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    </div>
+                </div>
 
-                <NativeSubmitButton>Save</NativeSubmitButton>
+                <div className="field">
+                    <label className="label">Theme</label>
+                    <div className="control">
+                        <NativeSelect
+                            name="theme"
+                            onChange={updateFormValues}
+                            defaultValue={
+                                userData.preferences ? userData.preferences["web-client.theme"] : ThemeList[0].id
+                            }
+                        >
+                            {ThemeList.map((theme) => (
+                                <option key={theme.id} value={theme.id}>
+                                    {theme.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    </div>
+                </div>
+                <div className="field">
+                    <label className="label">Timezone</label>
+                    <div className="control">
+                        <NativeSelect name="timezone" onChange={updateFormValues} defaultValue={userData.timezone}>
+                            {timezoneKeys.map((key, index) => (
+                                <option key={index} value={timezones[key].name}>
+                                    {timezones[key].name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    </div>
+                </div>
+
+                <div className="field">
+                    <div className="control">
+                        <PrimaryButton>Save</PrimaryButton>
+                    </div>
+                </div>
             </form>
         </>
     );

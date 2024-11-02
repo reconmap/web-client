@@ -69,31 +69,19 @@ const VulnerabilityTemplatesList = () => {
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
 
-                <CreateButton onClick={onAddVulnerabilityTemplateClick}>
-                    Add vulnerability template
-                </CreateButton>
+                <CreateButton onClick={onAddVulnerabilityTemplateClick}>Add vulnerability template</CreateButton>
             </div>
-            <title
-                title="Vulnerability templates"
-                icon={<IconDocumentDuplicate />}
-            />
+            <title title="Vulnerability templates" icon={<IconDocumentDuplicate />} />
             {!templates ? (
                 <Loading />
             ) : (
-                <table className="rm-listing">
+                <table className="table is-fullwidth">
                     <thead>
                         <tr>
                             <th>Summary</th>
                             <th colSpan={2}>
-                                <DescendingSortLink
-                                    callback={onSortChange}
-                                    property="category_name"
-                                />{" "}
-                                Category{" "}
-                                <AscendingSortLink
-                                    callback={onSortChange}
-                                    property="category_name"
-                                />
+                                <DescendingSortLink callback={onSortChange} property="category_name" /> Category{" "}
+                                <AscendingSortLink callback={onSortChange} property="category_name" />
                             </th>
                         </tr>
                     </thead>
@@ -106,47 +94,27 @@ const VulnerabilityTemplatesList = () => {
                             </tr>
                         ) : (
                             templates.map((template) => (
-                                <tr
-                                    key={template.id}
-                                    onClick={() => viewTemplate(template.id)}
-                                >
+                                <tr key={template.id} onClick={() => viewTemplate(template.id)}>
                                     <td>
-                                        <VulnerabilityBadge
-                                            vulnerability={template}
-                                        />
+                                        <VulnerabilityBadge vulnerability={template} />
                                     </td>
                                     <td>
                                         <VulnerabilityCategorySpan
                                             name={template.category_name}
-                                            parentName={
-                                                template.parent_category_name
-                                            }
+                                            parentName={template.parent_category_name}
                                         />
                                     </td>
                                     <td textAlign="right">
                                         <PrimaryButton
-                                            onClick={(ev) =>
-                                                cloneVulnerability(
-                                                    ev,
-                                                    template.id,
-                                                )
-                                            }
+                                            onClick={(ev) => cloneVulnerability(ev, template.id)}
                                             key={template.id}
                                             title="Clone"
                                             leftIcon={<IconPlus />}
                                         >
                                             Clone and edit
                                         </PrimaryButton>
-                                        <LinkButton
-                                            href={`/vulnerabilities/${template.id}/edit`}
-                                        >
-                                            Edit
-                                        </LinkButton>
-                                        <DeleteIconButton
-                                            onClick={(ev) =>
-                                                deleteTemplate(ev, template.id)
-                                            }
-                                        />
+                                        <LinkButton href={`/vulnerabilities/${template.id}/edit`}>Edit</LinkButton>
+                                        <DeleteIconButton onClick={(ev) => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>
                             ))

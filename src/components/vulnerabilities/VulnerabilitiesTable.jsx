@@ -1,4 +1,3 @@
-import { Stack } from "@chakra-ui/react";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
@@ -44,9 +43,7 @@ const VulnerabilitiesTable = ({
         } else {
             setTableModel({
                 ...tableModel,
-                selection: tableModel.selection.filter(
-                    (value) => value !== selectionId,
-                ),
+                selection: tableModel.selection.filter((value) => value !== selectionId),
             });
         }
     };
@@ -55,21 +52,15 @@ const VulnerabilitiesTable = ({
         if (ev.target.checked) {
             setTableModel({
                 ...tableModel,
-                selection: tableModel.vulnerabilities.map(
-                    (vulnerability) => vulnerability.id,
-                ),
+                selection: tableModel.vulnerabilities.map((vulnerability) => vulnerability.id),
             });
         } else {
             setTableModel({ ...tableModel, selection: [] });
         }
     };
 
-    const numColumns =
-        6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
-    const vulnerabilitiesLength =
-        null !== tableModel.vulnerabilities
-            ? tableModel.vulnerabilities.length
-            : 0;
+    const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
+    const vulnerabilitiesLength = null !== tableModel.vulnerabilities ? tableModel.vulnerabilities.length : 0;
 
     const deleteVulnerability = useDelete(
         "/vulnerabilities/",
@@ -79,7 +70,7 @@ const VulnerabilitiesTable = ({
     );
 
     return (
-        <table className="rm-listing">
+        <table className="table is-fullwidth">
             <thead>
                 <tr>
                     {showSelection && (
@@ -87,66 +78,30 @@ const VulnerabilitiesTable = ({
                             <NativeCheckbox
                                 onChange={onHeaderCheckboxClick}
                                 checked={
-                                    tableModel.selection.length &&
-                                    tableModel.selection.length ===
-                                        vulnerabilitiesLength
+                                    tableModel.selection.length && tableModel.selection.length === vulnerabilitiesLength
                                 }
-                                disabled={
-                                    tableModel.vulnerabilitiesLength === 0
-                                }
+                                disabled={tableModel.vulnerabilitiesLength === 0}
                             />
                         </th>
                     )}
                     <th style={{ width: "190px" }}>Summary</th>
-                    {showProjectColumn && (
-                        <th style={{ width: "190px" }}>Project</th>
-                    )}
+                    {showProjectColumn && <th style={{ width: "190px" }}>Project</th>}
                     <th style={{ width: "120px" }}>
-                        <DescendingSortLink
-                            callback={onSortChange}
-                            property="status"
-                        />{" "}
-                        Status{" "}
-                        <AscendingSortLink
-                            callback={onSortChange}
-                            property="status"
-                        />
+                        <DescendingSortLink callback={onSortChange} property="status" /> Status{" "}
+                        <AscendingSortLink callback={onSortChange} property="status" />
                     </th>
                     <th style={{ width: "120px" }}>
-                        <DescendingSortLink
-                            callback={onSortChange}
-                            property="risk"
-                        />{" "}
-                        Risk{" "}
-                        <AscendingSortLink
-                            callback={onSortChange}
-                            property="risk"
-                        />
+                        <DescendingSortLink callback={onSortChange} property="risk" /> Risk{" "}
+                        <AscendingSortLink callback={onSortChange} property="risk" />
                     </th>
                     <th style={{ width: "70px" }}>
-                        <DescendingSortLink
-                            callback={onSortChange}
-                            property="cvss_score"
-                        />{" "}
-                        <abbr title="Common Vulnerability Scoring System">
-                            CVSS
-                        </abbr>{" "}
-                        score{" "}
-                        <AscendingSortLink
-                            callback={onSortChange}
-                            property="cvss_score"
-                        />
+                        <DescendingSortLink callback={onSortChange} property="cvss_score" />{" "}
+                        <abbr title="Common Vulnerability Scoring System">CVSS</abbr> score{" "}
+                        <AscendingSortLink callback={onSortChange} property="cvss_score" />
                     </th>
                     <th className="only-desktop" style={{ width: "20%" }}>
-                        <DescendingSortLink
-                            callback={onSortChange}
-                            property="category_name"
-                        />{" "}
-                        Category{" "}
-                        <AscendingSortLink
-                            callback={onSortChange}
-                            property="category_name"
-                        />
+                        <DescendingSortLink callback={onSortChange} property="category_name" /> Category{" "}
+                        <AscendingSortLink callback={onSortChange} property="category_name" />
                     </th>
                     <th style={{ width: "15%", textAlign: "right" }}>
                         <ReloadButton onClick={reloadCallback} />
@@ -154,13 +109,10 @@ const VulnerabilitiesTable = ({
                 </tr>
             </thead>
             <tbody>
-                {null === tableModel.vulnerabilities && (
-                    <LoadingTableRow numColumns={numColumns} />
+                {null === tableModel.vulnerabilities && <LoadingTableRow numColumns={numColumns} />}
+                {null !== tableModel.vulnerabilities && 0 === tableModel.vulnerabilities.length && (
+                    <NoResultsTableRow numColumns={numColumns} />
                 )}
-                {null !== tableModel.vulnerabilities &&
-                    0 === tableModel.vulnerabilities.length && (
-                        <NoResultsTableRow numColumns={numColumns} />
-                    )}
                 {null !== tableModel.vulnerabilities &&
                     tableModel.vulnerabilities.length > 0 &&
                     tableModel.vulnerabilities.map((vulnerability, index) => {
@@ -171,28 +123,20 @@ const VulnerabilitiesTable = ({
                                         <NativeCheckbox
                                             value={vulnerability.id}
                                             onChange={onSelectionChange}
-                                            checked={tableModel.selection.includes(
-                                                vulnerability.id,
-                                            )}
+                                            checked={tableModel.selection.includes(vulnerability.id)}
                                         />
                                     </td>
                                 )}
                                 <td>
-                                    <Stack>
-                                        <VulnerabilityBadge
-                                            vulnerability={vulnerability}
-                                        />
-                                        <div>
-                                            <Tags values={vulnerability.tags} />
-                                        </div>
-                                    </Stack>
+                                    <VulnerabilityBadge vulnerability={vulnerability} />
+                                    <div>
+                                        <Tags values={vulnerability.tags} />
+                                    </div>
                                 </td>
                                 {showProjectColumn && (
                                     <td>
                                         {vulnerability.is_template ? (
-                                            <span title="Not applicable">
-                                                (n/a)
-                                            </span>
+                                            <span title="Not applicable">(n/a)</span>
                                         ) : (
                                             <ProjectBadge
                                                 project={{
@@ -204,47 +148,25 @@ const VulnerabilitiesTable = ({
                                     </td>
                                 )}
                                 <td>
-                                    <VulnerabilityStatusBadge
-                                        vulnerability={vulnerability}
-                                    />
+                                    <VulnerabilityStatusBadge vulnerability={vulnerability} />
                                 </td>
                                 <td>
                                     <RiskBadge risk={vulnerability.risk} />
                                 </td>
                                 <td>
-                                    <CvssScore
-                                        score={vulnerability.cvss_score}
-                                    />
+                                    <CvssScore score={vulnerability.cvss_score} />
                                 </td>
                                 <td className="only-desktop">
                                     <VulnerabilityCategorySpan
                                         name={vulnerability.category_name}
-                                        parentName={
-                                            vulnerability.parent_category_name
-                                        }
+                                        parentName={vulnerability.parent_category_name}
                                     />
                                 </td>
                                 <td textAlign="right">
-                                    <RestrictedComponent
-                                        roles={[
-                                            "administrator",
-                                            "superuser",
-                                            "user",
-                                        ]}
-                                    >
-                                        <LinkButton
-                                            href={`/vulnerabilities/${vulnerability.id}/edit`}
-                                        >
-                                            Edit
-                                        </LinkButton>
+                                    <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                                        <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                                         {reloadCallback && (
-                                            <DeleteIconButton
-                                                onClick={() =>
-                                                    deleteVulnerability(
-                                                        vulnerability.id,
-                                                    )
-                                                }
-                                            />
+                                            <DeleteIconButton onClick={() => deleteVulnerability(vulnerability.id)} />
                                         )}
                                     </RestrictedComponent>
                                 </td>

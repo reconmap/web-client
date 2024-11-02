@@ -1,16 +1,11 @@
 import AttachmentsImageDropzone from "components/attachments/ImageDropzone";
+import NativeInput from "components/form/NativeInput";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { useEffect, useState } from "react";
 import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
-import NativeInput from "components/form/NativeInput";
 
-const ClientForm = ({
-    isEditForm = false,
-    onFormSubmit,
-    client,
-    clientSetter: setClient,
-}) => {
+const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {
     const parentType = "client";
     const parentId = client.id;
     const [logo, setLogo] = useState(null);
@@ -26,10 +21,7 @@ const ClientForm = ({
 
     useEffect(() => {
         if (client.small_logo_attachment_id) {
-            downloadAndDisplayLogo(
-                client.small_logo_attachment_id,
-                "small_logo",
-            );
+            downloadAndDisplayLogo(client.small_logo_attachment_id, "small_logo");
         }
 
         if (client.logo_attachment_id) {
@@ -40,9 +32,7 @@ const ClientForm = ({
     const downloadAndDisplayLogo = (logoId, type) => {
         secureApiFetch(`/attachments/${logoId}`, { method: "GET", headers: {} })
             .then((resp) => {
-                const contentDispositionHeader = resp.headers.get(
-                    "Content-Disposition",
-                );
+                const contentDispositionHeader = resp.headers.get("Content-Disposition");
                 const filenameRe = new RegExp(/filename="(.*)";/);
                 const filename = filenameRe.exec(contentDispositionHeader)[1];
                 return Promise.all([resp.blob(), filename]);
@@ -65,7 +55,7 @@ const ClientForm = ({
     };
 
     return (
-        <form onSubmit={onFormSubmit} className="crud">
+        <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
                 <label>
@@ -81,21 +71,11 @@ const ClientForm = ({
                 </label>
                 <label>
                     Address
-                    <NativeInput
-                        type="text"
-                        name="address"
-                        onChange={onFormChange}
-                        value={client.address || ""}
-                    />
+                    <NativeInput type="text" name="address" onChange={onFormChange} value={client.address || ""} />
                 </label>
                 <label>
                     URL
-                    <NativeInput
-                        type="text"
-                        name="url"
-                        onChange={onFormChange}
-                        value={client.url || ""}
-                    />
+                    <NativeInput type="text" name="url" onChange={onFormChange} value={client.url || ""} />
                 </label>
             </fieldset>
 
@@ -105,9 +85,7 @@ const ClientForm = ({
                 <label>
                     Main logo
                     <div>
-                        {logo && (
-                            <img src={logo} alt="The main logo of client" />
-                        )}
+                        {logo && <img src={logo} alt="The main logo of client" />}
                         <RestrictedComponent
                             roles={["administrator", "superuser", "user"]}
                             message="(access restricted)"
@@ -127,12 +105,7 @@ const ClientForm = ({
                 <label>
                     Small Logo
                     <div>
-                        {smallLogo && (
-                            <img
-                                src={smallLogo}
-                                alt="The smaller version of the logo"
-                            />
-                        )}
+                        {smallLogo && <img src={smallLogo} alt="The smaller version of the logo" />}
                         <RestrictedComponent
                             roles={["administrator", "superuser", "user"]}
                             message="(access restricted)"
@@ -149,9 +122,7 @@ const ClientForm = ({
                     </div>
                 </label>
 
-                <PrimaryButton type="submit">
-                    {isEditForm ? "Save" : "Add"}
-                </PrimaryButton>
+                <PrimaryButton type="submit">{isEditForm ? "Save" : "Add"}</PrimaryButton>
             </fieldset>
         </form>
     );

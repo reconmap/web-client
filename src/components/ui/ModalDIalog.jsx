@@ -1,4 +1,3 @@
-import { Divider } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import "./ModalDialog.css";
 
@@ -39,7 +38,7 @@ const ModalDialog = ({ title, children, visible, onModalClose, style = {} }) => 
             style={style}
         >
             <h3>{title}</h3>
-            <Divider />
+            <hr />
 
             {children}
         </dialog>

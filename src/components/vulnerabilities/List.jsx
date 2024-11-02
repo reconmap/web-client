@@ -1,4 +1,4 @@
-import { ButtonGroup, Flex, HStack } from "@chakra-ui/react";
+import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -111,21 +111,19 @@ const VulnerabilitiesList = () => {
             <div className="heading">
                 <Breadcrumb />
                 <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
-                <HStack>
-                    <ButtonGroup>
+                <div>
+                    <NativeButtonGroup>
                         <CreateButton onClick={onAddVulnerabilityClick}>Add vulnerability</CreateButton>
                         <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                             <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
                                 Delete selected
                             </DeleteButton>
                         </RestrictedComponent>
-                    </ButtonGroup>
-                </HStack>
+                    </NativeButtonGroup>
+                </div>
             </div>
             <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
-            <Flex>
-                <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} />
-            </Flex>
+            <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} />
             <VulnerabilitiesTable
                 tableModel={tableModel}
                 tableModelSetter={setTableModel}

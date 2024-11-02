@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import NativeButton from 'components/form/NativeButton.js';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,10 +18,10 @@ const SecondaryButton = ({ onClick, children, to = "", disabled = false, externa
         external ? window.open(to, '_blank') : navigate(to)
     }
 
-    return <Button {...props} leftIcon={leftIcon}
+    return <NativeButton {...props} leftIcon={leftIcon}
         title={tooltip} onClick={onClick || handleOpen} isDisabled={disabled}>
         {children}
-    </Button>
+    </NativeButton>
 }
 
 export default SecondaryButton;

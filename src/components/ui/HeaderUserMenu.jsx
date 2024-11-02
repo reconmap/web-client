@@ -1,6 +1,6 @@
-import { Badge, Divider, HStack, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
 import UserAvatar from "components/badges/UserAvatar";
 import { AuthContext } from "contexts/AuthContext";
+import useToggle from "hooks/useToggle";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import KeyCloakService from "services/keycloak";
@@ -9,31 +9,39 @@ import ExternalLink from "./ExternalLink";
 const HeaderUserMenu = () => {
     const { user, logout } = useContext(AuthContext);
 
+    const { value, toggle } = useToggle(false);
+
     return (
-        <Menu closeOnBlur closeOnSelect>
-            <MenuButton>
-                <UserAvatar email={user.email} />
-            </MenuButton>
-            <MenuList>
-                <HStack px="3" pb="3" justifyContent="space-between" alignItems="center">
-                    <Text color="gray.500">{KeyCloakService.getUsername()}</Text>
-                    <Badge colorScheme="red">{user.role}</Badge>
-                </HStack>
-                <MenuItem>
-                    <ExternalLink href={KeyCloakService.getProfileUrl()}>Identity settings</ExternalLink>
-                </MenuItem>
-                <Link to={`/users/${user.id}`}>
-                    <MenuItem>Your profile</MenuItem>
-                </Link>
-                <Link to="/users/preferences">
-                    <MenuItem>Your preferences</MenuItem>
-                </Link>
-                <Divider />
-                <Link to="/" onClick={logout}>
-                    <MenuItem>Logout</MenuItem>
-                </Link>
-            </MenuList>
-        </Menu>
+        <div className={`dropdown ${value ? "is-active" : ""}`}>
+            <div className="dropdown-trigger">
+                <button className="button" aria-haspopup="true" aria-controls="dropdown-menu" onClick={toggle}>
+                    <span>
+                        <UserAvatar email={user.email} /> <span color="gray.500">{KeyCloakService.getUsername()}</span>{" "}
+                        (<span colorScheme="red">{user.role}</span>)
+                    </span>
+                    <span className="icon is-small">
+                        <i className="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </div>{" "}
+            <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                <div className="dropdown-content">
+                    <div className="dropdown-item">
+                        <ExternalLink href={KeyCloakService.getProfileUrl()}>Identity settings</ExternalLink>
+                    </div>
+                    <Link className="dropdown-item" to={`/users/${user.id}`}>
+                        <div>Your profile</div>
+                    </Link>
+                    <Link className="dropdown-item" to="/users/preferences">
+                        <div>Your preferences</div>
+                    </Link>
+                    <hr className="dropdown-divider" />
+                    <Link className="dropdown-item" to="/" onClick={logout}>
+                        <div>Logout</div>
+                    </Link>
+                </div>
+            </div>
+        </div>
     );
 };
 

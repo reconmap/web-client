@@ -1,6 +1,6 @@
-import { Textarea } from "@chakra-ui/react";
 import Configuration from "Configuration";
 import { ServerIssuesUrl } from "ServerUrls";
+import NativeTextArea from "components/form/NativeTextArea";
 import ExternalLink from "components/ui/ExternalLink";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { AuthContext } from "contexts/AuthContext";
@@ -57,15 +57,12 @@ Keycloak URL: ${Configuration.getKeycloakConfig().url}
 
             <p>
                 If there is something wrong with the app you can report it{" "}
-                <ExternalLink href={ServerIssuesUrl}>here</ExternalLink>.
-                Include the information below in the ticket if possible as this
-                could accelerate its resolution.
+                <ExternalLink href={ServerIssuesUrl}>here</ExternalLink>. Include the information below in the ticket if
+                possible as this could accelerate its resolution.
             </p>
 
-            <Textarea id="systemInfoControl" value={systemInfo} readOnly />
-            <PrimaryButton onClick={onCopyToClipboardClick}>
-                Copy to clipboard
-            </PrimaryButton>
+            <NativeTextArea id="systemInfoControl" value={systemInfo} readOnly />
+            <PrimaryButton onClick={onCopyToClipboardClick}>Copy to clipboard</PrimaryButton>
         </div>
     );
 };

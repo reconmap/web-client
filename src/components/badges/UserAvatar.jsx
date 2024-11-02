@@ -1,8 +1,8 @@
 const UserAvatar = ({ email, size = "sm", onClick }) => {
     return (
         <svg
-            width="64px"
-            height="64px"
+            width="24px"
+            height="24px"
             viewBox="0 0 48 48"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"

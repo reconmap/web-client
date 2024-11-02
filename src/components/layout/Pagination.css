@@ -1,6 +1,0 @@
-.pagination{
-    display: flex;
-    gap : var(--space);
-    align-items: center;
-    button svg { margin : 0; }
-}
