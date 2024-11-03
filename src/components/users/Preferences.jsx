@@ -7,12 +7,11 @@ import { useAuth } from "contexts/AuthContext";
 import CountriesTimezones from "countries-and-timezones";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetch from "hooks/useFetch";
-import { useContext, useEffect, useState } from "react";
+import { useTheme } from "hooks/useTheme";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { initialiseUserPreferences } from "services/userPreferences";
-import ThemeContext from "../../contexts/ThemeContext";
 import secureApiFetch from "../../services/api";
-import setThemeColors from "../../utilities/setThemeColors";
 import Breadcrumb from "../ui/Breadcrumb";
 import { IconPreferences } from "../ui/Icons";
 import Title from "../ui/Title";
@@ -29,7 +28,7 @@ const UserPreferences = () => {
     const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
 
-    const { setTheme } = useContext(ThemeContext);
+    const { setTheme } = useTheme();
 
     const [formValues, setFormValues] = useState(null);
 
@@ -54,10 +53,7 @@ const UserPreferences = () => {
             }),
         })
             .then(() => {
-                setTheme((theme) => {
-                    setThemeColors(formValues.theme);
-                    return formValues.theme;
-                });
+                setTheme(formValues.theme);
                 i18n.changeLanguage(formValues.language);
 
                 localStorage.setItem("user", JSON.stringify(user));
@@ -141,7 +137,7 @@ const UserPreferences = () => {
 
                 <div className="field">
                     <div className="control">
-                        <PrimaryButton>Save</PrimaryButton>
+                        <PrimaryButton type="submit">Save</PrimaryButton>
                     </div>
                 </div>
             </form>

@@ -1,9 +1,9 @@
+import { useTheme } from "hooks/useTheme";
 import { createContext, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Auth from "services/auth";
 import KeyCloakService from "services/keycloak";
 import { initialiseUserPreferences } from "services/userPreferences";
-import setThemeColors from "utilities/setThemeColors";
 import secureApiFetch from "../services/api";
 
 const AuthContext = createContext();
@@ -13,6 +13,8 @@ function useAuth() {
 
     const [isAuth, setIsAuth] = useState(KeyCloakService.IsAuthenticated);
     const [user, setUser] = useState(Auth.getLoggedInUser());
+
+    const { setTheme } = useTheme();
 
     const login = useCallback(() => {
         return secureApiFetch(`/users/login`, {
@@ -28,7 +30,7 @@ function useAuth() {
 
                 setUser(Auth.getLoggedInUser());
 
-                setThemeColors(data.preferences["web-client.theme"]);
+                setTheme(data.preferences["web-client.theme"]);
                 i18n.changeLanguage(data.preferences["web-client.language"]);
 
                 setIsAuth(KeyCloakService.getInstance().authenticated);
@@ -45,7 +47,6 @@ function useAuth() {
             method: "POST",
         }).finally(() => {
             Auth.removeSession();
-            setThemeColors("dark");
 
             KeyCloakService.logout();
         });

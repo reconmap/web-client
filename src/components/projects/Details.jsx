@@ -1,10 +1,11 @@
-import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import DeleteButton from "components/ui/buttons/Delete.jsx";
 import { actionCompletedToast } from "components/ui/toast";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
@@ -87,24 +88,15 @@ const ProjectDetails = () => {
                                     </>
                                 )}
 
-                                <div>
-                                    <NativeButton
-                                        aria-label="Options"
-                                        icon={<FontAwesomeIcon icon={faEllipsis} />}
-                                        variant="outline"
-                                    />
-                                    <div>
-                                        <div onClick={() => onArchiveButtonClick(project)}>
-                                            {project.archived ? "Unarchive" : "Archive"}
-                                        </div>
-                                        <div
-                                            icon={<FontAwesomeIcon icon={faTrash} />}
-                                            onClick={() => destroy(project.id)}
-                                        >
-                                            Delete
-                                        </div>
-                                    </div>
-                                </div>
+                                <NativeButton onClick={() => onArchiveButtonClick(project)}>
+                                    {project.archived ? "Unarchive" : "Archive"}
+                                </NativeButton>
+                                <DeleteButton
+                                    icon={<FontAwesomeIcon icon={faTrash} />}
+                                    onClick={() => destroy(project.id)}
+                                >
+                                    Delete
+                                </DeleteButton>
                             </RestrictedComponent>
                         </NativeButtonGroup>
                     </>
