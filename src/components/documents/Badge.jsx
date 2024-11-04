@@ -1,21 +1,21 @@
-import { Link } from 'react-router-dom'
-import { IconDocument } from '../ui/Icons'
+import { Link } from "react-router-dom";
+import { IconDocument } from "../ui/Icons";
 
 const DocumentBadge = ({ document }) => {
     const styles = {
         badge: {
-            color: `var(--text-color)`,
-            alignItems: 'center',
+            alignItems: "center",
             display: `inline-flex`,
-            borderRadius: 'var(--borderRadius, 3px)',
-            fontWeight: 'var(--fontBold)',
-        }
-    }
+            borderRadius: "var(--borderRadius, 3px)",
+        },
+    };
 
-    return <Link to={"/documents/" + document.id} style={styles.badge}>
-        <IconDocument />
-        {document.title}
-    </Link>
-}
+    return (
+        <Link to={"/documents/" + document.id} style={styles.badge}>
+            <IconDocument />
+            {document.title}
+        </Link>
+    );
+};
 
 export default DocumentBadge;

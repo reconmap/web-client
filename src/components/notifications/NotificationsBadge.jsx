@@ -36,9 +36,7 @@ const NotificationsBadge = () => {
                     onClick={toggle}
                 >
                     <FontAwesomeIcon icon={faBell} />
-                    {null !== notifications && notifications.length > 0 && (
-                        <Tag colorScheme="red">{notifications.length}</Tag>
-                    )}
+                    {null !== notifications && notifications.length > 0 && <Tag>{notifications.length}</Tag>}
                 </NativeButton>
             </div>
             <div className="dropdown-menu" id="dropdown-menu" role="menu">

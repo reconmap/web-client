@@ -87,7 +87,9 @@ const DashboardPanels = () => {
                 {0 === tabIndex && (
                     <div>
                         <div className="fixed-grid has-3-cols">
-                            <div class="grid">{visibleWidgets.length === 0 ? <WelcomeWidget /> : visibleWidgets}</div>
+                            <div className="grid">
+                                {visibleWidgets.length === 0 ? <WelcomeWidget /> : visibleWidgets}
+                            </div>
                         </div>
                     </div>
                 )}

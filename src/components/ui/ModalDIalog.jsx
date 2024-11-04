@@ -37,7 +37,7 @@ const ModalDialog = ({ title, children, visible, onModalClose, style = {} }) => 
             onClick={(ev) => htmlRef.current && !isClickInsideRectangle(ev, htmlRef.current) && closeDialog()}
             style={style}
         >
-            <h3>{title}</h3>
+            <h4 className="title is-4">{title}</h4>
             <hr />
 
             {children}

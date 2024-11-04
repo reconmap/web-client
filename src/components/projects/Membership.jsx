@@ -9,7 +9,6 @@ import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import UserAvatar from "../badges/UserAvatar";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconPlus } from "../ui/Icons";
 import PrimaryButton from "../ui/buttons/Primary";
 import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 import UserLink from "../users/Link";
@@ -74,9 +73,7 @@ const ProjectMembership = () => {
                                 ))}
                         </NativeSelect>
                     </label>
-                    <PrimaryButton onClick={handleOnClick} leftIcon={<IconPlus />}>
-                        Add as member
-                    </PrimaryButton>
+                    <PrimaryButton onClick={handleOnClick}>Add as member</PrimaryButton>
                 </form>
             ) : (
                 <div status="info">All users have been added to the project.</div>
@@ -106,7 +103,7 @@ const ProjectMembership = () => {
                                 <td>
                                     <UserRoleBadge role={member.role} />
                                 </td>
-                                <td textAlign="right">
+                                <td>
                                     <DeleteIconButton onClick={() => handleDelete(member)} />
                                 </td>
                             </tr>

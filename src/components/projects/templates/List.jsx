@@ -6,7 +6,7 @@ import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { IconDocumentDuplicate, IconPlus } from "components/ui/Icons";
+import { IconDocumentDuplicate } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
 import useDelete from "hooks/useDelete";
@@ -84,12 +84,11 @@ const TemplatesList = () => {
                                     <td>
                                         <BadgeOutline>{template.num_tasks}</BadgeOutline>
                                     </td>
-                                    <td textAlign="right">
+                                    <td>
                                         <PrimaryButton
                                             onClick={(ev) => cloneProject(ev, template.id)}
                                             key={template.id}
                                             title="Clone"
-                                            leftIcon={<IconPlus />}
                                         >
                                             Clone and edit
                                         </PrimaryButton>

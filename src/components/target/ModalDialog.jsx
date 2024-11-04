@@ -1,4 +1,6 @@
 import NativeButton from "components/form/NativeButton";
+import PrimaryButton from "components/ui/buttons/Primary.jsx";
+import ModalDialog from "components/ui/ModalDIalog.jsx";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import TargetIcon from "images/icons/target.svg?react";
 import TargetKinds from "models/TargetKinds";
@@ -34,27 +36,26 @@ const TargetModalDialog = ({ project, isOpen, onSubmit, onCancel }) => {
     };
 
     return (
-        <div size="xl" isOpen={isOpen} onClose={onCancel}>
+        <ModalDialog
+            visible={isOpen}
+            onClose={onCancel}
+            title={
+                <>
+                    <TargetIcon style={{ width: "24px" }} /> <h4>New target details</h4>
+                </>
+            }
+        >
             <div>
-                <div>
-                    <div>
-                        <TargetIcon style={{ width: "24px" }} /> <h4>New target details</h4>
-                    </div>
-                </div>
                 <div>
                     <TargetForm newTarget={target} onFormSubmit={onAddTargetFormSubmit} targetSetter={setTarget} />
                 </div>
 
                 <div>
-                    <NativeButton onClick={onCancel} mr={3}>
-                        Cancel
-                    </NativeButton>
-                    <NativeButton colorScheme="blue" onClick={onAddTargetFormSubmit}>
-                        Save
-                    </NativeButton>
+                    <NativeButton onClick={onCancel}>Cancel</NativeButton>
+                    <PrimaryButton onClick={onAddTargetFormSubmit}>Save</PrimaryButton>
                 </div>
             </div>
-        </div>
+        </ModalDialog>
     );
 };
 

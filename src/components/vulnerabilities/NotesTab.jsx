@@ -56,9 +56,7 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
             </RestrictedComponent>
 
             <div style={{ paddingTop: "20px" }}>
-                <NativeButton colorScheme="blue" onClick={onCreateNoteFormSubmit}>
-                    Save
-                </NativeButton>
+                <NativeButton onClick={onCreateNoteFormSubmit}>Save</NativeButton>
             </div>
 
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />

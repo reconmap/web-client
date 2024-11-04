@@ -1,9 +1,6 @@
 .project-badge {
-    color: var(--primary-color);
-    background-color: var(--black);
     align-items: center;
     display: inline-flex;
     padding: var(--paddingBadge);
     border-radius: var(--borderRadius, 3px);
-    font-weight: var(--fontBold);
 }

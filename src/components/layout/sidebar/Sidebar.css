@@ -82,11 +82,8 @@ aside.sidebar {
       align-items: center;
       border-radius: var(--borderRadius);
       padding: var(--padding);
-      background-color: var(--black);
-      color: var(--text-color);
       text-align: left;
       width: max-content;
-      transition: var(--transitionTime);
       font-size: var(--fontSizeBody);
       display: none;
     }

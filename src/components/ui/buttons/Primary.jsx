@@ -7,7 +7,7 @@ const PrimaryButton = ({ type, onClick, children, disabled = false, external = f
             {...props}
             type={type ? type : "button"}
             onClick={onClick}
-            isDisabled={disabled}
+            disabled={disabled}
         >
             {children}
         </NativeButton>

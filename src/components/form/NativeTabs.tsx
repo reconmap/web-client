@@ -10,7 +10,7 @@ const NativeTabs: React.FC<NativeTabsProps> = ({ labels, tabIndex, tabIndexSette
     return (
         <div className="tabs">
             <ul>
-                {labels.map((label, index) => (
+                {labels.filter((value) => value).map((label, index) => (
                     <li key={index} className={index === tabIndex ? "is-active" : ""}>
                         <a href="#" onClick={(e) => {
                             e.preventDefault();

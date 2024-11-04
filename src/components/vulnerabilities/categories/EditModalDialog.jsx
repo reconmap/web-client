@@ -26,7 +26,7 @@ const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCan
     };
 
     return (
-        <div size="xl" isOpen={isOpen} onClose={onCancel}>
+        <div isOpen={isOpen} onClose={onCancel}>
             <div>
                 <div>Vulnerability category details</div>
                 <div>
@@ -38,15 +38,8 @@ const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCan
                 </div>
 
                 <div>
-                    <NativeButton onClick={onCancel} mr={3}>
-                        Cancel
-                    </NativeButton>
-                    <NativeButton
-                        type="submit"
-                        form="vulnerability_category_form"
-                        colorScheme="blue"
-                        onClick={onCreateCategoryFormSubmit}
-                    >
+                    <NativeButton onClick={onCancel}>Cancel</NativeButton>
+                    <NativeButton type="submit" form="vulnerability_category_form" onClick={onCreateCategoryFormSubmit}>
                         Save
                     </NativeButton>
                 </div>

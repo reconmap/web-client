@@ -1,8 +1,3 @@
 .native {
     composes: native from "../../form/NativeButton.module.css";
-    background-color: lightcoral;
-
-    &:hover {
-        color: red;
-    }
 }

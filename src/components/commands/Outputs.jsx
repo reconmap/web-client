@@ -120,7 +120,7 @@ const CommandOutputs = ({ command }) => {
                                         {commandOutput.submitter_name}
                                     </UserLink>
                                 </td>
-                                <td textAlign="right">
+                                <td>
                                     <NativeButtonGroup>
                                         <SecondaryButton onClick={(ev) => onViewClick(ev, commandOutput.id)}>
                                             View

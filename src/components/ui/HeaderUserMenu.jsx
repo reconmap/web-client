@@ -17,7 +17,7 @@ const HeaderUserMenu = () => {
                 <button className="button" aria-haspopup="true" aria-controls="dropdown-menu" onClick={toggle}>
                     <span>
                         <UserAvatar email={user.email} /> <span color="gray.500">{KeyCloakService.getUsername()}</span>{" "}
-                        (<span colorScheme="red">{user.role}</span>)
+                        (<span>{user.role}</span>)
                     </span>
                     <span className="icon is-small">
                         <i className="fas fa-angle-down" aria-hidden="true"></i>

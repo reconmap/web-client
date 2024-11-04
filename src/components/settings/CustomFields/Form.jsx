@@ -1,5 +1,5 @@
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
-import NativeButton from "components/form/NativeButton.js";
+import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";

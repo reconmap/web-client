@@ -59,13 +59,10 @@ const NotificationsList = () => {
                                     <strong>{notification.title}</strong>
                                     <div>{notification.content}</div>
                                 </td>
-                                <td textAlign="right">
+                                <td>
                                     <NativeButtonGroup>
                                         {notification.status === "unread" && (
-                                            <Button
-                                                onClick={() => markNotificationAsRead(notification)}
-                                                leftIcon={<FontAwesomeIcon icon={faCheck} />}
-                                            >
+                                            <Button onClick={() => markNotificationAsRead(notification)}>
                                                 Mark as read
                                             </Button>
                                         )}

@@ -4,7 +4,7 @@ import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { IconFolder, IconPlusCircle } from "components/ui/Icons";
+import { IconFolder } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
@@ -44,7 +44,7 @@ const TemplateDetails = () => {
                 </Breadcrumb>
                 {template && (
                     <NativeButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(template.id)} leftIcon={<IconPlusCircle />}>
+                        <PrimaryButton onClick={() => cloneProject(template.id)}>
                             Create project from template
                         </PrimaryButton>
                         <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>

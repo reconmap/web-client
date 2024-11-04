@@ -14,7 +14,7 @@ import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from "../ui/buttons/Secondary";
-import { IconClipboardCheck, IconFolder, IconUserGroup } from "../ui/Icons";
+import { IconFolder } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import ProjectAttachmentsTab from "./AttachmentsTab";
@@ -76,15 +76,8 @@ const ProjectDetails = () => {
                                 {!project.archived && (
                                     <>
                                         <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
-                                        <SecondaryButton
-                                            onClick={handleGenerateReport}
-                                            leftIcon={<IconClipboardCheck />}
-                                        >
-                                            Report
-                                        </SecondaryButton>
-                                        <SecondaryButton onClick={handleManageTeam} leftIcon={<IconUserGroup />}>
-                                            Membership
-                                        </SecondaryButton>
+                                        <SecondaryButton onClick={handleGenerateReport}>Report</SecondaryButton>
+                                        <SecondaryButton onClick={handleManageTeam}>Membership</SecondaryButton>
                                     </>
                                 )}
 

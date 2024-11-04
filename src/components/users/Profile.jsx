@@ -26,7 +26,7 @@ const UserProfile = () => {
     const navigate = useNavigate();
 
     const { userId } = useParams();
-    const [user] = useFetch(`/users/${userId}`);
+    const [user, , error] = useFetch(`/users/${userId}`);
     const [auditLog] = useFetch(`/users/${userId}/activity`);
     const deleteUser = useDelete("/users/");
 
@@ -51,6 +51,10 @@ const UserProfile = () => {
             actionCompletedToast("Password reset");
         });
     };
+
+    if (error) {
+        return <>{error.message}</>;
+    }
 
     if (!user) return <Loading />;
 

@@ -63,7 +63,7 @@ const ClientsList = () => {
                                     {client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : "-"}
                                 </td>
                                 <td>{client.num_contacts}</td>
-                                <td textAlign="right">
+                                <td>
                                     <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
                                     <DeleteIconButton onClick={() => destroy(client.id)} />
                                 </td>

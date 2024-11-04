@@ -75,7 +75,7 @@ const AdvancedSearch = () => {
                             </NativeCheckbox>
                         ))}
 
-                        <NativeButton type="submit" isDisabled={keywords.trim().length === 0 || entities.length === 0}>
+                        <NativeButton type="submit" disabled={keywords.trim().length === 0 || entities.length === 0}>
                             Search
                         </NativeButton>
                     </form>

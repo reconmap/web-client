@@ -29,7 +29,7 @@ const VulnerabilityCategoryAddModalDialog = ({ isOpen, onClose, onCancel }) => {
     };
 
     return (
-        <div size="xl" isOpen={isOpen} onClose={onCancel}>
+        <div isOpen={isOpen} onClose={onCancel}>
             <div>
                 <div>New vulnerability category details</div>
                 <div>
@@ -41,15 +41,8 @@ const VulnerabilityCategoryAddModalDialog = ({ isOpen, onClose, onCancel }) => {
                 </div>
 
                 <div>
-                    <NativeButton onClick={onCancel} mr={3}>
-                        Cancel
-                    </NativeButton>
-                    <NativeButton
-                        type="submit"
-                        form="vulnerability_category_form"
-                        colorScheme="blue"
-                        onClick={onCreateCategoryFormSubmit}
-                    >
+                    <NativeButton onClick={onCancel}>Cancel</NativeButton>
+                    <NativeButton type="submit" form="vulnerability_category_form" onClick={onCreateCategoryFormSubmit}>
                         Save
                     </NativeButton>
                 </div>

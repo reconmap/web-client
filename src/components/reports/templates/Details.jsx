@@ -5,7 +5,7 @@ import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { IconFlag, IconPlusCircle } from "components/ui/Icons";
+import { IconFlag } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
@@ -45,9 +45,7 @@ const ReportTemplateDetails = () => {
                         <Link to="/vulnerabilities/templates">Templates</Link>
                     </Breadcrumb>
                     <NativeButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)} leftIcon={<IconPlusCircle />}>
-                            Clone and edit
-                        </PrimaryButton>
+                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)}>Clone and edit</PrimaryButton>
 
                         <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>

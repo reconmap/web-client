@@ -1,53 +1,6 @@
 @import "bulma/css/bulma.css";
-@import "_utilities";
-@import "forms";
 
 :root {
-    --base-hue: 336;
-    --saturation: 50%;
-    --value: 55%;
-    --distance: 60;
-    --distance-analog: calc(var(--distance) / 2);
-    --distance-secondary: calc(var(--distance) * -2);
-    --distance-complementary: calc(var(--distance) * 3);
-    --distance-third: calc(var(--distance) * -5);
-    --distance-fourth: calc(var(--distance) * 5);
-
-    --complementary-color: hsl(calc(var(--base-hue) + var(--distance-complementary)),
-            var(--saturation),
-            var(--value));
-    --secondary-color: hsl(calc(var(--base-hue) + var(--distance-secondary)),
-            var(--saturation),
-            var(--value));
-    --analog-color: hsl(calc(var(--base-hue) + var(--distance-analog)),
-            var(--saturation),
-            var(--value));
-    --third-color: hsl(calc(var(--base-hue) + var(--distance-third)),
-            var(--saturation),
-            var(--value));
-    --fourth-color: hsl(calc(var(--base-hue) + var(--distance-fourth)),
-            var(--saturation),
-            var(--value));
-
-    --color-black: #141820;
-    --color-gray-dark: #1b202b;
-    --color-gray: #2f3747;
-    --color-gray-light: #748094;
-    --color-gray-lightest: hsl(240, 1%, 94%);
-
-    --primary-color: #e56e6a;
-
-    --black: var(--color-black);
-    --bg-color: var(--color-gray-dark);
-    --text-color: var(--color-gray-light);
-
-    --red: var(--analog-color);
-    --green: var(--complementary-color);
-    --blue: var(--secondary-color);
-    --yellow: var(--third-color);
-    --purple: var(--fourth-color);
-    --gray: var(--text-color);
-
     /*spacing*/
     --space: 0.9rem;
     --space-xs: 0.1rem;
@@ -69,15 +22,6 @@
     /*icons*/
     --iconSize: 32px;
     --iconSizeLarge: 48px;
-
-    --fontSizeTitle: 2.1rem;
-    --fontSizeSubtitle: 1.75rem;
-    --fontSizeHeader: 1.5rem;
-    --fontSizeBody: 1rem;
-    --fontSizeSmall: 0.85rem;
-    --fontSizeXsmall: 0.75rem;
-    --fontBold: 700;
-    --transitionTime: 0.2s ease-out;
 }
 
 body {
@@ -95,39 +39,11 @@ main {
     }
 }
 
-#content {
-    padding: var(--padding);
-}
-
-div form+aside {
-    border-radius: var(--borderRadius);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    div {
-        margin-left: auto;
-    }
-}
-
 .heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: calc(var(--padding) / 2);
-}
-
-section {
-    padding-bottom: var(--padding);
-    margin: var(--padding) 0;
-
-    h2 {
-        margin-right: auto;
-    }
 }
 
 a,
@@ -145,20 +61,6 @@ h4 {
     }
 }
 
-figure svg {
-    margin: 0;
-}
-
-dl {
-    dt {
-        margin-bottom: var(--space-sm);
-        margin-top: 10px;
-        padding-bottom: var(--space-sm);
-        border-bottom: var(--borderWidth) solid var(--black);
-    }
-
-}
-
 .message__container {
     display: flex;
     flex-direction: row;
@@ -168,9 +70,4 @@ dl {
     height: 100%;
     opacity: .4;
     gap: var(--padding);
-    color: var(--text-color);
-}
-
-svg {
-    max-width: 32px;
 }

@@ -3,7 +3,7 @@ import PageTitle from "components/logic/PageTitle";
 import AscendingSortLink from "components/ui/AscendingSortLink";
 import Breadcrumb from "components/ui/Breadcrumb";
 import DescendingSortLink from "components/ui/DescendingSortLink";
-import { IconDocumentDuplicate, IconPlus } from "components/ui/Icons";
+import { IconDocumentDuplicate } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
 import CreateButton from "components/ui/buttons/Create";
@@ -104,12 +104,11 @@ const VulnerabilityTemplatesList = () => {
                                             parentName={template.parent_category_name}
                                         />
                                     </td>
-                                    <td textAlign="right">
+                                    <td>
                                         <PrimaryButton
                                             onClick={(ev) => cloneVulnerability(ev, template.id)}
                                             key={template.id}
                                             title="Clone"
-                                            leftIcon={<IconPlus />}
                                         >
                                             Clone and edit
                                         </PrimaryButton>

@@ -17,9 +17,9 @@ const LINKS = [
 const Header = () => {
     const { isAuth, user } = useContext(AuthContext);
     return (
-        <nav className="navbar is-transparent">
+        <nav className="navbar is-fixed-top">
             <div className="navbar-brand">
-                <Link to="/" className="navbar-item">
+                <Link to="/" className="navbar-brand">
                     <HeaderLogo />
                 </Link>
                 <div className="navbar-burger js-burger" data-target="navbarExampleTransparentExample">
@@ -31,25 +31,20 @@ const Header = () => {
             </div>
 
             <div id="navbarExampleTransparentExample" className="navbar-menu">
-                <div className="navbar-start">
-                    <a className="navbar-item" href="/">
-                        {" "}
-                        Home{" "}
-                    </a>
-                </div>
+                <div className="navbar-start"></div>
 
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="field is-grouped">
                             {isAuth ? (
                                 <>
-                                    <p className="control">
+                                    <div className="control">
                                         <SearchBox />
-                                    </p>
-                                    <p className="control">
+                                    </div>
+                                    <div className="control">
                                         <NotificationsBadge />
-                                    </p>
-                                    <p className="control">{user && <HeaderUserMenu email={user.email} />}</p>
+                                    </div>
+                                    <div className="control">{user && <HeaderUserMenu email={user.email} />}</div>
                                 </>
                             ) : (
                                 LINKS.map((link, index) => (

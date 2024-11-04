@@ -45,13 +45,13 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
     }
 
     return (
-        <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-            <ul class="pagination-list">
+        <nav className="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+            <ul className="pagination-list">
                 <li>
                     {" "}
                     <Link
                         to={`/auditlog?page=${page}`}
-                        class="pagination-link"
+                        className="pagination-link"
                         tooltip="Previous [P]"
                         disabled={!previousEnabled}
                     >
@@ -65,9 +65,7 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
                             className="pagination-link"
                             value={page + 1}
                             maxLength={4}
-                            size="xs"
                             w={10}
-                            textAlign="center"
                             max={total}
                             onInput={(ev) =>
                                 onPageChange(isNaN(parseInt(ev.target.value)) ? 1 : parseInt(ev.target.value) - 1)

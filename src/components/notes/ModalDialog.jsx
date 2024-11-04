@@ -1,4 +1,5 @@
 import NativeButton from "components/form/NativeButton";
+import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast } from "components/ui/toast";
 import Note from "models/Note";
@@ -42,12 +43,8 @@ const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
             <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
 
             <div style={{ paddingTop: "20px" }}>
-                <NativeButton onClick={beforeCancelCallback} mr={3}>
-                    Cancel
-                </NativeButton>
-                <NativeButton colorScheme="blue" onClick={onCreateNoteFormSubmit}>
-                    Save
-                </NativeButton>
+                <NativeButton onClick={beforeCancelCallback}>Cancel</NativeButton>
+                <PrimaryButton onClick={onCreateNoteFormSubmit}>Save</PrimaryButton>
             </div>
         </ModalDialog>
     );

@@ -2,7 +2,6 @@ import NativeSelect from "components/form/NativeSelect";
 import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import secureApiFetch from "../../services/api";
-import { IconDownload } from "../ui/Icons";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ExportForm = () => {
@@ -64,7 +63,7 @@ const ExportForm = () => {
                     ))}
             </NativeSelect>
             <br />
-            <PrimaryButton disabled={exportButtonDisabled} onClick={onExportButtonClick} leftIcon={<IconDownload />}>
+            <PrimaryButton disabled={exportButtonDisabled} onClick={onExportButtonClick}>
                 Export
             </PrimaryButton>
         </div>

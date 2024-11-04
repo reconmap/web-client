@@ -6,7 +6,6 @@ const Title = ({ type, title, icon }) => {
             alignItems: "center",
         },
         icon: {
-            backgroundColor: "var(--black)",
             borderRadius: "50%",
             display: "flex",
             alignItems: "center",
@@ -14,7 +13,6 @@ const Title = ({ type, title, icon }) => {
             marginRight: "var(--padding)",
             width: "var(--iconSizeLarge)",
             height: "var(--iconSizeLarge)",
-            color: "var(--primary-color)",
         },
     };
     return (

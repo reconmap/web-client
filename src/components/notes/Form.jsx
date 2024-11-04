@@ -1,3 +1,4 @@
+import LabelledField from "components/form/LabelledField";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTextArea from "components/form/NativeTextArea";
 
@@ -12,25 +13,29 @@ const NotesForm = ({ note, onFormSubmit, noteSetter: setNote }) => {
 
     return (
         <form onSubmit={onFormSubmit}>
-            <div id="content" isRequired>
-                <label>Content</label>
-                <NativeTextArea
-                    name="content"
-                    style={{ width: "100%" }}
-                    onChange={onFormInputChange}
-                    value={note.content}
-                    required
-                    autoFocus
-                ></NativeTextArea>
-                <br />
-            </div>
-            <div id="visibility" isRequired>
-                <label>Visibility</label>
-                <NativeSelect name="visibility" value={note.visibility} onChange={onFormInputChange}>
-                    <option value="private">Private</option>
-                    <option value="public">Public</option>
-                </NativeSelect>
-            </div>
+            <LabelledField
+                label="Content"
+                control={
+                    <NativeTextArea
+                        name="content"
+                        style={{ width: "100%" }}
+                        onChange={onFormInputChange}
+                        value={note.content}
+                        required
+                        autoFocus
+                    ></NativeTextArea>
+                }
+            />
+
+            <LabelledField
+                label="Visibility"
+                control={
+                    <NativeSelect name="visibility" value={note.visibility} onChange={onFormInputChange}>
+                        <option value="private">Private</option>
+                        <option value="public">Public</option>
+                    </NativeSelect>
+                }
+            />
         </form>
     );
 };

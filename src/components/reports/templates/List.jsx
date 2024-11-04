@@ -135,7 +135,7 @@ const ReportTemplatesList = () => {
                                             <IconDocument /> DOCX
                                         </SecondaryButton>
                                     </td>
-                                    <td textAlign="right">
+                                    <td>
                                         <DeleteIconButton
                                             disabled={template.generated_by_uid === 0}
                                             title={

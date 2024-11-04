@@ -68,7 +68,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                                 <IconDocument /> DOCX
                             </SecondaryButton>
                         </td>
-                        <td textAlign="right">
+                        <td>
                             <SecondaryButton onClick={() => handleSendByEmail(report.project_id)}>
                                 Send by email
                             </SecondaryButton>

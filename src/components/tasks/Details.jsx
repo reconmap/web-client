@@ -4,6 +4,7 @@ import CommandBadge from "components/commands/Badge";
 import CommandInstructions from "components/commands/Instructions";
 import NativeButton from "components/form/NativeButton";
 import NativeSelect from "components/form/NativeSelect";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import EmptyField from "components/ui/EmptyField";
@@ -35,6 +36,8 @@ const TaskDetails = () => {
     const [users] = useFetch(`/users`);
     const [project, setProject] = useState(null);
     const [command, setCommand] = useState(null);
+
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     const parentType = "task";
     const parentId = taskId;
@@ -139,107 +142,115 @@ const TaskDetails = () => {
                     <Title title={task.summary} type="Task" icon={<IconClipboard />} />
 
                     <div>
+                        <NativeTabs
+                            labels={["Details", null !== command ?? "Command instructions", "Attachments"]}
+                            tabIndex={tabIndex}
+                            tabIndexSetter={tabIndexSetter}
+                        />
                         <div>
-                            <div>Details</div>
-                            {null !== command && <div>Command instructions</div>}
-                            <div>Attachments</div>
-                        </div>
-                        <div>
-                            <div>
-                                <div className="grid grid-two">
-                                    <div>
-                                        <h4>Description</h4>
-                                        {task.description ? (
-                                            <ReactMarkdown>{task.description}</ReactMarkdown>
-                                        ) : (
-                                            <EmptyField />
-                                        )}
-                                        <h4>Priority</h4>
-                                        <p>{task.priority}</p>
-                                        <h4>Status</h4>
-                                        <p
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                columnGap: "var(--margin)",
-                                            }}
-                                        >
-                                            <TaskStatusFormatter task={task} />
-                                        </p>
-                                        {task.command_id && (
-                                            <>
-                                                <h4>Command</h4>
-                                                <CommandBadge
-                                                    command={{
-                                                        id: task.command_id,
-                                                        name: task.command_name,
-                                                    }}
-                                                />
-                                            </>
-                                        )}
-                                    </div>
-
-                                    <div>
-                                        <h4>People</h4>
-                                        <dl>
-                                            <dt>Created by</dt>
-                                            <dd>
-                                                <UserLink userId={task.creator_uid}>{task.creator_full_name}</UserLink>
-                                            </dd>
-
-                                            {1 !== task.project_is_template && (
+                            {0 === tabIndex && (
+                                <div>
+                                    <div className="grid grid-two">
+                                        <div>
+                                            <h4>Description</h4>
+                                            {task.description ? (
+                                                <ReactMarkdown>{task.description}</ReactMarkdown>
+                                            ) : (
+                                                <EmptyField />
+                                            )}
+                                            <h4>Priority</h4>
+                                            <p>{task.priority}</p>
+                                            <h4>Status</h4>
+                                            <p
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    columnGap: "var(--margin)",
+                                                }}
+                                            >
+                                                <TaskStatusFormatter task={task} />
+                                            </p>
+                                            {task.command_id && (
                                                 <>
-                                                    <dt>Assigned to</dt>
-                                                    <dd>
-                                                        {users && (
-                                                            <NativeSelect
-                                                                onChange={onAssigneeChange}
-                                                                defaultValue={task.assignee_uid}
-                                                            >
-                                                                <option value="">(nobody)</option>
-                                                                {users.map((user, index) => (
-                                                                    <option key={index} value={user.id}>
-                                                                        {user.full_name}
-                                                                        {user.id === loggedInUser.id ? " (You)" : ""}
-                                                                    </option>
-                                                                ))}
-                                                            </NativeSelect>
-                                                        )}
-                                                    </dd>
+                                                    <h4>Command</h4>
+                                                    <CommandBadge
+                                                        command={{
+                                                            id: task.command_id,
+                                                            name: task.command_name,
+                                                        }}
+                                                    />
                                                 </>
                                             )}
-                                        </dl>
+                                        </div>
 
-                                        <TimestampsSection entity={task} />
-                                        {task.due_date && (
+                                        <div>
+                                            <h4>People</h4>
                                             <dl>
-                                                <dt>Due date</dt>
+                                                <dt>Created by</dt>
                                                 <dd>
-                                                    <RelativeDateFormatter date={task.due_date} />
+                                                    <UserLink userId={task.creator_uid}>
+                                                        {task.creator_full_name}
+                                                    </UserLink>
                                                 </dd>
+
+                                                {1 !== task.project_is_template && (
+                                                    <>
+                                                        <dt>Assigned to</dt>
+                                                        <dd>
+                                                            {users && (
+                                                                <NativeSelect
+                                                                    onChange={onAssigneeChange}
+                                                                    defaultValue={task.assignee_uid}
+                                                                >
+                                                                    <option value="">(nobody)</option>
+                                                                    {users.map((user, index) => (
+                                                                        <option key={index} value={user.id}>
+                                                                            {user.full_name}
+                                                                            {user.id === loggedInUser.id
+                                                                                ? " (You)"
+                                                                                : ""}
+                                                                        </option>
+                                                                    ))}
+                                                                </NativeSelect>
+                                                            )}
+                                                        </dd>
+                                                    </>
+                                                )}
                                             </dl>
-                                        )}
+
+                                            <TimestampsSection entity={task} />
+                                            {task.due_date && (
+                                                <dl>
+                                                    <dt>Due date</dt>
+                                                    <dd>
+                                                        <RelativeDateFormatter date={task.due_date} />
+                                                    </dd>
+                                                </dl>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
                             {null !== command && (
                                 <div>
                                     <CommandInstructions command={command} task={task} />
                                 </div>
                             )}
-                            <div>
-                                <AttachmentsDropzone
-                                    parentType={parentType}
-                                    parentId={parentId}
-                                    onUploadFinished={reloadAttachments}
-                                />
+                            {1 === tabIndex && (
+                                <div>
+                                    <AttachmentsDropzone
+                                        parentType={parentType}
+                                        parentId={parentId}
+                                        onUploadFinished={reloadAttachments}
+                                    />
 
-                                <h4>
-                                    <IconDocument />
-                                    Attachment list
-                                </h4>
-                                <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
-                            </div>
+                                    <h4>
+                                        <IconDocument />
+                                        Attachment list
+                                    </h4>
+                                    <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </article>

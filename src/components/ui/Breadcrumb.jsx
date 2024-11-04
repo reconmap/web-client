@@ -15,7 +15,7 @@ const Breadcrumb = (props) => {
     };
 
     return (
-        <nav class="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
+        <nav className="breadcrumb has-arrow-separator" aria-label="breadcrumbs">
             <ul>
                 {navigate && navigate.length > 0 && (
                     <li>

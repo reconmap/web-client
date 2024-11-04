@@ -1,5 +1,7 @@
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
+import PrimaryButton from "components/ui/buttons/Primary.jsx";
+import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useRef, useState } from "react";
 import secureApiFetch from "services/api";
@@ -40,7 +42,7 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
     };
 
     return (
-        <div size="xl" isOpen={isOpen} onClose={onCancel}>
+        <ModalDialog visible={isOpen} onClose={onCancel}>
             <div />
             <div>
                 <div>
@@ -64,15 +66,13 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
                 </div>
 
                 <div>
-                    <NativeButton onClick={onCancel} mr={3}>
-                        Cancel
-                    </NativeButton>
-                    <NativeButton form="reportTemplateForm" type="submit" colorScheme="blue">
+                    <NativeButton onClick={onCancel}>Cancel</NativeButton>
+                    <PrimaryButton form="reportTemplateForm" type="submit">
                         Save
-                    </NativeButton>
+                    </PrimaryButton>
                 </div>
             </div>
-        </div>
+        </ModalDialog>
     );
 };
 

@@ -13,25 +13,16 @@ const baseStyle = {
     padding: "20px",
     borderWidth: "var(--borderWidth)",
     borderRadius: "var(--borderRadius)",
-    borderColor: "var(--color-gray)",
     borderStyle: "dashed",
-    backgroundColor: "var(--black)",
-    color: "var(--text-color)",
     outline: "none",
     transition: "border .24s ease-in-out",
 };
 
-const activeStyle = {
-    borderColor: "var(--yellow)",
-};
+const activeStyle = {};
 
-const acceptStyle = {
-    borderColor: "var(--green)",
-};
+const acceptStyle = {};
 
-const rejectStyle = {
-    borderColor: "var(--red)",
-};
+const rejectStyle = {};
 
 const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, attachmentId = null }) => {
     const onFileDrop = (newFiles) => {

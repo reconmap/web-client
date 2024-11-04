@@ -105,7 +105,7 @@ const VulnerabilityCategoriesPage = () => {
                                 </td>
                                 <td>{category.parent_name ?? "-"}</td>
                                 <td>{category.description}</td>
-                                <td textAlign="right">
+                                <td>
                                     <LinkButton href="#" onClick={(ev) => onEditClick(ev, category)}>
                                         Edit
                                     </LinkButton>

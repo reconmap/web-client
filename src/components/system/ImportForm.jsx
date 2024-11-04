@@ -3,7 +3,6 @@ import ExternalLink from "components/ui/ExternalLink";
 import { useState } from "react";
 import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
-import { IconUpload } from "../ui/Icons";
 
 const ImportForm = () => {
     const [importResponse, setImportResponse] = useState(null);
@@ -61,7 +60,7 @@ const ImportForm = () => {
                     />
                 </div>
 
-                <PrimaryButton disabled={importButtonDisabled} onClick={handleUploadClick} leftIcon={<IconUpload />}>
+                <PrimaryButton disabled={importButtonDisabled} onClick={handleUploadClick}>
                     Import
                 </PrimaryButton>
             </form>

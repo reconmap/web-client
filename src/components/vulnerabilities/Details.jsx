@@ -1,8 +1,10 @@
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeSelect from "components/form/NativeSelect";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import Tag from "components/ui/Tag";
 import Tags from "components/ui/Tags";
 import LinkButton from "components/ui/buttons/Link";
 import VulnerabilityStatuses from "models/VulnerabilityStatuses";
@@ -98,28 +100,20 @@ const VulnerabilityDetails = () => {
                     }
                     icon={<IconFlag />}
                 />
-                <Tag size="sm" colorScheme="blue">
-                    {vulnerability.visibility}
-                </Tag>{" "}
-                <Tags values={vulnerability.tags} />
-                <Tabs>
-                    <TabList>
-                        <Tab>Description</Tab>
-                        <Tab>Remediation</Tab>
-                        <Tab>Comments</Tab>
-                        <Tab>Attachments</Tab>
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel>
+                <Tag>{vulnerability.visibility}</Tag> <Tags values={vulnerability.tags} />
+                <div>
+                    <NativeTabs labels={["Description", "Remediation", "Comments", "Attachments"]} />
+                    <div>
+                        <div>
                             <VulnerabilityDescriptionPanel vulnerability={vulnerability} />
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                        <div>
                             <VulnerabilityRemediationPanel vulnerability={vulnerability} />
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                        <div>
                             <VulnerabilitiesNotesTab vulnerability={vulnerability} />
-                        </TabPanel>
-                        <TabPanel>
+                        </div>
+                        <div>
                             <AttachmentsDropzone
                                 parentType={parentType}
                                 parentId={parentId}
@@ -131,9 +125,9 @@ const VulnerabilityDetails = () => {
                                 Attachment list
                             </h4>
                             <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
-                        </TabPanel>
-                    </TabPanels>
-                </Tabs>
+                        </div>
+                    </div>
+                </div>
             </article>
         </div>
     );

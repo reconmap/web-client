@@ -1,10 +1,12 @@
+import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
+import PrimaryButton from "components/ui/buttons/Primary.jsx";
+import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import useFetch from "hooks/useFetch";
 import TargetIcon from "images/icons/target.svg?react";
-import { useEffect, useState } from "react";
 import secureApiFetch from "services/api";
 
 const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => {
@@ -13,38 +15,27 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
         name: "",
         description: "",
     };
-    const [formValues, setFormValues] = useState(defaultFormValues);
     const [templates] = useFetch("/reports/templates");
 
-    const onFormValueChange = (ev) => {
-        ev.preventDefault();
-
-        setFormValues({ ...formValues, [ev.target.name]: ev.target.value });
-    };
-
     const beforeCancelCallback = (ev) => {
-        setFormValues(defaultFormValues);
+        ev.target.closest("form").reset();
         onCancel(ev);
     };
 
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        const params = {
-            projectId: projectId,
-            reportTemplateId: formValues.reportTemplateId,
-            name: formValues.name,
-            description: formValues.description,
-        };
+        const formData = new FormData(ev.target);
+        const data = Object.fromEntries(formData.entries());
 
         secureApiFetch(`/reports`, {
             method: "POST",
-            body: JSON.stringify(params),
+            body: JSON.stringify(data),
         })
             .then((resp) => {
                 if (resp.ok) {
                     onSubmit();
-                    actionCompletedToast(`The report version "${formValues.name}" has been added.`);
+                    actionCompletedToast(`The report version "${data.name}" has been added.`);
                 } else {
                     throw new Error(resp.statusText);
                 }
@@ -58,79 +49,78 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
             });
     };
 
-    useEffect(() => {
-        if (templates !== null && templates.length > 0) {
-            setFormValues((prev) => ({
-                ...prev,
-                reportTemplateId: templates[0].id,
-            }));
-        }
-    }, [templates]);
-
     return (
-        <Modal size="xl" isOpen={isOpen} onClose={beforeCancelCallback}>
-            <ModalOverlay />
-            <ModalContent>
-                <ModalHeader>
+        <ModalDialog
+            title={
+                <>
+                    <TargetIcon style={{ width: "24px" }} /> New report version details
+                </>
+            }
+            visible={isOpen}
+            onClose={beforeCancelCallback}
+        >
+            <div>
+                <div>
+                    <div></div>
+                </div>
+                <form id="reportVersionReportForm" onSubmit={onFormSubmit}>
                     <div>
-                        <TargetIcon style={{ width: "24px" }} /> <h4>New report version details</h4>
+                        <input type="hidden" name="projectId" value={projectId} />
+                        {templates && (
+                            <HorizontalLabelledField
+                                label="Template"
+                                control={
+                                    <NativeSelect
+                                        name="reportTemplateId"
+                                        defaultValue={defaultFormValues.reportTemplateId}
+                                    >
+                                        {templates.map((template) => (
+                                            <option key={template.id} value={template.id}>
+                                                {template.version_name}
+                                            </option>
+                                        ))}
+                                    </NativeSelect>
+                                }
+                            />
+                        )}
+
+                        <HorizontalLabelledField
+                            label="Name"
+                            control={
+                                <NativeInput
+                                    type="text"
+                                    name="name"
+                                    defaultValue={defaultFormValues.name}
+                                    placeholder="eg 1.0, 202103"
+                                    autoFocus
+                                    required
+                                />
+                            }
+                        />
+
+                        <HorizontalLabelledField
+                            label="Description"
+                            control={
+                                <NativeInput
+                                    type="text"
+                                    name="description"
+                                    defaultValue={defaultFormValues.description}
+                                    placeholder="eg Initial version, Draft"
+                                    required
+                                />
+                            }
+                        />
                     </div>
-                </ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <form id="reportVersionReportForm" onSubmit={onFormSubmit} style={{ marginTop: "20px" }}>
-                        <FormControl isRequired>
-                            <FormLabel>Template</FormLabel>
-                            {templates && (
-                                <NativeSelect
-                                    name="reportTemplateId"
-                                    value={formValues.reportTemplateId}
-                                    onChange={onFormValueChange}
-                                >
-                                    {templates.map((template) => (
-                                        <option key={template.id} value={template.id}>
-                                            {template.version_name}
-                                        </option>
-                                    ))}
-                                </NativeSelect>
-                            )}
-                        </FormControl>
 
-                        <FormControl isRequired>
-                            <FormLabel>Name</FormLabel>
-                            <NativeInput
-                                type="text"
-                                name="name"
-                                value={formValues.name}
-                                onChange={onFormValueChange}
-                                placeholder="eg 1.0, 202103"
-                                autoFocus
-                            />
-                        </FormControl>
-
-                        <FormControl isRequired>
-                            <FormLabel>Description</FormLabel>
-                            <NativeInput
-                                type="text"
-                                name="description"
-                                value={formValues.description}
-                                onChange={onFormValueChange}
-                                placeholder="eg Initial version, Draft"
-                            />
-                        </FormControl>
-                    </form>
-                </ModalBody>
-
-                <ModalFooter>
-                    <NativeButton onClick={beforeCancelCallback} mr={3}>
-                        Cancel
-                    </NativeButton>
-                    <NativeButton form="reportVersionReportForm" type="submit" colorScheme="blue">
-                        Save
-                    </NativeButton>
-                </ModalFooter>
-            </ModalContent>
-        </Modal>
+                    <div>
+                        <NativeButton onClick={beforeCancelCallback}>Cancel</NativeButton>
+                        <PrimaryButton form="reportVersionReportForm" type="submit">
+                            Save
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </div>
+        </ModalDialog>
     );
 };
 

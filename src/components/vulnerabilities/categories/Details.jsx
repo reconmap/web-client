@@ -9,7 +9,7 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
-import { IconFlag, IconPlusCircle } from "components/ui/Icons";
+import { IconFlag } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import TimestampsSection from "components/ui/TimestampsSection";
 import Title from "components/ui/Title";
@@ -54,10 +54,7 @@ const TemplateDetails = () => {
                         <Link to="/vulnerabilities/templates">Templates</Link>
                     </Breadcrumb>
                     <NativeButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)} leftIcon={<IconPlusCircle />}>
-                            {" "}
-                            Clone and edit
-                        </PrimaryButton>
+                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)}>Clone and edit</PrimaryButton>
 
                         <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>

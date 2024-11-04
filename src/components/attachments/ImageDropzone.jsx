@@ -1,77 +1,78 @@
-import PrimaryButton from 'components/ui/buttons/Primary';
-import { useMemo, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import secureApiFetch from 'services/api';
+import PrimaryButton from "components/ui/buttons/Primary";
+import { useMemo, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import secureApiFetch from "services/api";
 
 const baseStyle = {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    borderWidth: 'var(--borderWidth)',
-    borderRadius: 'var(--borderRadius)',
-    borderColor: 'var(--color-gray)',
-    borderStyle: 'dashed',
-    backgroundColor: 'var(--black)',
-    color: 'var(--text-color)',
-    outline: 'none',
-    transition: 'border .24s ease-in-out'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    borderWidth: "var(--borderWidth)",
+    borderRadius: "var(--borderRadius)",
+    borderStyle: "dashed",
+    outline: "none",
+    transition: "border .24s ease-in-out",
 };
 
 const activeStyle = {
-    borderColor: 'var(--yellow)',
+    borderColor: "var(--yellow)",
 };
 
 const acceptStyle = {
-    borderColor: 'var(--green)'
+    borderColor: "var(--green)",
 };
 
 const rejectStyle = {
-    borderColor: 'var(--red)'
+    borderColor: "var(--red)",
 };
 
-const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = null, uploadFinishedParameter = null, attachmentId = null, maxFileCount = Infinity }) => {
+const AttachmentsImageDropzone = ({
+    parentType,
+    parentId,
+    onUploadFinished = null,
+    uploadFinishedParameter = null,
+    attachmentId = null,
+    maxFileCount = Infinity,
+}) => {
     const onFileDrop = (newFiles) => {
         setAcceptedFiles(newFiles);
     };
 
-    const {
-        getRootProps, getInputProps,
-        isDragActive, isDragAccept, isDragReject
-    } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
         onDrop: onFileDrop,
-        accept: 'image/jpeg,image/png'
+        accept: "image/jpeg,image/png",
     });
 
     const [acceptedFiles, setAcceptedFiles] = useState([]);
 
-    const files = acceptedFiles.map(file => (
+    const files = acceptedFiles.map((file) => (
         <li key={file.path}>
             {file.path} - {file.size} bytes
         </li>
     ));
 
-    const onUploadButtonClick = ev => {
+    const onUploadButtonClick = (ev) => {
         const formData = new FormData();
-        formData.append('parentType', parentType);
-        formData.append('parentId', parentId);
-        acceptedFiles.forEach(file => {
-            formData.append('attachment[]', file);
-        })
+        formData.append("parentType", parentType);
+        formData.append("parentId", parentId);
+        acceptedFiles.forEach((file) => {
+            formData.append("attachment[]", file);
+        });
 
-        let uri = '/attachments';
+        let uri = "/attachments";
         if (attachmentId) {
-            formData.append('attachmentId', attachmentId);
+            formData.append("attachmentId", attachmentId);
             uri = `/attachments/${attachmentId}`;
         }
 
         secureApiFetch(uri, {
-            method: 'POST',
-            body: formData
+            method: "POST",
+            body: formData,
         })
-            .then(response => response.json())
-            .then(json => {
+            .then((response) => response.json())
+            .then((json) => {
                 setAcceptedFiles([]);
                 if (onUploadFinished) {
                     if (!attachmentId && maxFileCount === 1) {
@@ -82,36 +83,38 @@ const AttachmentsImageDropzone = ({ parentType, parentId, onUploadFinished = nul
                     }
                 }
             })
-            .catch(err => console.error(err));
-    }
+            .catch((err) => console.error(err));
+    };
 
-    const style = useMemo(() => ({
-        ...baseStyle,
-        ...(isDragActive ? activeStyle : {}),
-        ...(isDragAccept ? acceptStyle : {}),
-        ...(isDragReject ? rejectStyle : {}),
-        ...{ maxSize: maxFileCount },
-    }), [
-        isDragActive,
-        isDragAccept,
-        isDragReject,
-        maxFileCount
-    ]);
+    const style = useMemo(
+        () => ({
+            ...baseStyle,
+            ...(isDragActive ? activeStyle : {}),
+            ...(isDragAccept ? acceptStyle : {}),
+            ...(isDragReject ? rejectStyle : {}),
+            ...{ maxSize: maxFileCount },
+        }),
+        [isDragActive, isDragAccept, isDragReject, maxFileCount],
+    );
 
-    return <div className="container">
-        <div {...getRootProps({ style })}>
-            <input {...getInputProps()} />
-            <p>Drag and drop some image(s) here, or click to select images</p>
-            <em>(Only *.jpeg and *.png images will be accepted)</em>
+    return (
+        <div className="container">
+            <div {...getRootProps({ style })}>
+                <input {...getInputProps()} />
+                <p>Drag and drop some image(s) here, or click to select images</p>
+                <em>(Only *.jpeg and *.png images will be accepted)</em>
+            </div>
+            <aside>
+                <h4>Upload list:</h4>
+                {acceptedFiles.length === 0 && <div>(empty)</div>}
+                {acceptedFiles.length > 0 && <ul>{files}</ul>}
+            </aside>
+            <hr />
+            <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>
+                Upload
+            </PrimaryButton>
         </div>
-        <aside>
-            <h4>Upload list:</h4>
-            {acceptedFiles.length === 0 && <div>(empty)</div>}
-            {acceptedFiles.length > 0 && <ul>{files}</ul>}
-        </aside>
-        <hr />
-        <PrimaryButton onClick={onUploadButtonClick} disabled={acceptedFiles.length === 0}>Upload</PrimaryButton>
-    </div>
-}
+    );
+};
 
 export default AttachmentsImageDropzone;

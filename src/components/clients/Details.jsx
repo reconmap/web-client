@@ -127,11 +127,11 @@ const ClientDetails = () => {
             });
     };
 
+    useDocumentTitle(client ? `${client.name} client` : null);
+
     if (!client) {
         return <Loading />;
     }
-
-    useDocumentTitle(`${client.name} client`);
 
     return (
         <div>
@@ -274,9 +274,9 @@ const ClientDetails = () => {
                                                     </td>
                                                 </tr>
                                                 {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
-                                                {contacts.map((contact) => (
+                                                {contacts.map((contact, index) => (
                                                     <>
-                                                        <tr key={contact.id}>
+                                                        <tr key={index}>
                                                             <td>{contact.kind}</td>
                                                             <td>{contact.name}</td>
                                                             <td>{contact.role}</td>

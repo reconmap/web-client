@@ -32,7 +32,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                                 <Tags values={command.tags} />
                             </td>
                             <td>{command.output_parser ?? "-"}</td>
-                            <td textAlign="right">
+                            <td>
                                 <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
                                 {onDeleteCallback && <DeleteIconButton onClick={() => onDeleteCallback(command.id)} />}
                             </td>

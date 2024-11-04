@@ -73,7 +73,7 @@ const ProjectVaultTab = ({ project }) => {
                                             <td>{item.note}</td>
                                             <td>{item.type}</td>
                                             <td>{item.reportable}</td>
-                                            <td textAlign="right">
+                                            <td>
                                                 <LinkButton href={`/vault/${project.id}/${item.id}/edit`}>
                                                     Edit
                                                 </LinkButton>

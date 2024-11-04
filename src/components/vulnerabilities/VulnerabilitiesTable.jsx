@@ -162,7 +162,7 @@ const VulnerabilitiesTable = ({
                                         parentName={vulnerability.parent_category_name}
                                     />
                                 </td>
-                                <td textAlign="right">
+                                <td>
                                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                                         <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
                                         {reloadCallback && (

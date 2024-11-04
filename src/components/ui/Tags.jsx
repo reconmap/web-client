@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import Tag from "./Tag";
 
 const Tags = ({ values }) => {
     if (!values) return null;
 
     return JSON.parse(values).map((value, index) => (
-        <span key={`tag_index_${index}`} size="sm">
+        <Tag key={`tag_index_${index}`}>
             <Link to={`/search/${value}?entities=commands,vulnerabilities`}>{value}</Link>
-        </span>
+        </Tag>
     ));
 };
 

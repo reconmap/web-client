@@ -1,13 +1,5 @@
 .dashboard-widget {
     padding: var(--padding);
-    background-color: var(--black);
     border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
     border-left: var(--borderWidth) solid var(--text-color);
-    color: var(--text-color);
-
-    dl {
-        dt {
-            border-bottom-color: var(--bg-color);
-        }
-    }
 }
