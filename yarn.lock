@@ -6265,16 +6265,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dropzone@npm:^14.3.2":
-  version: 14.3.2
-  resolution: "react-dropzone@npm:14.3.2"
+"react-dropzone@npm:^14.3.5":
+  version: 14.3.5
+  resolution: "react-dropzone@npm:14.3.5"
   dependencies:
     attr-accept: "npm:^2.2.4"
     file-selector: "npm:^2.1.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">= 16.8 || 18.0.0"
-  checksum: 10/21dd67e130e1a6528744fd439f0390935cb39590d3c891a2dc23c876c0d1993896c9a80d2b687e0d4e325dfc04b92f361f40aa25b9552059724db15fd09fe448
+  checksum: 10/6124bacd2138002d721c86c2b507a5c1889cfde73344fe474855a4e2e81fecb2c318edb0ab3333a75fd502fb6da44a6f8e9cdee317ec916331fd520d454e6297
   languageName: node
   linkType: hard
 
@@ -6520,7 +6520,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-dropzone: "npm:^14.3.2"
+    react-dropzone: "npm:^14.3.5"
     react-hot-toast: "npm:^2.4.1"
     react-i18next: "npm:^15.1.0"
     react-markdown: "npm:^9.0.1"
