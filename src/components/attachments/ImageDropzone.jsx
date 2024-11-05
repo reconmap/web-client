@@ -9,8 +9,6 @@ const baseStyle = {
     flexDirection: "column",
     alignItems: "center",
     padding: "20px",
-    borderWidth: "var(--borderWidth)",
-    borderRadius: "var(--borderRadius)",
     borderStyle: "dashed",
     outline: "none",
     transition: "border .24s ease-in-out",

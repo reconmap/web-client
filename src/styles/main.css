@@ -4,8 +4,6 @@
     /*spacing*/
     --space: 0.9rem;
     --space-xs: 0.1rem;
-    --space-sm: calc(var(--space) / 2);
-    --space-lg: calc(var(--space) * 2);
 
     --margin: calc(var(--space) / 2);
     --padding: var(--space);
@@ -13,11 +11,6 @@
     --paddingBadge: calc(var(--space) / 3) calc(var(--space) / 2);
     --marginBox: calc(var(--space) / 2) 0;
     --borderRadius: calc(var(--space) / 3);
-
-    /*width*/
-    --sidebarWidth: 200px;
-    --sidebarCollapsedWidth: 64px;
-    --borderWidth: 2px;
 
     /*icons*/
     --iconSize: 32px;
@@ -28,16 +21,6 @@ body {
     font-size: 14px;
 }
 
-
-main {
-    display: grid !important;
-    transition: grid-template-columns 0.2s;
-    grid-template-columns: var(--sidebarWidth) 1fr;
-
-    &.collapsed {
-        grid-template-columns: var(--sidebarCollapsedWidth) 1fr;
-    }
-}
 
 .heading {
     display: flex;

@@ -86,8 +86,8 @@ const AdvancedSearch = () => {
                         <>No searches.</>
                     ) : (
                         <ol>
-                            {recentSearches.map((search) => (
-                                <li>
+                            {recentSearches.map((search, index) => (
+                                <li key={index}>
                                     <Link to={SearchUrls.KeywordsSearch.replace(":keywords", search)}>{search}</Link>
                                 </li>
                             ))}

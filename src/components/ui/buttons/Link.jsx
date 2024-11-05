@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import './Link.css';
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const LinkButton = ({ children, external = false, ...props }) => {
     const navigate = useNavigate();
 
-    const onAnchorClick = ev => {
+    const onAnchorClick = (ev) => {
         ev.stopPropagation();
 
         if (!external) {
@@ -13,18 +12,20 @@ const LinkButton = ({ children, external = false, ...props }) => {
 
             navigate({
                 pathname: ev.target.pathname,
-                search: ev.target.search
+                search: ev.target.search,
             });
         }
-    }
+    };
 
-    return <a onClick={onAnchorClick} target={external ? "_blank" : ""} className="link-button" {...props}>
-        {children}
-    </a>
-}
+    return (
+        <a onClick={onAnchorClick} target={external ? "_blank" : ""} className="button" {...props}>
+            {children}
+        </a>
+    );
+};
 
 LinkButton.propTypes = {
-    href: PropTypes.string.isRequired
+    href: PropTypes.string.isRequired,
 };
 
 export default LinkButton;

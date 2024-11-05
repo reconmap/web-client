@@ -98,7 +98,7 @@ const VaultItemEdit = () => {
                                             name="type"
                                             onChange={onVaultItemFormChange}
                                             value={item.type || ""}
-                                            isRequired
+                                            required
                                         >
                                             <option value="password">Password</option>
                                             <option value="note">Note</option>
@@ -112,7 +112,7 @@ const VaultItemEdit = () => {
                                             name="name"
                                             onChange={onVaultItemFormChange}
                                             value={item.name || ""}
-                                            isRequired
+                                            required
                                         />
                                     </td>
                                     <td>
@@ -129,7 +129,7 @@ const VaultItemEdit = () => {
                                             name="value"
                                             onChange={onVaultItemFormChange}
                                             value={item.value || ""}
-                                            isRequired
+                                            required
                                         />
                                     </td>
                                     <td>
@@ -157,7 +157,7 @@ const VaultItemEdit = () => {
                             name="password"
                             onChange={onPasswordFormChanged}
                             value={password || ""}
-                            isRequired
+                            required
                         />
                         <NativeButton type="submit">Send</NativeButton>
                     </form>

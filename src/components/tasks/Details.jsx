@@ -143,7 +143,7 @@ const TaskDetails = () => {
 
                     <div>
                         <NativeTabs
-                            labels={["Details", null !== command ?? "Command instructions", "Attachments"]}
+                            labels={["Details", command ?? "Command instructions", "Attachments"]}
                             tabIndex={tabIndex}
                             tabIndexSetter={tabIndexSetter}
                         />

@@ -39,7 +39,7 @@ const KeyboardShortcuts = () => {
             onModalClose={onModalClose}
             style={{ maxWidth: "500px" }}
         >
-            <div className="KeyboardShortcutsPopup">
+            <div className="KeyboardShortcutsPopup content">
                 <h4>General</h4>
                 <ul>
                     <li>

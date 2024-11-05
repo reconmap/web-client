@@ -1,11 +1,11 @@
+import { getDocument } from "api/documents";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PageTitle from "components/logic/PageTitle";
 import TimestampsSection from "components/ui/TimestampsSection";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
+import useFetchRequest from "hooks/useFetchRequest";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from "../ui/buttons/Delete";
 import EditButton from "../ui/buttons/Edit";
@@ -18,12 +18,12 @@ const DocumentDetailsPage = () => {
     const { documentId } = useParams();
     const navigate = useNavigate();
 
-    const [serverDoc] = useFetch(`/documents/${documentId}`);
-    const deleteDocument = useDelete(`/documents/`);
+    const { data: serverDoc } = useFetchRequest(getDocument(documentId));
 
     const handleDelete = async () => {
-        const confirmed = await deleteDocument(documentId);
-        if (confirmed) navigate("/documents");
+        fetch(deleteDocument(documentId)).then(() => {
+            navigate("/documents");
+        });
     };
 
     if (!serverDoc) {

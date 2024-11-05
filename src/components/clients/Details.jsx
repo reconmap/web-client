@@ -228,7 +228,7 @@ const ClientDetails = () => {
                                                             name="kind"
                                                             onChange={onContactFormChange}
                                                             value={contact.kind || ""}
-                                                            isRequired
+                                                            required
                                                         >
                                                             <option value="general">General</option>
                                                             <option value="technical">Technical</option>

@@ -26,7 +26,7 @@ const TargetForm = ({ newTarget, onFormSubmit, targetSetter: setTarget }) => {
                             name="name"
                             placeholder="e.g. 127.0.0.1"
                             onChange={onFormChange}
-                            isRequired
+                            required
                             autoFocus
                         />
                     }

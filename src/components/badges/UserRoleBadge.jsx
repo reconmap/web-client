@@ -11,8 +11,6 @@ const UserRoleBadge = ({ role }) => {
     const styles = {
         padding: `var(--paddingBox, .3rem .8rem)`,
         borderRadius: "var(--borderRadius, 3px)",
-        border: `var(--borderWidth,2px) solid transparent`,
-        fontSize: `var(--fontSizeXsmall)`,
     };
 
     return <span style={styles}>{role}</span>;

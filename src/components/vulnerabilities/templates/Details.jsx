@@ -1,4 +1,5 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -60,20 +61,17 @@ const VulnerabilityTemplateDetails = () => {
 
                     <Title type="Vulnerability template" title={vulnerability.summary} icon={<IconFlag />} />
 
-                    <Tabs>
-                        <TabList>
-                            <Tab>Description</Tab>
-                            <Tab>Remediation</Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel>
+                    <div>
+                        <NativeTabs labels={["Description", "Remediation"]} />
+                        <div>
+                            <div>
                                 <VulnerabilityDescriptionPanel vulnerability={vulnerability} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                            <div>
                                 <VulnerabilityRemediationPanel vulnerability={vulnerability} />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
+                            </div>
+                        </div>
+                    </div>
                 </article>
             </div>
         </>

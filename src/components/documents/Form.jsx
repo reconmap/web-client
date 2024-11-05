@@ -18,7 +18,7 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
 
     return (
         <form onSubmit={onFormSubmit}>
-            <div isRequired>
+            <div>
                 <label htmlFor="title">Title</label>
                 <NativeInput
                     type="text"
@@ -30,7 +30,7 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
                 />
             </div>
 
-            <div isRequired>
+            <div>
                 <label htmlFor="content">Content (markdown supported)</label>
                 <MarkdownEditor
                     name="content"

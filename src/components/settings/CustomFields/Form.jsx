@@ -83,7 +83,7 @@ const CustomFieldsPage = () => {
                 <tbody>
                     {customFields &&
                         customFields.map((field) => (
-                            <tr>
+                            <tr key={field.id}>
                                 <td>{field.name}</td>
                                 <td>{field.kind}</td>
                                 <td>{field.label}</td>

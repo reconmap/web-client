@@ -1,6 +1,7 @@
+import LabelledField from "components/form/LabelledField";
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
-import PrimaryButton from "components/ui/buttons/Primary.jsx";
+import PrimaryButton from "components/ui/buttons/Primary";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useRef, useState } from "react";
@@ -42,25 +43,43 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
     };
 
     return (
-        <ModalDialog visible={isOpen} onClose={onCancel}>
-            <div />
+        <ModalDialog visible={isOpen} onClose={onCancel} title="New report template details">
             <div>
                 <div>
-                    <h4>New report template details</h4>
-                </div>
-                <div>
                     <form id="reportTemplateForm" onSubmit={onCreateReportFormSubmit}>
-                        <div isRequired>
-                            <label>Version name</label>
-                            <NativeInput type="text" name="version_name" onChange={onFormChange} autoFocus />
+                        <div>
+                            <LabelledField
+                                label="Version name"
+                                control={
+                                    <NativeInput
+                                        type="text"
+                                        name="version_name"
+                                        onChange={onFormChange}
+                                        autoFocus
+                                        required
+                                    />
+                                }
+                            />
                         </div>
                         <div>
-                            <label>Version description</label>
-                            <NativeInput type="text" name="version_description" onChange={onFormChange} />
+                            <LabelledField
+                                label="Version description"
+                                control={<NativeInput type="text" name="version_description" onChange={onFormChange} />}
+                            />
                         </div>
-                        <div isRequired>
-                            <label>File</label>
-                            <NativeInput type="file" ref={fileRef} name="resultFile" onChange={onFormChange} />
+                        <div>
+                            <LabelledField
+                                label="File"
+                                control={
+                                    <NativeInput
+                                        type="file"
+                                        ref={fileRef}
+                                        name="resultFile"
+                                        onChange={onFormChange}
+                                        required
+                                    />
+                                }
+                            />
                         </div>
                     </form>
                 </div>

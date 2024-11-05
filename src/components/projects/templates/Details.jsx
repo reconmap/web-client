@@ -1,4 +1,5 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
+import NativeTabs from "components/form/NativeTabs";
 import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
@@ -59,20 +60,17 @@ const TemplateDetails = () => {
                     <PageTitle value={`${template.name} project template`} />
                     <Title title={template.name} type="Project template" icon={<IconFolder />} />
 
-                    <Tabs>
-                        <TabList>
-                            <Tab>Details</Tab>
-                            <Tab>Tasks</Tab>
-                        </TabList>
-                        <TabPanels>
-                            <TabPanel>
+                    <div>
+                        <NativeTabs labels={["Details", "Tasks"]} />
+                        <div>
+                            <div>
                                 <ProjectDetailsTab project={template} />
-                            </TabPanel>
-                            <TabPanel>
+                            </div>
+                            <div>
                                 <ProjectTasks project={template} />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
+                            </div>
+                        </div>
+                    </div>
                 </article>
             )}
         </>

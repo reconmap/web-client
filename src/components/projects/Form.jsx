@@ -1,4 +1,5 @@
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
+import LabelledField from "components/form/LabelledField";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -60,36 +61,46 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
 
                 {!project.is_template && (
                     <>
-                        <label>
-                            Visibility
-                            <NativeSelect name="visibility" onChange={handleFormChange} value={project.visibility}>
-                                <option value="public">Public</option>
-                                <option value="private">Private</option>
-                            </NativeSelect>
-                        </label>
+                        <HorizontalLabelledField
+                            label="Visibility"
+                            control={
+                                <NativeSelect name="visibility" onChange={handleFormChange} value={project.visibility}>
+                                    <option value="public">Public</option>
+                                    <option value="private">Private</option>
+                                </NativeSelect>
+                            }
+                        />
 
-                        <label>
-                            Client
-                            <NativeSelect name="client_id" onChange={handleFormChange} value={project.client_id || ""}>
-                                <option value="">(none)</option>
-                                {clients &&
-                                    clients.map((client, index) => (
-                                        <option key={index} value={client.id}>
-                                            {client.name}
-                                        </option>
-                                    ))}
-                            </NativeSelect>
-                        </label>
+                        <HorizontalLabelledField
+                            label="Client"
+                            control={
+                                <NativeSelect
+                                    name="client_id"
+                                    onChange={handleFormChange}
+                                    value={project.client_id || ""}
+                                >
+                                    <option value="">(none)</option>
+                                    {clients &&
+                                        clients.map((client, index) => (
+                                            <option key={index} value={client.id}>
+                                                {client.name}
+                                            </option>
+                                        ))}
+                                </NativeSelect>
+                            }
+                        />
 
-                        <label>
-                            External ID
-                            <NativeInput
-                                type="text"
-                                name="external_id"
-                                onChange={handleFormChange}
-                                value={project.external_id || ""}
-                            />
-                        </label>
+                        <LabelledField
+                            label="External ID"
+                            control={
+                                <NativeInput
+                                    type="text"
+                                    name="external_id"
+                                    onChange={handleFormChange}
+                                    value={project.external_id || ""}
+                                />
+                            }
+                        />
                     </>
                 )}
 
@@ -118,22 +129,23 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
             <fieldset>
                 <legend>Rules of engagement</legend>
 
-                <label>
-                    Vulnerability metrics
-                    <NativeSelect
-                        name="vulnerability_metrics"
-                        value={project.vulnerability_metrics || ""}
-                        onChange={handleFormChange}
-                    >
-                        <option value="">(undefined)</option>
-                        {ProjectVulnerabilityMetrics.map((type) => (
-                            <option key={`metrics_${type.id}`} value={type.id}>
-                                {type.name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </label>
-
+                <HorizontalLabelledField
+                    label="Vulnerability metrics"
+                    control={
+                        <NativeSelect
+                            name="vulnerability_metrics"
+                            value={project.vulnerability_metrics || ""}
+                            onChange={handleFormChange}
+                        >
+                            <option value="">(undefined)</option>
+                            {ProjectVulnerabilityMetrics.map((type) => (
+                                <option key={`metrics_${type.id}`} value={type.id}>
+                                    {type.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    }
+                />
                 {!project.is_template && (
                     <>
                         <HorizontalLabelledField

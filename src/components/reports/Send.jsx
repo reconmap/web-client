@@ -72,14 +72,14 @@ const SendReport = () => {
             </div>
             <form onSubmit={handleSend}>
                 <Title title="Send report" />
-                <div isRequired>
+                <div>
                     <label htmlFor="reportId">Revision</label>
                     <NativeSelect id="reportId" name="report_id" onChange={handleFormChange}>
                         {revisions &&
                             revisions.map((revision) => <option value={revision.id}>{revision.version_name}</option>)}
                     </NativeSelect>
                 </div>
-                <div isRequired>
+                <div>
                     <label>Recipients</label>
                     <NativeInput
                         type="text"
@@ -91,7 +91,7 @@ const SendReport = () => {
                     />
                     <div>Comma separated list of email addresses.</div>
                 </div>
-                <div isRequired>
+                <div>
                     <label>Subject</label>
                     <NativeInput
                         type="text"
@@ -101,7 +101,7 @@ const SendReport = () => {
                         required
                     />
                 </div>
-                <div isRequired>
+                <div>
                     <label>Body</label>
                     <NativeTextArea name="body" onChange={handleFormChange} value={deliverySettings.body} />
                 </div>

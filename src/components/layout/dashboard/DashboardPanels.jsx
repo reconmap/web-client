@@ -1,10 +1,10 @@
 import NativeButton from "components/form/NativeButton";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import Loading from "components/ui/Loading";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import Widgets from "models/Widgets";
 import React, { useState } from "react";
 import secureApiFetch from "services/api";
@@ -75,12 +75,13 @@ const DashboardPanels = () => {
             .catch((err) => console.error(err));
     };
 
+    useDocumentTitle("Dashboard");
+
     if (dashboardConfig === null) return <Loading />;
 
     return (
         <section>
             <Title type="Home" title="Dashboard" icon={<IconChartBar />} />
-            <PageTitle value="Dashboard" />
             <div>
                 <NativeTabs labels={["View", "Configure"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
 

@@ -29,6 +29,8 @@ const CommandDetails = () => {
     const { commandId } = useParams();
     const navigate = useNavigate();
 
+    const [tabIndex, tabIndexSetter] = useState(0);
+
     const [command] = useFetch(`/commands/${commandId}`);
     const deleteClient = useDelete(`/commands/`);
 
@@ -88,103 +90,119 @@ const CommandDetails = () => {
                     <Tags values={command.tags} />
                 </div>
 
-                <NativeTabs labels={["Details", "Usages", "Run instructions", "Command outputs", "Terminal"]} />
+                <NativeTabs
+                    labels={["Details", "Usages", "Run instructions", "Command outputs", "Terminal"]}
+                    tabIndex={tabIndex}
+                    tabIndexSetter={tabIndexSetter}
+                />
 
                 <div>
                     <div>
-                        <div>
-                            <div className="grid grid-two">
-                                <div>
-                                    <dl>
-                                        <dt>Description</dt>
-                                        <dd>
-                                            {command.description ? (
-                                                <ReactMarkdown>{command.description}</ReactMarkdown>
-                                            ) : (
-                                                <EmptyField />
+                        {0 === tabIndex && (
+                            <div>
+                                <div className="grid grid-two">
+                                    <div>
+                                        <dl>
+                                            <dt>Description</dt>
+                                            <dd>
+                                                {command.description ? (
+                                                    <ReactMarkdown>{command.description}</ReactMarkdown>
+                                                ) : (
+                                                    <EmptyField />
+                                                )}
+                                            </dd>
+
+                                            {command.output_parser && (
+                                                <>
+                                                    <dt>Output parser support</dt>
+                                                    <dl>Yes ({command.output_parser})</dl>
+                                                </>
                                             )}
-                                        </dd>
+                                            {command.more_info_url && (
+                                                <>
+                                                    <dt>More information URL</dt>
+                                                    <dl>
+                                                        {command.more_info_url ? (
+                                                            <ExternalLink href={command.more_info_url}>
+                                                                {command.more_info_url}
+                                                            </ExternalLink>
+                                                        ) : (
+                                                            <EmptyField />
+                                                        )}
+                                                    </dl>
+                                                </>
+                                            )}
+                                        </dl>
+                                    </div>
 
-                                        {command.output_parser && (
-                                            <>
-                                                <dt>Output parser support</dt>
-                                                <dl>Yes ({command.output_parser})</dl>
-                                            </>
-                                        )}
-                                        {command.more_info_url && (
-                                            <>
-                                                <dt>More information URL</dt>
-                                                <dl>
-                                                    {command.more_info_url ? (
-                                                        <ExternalLink href={command.more_info_url}>
-                                                            {command.more_info_url}
-                                                        </ExternalLink>
-                                                    ) : (
-                                                        <EmptyField />
-                                                    )}
-                                                </dl>
-                                            </>
-                                        )}
-                                    </dl>
-                                </div>
+                                    <div>
+                                        <h4>Relations</h4>
+                                        <dl>
+                                            <dt>Created by</dt>
+                                            <dd>
+                                                <UserLink userId={command.creator_uid}>
+                                                    {command.creator_full_name}
+                                                </UserLink>
+                                            </dd>
+                                        </dl>
 
-                                <div>
-                                    <h4>Relations</h4>
-                                    <dl>
-                                        <dt>Created by</dt>
-                                        <dd>
-                                            <UserLink userId={command.creator_uid}>
-                                                {command.creator_full_name}
-                                            </UserLink>
-                                        </dd>
-                                    </dl>
-
-                                    <TimestampsSection entity={command} />
+                                        <TimestampsSection entity={command} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <h3>Usages</h3>
+                        )}
+                        {1 === tabIndex && (
+                            <div>
+                                <h3>Usages</h3>
 
-                            <CommandUsageForm
-                                onFormSubmit={onCommandUsageSubmit}
-                                command={commandUsage}
-                                isEditForm={false}
-                                commandSetter={setCommandUsage}
-                            />
+                                <CommandUsageForm
+                                    onFormSubmit={onCommandUsageSubmit}
+                                    command={commandUsage}
+                                    isEditForm={false}
+                                    commandSetter={setCommandUsage}
+                                />
 
-                            {commandUsages !== null && (
-                                <>
-                                    <table className="table is-fullwidth">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Options</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {commandUsages.map((command) => (
-                                                <tr key={command.id}>
-                                                    <td>{command.name}</td>
-                                                    <td>
-                                                        <DeleteButton onClick={(ev) => deleteUsage(command)} />
-                                                    </td>
+                                {commandUsages !== null && (
+                                    <>
+                                        <table className="table is-fullwidth">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Options</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </>
-                            )}
-                        </div>
-                        <div>
-                            {commandUsages !== null && <CommandInstructions command={command} usages={commandUsages} />}
-                        </div>
-                        <div>
-                            <CommandOutputs command={command} />
-                        </div>
-                        <div>
-                            <CommandTerminal commands={[]} />
-                        </div>
+                                            </thead>
+                                            <tbody>
+                                                {commandUsages.map((command) => (
+                                                    <tr key={command.id}>
+                                                        <td>{command.name}</td>
+                                                        <td>
+                                                            <DeleteButton onClick={(ev) => deleteUsage(command)} />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                        {2 === tabIndex && (
+                            <div>
+                                {commandUsages !== null && (
+                                    <CommandInstructions command={command} usages={commandUsages} />
+                                )}
+                            </div>
+                        )}
+                        {3 === tabIndex && (
+                            <div>
+                                <CommandOutputs command={command} />
+                            </div>
+                        )}
+                        {4 === tabIndex && (
+                            <div>
+                                <CommandTerminal commands={[]} />
+                            </div>
+                        )}
                     </div>
                 </div>
             </article>

@@ -15,7 +15,7 @@ const VulnerabilityCategoryForm = ({ category, onFormSubmit, categorySetter: set
 
     return (
         <form id="vulnerability_category_form" onSubmit={onFormSubmit}>
-            <div id="parent_id" isRequired>
+            <div id="parent_id">
                 <label>Parent category</label>
                 {categories && (
                     <NativeSelect name="parent_id" value={category.parent_id} onChange={onFormInputChange}>
@@ -30,9 +30,9 @@ const VulnerabilityCategoryForm = ({ category, onFormSubmit, categorySetter: set
                     </NativeSelect>
                 )}
             </div>
-            <div id="name" isRequired>
+            <div id="name">
                 <label>Name</label>
-                <NativeInput name="name" autoFocus value={category.name} onChange={onFormInputChange} />
+                <NativeInput name="name" autoFocus value={category.name} onChange={onFormInputChange} required />
             </div>
             <div id="description">
                 <label>Description</label>

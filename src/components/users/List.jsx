@@ -1,6 +1,5 @@
 import { deleteUser, deleteUsers } from "api/users";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -8,6 +7,7 @@ import ExportMenuItem from "components/ui/menuitems/ExportMenuItem";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { AuthContext } from "contexts/AuthContext";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CreateButton from "../../components/ui/buttons/Create";
@@ -59,9 +59,10 @@ const UsersList = () => {
         });
     };
 
+    useDocumentTitle("Users");
+
     return (
         <>
-            <PageTitle value="Users" />
             <div className="heading">
                 <Breadcrumb />
                 <NativeButtonGroup>

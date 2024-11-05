@@ -50,13 +50,13 @@ const ImportForm = () => {
                         </li>
                     </ul>
                 </div>
-                <div id="importFile" isRequired>
+                <div id="importFile">
                     <label>Import file</label>
                     <NativeInput
                         type="file"
                         onChange={onImportFileChange}
                         accept=".json,.js,application/json,text/json"
-                        isRequired
+                        required
                     />
                 </div>
 

@@ -1,4 +1,5 @@
 import Compose from "components/Compose";
+import DashboardRoutes from "components/layout/dashboard/Routes";
 import NotificationsRoutes from "components/notifications/Routes";
 import SettingsRoutes from "components/settings/Routes";
 import WebsocketProvider from "contexts/WebsocketContext";
@@ -9,7 +10,6 @@ import ClientsRoutes from "./components/clients/Routes";
 import CommandsRoutes from "./components/commands/Routes";
 import DocumentsRoutes from "./components/documents/Routes";
 import DashboardLayout from "./components/layout/dashboard/DashboardLayout";
-import DashboardPanels from "./components/layout/dashboard/DashboardPanels";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProjectsRoutes from "./components/projects/Routes";
 import ProjectTemplatesRoutes from "./components/projects/templates/Routes";
@@ -35,8 +35,8 @@ const App = () => {
             <Compose components={[AuthProvider, WebsocketProvider]}>
                 <Routes>
                     <Route element={<DashboardLayout />}>
-                        <Route path="/" element={<DashboardPanels />} index />
                         {[
+                            ...DashboardRoutes,
                             ...ClientsRoutes,
                             ...CommandsRoutes,
                             ...DocumentsRoutes,

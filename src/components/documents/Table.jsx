@@ -24,7 +24,7 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
                 {null !== documents && documents.length === 0 && <NoResultsTableRow numColumns={6} />}
                 {null !== documents &&
                     documents.map((document, index) => (
-                        <tr key={`doc_${index}`}>
+                        <tr key={`doc_${document.id}`}>
                             <td>
                                 <DocumentBadge document={document} />
                             </td>
@@ -39,7 +39,7 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
                             </td>
                             <td style={{ textAlign: "right" }}>
                                 <LinkButton href={`/documents/${document.id}/edit`}>Edit</LinkButton>
-                                <DeleteIconButton onClick={(ev) => onDeleteButtonClick(document.id)} />
+                                <DeleteIconButton onClick={() => onDeleteButtonClick(document.id)} />
                             </td>
                         </tr>
                     ))}
