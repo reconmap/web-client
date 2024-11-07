@@ -9,7 +9,6 @@ import NotificationsBadge from "../notifications/NotificationsBadge";
 import SearchBox from "../search/Box";
 import HeaderUserMenu from "../ui/HeaderUserMenu";
 import { DashboardUrls } from "./dashboard/Routes";
-import "./Header.css";
 import HeaderLogo from "./HeaderLogo";
 
 const MenuLinks = [
