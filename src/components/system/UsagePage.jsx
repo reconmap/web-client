@@ -1,5 +1,6 @@
 import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetch from "hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 import { IconDownloadDocument } from "../ui/Icons";
@@ -7,6 +8,8 @@ import Title from "../ui/Title";
 
 const SystemUsagePage = () => {
     const [usage] = useFetch("/system/usage");
+
+    useDocumentTitle("System usage");
 
     if (!usage) return <Loading />;
 
@@ -17,7 +20,7 @@ const SystemUsagePage = () => {
             </div>
             <Title type="System" title="Usage" icon={<IconDownloadDocument />} />
 
-            <div>
+            <div className="content">
                 <dl>
                     <dt>Attachments count</dt>
                     <dd>{usage.attachments.total_count} total</dd>
@@ -29,6 +32,29 @@ const SystemUsagePage = () => {
                         <FileSizeSpan fileSize={usage.attachments.total_file_size} />
                     </dd>
                 </dl>
+
+                <table className="table is-stripped">
+                    <thead>
+                        <tr>
+                            <th>Queue name</th>
+                            <th>Queue length</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Emails</td>
+                            <td>{usage.queueLengths.emails}</td>
+                        </tr>
+                        <tr>
+                            <td>Tasks</td>
+                            <td>{usage.queueLengths.tasks}</td>
+                        </tr>
+                        <tr>
+                            <td>Notifications</td>
+                            <td>{usage.queueLengths.notifications}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     );

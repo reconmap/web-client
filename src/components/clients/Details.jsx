@@ -2,6 +2,7 @@ import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
+import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectsTable from "components/projects/Table";
 import EmptyField from "components/ui/EmptyField";
@@ -56,6 +57,8 @@ const ClientDetails = () => {
     const [contacts, fetchContacts] = useFetch(`/clients/${clientId}/contacts`);
 
     const [contact, setContact] = useState({ ...Contact });
+
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     const onContactFormChange = (ev) => {
         setContact({ ...contact, [ev.target.name]: ev.target.value });
@@ -152,157 +155,165 @@ const ClientDetails = () => {
                 </div>
 
                 <div>
+                    <NativeTabs
+                        labels={["Details", "Contacts", "Projects"]}
+                        tabIndex={tabIndex}
+                        tabIndexSetter={tabIndexSetter}
+                    />
                     <div>
-                        <div>Details</div>
-                        <div>Contacts</div>
-                        <div>Projects</div>
-                    </div>
-                    <div>
-                        <div>
-                            <div className="grid grid-two">
-                                <div>
-                                    <h4>Properties</h4>
+                        {0 === tabIndex && (
+                            <div>
+                                <div className="grid grid-two">
+                                    <div>
+                                        <h4>Properties</h4>
 
-                                    <dl>
-                                        <dt>Address</dt>
-                                        <dd>{client.address ?? "-"}</dd>
+                                        <dl>
+                                            <dt>Address</dt>
+                                            <dd>{client.address ?? "-"}</dd>
 
-                                        <dt>URL</dt>
-                                        <dd>
-                                            <ExternalLink href={client.url}>{client.url}</ExternalLink>
-                                        </dd>
-                                    </dl>
+                                            <dt>URL</dt>
+                                            <dd>
+                                                <ExternalLink href={client.url}>{client.url}</ExternalLink>
+                                            </dd>
+                                        </dl>
 
-                                    <h4>Branding</h4>
+                                        <h4>Branding</h4>
 
-                                    <dl>
-                                        <dt>Main logo</dt>
-                                        <dd>{logo ? <img src={logo} alt="The main logo" /> : <EmptyField />}</dd>
+                                        <dl>
+                                            <dt>Main logo</dt>
+                                            <dd>{logo ? <img src={logo} alt="The main logo" /> : <EmptyField />}</dd>
 
-                                        <dt>Small logo</dt>
-                                        <dd>
-                                            {smallLogo ? (
-                                                <img src={smallLogo} alt="The smaller version of the logo" />
-                                            ) : (
-                                                <EmptyField />
-                                            )}
-                                        </dd>
-                                    </dl>
-                                </div>
+                                            <dt>Small logo</dt>
+                                            <dd>
+                                                {smallLogo ? (
+                                                    <img src={smallLogo} alt="The smaller version of the logo" />
+                                                ) : (
+                                                    <EmptyField />
+                                                )}
+                                            </dd>
+                                        </dl>
+                                    </div>
 
-                                <div>
-                                    <h4>Relations</h4>
-                                    <dl>
-                                        <dt>Created by</dt>
-                                        <dd>
-                                            <UserLink userId={client.creator_uid}>{client.creator_full_name}</UserLink>
-                                        </dd>
-                                    </dl>
+                                    <div>
+                                        <h4>Relations</h4>
+                                        <dl>
+                                            <dt>Created by</dt>
+                                            <dd>
+                                                <UserLink userId={client.creator_uid}>
+                                                    {client.creator_full_name}
+                                                </UserLink>
+                                            </dd>
+                                        </dl>
 
-                                    <TimestampsSection entity={client} />
+                                        <TimestampsSection entity={client} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div>
-                            <h4>Contacts</h4>
+                        {1 === tabIndex && (
+                            <div>
+                                <h4>Contacts</h4>
 
-                            {contacts && (
-                                <>
-                                    <form onSubmit={onFormSubmit}>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Kind</th>
-                                                    <th>Name</th>
-                                                    <th>Role</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
-                                                    <th>&nbsp;</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <NativeSelect
-                                                            name="kind"
-                                                            onChange={onContactFormChange}
-                                                            value={contact.kind || ""}
-                                                            required
-                                                        >
-                                                            <option value="general">General</option>
-                                                            <option value="technical">Technical</option>
-                                                            <option value="billing">Billing</option>
-                                                        </NativeSelect>
-                                                    </td>
-                                                    <td>
-                                                        <NativeInput
-                                                            type="text"
-                                                            name="name"
-                                                            onChange={onContactFormChange}
-                                                            value={contact.name || ""}
-                                                            required
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <NativeInput
-                                                            type="text"
-                                                            name="role"
-                                                            onChange={onContactFormChange}
-                                                            value={contact.role || ""}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <NativeInput
-                                                            type="email"
-                                                            name="email"
-                                                            onChange={onContactFormChange}
-                                                            value={contact.email || ""}
-                                                            required
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <NativeInput
-                                                            type="tel"
-                                                            name="phone"
-                                                            onChange={onContactFormChange}
-                                                            value={contact.phone || ""}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <NativeButton type="submit">Add</NativeButton>
-                                                    </td>
-                                                </tr>
-                                                {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
-                                                {contacts.map((contact, index) => (
-                                                    <>
-                                                        <tr key={index}>
-                                                            <td>{contact.kind}</td>
-                                                            <td>{contact.name}</td>
-                                                            <td>{contact.role}</td>
-                                                            <td>
-                                                                <MailLink email={contact.email} />
-                                                            </td>
-                                                            <td>
-                                                                <TelephoneLink number={contact.phone} />
-                                                            </td>
-                                                            <td>
-                                                                <DeleteIconButton
-                                                                    onClick={onContactDelete.bind(this, contact.id)}
-                                                                />
-                                                            </td>
-                                                        </tr>
-                                                    </>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </form>
-                                </>
-                            )}
-                        </div>
-                        <div>
-                            <ClientProjectsTab clientId={clientId} />
-                        </div>
+                                {contacts && (
+                                    <>
+                                        <form onSubmit={onFormSubmit}>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kind</th>
+                                                        <th>Name</th>
+                                                        <th>Role</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <NativeSelect
+                                                                name="kind"
+                                                                onChange={onContactFormChange}
+                                                                value={contact.kind || ""}
+                                                                required
+                                                            >
+                                                                <option value="general">General</option>
+                                                                <option value="technical">Technical</option>
+                                                                <option value="billing">Billing</option>
+                                                            </NativeSelect>
+                                                        </td>
+                                                        <td>
+                                                            <NativeInput
+                                                                type="text"
+                                                                name="name"
+                                                                onChange={onContactFormChange}
+                                                                value={contact.name || ""}
+                                                                required
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <NativeInput
+                                                                type="text"
+                                                                name="role"
+                                                                onChange={onContactFormChange}
+                                                                value={contact.role || ""}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <NativeInput
+                                                                type="email"
+                                                                name="email"
+                                                                onChange={onContactFormChange}
+                                                                value={contact.email || ""}
+                                                                required
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <NativeInput
+                                                                type="tel"
+                                                                name="phone"
+                                                                onChange={onContactFormChange}
+                                                                value={contact.phone || ""}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <NativeButton type="submit">Add</NativeButton>
+                                                        </td>
+                                                    </tr>
+                                                    {0 === contacts.length && <NoResultsTableRow numColumns={6} />}
+                                                    {contacts.map((contact, index) => (
+                                                        <>
+                                                            <tr key={index}>
+                                                                <td>{contact.kind}</td>
+                                                                <td>{contact.name}</td>
+                                                                <td>{contact.role}</td>
+                                                                <td>
+                                                                    <MailLink email={contact.email} />
+                                                                </td>
+                                                                <td>
+                                                                    <TelephoneLink number={contact.phone} />
+                                                                </td>
+                                                                <td>
+                                                                    <DeleteIconButton
+                                                                        onClick={onContactDelete.bind(this, contact.id)}
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                        </>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                        {2 === tabIndex && (
+                            <div>
+                                <ClientProjectsTab clientId={clientId} />
+                            </div>
+                        )}
                     </div>
                 </div>
             </article>
