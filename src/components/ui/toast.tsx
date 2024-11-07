@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export function actionCompletedToast(description: string) {
     toast.success(
@@ -9,7 +9,6 @@ export function actionCompletedToast(description: string) {
         {
             duration: 4000,
             position: "bottom-right",
-            isClosable: true,
         },
     );
 }
@@ -20,6 +19,5 @@ export function errorToast(description: string) {
         {description}
     </div>, {
         position: "bottom-right",
-        isClosable: false,
     });
 }

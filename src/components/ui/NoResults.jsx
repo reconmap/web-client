@@ -1,8 +1,10 @@
-import { IconExclamationCircle } from './Icons';
+import { IconExclamationCircle } from "./Icons";
 
 export default function NoResults() {
-    return <figure className="NoResults message__container">
-        <IconExclamationCircle />
-        No results
-    </figure>
+    return (
+        <figure className="" style={{ display: "flex", alignItems: "center", gap: "1rem", justifyContent: "center" }}>
+            <IconExclamationCircle />
+            No results
+        </figure>
+    );
 }

@@ -1,6 +1,5 @@
 code {
     display: block;
-    padding: var(--paddingBox);
     border-left: var(--borderWidth) solid var(--primary-color);
     font-family: monospace;
     white-space: pre-line;
@@ -14,7 +13,6 @@ code {
         bottom: 0;
         height: min-content;
         right: 5px;
-        padding: var(--space-xs);
         opacity: .3;
 
         &:hover {

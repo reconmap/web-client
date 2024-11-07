@@ -87,7 +87,7 @@ const UserProfile = () => {
                 <div>
                     {0 === tabIndex && (
                         <div>
-                            <div className="grid grid-two">
+                            <div className="grid grid-two content">
                                 <div>
                                     <h4>Properties</h4>
                                     <dl>

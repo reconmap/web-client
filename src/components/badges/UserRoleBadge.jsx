@@ -1,15 +1,14 @@
-const UserRoleBadge = ({ role }) => {
-    const roles = {
-        administrator: "red",
-        superuser: "blue",
-        user: "green",
-        client: "yellow",
-    };
+const roles = {
+    administrator: "red",
+    superuser: "blue",
+    user: "green",
+    client: "yellow",
+};
 
+const UserRoleBadge = ({ role }) => {
     const color = roles.hasOwnProperty(role) ? roles[role] : "yellow";
 
     const styles = {
-        padding: `var(--paddingBox, .3rem .8rem)`,
         borderRadius: "var(--borderRadius, 3px)",
     };
 

@@ -1,8 +1,8 @@
 
 .document-preview {
+    margin: 0 auto;
     margin-top: 40px;
     width: 80%;
-    margin: 0 auto;
     background-color: white;
     padding: 3% 4%;
     border-radius: 5px;

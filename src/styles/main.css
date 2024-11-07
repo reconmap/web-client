@@ -3,24 +3,16 @@
 :root {
     /*spacing*/
     --space: 0.9rem;
-    --space-xs: 0.1rem;
 
     --margin: calc(var(--space) / 2);
     --padding: var(--space);
-    --paddingBox: calc(var(--space) / 2) var(--space);
     --paddingBadge: calc(var(--space) / 3) calc(var(--space) / 2);
-    --marginBox: calc(var(--space) / 2) 0;
     --borderRadius: calc(var(--space) / 3);
-
-    /*icons*/
-    --iconSize: 32px;
-    --iconSizeLarge: 48px;
 }
 
 body {
-    font-size: 14px;
+    padding: 1rem;
 }
-
 
 .heading {
     display: flex;
@@ -42,15 +34,4 @@ h4 {
         padding: 0;
         flex-shrink: 0;
     }
-}
-
-.message__container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    opacity: .4;
-    gap: var(--padding);
 }

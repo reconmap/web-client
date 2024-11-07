@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const SidemenuLayout = ({ children, links }) => {
     return (
-        <div className="columns" style={{ marginTop: 40 }}>
-            <div className="column is-one-fifth">
+        <div className="columns">
+            <div className="column is-1">
                 <aside className="menu">
                     {links.map((item) => {
                         if (item.type === "label") {

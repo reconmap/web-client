@@ -80,7 +80,7 @@ const DashboardPanels = () => {
     if (dashboardConfig === null) return <Loading />;
 
     return (
-        <section>
+        <div>
             <Title type="Home" title="Dashboard" icon={<IconChartBar />} />
             <div>
                 <NativeTabs labels={["View", "Configure"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
@@ -127,7 +127,7 @@ const DashboardPanels = () => {
                     </div>
                 )}
             </div>
-        </section>
+        </div>
     );
 };
 

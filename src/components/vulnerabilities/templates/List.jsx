@@ -105,6 +105,7 @@ const VulnerabilityTemplatesList = () => {
                                         />
                                     </td>
                                     <td>
+                                        <LinkButton href={`/vulnerabilities/${template.id}/edit`}>Edit</LinkButton>
                                         <PrimaryButton
                                             onClick={(ev) => cloneVulnerability(ev, template.id)}
                                             key={template.id}
@@ -112,7 +113,6 @@ const VulnerabilityTemplatesList = () => {
                                         >
                                             Clone and edit
                                         </PrimaryButton>
-                                        <LinkButton href={`/vulnerabilities/${template.id}/edit`}>Edit</LinkButton>
                                         <DeleteIconButton onClick={(ev) => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>

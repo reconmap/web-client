@@ -143,7 +143,7 @@ const TaskDetails = () => {
 
                     <div>
                         <NativeTabs
-                            labels={["Details", command ?? "Command instructions", "Attachments"]}
+                            labels={["Details", null !== command ? "Command instructions" : null, "Attachments"]}
                             tabIndex={tabIndex}
                             tabIndexSetter={tabIndexSetter}
                         />
@@ -231,12 +231,12 @@ const TaskDetails = () => {
                                     </div>
                                 </div>
                             )}
-                            {null !== command && (
+                            {null !== command && 1 === tabIndex && (
                                 <div>
                                     <CommandInstructions command={command} task={task} />
                                 </div>
                             )}
-                            {1 === tabIndex && (
+                            {(null !== command ? 2 : 1) === tabIndex && (
                                 <div>
                                     <AttachmentsDropzone
                                         parentType={parentType}

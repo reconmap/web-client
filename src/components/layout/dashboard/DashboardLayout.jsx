@@ -6,11 +6,9 @@ const DashboardLayout = () => {
     return (
         <>
             <Header />
-            <main role="main">
-                <div id="content">
-                    <Outlet />
-                </div>
-            </main>
+            <div>
+                <Outlet />
+            </div>
             <KeyboardShortcuts />
         </>
     );

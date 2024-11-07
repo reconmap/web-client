@@ -11,8 +11,6 @@ const Title = ({ type, title, icon }) => {
             alignItems: "center",
             justifyContent: "center",
             marginRight: "var(--padding)",
-            width: "var(--iconSizeLarge)",
-            height: "var(--iconSizeLarge)",
         },
     };
     return (
