@@ -1,5 +1,3 @@
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NativeButton from "components/form/NativeButton";
 import { useWebsocketMessage } from "contexts/WebsocketContext";
 import useFetch from "hooks/useFetch";
@@ -35,7 +33,6 @@ const NotificationsBadge = () => {
                     aria-label="Notifications"
                     onClick={toggle}
                 >
-                    <FontAwesomeIcon icon={faBell} />
                     {null !== notifications && notifications.length > 0 && <Tag>{notifications.length}</Tag>}
                 </NativeButton>
             </div>

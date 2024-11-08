@@ -1,11 +1,12 @@
+import { getExportables } from "api/system";
 import NativeSelect from "components/form/NativeSelect";
-import useFetch from "hooks/useFetch";
+import useFetchRequest from "hooks/useFetchRequest";
 import { useState } from "react";
 import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ExportForm = () => {
-    const [entities] = useFetch("/system/exportables");
+    const { data: exportables } = useFetchRequest(getExportables());
 
     const [exportButtonDisabled, setExportButtonDisabled] = useState(true);
 
@@ -43,7 +44,7 @@ const ExportForm = () => {
         <div>
             <h3>Export system data</h3>
 
-            <div style={{ marginTop: "5px", marginBottom: "5px" }}>
+            <div className="content">
                 Notes:
                 <ul>
                     <li>Select one or more entities to export.</li>
@@ -54,15 +55,16 @@ const ExportForm = () => {
                 </ul>
             </div>
 
-            <NativeSelect multiple style={{ width: "80%", height: 250 }} onChange={onEntitiesSelectionChange}>
-                {entities &&
-                    entities.map((entity) => (
-                        <option key={entity.key} value={entity.key}>
-                            {entity.description}
-                        </option>
-                    ))}
-            </NativeSelect>
-            <br />
+            <div className="control">
+                <NativeSelect multiple size="8" onChange={onEntitiesSelectionChange}>
+                    {exportables &&
+                        exportables.map((entity) => (
+                            <option key={entity.key} value={entity.key}>
+                                {entity.description}
+                            </option>
+                        ))}
+                </NativeSelect>
+            </div>
             <PrimaryButton disabled={exportButtonDisabled} onClick={onExportButtonClick}>
                 Export
             </PrimaryButton>

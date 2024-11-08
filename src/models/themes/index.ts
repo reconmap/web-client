@@ -1,4 +1,3 @@
-
 interface Theme {
     id: string;
     name: string;
@@ -11,8 +10,8 @@ const ThemeList: Theme[] = [
     },
     {
         id: "light",
-        name: "Light"
-    }
+        name: "Light",
+    },
 ];
 
 export { ThemeList };

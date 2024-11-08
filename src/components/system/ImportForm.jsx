@@ -1,19 +1,19 @@
 import NativeInput from "components/form/NativeInput";
 import ExternalLink from "components/ui/ExternalLink";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ImportForm = () => {
+    const importFileRef = useRef(null);
     const [importResponse, setImportResponse] = useState(null);
     const [importButtonDisabled, setImportButtonDisabled] = useState(true);
 
     const handleUploadClick = (ev) => {
         ev.preventDefault();
 
-        const resultFileInput = document.getElementById("importFile");
         const formData = new FormData();
-        formData.append("importFile", resultFileInput.files[0]);
+        formData.append("importFile", importFileRef.current.files[0]);
         secureApiFetch("/system/data", {
             method: "POST",
             body: formData,
@@ -53,6 +53,7 @@ const ImportForm = () => {
                 <div id="importFile">
                     <label>Import file</label>
                     <NativeInput
+                        ref={importFileRef}
                         type="file"
                         onChange={onImportFileChange}
                         accept=".json,.js,application/json,text/json"

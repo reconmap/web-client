@@ -1,5 +1,3 @@
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -80,8 +78,7 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
                     <ul spacing={3}>
                         {acceptedFiles.map((file) => (
                             <li key={file.path}>
-                                <FontAwesomeIcon color="var(--primary-color)" icon={faUpload} /> {file.path} -{" "}
-                                {file.size} bytes
+                                {file.path} -{file.size} bytes
                             </li>
                         ))}
                     </ul>

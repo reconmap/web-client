@@ -1,6 +1,6 @@
-import NativeButton from "components/form/NativeButton";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeTabs from "components/form/NativeTabs";
+import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
@@ -48,7 +48,10 @@ const DashboardPanels = () => {
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
+    const [formHasChanged, setFormHasChanged] = useState(false);
+
     const onWidgetChange = (ev) => {
+        setFormHasChanged(true);
         setDashboardConfig((prev) => ({
             ...prev,
             [ev.target.name]: { ...prev[ev.target.name], visible: ev.target.checked },
@@ -72,7 +75,10 @@ const DashboardPanels = () => {
 
                 actionCompletedToast("Your preferences have been saved.");
             })
-            .catch((err) => console.error(err));
+            .catch((err) => console.error(err))
+            .finally(() => {
+                setFormHasChanged(false);
+            });
     };
 
     useDocumentTitle("Dashboard");
@@ -123,7 +129,9 @@ const DashboardPanels = () => {
                                 }
                             })}
                         </div>
-                        <NativeButton onClick={(ev) => onSave(ev, user)}>Save</NativeButton>
+                        <PrimaryButton disabled={!formHasChanged} onClick={(ev) => onSave(ev, user)}>
+                            Save
+                        </PrimaryButton>
                     </div>
                 )}
             </div>

@@ -1,15 +1,23 @@
-import ActiveProjectsWidget from "components/layout/dashboard/widgets/ActiveProjectsWidget";
-import ApiHealthWidget from "components/layout/dashboard/widgets/ApiHealthWidget";
-import MyTasksWidget from "components/layout/dashboard/widgets/MyTasksWidget";
-import PopularCommandsWidget from "components/layout/dashboard/widgets/PopularCommandsWidget";
-import RecentActivityWidget from "components/layout/dashboard/widgets/RecentActivityWidget";
-import RecentDocumentsWidget from "components/layout/dashboard/widgets/RecentDocumentsWidget";
-import RecentVulnerabilitiesWidget from "components/layout/dashboard/widgets/RecentVulnerabilitiesWidget";
-import UserActivityStatsWidget from "components/layout/dashboard/widgets/UserActivityStatsWidget";
-import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget";
-import VulnerabilitiesByRiskStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget";
+import ActiveProjectsWidget from "components/layout/dashboard/widgets/ActiveProjectsWidget.jsx";
+import ApiHealthWidget from "components/layout/dashboard/widgets/ApiHealthWidget.jsx";
+import MyTasksWidget from "components/layout/dashboard/widgets/MyTasksWidget.jsx";
+import PopularCommandsWidget from "components/layout/dashboard/widgets/PopularCommandsWidget.jsx";
+import RecentActivityWidget from "components/layout/dashboard/widgets/RecentActivityWidget.jsx";
+import RecentDocumentsWidget from "components/layout/dashboard/widgets/RecentDocumentsWidget.jsx";
+import RecentVulnerabilitiesWidget from "components/layout/dashboard/widgets/RecentVulnerabilitiesWidget.jsx";
+import UserActivityStatsWidget from "components/layout/dashboard/widgets/UserActivityStatsWidget.jsx";
+import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget.jsx";
+import VulnerabilitiesByRiskStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget.jsx";
 
-const Widgets = {
+type WidgetConfig = {
+    title: string;
+    description?: string;
+    visible: boolean;
+    component: JSX.Element;
+    permissions?: string;
+};
+
+const Widgets: Record<string, WidgetConfig> = {
     "my-tasks": {
         title: "My tasks",
         description: "It shows a list of all open tasks assigned to you.",

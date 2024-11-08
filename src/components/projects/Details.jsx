@@ -1,5 +1,3 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
@@ -84,12 +82,7 @@ const ProjectDetails = () => {
                                 <NativeButton onClick={() => onArchiveButtonClick(project)}>
                                     {project.archived ? "Unarchive" : "Archive"}
                                 </NativeButton>
-                                <DeleteButton
-                                    icon={<FontAwesomeIcon icon={faTrash} />}
-                                    onClick={() => destroy(project.id)}
-                                >
-                                    Delete
-                                </DeleteButton>
+                                <DeleteButton onClick={() => destroy(project.id)}>Delete</DeleteButton>
                             </RestrictedComponent>
                         </NativeButtonGroup>
                     </>

@@ -5,7 +5,6 @@ import ExternalLink from "components/ui/ExternalLink";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { AuthContext } from "contexts/AuthContext";
 import { useContext } from "react";
-import "./Form.css";
 
 const SupportForm = () => {
     const { user } = useContext(AuthContext);
@@ -52,7 +51,7 @@ Keycloak URL: ${Configuration.getKeycloakConfig().url}
     };
 
     return (
-        <div className="support-form">
+        <div>
             <h2>Support information</h2>
 
             <p>
@@ -61,7 +60,7 @@ Keycloak URL: ${Configuration.getKeycloakConfig().url}
                 possible as this could accelerate its resolution.
             </p>
 
-            <NativeTextArea id="systemInfoControl" value={systemInfo} readOnly />
+            <NativeTextArea id="systemInfoControl" value={systemInfo} readOnly className="textarea is-info" rows="10" />
             <PrimaryButton onClick={onCopyToClipboardClick}>Copy to clipboard</PrimaryButton>
         </div>
     );

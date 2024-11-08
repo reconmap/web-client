@@ -10,6 +10,7 @@ import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
 import useFetch from "hooks/useFetch";
+import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 import ProjectDetailsTab from "../DetailsTab";
@@ -19,6 +20,8 @@ const TemplateDetails = () => {
     const navigate = useNavigate();
     const { templateId } = useParams();
     const [template] = useFetch(`/projects/${templateId}`);
+
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     const cloneProject = (templateId) => {
         secureApiFetch(`/projects/${templateId}/clone`, { method: "POST" })
@@ -61,14 +64,18 @@ const TemplateDetails = () => {
                     <Title title={template.name} type="Project template" icon={<IconFolder />} />
 
                     <div>
-                        <NativeTabs labels={["Details", "Tasks"]} />
+                        <NativeTabs labels={["Details", "Tasks"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
                         <div>
-                            <div>
-                                <ProjectDetailsTab project={template} />
-                            </div>
-                            <div>
-                                <ProjectTasks project={template} />
-                            </div>
+                            {0 === tabIndex && (
+                                <div>
+                                    <ProjectDetailsTab project={template} />
+                                </div>
+                            )}
+                            {1 === tabIndex && (
+                                <div>
+                                    <ProjectTasks project={template} />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </article>

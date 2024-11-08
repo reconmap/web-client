@@ -1,11 +1,9 @@
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
-import PageTitle from "components/logic/PageTitle";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -25,9 +23,10 @@ const NotificationsList = () => {
 
     const deleteNotification = useDelete("/notifications/", fetchNotifications);
 
+    useDocumentTitle("Notifications");
+
     return (
         <>
-            <PageTitle value="Notifications" />
             <div className="heading">
                 <Breadcrumb />
             </div>
@@ -49,9 +48,7 @@ const NotificationsList = () => {
                         notifications.length > 0 &&
                         notifications.map((notification) => (
                             <tr key={notification.id}>
-                                <th>
-                                    {notification.status === "read" ? <FontAwesomeIcon icon={faCheck} /> : <>&nbsp;</>}
-                                </th>
+                                <th>{notification.status === "read" ? <>(read)</> : <>&nbsp;</>}</th>
                                 <td>
                                     <RelativeDateFormatter date={notification.insert_ts} />
                                 </td>

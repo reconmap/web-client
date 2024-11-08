@@ -63,9 +63,7 @@ const DocumentDetailsPage = () => {
                             </dd>
 
                             <dt>Content</dt>
-                            <dd>
-                                <DocumentPreview content={serverDoc.content} />
-                            </dd>
+                            <dd></dd>
                         </dl>
                     </div>
 
@@ -81,6 +79,7 @@ const DocumentDetailsPage = () => {
                         <TimestampsSection entity={serverDoc} />
                     </div>
                 </div>
+                <DocumentPreview content={serverDoc.content} />
             </article>
         </div>
     );

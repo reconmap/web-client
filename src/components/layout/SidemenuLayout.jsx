@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const SidemenuLayout = ({ children, links }) => {
     return (
         <div className="columns">
-            <div className="column is-1">
+            <div className="column is-2">
                 <aside className="menu">
                     {links.map((item) => {
                         if (item.type === "label") {

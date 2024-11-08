@@ -1,12 +1,10 @@
-import "./ExternalLink.css";
-
 const ExternalLink = (props) => {
     if (!props.children) {
         return "-";
     }
 
     return (
-        <a target="_blank" rel="noopener noreferrer" {...props} className="external-link">
+        <a target="_blank" rel="noopener noreferrer" {...props} className="is-link">
             {props.children} 🡥
         </a>
     );

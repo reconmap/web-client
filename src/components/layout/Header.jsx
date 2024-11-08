@@ -91,8 +91,10 @@ const Header = () => {
                                     {menuLink.items.map((item) => {
                                         return null === item ? (
                                             <hr className="navbar-divider" />
-                                        ) : menuLink.hasOwnProperty("external") ? (
-                                            <ExternalLink>{item.name}</ExternalLink>
+                                        ) : item.hasOwnProperty("external") ? (
+                                            <div className="navbar-item">
+                                                <ExternalLink href={item.url}>{item.name}</ExternalLink>
+                                            </div>
                                         ) : (
                                             <Link
                                                 className="navbar-item"

@@ -194,7 +194,7 @@ const ClientDetails = () => {
                                         </dl>
                                     </div>
 
-                                    <div>
+                                    <div className="content">
                                         <h4>Relations</h4>
                                         <dl>
                                             <dt>Created by</dt>

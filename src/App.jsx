@@ -9,7 +9,7 @@ import Configuration from "./Configuration";
 import ClientsRoutes from "./components/clients/Routes";
 import CommandsRoutes from "./components/commands/Routes";
 import DocumentsRoutes from "./components/documents/Routes";
-import DashboardLayout from "./components/layout/dashboard/DashboardLayout";
+import DashboardLayout from "./components/layout/DashboardLayout";
 import PageNotFound from "./components/layout/dashboard/PageNotFound";
 import ProjectsRoutes from "./components/projects/Routes";
 import ProjectTemplatesRoutes from "./components/projects/templates/Routes";

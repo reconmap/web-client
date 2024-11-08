@@ -1,3 +1,4 @@
+import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import useFetch from "hooks/useFetch";
@@ -16,27 +17,45 @@ const VulnerabilityCategoryForm = ({ category, onFormSubmit, categorySetter: set
     return (
         <form id="vulnerability_category_form" onSubmit={onFormSubmit}>
             <div id="parent_id">
-                <label>Parent category</label>
                 {categories && (
-                    <NativeSelect name="parent_id" value={category.parent_id} onChange={onFormInputChange}>
-                        <option>(none)</option>
-                        {categories
-                            .filter((category) => category.parent_id === null)
-                            .map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {category.name}
-                                </option>
-                            ))}
-                    </NativeSelect>
+                    <LabelledField
+                        label="Parent category"
+                        control={
+                            <NativeSelect name="parent_id" value={category.parent_id} onChange={onFormInputChange}>
+                                <option>(none)</option>
+                                {categories
+                                    .filter((category) => category.parent_id === null)
+                                    .map((category) => (
+                                        <option key={category.id} value={category.id}>
+                                            {category.name}
+                                        </option>
+                                    ))}
+                            </NativeSelect>
+                        }
+                    />
                 )}
             </div>
             <div id="name">
-                <label>Name</label>
-                <NativeInput name="name" autoFocus value={category.name} onChange={onFormInputChange} required />
+                <LabelledField
+                    label="Name"
+                    control={
+                        <NativeInput
+                            name="name"
+                            autoFocus
+                            value={category.name}
+                            onChange={onFormInputChange}
+                            required
+                        />
+                    }
+                />
             </div>
             <div id="description">
-                <label>Description</label>
-                <NativeInput name="description" value={category.description} onChange={onFormInputChange} />
+                <LabelledField
+                    label="Description"
+                    control={
+                        <NativeInput name="description" value={category.description} onChange={onFormInputChange} />
+                    }
+                />
             </div>
         </form>
     );

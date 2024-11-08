@@ -1,13 +1,13 @@
 import { LanguageList } from "bootstrap/LanguageList";
 import NativeSelect from "components/form/NativeSelect";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { ThemeList } from "components/ui/themes";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
 import CountriesTimezones from "countries-and-timezones";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetch from "hooks/useFetch";
 import { useTheme } from "hooks/useTheme";
+import { ThemeList } from "models/themes";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { initialiseUserPreferences } from "services/userPreferences";

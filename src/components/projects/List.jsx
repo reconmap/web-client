@@ -1,7 +1,7 @@
 import NativeSelect from "components/form/NativeSelect";
 import PaginationV2 from "components/layout/PaginationV2";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -68,13 +68,14 @@ const ProjectsList = () => {
 
     const destroy = useDelete("/projects/", reloadProjects);
 
+    useDocumentTitle("Projects");
+
     useEffect(() => {
         reloadProjects();
     }, [statusFilter, reloadProjects]);
 
     return (
         <div>
-            <PageTitle value="Projects" />
             <div className="heading">
                 <Breadcrumb />
                 <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />

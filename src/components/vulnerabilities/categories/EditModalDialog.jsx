@@ -1,4 +1,6 @@
 import NativeButton from "components/form/NativeButton";
+import PrimaryButton from "components/ui/buttons/Primary";
+import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast } from "components/ui/toast";
 import { useState } from "react";
 import secureApiFetch from "services/api";
@@ -26,9 +28,8 @@ const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCan
     };
 
     return (
-        <div isOpen={isOpen} onClose={onCancel}>
+        <ModalDialog visible={isOpen} onClose={onCancel} title="Vulnerability category details">
             <div>
-                <div>Vulnerability category details</div>
                 <div>
                     <VulnerabilityCategoryForm
                         category={newCategory}
@@ -39,12 +40,16 @@ const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCan
 
                 <div>
                     <NativeButton onClick={onCancel}>Cancel</NativeButton>
-                    <NativeButton type="submit" form="vulnerability_category_form" onClick={onCreateCategoryFormSubmit}>
+                    <PrimaryButton
+                        type="submit"
+                        form="vulnerability_category_form"
+                        onClick={onCreateCategoryFormSubmit}
+                    >
                         Save
-                    </NativeButton>
+                    </PrimaryButton>
                 </div>
             </div>
-        </div>
+        </ModalDialog>
     );
 };
 
