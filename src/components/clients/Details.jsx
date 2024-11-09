@@ -21,7 +21,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
-import { IconBriefcase } from "../ui/Icons";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
 import useDelete from "./../../hooks/useDelete";
@@ -151,7 +150,7 @@ const ClientDetails = () => {
             </div>
             <article>
                 <div>
-                    <Title type="Client" title={client.name} icon={<IconBriefcase />} />
+                    <Title type="Client" title={client.name} />
                 </div>
 
                 <div>

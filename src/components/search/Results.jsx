@@ -4,7 +4,6 @@ import useQuery from "hooks/useQuery";
 import React, { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconSearch } from "../ui/Icons";
 import Title from "../ui/Title";
 import CommandsSearchResults from "./CommandsSearchResults";
 import ProjectsSearchResults from "./ProjectsSearchResults";
@@ -35,7 +34,7 @@ const SearchResults = React.memo(() => {
                     <LinkButton href={SearchUrls.AdvancedSearch}>Advanced search</LinkButton>
                 </div>
             </div>
-            <Title type="Search results" title={`For ${keywords}`} icon={<IconSearch />} />
+            <Title type="Search results" title={`For ${keywords}`} />
 
             {emptyResults.length > 0 && (
                 <div status="warning">No results were found for: {[...new Set([...emptyResults])].join(", ")}</div>

@@ -1,8 +1,8 @@
 import NativeSelect from "components/form/NativeSelect";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteButton from "components/ui/buttons/Delete";
 import { actionCompletedToast } from "components/ui/toast";
+import useDocumentTitle from "hooks/useDocumentTitle";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -10,7 +10,6 @@ import useDelete from "../../hooks/useDelete";
 import TaskStatuses from "../../models/TaskStatuses";
 import Breadcrumb from "../ui/Breadcrumb";
 import CreateButton from "../ui/buttons/Create";
-import { IconClipboardList } from "../ui/Icons";
 import Title from "../ui/Title";
 import TaskFilters from "./Filters";
 import TasksTable from "./TasksTable";
@@ -87,13 +86,14 @@ const TasksList = () => {
 
     const destroy = useDelete("/tasks/", reloadTasks);
 
+    useDocumentTitle("Tasks");
+
     useEffect(() => {
         reloadTasks();
     }, [reloadTasks, tableModel.filters]);
 
     return (
         <>
-            <PageTitle value="Tasks" />
             <div className="heading">
                 <Breadcrumb />
                 <div>
@@ -116,7 +116,7 @@ const TasksList = () => {
                     </RestrictedComponent>
                 </div>
             </div>
-            <Title title="Tasks" icon={<IconClipboardList />} />
+            <Title title="Tasks" />
 
             <div>
                 <TaskFilters tableModel={tableModel} tableModelSetter={setTableModel} />

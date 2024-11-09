@@ -15,7 +15,6 @@ import useFetch from "../../hooks/useFetch";
 import UserAvatar from "../badges/UserAvatar";
 import UserRoleBadge from "../badges/UserRoleBadge";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconUserGroup } from "../ui/Icons";
 import DeleteButton from "../ui/buttons/Delete";
 import LinkButton from "../ui/buttons/Link";
 import { actionCompletedToast } from "../ui/toast";
@@ -79,7 +78,7 @@ const UsersList = () => {
                     </ul>
                 </NativeButtonGroup>
             </div>
-            <title title="Users and roles" icon={<IconUserGroup />} />
+            <title title="Users and roles" />
             <table className="table is-fullwidth">
                 <thead>
                     <tr>

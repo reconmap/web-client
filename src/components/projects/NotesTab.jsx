@@ -5,7 +5,6 @@ import useBoolean from "hooks/useBoolean";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";
-import { IconDocument } from "../ui/Icons";
 import Loading from "../ui/Loading";
 
 const ProjectNotesTab = ({ project }) => {
@@ -31,7 +30,6 @@ const ProjectNotesTab = ({ project }) => {
     return (
         <section>
             <h4>
-                <IconDocument />
                 Project comments
                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                     <NoteModalDialog

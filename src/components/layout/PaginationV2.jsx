@@ -2,7 +2,6 @@ import NativeInput from "components/form/NativeInput";
 import { useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import isInputElement from "../../utilities/domUtils";
-import { IconLeft, IconRight } from "../ui/Icons";
 
 const PaginationV2 = ({ page, total, onPageChange }) => {
     const previousEnabled = page + 1 > 1;
@@ -55,7 +54,7 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
                         tooltip="Previous [P]"
                         disabled={!previousEnabled}
                     >
-                        <IconLeft styling={{ width: 12 }} />
+                        &lt;
                     </Link>
                 </li>
                 <li>
@@ -81,7 +80,7 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
                         tooltip="Next [N]"
                         disabled={!nextEnabled}
                     >
-                        <IconRight styling={{ width: 12 }} />
+                        &gt;
                     </Link>
                 </li>
             </ul>

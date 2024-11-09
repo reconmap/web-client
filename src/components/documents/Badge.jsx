@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { IconDocument } from "../ui/Icons";
 
 const DocumentBadge = ({ document }) => {
     const styles = {
@@ -12,7 +11,6 @@ const DocumentBadge = ({ document }) => {
 
     return (
         <Link to={"/documents/" + document.id} style={styles.badge}>
-            <IconDocument />
             {document.title}
         </Link>
     );

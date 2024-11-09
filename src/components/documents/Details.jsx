@@ -9,7 +9,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from "../ui/buttons/Delete";
 import EditButton from "../ui/buttons/Edit";
-import { IconBriefcase } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import DocumentPreview from "./Preview";
@@ -51,7 +50,7 @@ const DocumentDetailsPage = () => {
             <article>
                 <div>
                     <PageTitle value={`${serverDoc.title} document`} />
-                    <Title type="Document" title={serverDoc.title} icon={<IconBriefcase />} />
+                    <Title type="Document" title={serverDoc.title} />
                 </div>
 
                 <div className="grid grid-two">
@@ -61,9 +60,6 @@ const DocumentDetailsPage = () => {
                             <dd>
                                 <VisibilityLegend visibility={serverDoc.visibility} />
                             </dd>
-
-                            <dt>Content</dt>
-                            <dd></dd>
                         </dl>
                     </div>
 

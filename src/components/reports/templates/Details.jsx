@@ -5,7 +5,6 @@ import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { IconFlag } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
@@ -56,7 +55,7 @@ const ReportTemplateDetails = () => {
                 <article>
                     <PageTitle value={`${vulnerability.summary} vulnerability template`} />
 
-                    <Title type="Vulnerability template" title={vulnerability.summary} icon={<IconFlag />} />
+                    <Title type="Vulnerability template" title={vulnerability.summary} />
 
                     <Tabs>
                         <TabList>

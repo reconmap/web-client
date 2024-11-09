@@ -1,7 +1,6 @@
 import NativeButton from "components/form/NativeButton";
 import { useRef } from "react";
 import { actionCompletedToast } from "../../components/ui/toast";
-import { IconDocumentDuplicate } from "./Icons";
 import "./ShellCommand.css";
 
 const ShellCommand = ({ children, showPrompt = true }) => {
@@ -21,7 +20,7 @@ const ShellCommand = ({ children, showPrompt = true }) => {
     return (
         <code className={showPrompt ? "prompt" : ""} ref={codeRef}>
             {children}
-            <NativeButton onClick={handleCopy} icon={<IconDocumentDuplicate styling={{ width: "32px" }} />} />
+            <NativeButton onClick={handleCopy} />
         </code>
     );
 };

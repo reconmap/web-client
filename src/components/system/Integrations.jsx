@@ -4,7 +4,6 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconExtensions } from "../ui/Icons";
 
 const SystemIntegrationsPage = () => {
     const [integrations] = useFetch("/system/integrations");
@@ -17,7 +16,7 @@ const SystemIntegrationsPage = () => {
                     <div>System</div>
                 </Breadcrumb>
             </div>
-            <title title="Integrations" icon={<IconExtensions />} />
+            <title title="Integrations" />
 
             <table className="table is-fullwidth">
                 <thead>

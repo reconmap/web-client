@@ -6,7 +6,6 @@ import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconSearch } from "../ui/Icons";
 import Title from "../ui/Title";
 import SearchUrls from "./SearchUrls";
 
@@ -50,7 +49,7 @@ const AdvancedSearch = () => {
                 <Breadcrumb />
             </div>
 
-            <Title type="Advanced search" title="Search form" icon={<IconSearch />} />
+            <Title type="Advanced search" title="Search form" />
 
             <div className="columns">
                 <div className="column is-three-quarters">

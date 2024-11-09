@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { IconBriefcase } from "../ui/Icons";
 
 const ClientLink = ({ clientId, children }) => {
     if (!clientId) {
@@ -18,7 +17,6 @@ const ClientLink = ({ clientId, children }) => {
 
     return (
         <Link style={styles.badge} to={`/clients/${clientId}`}>
-            <IconBriefcase styling={{ color: "var(--text-color)" }} />
             {children}
         </Link>
     );

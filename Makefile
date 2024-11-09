@@ -96,3 +96,7 @@ shell:
 sudo-shell:
 	docker exec -u 0 -it $(DOCKER_CONTAINER_NAME) bash
 
+.PHONY: update-license-data
+update-license-data:
+	yarn licenses list --json | jq --slurp . > src/data/licenses.json
+

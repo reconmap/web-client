@@ -1,7 +1,6 @@
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
-import { IconDocument } from "components/ui/Icons";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import useDelete from "hooks/useDelete";
@@ -65,7 +64,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                         </td>
                         <td>
                             <SecondaryButton onClick={() => handleDownload(report.docx_attachment_id)}>
-                                <IconDocument /> DOCX
+                                DOCX
                             </SecondaryButton>
                         </td>
                         <td>

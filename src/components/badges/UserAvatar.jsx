@@ -1,7 +1,7 @@
-import VectorImage from "./UserAvatar.svg?react";
+import CssIcon from "components/ui/CssIcon";
 
 const UserAvatar = ({ email, size = "sm", onClick }) => {
-    return <VectorImage />;
+    return <CssIcon name="user" />;
 };
 
 export default UserAvatar;

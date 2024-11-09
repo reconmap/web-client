@@ -8,7 +8,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
-import { IconFolder } from "../ui/Icons";
 import Title from "../ui/Title";
 import CommandsTable from "./Table";
 
@@ -77,7 +76,7 @@ const CommandsListPage = () => {
                     <ExportMenuItem entity="commands" />
                 </NativeButtonGroup>
             </div>
-            <Title title={`Commands (${totalCount})`} icon={<IconFolder />} />
+            <Title title={`Commands (${totalCount})`} />
             <CommandsTable commands={commands} onDeleteCallback={destroy} />
         </div>
     );

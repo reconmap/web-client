@@ -1,12 +1,10 @@
-import { IconExclamation, IconInformation, IconShieldExclamation } from "../ui/Icons";
-
 const RiskBadge = ({ risk, fontSize = "fontSizeXsmall" }) => {
     const RISKS = {
-        none: { color: "green", icon: <IconInformation size="4" /> },
-        low: { color: "green", icon: <IconInformation size="4" /> },
-        medium: { color: "yellow", icon: <IconExclamation size="4" /> },
-        high: { color: "red", icon: <IconShieldExclamation size="4" /> },
-        critical: { color: "red", icon: <IconShieldExclamation size="4" /> },
+        none: { color: "green" },
+        low: { color: "green" },
+        medium: { color: "yellow" },
+        high: { color: "red" },
+        critical: { color: "red" },
     };
     const styles = {
         badge: {
@@ -20,12 +18,7 @@ const RiskBadge = ({ risk, fontSize = "fontSizeXsmall" }) => {
         },
     };
 
-    return (
-        <span style={styles.badge}>
-            {RISKS[risk].icon}
-            {risk}
-        </span>
-    );
+    return <span style={styles.badge}>{risk}</span>;
 };
 
 export default RiskBadge;

@@ -2,7 +2,6 @@ import { getUser, updateUser } from "api/users";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import { actionCompletedToast } from "../ui/toast";
@@ -40,7 +39,7 @@ const EditUserPage = () => {
                 </Breadcrumb>
             </div>
 
-            <Title title="User details" icon={<IconPlus />} />
+            <Title title="User details" />
 
             <UserForm isEdit={true} user={clientUser} userSetter={setClientUser} onFormSubmit={handleCreate} />
         </div>

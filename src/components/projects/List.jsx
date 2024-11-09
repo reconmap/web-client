@@ -9,7 +9,6 @@ import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import Breadcrumb from "../ui/Breadcrumb";
 import CreateButton from "../ui/buttons/Create";
-import { IconFolder } from "../ui/Icons";
 import Title from "../ui/Title";
 import ProjectsTable from "./Table";
 
@@ -86,7 +85,7 @@ const ProjectsList = () => {
                     </RestrictedComponent>
                 </div>
             </div>
-            <Title title={`Projects (${totalCount})`} icon={<IconFolder />} />
+            <Title title={`Projects (${totalCount})`} />
 
             <details>
                 <summary>Filters</summary>

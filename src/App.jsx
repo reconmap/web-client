@@ -22,8 +22,6 @@ import TargetRoutes from "./components/target/Routes";
 import TasksRoutes from "./components/tasks/Routes";
 import UsersRoutes from "./components/users/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
-import VulnerabilityCategoriesRoutes from "./components/vulnerabilities/categories/Routes";
-import VulnerabilityTemplatesRoutes from "./components/vulnerabilities/templates/Routes";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 const App = () => {
@@ -53,8 +51,6 @@ const App = () => {
                             ...TasksRoutes,
                             ...UsersRoutes,
                             ...VulnerabilitiesRoutes,
-                            ...VulnerabilityCategoriesRoutes,
-                            ...VulnerabilityTemplatesRoutes,
                         ].map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))}
                         <Route path="*" element={<PageNotFound />} />
                     </Route>

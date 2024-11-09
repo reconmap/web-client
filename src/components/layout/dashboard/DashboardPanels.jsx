@@ -11,7 +11,6 @@ import secureApiFetch from "services/api";
 import PermissionsService from "services/permissions";
 import { initialiseUserPreferences } from "services/userPreferences";
 import widgetIsVisible from "services/widgets";
-import { IconChartBar } from "../../ui/Icons";
 import Title from "../../ui/Title";
 import WelcomeWidget from "./widgets/WelcomeWidget";
 
@@ -87,7 +86,7 @@ const DashboardPanels = () => {
 
     return (
         <div>
-            <Title type="Home" title="Dashboard" icon={<IconChartBar />} />
+            <Title type="Home" title="Dashboard" />
             <div>
                 <NativeTabs labels={["View", "Configure"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
 

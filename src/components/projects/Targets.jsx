@@ -11,7 +11,6 @@ import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import secureApiFetch from "../../services/api";
-import { IconServer } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 
@@ -64,7 +63,6 @@ const ProjectTargets = ({ project }) => {
     return (
         <section>
             <h4>
-                <IconServer />
                 Targets
                 {!project.archived && (
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>

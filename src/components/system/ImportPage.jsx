@@ -1,6 +1,5 @@
 import useDocumentTitle from "hooks/useDocumentTitle";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconDownloadDocument } from "../ui/Icons";
 import Title from "../ui/Title";
 import ImportForm from "./ImportForm";
 
@@ -14,7 +13,7 @@ const ImportPage = () => {
                     <div>System</div>
                 </Breadcrumb>
             </div>
-            <Title title="Data Import" icon={<IconDownloadDocument />} />
+            <Title title="Data Import" />
 
             <ImportForm />
         </div>

@@ -8,10 +8,10 @@ import Tag from "components/ui/Tag";
 import Tags from "components/ui/Tags";
 import LinkButton from "components/ui/buttons/Link";
 import VulnerabilityStatuses from "models/VulnerabilityStatuses";
+import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconDocument, IconFlag } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
@@ -31,6 +31,8 @@ const VulnerabilityDetails = () => {
     const parentType = "vulnerability";
     const parentId = vulnerabilityId;
     const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`);
+
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     const handleDelete = async () => {
         const confirmed = await deleteVulnerability(vulnerabilityId);
@@ -98,34 +100,42 @@ const VulnerabilityDetails = () => {
                             vulnerability.summary
                         )
                     }
-                    icon={<IconFlag />}
                 />
                 <Tag>{vulnerability.visibility}</Tag> <Tags values={vulnerability.tags} />
                 <div>
-                    <NativeTabs labels={["Description", "Remediation", "Comments", "Attachments"]} />
+                    <NativeTabs
+                        labels={["Description", "Remediation", "Comments", "Attachments"]}
+                        tabIndex={tabIndex}
+                        tabIndexSetter={tabIndexSetter}
+                    />
                     <div>
-                        <div>
-                            <VulnerabilityDescriptionPanel vulnerability={vulnerability} />
-                        </div>
-                        <div>
-                            <VulnerabilityRemediationPanel vulnerability={vulnerability} />
-                        </div>
-                        <div>
-                            <VulnerabilitiesNotesTab vulnerability={vulnerability} />
-                        </div>
-                        <div>
-                            <AttachmentsDropzone
-                                parentType={parentType}
-                                parentId={parentId}
-                                onUploadFinished={reloadAttachments}
-                            />
+                        {0 === tabIndex && (
+                            <div>
+                                <VulnerabilityDescriptionPanel vulnerability={vulnerability} />
+                            </div>
+                        )}
+                        {1 === tabIndex && (
+                            <div>
+                                <VulnerabilityRemediationPanel vulnerability={vulnerability} />
+                            </div>
+                        )}
+                        {2 === tabIndex && (
+                            <div>
+                                <VulnerabilitiesNotesTab vulnerability={vulnerability} />
+                            </div>
+                        )}
+                        {3 === tabIndex && (
+                            <div>
+                                <AttachmentsDropzone
+                                    parentType={parentType}
+                                    parentId={parentId}
+                                    onUploadFinished={reloadAttachments}
+                                />
 
-                            <h4>
-                                <IconDocument />
-                                Attachment list
-                            </h4>
-                            <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
-                        </div>
+                                <h4>Attachment list</h4>
+                                <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                            </div>
+                        )}
                     </div>
                 </div>
             </article>

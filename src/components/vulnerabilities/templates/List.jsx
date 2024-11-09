@@ -3,7 +3,6 @@ import PageTitle from "components/logic/PageTitle";
 import AscendingSortLink from "components/ui/AscendingSortLink";
 import Breadcrumb from "components/ui/Breadcrumb";
 import DescendingSortLink from "components/ui/DescendingSortLink";
-import { IconDocumentDuplicate } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
 import CreateButton from "components/ui/buttons/Create";
@@ -71,7 +70,7 @@ const VulnerabilityTemplatesList = () => {
 
                 <CreateButton onClick={onAddVulnerabilityTemplateClick}>Add vulnerability template</CreateButton>
             </div>
-            <title title="Vulnerability templates" icon={<IconDocumentDuplicate />} />
+            <title title="Vulnerability templates" />
             {!templates ? (
                 <Loading />
             ) : (

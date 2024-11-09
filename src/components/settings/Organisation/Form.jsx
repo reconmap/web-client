@@ -3,7 +3,6 @@ import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { IconPreferences } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import { actionCompletedToast } from "components/ui/toast";
@@ -117,7 +116,7 @@ const OrganisationForm = () => {
         <div>
             <div className="heading">Breadcrumb?</div>
             <form onSubmit={onFormSubmit}>
-                <Title title="Settings" type="Organisation" icon={<IconPreferences />} />
+                <Title title="Settings" type="Organisation" />
                 <label>
                     Name
                     <NativeInput

@@ -6,7 +6,6 @@ import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { IconDocumentDuplicate } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
 import useDelete from "hooks/useDelete";
@@ -54,7 +53,7 @@ const TemplatesList = () => {
 
                 <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
             </div>
-            <title title="Project templates" icon={<IconDocumentDuplicate />} />
+            <title title="Project templates" />
             {!templates ? (
                 <Loading />
             ) : (

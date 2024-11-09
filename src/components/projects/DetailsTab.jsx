@@ -7,7 +7,6 @@ import TimestampsSection from "components/ui/TimestampsSection";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
 import ReactMarkdown from "react-markdown";
-import { IconChartBar, IconDocument } from "../ui/Icons";
 
 const ProjectDetailsTab = ({ project }) => {
     const isTemplate = project.is_template === 1;
@@ -15,9 +14,7 @@ const ProjectDetailsTab = ({ project }) => {
     return (
         <section className="grid grid-two">
             <div>
-                <h4>
-                    <IconDocument /> Project details
-                </h4>
+                <h4>Project details</h4>
                 <dl>
                     {!isTemplate && (
                         <>
@@ -58,9 +55,7 @@ const ProjectDetailsTab = ({ project }) => {
                     )}
                 </dl>
 
-                <h4 style={{ marginTop: 20 }}>
-                    <IconChartBar /> Stats
-                </h4>
+                <h4 style={{ marginTop: 20 }}>Stats</h4>
 
                 <div>
                     <VulnerabilitiesByRiskStatsWidget projectId={project.id} />

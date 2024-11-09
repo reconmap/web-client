@@ -1,12 +1,11 @@
-import PageTitle from 'components/logic/PageTitle';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
-import secureApiFetch from '../../services/api';
-import Breadcrumb from '../ui/Breadcrumb';
-import { IconPlus } from '../ui/Icons';
-import Loading from '../ui/Loading';
-import Title from '../ui/Title';
+import PageTitle from "components/logic/PageTitle";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import secureApiFetch from "../../services/api";
+import Breadcrumb from "../ui/Breadcrumb";
+import Loading from "../ui/Loading";
+import Title from "../ui/Title";
 import { actionCompletedToast, errorToast } from "../ui/toast";
 import VulnerabilityForm from "./Form";
 
@@ -18,51 +17,56 @@ const VulnerabilityEdit = () => {
     const [serverVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`);
     const [clientVulnerability, setClientVulnerability] = useState(null);
 
-    const onFormSubmit = async ev => {
+    const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
         await secureApiFetch(`/vulnerabilities/${vulnerabilityId}`, {
-            method: 'PUT',
-            body: JSON.stringify(clientVulnerability)
-        }).then(resp => {
-            if (resp.status === 204) {
-
-                actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
-
-                if (clientVulnerability.is_template) {
-                    navigate(`/vulnerabilities/templates/${vulnerabilityId}`);
-                } else {
-                    navigate(`/vulnerabilities/${vulnerabilityId}`)
-                }
-            } else {
-                throw new Error("Unable to save. Check form");
-            }
-        }).catch(err => {
-            errorToast(err.message);
+            method: "PUT",
+            body: JSON.stringify(clientVulnerability),
         })
+            .then((resp) => {
+                if (resp.status === 204) {
+                    actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
+
+                    if (clientVulnerability.is_template) {
+                        navigate(`/vulnerabilities/templates/${vulnerabilityId}`);
+                    } else {
+                        navigate(`/vulnerabilities/${vulnerabilityId}`);
+                    }
+                } else {
+                    throw new Error("Unable to save. Check form");
+                }
+            })
+            .catch((err) => {
+                errorToast(err.message);
+            });
     };
 
     useEffect(() => {
-        if (serverVulnerability)
-            setClientVulnerability(serverVulnerability);
+        if (serverVulnerability) setClientVulnerability(serverVulnerability);
     }, [serverVulnerability]);
 
     return (
         <div>
             <PageTitle value="Edit Vulnerability" />
-            <div className='heading'>
+            <div className="heading">
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
             </div>
-            <Title title="Vulnerability details" icon={<IconPlus />} />
-            {!clientVulnerability ? <Loading /> :
-                <VulnerabilityForm isEditForm={true} vulnerability={clientVulnerability}
+            <Title title="Vulnerability details" />
+            {!clientVulnerability ? (
+                <Loading />
+            ) : (
+                <VulnerabilityForm
+                    isEditForm={true}
+                    vulnerability={clientVulnerability}
                     vulnerabilitySetter={setClientVulnerability}
-                    onFormSubmit={onFormSubmit} />
-            }
+                    onFormSubmit={onFormSubmit}
+                />
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default VulnerabilityEdit;

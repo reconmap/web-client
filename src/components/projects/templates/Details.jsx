@@ -5,7 +5,6 @@ import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import { IconFolder } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
@@ -61,7 +60,7 @@ const TemplateDetails = () => {
             ) : (
                 <article>
                     <PageTitle value={`${template.name} project template`} />
-                    <Title title={template.name} type="Project template" icon={<IconFolder />} />
+                    <Title title={template.name} type="Project template" />
 
                     <div>
                         <NativeTabs labels={["Details", "Tasks"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />

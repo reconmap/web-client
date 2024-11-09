@@ -4,7 +4,6 @@ import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetchRequest from "hooks/useFetchRequest";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconFolder } from "../ui/Icons";
 import Title from "../ui/Title";
 import DocumentsTable from "./Table";
 
@@ -30,7 +29,7 @@ const DocumentsListPage = () => {
                 <Breadcrumb />
                 <CreateButton onClick={onAddCommandClick}>Create document</CreateButton>
             </div>
-            <Title title="Documents" icon={<IconFolder />} />
+            <Title title="Documents" />
             <DocumentsTable documents={documents} onDeleteButtonClick={onDeleteClick} />
         </div>
     );

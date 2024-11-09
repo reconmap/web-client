@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconPlus } from "../ui/Icons";
 import Title from "../ui/Title";
 import ClientForm from "./Form";
 
@@ -21,13 +20,9 @@ const ClientCreate = () => {
         }).then((resp) => {
             if (resp.status === 201) {
                 navigate(`/clients`);
-                actionCompletedToast(
-                    `The client "${newClient.name}" has been added.`,
-                );
+                actionCompletedToast(`The client "${newClient.name}" has been added.`);
             } else {
-                errorToast(
-                    "The client could not be saved. Review the form data or check the application logs.",
-                );
+                errorToast("The client could not be saved. Review the form data or check the application logs.");
             }
         });
     };
@@ -40,13 +35,9 @@ const ClientCreate = () => {
                 </Breadcrumb>
             </div>
 
-            <Title title="New client details" icon={<IconPlus />} />
+            <Title title="New client details" />
 
-            <ClientForm
-                onFormSubmit={onFormSubmit}
-                client={newClient}
-                clientSetter={setNewClient}
-            />
+            <ClientForm onFormSubmit={onFormSubmit} client={newClient} clientSetter={setNewClient} />
         </div>
     );
 };

@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import secureApiFetch, { downloadFromApi } from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExportButton from "../ui/buttons/Export";
-import { IconEye } from "../ui/Icons";
 import Title from "../ui/Title";
 import AuditLogsTable from "./AuditLogsTable";
 
@@ -56,7 +55,7 @@ const AuditLogList = () => {
                 <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
                 <ExportButton onClick={onExportClick} />
             </div>
-            <Title type="System" title="Audit Log" icon={<IconEye />} />
+            <Title type="System" title="Audit Log" />
             <AuditLogsTable auditLog={auditLog} />
         </>
     );

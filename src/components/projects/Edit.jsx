@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconPlus } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import { actionCompletedToast } from "../ui/toast";
@@ -44,7 +43,7 @@ const ProjectEdit = () => {
                     <Link to={`/projects/${serverProject.id}`}>{serverProject.name}</Link>
                 </Breadcrumb>
             </div>
-            <Title title="Project details" icon={<IconPlus />} />
+            <Title title="Project details" />
 
             <ProjectForm
                 isEdit={true}

@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { initialiseUserPreferences } from "services/userPreferences";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconPreferences } from "../ui/Icons";
 import Title from "../ui/Title";
 
 const UserPreferences = () => {
@@ -82,7 +81,7 @@ const UserPreferences = () => {
             <div className="heading">
                 <Breadcrumb />
             </div>
-            <Title type="User" title="Preferences" icon={<IconPreferences />} />
+            <Title type="User" title="Preferences" />
             <form onSubmit={onFormSubmit}>
                 <div className="field">
                     <label className="label">Language</label>

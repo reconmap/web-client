@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { IconTerminal } from "../ui/Icons";
 
 const CommandBadge = ({ command }) => {
     const styles = {
@@ -12,7 +11,6 @@ const CommandBadge = ({ command }) => {
 
     return (
         <Link to={"/commands/" + command.id} style={styles.badge}>
-            <IconTerminal />
             {command.name}
         </Link>
     );

@@ -1,6 +1,5 @@
 import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "components/ui/Breadcrumb";
-import { IconDocumentDuplicate } from "components/ui/Icons";
 import NoResults from "components/ui/NoResults";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -80,7 +79,7 @@ const VulnerabilityCategoriesPage = () => {
                 )}
                 <CreateButton onClick={onAddClick}>Add vulnerability category...</CreateButton>
             </div>
-            <title title="Vulnerability categories" icon={<IconDocumentDuplicate />} />
+            <title title="Vulnerability categories" />
 
             <table className="table is-fullwidth">
                 <thead>

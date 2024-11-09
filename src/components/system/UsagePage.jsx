@@ -3,7 +3,6 @@ import Loading from "components/ui/Loading";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetch from "hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconDownloadDocument } from "../ui/Icons";
 import Title from "../ui/Title";
 
 const SystemUsagePage = () => {
@@ -18,7 +17,7 @@ const SystemUsagePage = () => {
             <div className="heading">
                 <Breadcrumb />
             </div>
-            <Title type="System" title="Usage" icon={<IconDownloadDocument />} />
+            <Title type="System" title="Usage" />
 
             <div className="content">
                 <dl>

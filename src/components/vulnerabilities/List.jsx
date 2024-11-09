@@ -10,7 +10,6 @@ import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "../../services/api";
-import { IconFlag } from "../ui/Icons";
 import CreateButton from "../ui/buttons/Create";
 import VulnerabilityFilters from "./Filters";
 import VulnerabilitiesTable from "./VulnerabilitiesTable";
@@ -122,7 +121,7 @@ const VulnerabilitiesList = () => {
                     </NativeButtonGroup>
                 </div>
             </div>
-            <Title title={`Vulnerabilities (${totalCount})`} icon={<IconFlag />} />
+            <Title title={`Vulnerabilities (${totalCount})`} />
             <VulnerabilityFilters tableModel={tableModel} tableModelSetter={setTableModel} />
             <VulnerabilitiesTable
                 tableModel={tableModel}

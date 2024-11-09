@@ -7,7 +7,6 @@ import { AuthContext } from "contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import secureApiFetch from "../../services/api";
-import { IconReport } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import Breadcrumb from "./../ui/Breadcrumb";
@@ -42,7 +41,7 @@ const ProjectReport = () => {
                     <Link to={`/projects/${project.id}`}>{project.name}</Link>
                 </Breadcrumb>
             </div>
-            <Title type="Project reporting" title="Project report" icon={<IconReport />} />
+            <Title type="Project reporting" title="Project report" />
 
             <NativeTabs
                 labels={["Preview", "Revisions", "Configuration"]}

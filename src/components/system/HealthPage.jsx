@@ -4,7 +4,6 @@ import { useContext } from "react";
 import convertReadyStateToText from "utilities/WebsocketState";
 import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconCheck } from "../ui/Icons";
 import Title from "../ui/Title";
 
 const GreenYes = ({ label = "Yes" }) => <span style={{ color: "green" }}>{label}</span>;
@@ -23,7 +22,7 @@ const SystemHealthPage = () => {
                     <div>System</div>
                 </Breadcrumb>
             </div>
-            <Title title="System health" icon={<IconCheck />} />
+            <Title title="System health" />
 
             {apiHealth !== null && (
                 <>

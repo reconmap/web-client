@@ -1,4 +1,6 @@
-@import "bulma/css/bulma.css";
+@import "bulma/css/bulma.min.css";
+
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 
 :root {
     /*spacing*/
@@ -19,19 +21,4 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: calc(var(--padding) / 2);
-}
-
-a,
-span,
-input,
-figure,
-h2,
-h3,
-h4 {
-    svg {
-        width: 24px;
-        height: 24px;
-        padding: 0;
-        flex-shrink: 0;
-    }
 }

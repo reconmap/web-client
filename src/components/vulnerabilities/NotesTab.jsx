@@ -8,7 +8,6 @@ import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";
-import { IconDocument } from "../ui/Icons";
 
 const VulnerabilitiesNotesTab = ({ vulnerability }) => {
     const [notes, reloadNotes] = useFetch(`/notes?parentType=vulnerability&parentId=${vulnerability.id}`);
@@ -46,10 +45,7 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
 
     return (
         <section>
-            <h4>
-                <IconDocument />
-                Vulnerability comments
-            </h4>
+            <h4>Vulnerability comments</h4>
 
             <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                 <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />

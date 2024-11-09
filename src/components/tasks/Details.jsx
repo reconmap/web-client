@@ -20,7 +20,6 @@ import useDelete from "../../hooks/useDelete";
 import TaskStatuses from "../../models/TaskStatuses";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconClipboard, IconDocument } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import DeleteButton from "../ui/buttons/Delete";
 import { actionCompletedToast } from "../ui/toast";
@@ -139,7 +138,7 @@ const TaskDetails = () => {
                 <article>
                     <PageTitle value={`${task.summary} task`} />
 
-                    <Title title={task.summary} type="Task" icon={<IconClipboard />} />
+                    <Title title={task.summary} type="Task" />
 
                     <div>
                         <NativeTabs
@@ -244,10 +243,7 @@ const TaskDetails = () => {
                                         onUploadFinished={reloadAttachments}
                                     />
 
-                                    <h4>
-                                        <IconDocument />
-                                        Attachment list
-                                    </h4>
+                                    <h4>Attachment list</h4>
                                     <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
                                 </div>
                             )}

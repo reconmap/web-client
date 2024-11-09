@@ -12,7 +12,6 @@ import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from "../ui/buttons/Secondary";
-import { IconFolder } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import ProjectAttachmentsTab from "./AttachmentsTab";
@@ -92,7 +91,7 @@ const ProjectDetails = () => {
                 <Loading />
             ) : (
                 <>
-                    <Title title={project.name} type="Project" icon={<IconFolder />} />
+                    <Title title={project.name} type="Project" />
 
                     <NativeTabs
                         labels={["Details", "Targets", "Tasks", "Vulnerabilities", "Comments", "Attachments", "Vault"]}

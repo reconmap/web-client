@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconPlus } from "../ui/Icons";
 import Title from "../ui/Title";
 import VulnerabilityForm from "./Form";
 
@@ -57,7 +56,7 @@ const VulnerabilityCreate = () => {
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
                 </Breadcrumb>
             </div>
-            <Title title="New vulnerability details" icon={<IconPlus />} />
+            <Title title="New vulnerability details" />
 
             <VulnerabilityForm
                 vulnerability={vulnerability}

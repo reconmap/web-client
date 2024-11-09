@@ -3,9 +3,9 @@ import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "components/ui/Breadcrumb";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
-import { IconDocument, IconDocumentDuplicate } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
+import Title from "components/ui/Title";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
@@ -81,7 +81,7 @@ const ReportTemplatesList = () => {
                 />
                 <CreateButton onClick={openAddReportTemplateDialog}>Add report template...</CreateButton>
             </div>
-            <title title="Report templates" icon={<IconDocumentDuplicate />} />
+            <Title title="Report templates" />
 
             <div status="info">
                 Needing some inspiration? Have a look at hundred of penetration test reports available at&nbsp;
@@ -132,7 +132,7 @@ const ReportTemplatesList = () => {
                                     </td>
                                     <td>
                                         <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
-                                            <IconDocument /> DOCX
+                                            DOCX
                                         </SecondaryButton>
                                     </td>
                                     <td>

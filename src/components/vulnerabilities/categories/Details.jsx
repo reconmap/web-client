@@ -9,7 +9,6 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
-import { IconFlag } from "components/ui/Icons";
 import Loading from "components/ui/Loading";
 import TimestampsSection from "components/ui/TimestampsSection";
 import Title from "components/ui/Title";
@@ -65,7 +64,7 @@ const TemplateDetails = () => {
                 <article>
                     <PageTitle value={`${vulnerability.summary} vulnerability template`} />
 
-                    <Title type="Vulnerability template" title={vulnerability.summary} icon={<IconFlag />} />
+                    <Title type="Vulnerability template" title={vulnerability.summary} />
 
                     <div className="grid grid-two">
                         <div>

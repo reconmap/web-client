@@ -1,12 +1,11 @@
-import { actionCompletedToast } from 'components/ui/toast';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { actionCompletedToast } from "components/ui/toast";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import secureApiFetch from '../../services/api';
-import Breadcrumb from '../ui/Breadcrumb';
-import { IconPlus } from "../ui/Icons";
+import secureApiFetch from "../../services/api";
+import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
-import Title from '../ui/Title';
+import Title from "../ui/Title";
 import TaskForm from "./Form";
 
 const EditTaskPage = () => {
@@ -19,29 +18,38 @@ const EditTaskPage = () => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/tasks/${taskId}`, { method: 'PATCH', body: JSON.stringify(clientTask) })
+        await secureApiFetch(`/tasks/${taskId}`, { method: "PATCH", body: JSON.stringify(clientTask) });
         actionCompletedToast(`The task "${clientTask.summary}" has been updated.`);
-        navigate(`/tasks/${taskId}`)
-    }
+        navigate(`/tasks/${taskId}`);
+    };
 
     useEffect(() => {
-        if (serverTask)
-            setClientTask(serverTask);
+        if (serverTask) setClientTask(serverTask);
     }, [serverTask]);
 
-    return <div>
-        <div className='heading'>
-            <Breadcrumb>
-                <Link to="/tasks">Tasks</Link>
-            </Breadcrumb>
+    return (
+        <div>
+            <div className="heading">
+                <Breadcrumb>
+                    <Link to="/tasks">Tasks</Link>
+                </Breadcrumb>
+            </div>
+
+            <Title title="Task details" />
+
+            {!clientTask ? (
+                <Loading />
+            ) : (
+                <TaskForm
+                    isEditForm={true}
+                    forTemplate={clientTask.project_is_template === 1}
+                    onFormSubmit={onFormSubmit}
+                    task={clientTask}
+                    taskSetter={setClientTask}
+                />
+            )}
         </div>
-
-        <Title title="Task details" icon={<IconPlus />} />
-
-        {!clientTask ? <Loading /> :
-            <TaskForm isEditForm={true} forTemplate={clientTask.project_is_template === 1} onFormSubmit={onFormSubmit} task={clientTask} taskSetter={setClientTask} />
-        }
-    </div>
-}
+    );
+};
 
 export default EditTaskPage;

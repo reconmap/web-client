@@ -17,7 +17,6 @@ import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
-import { IconBriefcase } from "../ui/Icons";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
@@ -86,7 +85,7 @@ const CommandDetails = () => {
                 <div>
                     <PageTitle value={`${command.name} command`} />
 
-                    <Title type="Command" title={command.name} icon={<IconBriefcase />} />
+                    <Title type="Command" title={command.name} />
                     <Tags values={command.tags} />
                 </div>
 

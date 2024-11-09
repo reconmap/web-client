@@ -1,4 +1,5 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
+import PageTitle from "components/logic/PageTitle";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
@@ -9,7 +10,6 @@ import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
-import { IconBriefcase } from "../ui/Icons";
 import CreateButton from "../ui/buttons/Create";
 import LinkButton from "../ui/buttons/Link";
 import ClientLink from "./Link";
@@ -36,7 +36,7 @@ const ClientsList = () => {
                     <ExportButton entity="clients" disabled={clients === null || clients?.length === 0} />
                 </NativeButtonGroup>
             </div>
-            <title title="Clients" icon={<IconBriefcase />} />
+            <PageTitle title="Clients" />
 
             <table className="table is-fullwidth">
                 <thead>

@@ -1,4 +1,5 @@
 import NativeButton from "components/form/NativeButton";
+import CssIcon from "components/ui/CssIcon";
 import { useWebsocketMessage } from "contexts/WebsocketContext";
 import useFetch from "hooks/useFetch";
 import useToggle from "hooks/useToggle";
@@ -34,6 +35,7 @@ const NotificationsBadge = () => {
                     onClick={toggle}
                 >
                     {null !== notifications && notifications.length > 0 && <Tag>{notifications.length}</Tag>}
+                    <CssIcon name="bell" />
                 </NativeButton>
             </div>
             <div className="dropdown-menu" id="dropdown-menu" role="menu">
