@@ -1,4 +1,3 @@
-import PageTitle from "components/logic/PageTitle";
 import { useCallback, useEffect, useState } from "react";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -25,7 +24,6 @@ const ReportsList = () => {
 
     return (
         <>
-            <PageTitle value={`Reports`} />
             <div className="heading">
                 <Breadcrumb />
             </div>

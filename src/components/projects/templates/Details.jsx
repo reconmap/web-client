@@ -1,6 +1,5 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
 import LinkButton from "components/ui/buttons/Link";
@@ -59,8 +58,7 @@ const TemplateDetails = () => {
                 <Loading />
             ) : (
                 <article>
-                    <PageTitle value={`${template.name} project template`} />
-                    <Title title={template.name} type="Project template" />
+                    <Title type="Project template" title={template.name} />
 
                     <div>
                         <NativeTabs labels={["Details", "Tasks"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />

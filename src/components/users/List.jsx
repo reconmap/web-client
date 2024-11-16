@@ -6,8 +6,8 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportMenuItem from "components/ui/menuitems/ExportMenuItem";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import Title from "components/ui/Title";
 import { AuthContext } from "contexts/AuthContext";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CreateButton from "../../components/ui/buttons/Create";
@@ -58,8 +58,6 @@ const UsersList = () => {
         });
     };
 
-    useDocumentTitle("Users");
-
     return (
         <>
             <div className="heading">
@@ -78,7 +76,7 @@ const UsersList = () => {
                     </ul>
                 </NativeButtonGroup>
             </div>
-            <title title="Users and roles" />
+            <Title title="Users and roles" />
             <table className="table is-fullwidth">
                 <thead>
                     <tr>

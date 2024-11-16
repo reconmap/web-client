@@ -1,4 +1,3 @@
-import PageTitle from "components/logic/PageTitle";
 import { actionCompletedToast } from "components/ui/toast";
 import useQuery from "hooks/useQuery";
 import defaultVulnerability from "models/Vulnerability";
@@ -50,7 +49,6 @@ const VulnerabilityCreate = () => {
 
     return (
         <div>
-            <PageTitle value="Add vulnerability" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>

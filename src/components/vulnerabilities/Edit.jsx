@@ -1,4 +1,3 @@
-import PageTitle from "components/logic/PageTitle";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
@@ -48,7 +47,6 @@ const VulnerabilityEdit = () => {
 
     return (
         <div>
-            <PageTitle value="Edit Vulnerability" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>

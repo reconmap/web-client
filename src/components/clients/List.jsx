@@ -1,10 +1,9 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
-import PageTitle from "components/logic/PageTitle";
+import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import { useNavigate } from "react-router-dom";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -24,8 +23,6 @@ const ClientsList = () => {
         navigate(`/clients/create`);
     };
 
-    useDocumentTitle("Clients");
-
     return (
         <>
             <div className="heading">
@@ -36,7 +33,7 @@ const ClientsList = () => {
                     <ExportButton entity="clients" disabled={clients === null || clients?.length === 0} />
                 </NativeButtonGroup>
             </div>
-            <PageTitle title="Clients" />
+            <Title title="Clients" />
 
             <table className="table is-fullwidth">
                 <thead>

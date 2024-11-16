@@ -1,5 +1,4 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
@@ -53,8 +52,6 @@ const ReportTemplateDetails = () => {
                     </NativeButtonGroup>
                 </div>
                 <article>
-                    <PageTitle value={`${vulnerability.summary} vulnerability template`} />
-
                     <Title type="Vulnerability template" title={vulnerability.summary} />
 
                     <Tabs>

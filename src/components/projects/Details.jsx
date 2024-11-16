@@ -1,7 +1,6 @@
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteButton from "components/ui/buttons/Delete.jsx";
 import { actionCompletedToast } from "components/ui/toast";
@@ -65,7 +64,6 @@ const ProjectDetails = () => {
                 </div>
                 {project && (
                     <>
-                        <PageTitle value={`${project.name} project`} />
                         <ProjectTeam project={project} users={users} />
 
                         <NativeButtonGroup>
@@ -91,7 +89,7 @@ const ProjectDetails = () => {
                 <Loading />
             ) : (
                 <>
-                    <Title title={project.name} type="Project" />
+                    <Title type="Project" title={project.name} />
 
                     <NativeTabs
                         labels={["Details", "Targets", "Tasks", "Vulnerabilities", "Comments", "Attachments", "Vault"]}

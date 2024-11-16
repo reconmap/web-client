@@ -1,7 +1,7 @@
-import PageTitle from "components/logic/PageTitle";
 import ExternalLink from "components/ui/ExternalLink";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import Title from "components/ui/Title";
 import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 
@@ -10,13 +10,12 @@ const SystemIntegrationsPage = () => {
 
     return (
         <div>
-            <PageTitle value="Integrations" />
             <div className="heading">
                 <Breadcrumb>
                     <div>System</div>
                 </Breadcrumb>
             </div>
-            <title title="Integrations" />
+            <Title title="Integrations" />
 
             <table className="table is-fullwidth">
                 <thead>

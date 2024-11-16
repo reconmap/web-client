@@ -1,5 +1,4 @@
 import { UserManualUrl } from "ServerUrls";
-import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "components/ui/Breadcrumb";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
@@ -68,7 +67,6 @@ const ReportTemplatesList = () => {
     };
     return (
         <>
-            <PageTitle value="Report templates" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/reports">Reports</Link>

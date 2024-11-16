@@ -5,7 +5,6 @@ import CommandInstructions from "components/commands/Instructions";
 import NativeButton from "components/form/NativeButton";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import EmptyField from "components/ui/EmptyField";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
@@ -136,9 +135,7 @@ const TaskDetails = () => {
                 <Loading />
             ) : (
                 <article>
-                    <PageTitle value={`${task.summary} task`} />
-
-                    <Title title={task.summary} type="Task" />
+                    <Title type="Task" title={task.summary} />
 
                     <div>
                         <NativeTabs

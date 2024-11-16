@@ -1,6 +1,5 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import CommandTerminal from "components/ui/CommandTerminal";
 import EmptyField from "components/ui/EmptyField";
@@ -83,8 +82,6 @@ const CommandDetails = () => {
             </div>
             <article>
                 <div>
-                    <PageTitle value={`${command.name} command`} />
-
                     <Title type="Command" title={command.name} />
                     <Tags values={command.tags} />
                 </div>

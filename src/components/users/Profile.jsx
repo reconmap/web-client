@@ -2,7 +2,6 @@ import { resetPassword } from "api/users";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
 import EmptyField from "components/ui/EmptyField";
@@ -74,8 +73,6 @@ const UserProfile = () => {
                 </NativeButtonGroup>
             </div>
             <div>
-                <PageTitle value={`${user.full_name} user`} />
-
                 <Title
                     type="User profile"
                     title={user.full_name}

@@ -1,12 +1,9 @@
-import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 
 const HelpIndexPage = () => {
     return (
         <div>
-            <PageTitle value="Help and support" />
-
             <div className="heading">
                 <Breadcrumb />
             </div>

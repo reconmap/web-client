@@ -2,7 +2,6 @@ import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Tag from "components/ui/Tag";
 import Tags from "components/ui/Tags";
@@ -87,7 +86,6 @@ const VulnerabilityDetails = () => {
                 </div>
             </div>
             <article>
-                <PageTitle value={`${vulnerability.summary} vulnerability`} />
                 <Title
                     type="Vulnerability"
                     title={

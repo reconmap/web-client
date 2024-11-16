@@ -1,4 +1,3 @@
-import PageTitle from "components/logic/PageTitle";
 import LinkButton from "components/ui/buttons/Link";
 import useQuery from "hooks/useQuery";
 import React, { useMemo, useState } from "react";
@@ -27,14 +26,13 @@ const SearchResults = React.memo(() => {
 
     return (
         <>
-            <PageTitle value={`${keywords} search results`} />
             <div className="heading">
                 <Breadcrumb />
                 <div>
                     <LinkButton href={SearchUrls.AdvancedSearch}>Advanced search</LinkButton>
                 </div>
             </div>
-            <Title type="Search results" title={`For ${keywords}`} />
+            <Title type="Search results" title={keywords} />
 
             {emptyResults.length > 0 && (
                 <div status="warning">No results were found for: {[...new Set([...emptyResults])].join(", ")}</div>

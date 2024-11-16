@@ -2,7 +2,6 @@ import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTextArea from "components/form/NativeTextArea";
-import PageTitle from "components/logic/PageTitle";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -51,7 +50,6 @@ const SendReport = () => {
 
     return (
         <div>
-            <PageTitle value="Send report" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>

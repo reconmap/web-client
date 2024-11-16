@@ -1,5 +1,4 @@
 import PaginationV2 from "components/layout/PaginationV2";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -44,8 +43,6 @@ const AuditLogList = () => {
         downloadFromApi("/system/data?entities=audit_log");
     };
 
-    useDocumentTitle(`Audit log - Page ${pageNumber}`);
-
     return (
         <>
             <div className="heading">
@@ -55,7 +52,7 @@ const AuditLogList = () => {
                 <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
                 <ExportButton onClick={onExportClick} />
             </div>
-            <Title type="System" title="Audit Log" />
+            <Title type="System" title={`Audit log (page ${pageNumber})`} />
             <AuditLogsTable auditLog={auditLog} />
         </>
     );

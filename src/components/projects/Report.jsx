@@ -1,5 +1,4 @@
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import ReportConfigurationForm from "components/reports/ConfigurationForm";
 import ReportRevisions from "components/reports/Revisions";
 import Configuration from "Configuration";
@@ -34,14 +33,13 @@ const ProjectReport = () => {
 
     return (
         <>
-            <PageTitle value={`Report ${project.name}`} />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
                     <Link to={`/projects/${project.id}`}>{project.name}</Link>
                 </Breadcrumb>
             </div>
-            <Title type="Project reporting" title="Project report" />
+            <Title type="Report" title={project.name} />
 
             <NativeTabs
                 labels={["Preview", "Revisions", "Configuration"]}

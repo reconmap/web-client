@@ -1,6 +1,5 @@
 import { getDocument } from "api/documents";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
-import PageTitle from "components/logic/PageTitle";
 import TimestampsSection from "components/ui/TimestampsSection";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
@@ -49,7 +48,6 @@ const DocumentDetailsPage = () => {
             </div>
             <article>
                 <div>
-                    <PageTitle value={`${serverDoc.title} document`} />
                     <Title type="Document" title={serverDoc.title} />
                 </div>
 

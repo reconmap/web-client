@@ -1,8 +1,8 @@
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
-import PageTitle from "components/logic/PageTitle";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
+import Title from "components/ui/Title";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
@@ -50,7 +50,6 @@ const ProjectMembership = () => {
 
     return (
         <div>
-            <PageTitle value="Project membership" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
@@ -58,7 +57,7 @@ const ProjectMembership = () => {
                 </Breadcrumb>
             </div>
 
-            <title title="Members" />
+            <Title title="Project membership" />
 
             {availableUsers.length > 0 ? (
                 <form>

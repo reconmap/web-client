@@ -1,7 +1,6 @@
 import NativeButton from "components/form/NativeButton";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
-import PageTitle from "components/logic/PageTitle";
 import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,12 +43,11 @@ const AdvancedSearch = () => {
 
     return (
         <>
-            <PageTitle value={`Advanced search`} />
             <div className="heading">
                 <Breadcrumb />
             </div>
 
-            <Title type="Advanced search" title="Search form" />
+            <Title title="Search form" type="Advanced search" documentTitle="single" />
 
             <div className="columns">
                 <div className="column is-three-quarters">

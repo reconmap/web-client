@@ -1,10 +1,10 @@
 import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
-import PageTitle from "components/logic/PageTitle";
 import AscendingSortLink from "components/ui/AscendingSortLink";
 import Breadcrumb from "components/ui/Breadcrumb";
 import DescendingSortLink from "components/ui/DescendingSortLink";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
+import Title from "components/ui/Title";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
@@ -62,7 +62,6 @@ const VulnerabilityTemplatesList = () => {
 
     return (
         <>
-            <PageTitle value="Vulnerability templates" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
@@ -70,7 +69,7 @@ const VulnerabilityTemplatesList = () => {
 
                 <CreateButton onClick={onAddVulnerabilityTemplateClick}>Add vulnerability template</CreateButton>
             </div>
-            <title title="Vulnerability templates" />
+            <Title type="Library" title="Vulnerability templates" />
             {!templates ? (
                 <Loading />
             ) : (

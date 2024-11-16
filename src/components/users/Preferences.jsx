@@ -4,7 +4,6 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
 import CountriesTimezones from "countries-and-timezones";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetch from "hooks/useFetch";
 import { useTheme } from "hooks/useTheme";
 import { ThemeList } from "models/themes";
@@ -16,8 +15,6 @@ import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 
 const UserPreferences = () => {
-    useDocumentTitle("User preferences");
-
     const { i18n } = useTranslation();
 
     const { user } = useAuth();

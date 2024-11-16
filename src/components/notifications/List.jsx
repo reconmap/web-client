@@ -1,5 +1,6 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
+import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
@@ -30,7 +31,7 @@ const NotificationsList = () => {
             <div className="heading">
                 <Breadcrumb />
             </div>
-            <title title="Notifications" icon={<faBell />} />
+            <Title title="Notifications" icon={<faBell />} />
 
             <table className="table is-fullwidth">
                 <thead>

@@ -1,6 +1,5 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb";
 import DeleteButton from "components/ui/buttons/Delete";
@@ -47,17 +46,16 @@ const VulnerabilityTemplateDetails = () => {
                         <Link to="/vulnerabilities/templates">Templates</Link>
                     </Breadcrumb>
                     <NativeButtonGroup>
-                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)}>Clone and edit</PrimaryButton>
-
                         <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
+                        </RestrictedComponent>
+                        <PrimaryButton onClick={() => cloneProject(vulnerability.id)}>Clone and edit</PrimaryButton>
+                        <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                             <DeleteButton onClick={() => destroy(vulnerability.id)} />
                         </RestrictedComponent>
                     </NativeButtonGroup>
                 </div>
                 <article>
-                    <PageTitle value={`${vulnerability.summary} vulnerability template`} />
-
                     <Title type="Vulnerability template" title={vulnerability.summary} />
 
                     <div>

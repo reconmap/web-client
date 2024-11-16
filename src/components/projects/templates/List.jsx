@@ -1,5 +1,4 @@
 import BadgeOutline from "components/badges/BadgeOutline";
-import PageTitle from "components/logic/PageTitle";
 import ProjectBadge from "components/projects/ProjectBadge";
 import Breadcrumb from "components/ui/Breadcrumb";
 import CreateButton from "components/ui/buttons/Create";
@@ -8,6 +7,7 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
+import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
 import useFetch from "hooks/useFetch";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,7 +45,6 @@ const TemplatesList = () => {
 
     return (
         <>
-            <PageTitle value="Project templates" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
@@ -53,7 +52,7 @@ const TemplatesList = () => {
 
                 <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
             </div>
-            <title title="Project templates" />
+            <Title title="Project templates" />
             {!templates ? (
                 <Loading />
             ) : (
@@ -84,6 +83,7 @@ const TemplatesList = () => {
                                         <BadgeOutline>{template.num_tasks}</BadgeOutline>
                                     </td>
                                     <td>
+                                        <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
                                         <PrimaryButton
                                             onClick={(ev) => cloneProject(ev, template.id)}
                                             key={template.id}
@@ -91,7 +91,6 @@ const TemplatesList = () => {
                                         >
                                             Clone and edit
                                         </PrimaryButton>
-                                        <LinkButton href={`/projects/${template.id}/edit`}>Edit</LinkButton>
                                         <DeleteIconButton onClick={(ev) => deleteTemplate(ev, template.id)} />
                                     </td>
                                 </tr>

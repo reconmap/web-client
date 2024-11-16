@@ -14,7 +14,6 @@ import LinkButton from "components/ui/buttons/Link";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import UserLink from "components/users/Link";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import Contact from "models/Contact";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -128,8 +127,6 @@ const ClientDetails = () => {
                 }
             });
     };
-
-    useDocumentTitle(client ? `${client.name} client` : null);
 
     if (!client) {
         return <Loading />;

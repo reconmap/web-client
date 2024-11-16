@@ -1,4 +1,3 @@
-import PageTitle from "components/logic/PageTitle";
 import { actionCompletedToast } from "components/ui/toast";
 import useQuery from "hooks/useQuery";
 import Task from "models/Task";
@@ -28,7 +27,6 @@ const TaskCreationPage = () => {
 
     return (
         <div>
-            <PageTitle value="Add task" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/tasks">Tasks</Link>

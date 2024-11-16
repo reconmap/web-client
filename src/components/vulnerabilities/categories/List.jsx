@@ -1,6 +1,6 @@
-import PageTitle from "components/logic/PageTitle";
 import Breadcrumb from "components/ui/Breadcrumb";
 import NoResults from "components/ui/NoResults";
+import Title from "components/ui/Title";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
@@ -58,7 +58,6 @@ const VulnerabilityCategoriesPage = () => {
 
     return (
         <>
-            <PageTitle value="Vulnerability categories" />
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
@@ -79,7 +78,7 @@ const VulnerabilityCategoriesPage = () => {
                 )}
                 <CreateButton onClick={onAddClick}>Add vulnerability category...</CreateButton>
             </div>
-            <title title="Vulnerability categories" />
+            <Title title="Vulnerability categories" />
 
             <table className="table is-fullwidth">
                 <thead>

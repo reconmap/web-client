@@ -1,6 +1,5 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
-import PageTitle from "components/logic/PageTitle";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb";
 import Title from "components/ui/Title";
@@ -106,7 +105,6 @@ const VulnerabilitiesList = () => {
 
     return (
         <>
-            <PageTitle value={`Vulnerabilities - Page ${pageNumber}`} />
             <div className="heading">
                 <Breadcrumb />
                 <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
