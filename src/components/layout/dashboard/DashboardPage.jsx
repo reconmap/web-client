@@ -2,6 +2,7 @@ import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeTabs from "components/form/NativeTabs";
 import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
+import Title from "components/ui/Title";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
 import useDocumentTitle from "hooks/useDocumentTitle";
@@ -11,8 +12,7 @@ import secureApiFetch from "services/api";
 import PermissionsService from "services/permissions";
 import { initialiseUserPreferences } from "services/userPreferences";
 import widgetIsVisible from "services/widgets";
-import Title from "../../ui/Title";
-import WelcomeWidget from "./widgets/WelcomeWidget";
+import WelcomeWidget from "./widgets/WelcomeWidget.jsx";
 
 const InitialiseWidgetConfig = () => {
     return Object.keys(Widgets).reduce((acc, key) => {
@@ -37,7 +37,7 @@ const filterWidgets = (user) => {
         .filter((widget) => widget !== null);
 };
 
-const DashboardPanels = () => {
+const DashboardPage = () => {
     const { user } = useAuth();
     user.preferences = initialiseUserPreferences(user);
     const [dashboardConfig, setDashboardConfig] = useState(
@@ -138,4 +138,4 @@ const DashboardPanels = () => {
     );
 };
 
-export default DashboardPanels;
+export default DashboardPage;

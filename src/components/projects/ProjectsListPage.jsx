@@ -1,18 +1,18 @@
 import NativeSelect from "components/form/NativeSelect";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import Title from "components/ui/Title";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import Breadcrumb from "../ui/Breadcrumb";
-import CreateButton from "../ui/buttons/Create";
-import Title from "../ui/Title";
-import ProjectsTable from "./Table";
+import useDelete from "../../hooks/useDelete.js";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
+import CreateButton from "../ui/buttons/Create.jsx";
+import ProjectsTable from "./Table.jsx";
 
-const ProjectsList = () => {
+const ProjectsListPage = () => {
     const navigate = useNavigate();
     const query = useQuery();
     let pageNumber = query.get("page");
@@ -108,4 +108,4 @@ const ProjectsList = () => {
     );
 };
 
-export default ProjectsList;
+export default ProjectsListPage;

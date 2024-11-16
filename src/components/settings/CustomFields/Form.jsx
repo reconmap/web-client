@@ -1,8 +1,9 @@
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
-import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import PrimaryButton from "components/ui/buttons/Primary";
+import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
 import useFetch from "hooks/useFetch";
 import secureApiFetch from "services/api";
@@ -37,12 +38,12 @@ const CustomFieldsPage = () => {
 
     return (
         <>
-            <h2>Custom fields</h2>
+            <Title type="System" title="Custom fields" documentTitle="single" />
 
             <form onSubmit={onAddCustomFieldSubmit}>
                 <input type="hidden" name="config" value="{}" />
 
-                <HorizontalLabelledField label="Name" control={<NativeInput type="text" name="name" />} />
+                <HorizontalLabelledField label="Name" control={<NativeInput type="text" name="name" required />} />
 
                 <HorizontalLabelledField
                     label="Kind"
@@ -55,7 +56,7 @@ const CustomFieldsPage = () => {
                     }
                 />
 
-                <HorizontalLabelledField label="Label" control={<NativeInput type="text" name="label" />} />
+                <HorizontalLabelledField label="Label" control={<NativeInput type="text" name="label" required />} />
 
                 <HorizontalLabelledField
                     label="Parent type"
@@ -67,7 +68,7 @@ const CustomFieldsPage = () => {
                 />
 
                 <hr />
-                <HorizontalLabelledField control={<NativeButton type="submit">Add</NativeButton>} />
+                <HorizontalLabelledField control={<PrimaryButton type="submit">Add</PrimaryButton>} />
             </form>
 
             <table className="table">

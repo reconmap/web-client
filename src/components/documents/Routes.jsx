@@ -2,8 +2,8 @@ import LibraryLayout from "components/LibraryLayout.jsx";
 import { Route } from "react-router-dom";
 import AddDocumentPage from "./Add";
 import DocumentDetailsPage from "./Details";
+import DocumentsListPage from "./DocumentsListPage";
 import EditDocumentPage from "./Edit";
-import DocumentsListPage from "./List";
 
 const DocumentsRoutes = [
     <Route path={`/documents`} element={<LibraryLayout />}>

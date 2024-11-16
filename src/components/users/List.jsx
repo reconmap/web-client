@@ -76,7 +76,7 @@ const UsersList = () => {
                     </ul>
                 </NativeButtonGroup>
             </div>
-            <Title title="Users and roles" />
+            <Title title="Users" />
             <table className="table is-fullwidth">
                 <thead>
                     <tr>

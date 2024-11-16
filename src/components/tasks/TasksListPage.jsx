@@ -6,16 +6,16 @@ import useDocumentTitle from "hooks/useDocumentTitle";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import TaskStatuses from "../../models/TaskStatuses";
-import Breadcrumb from "../ui/Breadcrumb";
-import CreateButton from "../ui/buttons/Create";
-import Title from "../ui/Title";
-import TaskFilters from "./Filters";
-import TasksTable from "./TasksTable";
-import TaskTableModel from "./TaskTableModel";
+import useDelete from "../../hooks/useDelete.js";
+import TaskStatuses from "../../models/TaskStatuses.js";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
+import CreateButton from "../ui/buttons/Create.jsx";
+import Title from "../ui/Title.js";
+import TaskFilters from "./Filters.jsx";
+import TasksTable from "./TasksTable.jsx";
+import TaskTableModel from "./TaskTableModel.js";
 
-const TasksList = () => {
+const TasksListPage = () => {
     const navigate = useNavigate();
 
     const [tableModel, setTableModel] = useState(new TaskTableModel(true, true));
@@ -132,4 +132,4 @@ const TasksList = () => {
     );
 };
 
-export default TasksList;
+export default TasksListPage;

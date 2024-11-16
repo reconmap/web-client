@@ -3,9 +3,9 @@ import CreateButton from "components/ui/buttons/Create";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useFetchRequest from "hooks/useFetchRequest";
 import { useNavigate } from "react-router-dom";
-import Breadcrumb from "../ui/Breadcrumb";
-import Title from "../ui/Title";
-import DocumentsTable from "./Table";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
+import Title from "../ui/Title.js";
+import DocumentsTable from "./Table.jsx";
 
 const DocumentsListPage = () => {
     const navigate = useNavigate();

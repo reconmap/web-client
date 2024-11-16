@@ -31,7 +31,7 @@ const VulnerabilityCategoryAddModalDialog = ({ isOpen, onClose, onCancel }) => {
     };
 
     return (
-        <ModalDialog visible={isOpen} onClose={onCancel} title="New vulnerability category details">
+        <ModalDialog visible={isOpen} onClose={onCancel} title="New vulnerability category">
             <div>
                 <div>
                     <VulnerabilityCategoryForm

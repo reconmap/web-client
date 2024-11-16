@@ -2,13 +2,13 @@ import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import CreateButton from "components/ui/buttons/Create";
 import ExportMenuItem from "components/ui/menuitems/ExportMenuItem";
+import Title from "components/ui/Title";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import Title from "../ui/Title";
-import CommandsTable from "./Table";
+import useDelete from "../../hooks/useDelete.js";
+import CommandsTable from "./Table.jsx";
 
 const CommandsListPage = () => {
     const navigate = useNavigate();
