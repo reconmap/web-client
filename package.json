@@ -3,5 +3,8 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "npm-check-updates": "^17.1.11"
+  }
 }
