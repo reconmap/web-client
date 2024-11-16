@@ -7,11 +7,15 @@ const SidemenuLayout = ({ children, links }) => {
                 <aside className="menu">
                     {links.map((item) => {
                         if (item.type === "label") {
-                            return <p className="menu-label">{item.name}</p>;
+                            return (
+                                <p key={item.name} className="menu-label">
+                                    {item.name}
+                                </p>
+                            );
                         }
 
                         return (
-                            <ul className="menu-list">
+                            <ul key={item.name} className="menu-list">
                                 <li>
                                     <Link className={location.pathname == item.url ? "is-active" : ""} to={item.url}>
                                         {item.name}

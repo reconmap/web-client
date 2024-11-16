@@ -43,13 +43,13 @@ version-increase:
 start:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/environment.js \
 		-p 5500:5500 \
 		-e VITE_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint yarn \
 		--name $(DOCKER_CONTAINER_NAME) \
-		$(DOCKER_DEV_TAG) start
+		$(DOCKER_DEV_TAG) workspace @reconmap/app start
 
 .PHONY: stop
 stop:
@@ -59,8 +59,8 @@ stop:
 tests:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
-		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) test
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/environment.js \
+		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) workspace @reconmap/app test
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \

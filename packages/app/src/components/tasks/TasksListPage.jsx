@@ -1,8 +1,8 @@
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteButton from "components/ui/buttons/Delete";
+import Title from "components/ui/Title";
 import { actionCompletedToast } from "components/ui/toast";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -10,10 +10,9 @@ import useDelete from "../../hooks/useDelete.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import CreateButton from "../ui/buttons/Create.jsx";
-import Title from "../ui/Title.js";
 import TaskFilters from "./Filters.jsx";
 import TasksTable from "./TasksTable.jsx";
-import TaskTableModel from "./TaskTableModel.js";
+import TaskTableModel from "./TaskTableModel";
 
 const TasksListPage = () => {
     const navigate = useNavigate();
@@ -85,8 +84,6 @@ const TasksListPage = () => {
     };
 
     const destroy = useDelete("/tasks/", reloadTasks);
-
-    useDocumentTitle("Tasks");
 
     useEffect(() => {
         reloadTasks();

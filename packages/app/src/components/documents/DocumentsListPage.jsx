@@ -1,10 +1,9 @@
 import { deleteDocument, getDocuments } from "api/documents";
 import CreateButton from "components/ui/buttons/Create";
-import useDocumentTitle from "hooks/useDocumentTitle";
+import Title from "components/ui/Title";
 import useFetchRequest from "hooks/useFetchRequest";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
-import Title from "../ui/Title.js";
 import DocumentsTable from "./Table.jsx";
 
 const DocumentsListPage = () => {
@@ -20,8 +19,6 @@ const DocumentsListPage = () => {
     const onDeleteClick = (documentId) => {
         fetch(deleteDocument(documentId)).then(refetch);
     };
-
-    useDocumentTitle("Documents");
 
     return (
         <div>
