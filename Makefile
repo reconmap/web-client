@@ -60,17 +60,17 @@ tests:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/environment.js \
-		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) workspace @reconmap/app test
+		--entrypoint yarn $(DOCKER_DEV_TAG) workspace @reconmap/app test
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
-		--entrypoint npx -e CI=true $(DOCKER_DEV_TAG) npx stylelint "**/*.css"
+		--entrypoint npx $(DOCKER_DEV_TAG) npx stylelint "**/*.css"
 
 .PHONY: tests-ci
 tests-ci:
 	docker run -u $(CONTAINER_UID_GID) --rm -t \
 		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/environment.js \
 		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) test:ci
 
 .PHONY: clean
