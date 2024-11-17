@@ -2,11 +2,13 @@ import UserAvatar from "components/badges/UserAvatar";
 import { AuthContext } from "contexts/AuthContext";
 import useToggle from "hooks/useToggle";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import KeyCloakService from "services/keycloak";
 import ExternalLink from "./ExternalLink";
 
 const HeaderUserMenu = () => {
+    const [t] = useTranslation();
     const { user, logout } = useContext(AuthContext);
 
     const { value, toggle } = useToggle(false);
@@ -37,7 +39,7 @@ const HeaderUserMenu = () => {
                     </Link>
                     <hr className="dropdown-divider" />
                     <Link className="dropdown-item" to="/" onClick={logout}>
-                        <div>Logout</div>
+                        {t("Logout")}
                     </Link>
                 </div>
             </div>

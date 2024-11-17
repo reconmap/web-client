@@ -5,9 +5,9 @@ import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import Widgets from "models/Widgets";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import secureApiFetch from "services/api";
 import PermissionsService from "services/permissions";
 import { initialiseUserPreferences } from "services/userPreferences";
@@ -39,6 +39,8 @@ const filterWidgets = (user) => {
 
 const DashboardPage = () => {
     const { user } = useAuth();
+    const [t] = useTranslation("app");
+
     user.preferences = initialiseUserPreferences(user);
     const [dashboardConfig, setDashboardConfig] = useState(
         user?.preferences?.["web-client.widgets"] || InitialiseWidgetConfig(),
@@ -80,15 +82,13 @@ const DashboardPage = () => {
             });
     };
 
-    useDocumentTitle("Dashboard");
-
     if (dashboardConfig === null) return <Loading />;
 
     return (
         <div>
-            <Title type="Home" title="Dashboard" />
+            <Title type={t("Home")} title={t("Dashboard")} documentTitle="single" />
             <div>
-                <NativeTabs labels={["View", "Configure"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
+                <NativeTabs labels={[t("View"), t("Configure")]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
 
                 {0 === tabIndex && (
                     <div>
@@ -129,7 +129,7 @@ const DashboardPage = () => {
                             })}
                         </div>
                         <PrimaryButton disabled={!formHasChanged} onClick={(ev) => onSave(ev, user)}>
-                            Save
+                            {t("Save")}
                         </PrimaryButton>
                     </div>
                 )}

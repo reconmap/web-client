@@ -1,4 +1,3 @@
-import { LanguageList } from "bootstrap/LanguageList";
 import NativeSelect from "components/form/NativeSelect";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { actionCompletedToast } from "components/ui/toast";
@@ -10,6 +9,7 @@ import { ThemeList } from "models/themes";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { initialiseUserPreferences } from "services/userPreferences";
+import { LanguageList } from "translations/LanguageList";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";

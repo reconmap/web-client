@@ -2,7 +2,9 @@ import SearchUrls from "components/search/SearchUrls";
 import ExternalLink from "components/ui/ExternalLink";
 import Configuration from "Configuration";
 import { AuthContext } from "contexts/AuthContext";
+import { t } from "i18next";
 import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ServerIssuesUrl, UserManualUrl } from "ServerUrls";
 import NotificationsBadge from "../notifications/NotificationsBadge";
@@ -13,46 +15,47 @@ import HeaderLogo from "./HeaderLogo";
 
 const MenuLinks = [
     {
-        name: "Projects",
-        items: [{ name: "List", url: "/projects" }, null, { name: "Tasks", url: "/tasks" }],
+        name: t("Projects"),
+        items: [{ name: t("List"), url: "/projects" }, null, { name: t("Tasks"), url: "/tasks" }],
     },
     {
-        name: "Library",
+        name: t("Library"),
         items: [
-            { name: "Commands", url: "/commands", permissions: "commands.*" },
-            { name: "Vulnerabilities", url: "/vulnerabilities", permissions: "commands.*" },
-            { name: "Documents", url: "/documents", permissions: "documents.*" },
+            { name: t("Commands"), url: "/commands", permissions: "commands.*" },
+            { name: t("Vulnerabilities"), url: "/vulnerabilities", permissions: "commands.*" },
+            { name: t("Documents"), url: "/documents", permissions: "documents.*" },
         ],
     },
     {
-        name: "Settings",
+        name: t("Settings"),
         items: [
-            { name: "Users", url: "/users" },
-            { name: "Custom fields", url: "/settings/custom-fields" },
-            { name: "Search", url: SearchUrls.AdvancedSearch },
-            { name: "Import data", url: "/system/import-data" },
-            { name: "Export data", url: "/system/export-data" },
+            { name: t("Users"), url: "/users" },
+            { name: t("Custom fields"), url: "/settings/custom-fields" },
+            { name: t("Search"), url: SearchUrls.AdvancedSearch },
+            { name: t("Import data"), url: "/system/import-data" },
+            { name: t("Export data"), url: "/system/export-data" },
         ],
     },
     {
-        name: "Help & Support",
+        name: t("Help & Support"),
         items: [
-            { name: "User manual", url: UserManualUrl, external: true },
-            { name: "API docs", url: `${Configuration.getDefaultApiUrl()}/docs/`, external: true },
-            { name: "Support info", url: "/support" },
-            { name: "System health", url: "/system/health" },
+            { name: t("User manual"), url: UserManualUrl, external: true },
+            { name: t("API docs"), url: `${Configuration.getDefaultApiUrl()}/docs/`, external: true },
+            { name: t("Support info"), url: "/support" },
+            { name: t("System health"), url: "/system/health" },
             null,
-            { name: "Audit log", url: "/auditlog" },
-            { name: "Licenses", url: "/licenses" },
-            { name: "Integrations", url: "/system/integrations" },
-            { name: "Usage", url: "/system/usage" },
+            { name: t("Audit log"), url: "/auditlog" },
+            { name: t("Licenses"), url: "/licenses" },
+            { name: t("Integrations"), url: "/system/integrations" },
+            { name: t("System usage"), url: "/system/usage" },
             null,
-            { name: "Log issue", url: ServerIssuesUrl, external: true },
+            { name: t("Log issue"), url: ServerIssuesUrl, external: true },
         ],
     },
 ];
 
 const Header = () => {
+    const [t] = useTranslation();
     const { user } = useContext(AuthContext);
     const [activeMenu, setActiveMenu] = useState(null);
 
@@ -73,7 +76,7 @@ const Header = () => {
             <div id="navbarExampleTransparentExample" className="navbar-menu">
                 <div className="navbar-start">
                     <Link className="navbar-item" to={DashboardUrls.DEFAULT}>
-                        Dashboard
+                        {t("Dashboard")}
                     </Link>
                     {MenuLinks.map((menuLink) => {
                         return (

@@ -1,9 +1,11 @@
 import NativeInput from "components/form/NativeInput";
 import { createRef, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import isInputElement from "../../utilities/domUtils";
 
 const SearchBox = () => {
+    const [t] = useTranslation();
     const navigate = useNavigate();
     const inputRef = createRef();
 
@@ -39,7 +41,7 @@ const SearchBox = () => {
             className="input is-rounded"
             ref={inputRef}
             type="search"
-            placeholder="Search..."
+            placeholder={t("Search...")}
             onKeyDown={handleSearchKeyDown}
         />
     );
