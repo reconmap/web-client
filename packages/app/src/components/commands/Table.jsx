@@ -3,15 +3,18 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import { useTranslation } from "react-i18next";
 import CommandBadge from "./Badge";
 
 const CommandsTable = ({ commands, onDeleteCallback = null }) => {
+    const [t] = useTranslation();
+
     return (
         <table className="table is-fullwidth">
             <thead>
                 <tr>
-                    <th style={{ width: "190px" }}>Name</th>
-                    <th className="only-desktop">Description</th>
+                    <th style={{ width: "190px" }}>{t("Name")}</th>
+                    <th className="only-desktop">{t("Description")}</th>
                     <th>Output parser</th>
                     <th>&nbsp;</th>
                 </tr>

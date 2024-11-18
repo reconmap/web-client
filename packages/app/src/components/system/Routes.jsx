@@ -3,10 +3,10 @@ import SettingsLayout from "components/settings/SettingsLayout.jsx";
 import { Route } from "react-router-dom";
 import SystemIndexPage from ".";
 import ExportPage from "./ExportPage";
-import SystemHealthPage from "./HealthPage";
 import ImportPage from "./ImportPage";
 import SystemIntegrationsPage from "./Integrations";
-import SystemUsagePage from "./UsagePage";
+import SystemHealthPage from "./SystemHealthPage";
+import SystemUsagePage from "./SystemUsagePage";
 
 const SystemRoutes = [
     <Route path="/auditlog" element={<AuditLogList />} />,

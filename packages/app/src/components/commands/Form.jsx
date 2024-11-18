@@ -1,8 +1,12 @@
+import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
+import { useTranslation } from "react-i18next";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter: setCommand }) => {
+    const [t] = useTranslation();
+
     const onFormChange = (ev) => {
         const target = ev.target;
         let name = target.name;
@@ -17,42 +21,50 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
         <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
-                <label>
-                    Name
-                    <NativeInput
-                        type="text"
-                        name="name"
-                        onChange={onFormChange}
-                        value={command.name || ""}
-                        required
-                        autoFocus
-                    />
-                </label>
-                <label>
-                    Description
-                    <MarkdownEditor
-                        name="description"
-                        onChange={onFormChange}
-                        value={command.description || ""}
-                        required
-                    />
-                </label>
-                <label>
-                    Tags
-                    <NativeInput
-                        type="text"
-                        name="tags"
-                        onChange={onFormChange}
-                        value={command.tags ? JSON.parse(command.tags).join(",") : ""}
-                    />
-                </label>
+                <LabelledField
+                    label={t("Name")}
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="name"
+                            onChange={onFormChange}
+                            defaultValue={command.name || ""}
+                            required
+                            autoFocus
+                        />
+                    }
+                />
+
+                <LabelledField
+                    label={t("Description")}
+                    control={
+                        <MarkdownEditor
+                            name="description"
+                            onChange={onFormChange}
+                            defaultValue={command.description || ""}
+                            required
+                        />
+                    }
+                />
+
+                <LabelledField
+                    label={t("Tags")}
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="tags"
+                            onChange={onFormChange}
+                            defaultValue={command.tags ? JSON.parse(command.tags).join(",") : ""}
+                        />
+                    }
+                />
                 <label>
                     More information URL
                     <NativeInput
                         type="url"
                         name="more_info_url"
                         onChange={onFormChange}
-                        value={command.more_info_url || ""}
+                        defaultValue={command.more_info_url || ""}
                     />
                 </label>
             </fieldset>

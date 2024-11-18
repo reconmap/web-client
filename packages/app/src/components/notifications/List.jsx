@@ -1,10 +1,10 @@
+import NativeButton from "components/form/NativeButton.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -24,14 +24,12 @@ const NotificationsList = () => {
 
     const deleteNotification = useDelete("/notifications/", fetchNotifications);
 
-    useDocumentTitle("Notifications");
-
     return (
         <>
             <div className="heading">
                 <Breadcrumb />
             </div>
-            <Title title="Notifications" icon={<faBell />} />
+            <Title title="Notifications" />
 
             <table className="table is-fullwidth">
                 <thead>
@@ -60,9 +58,9 @@ const NotificationsList = () => {
                                 <td>
                                     <NativeButtonGroup>
                                         {notification.status === "unread" && (
-                                            <Button onClick={() => markNotificationAsRead(notification)}>
+                                            <NativeButton onClick={() => markNotificationAsRead(notification)}>
                                                 Mark as read
-                                            </Button>
+                                            </NativeButton>
                                         )}
                                         <DeleteIconButton onClick={() => deleteNotification(notification.id)} />
                                     </NativeButtonGroup>

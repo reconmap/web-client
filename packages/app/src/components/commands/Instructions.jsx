@@ -1,5 +1,6 @@
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
+import NativeSelect from "components/form/NativeSelect.jsx";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
@@ -35,12 +36,14 @@ const CommandInstructions = ({ command, task = null }) => {
 
     return (
         <>
-            <select onChange={(ev) => onUsageChange(ev)}>
+            <NativeSelect onChange={(ev) => onUsageChange(ev)}>
                 <option value="0">(select)</option>
                 {commandUsages.map((usage) => (
-                    <option value={usage.id}>{usage.name}</option>
+                    <option key={usage.id} value={usage.id}>
+                        {usage.name}
+                    </option>
                 ))}
-            </select>
+            </NativeSelect>
 
             {usage !== null && (
                 <>

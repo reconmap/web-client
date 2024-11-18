@@ -1,14 +1,13 @@
 import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
-import useDocumentTitle from "hooks/useDocumentTitle";
+import Title from "components/ui/Title";
 import useFetch from "hooks/useFetch";
-import Breadcrumb from "../ui/Breadcrumb";
-import Title from "../ui/Title";
+import { useTranslation } from "react-i18next";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
 
 const SystemUsagePage = () => {
+    const [t] = useTranslation();
     const [usage] = useFetch("/system/usage");
-
-    useDocumentTitle("System usage");
 
     if (!usage) return <Loading />;
 
@@ -17,7 +16,7 @@ const SystemUsagePage = () => {
             <div className="heading">
                 <Breadcrumb />
             </div>
-            <Title type="System" title="Usage" />
+            <Title type="System" title={t("System usage")} />
 
             <div className="content">
                 <dl>

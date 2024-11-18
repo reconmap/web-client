@@ -1,19 +1,18 @@
+import Title from "components/ui/Title";
 import { WebsocketContext } from "contexts/WebsocketContext";
-import useDocumentTitle from "hooks/useDocumentTitle";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import convertReadyStateToText from "utilities/WebsocketState";
-import useFetch from "../../hooks/useFetch";
-import Breadcrumb from "../ui/Breadcrumb";
-import Title from "../ui/Title";
+import useFetch from "../../hooks/useFetch.js";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
 
 const GreenYes = ({ label = "Yes" }) => <span style={{ color: "green" }}>{label}</span>;
 const RedNo = () => <span style={{ color: "red" }}>No</span>;
 
 const SystemHealthPage = () => {
+    const [t] = useTranslation();
     const wsContextData = useContext(WebsocketContext);
     const [apiHealth] = useFetch("/system/health");
-
-    useDocumentTitle("System health");
 
     return (
         <div>
@@ -22,7 +21,7 @@ const SystemHealthPage = () => {
                     <div>System</div>
                 </Breadcrumb>
             </div>
-            <Title title="System health" />
+            <Title title={t("System health")} />
 
             {apiHealth !== null && (
                 <>

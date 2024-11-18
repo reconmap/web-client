@@ -6,24 +6,27 @@ import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
 import Tags from "components/ui/Tags";
 import TimestampsSection from "components/ui/TimestampsSection";
+import Title from "components/ui/Title";
 import LinkButton from "components/ui/buttons/Link";
 import UserLink from "components/users/Link";
 import CommandUsage from "models/CommandUsage";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
-import Breadcrumb from "../ui/Breadcrumb";
-import Loading from "../ui/Loading";
-import Title from "../ui/Title";
-import DeleteButton from "../ui/buttons/Delete";
-import CommandInstructions from "./Instructions";
-import CommandOutputs from "./Outputs";
-import CommandUsageForm from "./UsageForm";
+import useDelete from "../../hooks/useDelete.js";
+import useFetch from "../../hooks/useFetch.js";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
+import Loading from "../ui/Loading.jsx";
+import DeleteButton from "../ui/buttons/Delete.jsx";
+import CommandInstructions from "./Instructions.jsx";
+import CommandOutputs from "./Outputs.jsx";
+import CommandUsageForm from "./UsageForm.jsx";
 
-const CommandDetails = () => {
+const CommandDetailsPage = () => {
+    const [t] = useTranslation();
+
     const { commandId } = useParams();
     const navigate = useNavigate();
 
@@ -82,12 +85,12 @@ const CommandDetails = () => {
             </div>
             <article>
                 <div>
-                    <Title type="Command" title={command.name} />
+                    <Title type={t("Command")} title={command.name} />
                     <Tags values={command.tags} />
                 </div>
 
                 <NativeTabs
-                    labels={["Details", "Usages", "Run instructions", "Command outputs", "Terminal"]}
+                    labels={[t("Details"), t("Usages"), "Run instructions", "Command outputs", "Terminal"]}
                     tabIndex={tabIndex}
                     tabIndexSetter={tabIndexSetter}
                 />
@@ -95,11 +98,11 @@ const CommandDetails = () => {
                 <div>
                     <div>
                         {0 === tabIndex && (
-                            <div>
+                            <div className="content">
                                 <div className="grid grid-two">
                                     <div>
                                         <dl>
-                                            <dt>Description</dt>
+                                            <dt>{t("Description")}</dt>
                                             <dd>
                                                 {command.description ? (
                                                     <ReactMarkdown>{command.description}</ReactMarkdown>
@@ -132,7 +135,7 @@ const CommandDetails = () => {
                                     </div>
 
                                     <div>
-                                        <h4>Relations</h4>
+                                        <h4>{t("Relations")}</h4>
                                         <dl>
                                             <dt>Created by</dt>
                                             <dd>
@@ -206,4 +209,4 @@ const CommandDetails = () => {
     );
 };
 
-export default CommandDetails;
+export default CommandDetailsPage;

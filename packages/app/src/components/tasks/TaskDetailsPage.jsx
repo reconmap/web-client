@@ -9,24 +9,26 @@ import RestrictedComponent from "components/logic/RestrictedComponent";
 import EmptyField from "components/ui/EmptyField";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import TimestampsSection from "components/ui/TimestampsSection";
+import Title from "components/ui/Title";
 import LinkButton from "components/ui/buttons/Link";
+import { actionCompletedToast } from "components/ui/toast";
 import UserLink from "components/users/Link";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useDelete from "../../hooks/useDelete";
-import TaskStatuses from "../../models/TaskStatuses";
-import secureApiFetch from "../../services/api";
-import Breadcrumb from "../ui/Breadcrumb";
-import Loading from "../ui/Loading";
-import DeleteButton from "../ui/buttons/Delete";
-import { actionCompletedToast } from "../ui/toast";
-import useFetch from "./../../hooks/useFetch";
-import Title from "./../ui/Title";
-import TaskStatusFormatter from "./TaskStatusFormatter";
+import useDelete from "../../hooks/useDelete.js";
+import useFetch from "../../hooks/useFetch.js";
+import TaskStatuses from "../../models/TaskStatuses.js";
+import secureApiFetch from "../../services/api.js";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
+import Loading from "../ui/Loading.jsx";
+import DeleteButton from "../ui/buttons/Delete.jsx";
+import TaskStatusFormatter from "./TaskStatusFormatter.jsx";
 
-const TaskDetails = () => {
+const TaskDetailsPage = () => {
+    const [t] = useTranslation();
     const { user: loggedInUser } = useAuth();
     const navigate = useNavigate();
     const { taskId } = useParams();
@@ -106,7 +108,7 @@ const TaskDetails = () => {
         <div>
             <div className="heading">
                 <Breadcrumb>
-                    <Link to="/tasks">Tasks</Link>
+                    <Link to="/tasks">{t("Tasks")}</Link>
                     {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
                 </Breadcrumb>
                 {task && users && (
@@ -139,7 +141,11 @@ const TaskDetails = () => {
 
                     <div>
                         <NativeTabs
-                            labels={["Details", null !== command ? "Command instructions" : null, "Attachments"]}
+                            labels={[
+                                t("Details"),
+                                null !== command ? t("Command instructions") : null,
+                                t("Attachments"),
+                            ]}
                             tabIndex={tabIndex}
                             tabIndexSetter={tabIndexSetter}
                         />
@@ -252,4 +258,4 @@ const TaskDetails = () => {
     );
 };
 
-export default TaskDetails;
+export default TaskDetailsPage;

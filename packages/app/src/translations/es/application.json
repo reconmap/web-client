@@ -11,7 +11,7 @@
     "Address": "Dirección",
     "Archive": "Archivado",
     "Assignee": "Asignado",
-    "Attachements": "Adjuntos",
+    "Attachments": "Adjuntos",
     "Audit log": "Registro de eventos",
     "Branding": "Marca",
     "Category": "Categoría",
@@ -97,5 +97,6 @@
     "Users": "Usuarios",
     "View": "Ver",
     "Visibility": "Visibilidad",
-    "Vulnerabilities": "Vulnerabilidades"
+    "Vulnerabilities": "Vulnerabilidades",
+    "Tags": "Etiquetas"
 }

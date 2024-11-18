@@ -1,18 +1,20 @@
 import LinkButton from "components/ui/buttons/Link";
+import Title from "components/ui/Title";
 import useQuery from "hooks/useQuery";
 import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import Breadcrumb from "../ui/Breadcrumb";
-import Title from "../ui/Title";
-import CommandsSearchResults from "./CommandsSearchResults";
-import ProjectsSearchResults from "./ProjectsSearchResults";
-import ProjectTemplatesSearchResults from "./ProjectTemplatesSearchResults";
+import Breadcrumb from "../ui/Breadcrumb.jsx";
+import CommandsSearchResults from "./CommandsSearchResults.jsx";
+import ProjectsSearchResults from "./ProjectsSearchResults.jsx";
+import ProjectTemplatesSearchResults from "./ProjectTemplatesSearchResults.jsx";
 import SearchUrls from "./SearchUrls";
-import TasksSearchResults from "./TasksSearchResults";
-import VulnerabilitiesSearchResults from "./VulnerabilitiesSearchResults";
-import VulnerabilityTemplatesSearchResults from "./VulnerabilityTemplatesSearchResults";
+import TasksSearchResults from "./TasksSearchResults.jsx";
+import VulnerabilitiesSearchResults from "./VulnerabilitiesSearchResults.jsx";
+import VulnerabilityTemplatesSearchResults from "./VulnerabilityTemplatesSearchResults.jsx";
 
-const SearchResults = React.memo(() => {
+const SearchResultsPage = React.memo(() => {
+    const [t] = useTranslation();
     const params = useParams();
     const query = useQuery();
     const keywords = decodeURIComponent(params.keywords);
@@ -29,10 +31,10 @@ const SearchResults = React.memo(() => {
             <div className="heading">
                 <Breadcrumb />
                 <div>
-                    <LinkButton href={SearchUrls.AdvancedSearch}>Advanced search</LinkButton>
+                    <LinkButton href={SearchUrls.AdvancedSearch}>{t("Advanced search")}</LinkButton>
                 </div>
             </div>
-            <Title type="Search results" title={keywords} />
+            <Title type={t("Search results")} title={keywords} />
 
             {emptyResults.length > 0 && (
                 <div status="warning">No results were found for: {[...new Set([...emptyResults])].join(", ")}</div>
@@ -60,4 +62,4 @@ const SearchResults = React.memo(() => {
     );
 });
 
-export default SearchResults;
+export default SearchResultsPage;

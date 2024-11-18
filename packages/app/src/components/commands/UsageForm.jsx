@@ -1,11 +1,14 @@
+import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
-import Loading from "components/ui/Loading";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import useFetch from "hooks/useFetch";
+import { useTranslation } from "react-i18next";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSetter: setCommand }) => {
+    const [t] = useTranslation();
+
     const onFormChange = (ev) => {
         const target = ev.target;
         let name = target.name;
@@ -27,8 +30,6 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
     };
 
     const [parsers] = useFetch("/commands/output-parsers");
-
-    if (!parsers) return <Loading />;
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -87,10 +88,17 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                     />
                 </label>
 
-                <label>
-                    Command line arguments
-                    <NativeInput type="text" name="arguments" onChange={onFormChange} value={command.arguments || ""} />
-                </label>
+                <LabelledField
+                    label={t("Command line arguments")}
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="arguments"
+                            onChange={onFormChange}
+                            value={command.arguments || ""}
+                        />
+                    }
+                />
 
                 <label>
                     Output capture
@@ -123,11 +131,12 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                         Output parser
                         <NativeSelect name="output_parser" onChange={onFormChange} value={command.output_parser || ""}>
                             <option value="">(none)</option>
-                            {parsers.map((parser) => (
-                                <option key={`parser_${parser.code}`} value={parser.code}>
-                                    {parser.name}
-                                </option>
-                            ))}
+                            {parsers &&
+                                parsers.map((parser) => (
+                                    <option key={`parser_${parser.code}`} value={parser.code}>
+                                        {parser.name}
+                                    </option>
+                                ))}
                         </NativeSelect>
                     </label>
                 )}
