@@ -1,6 +1,4 @@
 .project-badge {
     align-items: center;
     display: inline-flex;
-    padding: var(--paddingBadge);
-    border-radius: var(--borderRadius, 3px);
 }

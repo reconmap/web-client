@@ -5,7 +5,6 @@ const CommandBadge = ({ command }) => {
         badge: {
             alignItems: "center",
             display: `inline-flex`,
-            borderRadius: "var(--borderRadius, 3px)",
         },
     };
 

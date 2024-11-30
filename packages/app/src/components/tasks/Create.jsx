@@ -2,6 +2,7 @@ import { actionCompletedToast } from "components/ui/toast";
 import useQuery from "hooks/useQuery";
 import Task from "models/Task";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -9,6 +10,7 @@ import Title from "../ui/Title";
 import TaskForm from "./Form";
 
 const TaskCreationPage = () => {
+    const [t] = useTranslation();
     const navigate = useNavigate();
     const query = useQuery();
     const defaultProjectId = "";
@@ -29,7 +31,7 @@ const TaskCreationPage = () => {
         <div>
             <div className="heading">
                 <Breadcrumb>
-                    <Link to="/tasks">Tasks</Link>
+                    <Link to="/tasks">{t("Tasks")}</Link>
                 </Breadcrumb>
             </div>
 

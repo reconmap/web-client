@@ -8,8 +8,6 @@
 
     --margin: calc(var(--space) / 2);
     --padding: var(--space);
-    --paddingBadge: calc(var(--space) / 3) calc(var(--space) / 2);
-    --borderRadius: calc(var(--space) / 3);
 }
 
 body {

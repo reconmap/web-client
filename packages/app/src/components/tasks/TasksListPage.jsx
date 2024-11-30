@@ -4,6 +4,7 @@ import DeleteButton from "components/ui/buttons/Delete";
 import Title from "components/ui/Title";
 import { actionCompletedToast } from "components/ui/toast";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete.js";
@@ -15,6 +16,8 @@ import TasksTable from "./TasksTable.jsx";
 import TaskTableModel from "./TaskTableModel";
 
 const TasksListPage = () => {
+    const [t] = useTranslation();
+
     const navigate = useNavigate();
 
     const [tableModel, setTableModel] = useState(new TaskTableModel(true, true));
@@ -113,7 +116,7 @@ const TasksListPage = () => {
                     </RestrictedComponent>
                 </div>
             </div>
-            <Title title="Tasks" />
+            <Title title={t("Tasks")} />
 
             <div>
                 <TaskFilters tableModel={tableModel} tableModelSetter={setTableModel} />

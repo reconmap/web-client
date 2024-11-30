@@ -1,5 +1,5 @@
+import { Tag } from "@reconmap/native-components";
 import { Link } from "react-router-dom";
-import Tag from "./Tag.js";
 
 // Define the props interface
 interface TagsProps {

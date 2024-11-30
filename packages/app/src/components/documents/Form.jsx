@@ -2,9 +2,12 @@ import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
+import { useTranslation } from "react-i18next";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditForm = false }) => {
+    const [t] = useTranslation();
+
     const onFormInputChange = (ev) => {
         const target = ev.target;
         const name = target.name;
@@ -19,7 +22,7 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
     return (
         <form onSubmit={onFormSubmit}>
             <div>
-                <label htmlFor="title">Title</label>
+                <label htmlFor="title">{t("Title")}</label>
                 <NativeInput
                     type="text"
                     name="title"
@@ -31,7 +34,7 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
             </div>
 
             <div>
-                <label htmlFor="content">Content (markdown supported)</label>
+                <label htmlFor="content">{t("Content")} (markdown supported)</label>
                 <MarkdownEditor
                     name="content"
                     style={{ width: "100%" }}
@@ -53,13 +56,13 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
                         onChange={onFormInputChange}
                         required
                     >
-                        <option value="private">Private</option>
-                        <option value="public">Public</option>
+                        <option value="private">{t("Private")}</option>
+                        <option value="public">{t("Public")}</option>
                     </NativeSelect>
                 }
             />
 
-            <PrimaryButton type="submit">{isEditForm ? "Update" : "Create"}</PrimaryButton>
+            <PrimaryButton type="submit">{isEditForm ? t("Update") : t("Create")}</PrimaryButton>
         </form>
     );
 };

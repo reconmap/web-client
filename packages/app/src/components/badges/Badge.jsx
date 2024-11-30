@@ -2,7 +2,6 @@ export default function Badge({ children, color = "text-color", fontSize = "font
     const styles = {
         badge: {
             color: `var(--${color})`,
-            padding: `var(--paddingBadge)`,
             alignItems: "center",
             display: `inline-flex`,
             fontSize: `var(--${fontSize})`,

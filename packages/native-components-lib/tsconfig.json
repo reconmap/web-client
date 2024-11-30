@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "outDir": "dist",
+      "rootDir": "src",
+      "module": "Node16",
+      "target": "ESNext",
+      "lib": ["DOM", "ESNext"],
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "declaration": true,
+      "declarationMap": true,
+      "jsx": "react-jsx",      
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+  }

@@ -154,15 +154,15 @@ const TaskDetailsPage = () => {
                                 <div>
                                     <div className="grid grid-two">
                                         <div>
-                                            <h4>Description</h4>
+                                            <h4>{t("Description")}</h4>
                                             {task.description ? (
                                                 <ReactMarkdown>{task.description}</ReactMarkdown>
                                             ) : (
                                                 <EmptyField />
                                             )}
-                                            <h4>Priority</h4>
+                                            <h4>{t("Priority")}</h4>
                                             <p>{task.priority}</p>
-                                            <h4>Status</h4>
+                                            <h4>{t("Status")}</h4>
                                             <p
                                                 style={{
                                                     display: "flex",
@@ -188,7 +188,7 @@ const TaskDetailsPage = () => {
                                         <div>
                                             <h4>People</h4>
                                             <dl>
-                                                <dt>Created by</dt>
+                                                <dt>{t("Created by")}</dt>
                                                 <dd>
                                                     <UserLink userId={task.creator_uid}>
                                                         {task.creator_full_name}

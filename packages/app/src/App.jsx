@@ -22,11 +22,9 @@ import TargetRoutes from "./components/target/Routes";
 import TasksRoutes from "./components/tasks/Routes";
 import UsersRoutes from "./components/users/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const App = () => {
-    const { user } = useAuth();
-
     return (
         <BrowserRouter basename={Configuration.getContextPath()}>
             {/* Order of provider components matters */}

@@ -1,6 +1,6 @@
+import { Tag } from "@reconmap/native-components";
 import NativeButton from "components/form/NativeButton";
 import CssIcon from "components/ui/CssIcon";
-import Tag from "components/ui/Tag";
 import { useWebsocketMessage } from "contexts/WebsocketContext";
 import useFetch from "hooks/useFetch";
 import useToggle from "hooks/useToggle";

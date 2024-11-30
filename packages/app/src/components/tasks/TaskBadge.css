@@ -1,5 +1,4 @@
 .task-badge {
     align-items: center;
     display: inline-flex;
-    border-radius: var(--borderRadius, 3px);
 }

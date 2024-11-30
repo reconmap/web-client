@@ -1,7 +1,6 @@
 .html-dialog {
-    border-radius: calc(var(--borderRadius)*3);
     width: 60%;
-    background-color: var(--bulma-modal-background-background-color);
+    background-color: var(--bulma-body-background-color);
     border: 1px solid white;
 }
 

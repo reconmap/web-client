@@ -1,4 +1,4 @@
-import NativeButton from "components/form/NativeButton.js";
+import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import Title from "components/ui/Title";

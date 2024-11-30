@@ -23,10 +23,8 @@ const VulnerabilityStatusBadge = ({ vulnerability }) => {
         badge: {
             color: `var(--${STATUSES[vulnerability.status].color})`,
             backgroundColor: `var(--${STATUSES[vulnerability.status].color}Dark)`,
-            padding: `var(--paddingBadge)`,
             alignItems: "center",
             display: `inline-flex`,
-            borderRadius: "var(--borderRadius, 3px)",
             border: `var(--borderWidth,2px) solid transparent`,
         },
     };

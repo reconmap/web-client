@@ -5,7 +5,5 @@ div.target-badge {
   background-image: url("/images/icons/target.svg");
   background-size: 24px 24px;
   background-position: 4px 4px;
-  border-radius: var(--borderRadius, 3px);
-  padding: var(--margin) var(--paddingBadge);
   padding-left: 30px;
 }

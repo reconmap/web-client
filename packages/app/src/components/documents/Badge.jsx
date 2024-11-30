@@ -5,7 +5,6 @@ const DocumentBadge = ({ document }) => {
         badge: {
             alignItems: "center",
             display: `inline-flex`,
-            borderRadius: "var(--borderRadius, 3px)",
         },
     };
 
