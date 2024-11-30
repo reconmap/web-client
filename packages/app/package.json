@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@fortawesome/fontawesome-free": "^6.7.1",
     "@reconmap/native-components": "workspace:^",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
