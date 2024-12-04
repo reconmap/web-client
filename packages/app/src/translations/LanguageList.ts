@@ -4,10 +4,10 @@ interface Language {
 }
 
 const LanguageList: Language[] = [
-    { id: "es", name: "Español" },
+    { id: "es", name: "Spanish" },
     { id: "en", name: "English" },
     { id: "cn", name: "Chinese" },
-    { id: "fa", name: "Persian" },
+    { id: "pt", name: "Portuguese" },
     { id: "fr", name: "French" },
 ];
 
