@@ -1,6 +1,6 @@
-import UAParser from 'ua-parser-js';
+import { UAParser } from "ua-parser-js";
 
-const UserAgentLabel = ({userAgent}) => {
+const UserAgentLabel = ({ userAgent }) => {
     const parser = new UAParser(userAgent);
     const browserName = parser.getBrowser().name;
 
@@ -11,7 +11,7 @@ const UserAgentLabel = ({userAgent}) => {
         description = userAgent;
     }
 
-    return <span title={userAgent}>{description}</span>
-}
+    return <span title={userAgent}>{description}</span>;
+};
 
 export default UserAgentLabel;
