@@ -19,8 +19,8 @@ const ProjectNotesTab = ({ project }) => {
     };
 
     const onNoteFormSaved = () => {
+        closeDialog();
         reloadNotes();
-        onClose();
     };
 
     if (!notes) {

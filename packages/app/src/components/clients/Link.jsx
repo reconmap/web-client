@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import OrganisationsUrls from "./OrganisationsUrls";
 
 const styles = {
     badge: {
@@ -9,12 +11,14 @@ const styles = {
 };
 
 const ClientLink = ({ clientId, children }) => {
+    const [t] = useTranslation();
+
     if (!clientId) {
-        return "(not set)";
+        return t("(not set)");
     }
 
     return (
-        <Link style={styles.badge} to={`/clients/${clientId}`}>
+        <Link style={styles.badge} to={OrganisationsUrls.Details.replace(":organisationId", clientId)}>
             {children}
         </Link>
     );

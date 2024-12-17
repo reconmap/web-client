@@ -4,7 +4,7 @@ const DynamicForm = ({ fields }) => {
     return fields.map((field) => {
         if (["text"].includes(field.kind)) {
             return (
-                <div>
+                <div key={`customField-${field.name}`}>
                     <label htmlFor={field.name}>{field.label}</label>
                     <NativeInput id={field.name} type={field.kind} name={field.name} />
                 </div>
@@ -12,7 +12,7 @@ const DynamicForm = ({ fields }) => {
         }
         if (["integer"].includes(field.kind)) {
             return (
-                <div>
+                <div key={`customField-${field.name}`}>
                     <label htmlFor={field.name}>{field.label}</label>
                     <NativeInput id={field.name} type="number" name={field.name} />
                 </div>
@@ -20,7 +20,7 @@ const DynamicForm = ({ fields }) => {
         }
         if (["decimal"].includes(field.kind)) {
             return (
-                <div>
+                <div key={`customField-${field.name}`}>
                     <label htmlFor={field.name}>{field.label}</label>
                     <NativeInput id={field.name} type="number" name={field.name} step="0.001" />
                 </div>

@@ -1,11 +1,16 @@
 import AttachmentsImageDropzone from "components/attachments/ImageDropzone";
+import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
+import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {
+    const [t] = useTranslation();
+
     const parentType = "client";
     const parentId = client.id;
     const [logo, setLogo] = useState(null);
@@ -58,21 +63,37 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
         <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
-                <label>
-                    Name
-                    <NativeInput
-                        type="text"
-                        name="name"
-                        onChange={onFormChange}
-                        value={client.name || ""}
-                        required
-                        autoFocus
-                    />
-                </label>
-                <label>
-                    Address
-                    <NativeInput type="text" name="address" onChange={onFormChange} value={client.address || ""} />
-                </label>
+                <LabelledField
+                    label={t("Type")}
+                    control={
+                        <NativeSelect name="kind" defaultValue={client.kind}>
+                            <option value="service_provider">{t("Service provider")}</option>
+                            <option value="client">{t("Client")}</option>
+                        </NativeSelect>
+                    }
+                />
+
+                <LabelledField
+                    label={t("Name")}
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="name"
+                            onChange={onFormChange}
+                            value={client.name || ""}
+                            required
+                            autoFocus
+                        />
+                    }
+                />
+
+                <LabelledField
+                    label={t("Address")}
+                    control={
+                        <NativeInput type="text" name="address" onChange={onFormChange} value={client.address || ""} />
+                    }
+                />
+
                 <label>
                     URL
                     <NativeInput type="text" name="url" onChange={onFormChange} value={client.url || ""} />

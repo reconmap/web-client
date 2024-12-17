@@ -1,7 +1,6 @@
-
-const SearchUrls = {
-    KeywordsSearch: '/search/:keywords', 
-    AdvancedSearch: '/advanced-search',
+const SearchUrls: Record<string, string> = {
+    KeywordsSearch: "/search/:keywords",
+    AdvancedSearch: "/advanced-search",
 };
 
 export default SearchUrls;

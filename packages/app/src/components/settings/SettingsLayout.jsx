@@ -1,34 +1,32 @@
 import SidemenuLayout from "components/layout/SidemenuLayout";
+import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
 
 const SettingsLayout = ({ children }) => {
+    const [t] = useTranslation();
     const location = useLocation();
+
     const links = [
         { type: "label", name: "General", items: [] },
         {
             type: "menu",
-            name: "Users",
+            name: t("Users"),
             url: "/users",
             permissions: "settings.*",
             children: [{ name: "Create", url: "/users/create", permissions: "settings.*" }],
         },
         {
             type: "menu",
-            name: "Organisations",
-            url: "/settings/organisation",
+            name: t("Organisations"),
+            url: "/organisations",
         },
+        { type: "label", name: t("Configuration") },
         {
             type: "menu",
-            name: "Clients",
-            url: "/clients",
-        },
-        { type: "label", name: "Configuration" },
-        {
-            type: "menu",
-            name: "Custom fields",
+            name: t("Custom fields"),
             url: "/settings/custom-fields",
         },
-        { type: "label", name: "Data" },
+        { type: "label", name: t("Data") },
         {
             type: "menu",
             name: "Export data",
@@ -40,6 +38,7 @@ const SettingsLayout = ({ children }) => {
             url: "/system/import-data",
         },
     ];
+
     return (
         <SidemenuLayout links={links}>
             <Outlet />

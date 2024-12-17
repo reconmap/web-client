@@ -4,24 +4,21 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
-import CreateButton from "../ui/buttons/Create";
 import LinkButton from "../ui/buttons/Link";
 import ClientLink from "./Link";
+import OrganisationsUrls from "./OrganisationsUrls";
 
 const ClientsList = () => {
-    const navigate = useNavigate();
+    const [t] = useTranslation();
+
     const [clients, updateTasks] = useFetch("/clients");
 
     const destroy = useDelete("/clients/", updateTasks);
-
-    const handleCreateClient = () => {
-        navigate(`/clients/create`);
-    };
 
     return (
         <>
@@ -29,16 +26,17 @@ const ClientsList = () => {
                 <Breadcrumb />
 
                 <NativeButtonGroup>
-                    <CreateButton onClick={handleCreateClient}>Add client</CreateButton>
+                    <LinkButton href={OrganisationsUrls.Create}>{t("Add organisation")}</LinkButton>
                     <ExportButton entity="clients" disabled={clients === null || clients?.length === 0} />
                 </NativeButtonGroup>
             </div>
-            <Title title="Clients" />
+            <Title title={t("Organisations")} />
 
             <table className="table is-fullwidth">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>{t("Type")}</th>
+                        <th>{t("Name")}</th>
                         <th>Address</th>
                         <th>URL</th>
                         <th>Number of contacts</th>
@@ -52,6 +50,7 @@ const ClientsList = () => {
                         0 < clients.length &&
                         clients.map((client) => (
                             <tr key={client.id}>
+                                <td>{client.kind}</td>
                                 <td>
                                     <ClientLink clientId={client.id}>{client.name}</ClientLink>
                                 </td>
@@ -61,7 +60,9 @@ const ClientsList = () => {
                                 </td>
                                 <td>{client.num_contacts}</td>
                                 <td>
-                                    <LinkButton href={`/clients/${client.id}/edit`}>Edit</LinkButton>
+                                    <LinkButton href={OrganisationsUrls.Edit.replace(":organisationId", client.id)}>
+                                        {t("Edit")}
+                                    </LinkButton>
                                     <DeleteIconButton onClick={() => destroy(client.id)} />
                                 </td>
                             </tr>

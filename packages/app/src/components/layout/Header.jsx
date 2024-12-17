@@ -1,3 +1,4 @@
+import OrganisationsUrls from "components/clients/OrganisationsUrls";
 import SearchUrls from "components/search/SearchUrls";
 import ExternalLink from "components/ui/ExternalLink";
 import Configuration from "Configuration";
@@ -24,14 +25,18 @@ const MenuLinks = [
             { name: t("Commands"), url: "/commands", permissions: "commands.*" },
             { name: t("Vulnerabilities"), url: "/vulnerabilities", permissions: "commands.*" },
             { name: t("Documents"), url: "/documents", permissions: "documents.*" },
+            null,
+            { name: t("Search"), url: SearchUrls.AdvancedSearch },
         ],
     },
     {
         name: t("Settings"),
         items: [
             { name: t("Users"), url: "/users" },
+            { name: t("Organisations"), url: OrganisationsUrls.List },
+            null,
             { name: t("Custom fields"), url: "/settings/custom-fields" },
-            { name: t("Search"), url: SearchUrls.AdvancedSearch },
+            null,
             { name: t("Import data"), url: "/system/import-data" },
             { name: t("Export data"), url: "/system/export-data" },
         ],
