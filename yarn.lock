@@ -6245,6 +6245,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"npm-check-updates@npm:^17.1.14":
+  version: 17.1.14
+  resolution: "npm-check-updates@npm:17.1.14"
+  bin:
+    ncu: build/cli.js
+    npm-check-updates: build/cli.js
+  checksum: 10/11520c912d45012beb6ede2c64ecc57e04145852a10db20632a0c61fd26463f7134d5888c0f31f8cb1756469e50a3eeec01d03e1fd3b91682a43556bdf42d12b
+  languageName: node
+  linkType: hard
+
 "nth-check@npm:^2.0.0":
   version: 2.1.1
   resolution: "nth-check@npm:2.1.1"
@@ -7357,7 +7367,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    npm-check-updates: "npm:^17.1.11"
+    npm-check-updates: "npm:^17.1.14"
   languageName: unknown
   linkType: soft
 
