@@ -65,7 +65,7 @@ const Header = () => {
     const [activeMenu, setActiveMenu] = useState(null);
 
     return (
-        <nav className="navbar is-fixed-top">
+        <nav className="navbar is-fixed-top is-dark">
             <div className="navbar-brand">
                 <Link to="/" className="navbar-brand">
                     <HeaderLogo />
