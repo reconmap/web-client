@@ -9,7 +9,9 @@ COPY --chown=reconmapper:reconmapper package.json yarn.lock .yarnrc.yml ./
 COPY --chown=reconmapper:reconmapper packages ./packages
 COPY --chown=reconmapper:reconmapper .yarn/releases/ ./.yarn/releases/
 
-RUN yarn install && yarn workspace @reconmap/app run build
+RUN yarn install && \
+	yarn workspace @reconmap/native-components run build && \
+	yarn workspace @reconmap/app run build
 
 FROM nginx:stable
 
