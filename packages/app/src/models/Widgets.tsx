@@ -8,12 +8,13 @@ import RecentVulnerabilitiesWidget from "components/layout/dashboard/widgets/Rec
 import UserActivityStatsWidget from "components/layout/dashboard/widgets/UserActivityStatsWidget.jsx";
 import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget.jsx";
 import VulnerabilitiesByRiskStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget.jsx";
+import React from "react";
 
 type WidgetConfig = {
     title: string;
     description?: string;
     visible: boolean;
-    component: JSX.Element;
+    component: React.ReactElement;
     permissions?: string;
 };
 
