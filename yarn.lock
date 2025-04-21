@@ -1003,7 +1003,7 @@ __metadata:
     react-hot-toast: "npm:^2.5.2"
     react-i18next: "npm:^15.4.1"
     react-markdown: "npm:^10.1.0"
-    react-router-dom: "npm:^7.4.0"
+    react-router-dom: "npm:^7.5.1"
     react-select: "npm:^5.10.1"
     react-time-ago: "npm:^7.3.3"
     recharts: "npm:^2.15.1"
@@ -1466,13 +1466,6 @@ __metadata:
   dependencies:
     "@babel/types": "npm:^7.20.7"
   checksum: 10/63d13a3789aa1e783b87a8b03d9fb2c2c90078de7782422feff1631b8c2a25db626e63a63ac5a1465d47359201c73069dacb4b52149d17c568187625da3064ae
-  languageName: node
-  linkType: hard
-
-"@types/cookie@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@types/cookie@npm:0.6.0"
-  checksum: 10/b883348d5bf88695fbc2c2276b1c49859267a55cae3cf11ea1dccc1b3be15b466e637ce3242109ba27d616c77c6aa4efe521e3d557110b4fdd9bc332a12445c2
   languageName: node
   linkType: hard
 
@@ -7070,23 +7063,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^7.4.0":
-  version: 7.4.0
-  resolution: "react-router-dom@npm:7.4.0"
+"react-router-dom@npm:^7.5.1":
+  version: 7.5.1
+  resolution: "react-router-dom@npm:7.5.1"
   dependencies:
-    react-router: "npm:7.4.0"
+    react-router: "npm:7.5.1"
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10/3b4fe2d851ffa9d19a6ec66b8e8eef806184baa96961dce63ebf6ad8c2b06282621660c791300ac401d42728b6ff3cf327d205ebd1c6aef4f32732bb6fa3143c
+  checksum: 10/a564fd2b3cfa9a4b79dbdbae53b7504fcd678b2aba69a696ae494c228927999b3be9bc4e304a63a0b2247a2943c241bf3bb4fe25d62092de64e16309654f0f2d
   languageName: node
   linkType: hard
 
-"react-router@npm:7.4.0":
-  version: 7.4.0
-  resolution: "react-router@npm:7.4.0"
+"react-router@npm:7.5.1":
+  version: 7.5.1
+  resolution: "react-router@npm:7.5.1"
   dependencies:
-    "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^1.0.1"
     set-cookie-parser: "npm:^2.6.0"
     turbo-stream: "npm:2.4.0"
@@ -7096,7 +7088,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10/e7c9fe14d9b624f425ba89b904f47b571087978d46d6d9d865f03619851c8ef43525f4731fccc7bf00896043da208e444a167f5449a38794e70c98aeb78bdbf8
+  checksum: 10/c5c3bacbb93058f4cbf93557ea4d3376393e071aa59e2f7044060cc4073b2a253fcd29c7c0b89d6c373d56dc7e2494729871e5a72be66988b1c0bd726f7cfc0e
   languageName: node
   linkType: hard
 
