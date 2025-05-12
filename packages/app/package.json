@@ -9,7 +9,7 @@
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "@uiw/react-md-editor": "^4.0.5",
-    "bulma": "^1.0.3",
+    "bulma": "^1.0.4",
     "countries-and-timezones": "^3.7.2",
     "cron-parser": "^5.0.6",
     "cronstrue": "^2.56.0",
