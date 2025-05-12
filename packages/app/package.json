@@ -5,7 +5,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@reconmap/native-components": "workspace:^",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.15.17",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "@uiw/react-md-editor": "^4.0.5",
