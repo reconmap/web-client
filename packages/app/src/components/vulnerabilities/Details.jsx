@@ -6,6 +6,7 @@ import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Tags from "components/ui/Tags";
 import LinkButton from "components/ui/buttons/Link";
+import { t } from "i18next";
 import VulnerabilityStatuses from "models/VulnerabilityStatuses";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
@@ -68,14 +69,13 @@ const VulnerabilityDetails = () => {
                         <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
 
                         <label>
-                            Transition to&nbsp;
                             <NativeSelect
                                 onChange={onStatusChange}
                                 value={vulnerability.status + "-" + vulnerability.substatus}
                             >
                                 {VulnerabilityStatuses.map((status) => (
                                     <option key={`vulnstatus_${status.id}`} value={status.id}>
-                                        {status.name}
+                                        {t("Status")}: {status.name}
                                     </option>
                                 ))}
                             </NativeSelect>

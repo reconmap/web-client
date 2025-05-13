@@ -64,7 +64,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                         </td>
                         <td>
                             <SecondaryButton onClick={() => handleDownload(report.docx_attachment_id)}>
-                                DOCX
+                                Download
                             </SecondaryButton>
                         </td>
                         <td>

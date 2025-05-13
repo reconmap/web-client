@@ -13,7 +13,7 @@ const ProjectDetailsTab = ({ project }) => {
 
     return (
         <section className="grid grid-two">
-            <div>
+            <div className="content">
                 <h4>Project details</h4>
                 <dl>
                     {!isTemplate && (

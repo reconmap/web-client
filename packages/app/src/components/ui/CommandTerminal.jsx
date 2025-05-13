@@ -2,16 +2,15 @@ import Configuration from "Configuration";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useRef, useState } from "react";
 import { Terminal } from "xterm";
-import 'xterm/css/xterm.css';
+import "xterm/css/xterm.css";
 
-const arrayBufferToString = buf => {
+const arrayBufferToString = (buf) => {
     return String.fromCharCode.apply(null, new Uint8Array(buf));
-}
+};
 
 const CommandTerminal = ({ commands }) => {
-
     const terminalEl = useRef();
-    const [terminalTitle, setTerminalTitle] = useState('Terminal');
+    const [terminalTitle, setTerminalTitle] = useState("Terminal");
     const { user } = useAuth();
 
     useEffect(() => {
@@ -27,64 +26,68 @@ const CommandTerminal = ({ commands }) => {
         let retryHandle = null;
 
         const connectTerminal = () => {
-            const agentServiceProtocol = Configuration.isSecureTransportEnabled() ? 'wss' : 'ws';
+            const agentServiceProtocol = Configuration.isSecureTransportEnabled() ? "wss" : "ws";
             const agentServiceHostPort = Configuration.getAgentServiceHostPort();
-            const webSocket = new WebSocket(`${agentServiceProtocol}://${agentServiceHostPort}/term?token=` + user.access_token);
-            webSocket.binaryType = 'arraybuffer';
+            const webSocket = new WebSocket(
+                `${agentServiceProtocol}://${agentServiceHostPort}/term?token=` + user.access_token,
+            );
+            webSocket.binaryType = "arraybuffer";
 
-            term.onData(data => {
+            term.onData((data) => {
                 webSocket.send(textEncoder.encode("\x00" + data));
             });
 
-            term.onResize(ev => {
-                webSocket.send(textEncoder.encode("\x01" + JSON.stringify({ cols: ev.cols, rows: ev.rows })))
+            term.onResize((ev) => {
+                webSocket.send(textEncoder.encode("\x01" + JSON.stringify({ cols: ev.cols, rows: ev.rows })));
             });
 
-            term.onTitleChange(title => {
+            term.onTitleChange((title) => {
                 setTerminalTitle(title);
             });
 
-            webSocket.onopen = ev => {
-                setTerminalTitle('Connected!')
+            webSocket.onopen = (ev) => {
+                setTerminalTitle("Connected!");
 
-                commands.forEach(command => {
+                commands.forEach((command) => {
                     webSocket.send(textEncoder.encode("\x00" + command + "\r\n"));
-                })
+                });
 
                 term.focus();
             };
 
-            webSocket.onmessage = ev => {
+            webSocket.onmessage = (ev) => {
                 if (ev.data instanceof ArrayBuffer) {
                     term.write(arrayBufferToString(ev.data));
                 } else {
-                    console.info(ev.data);
+                    console.debug(ev.data);
                 }
-            }
+            };
 
-            webSocket.onerror = ev => {
+            webSocket.onerror = (ev) => {
                 console.error(ev);
                 webSocket.close();
-            }
+            };
 
-            webSocket.onclose = ev => {
-                setTerminalTitle('Disconnected')
+            webSocket.onclose = (ev) => {
+                setTerminalTitle("Disconnected");
                 clearTimeout(retryHandle);
                 retryHandle = setTimeout(connectTerminal, 1000);
-            }
-        }
+            };
+        };
 
         connectTerminal();
 
         return () => {
             term.dispose();
-        }
+        };
     }, [commands]);
 
-    return <div>
-        <h4>{terminalTitle}</h4>
-        <div ref={terminalEl}></div>
-    </div>
-}
+    return (
+        <div>
+            <h4>{terminalTitle}</h4>
+            <div ref={terminalEl}></div>
+        </div>
+    );
+};
 
 export default CommandTerminal;

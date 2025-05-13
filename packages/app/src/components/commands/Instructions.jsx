@@ -6,8 +6,7 @@ import CommandTerminal from "components/ui/CommandTerminal";
 import ExternalLink from "components/ui/ExternalLink";
 import ShellCommand from "components/ui/ShellCommand";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
-import { parseExpression } from "cron-parser";
-import { toString as CronExpressionToString } from "cronstrue";
+import cronstrue, { toString as CronExpressionToString } from "cronstrue";
 import useFetch from "hooks/useFetch";
 import { StatusCodes } from "http-status-codes";
 import { useEffect, useState } from "react";
@@ -87,7 +86,8 @@ const UsageDetail = ({ command, task, usage }) => {
     const onCronExpresionChange = (ev) => {
         setCronExpresion(ev.target.value);
         try {
-            parseExpression(ev.target.value);
+            const message = cronstrue.toString(ev.target.value);
+            setCronExpressionErrorMessage(message);
             setCronExpressionInvalid(false);
         } catch (err) {
             setCronExpressionInvalid(true);
@@ -108,7 +108,7 @@ const UsageDetail = ({ command, task, usage }) => {
     const saveScheduledCommand = (ev, command, usage, commandArgsRendered) => {
         const schedule = {
             command_id: command.id,
-            argument_values: CommandService.generateEntryPoint(command, task) + " " + commandArgsRendered,
+            argument_values: CommandService.generateEntryPoint(command, usage, task) + " " + commandArgsRendered,
             cron_expression: cronExpresion,
         };
 
@@ -129,6 +129,7 @@ const UsageDetail = ({ command, task, usage }) => {
                 errorToast(reason);
             });
     };
+
     return (
         <>
             <h4>1. Fill in the arguments</h4>
@@ -153,12 +154,12 @@ const UsageDetail = ({ command, task, usage }) => {
                 Macos/Linux and Windows from <ExternalLink href={CliDownloadUrl}>Github</ExternalLink>.<br />
                 Once <strong>rmap</strong> is within reach execute the command shown below.
                 <ShellCommand>
-                    {CommandService.generateEntryPoint(usage, task)} {commandArgsRendered}
+                    {CommandService.generateEntryPoint(command, usage, task)} {commandArgsRendered}
                 </ShellCommand>
                 <NativeButton onClick={runOnTerminal}>Run on a browser terminal</NativeButton>
                 {showTerminal && (
                     <CommandTerminal
-                        commands={[CommandService.generateEntryPoint(usage, task) + " " + commandArgsRendered]}
+                        commands={[CommandService.generateEntryPoint(command, usage, task) + " " + commandArgsRendered]}
                     />
                 )}
             </div>

@@ -99,12 +99,11 @@ const TasksListPage = () => {
                 <div>
                     <CreateButton onClick={handleCreateTask}>Create task</CreateButton>
                     <label>
-                        Transition to&nbsp;
                         <NativeSelect disabled={!tableModel.selection.length} onChange={onStatusSelectChange}>
                             <option value="">(select)</option>
                             {TaskStatuses.map((status, index) => (
                                 <option key={index} value={status.id}>
-                                    {status.name}
+                                    {t("Status")}: {status.name}
                                 </option>
                             ))}
                         </NativeSelect>

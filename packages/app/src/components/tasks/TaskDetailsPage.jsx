@@ -118,11 +118,10 @@ const TaskDetailsPage = () => {
                             <NativeButton onClick={cloneTask}>Clone and edit</NativeButton>
                             {1 !== task.project_is_template && (
                                 <label>
-                                    Transition to&nbsp;
                                     <NativeSelect onChange={onStatusChange} value={task.status}>
                                         {TaskStatuses.map((status, index) => (
                                             <option key={index} value={status.id}>
-                                                {status.name}
+                                                {t("Status")}: {status.name}
                                             </option>
                                         ))}
                                     </NativeSelect>
