@@ -328,12 +328,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.25.0, @babel/runtime@npm:^7.26.10, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.12.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.14.6, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.25.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.27.0
   resolution: "@babel/runtime@npm:7.27.0"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10/e6966e03b695feb4c0ac0856a4355231c2580bf9ebd0298f47739f85c0ea658679dd84409daf26378d42c86c1cbe7e33feab709b14e784254b6c441d91606465
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.27.1":
+  version: 7.27.1
+  resolution: "@babel/runtime@npm:7.27.1"
+  checksum: 10/34cefcbf781ea5a4f1b93f8563327b9ac82694bebdae91e8bd9d7f58d084cbe5b9a6e7f94d77076e15b0bcdaa0040a36cb30737584028df6c4673b4c67b2a31d
   languageName: node
   linkType: hard
 
@@ -1165,7 +1172,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^16.3.0"
     "@testing-library/user-event": "npm:^14.6.1"
-    "@types/node": "npm:^22.15.17"
+    "@types/node": "npm:^22.15.18"
     "@types/react": "npm:^19.1.4"
     "@types/react-dom": "npm:^19.1.5"
     "@typescript-eslint/eslint-plugin": "npm:^8.32.1"
@@ -1186,12 +1193,12 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^5.2.0"
     friendly-mimes: "npm:^3.0.1"
     http-status-codes: "npm:^2.3.0"
-    i18next: "npm:^24.2.3"
+    i18next: "npm:^25.1.3"
     i18next-browser-languagedetector: "npm:^8.1.0"
     javascript-time-ago: "npm:^2.5.11"
     jsdom: "npm:^26.1.0"
     keycloak-js: "npm:^26.2.0"
-    npm-check-updates: "npm:^17.1.18"
+    npm-check-updates: "npm:^18.0.1"
     path-browserify: "npm:^1.0.1"
     prettier: "npm:^3.5.3"
     react: "npm:^19.1.0"
@@ -1205,7 +1212,7 @@ __metadata:
     react-time-ago: "npm:^7.3.3"
     recharts: "npm:^2.15.3"
     stylelint: "npm:^16.19.1"
-    stylelint-config-standard: "npm:^37.0.0"
+    stylelint-config-standard: "npm:^38.0.0"
     typescript: "npm:^5.8.3"
     ua-parser-js: "npm:^2.0.3"
     vite: "npm:^6.3.5"
@@ -1220,8 +1227,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@reconmap/native-components@workspace:packages/native-components-lib"
   dependencies:
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.3"
+    typescript: "npm:^5.8.3"
+    vite: "npm:^6.3.5"
     vite-plugin-dts: "npm:^4.5.3"
   languageName: unknown
   linkType: soft
@@ -1974,12 +1981,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.15.17":
-  version: 22.15.17
-  resolution: "@types/node@npm:22.15.17"
+"@types/node@npm:^22.15.18":
+  version: 22.15.18
+  resolution: "@types/node@npm:22.15.18"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/3f5870ec1ac16b1dd8e5817de81164df9b69e4cf19cce692cb7c9b1af1deaecfd98b591b56155fcc4aa582f7189a4fc0c8d7d3226fa0387403db615a12dd8cb6
+  checksum: 10/89c8c638beade806753b6fb2f25ed45b0e06f9f7375422137da5752be5c29fa9c75932b942fd55ae7de2b4288e8496912af3e029df45cc93735ac5eb49ece01e
   languageName: node
   linkType: hard
 
@@ -5292,17 +5299,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^24.2.3":
-  version: 24.2.3
-  resolution: "i18next@npm:24.2.3"
+"i18next@npm:^25.1.3":
+  version: 25.1.3
+  resolution: "i18next@npm:25.1.3"
   dependencies:
-    "@babel/runtime": "npm:^7.26.10"
+    "@babel/runtime": "npm:^7.27.1"
   peerDependencies:
     typescript: ^5
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/6c73d964f2a98b1aa2c2717fe6da66fc265bcbbc5fcd52b2bfff51ff013d30d4f7d7449c4eb7f464d27af43e2e73f2e7f1d46a144d731bd3bdb1385d4c199e4c
+  checksum: 10/b1cabfb4ee07671dd573150d17dc0af9b7f193c487673dfd37c0f0b3ead6e2c27b15dccfee2e889252af19b451b4646620a83844c7ea8f1131122e36630368ea
   languageName: node
   linkType: hard
 
@@ -7108,13 +7115,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^17.1.18":
-  version: 17.1.18
-  resolution: "npm-check-updates@npm:17.1.18"
+"npm-check-updates@npm:^18.0.1":
+  version: 18.0.1
+  resolution: "npm-check-updates@npm:18.0.1"
   bin:
     ncu: build/cli.js
     npm-check-updates: build/cli.js
-  checksum: 10/4a124bd8e18c990329177d2fd0a7c85c7c015e46ec8c8d3d553b2d9218a895250138d8c716f5e412a232af9fdc6194d1434f4349b10c5dff0d7e638034cc79ee
+  checksum: 10/c4c0dafe30760e5d7ec08cb683abea3dea05d8e092baaa008dafc8a7c4f942579aa3176d44c906f82c5e96c208cb0dae796be7fdfa687edddf7fbcbe6e63bb28
   languageName: node
   linkType: hard
 
@@ -8394,7 +8401,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    npm-check-updates: "npm:^17.1.18"
+    npm-check-updates: "npm:^18.0.1"
   languageName: unknown
   linkType: soft
 
@@ -8986,23 +8993,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-config-recommended@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "stylelint-config-recommended@npm:15.0.0"
+"stylelint-config-recommended@npm:^16.0.0":
+  version: 16.0.0
+  resolution: "stylelint-config-recommended@npm:16.0.0"
   peerDependencies:
-    stylelint: ^16.13.0
-  checksum: 10/11f35fb433c9ea1cb68d3140c116bbd20fafafc01d6a90d8dafb9820d7697df51c3e28ff5d5c98a576282179168d11b65b50cbbbc6d20fa35f5ef9dff6e2c8e1
+    stylelint: ^16.16.0
+  checksum: 10/711595ec35f387422154b14bc1d05217c48762b62dcee13ca73a0edbb7353d537e3a9f6646e9631b2988dfadc8a015a893611e6cca65971c9b99ab8bb096704f
   languageName: node
   linkType: hard
 
-"stylelint-config-standard@npm:^37.0.0":
-  version: 37.0.0
-  resolution: "stylelint-config-standard@npm:37.0.0"
+"stylelint-config-standard@npm:^38.0.0":
+  version: 38.0.0
+  resolution: "stylelint-config-standard@npm:38.0.0"
   dependencies:
-    stylelint-config-recommended: "npm:^15.0.0"
+    stylelint-config-recommended: "npm:^16.0.0"
   peerDependencies:
-    stylelint: ^16.13.0
-  checksum: 10/2fe112448a82a59d39d66f7365a55af4092dc9fef9c31503156c8f281c7e62bd1413029b816d0e516df84316018ea69eee84d0b300f6e6e5f4c2cd083717e6c9
+    stylelint: ^16.18.0
+  checksum: 10/6704f80e93990a15e28043f25b926f08b6a585a6374d3610e1fa782c6e39279cdbd963c4614a58045372dc70254101f5d622f6578bbd7b2974fc3b4ce629db26
   languageName: node
   linkType: hard
 
@@ -9395,7 +9402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.8.2, typescript@npm:^5.8.2":
+"typescript@npm:5.8.2":
   version: 5.8.2
   resolution: "typescript@npm:5.8.2"
   bin:
@@ -9415,7 +9422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.8.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>":
   version: 5.8.2
   resolution: "typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=5786d5"
   bin:
@@ -9764,7 +9771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.0.0 || ^6.0.0, vite@npm:^6.2.3":
+"vite@npm:^5.0.0 || ^6.0.0":
   version: 6.2.3
   resolution: "vite@npm:6.2.3"
   dependencies:

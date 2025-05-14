@@ -45,18 +45,15 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
 
     return (
         <nav className="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+            <Link
+                to={`/auditlog?page=${page}`}
+                className="pagination-previous"
+                tooltip="Previous [P]"
+                disabled={!previousEnabled}
+            >
+                🡠
+            </Link>{" "}
             <ul className="pagination-list">
-                <li>
-                    {" "}
-                    <Link
-                        to={`/auditlog?page=${page}`}
-                        className="pagination-link"
-                        tooltip="Previous [P]"
-                        disabled={!previousEnabled}
-                    >
-                        &lt;
-                    </Link>
-                </li>
                 <li>
                     <label>
                         Page{" "}
@@ -64,7 +61,7 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
                             className="pagination-link"
                             value={page + 1}
                             maxLength={4}
-                            w={10}
+                            size={4}
                             max={total}
                             onInput={(ev) =>
                                 onPageChange(isNaN(parseInt(ev.target.value)) ? 1 : parseInt(ev.target.value) - 1)
@@ -73,17 +70,15 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
                         of {total}
                     </label>
                 </li>
-                <li>
-                    <Link
-                        to={`/auditlog?page=${page + 2}`}
-                        className="pagination-link"
-                        tooltip="Next [N]"
-                        disabled={!nextEnabled}
-                    >
-                        &gt;
-                    </Link>
-                </li>
             </ul>
+            <Link
+                to={`/auditlog?page=${page + 2}`}
+                className="pagination-next"
+                tooltip="Next [N]"
+                disabled={!nextEnabled}
+            >
+                🡢
+            </Link>
         </nav>
     );
 };

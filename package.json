@@ -5,7 +5,7 @@
   ],
   "version": "0.0.17",
   "dependencies": {
-    "npm-check-updates": "^17.1.18"
+    "npm-check-updates": "^18.0.1"
   },
   "packageManager": "yarn@4.9.1"
 }
