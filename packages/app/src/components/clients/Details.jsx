@@ -215,12 +215,12 @@ const ClientDetails = () => {
 
                         {1 === tabIndex && (
                             <div>
-                                <h4>Contacts</h4>
+                                <h4 className="title is-4">Contacts</h4>
 
                                 {contacts && (
                                     <>
                                         <form onSubmit={onFormSubmit}>
-                                            <table>
+                                            <table className="table">
                                                 <thead>
                                                     <tr>
                                                         <th>Kind</th>

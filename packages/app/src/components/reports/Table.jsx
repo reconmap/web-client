@@ -63,8 +63,8 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                             <RelativeDateFormatter date={report.insert_ts} />
                         </td>
                         <td>
-                            <SecondaryButton onClick={() => handleDownload(report.docx_attachment_id)}>
-                                Download
+                            <SecondaryButton onClick={() => handleDownload(report.attachment_id)}>
+                                {report.client_file_name?.split(".").pop().toUpperCase()}
                             </SecondaryButton>
                         </td>
                         <td>

@@ -26,7 +26,7 @@ const ReportRevisions = ({ projectId }) => {
                     onSubmit={onDialogOk}
                     onCancel={closeAddDialog}
                 />
-                <CreateButton onClick={openAddDialog}>Add report version...</CreateButton>
+                <CreateButton onClick={openAddDialog}>Add new revision&hellip;</CreateButton>
             </div>
 
             <ReportsTable reports={reports} updateReports={refetchReports} />

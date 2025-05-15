@@ -1,9 +1,10 @@
 import NativeInput from "components/form/NativeInput";
 import { useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import isInputElement from "../../utilities/domUtils";
 
 const PaginationV2 = ({ page, total, onPageChange }) => {
+    const navigate = useNavigate();
     const previousEnabled = page + 1 > 1;
     const nextEnabled = page + 1 < total;
 
@@ -45,20 +46,20 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
 
     return (
         <nav className="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-            <Link
-                to={`/auditlog?page=${page}`}
+            <button
+                onClick={() => navigate(`/auditlog?page=${page}`)}
                 className="pagination-previous"
                 tooltip="Previous [P]"
                 disabled={!previousEnabled}
             >
                 🡠
-            </Link>{" "}
+            </button>
             <ul className="pagination-list">
                 <li>
-                    <label>
+                    <label className="is-flex is-align-items-center">
                         Page{" "}
                         <NativeInput
-                            className="pagination-link"
+                            className="pagination-link ml-2 mr-2"
                             value={page + 1}
                             maxLength={4}
                             size={4}
@@ -71,14 +72,14 @@ const PaginationV2 = ({ page, total, onPageChange }) => {
                     </label>
                 </li>
             </ul>
-            <Link
-                to={`/auditlog?page=${page + 2}`}
+            <button
+                onClick={() => navigate(`/auditlog?page=${page + 2}`)}
                 className="pagination-next"
                 tooltip="Next [N]"
                 disabled={!nextEnabled}
             >
                 🡢
-            </Link>
+            </button>
         </nav>
     );
 };

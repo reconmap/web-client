@@ -130,7 +130,7 @@ const ReportTemplatesList = () => {
                                     </td>
                                     <td>
                                         <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
-                                            DOCX
+                                            {template.client_file_name.split(".").pop().toUpperCase()}
                                         </SecondaryButton>
                                     </td>
                                     <td>

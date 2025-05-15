@@ -72,7 +72,7 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                                 <TaskBadge task={task} />
                             </td>
                             <td className="only-desktop">
-                                {task.description ? task.description.substring(0, 100) + "..." : "-"}
+                                {task.description ? task.description.substring(0, 100) + "&hellip;" : "-"}
                             </td>
                             {showProjectColumn && (
                                 <td>

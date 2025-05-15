@@ -1,5 +1,4 @@
 import NativeTabs from "components/form/NativeTabs";
-import ReportConfigurationForm from "components/reports/ConfigurationForm";
 import ReportRevisions from "components/reports/Revisions";
 import Configuration from "Configuration";
 import { AuthContext } from "contexts/AuthContext";
@@ -41,15 +40,10 @@ const ProjectReport = () => {
             </div>
             <Title type="Report" title={project.name} />
 
-            <NativeTabs
-                labels={["Preview", "Revisions", "Configuration"]}
-                tabIndex={tabIndex}
-                tabIndexSetter={tabIndexSetter}
-            />
+            <NativeTabs labels={["Preview", "Revisions"]} tabIndex={tabIndex} tabIndexSetter={tabIndexSetter} />
 
             {0 === tabIndex && <ReportPreview projectId={projectId} />}
             {1 === tabIndex && <ReportRevisions projectId={projectId} />}
-            {2 === tabIndex && <ReportConfigurationForm projectId={projectId} />}
         </>
     );
 };

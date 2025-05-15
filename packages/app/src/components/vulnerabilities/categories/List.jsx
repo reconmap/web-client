@@ -76,7 +76,7 @@ const VulnerabilityCategoriesPage = () => {
                         onCancel={closeEditCategoryDialog}
                     />
                 )}
-                <CreateButton onClick={onAddClick}>Add vulnerability category...</CreateButton>
+                <CreateButton onClick={onAddClick}>Add vulnerability category&hellip;</CreateButton>
             </div>
             <Title title="Vulnerability categories" />
 

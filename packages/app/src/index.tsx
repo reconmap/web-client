@@ -17,7 +17,7 @@ appRoot.render(
 <div>
     <a href="/" className="logo">
         <HeaderLogo />
-        <h3>Authenticating...</h3>
+        <h3>Authenticating&hellip;</h3>
     </a>
 </div>
 )
