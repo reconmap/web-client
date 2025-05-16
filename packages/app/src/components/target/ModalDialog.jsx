@@ -41,7 +41,10 @@ const TargetModalDialog = ({ project, isOpen, onSubmit, onCancel }) => {
             onClose={onCancel}
             title={
                 <>
-                    <TargetIcon style={{ width: "24px" }} /> <h4>New target details</h4>
+                    <h4>
+                        <TargetIcon style={{ width: "20px", marginRight: "5px" }} />
+                        New target details
+                    </h4>
                 </>
             }
         >

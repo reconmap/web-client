@@ -78,7 +78,7 @@ const TargetView = () => {
                 </RestrictedComponent>
             </div>
             <article>
-                <div>
+                <div className="content">
                     <Title type="Target" title={target.name} />
 
                     <div className="grid grid-two">

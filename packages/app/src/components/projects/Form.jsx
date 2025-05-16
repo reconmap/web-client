@@ -10,7 +10,8 @@ import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
-    const [clients] = useFetch("/clients");
+    const [clients] = useFetch("/clients?kind=client");
+    const [serviceProviders] = useFetch("/clients?kind=service_provider");
     const [categories] = useFetch("/project/categories");
 
     const handleFormChange = (ev) => {
@@ -18,7 +19,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
         setProject({ ...project, [ev.target.name]: value });
     };
 
-    if (!project && !clients) return <Loading />;
+    if (!project && !clients && !serviceProviders) return <Loading />;
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -63,8 +64,14 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     <>
                         <HorizontalLabelledField
                             label="Visibility"
+                            htmlFor="visibility"
                             control={
-                                <NativeSelect name="visibility" onChange={handleFormChange} value={project.visibility}>
+                                <NativeSelect
+                                    id="visibility"
+                                    name="visibility"
+                                    onChange={handleFormChange}
+                                    value={project.visibility}
+                                >
                                     <option value="public">Public</option>
                                     <option value="private">Private</option>
                                 </NativeSelect>
@@ -72,9 +79,32 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                         />
 
                         <HorizontalLabelledField
-                            label="Client"
+                            label="Service provider"
+                            htmlFor="serviceProviderId"
                             control={
                                 <NativeSelect
+                                    id="serviceProviderId"
+                                    name="service_provider_id"
+                                    onChange={handleFormChange}
+                                    value={project.service_provider_id || ""}
+                                >
+                                    <option value="">(none)</option>
+                                    {serviceProviders &&
+                                        serviceProviders.map((provider, index) => (
+                                            <option key={index} value={provider.id}>
+                                                {provider.name}
+                                            </option>
+                                        ))}
+                                </NativeSelect>
+                            }
+                        />
+
+                        <HorizontalLabelledField
+                            label="Client"
+                            htmlFor="clientId"
+                            control={
+                                <NativeSelect
+                                    id="clientId"
                                     name="client_id"
                                     onChange={handleFormChange}
                                     value={project.client_id || ""}
@@ -150,10 +180,12 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     <>
                         <HorizontalLabelledField
                             label="Start date"
+                            htmlFor="engagementStartDate"
                             control={
                                 <NativeInput
-                                    type="date"
+                                    id="engagementStartDate"
                                     name="engagement_start_date"
+                                    type="date"
                                     value={project.engagement_start_date}
                                     onChange={handleFormChange}
                                 />
@@ -161,10 +193,12 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                         />
                         <HorizontalLabelledField
                             label="End date"
+                            htmlFor="engagementEndDate"
                             control={
                                 <NativeInput
-                                    type="date"
+                                    id="engagementEndDate"
                                     name="engagement_end_date"
+                                    type="date"
                                     value={project.engagement_end_date}
                                     onChange={handleFormChange}
                                 />

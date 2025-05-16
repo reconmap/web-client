@@ -7,7 +7,7 @@ import TimestampsSection from "components/ui/TimestampsSection";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
 import ReactMarkdown from "react-markdown";
-
+import remarkGfm from "remark-gfm";
 const ProjectDetailsTab = ({ project }) => {
     const isTemplate = project.is_template === 1;
 
@@ -44,7 +44,11 @@ const ProjectDetailsTab = ({ project }) => {
 
                     <dt>Description</dt>
                     <dd>
-                        {project.description ? <ReactMarkdown>{project.description}</ReactMarkdown> : <EmptyField />}
+                        {project.description ? (
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.description}</ReactMarkdown>
+                        ) : (
+                            <EmptyField />
+                        )}
                     </dd>
 
                     {!isTemplate && (
