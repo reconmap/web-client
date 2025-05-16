@@ -1,5 +1,4 @@
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
-import LabelledField from "components/form/LabelledField";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -120,12 +119,14 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             }
                         />
 
-                        <LabelledField
+                        <HorizontalLabelledField
                             label="External ID"
+                            htmlFor="externalId"
                             control={
                                 <NativeInput
-                                    type="text"
+                                    id="externalId"
                                     name="external_id"
+                                    type="text"
                                     onChange={handleFormChange}
                                     value={project.external_id || ""}
                                 />
@@ -134,17 +135,22 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     </>
                 )}
 
-                <label>
-                    Name
-                    <NativeInput
-                        type="text"
-                        name="name"
-                        onChange={handleFormChange}
-                        value={project.name || ""}
-                        required
-                        autoFocus
-                    />
-                </label>
+                <HorizontalLabelledField
+                    label="Name"
+                    htmlFor="name"
+                    control={
+                        <NativeInput
+                            id="name"
+                            name="name"
+                            type="text"
+                            onChange={handleFormChange}
+                            value={project.name || ""}
+                            required
+                            autoFocus
+                        />
+                    }
+                />
+
                 <label>
                     Description
                     <MarkdownEditor

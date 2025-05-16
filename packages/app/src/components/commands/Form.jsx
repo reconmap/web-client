@@ -64,6 +64,7 @@ const CommandForm = ({ isEditForm = false, onFormSubmit, command, commandSetter:
                         type="url"
                         name="more_info_url"
                         onChange={onFormChange}
+                        placeholder="https://"
                         defaultValue={command.more_info_url || ""}
                     />
                 </label>

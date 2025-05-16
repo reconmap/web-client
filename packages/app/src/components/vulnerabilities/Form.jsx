@@ -1,4 +1,5 @@
 import DynamicForm from "components/form/DynamicForm";
+import HorizontalLabelledField from "components/form/HorizontalLabelledField.js";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -186,10 +187,8 @@ const VulnerabilityForm = ({
 
     return (
         <form id="vulnerabilityCreateForm" onSubmit={onFormSubmit}>
-            <div>
-                <h2>
-                    <div>Basic information</div>
-                </h2>
+            <fieldset>
+                <legend>Basic information</legend>
                 <label>
                     Properties
                     <div>
@@ -234,23 +233,27 @@ const VulnerabilityForm = ({
                         onChange={onFormChange}
                     />
                 </label>
-                <label>
-                    Category
-                    <NativeSelect
-                        name="category_id"
-                        value={vulnerability.parent_category_id || ""}
-                        onChange={onFormChange}
-                        required
-                    >
-                        <option>(none)</option>
-                        {categories &&
-                            categories.map((cat) => (
-                                <option key={cat.id} value={cat.id}>
-                                    {cat.name}
-                                </option>
-                            ))}
-                    </NativeSelect>
-                </label>
+                <HorizontalLabelledField
+                    label="Category"
+                    htmlFor="categoryId"
+                    control={
+                        <NativeSelect
+                            id="categoryId"
+                            name="category_id"
+                            value={vulnerability.parent_category_id || ""}
+                            onChange={onFormChange}
+                            required
+                        >
+                            <option>(none)</option>
+                            {categories &&
+                                categories.map((cat) => (
+                                    <option key={cat.id} value={cat.id}>
+                                        {cat.name}
+                                    </option>
+                                ))}
+                        </NativeSelect>
+                    }
+                />
                 <label>
                     Subcategory
                     <NativeSelect
@@ -268,21 +271,27 @@ const VulnerabilityForm = ({
                             ))}
                     </NativeSelect>
                 </label>
-                <label>
-                    Visibility
-                    <NativeSelect
-                        name="visibility"
-                        value={vulnerability.visibility || ""}
-                        onChange={onFormChange}
-                        required
-                    >
-                        <option value="public">Public</option>
-                        <option value="private">Private</option>
-                    </NativeSelect>
-                    <span className="field-explanation">
-                        Private makes this vulnerability not visible to the client.
-                    </span>
-                </label>
+                <HorizontalLabelledField
+                    label="Visibility"
+                    htmlFor="visibility"
+                    control={
+                        <>
+                            {" "}
+                            <NativeSelect
+                                name="visibility"
+                                value={vulnerability.visibility || ""}
+                                onChange={onFormChange}
+                                required
+                            >
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                            </NativeSelect>
+                            <span className="field-explanation">
+                                Private makes this vulnerability not visible to the client.
+                            </span>
+                        </>
+                    }
+                />
                 <label>
                     Risk
                     <NativeSelect name="risk" value={vulnerability.risk || ""} onChange={onFormChange} required>
@@ -342,7 +351,8 @@ const VulnerabilityForm = ({
                         </label>
                     </>
                 )}
-            </div>
+            </fieldset>
+
             {useOWASP && (
                 <div>
                     <h2>
@@ -352,65 +362,72 @@ const VulnerabilityForm = ({
                     <OwaspRR vulnerability={vulnerability} vulnerabilitySetter={setVulnerability} />
                 </div>
             )}
-            <h2>
-                <div>Remediation</div>
-            </h2>
-            <label>
-                Remediation instructions
-                <MarkdownEditor name="remediation" value={vulnerability.remediation || ""} onChange={onFormChange} />
-            </label>
-            <label>
-                Remediation complexity
-                <NativeSelect
-                    name="remediation_complexity"
-                    value={vulnerability.remediation_complexity || ""}
-                    onChange={onFormChange}
-                    required
-                >
-                    {RemediationComplexity.map((complexity) => (
-                        <option key={complexity.id} value={complexity.id}>
-                            {complexity.name}
-                        </option>
-                    ))}
-                </NativeSelect>
-            </label>
-            <label>
-                Remediation priority
-                <NativeSelect
-                    name="remediation_priority"
-                    value={vulnerability.remediation_priority || ""}
-                    onChange={onFormChange}
-                    required
-                >
-                    {RemediationPriority.map((priority) => (
-                        <option key={priority.id} value={priority.id}>
-                            {priority.name}
-                        </option>
-                    ))}
-                </NativeSelect>
-            </label>
+
+            <fieldset>
+                <legend>Remediation</legend>
+                <label>
+                    Remediation instructions
+                    <MarkdownEditor
+                        name="remediation"
+                        value={vulnerability.remediation || ""}
+                        onChange={onFormChange}
+                    />
+                </label>
+                <label>
+                    Remediation complexity
+                    <NativeSelect
+                        name="remediation_complexity"
+                        value={vulnerability.remediation_complexity || ""}
+                        onChange={onFormChange}
+                        required
+                    >
+                        {RemediationComplexity.map((complexity) => (
+                            <option key={complexity.id} value={complexity.id}>
+                                {complexity.name}
+                            </option>
+                        ))}
+                    </NativeSelect>
+                </label>
+                <label>
+                    Remediation priority
+                    <NativeSelect
+                        name="remediation_priority"
+                        value={vulnerability.remediation_priority || ""}
+                        onChange={onFormChange}
+                        required
+                    >
+                        {RemediationPriority.map((priority) => (
+                            <option key={priority.id} value={priority.id}>
+                                {priority.name}
+                            </option>
+                        ))}
+                    </NativeSelect>
+                </label>
+            </fieldset>
 
             {!vulnerability.is_template && (
-                <div>
-                    <h2>
-                        <div>Relations</div>
-                    </h2>
-                    <label>
-                        Project
-                        <NativeSelect
-                            name="project_id"
-                            value={vulnerability.project_id || ""}
-                            onChange={onFormChange}
-                            required
-                        >
-                            {projects &&
-                                projects.map((project, index) => (
-                                    <option key={index} value={project.id}>
-                                        {project.name}
-                                    </option>
-                                ))}
-                        </NativeSelect>
-                    </label>
+                <fieldset>
+                    <legend>Relations</legend>
+                    <HorizontalLabelledField
+                        label="Project"
+                        htmlFor="projectId"
+                        control={
+                            <NativeSelect
+                                id="projectId"
+                                name="project_id"
+                                value={vulnerability.project_id || ""}
+                                onChange={onFormChange}
+                                required
+                            >
+                                {projects &&
+                                    projects.map((project, index) => (
+                                        <option key={index} value={project.id}>
+                                            {project.name}
+                                        </option>
+                                    ))}
+                            </NativeSelect>
+                        }
+                    />
 
                     <label>
                         Affected target
@@ -424,7 +441,7 @@ const VulnerabilityForm = ({
                                 ))}
                         </NativeSelect>
                     </label>
-                </div>
+                </fieldset>
             )}
 
             {customFields && <DynamicForm fields={customFields} />}

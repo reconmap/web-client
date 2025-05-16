@@ -20,3 +20,14 @@ body {
     align-items: center;
     margin-bottom: calc(var(--padding) / 2);
 }
+
+fieldset {
+    legend {
+        font-size: large;
+        padding-top: 0.5rem;
+        margin-bottom: 2rem;
+        font-weight: bold;
+        border-bottom: 2px solid var(--bulma-info);
+        width: 100%;
+    }
+}
