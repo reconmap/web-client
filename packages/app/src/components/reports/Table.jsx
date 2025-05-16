@@ -4,7 +4,6 @@ import SecondaryButton from "components/ui/buttons/Secondary";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import useDelete from "hooks/useDelete";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
 
@@ -79,11 +78,6 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
             </tbody>
         </table>
     );
-};
-
-ReportsTable.propTypes = {
-    reports: PropTypes.array.isRequired,
-    includeProjectColumn: PropTypes.bool,
 };
 
 export default ReportsTable;

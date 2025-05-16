@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./Link.css";
 
@@ -8,10 +7,6 @@ const UserLink = ({ userId, children }) => {
             {children}
         </Link>
     );
-};
-
-UserLink.propTypes = {
-    userId: PropTypes.any.isRequired,
 };
 
 export default UserLink;

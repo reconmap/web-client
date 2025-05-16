@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 const LinkButton = ({ children, external = false, ...props }) => {
@@ -22,10 +21,6 @@ const LinkButton = ({ children, external = false, ...props }) => {
             {children}
         </a>
     );
-};
-
-LinkButton.propTypes = {
-    href: PropTypes.string.isRequired,
 };
 
 export default LinkButton;

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./ProjectBadge.css";
 
@@ -8,10 +7,6 @@ const ProjectBadge = ({ project }) => {
             {project.name}
         </Link>
     );
-};
-
-ProjectBadge.propTypes = {
-    project: PropTypes.object.isRequired,
 };
 
 export default ProjectBadge;

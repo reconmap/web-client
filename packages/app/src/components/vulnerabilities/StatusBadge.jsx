@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 const VulnerabilityStatusBadge = ({ vulnerability }) => {
     const STATUSES = {
         open: {
@@ -33,10 +31,6 @@ const VulnerabilityStatusBadge = ({ vulnerability }) => {
             {STATUSES[vulnerability.status].label} ({vulnerability.substatus})
         </span>
     );
-};
-
-VulnerabilityStatusBadge.propTypes = {
-    vulnerability: PropTypes.object.isRequired,
 };
 
 export default VulnerabilityStatusBadge;

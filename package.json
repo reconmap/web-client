@@ -7,5 +7,13 @@
   "dependencies": {
     "npm-check-updates": "^18.0.1"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.1",
+  "devDependencies": {
+    "@types/node": "^22.15.18",
+    "knip": "^5.56.0",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "knip": "knip"
+  }
 }
