@@ -9,8 +9,9 @@ import TimestampsSection from "components/ui/TimestampsSection";
 import Title from "components/ui/Title";
 import LinkButton from "components/ui/buttons/Link";
 import UserLink from "components/users/Link";
+import { WebsocketContext } from "contexts/WebsocketContext.jsx";
 import CommandUsage from "models/CommandUsage";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -26,6 +27,8 @@ import CommandUsageForm from "./UsageForm.jsx";
 
 const CommandDetailsPage = () => {
     const [t] = useTranslation();
+
+    const wsContextData = useContext(WebsocketContext);
 
     const { commandId } = useParams();
     const navigate = useNavigate();
@@ -199,7 +202,16 @@ const CommandDetailsPage = () => {
                         )}
                         {4 === tabIndex && (
                             <div>
-                                <CommandTerminal commands={[]} />
+                                {wsContextData.connection.readyState === WebSocket.OPEN ? (
+                                    <CommandTerminal commands={[]} />
+                                ) : (
+                                    <article class="message is-danger">
+                                        <div class="message-body">
+                                            <strong>Unable to establish connection to the Reconmap agent.</strong>{" "}
+                                            Please review the web socket connection settings.
+                                        </div>
+                                    </article>
+                                )}
                             </div>
                         )}
                     </div>

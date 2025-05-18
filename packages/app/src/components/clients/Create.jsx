@@ -20,11 +20,10 @@ const ClientCreate = () => {
 
         const form = ev.target.closest("form");
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
 
         secureApiFetch("/clients", {
             method: "POST",
-            body: JSON.stringify(data),
+            body: formData,
         }).then((resp) => {
             if (resp.status === 201) {
                 navigate(OrganisationsUrls.List);

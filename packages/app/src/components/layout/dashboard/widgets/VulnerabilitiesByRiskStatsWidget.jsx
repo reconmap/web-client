@@ -6,11 +6,11 @@ const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
     const RADIAN = Math.PI / 180;
 
     const RISKS = {
-        none: { label: "None", color: "#f3f3f3" },
-        low: { label: "Low", color: "var(--green)" },
-        medium: { label: "Medium", color: "var(--yellow)" },
-        high: { label: "High", color: "var(--purple)" },
-        critical: { label: "Critical", color: "var(--primary-color)" },
+        none: { label: "None", color: "var(--color-accent-1)" },
+        low: { label: "Low", color: "var(--color-accent-2)" },
+        medium: { label: "Medium", color: "var(--color-accent-3)" },
+        high: { label: "High", color: "var(--color-accent-4)" },
+        critical: { label: "Critical", color: "var(--color-accent-5)" },
     };
 
     const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -42,8 +42,6 @@ const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
                         labelLine={false}
                         outerRadius={100}
                         strokeOpacity="0"
-                        strokeWidth="var(--borderWidth)"
-                        color="var(--bg-color)"
                         fill="#8884d8"
                         label={renderCustomLabel}
                     >

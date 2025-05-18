@@ -2,6 +2,7 @@ import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import Breadcrumb from "components/ui/Breadcrumb.jsx";
 import DeleteButton from "components/ui/buttons/Delete.jsx";
 import { actionCompletedToast } from "components/ui/toast";
 import { useState } from "react";
@@ -18,7 +19,6 @@ import ProjectDetailsTab from "./DetailsTab";
 import ProjectNotesTab from "./NotesTab";
 import ProjectTargets from "./Targets";
 import ProjectTasks from "./Tasks";
-import ProjectTeam from "./Team";
 import ProjectVaultTab from "./vault/VaultTab";
 import ProjectVulnerabilities from "./Vulnerabilities";
 
@@ -27,7 +27,6 @@ const ProjectDetails = () => {
     const { projectId } = useParams();
 
     const [project, updateProject] = useFetch(`/projects/${projectId}`);
-    const [users] = useFetch(`/projects/${projectId}/users`);
     const destroy = useDelete(`/projects/`, updateProject);
 
     const [tabIndex, tabIndexSetter] = useState(0);
@@ -59,12 +58,12 @@ const ProjectDetails = () => {
     return (
         <>
             <div className="heading">
-                <div>
-                    <Link to="/projects">Projects</Link>
-                </div>
                 {project && (
                     <>
-                        <ProjectTeam project={project} users={users} />
+                        <Breadcrumb>
+                            <Link to="/projects">Projects</Link>
+                            <Link to={`/projects/${project.id}`}>{project.name}</Link>
+                        </Breadcrumb>
 
                         <NativeButtonGroup>
                             <RestrictedComponent roles={["administrator", "superuser", "user"]}>

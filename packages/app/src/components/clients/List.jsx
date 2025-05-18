@@ -4,6 +4,7 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import OrganisationTypes from "models/OrganisationTypes.js";
 import { useTranslation } from "react-i18next";
 import useDelete from "../../hooks/useDelete";
 import useFetch from "../../hooks/useFetch";
@@ -50,7 +51,7 @@ const ClientsList = () => {
                         0 < clients.length &&
                         clients.map((client) => (
                             <tr key={client.id}>
-                                <td>{client.kind}</td>
+                                <td>{OrganisationTypes[client.kind]}</td>
                                 <td>
                                     <ClientLink clientId={client.id}>{client.name}</ClientLink>
                                 </td>

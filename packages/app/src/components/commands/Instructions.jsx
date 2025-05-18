@@ -1,3 +1,4 @@
+import HorizontalLabelledField from "components/form/HorizontalLabelledField.js";
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect.jsx";
@@ -17,6 +18,7 @@ import parseArguments from "services/commands/arguments";
 
 const CommandInstructions = ({ command, task = null }) => {
     const [commandUsages] = useFetch(`/commands/${command?.id}/usages`);
+    const [scheduledCommands, fetchScheduledCommands] = useFetch(`/commands/${command?.id}/schedules`);
 
     const [usage, setUsage] = useState(null);
 
@@ -35,6 +37,36 @@ const CommandInstructions = ({ command, task = null }) => {
 
     return (
         <>
+            {scheduledCommands && (
+                <table className="table">
+                    <caption>Scheduled commands</caption>
+                    <thead>
+                        <tr>
+                            <th>Cron expression</th>
+                            <th>Description</th>
+                            <th>Argument values</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {scheduledCommands.map((scheduleCommand) => (
+                            <tr>
+                                <td>{scheduleCommand.cron_expression}</td>
+                                <td>
+                                    {CronExpressionToString(scheduleCommand.cron_expression, {
+                                        throwExceptionOnParseError: false,
+                                    })}
+                                </td>
+                                <td>{scheduleCommand.argument_values}</td>
+                                <td>
+                                    <DeleteIconButton onClick={(ev) => deleteScheduledCommand(ev, scheduleCommand)} />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
+
             <NativeSelect onChange={(ev) => onUsageChange(ev)}>
                 <option value="0">(select)</option>
                 {commandUsages.map((usage) => (
@@ -64,7 +96,6 @@ const UsageDetail = ({ command, task, usage }) => {
         setCommandArgsRendered(commandArgsRendered);
     }, [commandArgs]);
 
-    const [scheduledCommands, fetchScheduledCommands] = useFetch(`/commands/${command?.id}/schedules`);
     const [cronExpresion, setCronExpresion] = useState("");
     const [isCronExpressionInvalid, setCronExpressionInvalid] = useState(true);
     const [cronExpressionErrorMessage, setCronExpressionErrorMessage] = useState(null);
@@ -176,46 +207,27 @@ const UsageDetail = ({ command, task, usage }) => {
                 </>
             )}
 
-            {scheduledCommands && (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Cron expression</th>
-                            <th>Description</th>
-                            <th>Argument values</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {scheduledCommands.map((scheduleCommand) => (
-                            <tr>
-                                <td>{scheduleCommand.cron_expression}</td>
-                                <td>
-                                    {CronExpressionToString(scheduleCommand.cron_expression, {
-                                        throwExceptionOnParseError: false,
-                                    })}
-                                </td>
-                                <td>{scheduleCommand.argument_values}</td>
-                                <td>
-                                    <DeleteIconButton onClick={(ev) => deleteScheduledCommand(ev, scheduleCommand)} />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
-
             <h3>Run on schedule</h3>
             <div isInvalid={isCronExpressionInvalid}>
                 <label>Cron expression</label>
-                <NativeInput
-                    type="text"
-                    name="cronExpresion"
-                    placeholder="*/1 * * * *"
-                    value={cronExpresion}
-                    onChange={onCronExpresionChange}
+                <HorizontalLabelledField
+                    label="Cron expression"
+                    htmlFor="cronExpresion"
+                    control={
+                        <>
+                            <NativeInput
+                                id="cronExpresion"
+                                name="cronExpresion"
+                                type="text"
+                                placeholder="*/1 * * * *"
+                                size="10"
+                                value={cronExpresion}
+                                onChange={onCronExpresionChange}
+                            />
+                            <div>{cronExpressionErrorMessage}</div>
+                        </>
+                    }
                 />
-                <div>{cronExpressionErrorMessage}</div>
                 <div>
                     Learn about cron expressions{" "}
                     <ExternalLink href="https://en.wikipedia.org/wiki/Cron#CRON_expression">here</ExternalLink>

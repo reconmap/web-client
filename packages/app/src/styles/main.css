@@ -8,6 +8,15 @@
 
     --margin: calc(var(--space) / 2);
     --padding: var(--space);
+
+    --color-accent-1: #3b82f6; /* Blue */
+    --color-accent-2: #10b981; /* Emerald */
+    --color-accent-3: #f59e0b; /* Amber */
+    --color-accent-4: #ef4444; /* Red */
+    --color-accent-5: #8b5cf6; /* Violet */
+    --color-accent-6: #ec4899; /* Pink */
+    --color-accent-7: #14b8a6; /* Teal */
+    --color-accent-8: #f97316; /* Orange */
 }
 
 body {
@@ -31,3 +40,4 @@ fieldset {
         width: 100%;
     }
 }
+

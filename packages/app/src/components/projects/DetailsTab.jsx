@@ -1,3 +1,4 @@
+import UserAvatar from "components/badges/UserAvatar.jsx";
 import ClientLink from "components/clients/Link";
 import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget";
 import VulnerabilitiesByRiskStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByRiskStatsWidget";
@@ -6,10 +7,14 @@ import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import TimestampsSection from "components/ui/TimestampsSection";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
+import useFetch from "hooks/useFetch.js";
 import ReactMarkdown from "react-markdown";
+import { Link } from "react-router-dom";
 import remarkGfm from "remark-gfm";
+
 const ProjectDetailsTab = ({ project }) => {
     const isTemplate = project.is_template === 1;
+    const [users] = useFetch(`/projects/${project.id}/users`);
 
     return (
         <section className="grid grid-two">
@@ -84,6 +89,19 @@ const ProjectDetailsTab = ({ project }) => {
                         <UserLink userId={project.creator_uid}>{project.creator_full_name}</UserLink>
                     </dd>
                 </dl>
+
+                <hr />
+
+                <h4>Project members</h4>
+                <div>
+                    {users &&
+                        users.map((user, index) => (
+                            <Link to={`/users/${user.id}`}>
+                                <UserAvatar key={index} email={user.email} /> {user.full_name}
+                            </Link>
+                        ))}
+                </div>
+                <hr />
 
                 <TimestampsSection entity={project} />
 

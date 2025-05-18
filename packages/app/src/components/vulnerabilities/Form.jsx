@@ -4,6 +4,7 @@ import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
+import Tooltip from "components/ui/Tooltip.jsx";
 import useFetch from "hooks/useFetch";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import RemediationComplexity from "models/RemediationComplexity";
@@ -197,26 +198,44 @@ const VulnerabilityForm = ({
                         </NativeCheckbox>
                     </div>
                 </label>
-                <label>
-                    External ID
-                    <NativeInput
-                        type="text"
-                        name="external_id"
-                        value={vulnerability.external_id || ""}
-                        onChange={onFormChange}
-                    />
-                </label>
-                <label>
-                    Summary
-                    <NativeInput
-                        type="text"
-                        name="summary"
-                        value={vulnerability.summary || ""}
-                        onChange={onFormChange}
-                        required
-                        autoFocus
-                    />
-                </label>
+                <HorizontalLabelledField
+                    label={
+                        <>
+                            ID{" "}
+                            <Tooltip
+                                text="(Optional) Used to store an internal or external identifier"
+                                position="top"
+                            />
+                        </>
+                    }
+                    htmlFor="externalId"
+                    control={
+                        <NativeInput
+                            id="externalId"
+                            name="external_id"
+                            type="text"
+                            value={vulnerability.external_id || ""}
+                            onChange={onFormChange}
+                        />
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Summary"
+                    htmlFor="summary"
+                    control={
+                        <NativeInput
+                            id="summary"
+                            name="summary"
+                            type="text"
+                            value={vulnerability.summary || ""}
+                            onChange={onFormChange}
+                            required
+                            autoFocus
+                        />
+                    }
+                />
+
                 <label>
                     Description
                     <MarkdownEditor
@@ -254,30 +273,40 @@ const VulnerabilityForm = ({
                         </NativeSelect>
                     }
                 />
-                <label>
-                    Subcategory
-                    <NativeSelect
-                        name="subcategory_id"
-                        value={vulnerability.category_id || ""}
-                        onChange={onFormChange}
-                        required
-                    >
-                        <option>(none)</option>
-                        {subCategories &&
-                            subCategories.map((subcat) => (
-                                <option key={subcat.id} value={subcat.id}>
-                                    {subcat.name}
-                                </option>
-                            ))}
-                    </NativeSelect>
-                </label>
                 <HorizontalLabelledField
-                    label="Visibility"
+                    label="Subcategory"
+                    htmlFor="subCategoryId"
+                    control={
+                        <NativeSelect
+                            id="subCategoryId"
+                            name="subcategory_id"
+                            value={vulnerability.category_id || ""}
+                            onChange={onFormChange}
+                            required
+                        >
+                            <option>(none)</option>
+                            {subCategories &&
+                                subCategories.map((subcat) => (
+                                    <option key={subcat.id} value={subcat.id}>
+                                        {subcat.name}
+                                    </option>
+                                ))}
+                        </NativeSelect>
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label={
+                        <>
+                            Visibility <Tooltip text="Private makes this vulnerability not visible to the client." />
+                        </>
+                    }
                     htmlFor="visibility"
                     control={
                         <>
                             {" "}
                             <NativeSelect
+                                id="visibility"
                                 name="visibility"
                                 value={vulnerability.visibility || ""}
                                 onChange={onFormChange}
@@ -286,31 +315,44 @@ const VulnerabilityForm = ({
                                 <option value="public">Public</option>
                                 <option value="private">Private</option>
                             </NativeSelect>
-                            <span className="field-explanation">
-                                Private makes this vulnerability not visible to the client.
-                            </span>
                         </>
                     }
                 />
-                <label>
-                    Risk
-                    <NativeSelect name="risk" value={vulnerability.risk || ""} onChange={onFormChange} required>
-                        {Risks.map((risk) => (
-                            <option key={risk.id} value={risk.id}>
-                                {risk.name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </label>
-                <label>
-                    Tags
-                    <NativeInput
-                        type="text"
-                        name="tags"
-                        onChange={onFormChange}
-                        value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(",") : ""}
-                    />
-                </label>
+
+                <HorizontalLabelledField
+                    label="Risk"
+                    htmlFor="risk"
+                    control={
+                        <NativeSelect
+                            id="risk"
+                            name="risk"
+                            value={vulnerability.risk || ""}
+                            onChange={onFormChange}
+                            required
+                        >
+                            {Risks.map((risk) => (
+                                <option key={risk.id} value={risk.id}>
+                                    {risk.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Tags"
+                    htmlFor="tags"
+                    control={
+                        <NativeInput
+                            id="tags"
+                            name="tags"
+                            type="text"
+                            onChange={onFormChange}
+                            value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(",") : ""}
+                        />
+                    }
+                />
+
                 <label>
                     Proof of concept
                     <MarkdownEditor

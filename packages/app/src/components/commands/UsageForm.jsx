@@ -1,3 +1,4 @@
+import HorizontalLabelledField from "components/form/HorizontalLabelledField.js";
 import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -100,19 +101,23 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                     }
                 />
 
-                <label>
-                    Output capture
-                    <NativeSelect
-                        name="output_capture"
-                        onChange={onFormChange}
-                        value={command.output_capture || "disabled"}
-                        required
-                    >
-                        <option value="disabled">Disabled</option>
-                        <option value="stdout">Standard output</option>
-                        <option value="path">File path</option>
-                    </NativeSelect>
-                </label>
+                <HorizontalLabelledField
+                    label="Output capture"
+                    htmlFor="outputCapture"
+                    control={
+                        <NativeSelect
+                            id="outputCapture"
+                            name="output_capture"
+                            onChange={onFormChange}
+                            value={command.output_capture || "disabled"}
+                            required
+                        >
+                            <option value="disabled">Disabled</option>
+                            <option value="stdout">Standard output</option>
+                            <option value="path">File path</option>
+                        </NativeSelect>
+                    }
+                />
 
                 {command.output_capture === "path" && (
                     <label>
@@ -127,18 +132,26 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                 )}
 
                 {command.output_capture !== "disabled" && (
-                    <label>
-                        Output parser
-                        <NativeSelect name="output_parser" onChange={onFormChange} value={command.output_parser || ""}>
-                            <option value="">(none)</option>
-                            {parsers &&
-                                parsers.map((parser) => (
-                                    <option key={`parser_${parser.code}`} value={parser.code}>
-                                        {parser.name}
-                                    </option>
-                                ))}
-                        </NativeSelect>
-                    </label>
+                    <HorizontalLabelledField
+                        label="Output parser"
+                        htmlFor="outputParser"
+                        control={
+                            <NativeSelect
+                                id="outputParser"
+                                name="output_parser"
+                                onChange={onFormChange}
+                                value={command.output_parser || ""}
+                            >
+                                <option value="">(none)</option>
+                                {parsers &&
+                                    parsers.map((parser) => (
+                                        <option key={`parser_${parser.code}`} value={parser.code}>
+                                            {parser.name}
+                                        </option>
+                                    ))}
+                            </NativeSelect>
+                        }
+                    />
                 )}
             </fieldset>
 

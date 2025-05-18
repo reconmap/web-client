@@ -110,7 +110,9 @@ const TaskDetailsPage = () => {
                 <Breadcrumb>
                     <Link to="/tasks">{t("Tasks")}</Link>
                     {project && <Link to={`/projects/${project.id}`}>{project.name}</Link>}
+                    {task && <>{task.summary}</>}
                 </Breadcrumb>
+
                 {task && users && (
                     <div>
                         <RestrictedComponent roles={["administrator", "superuser", "user"]}>

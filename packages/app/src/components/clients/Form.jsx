@@ -1,8 +1,8 @@
-import AttachmentsImageDropzone from "components/attachments/ImageDropzone";
 import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import OrganisationTypes from "models/OrganisationTypes.js";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import secureApiFetch from "../../services/api";
@@ -11,8 +11,6 @@ import PrimaryButton from "../ui/buttons/Primary";
 const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {
     const [t] = useTranslation();
 
-    const parentType = "client";
-    const parentId = client.id;
     const [logo, setLogo] = useState(null);
     const [smallLogo, setSmallLogo] = useState(null);
 
@@ -53,12 +51,6 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
             });
     };
 
-    const onUploadFinished = (type, id) => {
-        if (id) {
-            setClient({ ...client, [type]: id });
-        }
-    };
-
     return (
         <form onSubmit={onFormSubmit}>
             <fieldset>
@@ -67,8 +59,11 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                     label={t("Type")}
                     control={
                         <NativeSelect name="kind" defaultValue={client.kind}>
-                            <option value="service_provider">{t("Service provider")}</option>
-                            <option value="client">{t("Client")}</option>
+                            {Object.entries(OrganisationTypes).map(([k, v]) => (
+                                <option key={k} value={k}>
+                                    {t(v)}
+                                </option>
+                            ))}
                         </NativeSelect>
                     }
                 />
@@ -104,21 +99,14 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                 <legend>Branding</legend>
 
                 <label>
-                    Main logo
+                    Default logo
                     <div>
                         {logo && <img src={logo} alt="The main logo of client" />}
                         <RestrictedComponent
                             roles={["administrator", "superuser", "user"]}
                             message="(access restricted)"
                         >
-                            <AttachmentsImageDropzone
-                                parentType={parentType}
-                                parentId={parentId}
-                                onUploadFinished={onUploadFinished}
-                                uploadFinishedParameter="logo_attachment_id"
-                                attachmentId={client.logo_attachment_id}
-                                maxFileCount={1}
-                            />
+                            <input type="file" name="logo" accept="image/*" />
                         </RestrictedComponent>
                     </div>
                 </label>
@@ -131,14 +119,7 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                             roles={["administrator", "superuser", "user"]}
                             message="(access restricted)"
                         >
-                            <AttachmentsImageDropzone
-                                parentType={parentType}
-                                parentId={parentId}
-                                onUploadFinished={onUploadFinished}
-                                uploadFinishedParameter="small_logo_attachment_id"
-                                attachmentId={client.small_logo_attachment_id}
-                                maxFileCount={1}
-                            />
+                            <input type="file" name="smallLogo" accept="image/*" />
                         </RestrictedComponent>
                     </div>
                 </label>

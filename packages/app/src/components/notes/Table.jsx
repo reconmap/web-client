@@ -10,34 +10,33 @@ const NotesTable = ({ notes, onDeleteButtonClick }) => {
     }
 
     return (
-        <>
-            <h3>Comments</h3>
-            <ol>
-                {notes.map((note) => (
-                    <li style={{ marginBottom: 20, listStyleType: "none" }}>
-                        <div>
-                            <blockquote style={{ fontSize: "large" }}>
-                                <ReactMarkdown>{note.content}</ReactMarkdown>
-                            </blockquote>
+        <div class="container mt-5">
+            <h3 class="title is-4 has-text-white">Comments</h3>
+
+            {notes.map((note) => (
+                <div class="box has-background-dark has-text-white">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="mb-2">
+                                {" "}
+                                <blockquote style={{ fontSize: "large" }}>
+                                    <ReactMarkdown>{note.content}</ReactMarkdown>
+                                </blockquote>
+                            </p>
+                            <p class="is-size-7 has-text-grey-light">
+                                <VisibilityLegend visibility={note.visibility} /> - Posted by {note.user_name} · Posted
+                                by {note.user_name} · <RelativeDateFormatter date={note.insert_ts} />
+                            </p>
                         </div>
-                        <div style={{ fontSize: "small" }}>
-                            <VisibilityLegend visibility={note.visibility} /> -
-                            Posted by {note.user_name} @{" "}
-                            <RelativeDateFormatter date={note.insert_ts} />.
-                            <RestrictedComponent
-                                roles={["administrator", "superuser", "user"]}
-                            >
-                                <DeleteIconButton
-                                    onClick={(ev) =>
-                                        onDeleteButtonClick(ev, note)
-                                    }
-                                />
+                        <div class="media-right">
+                            <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                                <DeleteIconButton onClick={(ev) => onDeleteButtonClick(ev, note)} />
                             </RestrictedComponent>
                         </div>
-                    </li>
-                ))}
-            </ol>
-        </>
+                    </div>
+                </div>
+            ))}
+        </div>
     );
 };
 
