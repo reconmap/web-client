@@ -89,17 +89,13 @@ const ProjectsListPage = () => {
 
             <details>
                 <summary>Filters</summary>
-                <div className="space-x-2 mx-auto flex items-center">
-                    <div className="field">
-                        <label className="label">Status</label>
-                        <div className="control">
-                            <NativeSelect onChange={onStatusFilterChange} defaultValue="active">
-                                <option value="">(any)</option>
-                                <option value="active">Active</option>
-                                <option value="archived">Archived</option>
-                            </NativeSelect>
-                        </div>
-                    </div>
+
+                <div className="control">
+                    <NativeSelect onChange={onStatusFilterChange} defaultValue="active">
+                        <option value="">Status = (any)</option>
+                        <option value="active">Status = Active</option>
+                        <option value="archived">Status = Archived</option>
+                    </NativeSelect>
                 </div>
             </details>
 

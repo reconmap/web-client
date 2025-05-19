@@ -96,18 +96,18 @@ const TasksListPage = () => {
         <>
             <div className="heading">
                 <Breadcrumb />
-                <div>
+                <div className="field is-grouped">
                     <CreateButton onClick={handleCreateTask}>Create task</CreateButton>
-                    <label>
+                    <div className="control">
                         <NativeSelect disabled={!tableModel.selection.length} onChange={onStatusSelectChange}>
-                            <option value="">(select)</option>
+                            <option value="">(bulk status change)</option>
                             {TaskStatuses.map((status, index) => (
                                 <option key={index} value={status.id}>
-                                    {t("Status")}: {status.name}
+                                    {t("Status")} &rarr; {status.name}
                                 </option>
                             ))}
                         </NativeSelect>
-                    </label>
+                    </div>
                     <RestrictedComponent roles={["administrator"]}>
                         <DeleteButton onClick={onDeleteButtonClick} disabled={!tableModel.selection.length}>
                             Delete selected

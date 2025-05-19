@@ -41,3 +41,12 @@ fieldset {
     }
 }
 
+details {
+    summary {
+        font-variant: small-caps;
+        font-weight: bold;
+        border-bottom: 1px solid var(--bulma-info);
+        margin-bottom: 1rem;
+    }
+    margin-bottom: 15px;
+}

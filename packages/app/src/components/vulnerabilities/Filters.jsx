@@ -2,14 +2,8 @@ import NativeSelect from "components/form/NativeSelect";
 import useFetch from "hooks/useFetch";
 import Risks from "models/Risks";
 
-const VulnerabilityFilters = ({
-    tableModel,
-    tableModelSetter: setTableModel,
-    showProjectFilter = true,
-}) => {
-    const [categories] = useFetch(
-        "/vulnerabilities/categories?parentsOnly=true",
-    );
+const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, showProjectFilter = true }) => {
+    const [categories] = useFetch("/vulnerabilities/categories?parentsOnly=true");
     const [projects] = useFetch("/projects?status=active");
 
     const onFilterChange = (ev) => {
@@ -25,54 +19,47 @@ const VulnerabilityFilters = ({
     return (
         <details>
             <summary>Filters</summary>
-            <div className="space-x-2 mx-auto flex items-center">
+            <div className="field is-grouped">
                 {showProjectFilter && (
-                    <div>
-                        <label>Project</label>
-                        <NativeSelect
-                            name="projectId"
-                            onChange={onFilterChange}
-                        >
-                            <option value="">(any)</option>
+                    <div className="control">
+                        <NativeSelect name="projectId" onChange={onFilterChange}>
+                            <option value="">Project = (any)</option>
                             {projects !== null &&
                                 projects.map((project) => (
                                     <option key={project.id} value={project.id}>
-                                        {project.name}
+                                        Project = {project.name}
                                     </option>
                                 ))}
                         </NativeSelect>
                     </div>
                 )}
 
-                <div>
-                    <label>Status</label>
+                <div className="control">
                     <NativeSelect name="status" onChange={onFilterChange}>
-                        <option value="">(any)</option>
-                        <option value="open">Open</option>
-                        <option value="closed">Closed</option>
+                        <option value="">Status = (any)</option>
+                        <option value="open">Status = Open</option>
+                        <option value="closed">Status = Closed</option>
                     </NativeSelect>
                 </div>
 
-                <div>
-                    <label>Risk</label>
+                <div className="control">
                     <NativeSelect name="risk" onChange={onFilterChange}>
-                        <option value="">(any)</option>
+                        <option value="">Risk = (any)</option>
                         {Risks.map((risk) => (
                             <option key={risk.id} value={risk.id}>
-                                {risk.name}
+                                Risk = {risk.name}
                             </option>
                         ))}
                     </NativeSelect>
                 </div>
 
-                <div>
-                    <label>Category</label>
+                <div className="control">
                     <NativeSelect name="categoryId" onChange={onFilterChange}>
-                        <option value="">(any)</option>
+                        <option value="">Category = (any)</option>
                         {categories !== null &&
                             categories.map((category) => (
                                 <option key={category.id} value={category.id}>
-                                    {category.name}
+                                    Category = {category.name}
                                 </option>
                             ))}
                     </NativeSelect>
