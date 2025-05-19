@@ -3,7 +3,7 @@ name: Build and deployment workflow
 on:
     push:
         branches:
-            - master
+            - "**"
 
 jobs:
     version-build-push:
@@ -22,14 +22,16 @@ jobs:
                   git config --global user.email github-actions@github.com
             - name: Prepare
               run: make
+            - name: Run tests
+              run: make tests-ci
             - name: Increase version
+              if: github.ref == 'refs/heads/main'
               run: |
                   make version-increase
                   git push
-            - name: Run tests
-              run: make tests-ci
             - name: Build
+              if: github.ref == 'refs/heads/main'
               run: make build
             - name: Push
+              if: github.ref == 'refs/heads/main'
               run: make push
-
