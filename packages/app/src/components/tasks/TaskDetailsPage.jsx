@@ -123,7 +123,7 @@ const TaskDetailsPage = () => {
                                     <NativeSelect onChange={onStatusChange} value={task.status}>
                                         {TaskStatuses.map((status, index) => (
                                             <option key={index} value={status.id}>
-                                                {t("Status")}: {status.name}
+                                                {t("Status")} &rarr; {status.name}
                                             </option>
                                         ))}
                                     </NativeSelect>

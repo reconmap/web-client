@@ -3,7 +3,7 @@ import RelativeDateFormatter from "./RelativeDateFormatter";
 const TimestampsSection = ({ entity }) => {
     return (
         <div className="content">
-            <h4>Timestamps</h4>
+            <h4>📅 Timestamps</h4>
             <dl>
                 {entity.insert_ts && (
                     <>
