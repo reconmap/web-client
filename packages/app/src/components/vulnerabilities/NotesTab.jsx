@@ -1,6 +1,6 @@
-import NativeButton from "components/form/NativeButton";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import NotesForm from "components/notes/Form";
+import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import { actionCompletedToast } from "components/ui/toast";
 import Note from "models/Note";
 import { useState } from "react";
@@ -45,14 +45,21 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
 
     return (
         <section>
-            <h4>Vulnerability comments</h4>
+            <h4 className="title is-4">Vulnerability comments</h4>
 
             <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                <NotesForm note={newNote} onFormSubmit={onCreateNoteFormSubmit} noteSetter={updateNewNote} />
+                <NotesForm
+                    id="vulnerabilityCommentForm"
+                    note={newNote}
+                    onFormSubmit={onCreateNoteFormSubmit}
+                    noteSetter={updateNewNote}
+                />
             </RestrictedComponent>
 
             <div style={{ paddingTop: "20px" }}>
-                <NativeButton onClick={onCreateNoteFormSubmit}>Save</NativeButton>
+                <PrimaryButton type="submit" form="vulnerabilityCommentForm">
+                    Save
+                </PrimaryButton>
             </div>
 
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />

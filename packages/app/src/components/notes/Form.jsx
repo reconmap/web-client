@@ -2,7 +2,7 @@ import LabelledField from "components/form/LabelledField";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTextArea from "components/form/NativeTextArea";
 
-const NotesForm = ({ note, onFormSubmit, noteSetter: setNote }) => {
+const NotesForm = ({ id, note, onFormSubmit, noteSetter: setNote }) => {
     const onFormInputChange = (ev) => {
         const target = ev.target;
         const name = target.name;
@@ -12,7 +12,7 @@ const NotesForm = ({ note, onFormSubmit, noteSetter: setNote }) => {
     };
 
     return (
-        <form onSubmit={onFormSubmit}>
+        <form id={id} onSubmit={onFormSubmit}>
             <LabelledField
                 label="Content"
                 control={

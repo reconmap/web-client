@@ -22,8 +22,37 @@ appRoot.render(
 </div>
 )
 
+const refreshBeforeExpiration = () => {
+    const keycloak = KeyCloakService.getInstance();
+    const jwtExpiration = keycloak.tokenParsed?.exp;
+    console.debug("Token expiration (exp): " + jwtExpiration);
+    if (typeof jwtExpiration === 'number') {
+        setTimeout(() => {
+            keycloak
+                .updateToken(50)
+                .then((refreshed) => {
+                    if (refreshed) {
+                        console.log("refreshed " + new Date());
+
+                        refreshBeforeExpiration();
+                    } else {
+                        console.log("not refreshed " + new Date());
+                    }
+                })
+                .catch((err: any) => {
+                    console.error("Failed to refresh token " + new Date());
+                    console.dir(err);
+                });
+        }, jwtExpiration * 1000 - Date.now() - 5000);
+    } else {
+        console.error("Token expiration (exp) is not available.");
+    }
+}
+
 const onAuthSuccess = () => {
     TimeAgo.addDefaultLocale(en);
+
+    refreshBeforeExpiration();
 
     appRoot.render(<React.StrictMode>
             <App />

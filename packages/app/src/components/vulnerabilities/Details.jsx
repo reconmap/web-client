@@ -63,6 +63,7 @@ const VulnerabilityDetails = () => {
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/vulnerabilities">Vulnerabilities</Link>
+                    <Link>{vulnerability.summary}</Link>
                 </Breadcrumb>
                 <div>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
@@ -75,7 +76,7 @@ const VulnerabilityDetails = () => {
                             >
                                 {VulnerabilityStatuses.map((status) => (
                                     <option key={`vulnstatus_${status.id}`} value={status.id}>
-                                        {t("Status")}: {status.name}
+                                        {t("Status")} &rarr; {status.name}
                                     </option>
                                 ))}
                             </NativeSelect>

@@ -7,7 +7,7 @@ import useFetch from "hooks/useFetch";
 import { useTranslation } from "react-i18next";
 import PrimaryButton from "../ui/buttons/Primary";
 
-const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSetter: setCommand }) => {
+const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, commandSetter: setCommand }) => {
     const [t] = useTranslation();
 
     const onFormChange = (ev) => {
@@ -21,12 +21,12 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
             const outputFileName = value === "disabled" ? null : value === "stdout" ? "{{{STDOUT}}}" : "";
 
             setCommand({
-                ...command,
+                ...commandUsage,
                 [name]: value,
                 output_filename: outputFileName,
             });
         } else {
-            setCommand({ ...command, [name]: value });
+            setCommand({ ...commandUsage, [name]: value });
         }
     };
 
@@ -42,7 +42,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                         type="text"
                         name="name"
                         onChange={onFormChange}
-                        value={command.name || ""}
+                        value={commandUsage.name || ""}
                         required
                         autoFocus
                     />
@@ -52,7 +52,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                     <MarkdownEditor
                         name="description"
                         onChange={onFormChange}
-                        value={command.description || ""}
+                        value={commandUsage.description || ""}
                         required
                     />
                 </label>
@@ -62,7 +62,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                         type="text"
                         name="tags"
                         onChange={onFormChange}
-                        value={command.tags ? JSON.parse(command.tags).join(",") : ""}
+                        value={commandUsage.tags ? JSON.parse(commandUsage.tags).join(",") : ""}
                     />
                 </label>
                 <label>
@@ -71,7 +71,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                         type="url"
                         name="more_info_url"
                         onChange={onFormChange}
-                        value={command.more_info_url || ""}
+                        value={commandUsage.more_info_url || ""}
                     />
                 </label>
             </fieldset>
@@ -85,7 +85,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                         type="text"
                         name="executable_path"
                         onChange={onFormChange}
-                        value={command.executable_path || ""}
+                        value={commandUsage.executable_path || ""}
                     />
                 </label>
 
@@ -96,7 +96,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                             type="text"
                             name="arguments"
                             onChange={onFormChange}
-                            value={command.arguments || ""}
+                            value={commandUsage.arguments || ""}
                         />
                     }
                 />
@@ -109,7 +109,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                             id="outputCapture"
                             name="output_capture"
                             onChange={onFormChange}
-                            value={command.output_capture || "disabled"}
+                            value={commandUsage.output_capture || "disabled"}
                             required
                         >
                             <option value="disabled">Disabled</option>
@@ -119,19 +119,23 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                     }
                 />
 
-                {command.output_capture === "path" && (
-                    <label>
-                        Output filename
-                        <NativeInput
-                            type="text"
-                            name="output_filename"
-                            onChange={onFormChange}
-                            value={command.output_filename || ""}
-                        />
-                    </label>
+                {commandUsage.output_capture === "path" && (
+                    <HorizontalLabelledField
+                        label="Output filename"
+                        htmlFor="outputFilename"
+                        control={
+                            <NativeInput
+                                id="outputFilename"
+                                type="text"
+                                name="output_filename"
+                                onChange={onFormChange}
+                                value={commandUsage.output_filename || ""}
+                            />
+                        }
+                    />
                 )}
 
-                {command.output_capture !== "disabled" && (
+                {commandUsage.output_capture !== "disabled" && (
                     <HorizontalLabelledField
                         label="Output parser"
                         htmlFor="outputParser"
@@ -140,7 +144,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, command, commandSe
                                 id="outputParser"
                                 name="output_parser"
                                 onChange={onFormChange}
-                                value={command.output_parser || ""}
+                                value={commandUsage.output_parser || ""}
                             >
                                 <option value="">(none)</option>
                                 {parsers &&

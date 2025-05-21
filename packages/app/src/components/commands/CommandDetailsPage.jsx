@@ -10,7 +10,6 @@ import Title from "components/ui/Title";
 import LinkButton from "components/ui/buttons/Link";
 import UserLink from "components/users/Link";
 import { WebsocketContext } from "contexts/WebsocketContext.jsx";
-import CommandUsage from "models/CommandUsage";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
@@ -23,7 +22,7 @@ import Loading from "../ui/Loading.jsx";
 import DeleteButton from "../ui/buttons/Delete.jsx";
 import CommandInstructions from "./Instructions.jsx";
 import CommandOutputs from "./Outputs.jsx";
-import CommandUsageForm from "./UsageForm.jsx";
+import ScheduledRuns from "./ScheduledRuns.jsx";
 
 const CommandDetailsPage = () => {
     const [t] = useTranslation();
@@ -41,22 +40,6 @@ const CommandDetailsPage = () => {
     const handleDelete = async () => {
         const confirmed = await deleteClient(commandId);
         if (confirmed) navigate("/commands");
-    };
-
-    const defaultCommmandUsage = { command_id: commandId, ...CommandUsage };
-    const [commandUsage, setCommandUsage] = useState(defaultCommmandUsage);
-
-    const onCommandUsageSubmit = (ev) => {
-        ev.preventDefault();
-
-        secureApiFetch(`/commands/${commandId}/usages`, {
-            method: "POST",
-            body: JSON.stringify(commandUsage),
-        }).then(() => {
-            setCommandUsage(defaultCommmandUsage);
-            fetchCommandUsages();
-        });
-        return false;
     };
 
     const deleteUsage = (usage) => {
@@ -93,7 +76,14 @@ const CommandDetailsPage = () => {
                 </div>
 
                 <NativeTabs
-                    labels={[t("Details"), t("Usages"), "Run instructions", "Command outputs", "Terminal"]}
+                    labels={[
+                        t("Details"),
+                        t("Usages"),
+                        "Run instructions",
+                        "Scheduled runs",
+                        "Command outputs",
+                        "Terminal",
+                    ]}
                     tabIndex={tabIndex}
                     tabIndexSetter={tabIndexSetter}
                 />
@@ -156,14 +146,7 @@ const CommandDetailsPage = () => {
                         {1 === tabIndex && (
                             <div>
                                 <h3>Usages</h3>
-
-                                <CommandUsageForm
-                                    onFormSubmit={onCommandUsageSubmit}
-                                    command={commandUsage}
-                                    isEditForm={false}
-                                    commandSetter={setCommandUsage}
-                                />
-
+                                <Link to={`/commands/${command.id}/usages`}>Add usage</Link>{" "}
                                 {commandUsages !== null && (
                                     <>
                                         <table className="table is-fullwidth">
@@ -194,19 +177,24 @@ const CommandDetailsPage = () => {
                                     <CommandInstructions command={command} usages={commandUsages} />
                                 )}
                             </div>
-                        )}
+                        )}{" "}
                         {3 === tabIndex && (
                             <div>
-                                <CommandOutputs command={command} />
+                                {commandUsages !== null && <ScheduledRuns command={command} usages={commandUsages} />}
                             </div>
                         )}
                         {4 === tabIndex && (
                             <div>
+                                <CommandOutputs command={command} />
+                            </div>
+                        )}
+                        {5 === tabIndex && (
+                            <div>
                                 {wsContextData.connection.readyState === WebSocket.OPEN ? (
                                     <CommandTerminal commands={[]} />
                                 ) : (
-                                    <article class="message is-danger">
-                                        <div class="message-body">
+                                    <article className="message is-danger">
+                                        <div className="message-body">
                                             <strong>Unable to establish connection to the Reconmap agent.</strong>{" "}
                                             Please review the web socket connection settings.
                                         </div>
