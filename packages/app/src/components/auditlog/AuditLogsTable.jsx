@@ -25,8 +25,9 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
                     {hasUserLocations && <th>Location</th>}
                     <th>User agent</th>
                     {/** What */}
-                    <th>Event</th>
-                    <th>Data</th>
+                    <th>Action</th>
+                    <th>Object</th>
+                    <th>Context</th>
                     {/** When */}
                     <th>Date/Time</th>
                 </tr>
@@ -62,6 +63,7 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
                                     <Badge>{entry.action}</Badge>
                                 </td>
                                 <td>{entry.object}</td>
+                                <td>{entry.context ?? "-"}</td>
                                 <td>{entry.insert_ts}</td>
                             </tr>
                         );

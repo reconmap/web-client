@@ -10,25 +10,25 @@ const NotesTable = ({ notes, onDeleteButtonClick }) => {
     }
 
     return (
-        <div class="container mt-5">
-            <h3 class="title is-4 has-text-white">Comments</h3>
+        <div className="container mt-5">
+            <h3 className="title is-4 has-text-white">Comments</h3>
 
             {notes.map((note) => (
-                <div class="box has-background-dark has-text-white">
-                    <div class="media">
-                        <div class="media-content">
-                            <p class="mb-2">
+                <div className="box has-background-dark has-text-white">
+                    <div className="media">
+                        <div className="media-content">
+                            <p className="mb-2">
                                 {" "}
                                 <blockquote style={{ fontSize: "large" }}>
                                     <ReactMarkdown>{note.content}</ReactMarkdown>
                                 </blockquote>
                             </p>
-                            <p class="is-size-7 has-text-grey-light">
+                            <p className="is-size-7 has-text-grey-light">
                                 <VisibilityLegend visibility={note.visibility} /> - Posted by {note.user_name} · Posted
                                 by {note.user_name} · <RelativeDateFormatter date={note.insert_ts} />
                             </p>
                         </div>
-                        <div class="media-right">
+                        <div className="media-right">
                             <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                                 <DeleteIconButton onClick={(ev) => onDeleteButtonClick(ev, note)} />
                             </RestrictedComponent>

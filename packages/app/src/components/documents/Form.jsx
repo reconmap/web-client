@@ -30,17 +30,19 @@ const DocumentForm = ({ document, onFormSubmit, documentSetter: setNote, isEditF
                     value={document.title || ""}
                     onChange={onFormInputChange}
                     autoFocus
+                    required
                 />
             </div>
 
             <div>
                 <label htmlFor="content">{t("Content")} (markdown supported)</label>
                 <MarkdownEditor
+                    id="content"
                     name="content"
                     style={{ width: "100%" }}
-                    required
                     value={document.content || ""}
                     onChange={onFormInputChange}
+                    required
                 />
                 <br />
             </div>

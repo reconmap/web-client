@@ -65,7 +65,7 @@ const onImagePasted = async (ev, setMarkdown) => {
     return a.join("");
 };
 
-const MarkdownEditor = ({ name: editorName, value, onChange: onFormChange }) => {
+const MarkdownEditor = ({ name: editorName, value, onChange: onFormChange, ...options }) => {
     const [markdown, setMarkdown] = useState(value);
 
     const onEditorPaste = async (ev) => {
@@ -82,6 +82,7 @@ const MarkdownEditor = ({ name: editorName, value, onChange: onFormChange }) => 
                 setMarkdown(editorValue);
                 onFormChange({ target: { name: editorName, value: editorValue } });
             }}
+            {...options}
         />
     );
 };

@@ -20,7 +20,7 @@ const ShellCommand = ({ children, showPrompt = true }) => {
     return (
         <code className={showPrompt ? "prompt" : ""} ref={codeRef}>
             {children}
-            <NativeButton onClick={handleCopy} />
+            <NativeButton onClick={handleCopy}>📋</NativeButton>
         </code>
     );
 };

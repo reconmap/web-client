@@ -2,17 +2,17 @@ import useFetch from "hooks/useFetch";
 import { Cell, Pie, PieChart } from "recharts";
 import DashboardWidget from "./Widget";
 
+const RADIAN = Math.PI / 180;
+
+const RISKS = {
+    none: { label: "None", color: "var(--color-accent-1)" },
+    low: { label: "Low", color: "var(--color-accent-2)" },
+    medium: { label: "Medium", color: "var(--color-accent-3)" },
+    high: { label: "High", color: "var(--color-accent-4)" },
+    critical: { label: "Critical", color: "var(--color-accent-5)" },
+};
+
 const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
-    const RADIAN = Math.PI / 180;
-
-    const RISKS = {
-        none: { label: "None", color: "var(--color-accent-1)" },
-        low: { label: "Low", color: "var(--color-accent-2)" },
-        medium: { label: "Medium", color: "var(--color-accent-3)" },
-        high: { label: "High", color: "var(--color-accent-4)" },
-        critical: { label: "Critical", color: "var(--color-accent-5)" },
-    };
-
     const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);

@@ -62,6 +62,7 @@ const UserProfile = () => {
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
+                    <Link>{user.full_name}</Link>
                 </Breadcrumb>
                 <NativeButtonGroup>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
