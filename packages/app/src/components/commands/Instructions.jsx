@@ -15,7 +15,9 @@ import secureApiFetch from "services/api";
 import CommandService from "services/command";
 import parseArguments from "services/commands/arguments";
 
-const CommandInstructions = ({ command, task = null }) => {
+const Bullet = () => <span style={{ color: "var(--bulma-primary" }}>▸</span>;
+
+const CommandInstructions = ({ command, projectId = null }) => {
     const [commandUsages] = useFetch(`/commands/${command?.id}/usages`);
 
     const [usage, setUsage] = useState(null);
@@ -47,22 +49,25 @@ const CommandInstructions = ({ command, task = null }) => {
             {usage !== null && (
                 <>
                     <h4 className="title is-4">Instructions for command "{command.name}"</h4>
-                    <UsageDetail command={command} task={task} usage={usage} />
+                    <UsageDetail projectId={projectId} command={command} usage={usage} />
                 </>
             )}
         </>
     );
 };
 
-const UsageDetail = ({ command, task, usage }) => {
+const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
     const [commandArgsRendered, setCommandArgsRendered] = useState("");
     const [commandArgs, setCommandArgs] = useState(parseArguments(usage));
+    const [findingsStorageAction, setFindingsStorageAction] = useState("discard");
     const [showTerminal, setShowTerminal] = useState(false);
     const [runFrequency, setRunFrequency] = useState("once");
+    const [projectId, setProjectId] = useState(null);
     const [terminalEnvironment, setTerminalEnvironment] = useState("browser");
+    const [projects] = useFetch("/projects?is_template=0");
 
     useEffect(() => {
-        const commandArgsRendered = CommandService.renderArguments(usage, commandArgs);
+        const commandArgsRendered = CommandService.renderArguments(projectId, usage, commandArgs);
         setCommandArgsRendered(commandArgsRendered);
     }, [commandArgs]);
 
@@ -96,7 +101,7 @@ const UsageDetail = ({ command, task, usage }) => {
     const saveScheduledCommand = (ev, command, usage, commandArgsRendered) => {
         const schedule = {
             command_id: command.id,
-            argument_values: CommandService.generateEntryPoint(command, usage, task) + " " + commandArgsRendered,
+            argument_values: CommandService.generateEntryPoint(projectId, command, usage) + " " + commandArgsRendered,
             cron_expression: cronExpresion,
         };
 
@@ -119,7 +124,9 @@ const UsageDetail = ({ command, task, usage }) => {
 
     return (
         <>
-            <h5 className="title is-5">1. Fill in the arguments</h5>
+            <h5 className="title is-5">
+                <Bullet /> Fill in the arguments
+            </h5>
             {Object.keys(commandArgs).length > 0 &&
                 Object.keys(commandArgs).map((key) => (
                     <p key={`command_${key}`}>
@@ -134,16 +141,41 @@ const UsageDetail = ({ command, task, usage }) => {
                 ))}
             {Object.keys(commandArgs).length === 0 && <p>No arguments required.</p>}
 
-            {task && command.output_filename && (
-                <>
-                    <h5 className="title is-5">3. Wait for results</h5>
+            <h5 className="title is-5">
+                <Bullet /> Configure run
+            </h5>
 
-                    <div>
-                        The <strong>rmap</strong> command will automatically capture the output of the previous command
-                        and upload it to the server for analysis. If there are new hosts discovered, or new
-                        vulnerabilities detected, they will be reported in the dashboard.
-                    </div>
-                </>
+            <HorizontalLabelledField
+                label="Findings storage action"
+                control={
+                    <NativeSelect
+                        onChange={(ev) => {
+                            setFindingsStorageAction(ev.target.value);
+                            if (ev.target.value === "discard") {
+                                setProjectId(null);
+                            } else {
+                                setProjectId(projects[0].id);
+                            }
+                        }}
+                    >
+                        <option value="discard">Discard (only captures output)</option>
+                        <option value="project">Project</option>
+                    </NativeSelect>
+                }
+            />
+
+            {findingsStorageAction === "project" && (
+                <HorizontalLabelledField
+                    label="Project"
+                    htmlFor="projectId"
+                    control={
+                        <NativeSelect id="projectId" name="project_id" onChange={(ev) => setProjectId(ev.target.value)}>
+                            {projects.map((project) => (
+                                <option value={project.id}>{project.name}</option>
+                            ))}
+                        </NativeSelect>
+                    }
+                />
             )}
 
             <HorizontalLabelledField
@@ -217,7 +249,9 @@ const UsageDetail = ({ command, task, usage }) => {
                     {showTerminal && (
                         <CommandTerminal
                             commands={[
-                                CommandService.generateEntryPoint(command, usage, task) + " " + commandArgsRendered,
+                                CommandService.generateEntryPoint(projectId, command, usage) +
+                                    " " +
+                                    commandArgsRendered,
                             ]}
                         />
                     )}
@@ -227,15 +261,25 @@ const UsageDetail = ({ command, task, usage }) => {
             {runFrequency === "once" && terminalEnvironment === "desktop" && (
                 <>
                     <h5 className="title is-5">
-                        2. Execute <strong>rmap</strong> on any terminal
+                        <Bullet /> Execute <strong>rmap</strong> on any terminal
                     </h5>
                     <div>
                         Make sure you have a copy of <strong>rmap</strong> on a machine you trust. Download the CLI for
                         Macos/Linux and Windows from <ExternalLink href={CliDownloadUrl}>Github</ExternalLink>.<br />
                         Once <strong>rmap</strong> is within reach execute the command shown below.
                         <ShellCommand>
-                            {CommandService.generateEntryPoint(command, usage, task)} {commandArgsRendered}
+                            {CommandService.generateEntryPoint(projectId, command, usage)} {commandArgsRendered}
                         </ShellCommand>
+                    </div>
+
+                    <h5 className="title is-5">
+                        <Bullet /> Wait for results
+                    </h5>
+
+                    <div>
+                        The <strong>rmap</strong> command will automatically capture the output of the previous command
+                        and upload it to the server for analysis. If there are new hosts discovered, or new
+                        vulnerabilities detected, they will be reported in the dashboard.
                     </div>
                 </>
             )}

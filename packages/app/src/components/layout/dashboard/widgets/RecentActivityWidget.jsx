@@ -13,6 +13,7 @@ const RecentActivityWidget = () => {
                     <thead>
                         <tr>
                             <th>Action</th>
+                            <th>Object</th>
                             <th>User</th>
                             <th>Date/Time</th>
                         </tr>
@@ -23,6 +24,7 @@ const RecentActivityWidget = () => {
                                 <td>
                                     <Badge>{log.action}</Badge>
                                 </td>
+                                <td>{log.object}</td>
                                 <td>
                                     {log.user_name ? <UserLink userId={log.user_id}>{log.user_name}</UserLink> : "-"}
                                 </td>

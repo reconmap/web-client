@@ -1,7 +1,6 @@
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import CommandBadge from "components/commands/Badge";
-import CommandInstructions from "components/commands/Instructions";
 import NativeButton from "components/form/NativeButton";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTabs from "components/form/NativeTabs";
@@ -142,11 +141,7 @@ const TaskDetailsPage = () => {
 
                     <div>
                         <NativeTabs
-                            labels={[
-                                t("Details"),
-                                null !== command ? t("Command instructions") : null,
-                                t("Attachments"),
-                            ]}
+                            labels={[t("Details"), t("Attachments")]}
                             tabIndex={tabIndex}
                             tabIndexSetter={tabIndexSetter}
                         />
@@ -234,12 +229,7 @@ const TaskDetailsPage = () => {
                                     </div>
                                 </div>
                             )}
-                            {null !== command && 1 === tabIndex && (
-                                <div>
-                                    <CommandInstructions command={command} task={task} />
-                                </div>
-                            )}
-                            {(null !== command ? 2 : 1) === tabIndex && (
+                            {1 === tabIndex && (
                                 <div>
                                     <AttachmentsDropzone
                                         parentType={parentType}

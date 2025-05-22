@@ -1286,12 +1286,12 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^16.3.0"
     "@testing-library/user-event": "npm:^14.6.1"
-    "@types/node": "npm:^22.15.19"
-    "@types/react": "npm:^19.1.4"
+    "@types/node": "npm:^22.15.21"
+    "@types/react": "npm:^19.1.5"
     "@types/react-dom": "npm:^19.1.5"
     "@typescript-eslint/eslint-plugin": "npm:^8.32.1"
     "@typescript-eslint/parser": "npm:^8.32.1"
-    "@uiw/react-md-editor": "npm:^4.0.6"
+    "@uiw/react-md-editor": "npm:^4.0.7"
     "@vitejs/plugin-react": "npm:^4.4.1"
     "@vitest/coverage-v8": "npm:^3.1.4"
     bulma: "npm:^1.0.4"
@@ -1316,7 +1316,7 @@ __metadata:
     react-dom: "npm:^19.1.0"
     react-dropzone: "npm:^14.3.8"
     react-hot-toast: "npm:^2.5.2"
-    react-i18next: "npm:^15.5.1"
+    react-i18next: "npm:^15.5.2"
     react-markdown: "npm:^10.1.0"
     react-router-dom: "npm:^7.6.0"
     react-select: "npm:^5.10.1"
@@ -2102,12 +2102,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.15.19":
-  version: 22.15.19
-  resolution: "@types/node@npm:22.15.19"
+"@types/node@npm:^22.15.21":
+  version: 22.15.21
+  resolution: "@types/node@npm:22.15.21"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/02311c2b5dbf2e9e2c17497dc27858bcefbe12a81af0d9b81f865613d8d014726e0eb6cbebfbdb84a327c1b9f9da1347a65a7699ac58c8854fb4daf447031149
+  checksum: 10/cb4189587cca445bfb8166c0ed39f9344d743f37f3da892f2999a99bbabda45dc773237e61ecb7d1dc83dd95718cb1b5715b0be5dd7953565b19019e36a7cf39
   languageName: node
   linkType: hard
 
@@ -2143,12 +2143,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^19.1.4":
-  version: 19.1.4
-  resolution: "@types/react@npm:19.1.4"
+"@types/react@npm:^19.1.5":
+  version: 19.1.5
+  resolution: "@types/react@npm:19.1.5"
   dependencies:
     csstype: "npm:^3.0.2"
-  checksum: 10/b8744e03bc3f7d4d686681ab039e0b2454fbb2110436b8b7f6ee9e6c5f8f8552231c6c273b908f69b3eae1745aeb7b075949bb3983ba8b36c3b0c2888e22726c
+  checksum: 10/ea007c6c3a7afc42421d2cc260446de9e949513cb1261e0e5cf856108afe6e8d53ed51dc26c522a364e4927450092deea68b0423c68f3a22c26dae3fac1363a5
   languageName: node
   linkType: hard
 
@@ -2309,9 +2309,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uiw/react-md-editor@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "@uiw/react-md-editor@npm:4.0.6"
+"@uiw/react-md-editor@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@uiw/react-md-editor@npm:4.0.7"
   dependencies:
     "@babel/runtime": "npm:^7.14.6"
     "@uiw/react-markdown-preview": "npm:^5.0.6"
@@ -2320,7 +2320,7 @@ __metadata:
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
-  checksum: 10/519400d0945fe820f76fd7dfc10233d27cdee9a4f72189e5e17fdcfc659d8f485236c809b7a9227dea6f206dc5bcd05217122fcaa97ea2877cee97baaa22877b
+  checksum: 10/554fb1efb85ab82870d14924c103d0e21af2a56fcc0dd9b32d40fd9a2e529401600568945ead1177ed6080f826aa886f68c7e1bd560a9145f12b0bd0e880b77f
   languageName: node
   linkType: hard
 
@@ -5913,9 +5913,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^5.56.0":
-  version: 5.56.0
-  resolution: "knip@npm:5.56.0"
+"knip@npm:^5.57.2":
+  version: 5.57.2
+  resolution: "knip@npm:5.57.2"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -5936,7 +5936,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/481082e61b85b430598692953f220820c03160fb6d1c924e5c80d7637ca0e24f20222bc10537506cd94b8e369f2c8752674b918eafe3c1ea3749adcfe04d68e7
+  checksum: 10/d27f8bfba6a15948e78cc22f29c058ef563e4d0cf5b26b32fdce5f32c0d66db5cf2f69efae94ae52954e0c6c12ca54ee1af194624b66e523a3fee37427a5eb31
   languageName: node
   linkType: hard
 
@@ -7544,9 +7544,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^15.5.1":
-  version: 15.5.1
-  resolution: "react-i18next@npm:15.5.1"
+"react-i18next@npm:^15.5.2":
+  version: 15.5.2
+  resolution: "react-i18next@npm:15.5.2"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     html-parse-stringify: "npm:^3.0.1"
@@ -7561,7 +7561,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10/19b9ecb1df2eb611c79a27c0f0e9ba7b93933ff7f3c2413507df5f514057b1f860df676157a3eafd5bd76726eb820c1f2ddb8f6be42c39152f2d585864344f01
+  checksum: 10/16e2e71177290ec3e3ca71403d101c511e0a0111f6eaabf5a84477fb5588cc83e27e5fc23d5f4404e6d3ca9f187752c349dd827d386218add27a169e9930fc63
   languageName: node
   linkType: hard
 
@@ -8251,8 +8251,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@types/node": "npm:^22.15.19"
-    knip: "npm:^5.56.0"
+    "@types/node": "npm:^22.15.21"
+    knip: "npm:^5.57.2"
     npm-check-updates: "npm:^18.0.1"
     typescript: "npm:^5.8.3"
   languageName: unknown

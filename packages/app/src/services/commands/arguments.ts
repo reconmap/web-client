@@ -1,8 +1,7 @@
-
-const parseArguments = command => {
+const parseArguments = (command: any) => {
     const argumentList = {};
 
-    if (null === command || null === command.arguments) {
+    if (null === command || null === command.arguments || undefined === command.arguments) {
         return argumentList;
     }
 
@@ -10,10 +9,10 @@ const parseArguments = command => {
     const commandArgsFound = command.arguments.match(argRegex);
     if (commandArgsFound) {
         const commandArgsParsed = commandArgsFound.reduce((accumulator, current) => {
-            const tokens = current.replaceAll('{{{', '').replaceAll('}}}', '').split('|||');
+            const tokens = current.replaceAll("{{{", "").replaceAll("}}}", "").split("|||");
             accumulator[tokens[0]] = {
                 name: tokens[0],
-                placeholder: tokens[1]
+                placeholder: tokens[1],
             };
             return accumulator;
         }, argumentList);
@@ -21,6 +20,6 @@ const parseArguments = command => {
     }
 
     return argumentList;
-}
+};
 
 export default parseArguments;
