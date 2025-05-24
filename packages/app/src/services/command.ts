@@ -1,6 +1,6 @@
 import { Command } from "models/Command.js";
 import { CommandUsage } from "models/CommandUsage.js";
-import parseArguments from "./commands/arguments";
+import parseArguments, { CommandArgumentsMap } from "./commands/arguments.js";
 
 const HostCommandLineGenerator = {
     generateEntryPoint: (projectId: number, command: CommandUsage) => {
@@ -39,11 +39,7 @@ const RmapCommandLineGenerator = {
         return entryPoint;
     },
 
-    renderArguments: (projectId: number, command: Command, commandArgs = null) => {
-        if (commandArgs === null) {
-            commandArgs = parseArguments(command);
-        }
-
+    renderArguments: (projectId: number, command: Command, commandArgs: CommandArgumentsMap) => {
         let commandArgsRendered = "";
 
         Object.keys(commandArgs).forEach((key) => {
@@ -56,11 +52,11 @@ const RmapCommandLineGenerator = {
 };
 
 const CommandService = {
-    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage, task = null) => {
-        return RmapCommandLineGenerator.generateEntryPoint(projectId, command, usage, task);
+    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage) => {
+        return RmapCommandLineGenerator.generateEntryPoint(projectId, command, usage);
     },
 
-    renderArguments: (projectId: number, command: Command, commandArgs = null) => {
+    renderArguments: (projectId: number, command: Command, commandArgs: CommandArgumentsMap) => {
         return RmapCommandLineGenerator.renderArguments(projectId, command, commandArgs);
     },
 };
