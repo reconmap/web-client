@@ -1318,7 +1318,7 @@ __metadata:
     react-hot-toast: "npm:^2.5.2"
     react-i18next: "npm:^15.5.2"
     react-markdown: "npm:^10.1.0"
-    react-router-dom: "npm:^7.6.0"
+    react-router-dom: "npm:^7.6.1"
     react-select: "npm:^5.10.1"
     react-time-ago: "npm:^7.3.3"
     recharts: "npm:^2.15.3"
@@ -7629,21 +7629,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^7.6.0":
-  version: 7.6.0
-  resolution: "react-router-dom@npm:7.6.0"
+"react-router-dom@npm:^7.6.1":
+  version: 7.6.1
+  resolution: "react-router-dom@npm:7.6.1"
   dependencies:
-    react-router: "npm:7.6.0"
+    react-router: "npm:7.6.1"
   peerDependencies:
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10/e24b9c6cb04448e3f3effb79399294aeffc22e9b99e179befa861bd2f5464d6e6a1caaf2971aeded9cbdb7fd279552ed43aa3043cc823186f95fdc8b1d84fa27
+  checksum: 10/807d6fc6924c63bce49a1e2483f79a8e27924db3ac664f9773f36687c52f909ab140f32305c0a8cfa543dba2b34aa5478c2bcff8bf8c801de02b56d98efa9de7
   languageName: node
   linkType: hard
 
-"react-router@npm:7.6.0":
-  version: 7.6.0
-  resolution: "react-router@npm:7.6.0"
+"react-router@npm:7.6.1":
+  version: 7.6.1
+  resolution: "react-router@npm:7.6.1"
   dependencies:
     cookie: "npm:^1.0.1"
     set-cookie-parser: "npm:^2.6.0"
@@ -7653,7 +7653,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10/093ace0b706522ea551d279d18fa320ae904ea47e6b7f80532f0d4badee518d3cd454481b3cb89c3e68222571620c5bccdd52be770c2783c575308a4395d9015
+  checksum: 10/90d3038db6d9c0d48bc932b8698c287a80759629ecef65f1ead32fadd78ef17895c7402832d3c94b47c45f10f8478b79551a647360415887f2f3a8fae10aca30
   languageName: node
   linkType: hard
 
