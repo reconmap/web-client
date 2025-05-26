@@ -10,7 +10,7 @@
   "packageManager": "yarn@4.9.1",
   "devDependencies": {
     "@types/node": "^22.15.21",
-    "knip": "^5.57.2",
+    "knip": "^5.58.1",
     "typescript": "^5.8.3"
   },
   "scripts": {
