@@ -50,7 +50,6 @@
   background: var(--bulma-info);
   text-align: center;
   color: var(--bulma-black);
-  padding: 4px 2px;
   font-size: 1rem;
   min-width: 280px;
   border-radius: 5px;
@@ -87,7 +86,6 @@
 [data-tooltip]:hover::after,
 [data-tooltip]:hover::before {
   opacity: 1;
-  transition-delay: 1.0s;
   transition: all 0.5s;
 }
 

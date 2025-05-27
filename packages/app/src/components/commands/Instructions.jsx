@@ -64,7 +64,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
     const [runFrequency, setRunFrequency] = useState("once");
     const [projectId, setProjectId] = useState(null);
     const [terminalEnvironment, setTerminalEnvironment] = useState("browser");
-    const [projects] = useFetch("/projects?is_template=0");
+    const [projects] = useFetch("/projects?isTemplate=0&status=active");
 
     useEffect(() => {
         const commandArgsRendered = CommandService.renderArguments(projectId, usage, commandArgs);

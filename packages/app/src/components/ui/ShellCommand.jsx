@@ -18,10 +18,14 @@ const ShellCommand = ({ children, showPrompt = true }) => {
     };
 
     return (
-        <code className={showPrompt ? "prompt" : ""} ref={codeRef}>
-            {children}
-            <NativeButton onClick={handleCopy}>📋</NativeButton>
-        </code>
+        <>
+            <div className="box is-flex is-align-items-center p-0">
+                <code className={showPrompt ? "prompt" : ""} ref={codeRef}>
+                    {children}
+                </code>
+                <NativeButton onClick={handleCopy}>📋</NativeButton>
+            </div>
+        </>
     );
 };
 
