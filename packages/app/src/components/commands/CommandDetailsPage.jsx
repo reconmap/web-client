@@ -127,7 +127,7 @@ const CommandDetailsPage = () => {
                                         </dl>
                                     </div>
 
-                                    <div>
+                                    <div className="content">
                                         <h4>{t("Relations")}</h4>
                                         <dl>
                                             <dt>Created by</dt>
