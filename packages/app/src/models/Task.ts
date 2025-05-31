@@ -11,6 +11,7 @@ interface Task {
 	summary: string | undefined;
 	description?: string;
 	status: string | undefined;
+	duration_estimate?: number;
 	due_date?: string;
 	command_id?: number;
 	command?: string;
@@ -29,6 +30,7 @@ const defaultTask : Task = {
 	summary: '',
 	description: '',
 	status: 'todo',
+	duration_estimate: undefined,
 	due_date: undefined,
 
 }

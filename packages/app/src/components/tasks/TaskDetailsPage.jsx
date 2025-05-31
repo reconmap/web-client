@@ -148,7 +148,7 @@ const TaskDetailsPage = () => {
                         <div>
                             {0 === tabIndex && (
                                 <div>
-                                    <div className="grid grid-two">
+                                    <div className="content grid grid-two">
                                         <div>
                                             <h4>{t("Description")}</h4>
                                             {task.description ? (
@@ -156,18 +156,22 @@ const TaskDetailsPage = () => {
                                             ) : (
                                                 <EmptyField />
                                             )}
-                                            <h4>{t("Priority")}</h4>
-                                            <p>{task.priority}</p>
-                                            <h4>{t("Status")}</h4>
-                                            <p
-                                                style={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    columnGap: "var(--margin)",
-                                                }}
-                                            >
-                                                <TaskStatusFormatter task={task} />
-                                            </p>
+
+                                            <h4>{t("Properties")}</h4>
+
+                                            <dl>
+                                                <dt>{t("Priority")}</dt>
+                                                <dd>{task.priority}</dd>
+
+                                                <dt>{t("Duration estimate")}</dt>
+                                                <dd>{task.duration_estimate}</dd>
+
+                                                <dt>{t("Status")}</dt>
+                                                <dd>
+                                                    <TaskStatusFormatter task={task} />
+                                                </dd>
+                                            </dl>
+
                                             {task.command_id && (
                                                 <>
                                                     <h4>Command</h4>

@@ -3,6 +3,7 @@ interface Project {
 
 	id?: number;
 	creator_uid?: number;
+	service_provider_id?: number;
 	client_id?: number;
 	name?: string;
 	description?: string;

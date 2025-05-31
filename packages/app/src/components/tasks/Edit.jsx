@@ -1,4 +1,5 @@
 import { actionCompletedToast } from "components/ui/toast";
+import { t } from "i18next";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
@@ -6,7 +7,7 @@ import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
-import TaskForm from "./Form";
+import TaskForm from "./TaskForm";
 
 const EditTaskPage = () => {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const EditTaskPage = () => {
         <div>
             <div className="heading">
                 <Breadcrumb>
-                    <Link to="/tasks">Tasks</Link>
+                    <Link to="/tasks">{t("Tasks")}</Link>
                 </Breadcrumb>
             </div>
 

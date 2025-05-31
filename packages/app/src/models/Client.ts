@@ -3,6 +3,7 @@ interface Client {
 
 	id?: number;
 	creator_uid?: number;
+	kind: string | undefined;
 	insert_ts?: string;
 	update_ts?: string;
 	name?: string;
@@ -23,6 +24,7 @@ const defaultClient : Client = {
 	logo_attachment_id: undefined,
 	small_logo_attachment_id: undefined,
 
+	kind: undefined,
 }
 
 export default defaultClient;

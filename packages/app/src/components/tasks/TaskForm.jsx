@@ -1,5 +1,4 @@
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
-import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import Loading from "components/ui/Loading";
@@ -7,12 +6,12 @@ import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import { useEffect, useState } from "react";
 import AsyncSelect from "react-select/async";
 import secureApiFetch from "services/api";
-import useFetch from "../../hooks/useFetch";
-import { TaskPriorityList } from "../../models/TaskPriority";
-import PrimaryButton from "../ui/buttons/Primary";
+import useFetch from "../../hooks/useFetch.js";
+import { TaskPriorityList } from "../../models/TaskPriority.js";
+import PrimaryButton from "../ui/buttons/Primary.jsx";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
-    const [projects] = useFetch("/projects");
+    const [projects] = useFetch(`/projects?isTemplate=${forTemplate ? 1 : 0}`);
     const [commands] = useFetch("/commands");
 
     const onFormChange = (ev) => {
@@ -49,8 +48,15 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
         <form onSubmit={onFormSubmit}>
             <HorizontalLabelledField
                 label="Project"
+                htmlFor="projectId"
                 control={
-                    <NativeSelect name="project_id" onChange={onFormChange} value={task.project_id} required>
+                    <NativeSelect
+                        id="projectId"
+                        name="project_id"
+                        onChange={onFormChange}
+                        value={task.project_id}
+                        required
+                    >
                         <optgroup label="Projects">
                             {projects &&
                                 projects
@@ -74,12 +80,15 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     </NativeSelect>
                 }
             />
+
             <HorizontalLabelledField
                 label="Summary"
+                htmlFor="summary"
                 control={
                     <NativeInput
-                        type="text"
+                        id="summary"
                         name="summary"
+                        type="text"
                         onChange={onFormChange}
                         required
                         autoFocus
@@ -87,10 +96,13 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     />
                 }
             />
-            <LabelledField
+
+            <HorizontalLabelledField
                 label="Description"
+                htmlFor="description"
                 control={
                     <MarkdownEditor
+                        id="description"
                         name="description"
                         onChange={onFormChange}
                         required
@@ -98,11 +110,17 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     />
                 }
             />
-            <br />
+
             <HorizontalLabelledField
                 label="Priority"
+                htmlFor="priority"
                 control={
-                    <NativeSelect name="priority" onChange={onFormChange} value={task.priority || "medium"}>
+                    <NativeSelect
+                        id="priority"
+                        name="priority"
+                        onChange={onFormChange}
+                        value={task.priority || "medium"}
+                    >
                         {TaskPriorityList.map((priority, index) => (
                             <option key={index} value={priority.value}>
                                 {priority.name}
@@ -111,15 +129,45 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     </NativeSelect>
                 }
             />
+
             <HorizontalLabelledField
-                label="Due date"
-                control={<NativeInput type="date" name="due_date" onChange={onFormChange} value={task.due_date} />}
+                label="Duration estimate"
+                htmlFor="durationEstimate"
+                control={
+                    <NativeInput
+                        id="durationEstimate"
+                        name="duration_estimate"
+                        type="number"
+                        step="1"
+                        min="0"
+                        onChange={onFormChange}
+                        value={task.duration_estimate}
+                    />
+                }
             />
+
+            {!forTemplate && (
+                <HorizontalLabelledField
+                    label="Due date"
+                    htmlFor="dueDate"
+                    control={
+                        <NativeInput
+                            id="dueDate"
+                            name="due_date"
+                            type="date"
+                            onChange={onFormChange}
+                            value={task.due_date}
+                        />
+                    }
+                />
+            )}
 
             <HorizontalLabelledField
                 label="Command"
+                htmlFor="commandId"
                 control={
                     <AsyncSelect
+                        id="commandId"
                         name="command_id"
                         value={selectedCommand}
                         defaultOptions={true}

@@ -37,7 +37,6 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                 <tr>
                     {showSelection && <th style={{ width: "32px" }}>&nbsp;</th>}
                     <th>Summary</th>
-                    <th className="only-desktop">Description</th>
                     {showProjectColumn && <th>Project</th>}
                     <th>Priority</th>
                     <th>Assignee</th>
@@ -70,9 +69,6 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                             )}
                             <td>
                                 <TaskBadge task={task} />
-                            </td>
-                            <td className="only-desktop">
-                                {task.description ? <>{task.description.substring(0, 100)}&hellip;</> : "-"}
                             </td>
                             {showProjectColumn && (
                                 <td>

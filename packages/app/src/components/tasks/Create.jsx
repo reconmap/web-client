@@ -1,4 +1,5 @@
 import { actionCompletedToast } from "components/ui/toast";
+import { errorToast } from "components/ui/toast.js";
 import useQuery from "hooks/useQuery";
 import Task from "models/Task";
 import { useRef, useState } from "react";
@@ -7,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
-import TaskForm from "./Form";
+import TaskForm from "./TaskForm";
 
 const TaskCreationPage = () => {
     const [t] = useTranslation();
@@ -19,12 +20,24 @@ const TaskCreationPage = () => {
 
     const [newTask, setNewTask] = useState({ ...Task, project_id: projectIdParam.current });
 
-    const onFormSubmit = async (ev) => {
+    const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/tasks`, { method: "POST", body: JSON.stringify(newTask) });
-        navigate(`/projects/${newTask.project_id}`);
-        actionCompletedToast(`The task '${newTask.summary}' has been created.`);
+        secureApiFetch(`/tasks`, { method: "POST", body: JSON.stringify(newTask) })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(() => {
+                navigate(`/projects/${newTask.project_id}`);
+                actionCompletedToast(`The task '${newTask.summary}' has been created.`);
+            })
+            .catch((error) => {
+                console.error("Error creating task:", error);
+                errorToast("Failed to create task. Please try again.");
+            });
     };
 
     return (
