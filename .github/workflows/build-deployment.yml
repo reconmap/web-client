@@ -14,8 +14,8 @@ jobs:
             - uses: actions/checkout@v4
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-            - name: Login to Quay
-              run: echo "${{ secrets.CR_PAT }}" | docker login -u "${{ secrets.CR_USERNAME }}" --password-stdin quay.io
+            - name: Login to container registry
+              run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u "${{ secrets.CR_USERNAME }}" --password-stdin
             - name: Set Git credentials
               run: |
                   git config --global user.name github-actions
