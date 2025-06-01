@@ -15,7 +15,7 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - name: Login to Quay
-              run: echo "${{ secrets.QUAY_ROBOT_TOKEN }}" | docker login -u "${{ secrets.QUAY_ROBOT_USERNAME }}" --password-stdin quay.io
+              run: echo "${{ secrets.CR_PAT }}" | docker login -u "${{ secrets.CR_USERNAME }}" --password-stdin quay.io
             - name: Set Git credentials
               run: |
                   git config --global user.name github-actions

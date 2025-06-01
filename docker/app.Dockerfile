@@ -10,10 +10,14 @@ COPY --chown=reconmapper:reconmapper packages ./packages
 COPY --chown=reconmapper:reconmapper .yarn/releases/ ./.yarn/releases/
 
 RUN yarn install && \
-	yarn workspace @reconmap/native-components run build && \
-	yarn workspace @reconmap/app run build
+    yarn workspace @reconmap/native-components run build && \
+    yarn workspace @reconmap/app run build
 
 FROM nginx:stable
+
+LABEL org.opencontainers.image.source=https://github.com/reconmap/reconmap
+LABEL org.opencontainers.image.description="reconmap/web-client"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 RUN chown -R nginx:nginx /usr/share/nginx && \
     chown -R nginx:nginx /var/cache/nginx && \

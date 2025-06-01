@@ -6,7 +6,7 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 ENV_FILE_NAME ?= environment.local.js
-DOCKER_IMAGE_NAME = quay.io/reconmap/web-client
+DOCKER_IMAGE_NAME = ghcr.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_DEV_TAG = reconmap/web-client:dev
 
