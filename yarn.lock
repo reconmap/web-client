@@ -1286,7 +1286,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^16.3.0"
     "@testing-library/user-event": "npm:^14.6.1"
-    "@types/node": "npm:^22.15.22"
+    "@types/node": "npm:^22.15.29"
     "@types/react": "npm:^19.1.6"
     "@types/react-dom": "npm:^19.1.5"
     "@typescript-eslint/eslint-plugin": "npm:^8.33.0"
@@ -2109,12 +2109,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.15.22":
-  version: 22.15.22
-  resolution: "@types/node@npm:22.15.22"
+"@types/node@npm:^22.15.29":
+  version: 22.15.29
+  resolution: "@types/node@npm:22.15.29"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/da2d5c34d38db9af0f4b886d9801a13ed38443927885e8242cc533eb30003eae85405a1ea042d43dfa3a8a245d2be8b490ec65a9e9ba6574d3e6c05065f469aa
+  checksum: 10/3426790c5aa22df445213d7f37e57ea261cf3013030fe9b3025d87c302097799a9db3b848e2a9bdb07cab8ec6c7e9947ac770cf11e12e420148296b63d63e7db
   languageName: node
   linkType: hard
 
@@ -8281,7 +8281,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@types/node": "npm:^22.15.22"
+    "@types/node": "npm:^22.15.29"
     knip: "npm:^5.58.1"
     npm-check-updates: "npm:^18.0.1"
     typescript: "npm:^5.8.3"
