@@ -1,5 +1,4 @@
 import NativeButton from "components/form/NativeButton";
-import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
@@ -48,24 +47,26 @@ const VaultItemEdit = () => {
             method: "POST",
             body: JSON.stringify({ password: password }),
         })
-            .then((response) => response.json())
-            .then((json) => {
-                if (json["success"] === false) {
-                    errorToast("Seems like a wrong password.");
-                    setPassword(null);
-                } else {
-                    var newItem = { ...Vault };
-                    newItem.name = json["name"];
-                    newItem.note = json["note"];
-                    newItem.value = json["value"];
-                    newItem.type = json["type"];
-                    newItem.reportable = json["reportable"];
-                    setVaultItem(newItem);
-                    actionCompletedToast(`The vault item "${newItem.name}" has been loaded.`);
+            .then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(`Error: ${resp.status} - ${resp.statusText}`);
                 }
+                return resp.json();
+            })
+            .then((json) => {
+                var newItem = { ...Vault };
+                newItem.name = json["name"];
+                newItem.note = json["note"];
+                newItem.value = json["value"];
+                newItem.type = json["type"];
+                setVaultItem(newItem);
+                actionCompletedToast(`The vault item "${newItem.name}" has been loaded.`);
             })
             .catch((err) => {
-                errorToast(err);
+                errorToast(err.message);
+                setPassword(null);
+            })
+            .finally(() => {
                 setPassword(null);
             });
     };
@@ -85,9 +86,8 @@ const VaultItemEdit = () => {
                                 <tr>
                                     <th>Type</th>
                                     <th>Name</th>
-                                    <th>Note</th>
                                     <th>Value</th>
-                                    <th>Reportable</th>
+                                    <th>Notes</th>
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
@@ -118,14 +118,6 @@ const VaultItemEdit = () => {
                                     <td>
                                         <NativeInput
                                             type="text"
-                                            name="note"
-                                            onChange={onVaultItemFormChange}
-                                            value={item.note || ""}
-                                        />
-                                    </td>
-                                    <td>
-                                        <NativeInput
-                                            type="text"
                                             name="value"
                                             onChange={onVaultItemFormChange}
                                             value={item.value || ""}
@@ -133,10 +125,11 @@ const VaultItemEdit = () => {
                                         />
                                     </td>
                                     <td>
-                                        <NativeCheckbox
-                                            name="reportable"
+                                        <NativeInput
+                                            type="text"
+                                            name="note"
                                             onChange={onVaultItemFormChange}
-                                            checked={item.reportable}
+                                            value={item.note || ""}
                                         />
                                     </td>
                                     <td>
@@ -148,7 +141,7 @@ const VaultItemEdit = () => {
                     </form>
                 </>
             )}
-            {item.name === "" && (
+            {(item.name === "" || item.name === undefined) && (
                 <>
                     <h3>Please provide password</h3>
                     <form onSubmit={onPasswordProvided}>
@@ -157,9 +150,10 @@ const VaultItemEdit = () => {
                             name="password"
                             onChange={onPasswordFormChanged}
                             value={password || ""}
+                            autocomplete="off"
                             required
                         />
-                        <NativeButton type="submit">Send</NativeButton>
+                        <NativeButton type="submit">Decrypt</NativeButton>
                     </form>
                 </>
             )}

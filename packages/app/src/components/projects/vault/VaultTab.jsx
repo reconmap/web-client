@@ -1,5 +1,4 @@
 import NativeButton from "components/form/NativeButton";
-import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -57,10 +56,9 @@ const ProjectVaultTab = ({ project }) => {
                         <table className="table is-fullwidth">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Note</th>
                                     <th>Type</th>
-                                    <th>Reportable</th>
+                                    <th>Name</th>
+                                    <th>Notes</th>
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
@@ -69,10 +67,9 @@ const ProjectVaultTab = ({ project }) => {
                                 {vault.map((item) => (
                                     <>
                                         <tr key={item.id}>
+                                            <td>{item.type}</td>
                                             <td>{item.name}</td>
                                             <td>{item.note}</td>
-                                            <td>{item.type}</td>
-                                            <td>{item.reportable}</td>
                                             <td>
                                                 <LinkButton href={`/vault/${project.id}/${item.id}/edit`}>
                                                     Edit
@@ -91,10 +88,9 @@ const ProjectVaultTab = ({ project }) => {
                                     <tr>
                                         <th>Type</th>
                                         <th>Name</th>
-                                        <th>Note</th>
                                         <th>Value</th>
+                                        <th>Note</th>
                                         <th>Password</th>
-                                        <th>Reportable</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
@@ -125,18 +121,18 @@ const ProjectVaultTab = ({ project }) => {
                                         <td>
                                             <NativeInput
                                                 type="text"
-                                                name="note"
+                                                name="value"
                                                 onChange={onVaultItemFormChange}
-                                                value={vaultItem.note || ""}
+                                                value={vaultItem.value || ""}
+                                                required
                                             />
                                         </td>
                                         <td>
                                             <NativeInput
                                                 type="text"
-                                                name="value"
+                                                name="note"
                                                 onChange={onVaultItemFormChange}
-                                                value={vaultItem.value || ""}
-                                                required
+                                                value={vaultItem.note || ""}
                                             />
                                         </td>
                                         <td>
@@ -146,13 +142,6 @@ const ProjectVaultTab = ({ project }) => {
                                                 onChange={onVaultItemFormChange}
                                                 value={vaultItem.password || ""}
                                                 required
-                                            />
-                                        </td>
-                                        <td>
-                                            <NativeCheckbox
-                                                name="reportable"
-                                                onChange={onVaultItemFormChange}
-                                                checked={vaultItem.reportable}
                                             />
                                         </td>
                                         <td>

@@ -4,12 +4,11 @@ interface Vault {
 	id?: number;
 	insert_ts?: string;
 	update_ts?: string;
+	project_id?: number;
+	type: string | undefined;
 	name?: string;
 	value?: string;
-	reportable?: boolean;
 	note?: string;
-	type: string | undefined;
-	project_id?: number;
 }
 
 export { Vault };
@@ -23,12 +22,11 @@ const defaultVault : Vault = {
 	id: undefined,
 	insert_ts: undefined,
 	update_ts: undefined,
+	project_id: undefined,
+	type: 'password',
 	name: undefined,
 	value: undefined,
-	reportable: false,
 	note: undefined,
-	type: 'password',
-	project_id: undefined,
 
 }
 
