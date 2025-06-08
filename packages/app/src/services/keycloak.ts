@@ -22,7 +22,7 @@ const login = (onLoginSuccess: Function, onLoginFailure: Function) => {
         })
         .catch((err: any) => {
             console.error(err);
-            onLoginFailure(err.error);
+            onLoginFailure();
         });
 };
 

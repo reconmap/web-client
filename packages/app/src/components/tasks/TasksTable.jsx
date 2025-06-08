@@ -4,7 +4,6 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import BadgeOutline from "../badges/BadgeOutline";
 import LinkButton from "../ui/buttons/Link";
 import UserLink from "../users/Link";
 import TaskBadge from "./TaskBadge";
@@ -41,7 +40,6 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                     <th>Priority</th>
                     <th>Assignee</th>
                     <th style={{ width: "100px" }}>Status</th>
-                    <th colSpan={reloadCallback ? 1 : 2}>Command</th>
                     {reloadCallback && (
                         <th style={{ width: "15%", textAlign: "right" }}>
                             <ReloadButton onClick={reloadCallback} />
@@ -91,7 +89,6 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                             <td>
                                 <TaskStatusFormatter task={task} />
                             </td>
-                            <td>{task.command_name ? <BadgeOutline>{task.command_name}</BadgeOutline> : "-"}</td>
                             <td style={{ textAlign: "right" }}>
                                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                                     <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
