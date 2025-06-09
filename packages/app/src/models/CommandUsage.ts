@@ -8,6 +8,7 @@ interface CommandUsage {
 	description?: string;
 	executable_path?: string;
 	arguments?: string;
+	output_capturing_mode: string | undefined;
 	output_filename?: string;
 	output_parser?: string;
 }
@@ -20,6 +21,7 @@ export { CommandUsage };
  */
 const defaultCommandUsage : CommandUsage = {
 
+	output_capturing_mode: 'none',
 
 }
 

@@ -5,6 +5,7 @@ import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
 import DeleteButton from "components/ui/buttons/Delete.jsx";
 import { actionCompletedToast } from "components/ui/toast";
+import { t } from "i18next";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -91,7 +92,15 @@ const ProjectDetails = () => {
                     <Title type="Project" title={project.name} />
 
                     <NativeTabs
-                        labels={["Details", "Targets", "Tasks", "Vulnerabilities", "Comments", "Attachments", "Vault"]}
+                        labels={[
+                            t("Details"),
+                            t("Tasks"),
+                            t("Assets"),
+                            t("Findings"),
+                            t("Comments"),
+                            t("Attachments"),
+                            t("Vault"),
+                        ]}
                         tabIndex={tabIndex}
                         tabIndexSetter={tabIndexSetter}
                     />
@@ -104,12 +113,12 @@ const ProjectDetails = () => {
                         )}
                         {1 === tabIndex && (
                             <div>
-                                <ProjectTargets project={project} />
+                                <ProjectTasks project={project} />
                             </div>
                         )}
                         {2 === tabIndex && (
                             <div>
-                                <ProjectTasks project={project} />
+                                <ProjectTargets project={project} />
                             </div>
                         )}
                         {3 === tabIndex && (

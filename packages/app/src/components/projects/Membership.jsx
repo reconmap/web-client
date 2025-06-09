@@ -54,6 +54,7 @@ const ProjectMembership = () => {
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
                     {savedProject && <Link to={`/projects/${savedProject.id}`}>{savedProject.name}</Link>}
+                    <Link to={`/projects/${projectId}/membership`}>Membership</Link>
                 </Breadcrumb>
             </div>
 

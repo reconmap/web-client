@@ -17,8 +17,8 @@ const ProjectDetailsTab = ({ project }) => {
     const [users] = useFetch(`/projects/${project.id}/users`);
 
     return (
-        <section className="grid grid-two">
-            <div className="content">
+        <section className="columns">
+            <div className="column is-three-quarters content">
                 <h4>Project details</h4>
                 <dl>
                     {!isTemplate && (
@@ -72,7 +72,7 @@ const ProjectDetailsTab = ({ project }) => {
                 </div>
             </div>
 
-            <div className="content">
+            <div className="column content">
                 <h4>Relations</h4>
                 <dl>
                     {!isTemplate && (
@@ -94,6 +94,9 @@ const ProjectDetailsTab = ({ project }) => {
 
                 <h4>Project members</h4>
                 <div>
+                    {(users === null || users === undefined || users.length === 0) && (
+                        <p>No users assigned to this project.</p>
+                    )}
                     {users &&
                         users.map((user, index) => (
                             <Link to={`/users/${user.id}`}>

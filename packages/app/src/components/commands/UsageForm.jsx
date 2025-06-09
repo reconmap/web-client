@@ -12,22 +12,13 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
 
     const onFormChange = (ev) => {
         const target = ev.target;
-        let name = target.name;
+        const name = target.name;
         let value = target.value;
         if ("tags" === name) {
             value = JSON.stringify(value.split(","));
         }
-        if ("output_capture" === name) {
-            const outputFileName = value === "disabled" ? null : value === "stdout" ? "{{{STDOUT}}}" : "";
 
-            setCommand({
-                ...commandUsage,
-                [name]: value,
-                output_filename: outputFileName,
-            });
-        } else {
-            setCommand({ ...commandUsage, [name]: value });
-        }
+        setCommand({ ...commandUsage, [name]: value });
     };
 
     const [parsers] = useFetch("/commands/output-parsers");
@@ -102,24 +93,24 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                 />
 
                 <HorizontalLabelledField
-                    label="Output capture"
-                    htmlFor="outputCapture"
+                    label="Output capturing mode"
+                    htmlFor="outputCapturingMode"
                     control={
                         <NativeSelect
                             id="outputCapture"
-                            name="output_capture"
+                            name="output_capturing_mode"
                             onChange={onFormChange}
-                            value={commandUsage.output_capture || "disabled"}
+                            value={commandUsage.output_capturing_mode || "none"}
                             required
                         >
-                            <option value="disabled">Disabled</option>
+                            <option value="none">None</option>
                             <option value="stdout">Standard output</option>
-                            <option value="path">File path</option>
+                            <option value="file">File</option>
                         </NativeSelect>
                     }
                 />
 
-                {commandUsage.output_capture === "path" && (
+                {commandUsage.output_capturing_mode === "file" && (
                     <HorizontalLabelledField
                         label="Output filename"
                         htmlFor="outputFilename"
@@ -135,7 +126,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                     />
                 )}
 
-                {commandUsage.output_capture !== "disabled" && (
+                {commandUsage.output_capturing_mode !== "none" && (
                     <HorizontalLabelledField
                         label="Output parser"
                         htmlFor="outputParser"

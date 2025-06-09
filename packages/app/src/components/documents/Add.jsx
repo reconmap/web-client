@@ -1,4 +1,5 @@
 import { actionCompletedToast } from "components/ui/toast";
+import { errorToast } from "components/ui/toast.js";
 import Document from "models/Document";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,10 +15,21 @@ const AddDocumentPage = () => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/documents`, { method: "POST", body: JSON.stringify(newDocument) }).then(() => {
-            navigate(`/documents`);
-            actionCompletedToast(`The document "${newDocument.title}" has been added.`);
-        });
+        secureApiFetch(`/documents`, { method: "POST", body: JSON.stringify(newDocument) })
+            .then((resp) => {
+                if (!resp.ok) {
+                    throw new Error("Failed to create document");
+                }
+                return resp.json();
+            })
+            .then(() => {
+                navigate(`/documents`);
+                actionCompletedToast(`The document "${newDocument.title}" has been added.`);
+            })
+            .catch((error) => {
+                console.error("Error creating document:", error);
+                errorToast(`Failed to add the document "${newDocument.title}".`);
+            });
     };
 
     return (
