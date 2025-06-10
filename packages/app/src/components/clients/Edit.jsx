@@ -25,7 +25,7 @@ const EditClientPage = () => {
 
         actionCompletedToast(`The client "${clientClient.name}" has been updated.`);
 
-        navigate(`/clients/${clientId}`);
+        navigate(`/organisations/${clientId}`);
     };
 
     useEffect(() => {

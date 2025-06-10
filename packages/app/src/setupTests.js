@@ -3,6 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/vitest";
-import '../public/environment';
+import configJson from "../public/config";
 
+window.env = configJson;
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;

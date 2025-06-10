@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-ENV_FILE_NAME ?= environment.local.js
+ENV_FILE_NAME ?= config.local.json
 DOCKER_IMAGE_NAME = ghcr.io/reconmap/web-client
 DOCKER_CONTAINER_NAME = reconmap-web-client
 DOCKER_DEV_TAG = reconmap/web-client:dev
@@ -43,7 +43,7 @@ version-increase:
 start:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/environment.js \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
 		-p 5500:5500 \
 		-e VITE_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
@@ -59,18 +59,18 @@ stop:
 tests:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/environment.js \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
 		--entrypoint yarn $(DOCKER_DEV_TAG) workspace @reconmap/app test
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/environment.js \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/config.json \
 		--entrypoint npx $(DOCKER_DEV_TAG) npx stylelint "**/*.css"
 
 .PHONY: tests-ci
 tests-ci:
 	docker run -u $(CONTAINER_UID_GID) --rm -t \
 		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/environment.js \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
 		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) test:ci
 
 .PHONY: clean
