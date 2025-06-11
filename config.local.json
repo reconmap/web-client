@@ -1,11 +1,10 @@
 {
-    "VITE_SECURE_TRANSPORT_ENABLED": false,
-    "VITE_DEFAULT_API_URL": "http://localhost:5510",
-    "VITE_NOTIFICATIONS_SERVICE_HOST_PORT": "localhost:5520",
-    "VITE_AGENT_SERVICE_HOST_PORT": "localhost:5520",
-    "VITE_LOGO_URL": "/logo-name.png",
-    "VITE_CONTEXT_PATH": "",
-    "VITE_KEYCLOAK_CONFIG": {
+    "contextPath": "",
+    "logoUrl": "/logo-name.png",
+    "reconmapApiUrl": "http://localhost:5510",
+    "notificationsServiceUrl": "ws://localhost:5520",
+    "agentServiceUrl": "ws://localhost:5520",
+    "keycloak": {
         "url": "http://localhost:8080",
         "realm": "reconmap",
         "clientId": "web-client"

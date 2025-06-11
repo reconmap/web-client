@@ -25,8 +25,8 @@ Build: ${import.meta.env.VITE_GIT_COMMIT_HASH}
 Server
 ------
 API URL: ${Configuration.getDefaultApiUrl()}
-Notifications API: ${Configuration.getNotificationsServiceHostPort()}
-Agent API: ${Configuration.getAgentServiceHostPort()}
+Notifications URL: ${Configuration.getNotificationsServiceUrl()}
+Agent URL: ${Configuration.getAgentServiceUrl()}
 Keycloak URL: ${Configuration.getKeycloakConfig().url}
 
 `;

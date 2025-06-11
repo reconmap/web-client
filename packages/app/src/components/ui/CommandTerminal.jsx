@@ -26,11 +26,8 @@ const CommandTerminal = ({ commands }) => {
         let retryHandle = null;
 
         const connectTerminal = () => {
-            const agentServiceProtocol = Configuration.isSecureTransportEnabled() ? "wss" : "ws";
-            const agentServiceHostPort = Configuration.getAgentServiceHostPort();
-            const webSocket = new WebSocket(
-                `${agentServiceProtocol}://${agentServiceHostPort}/term?token=` + user.access_token,
-            );
+            const agentServiceUrl = Configuration.getAgentServiceUrl();
+            const webSocket = new WebSocket(`${agentServiceUrl}/term?token=` + user.access_token);
             webSocket.binaryType = "arraybuffer";
 
             term.onData((data) => {
