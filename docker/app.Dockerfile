@@ -3,15 +3,12 @@ FROM reconmap/web-client:dev AS builder
 ARG RECONMAP_APP_GIT_COMMIT_HASH
 ENV VITE_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
-RUN mkdir -p .yarn/{cache/releases} && chown -R reconmapper:reconmapper .yarn
-
-COPY --chown=reconmapper:reconmapper package.json yarn.lock .yarnrc.yml ./
+COPY --chown=reconmapper:reconmapper package.json package-lock.json ./
 COPY --chown=reconmapper:reconmapper packages ./packages
-COPY --chown=reconmapper:reconmapper .yarn/releases/ ./.yarn/releases/
 
-RUN yarn install && \
-    yarn workspace @reconmap/native-components run build && \
-    yarn workspace @reconmap/app run build
+RUN npm install && \
+    npm run build -w @reconmap/native-components && \
+    npm run build -w @reconmap/app
 
 FROM nginx:stable
 

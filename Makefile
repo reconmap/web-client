@@ -26,8 +26,8 @@ GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
 prepare: base-container
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint yarn $(DOCKER_DEV_TAG) add npm-check-updates
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint yarn $(DOCKER_DEV_TAG) install
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) add npm-check-updates
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install
 
 .PHONY: base-container
 base-container:
@@ -47,31 +47,38 @@ start:
 		-p 5500:5500 \
 		-e VITE_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
-		--entrypoint yarn \
+		--entrypoint npm \
 		--name $(DOCKER_CONTAINER_NAME) \
-		$(DOCKER_DEV_TAG) workspace @reconmap/app start
+		$(DOCKER_DEV_TAG) run start -w @reconmap/app
 
 .PHONY: stop
 stop:
 	docker stop $(DOCKER_CONTAINER_NAME) || true
 
+.PHONE: lint
+lint:
+	docker run -u $(CONTAINER_UID_GID) --rm \
+		-v $(PWD):/home/reconmapper \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/config.json \
+		--entrypoint npm $(DOCKER_DEV_TAG) run lint -w @reconmap/app
+	docker run -u $(CONTAINER_UID_GID) --rm \
+		-v $(PWD):/home/reconmapper \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/config.json \
+		--entrypoint npx $(DOCKER_DEV_TAG) stylelint "**/*.css"
+
 .PHONY: tests
-tests:
+tests: lint
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
-		--entrypoint yarn $(DOCKER_DEV_TAG) workspace @reconmap/app test
-	docker run -u $(CONTAINER_UID_GID) --rm -it \
-		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/config.json \
-		--entrypoint npx $(DOCKER_DEV_TAG) npx stylelint "**/*.css"
+		--entrypoint npm $(DOCKER_DEV_TAG) run test -w @reconmap/app
 
 .PHONY: tests-ci
 tests-ci:
 	docker run -u $(CONTAINER_UID_GID) --rm -t \
 		-v $(PWD):/home/reconmapper \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
-		--entrypoint yarn -e CI=true $(DOCKER_DEV_TAG) test:ci
+		--entrypoint npm -e CI=true $(DOCKER_DEV_TAG) run test:ci -w @reconmap/app
 
 .PHONY: clean
 clean: stop

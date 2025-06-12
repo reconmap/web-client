@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "../../services/api.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
-import Title from "../ui/Title.js";
+import Title from "../ui/Title.jsx";
 import CommandUsageForm from "./UsageForm.jsx";
 
 const AddCommandUsagePage = () => {

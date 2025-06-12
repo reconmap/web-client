@@ -3,8 +3,8 @@ import { CommandUsage } from "models/CommandUsage.js";
 import parseArguments, { CommandArgumentsMap } from "./commands/arguments.js";
 
 const HostCommandLineGenerator = {
-    generateEntryPoint: (projectId: number, command: CommandUsage) => {
-        return command.executable_path;
+    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage) => {
+        return usage.executable_path;
     },
 
     renderArguments: (projectId: number, command: CommandUsage, commandArgs: any = null) => {
@@ -16,7 +16,7 @@ const HostCommandLineGenerator = {
 
         commandArgsRendered = command.arguments ?? "";
         Object.keys(commandArgs).forEach((key) => {
-            let containerArg = commandArgs[key];
+            const containerArg = commandArgs[key];
             commandArgsRendered = commandArgsRendered.replace(
                 new RegExp(`{{{${containerArg.name}\\|\\|\\|.*?}}}`),
                 containerArg.placeholder,
@@ -28,13 +28,13 @@ const HostCommandLineGenerator = {
 };
 
 const RmapCommandLineGenerator = {
-    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage, task = null) => {
-        let commandParts = ["rmap", "command run"];
+    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage) => {
+        const commandParts = ["rmap", "command run"];
         if (projectId !== null) {
             commandParts.push(`-pid ${projectId}`);
         }
         commandParts.push(`-cuid ${usage.id}`);
-        let entryPoint = commandParts.join(" ");
+        const entryPoint = commandParts.join(" ");
 
         return entryPoint;
     },
@@ -43,7 +43,7 @@ const RmapCommandLineGenerator = {
         let commandArgsRendered = "";
 
         Object.keys(commandArgs).forEach((key) => {
-            let containerArg = commandArgs[key];
+            const containerArg = commandArgs[key];
             commandArgsRendered += ` -var ${containerArg.name}=${containerArg.placeholder}`;
         });
 

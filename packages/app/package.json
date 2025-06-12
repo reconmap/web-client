@@ -4,7 +4,7 @@
   "type": "module",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@reconmap/native-components": "workspace:^",
+    "@reconmap/native-components": "0.0.0",
     "@types/node": "^22.15.30",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
@@ -31,7 +31,7 @@
     "remark-gfm": "^4.0.1",
     "typescript": "^5.8.3",
     "ua-parser-js": "^2.0.3",
-    "xterm": "^5.3.0"
+    "@xterm/xterm": "^5.3.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -58,7 +58,7 @@
     "vitest": "^3.2.3"
   },
   "scripts": {
-    "lint": "eslint . --ext .js",
+    "lint": "npx eslint . --ext .js",
     "start": "VITE_VERSION=$npm_package_version PORT=5500 BROWSER=none vite",
     "build": "VITE_VERSION=$npm_package_version tsc && vite build",
     "test": "vitest run",
@@ -78,6 +78,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "packageManager": "yarn@4.5.1"
+  }
 }

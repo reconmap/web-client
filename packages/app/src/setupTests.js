@@ -6,4 +6,3 @@ import "@testing-library/jest-dom/vitest";
 import configJson from "../public/config";
 
 window.env = configJson;
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;

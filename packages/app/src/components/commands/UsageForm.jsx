@@ -1,4 +1,4 @@
-import HorizontalLabelledField from "components/form/HorizontalLabelledField.js";
+import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";

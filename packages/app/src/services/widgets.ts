@@ -8,7 +8,7 @@ const widgetIsVisible = (widgetConfig: WidgetConfig | null, widgetId: string): b
     if (widgetConfig === null) {
         return true;
     }
-    return widgetConfig.hasOwnProperty(widgetId) ? widgetConfig[widgetId].visible : true;
+    return Object.prototype.hasOwnProperty.call(widgetConfig, widgetId) ? widgetConfig[widgetId].visible : true;
 };
 
 export default widgetIsVisible;

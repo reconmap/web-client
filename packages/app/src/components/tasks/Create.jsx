@@ -1,5 +1,5 @@
 import { actionCompletedToast } from "components/ui/toast";
-import { errorToast } from "components/ui/toast.js";
+import { errorToast } from "components/ui/toast.jsx";
 import useQuery from "hooks/useQuery";
 import Task from "models/Task";
 import { useRef, useState } from "react";

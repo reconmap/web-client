@@ -1,4 +1,4 @@
-import CssIcon from "./CssIcon.js";
+import CssIcon from "./CssIcon.jsx";
 import "./Tooltip.module.css";
 
 const Tooltip = ({ text, position = "top" }) => {

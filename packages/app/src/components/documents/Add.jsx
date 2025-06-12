@@ -1,5 +1,5 @@
 import { actionCompletedToast } from "components/ui/toast";
-import { errorToast } from "components/ui/toast.js";
+import { errorToast } from "components/ui/toast.jsx";
 import Document from "models/Document";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";

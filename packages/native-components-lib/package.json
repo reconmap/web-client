@@ -1,5 +1,6 @@
 {
   "name": "@reconmap/native-components",
+  "version": "0.0.0",
   "type": "module",
   "main": "dist/reconmap-native-components.umd.js",
   "types": "dist/index.d.ts",
@@ -20,6 +21,5 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite"
-  },
-  "packageManager": "yarn@4.5.1"
+  }
 }

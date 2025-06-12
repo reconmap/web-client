@@ -1,8 +1,8 @@
+import { Terminal } from "@xterm/xterm";
+import "@xterm/xterm/css/xterm.css";
 import Configuration from "Configuration";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useRef, useState } from "react";
-import { Terminal } from "xterm";
-import "xterm/css/xterm.css";
 
 const arrayBufferToString = (buf) => {
     return String.fromCharCode.apply(null, new Uint8Array(buf));
