@@ -10,7 +10,7 @@ export default defineConfig({
     ],
     build: {
         lib: {
-            entry: "src/index.ts",
+            entry: "src/index.jsx",
             name: "@reconmap/native-components",
             fileName: (format) => `reconmap-native-components.${format}.js`,
         },

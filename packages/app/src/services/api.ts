@@ -1,11 +1,11 @@
-import { errorToast } from "components/ui/toast";
-import Configuration from "../Configuration";
-import Auth from "./auth";
+import { errorToast } from "components/ui/toast.jsx";
+import Configuration from "Configuration.js";
+import Auth from "./auth.js";
 
 function resetSessionStorageAndRedirect() {
     Auth.removeSession();
 
-    window.location = Configuration.getContextPath();
+    window.location.assign(Configuration.getContextPath());
 }
 
 function buildApiRequest(url: string, init: Record<string, any> = {}): Request {
