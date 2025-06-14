@@ -3,6 +3,7 @@ import { ServerIssuesUrl } from "ServerUrls";
 import NativeTextArea from "components/form/NativeTextArea";
 import ExternalLink from "components/ui/ExternalLink";
 import PrimaryButton from "components/ui/buttons/Primary";
+import { actionCompletedToast, errorToast } from "components/ui/toast.jsx";
 import { AuthContext } from "contexts/AuthContext";
 import { useContext } from "react";
 
@@ -34,24 +35,18 @@ Keycloak URL: ${Configuration.getKeycloakConfig().url}
     const onCopyToClipboardClick = (ev) => {
         ev.preventDefault();
 
-        navigator.clipboard.writeText(systemInfo).then(
-            () => {
-                ev.target.innerText = "Copied!";
-            },
-            () => {
-                ev.target.innerText = "Unable to copy.";
-            },
-        );
-
-        const target = ev.target;
-
-        setInterval(() => {
-            target.innerText = "Copy to clipboard";
-        }, 2000);
+        navigator.clipboard
+            .writeText(systemInfo)
+            .then(() => {
+                actionCompletedToast("Support info copied to the clipboard");
+            })
+            .catch((err) => {
+                errorToast(err);
+            });
     };
 
     return (
-        <div>
+        <div className="content">
             <h2>Support information</h2>
 
             <p>

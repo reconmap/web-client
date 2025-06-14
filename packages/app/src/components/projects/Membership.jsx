@@ -63,7 +63,7 @@ const ProjectMembership = () => {
             {availableUsers.length > 0 ? (
                 <form>
                     <label>
-                        Select user
+                        <h4 className="title is-4">Select user</h4>
                         <NativeSelect id="userId">
                             {availableUsers &&
                                 availableUsers.map((user, index) => (

@@ -59,17 +59,21 @@ const ProjectDetailsTab = ({ project }) => {
                     {!isTemplate && (
                         <>
                             <dt>External ID</dt>
-                            <dd>{project.external_id}</dd>
+                            <dd>{project.external_id ?? "(none)"}</dd>
                         </>
                     )}
                 </dl>
 
-                <h4 style={{ marginTop: 20 }}>Stats</h4>
+                {!isTemplate && (
+                    <>
+                        <h4 style={{ marginTop: 20 }}>Stats</h4>
 
-                <div>
-                    <VulnerabilitiesByRiskStatsWidget projectId={project.id} />
-                    <VulnerabilitiesByCategoryStatsWidget projectId={project.id} />
-                </div>
+                        <div>
+                            <VulnerabilitiesByRiskStatsWidget projectId={project.id} />
+                            <VulnerabilitiesByCategoryStatsWidget projectId={project.id} />
+                        </div>
+                    </>
+                )}
             </div>
 
             <div className="column content">

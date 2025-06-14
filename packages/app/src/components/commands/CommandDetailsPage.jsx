@@ -1,7 +1,6 @@
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
-import CommandTerminal from "components/ui/CommandTerminal";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
 import Tags from "components/ui/Tags";
@@ -9,8 +8,7 @@ import TimestampsSection from "components/ui/TimestampsSection";
 import Title from "components/ui/Title";
 import LinkButton from "components/ui/buttons/Link";
 import UserLink from "components/users/Link";
-import { WebsocketContext } from "contexts/WebsocketContext.jsx";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -26,8 +24,6 @@ import ScheduledRuns from "./ScheduledRuns.jsx";
 
 const CommandDetailsPage = () => {
     const [t] = useTranslation();
-
-    const wsContextData = useContext(WebsocketContext);
 
     const { commandId } = useParams();
     const navigate = useNavigate();
@@ -76,14 +72,7 @@ const CommandDetailsPage = () => {
                 </div>
 
                 <NativeTabs
-                    labels={[
-                        t("Details"),
-                        t("Usages"),
-                        "Run instructions",
-                        "Scheduled runs",
-                        "Command outputs",
-                        "Terminal",
-                    ]}
+                    labels={[t("Details"), t("Usages"), "Run instructions", "Scheduled runs", "Command outputs"]}
                     tabIndex={tabIndex}
                     tabIndexSetter={tabIndexSetter}
                 />
@@ -186,20 +175,6 @@ const CommandDetailsPage = () => {
                         {4 === tabIndex && (
                             <div>
                                 <CommandOutputs command={command} />
-                            </div>
-                        )}
-                        {5 === tabIndex && (
-                            <div>
-                                {wsContextData.connection.readyState === WebSocket.OPEN ? (
-                                    <CommandTerminal commands={[]} />
-                                ) : (
-                                    <article className="message is-danger">
-                                        <div className="message-body">
-                                            <strong>Unable to establish connection to the Reconmap agent.</strong>{" "}
-                                            Please review the web socket connection settings.
-                                        </div>
-                                    </article>
-                                )}
                             </div>
                         )}
                     </div>

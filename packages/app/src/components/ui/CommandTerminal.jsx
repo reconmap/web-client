@@ -1,8 +1,11 @@
+import { FitAddon } from "@xterm/addon-fit";
 import { Terminal } from "@xterm/xterm";
 import "@xterm/xterm/css/xterm.css";
 import Configuration from "Configuration";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useRef, useState } from "react";
+
+const textEncoder = new TextEncoder();
 
 const arrayBufferToString = (buf) => {
     return String.fromCharCode.apply(null, new Uint8Array(buf));
@@ -14,13 +17,13 @@ const CommandTerminal = ({ commands }) => {
     const { user } = useAuth();
 
     useEffect(() => {
-        const textEncoder = new TextEncoder();
-
         const term = new Terminal({
             screenKeys: true,
             useStyle: true,
             cursorBlink: true,
         });
+        const fitAddon = new FitAddon();
+        term.loadAddon(fitAddon);
         term.open(terminalEl.current);
 
         let retryHandle = null;
@@ -49,6 +52,7 @@ const CommandTerminal = ({ commands }) => {
                     webSocket.send(textEncoder.encode("\x00" + command + "\r\n"));
                 });
 
+                fitAddon.fit();
                 term.focus();
             };
 

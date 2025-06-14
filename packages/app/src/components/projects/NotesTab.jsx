@@ -29,19 +29,18 @@ const ProjectNotesTab = ({ project }) => {
 
     return (
         <section>
-            <h4>
-                Project comments
-                <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                    <NoteModalDialog
-                        parentType="project"
-                        parent={project}
-                        isOpen={isOpen}
-                        onClose={onNoteFormSaved}
-                        onCancel={closeDialog}
-                    />
-                    <CreateButton onClick={openDialog}>Add note...</CreateButton>
-                </RestrictedComponent>
-            </h4>
+            <h4 className="title is-4">Project comments</h4>
+            <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                <NoteModalDialog
+                    parentType="project"
+                    parent={project}
+                    isOpen={isOpen}
+                    onClose={onNoteFormSaved}
+                    onCancel={closeDialog}
+                />
+                <CreateButton onClick={openDialog}>Add comment...</CreateButton>
+            </RestrictedComponent>
+
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
         </section>
     );

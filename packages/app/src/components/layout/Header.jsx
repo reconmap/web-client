@@ -1,5 +1,6 @@
 import OrganisationsUrls from "components/clients/OrganisationsUrls";
 import SearchUrls from "components/search/SearchUrls";
+import { ToolsUrls } from "components/tools/Routes.jsx";
 import ExternalLink from "components/ui/ExternalLink";
 import Configuration from "Configuration";
 import { AuthContext } from "contexts/AuthContext";
@@ -23,10 +24,18 @@ const MenuLinks = [
         name: t("Library"),
         items: [
             { name: t("Commands"), url: "/commands", permissions: "commands.*" },
-            { name: t("Vulnerabilities"), url: "/vulnerabilities", permissions: "commands.*" },
+            { name: t("Findings"), url: "/vulnerabilities", permissions: "commands.*" },
             { name: t("Documents"), url: "/documents", permissions: "documents.*" },
             null,
             { name: t("Search"), url: SearchUrls.AdvancedSearch },
+        ],
+    },
+    {
+        name: t("Tools"),
+        items: [
+            { name: t("Password generator"), url: ToolsUrls.PasswordGenerator, permissions: "commands.*" },
+            null,
+            { name: t("Agent terminal"), url: ToolsUrls.Terminal, permissions: "commands.*" },
         ],
     },
     {

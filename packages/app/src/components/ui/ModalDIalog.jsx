@@ -9,7 +9,7 @@ const ModalDialog = ({ title, children, visible, onModalClose, style = {} }) => 
     };
 
     const isClickInsideRectangle = (ev, element) => {
-        if (ev.target.nodeName === "OPTION") return true;
+        if (["OPTION", "SELECT"].includes(ev.target.nodeName)) return true;
 
         const r = element.getBoundingClientRect();
 

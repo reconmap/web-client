@@ -2,6 +2,7 @@ import Compose from "components/Compose";
 import DashboardRoutes from "components/layout/dashboard/Routes";
 import NotificationsRoutes from "components/notifications/Routes";
 import SettingsRoutes from "components/settings/Routes";
+import ToolsRoutes from "components/tools/Routes.jsx";
 import WebsocketProvider from "contexts/WebsocketContext";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -47,6 +48,7 @@ const App = () => {
                             ...SystemRoutes,
                             ...TargetRoutes,
                             ...TasksRoutes,
+                            ...ToolsRoutes,
                             ...UsersRoutes,
                             ...VulnerabilitiesRoutes,
                         ].map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))}

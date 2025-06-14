@@ -72,6 +72,7 @@ const TargetView = () => {
                 <Breadcrumb>
                     <Link to="/projects">Projects</Link>
                     {savedProject && <Link to={`/projects/${savedProject.id}`}>{savedProject.name}</Link>}
+                    <a>{target.name}</a>
                 </Breadcrumb>
                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                     <DeleteButton onClick={handleDelete} />
@@ -79,7 +80,7 @@ const TargetView = () => {
             </div>
             <article>
                 <div className="content">
-                    <Title type="Target" title={target.name} />
+                    <Title type="Asset" title={target.name} />
 
                     <div className="grid grid-two">
                         <div>
@@ -92,7 +93,7 @@ const TargetView = () => {
                         </div>
                     </div>
 
-                    <h4>Vulnerabilities</h4>
+                    <h4>Findings</h4>
                     <VulnerabilitiesTable
                         tableModel={tableModel}
                         tableModelSetter={setTableModel}

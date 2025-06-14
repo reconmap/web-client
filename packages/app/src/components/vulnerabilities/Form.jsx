@@ -236,22 +236,19 @@ const VulnerabilityForm = ({
                     }
                 />
 
-                <label>
-                    Description
-                    <MarkdownEditor
-                        name="description"
-                        value={vulnerability.description || ""}
-                        onChange={onFormChange}
-                    />
-                </label>
-                <label>
-                    External references
-                    <MarkdownEditor
-                        name="external_refs"
-                        value={vulnerability.external_refs || ""}
-                        onChange={onFormChange}
-                    />
-                </label>
+                <HorizontalLabelledField
+                    label="Description"
+                    htmlFor="description"
+                    control={
+                        <MarkdownEditor
+                            id="description"
+                            name="description"
+                            value={vulnerability.description || ""}
+                            onChange={onFormChange}
+                        />
+                    }
+                />
+
                 <HorizontalLabelledField
                     label="Category"
                     htmlFor="categoryId"
@@ -352,6 +349,60 @@ const VulnerabilityForm = ({
                         />
                     }
                 />
+                {!vulnerability.is_template && (
+                    <fieldset>
+                        <legend>Relations</legend>
+                        <HorizontalLabelledField
+                            label="Project"
+                            htmlFor="projectId"
+                            control={
+                                <NativeSelect
+                                    id="projectId"
+                                    name="project_id"
+                                    value={vulnerability.project_id || ""}
+                                    onChange={onFormChange}
+                                    required
+                                >
+                                    {projects &&
+                                        projects.map((project, index) => (
+                                            <option key={index} value={project.id}>
+                                                {project.name}
+                                            </option>
+                                        ))}
+                                </NativeSelect>
+                            }
+                        />
+
+                        <HorizontalLabelledField
+                            label="Affected asset"
+                            htmlFor="targetId"
+                            control={
+                                <NativeSelect
+                                    name="target_id"
+                                    value={vulnerability.target_id || ""}
+                                    onChange={onFormChange}
+                                >
+                                    <option value="0">(none)</option>
+                                    {targets &&
+                                        targets.map((target, index) => (
+                                            <option key={index} value={target.id}>
+                                                {target.name}
+                                            </option>
+                                        ))}
+                                </NativeSelect>
+                            }
+                        />
+                    </fieldset>
+                )}
+
+                <label>
+                    External references
+                    <MarkdownEditor
+                        name="external_refs"
+                        value={vulnerability.external_refs || ""}
+                        onChange={onFormChange}
+                    />
+                </label>
 
                 <label>
                     Proof of concept
@@ -407,84 +458,54 @@ const VulnerabilityForm = ({
 
             <fieldset>
                 <legend>Remediation</legend>
-                <label>
-                    Remediation instructions
-                    <MarkdownEditor
-                        name="remediation"
-                        value={vulnerability.remediation || ""}
-                        onChange={onFormChange}
-                    />
-                </label>
-                <label>
-                    Remediation complexity
-                    <NativeSelect
-                        name="remediation_complexity"
-                        value={vulnerability.remediation_complexity || ""}
-                        onChange={onFormChange}
-                        required
-                    >
-                        {RemediationComplexity.map((complexity) => (
-                            <option key={complexity.id} value={complexity.id}>
-                                {complexity.name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </label>
-                <label>
-                    Remediation priority
-                    <NativeSelect
-                        name="remediation_priority"
-                        value={vulnerability.remediation_priority || ""}
-                        onChange={onFormChange}
-                        required
-                    >
-                        {RemediationPriority.map((priority) => (
-                            <option key={priority.id} value={priority.id}>
-                                {priority.name}
-                            </option>
-                        ))}
-                    </NativeSelect>
-                </label>
-            </fieldset>
 
-            {!vulnerability.is_template && (
-                <fieldset>
-                    <legend>Relations</legend>
-                    <HorizontalLabelledField
-                        label="Project"
-                        htmlFor="projectId"
-                        control={
-                            <NativeSelect
-                                id="projectId"
-                                name="project_id"
-                                value={vulnerability.project_id || ""}
-                                onChange={onFormChange}
-                                required
-                            >
-                                {projects &&
-                                    projects.map((project, index) => (
-                                        <option key={index} value={project.id}>
-                                            {project.name}
-                                        </option>
-                                    ))}
-                            </NativeSelect>
-                        }
-                    />
+                <HorizontalLabelledField
+                    label="Remediation instructions"
+                    control={
+                        <MarkdownEditor
+                            name="remediation"
+                            value={vulnerability.remediation || ""}
+                            onChange={onFormChange}
+                        />
+                    }
+                />
 
-                    <label>
-                        Affected target
-                        <NativeSelect name="target_id" value={vulnerability.target_id || ""} onChange={onFormChange}>
-                            <option value="0">(none)</option>
-                            {targets &&
-                                targets.map((target, index) => (
-                                    <option key={index} value={target.id}>
-                                        {target.name}
-                                    </option>
-                                ))}
+                <HorizontalLabelledField
+                    label="Remediation complexity"
+                    control={
+                        <NativeSelect
+                            name="remediation_complexity"
+                            value={vulnerability.remediation_complexity || ""}
+                            onChange={onFormChange}
+                            required
+                        >
+                            {RemediationComplexity.map((complexity) => (
+                                <option key={complexity.id} value={complexity.id}>
+                                    {complexity.name}
+                                </option>
+                            ))}
                         </NativeSelect>
-                    </label>
-                </fieldset>
-            )}
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Remediation priority"
+                    control={
+                        <NativeSelect
+                            name="remediation_priority"
+                            value={vulnerability.remediation_priority || ""}
+                            onChange={onFormChange}
+                            required
+                        >
+                            {RemediationPriority.map((priority) => (
+                                <option key={priority.id} value={priority.id}>
+                                    {priority.name}
+                                </option>
+                            ))}
+                        </NativeSelect>
+                    }
+                />
+            </fieldset>
 
             {customFields && <DynamicForm fields={customFields} />}
 

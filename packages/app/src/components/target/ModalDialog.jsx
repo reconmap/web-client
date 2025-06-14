@@ -43,7 +43,7 @@ const TargetModalDialog = ({ project, isOpen, onSubmit, onCancel }) => {
                 <>
                     <h4>
                         <TargetIcon style={{ width: "20px", marginRight: "5px" }} />
-                        New target details
+                        New asset details
                     </h4>
                 </>
             }

@@ -62,22 +62,20 @@ const ProjectTargets = ({ project }) => {
 
     return (
         <section>
-            <h4>
-                Targets
-                {!project.archived && (
-                    <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                        <NativeButtonGroup>
-                            <TargetModalDialog
-                                project={project}
-                                isOpen={isAddTargetDialogOpen}
-                                onSubmit={onTargetFormSaved}
-                                onCancel={closeAddTargetDialog}
-                            />
-                            <CreateButton onClick={openAddTargetDialog}>Add target...</CreateButton>
-                        </NativeButtonGroup>
-                    </RestrictedComponent>
-                )}
-            </h4>
+            <h4 className="title is=4">Assets</h4>
+            {!project.archived && (
+                <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                    <NativeButtonGroup>
+                        <TargetModalDialog
+                            project={project}
+                            isOpen={isAddTargetDialogOpen}
+                            onSubmit={onTargetFormSaved}
+                            onCancel={closeAddTargetDialog}
+                        />
+                        <CreateButton onClick={openAddTargetDialog}>Add asset...</CreateButton>
+                    </NativeButtonGroup>
+                </RestrictedComponent>
+            )}
             {!targets ? (
                 <Loading />
             ) : (

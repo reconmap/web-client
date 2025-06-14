@@ -15,6 +15,7 @@ import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import UserLink from "components/users/Link";
 import Contact from "models/Contact";
+import OrganisationTypes from "models/OrganisationTypes.js";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -140,7 +141,8 @@ const ClientDetails = () => {
         <div>
             <div className="heading">
                 <Breadcrumb>
-                    <Link to="/clients">Clients</Link>
+                    <Link to={OrganisationsUrls.List}>Organisations</Link>
+                    <Link>{client.name}</Link>
                 </Breadcrumb>
                 <NativeButtonGroup>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
@@ -153,7 +155,7 @@ const ClientDetails = () => {
             </div>
             <article>
                 <div>
-                    <Title type="Client" title={client.name} />
+                    <Title type={OrganisationTypes[client.kind]} title={client.name} />
                 </div>
 
                 <div>
@@ -166,7 +168,7 @@ const ClientDetails = () => {
                         {0 === tabIndex && (
                             <div>
                                 <div className="grid grid-two">
-                                    <div>
+                                    <div className="content">
                                         <h4>Properties</h4>
 
                                         <dl>
