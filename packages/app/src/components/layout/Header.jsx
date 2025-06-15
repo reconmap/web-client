@@ -33,6 +33,7 @@ const MenuLinks = [
     {
         name: t("Tools"),
         items: [
+            { name: t("Vault"), url: ToolsUrls.Vault, permissions: "commands.*" },
             { name: t("Password generator"), url: ToolsUrls.PasswordGenerator, permissions: "commands.*" },
             null,
             { name: t("Agent terminal"), url: ToolsUrls.Terminal, permissions: "commands.*" },

@@ -150,10 +150,10 @@ const VaultItemEdit = () => {
                             name="password"
                             onChange={onPasswordFormChanged}
                             value={password || ""}
-                            autocomplete="off"
+                            autoComplete="off"
                             required
                         />
-                        <NativeButton type="submit">Decrypt</NativeButton>
+                        <NativeButton type="submit">Unprotect</NativeButton>
                     </form>
                 </>
             )}

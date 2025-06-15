@@ -21,7 +21,7 @@ const ProjectsRoutes = [
         <Route path={`:projectId/tasks/create`} element={<TaskCreationPage />} />,
         <Route path={`:projectId`} element={<ProjectDetails />} />,
     </Route>,
-    <Route path={`/vault/:projectId/:vaultItemId/edit`} element={<VaultItemEdit />} />,
+    <Route path={`/vault/:vaultItemId/edit`} element={<VaultItemEdit />} />,
 ];
 
 export default ProjectsRoutes;
