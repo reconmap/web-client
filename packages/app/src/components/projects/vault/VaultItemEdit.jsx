@@ -4,12 +4,11 @@ import NativeSelect from "components/form/NativeSelect";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import Vault from "models/Vault";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 
 const VaultItemEdit = () => {
-    const { projectId, vaultItemId } = useParams();
-    const navigate = useNavigate();
+    const { vaultItemId } = useParams();
 
     const [item, setVaultItem] = useState({ ...Vault });
     const [password, setPassword] = useState(null);
@@ -24,26 +23,21 @@ const VaultItemEdit = () => {
 
         item.password = password;
 
-        secureApiFetch(`/vault/${projectId}/${vaultItemId}`, { method: "PUT", body: JSON.stringify(item) }).then(
-            (resp) => {
-                if (resp.status === 201) {
-                    setVaultItem({ ...Vault });
-                    setPassword(null);
-                    actionCompletedToast(`The vault item has been modified.`);
-                    navigate(`/projects/${projectId}`);
-                } else {
-                    errorToast(
-                        "The vault item could not be saved. Review the form data or check the application logs.",
-                    );
-                }
-            },
-        );
+        secureApiFetch(`/vault/${vaultItemId}`, { method: "PUT", body: JSON.stringify(item) }).then((resp) => {
+            if (resp.status === 201) {
+                setVaultItem({ ...Vault });
+                setPassword(null);
+                actionCompletedToast(`The vault item has been modified.`);
+            } else {
+                errorToast("The vault item could not be saved. Review the form data or check the application logs.");
+            }
+        });
     };
 
     const onPasswordProvided = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/vault/${projectId}/${vaultItemId}`, {
+        secureApiFetch(`/vault/${vaultItemId}`, {
             method: "POST",
             body: JSON.stringify({ password: password }),
         })
@@ -64,9 +58,6 @@ const VaultItemEdit = () => {
             })
             .catch((err) => {
                 errorToast(err.message);
-                setPassword(null);
-            })
-            .finally(() => {
                 setPassword(null);
             });
     };

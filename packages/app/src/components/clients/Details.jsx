@@ -95,9 +95,13 @@ const ClientDetails = () => {
 
     const onContactDelete = (contactId) => {
         secureApiFetch(`/contacts/${contactId}`, { method: "DELETE" })
-            .then(() => {
-                fetchContacts();
-                actionCompletedToast("The contact has been deleted.");
+            .then((resp) => {
+                if (resp.ok) {
+                    fetchContacts();
+                    actionCompletedToast("The contact has been deleted.");
+                } else {
+                    errorToast("Unable to delete contact");
+                }
             })
             .catch((err) => console.error(err));
     };

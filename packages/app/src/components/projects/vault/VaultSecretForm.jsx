@@ -1,6 +1,7 @@
-import NativeButton from "components/form/NativeButton.jsx";
+import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeInput from "components/form/NativeInput.jsx";
 import NativeSelect from "components/form/NativeSelect.jsx";
+import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import { actionCompletedToast } from "components/ui/toast.jsx";
 import Vault from "models/Vault.js";
 import { useState } from "react";
@@ -34,93 +35,114 @@ const VaultSecretForm = ({ projectId = null, onSubmit = null }) => {
 
     return (
         <form onSubmit={onFormSubmit}>
-            <h3>New vault secret</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>URL</th>
-                        <th>Expiration date</th>
-                        <th>Note</th>
-                        <th>Protection password</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <NativeSelect
-                                name="type"
-                                onChange={onVaultItemFormChange}
-                                value={vaultItem.type || ""}
-                                required
-                            >
-                                <option value="password">Password</option>
-                                <option value="note">Note</option>
-                                <option value="token">Token</option>
-                                <option value="key">Key</option>
-                            </NativeSelect>
-                        </td>
-                        <td>
-                            <NativeInput
-                                type="text"
-                                name="name"
-                                onChange={onVaultItemFormChange}
-                                value={vaultItem.name || ""}
-                                required
-                            />
-                        </td>
-                        <td>
-                            <NativeInput
-                                type="text"
-                                name="value"
-                                onChange={onVaultItemFormChange}
-                                value={vaultItem.value || ""}
-                                required
-                            />
-                        </td>
-                        <td>
-                            <NativeInput
-                                type="url"
-                                name="url"
-                                onChange={onVaultItemFormChange}
-                                value={vaultItem.url || ""}
-                            />
-                        </td>
-                        <td>
-                            <NativeInput
-                                type="date"
-                                name="expiration_date"
-                                onChange={onVaultItemFormChange}
-                                value={vaultItem.expiration_date || ""}
-                            />
-                        </td>
-                        <td>
-                            <NativeInput
-                                type="text"
-                                name="note"
-                                onChange={onVaultItemFormChange}
-                                value={vaultItem.note || ""}
-                            />
-                        </td>
-                        <td>
-                            <NativeInput
-                                type="password"
-                                name="password"
-                                onChange={onVaultItemFormChange}
-                                value={vaultItem.password || ""}
-                                autoComplete="off"
-                                required
-                            />
-                        </td>
-                        <td>
-                            <NativeButton type="submit">Add</NativeButton>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <details>
+                <summary>New vault secret</summary>
+
+                <HorizontalLabelledField
+                    label="Type"
+                    htmlFor="type"
+                    control={
+                        <NativeSelect
+                            id="type"
+                            name="type"
+                            onChange={onVaultItemFormChange}
+                            value={vaultItem.type || ""}
+                            required
+                        >
+                            <option value="password">Password</option>
+                            <option value="note">Note</option>
+                            <option value="token">Token</option>
+                            <option value="key">Key</option>
+                        </NativeSelect>
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Name"
+                    htmlFor="name"
+                    control={
+                        <NativeInput
+                            type="text"
+                            id="name"
+                            name="name"
+                            onChange={onVaultItemFormChange}
+                            value={vaultItem.name || ""}
+                            required
+                        />
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Value"
+                    htmlFor="value"
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="value"
+                            onChange={onVaultItemFormChange}
+                            value={vaultItem.value || ""}
+                            required
+                        />
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="URL"
+                    htmlFor="url"
+                    control={
+                        <NativeInput
+                            type="url"
+                            id="url"
+                            name="url"
+                            onChange={onVaultItemFormChange}
+                            value={vaultItem.url || ""}
+                        />
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Expiration date"
+                    htmlFor="expirationDate"
+                    control={
+                        <NativeInput
+                            type="date"
+                            name="expiration_date"
+                            onChange={onVaultItemFormChange}
+                            value={vaultItem.expiration_date || ""}
+                        />
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Note"
+                    htmlFor="note"
+                    control={
+                        <NativeInput
+                            type="text"
+                            name="note"
+                            onChange={onVaultItemFormChange}
+                            value={vaultItem.note || ""}
+                        />
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Protection password"
+                    htmlFor="password"
+                    control={
+                        <NativeInput
+                            type="password"
+                            name="password"
+                            onChange={onVaultItemFormChange}
+                            value={vaultItem.password || ""}
+                            autoComplete="off"
+                            required
+                        />
+                    }
+                />
+
+                <PrimaryButton type="submit">Add</PrimaryButton>
+            </details>
         </form>
     );
 };
