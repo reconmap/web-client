@@ -1,12 +1,16 @@
-import { actionCompletedToast, errorToast } from '../components/ui/toast';
-import secureApiFetch from '../services/api';
+import { actionCompletedToast, errorToast } from "../components/ui/toast.jsx";
+import secureApiFetch from "../services/api.js";
 
-const useDelete = (endpoint, successCallback = null, confirmationMessage = `Do you really want to delete this item?`, deleteMessage = 'The item has been deleted.') => {
-
-    return async (id) => {
+const useDelete = (
+    endpoint: string,
+    successCallback: (() => void) | null = null,
+    confirmationMessage = `Do you really want to delete this item?`,
+    deleteMessage = "The item has been deleted.",
+) => {
+    return async (id: number) => {
         if (window.confirm(confirmationMessage)) {
             try {
-                const response = await secureApiFetch(`${endpoint}${id}`, { method: 'DELETE' })
+                const response = await secureApiFetch(`${endpoint}${id}`, { method: "DELETE" });
                 if (response.ok) {
                     if (successCallback) {
                         successCallback();
@@ -18,12 +22,12 @@ const useDelete = (endpoint, successCallback = null, confirmationMessage = `Do y
                 errorToast(response.statusText);
                 return false;
             } catch (err) {
-                console.error(err)
+                console.error(err);
             }
         } else {
             return false;
         }
     };
-}
+};
 
 export default useDelete;

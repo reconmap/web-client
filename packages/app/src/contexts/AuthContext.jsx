@@ -28,7 +28,7 @@ function useAuth() {
                 localStorage.setItem("isAuth", true);
                 localStorage.setItem("user", JSON.stringify(data));
 
-                setUser(Auth.getLoggedInUser());
+                setUser({ id: data.id, ...Auth.getLoggedInUser() });
 
                 setTheme(data.preferences["web-client.theme"]);
                 i18n.changeLanguage(data.preferences["web-client.language"]);
