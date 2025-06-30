@@ -1,3 +1,4 @@
+import UserPermissions from "components/users/Permissions.js";
 import Configuration from "Configuration.js";
 import Keycloak from "keycloak-js";
 
@@ -23,15 +24,33 @@ const login = (onLoginSuccess: Function, onLoginFailure: Function) => {
         })
         .catch((err: any) => {
             console.error(err);
-            onLoginFailure();
+            onLoginFailure(err);
         });
+};
+
+const getUserInfo = () => {
+    const kcInstance = keycloak;
+    if (kcInstance.authenticated) {
+        const role = kcInstance?.resourceAccess?.["web-client"]?.roles?.[0];
+
+        const user = {
+            full_name: kcInstance?.tokenParsed?.name,
+            access_token: kcInstance.token,
+            email: kcInstance?.tokenParsed?.email,
+            role: role,
+            permissions: role ? UserPermissions?.[role as keyof typeof UserPermissions] : undefined,
+        };
+
+        return user;
+    }
+    return null;
 };
 
 const KeyCloakService = {
     login: login,
     getUsername: () => keycloak.tokenParsed?.preferred_username,
+    getUserInfo: getUserInfo,
     logout: keycloak.logout,
-    IsAuthenticated: keycloak.authenticated,
     getInstance: () => keycloak,
     getProfileUrl: () => keycloak.createAccountUrl({ redirectUri: redirectionUrl }),
     redirectToAccountManagement: () => keycloak.accountManagement(),

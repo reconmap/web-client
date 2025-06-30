@@ -1,9 +1,8 @@
 import { useTheme } from "hooks/useTheme";
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Auth from "services/auth";
 import KeyCloakService from "services/keycloak";
-import { initialiseUserPreferences } from "services/userPreferences";
+import { memoryStore } from "utilities/memoryStore.js";
 import secureApiFetch from "../services/api";
 
 const AuthContext = createContext();
@@ -11,35 +10,11 @@ const AuthContext = createContext();
 function useAuth() {
     const { i18n } = useTranslation();
 
-    const [isAuth, setIsAuth] = useState(KeyCloakService.IsAuthenticated);
-    const [user, setUser] = useState(Auth.getLoggedInUser());
+    const [user, setUser] = useState(memoryStore.get("user"));
 
     const { setTheme } = useTheme();
 
-    const login = useCallback(() => {
-        return secureApiFetch(`/users/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
-                data.preferences = initialiseUserPreferences(data);
-
-                setUser({ id: data.id, ...Auth.getLoggedInUser() });
-
-                setTheme(data.preferences["web-client.theme"]);
-                i18n.changeLanguage(data.preferences["web-client.language"]);
-
-                setIsAuth(KeyCloakService.getInstance().authenticated);
-            })
-            .catch((err) => {
-                throw err;
-            });
-    }, [i18n]);
-
     const logout = () => {
-        setIsAuth(false);
-
         secureApiFetch(`/users/logout`, {
             method: "POST",
         }).finally(() => {
@@ -48,10 +23,14 @@ function useAuth() {
     };
 
     useEffect(() => {
-        login();
-    }, [login]);
+        if (!user.preferences) {
+            return;
+        }
+        setTheme(user.preferences["web-client.theme"]);
+        i18n.changeLanguage(user.preferences["web-client.language"]);
+    }, [user]);
 
-    return { user, isAuth, login, logout };
+    return { user, logout };
 }
 
 const AuthProvider = ({ children }) => {

@@ -1,12 +1,12 @@
 import Configuration from "Configuration.js";
-import Auth from "./auth.js";
+import KeyCloakService from "./keycloak.js";
 
 function resetSessionStorageAndRedirect() {
     window.location.assign(Configuration.getContextPath());
 }
 
 function buildApiRequest(url: string, init: Record<string, any> = {}): Request {
-    const user = Auth.getLoggedInUser();
+    const user = KeyCloakService.getUserInfo();
 
     const headers = user && user.access_token !== null ? { Authorization: "Bearer " + user.access_token } : {};
     const initWithAuth = init;
@@ -24,7 +24,7 @@ function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Re
     if ("undefined" === typeof init) {
         init = {};
     }
-    const user = Auth.getLoggedInUser();
+    const user = KeyCloakService.getUserInfo();
 
     const headers = user && user.access_token !== null ? { Authorization: "Bearer " + user.access_token } : {};
     const initWithAuth = init;
