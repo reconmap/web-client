@@ -2,10 +2,6 @@ import UserPermissions from "components/users/Permissions.js";
 import KeyCloakService from "./keycloak.js";
 
 const Auth = {
-    removeSession: () => {
-        localStorage.clear();
-    },
-
     getLoggedInUser: () => {
         const kcInstance = KeyCloakService.getInstance();
         if (kcInstance.authenticated) {

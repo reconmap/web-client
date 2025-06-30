@@ -2,8 +2,6 @@ import Configuration from "Configuration.js";
 import Auth from "./auth.js";
 
 function resetSessionStorageAndRedirect() {
-    Auth.removeSession();
-
     window.location.assign(Configuration.getContextPath());
 }
 

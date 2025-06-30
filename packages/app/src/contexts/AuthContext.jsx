@@ -25,9 +25,6 @@ function useAuth() {
             .then((data) => {
                 data.preferences = initialiseUserPreferences(data);
 
-                localStorage.setItem("isAuth", true);
-                localStorage.setItem("user", JSON.stringify(data));
-
                 setUser({ id: data.id, ...Auth.getLoggedInUser() });
 
                 setTheme(data.preferences["web-client.theme"]);
@@ -46,8 +43,6 @@ function useAuth() {
         secureApiFetch(`/users/logout`, {
             method: "POST",
         }).finally(() => {
-            Auth.removeSession();
-
             KeyCloakService.logout();
         });
     };

@@ -17,8 +17,9 @@ const login = (onLoginSuccess: Function, onLoginFailure: Function) => {
             messageReceiveTimeout: 2500,
         })
         .then((authenticated: boolean) => {
-            if (authenticated) onLoginSuccess();
-            else onLoginFailure();
+            if (authenticated) {
+                onLoginSuccess();
+            } else onLoginFailure();
         })
         .catch((err: any) => {
             console.error(err);
