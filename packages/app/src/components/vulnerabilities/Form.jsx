@@ -17,6 +17,19 @@ import Primary from "../ui/buttons/Primary";
 import CvssAbbr from "./CvssAbbr";
 import OwaspRR from "./OwaspRR";
 
+const tryParseTags = (tags) => {
+    if (!tags) return "";
+    try {
+        const parsed = JSON.parse(tags);
+        if (Array.isArray(parsed)) {
+            return parsed.join(", ");
+        }
+    } catch (e) {
+        console.error("Failed to parse tags:", e);
+    }
+    return tags;
+};
+
 const VulnerabilityForm = ({
     isEditForm = false,
     vulnerability,
@@ -345,7 +358,7 @@ const VulnerabilityForm = ({
                             name="tags"
                             type="text"
                             onChange={onFormChange}
-                            value={vulnerability.tags ? JSON.parse(vulnerability.tags).join(",") : ""}
+                            value={vulnerability.tags ? tryParseTags(vulnerability.tags) : ""}
                         />
                     }
                 />
