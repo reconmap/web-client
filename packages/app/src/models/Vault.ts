@@ -4,10 +4,13 @@ interface Vault {
 	id?: number;
 	insert_ts?: string;
 	update_ts?: string;
+	owner_uid?: number;
 	project_id?: number;
 	type: string | undefined;
 	name?: string;
 	value?: string;
+	url?: string;
+	expiration_date?: string;
 	note?: string;
 }
 
@@ -22,10 +25,13 @@ const defaultVault : Vault = {
 	id: undefined,
 	insert_ts: undefined,
 	update_ts: undefined,
+	owner_uid: undefined,
 	project_id: undefined,
 	type: 'password',
 	name: undefined,
 	value: undefined,
+	url: undefined,
+	expiration_date: undefined,
 	note: undefined,
 
 }

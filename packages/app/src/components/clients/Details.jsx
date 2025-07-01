@@ -29,6 +29,12 @@ import useFetch from "./../../hooks/useFetch";
 import Loading from "./../ui/Loading";
 import OrganisationsUrls from "./OrganisationsUrls";
 
+const ContactTypes = {
+    general: "General",
+    technical: "Technical",
+    billing: "Billing",
+};
+
 const ClientProjectsTab = ({ clientId }) => {
     const [projects] = useFetch(`/projects?clientId=${clientId}`);
 
@@ -95,9 +101,13 @@ const ClientDetails = () => {
 
     const onContactDelete = (contactId) => {
         secureApiFetch(`/contacts/${contactId}`, { method: "DELETE" })
-            .then(() => {
-                fetchContacts();
-                actionCompletedToast("The contact has been deleted.");
+            .then((resp) => {
+                if (resp.ok) {
+                    fetchContacts();
+                    actionCompletedToast("The contact has been deleted.");
+                } else {
+                    errorToast("Unable to delete contact");
+                }
             })
             .catch((err) => console.error(err));
     };
@@ -289,7 +299,7 @@ const ClientDetails = () => {
                                                     {contacts.map((contact, index) => (
                                                         <>
                                                             <tr key={index}>
-                                                                <td>{contact.kind}</td>
+                                                                <td>{ContactTypes[contact.kind]}</td>
                                                                 <td>{contact.name}</td>
                                                                 <td>{contact.role}</td>
                                                                 <td>

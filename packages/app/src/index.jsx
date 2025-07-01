@@ -4,8 +4,11 @@ import en from "javascript-time-ago/locale/en";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
+import secureApiFetch from "services/api.js";
 import KeyCloakService from "services/keycloak.js";
+import { initialiseUserPreferences } from "services/userPreferences.js";
 import "translations/i18n";
+import { memoryStore } from "utilities/memoryStore.js";
 import App from "./App.jsx";
 import * as serviceWorker from "./serviceWorker.js";
 import "./styles/main.css";
@@ -21,7 +24,7 @@ appRoot.render(
     </div>,
 );
 
-const refreshBeforeExpiration = () => {
+const scheduleTokenRefreshBeforeExpiration = () => {
     const keycloak = KeyCloakService.getInstance();
     const jwtExpiration = keycloak.tokenParsed?.exp;
     console.debug("Token expiration (exp): " + jwtExpiration);
@@ -34,7 +37,7 @@ const refreshBeforeExpiration = () => {
                         if (refreshed) {
                             console.log("refreshed " + new Date());
 
-                            refreshBeforeExpiration();
+                            scheduleTokenRefreshBeforeExpiration();
                         } else {
                             console.log("not refreshed " + new Date());
                         }
@@ -54,14 +57,31 @@ const refreshBeforeExpiration = () => {
 const onAuthSuccess = () => {
     TimeAgo.addDefaultLocale(en);
 
-    refreshBeforeExpiration();
+    secureApiFetch(`/users/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    })
+        .then((resp) => resp.json())
+        .then((data) => {
+            const userObject = {
+                id: data.id,
+                preferences: initialiseUserPreferences(data),
+                ...KeyCloakService.getUserInfo(),
+            };
+            memoryStore.set("user", userObject);
 
-    appRoot.render(
-        <React.StrictMode>
-            <App />
-            <Toaster />
-        </React.StrictMode>,
-    );
+            appRoot.render(
+                <React.StrictMode>
+                    <App />
+                    <Toaster />
+                </React.StrictMode>,
+            );
+        })
+        .catch((err) => {
+            throw err;
+        });
+
+    scheduleTokenRefreshBeforeExpiration();
 };
 
 const onAuthFailure = (message) => {
@@ -69,7 +89,7 @@ const onAuthFailure = (message) => {
         <div>
             <a href="/" className="logo">
                 <HeaderLogo />
-                <h3>Authentication error: {message}</h3>
+                <h3>Authentication error: {JSON.stringify(message)}</h3>
             </a>
         </div>,
     );

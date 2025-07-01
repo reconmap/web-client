@@ -1,9 +1,10 @@
-import LabelledField from "components/form/LabelledField";
+import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTextArea from "components/form/NativeTextArea";
 import Loading from "components/ui/Loading";
 import useFetch from "hooks/useFetch";
+import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -15,6 +16,7 @@ const SendReport = () => {
     const { projectId } = useParams();
     const [project] = useFetch(`/projects/${projectId}`);
     const [revisions] = useFetch(`/reports?projectId=${projectId}`);
+    const [recipientsGroup, setRecipientsGroup] = useState("all_contacts");
 
     const deliverySettings = {
         report_id: null,
@@ -46,6 +48,10 @@ const SendReport = () => {
             });
     };
 
+    const updateRecipientsGroup = (ev) => {
+        setRecipientsGroup(ev.target.value);
+    };
+
     if (!project) return <Loading />;
 
     return (
@@ -59,33 +65,76 @@ const SendReport = () => {
             </div>
             <form onSubmit={handleSend}>
                 <Title title="Send report" />
-                <div>
-                    <LabelledField
-                        label="Revision"
-                        htmlFor="reportId"
-                        control={
-                            <NativeSelect id="reportId" name="report_id">
-                                {revisions &&
-                                    revisions.map((revision) => (
-                                        <option value={revision.id}>{revision.version_name}</option>
-                                    ))}
-                            </NativeSelect>
-                        }
-                    />
-                </div>
-                <div>
-                    <label>Recipients</label>
-                    <NativeInput type="text" name="recipients" autoFocus required placeholder="foo@bar.sec" />
-                    <div>Comma separated list of email addresses.</div>
-                </div>
-                <div>
-                    <label>Subject</label>
-                    <NativeInput type="text" name="subject" defaultValue={deliverySettings.subject} required />
-                </div>
-                <div>
-                    <label>Body</label>
-                    <NativeTextArea name="body" defaultValue={deliverySettings.body} />
-                </div>
+                <HorizontalLabelledField
+                    label="Revision"
+                    htmlFor="reportId"
+                    control={
+                        <NativeSelect id="reportId" name="report_id">
+                            {revisions &&
+                                revisions.map((revision) => (
+                                    <option value={revision.id}>{revision.version_name}</option>
+                                ))}
+                        </NativeSelect>
+                    }
+                />
+                <HorizontalLabelledField
+                    label="Recipients group"
+                    htmlFor="recipientsGroup"
+                    control={
+                        <NativeSelect id="recipientsGroup" name="recipientsGroup" onChange={updateRecipientsGroup}>
+                            <option value="all_contacts">All contacts</option>
+                            <option value="all_general_contacts">All general contacts</option>
+                            <option value="all_technical_contacts">All technical contacts</option>
+                            <option value="all_billing_contacts">All billing contacts</option>
+                            <option value="specific_emails">Specific email addresses</option>
+                        </NativeSelect>
+                    }
+                />
+                {recipientsGroup === "specific_emails" && (
+                    <>
+                        <HorizontalLabelledField
+                            label={
+                                <>
+                                    Recipients
+                                    <div style={{ fontSize: "x-small", color: "gray" }}>
+                                        Comma separated list of email addresses.
+                                    </div>
+                                </>
+                            }
+                            htmlFor="recipients"
+                            control={
+                                <NativeInput
+                                    type="text"
+                                    id="recipients"
+                                    name="recipients"
+                                    autoFocus
+                                    required
+                                    placeholder="foo@bar.sec"
+                                />
+                            }
+                        />
+                    </>
+                )}
+
+                <HorizontalLabelledField
+                    label="Email subject"
+                    htmlFor="emailSubject"
+                    control={
+                        <NativeInput
+                            type="text"
+                            id="emailSubject"
+                            name="subject"
+                            defaultValue={deliverySettings.subject}
+                            required
+                        />
+                    }
+                />
+
+                <HorizontalLabelledField
+                    label="Email body"
+                    htmlFor="emailBody"
+                    control={<NativeTextArea id="emailBody" name="body" defaultValue={deliverySettings.body} />}
+                />
 
                 <PrimaryButton type="submit">Send</PrimaryButton>
             </form>

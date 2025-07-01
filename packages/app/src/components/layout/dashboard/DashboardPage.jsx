@@ -70,8 +70,6 @@ const DashboardPage = () => {
             body: JSON.stringify({ preferences: user.preferences }),
         })
             .then(() => {
-                localStorage.setItem("user", JSON.stringify(user));
-
                 setVisibleWidgets(filterWidgets(user));
 
                 actionCompletedToast("Your preferences have been saved.");

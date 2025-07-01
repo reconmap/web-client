@@ -2,7 +2,7 @@ import Configuration from "Configuration";
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 
-const createWebsocketConnection = (isAuth, user) => {
+const createWebsocketConnection = (user) => {
     const notificationServiceUrl = Configuration.getNotificationsServiceUrl();
     console.debug("reconmap-ws: connecting");
 
@@ -18,11 +18,9 @@ const createWebsocketConnection = (isAuth, user) => {
 
     const onConnectionClose = () => {
         console.debug("reconmap-ws: disconnected");
-        if (isAuth) {
-            setTimeout(() => {
-                //setWsContextState(prevState => { return { ...prevState, connection: createWebsocketConnection() } });
-            }, 5000);
-        }
+        setTimeout(() => {
+            //setWsContextState(prevState => { return { ...prevState, connection: createWebsocketConnection() } });
+        }, 5000);
     };
     ws.addEventListener("close", onConnectionClose);
 
@@ -37,24 +35,17 @@ export const WebsocketContext = createContext(wsContextData);
 
 const WebsocketProvider = ({ children }) => {
     const [wsContextState, setWsContextState] = useState(wsContextData);
-    const { user, isAuth } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        if (!isAuth) {
-            //if (wsContextState.connection) wsContextState.connection.close();
+        if (user === null || !user || !user.access_token) {
             setWsContextState((prevState) => {
                 return { ...prevState, connection: null };
             });
             return;
         }
 
-        /*
-            if (wsContextState.connection && wsContextState.connection.readyState in [WebSocket.CONNECTING, WebSocket.OPEN]) {
-                return;
-            }
-        */
-
-        const { ws, onConnectionOpen, onConnectionError, onConnectionClose } = createWebsocketConnection(isAuth, user);
+        const { ws, onConnectionOpen, onConnectionError, onConnectionClose } = createWebsocketConnection(user);
         setWsContextState((prevSate) => {
             return { ...prevSate, connection: ws };
         });
@@ -65,7 +56,7 @@ const WebsocketProvider = ({ children }) => {
             ws.removeEventListener("error", onConnectionError);
             ws.removeEventListener("close", onConnectionClose);
         };
-    }, [isAuth, user]);
+    }, [user]);
 
     return <WebsocketContext.Provider value={wsContextState}>{children}</WebsocketContext.Provider>;
 };

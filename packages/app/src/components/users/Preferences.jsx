@@ -52,8 +52,6 @@ const UserPreferences = () => {
                 setTheme(formValues.theme);
                 i18n.changeLanguage(formValues.language);
 
-                localStorage.setItem("user", JSON.stringify(user));
-
                 actionCompletedToast("Your preferences have been saved.");
             })
             .catch((err) => console.error(err));
