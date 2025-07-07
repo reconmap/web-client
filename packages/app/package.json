@@ -13,7 +13,7 @@
     "@xterm/xterm": "^5.5.0",
     "bulma": "^1.0.4",
     "countries-and-timezones": "^3.8.0",
-    "cronstrue": "^2.61.0",
+    "cronstrue": "^3.0.0",
     "friendly-mimes": "^3.0.1",
     "http-status-codes": "^2.3.0",
     "i18next": "^25.2.1",
