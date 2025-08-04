@@ -1,3 +1,4 @@
+import { AgentsUrls } from "components/agents/AgentsRoutes.jsx";
 import OrganisationsUrls from "components/clients/OrganisationsUrls";
 import SearchUrls from "components/search/SearchUrls";
 import { ToolsUrls } from "components/tools/Routes.jsx";
@@ -36,6 +37,7 @@ const MenuLinks = [
             { name: t("Vault"), url: ToolsUrls.Vault, permissions: "commands.*" },
             { name: t("Password generator"), url: ToolsUrls.PasswordGenerator, permissions: "commands.*" },
             null,
+            { name: t("Agents"), url: AgentsUrls.List },
             { name: t("Agent terminal"), url: ToolsUrls.Terminal, permissions: "commands.*" },
         ],
     },
