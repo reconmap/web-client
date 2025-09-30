@@ -1,4 +1,4 @@
-import { CommandUsage } from "models/CommandUsage.js";
+import { CommandUsageInterface } from "models/CommandUsage.js";
 
 const argRegex = /{{{(.+?)}}}/g;
 
@@ -11,7 +11,7 @@ type CommandArgumentsMap = Record<string, CommandArgument>;
 
 export { CommandArgument, CommandArgumentsMap };
 
-const parseArguments = (command: CommandUsage): CommandArgumentsMap => {
+const parseArguments = (command: CommandUsageInterface): CommandArgumentsMap => {
     const argumentList: CommandArgumentsMap = {};
 
     if (null === command || null === command.arguments || undefined === command.arguments) {
