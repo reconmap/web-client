@@ -1,3 +1,4 @@
+import { AgentsUrls } from "components/agents/AgentsRoutes.jsx";
 import OrganisationsUrls from "components/clients/OrganisationsUrls";
 import SearchUrls from "components/search/SearchUrls";
 import { ToolsUrls } from "components/tools/Routes.jsx";
@@ -36,6 +37,7 @@ const MenuLinks = [
             { name: t("Vault"), url: ToolsUrls.Vault, permissions: "commands.*" },
             { name: t("Password generator"), url: ToolsUrls.PasswordGenerator, permissions: "commands.*" },
             null,
+            { name: t("Agents"), url: AgentsUrls.List },
             { name: t("Agent terminal"), url: ToolsUrls.Terminal, permissions: "commands.*" },
         ],
     },
@@ -73,6 +75,11 @@ const Header = () => {
     const [t] = useTranslation();
     const { user } = useContext(AuthContext);
     const [activeMenu, setActiveMenu] = useState(null);
+    const [isActive, setIsActive] = useState(false);
+
+    const toggleNavBarMenu = () => {
+        setIsActive(!isActive);
+    };
 
     return (
         <nav className="navbar is-fixed-top is-dark">
@@ -80,7 +87,11 @@ const Header = () => {
                 <Link to="/" className="navbar-brand">
                     <HeaderLogo />
                 </Link>
-                <div className="navbar-burger js-burger" data-target="navbarExampleTransparentExample">
+                <div
+                    className={`navbar-burger ${isActive ? "is-active" : ""}`}
+                    data-target="appMenu"
+                    onClick={toggleNavBarMenu}
+                >
                     <span></span>
                     <span></span>
                     <span></span>
@@ -88,7 +99,7 @@ const Header = () => {
                 </div>
             </div>
 
-            <div id="navbarExampleTransparentExample" className="navbar-menu">
+            <div id="appMenu" className={`navbar-menu ${isActive ? "is-active" : ""}`}>
                 <div className="navbar-start">
                     <Link className="navbar-item" to={DashboardUrls.DEFAULT}>
                         {t("Dashboard")}

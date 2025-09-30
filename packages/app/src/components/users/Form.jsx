@@ -1,3 +1,4 @@
+import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import LabelledField from "components/form/LabelledField";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
@@ -16,31 +17,41 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
         setUser({ ...user, [name]: value });
     };
 
-    const onPasswordGenerationMethodChange = (ev) => {
-        setPasswordGenerationMethod(ev.target.value);
-    };
-
     return (
         <form onSubmit={onFormSubmit}>
             <fieldset>
                 <legend>Basic information</legend>
 
-                <LabelledField
-                    id="fullName"
-                    label="Full name"
+                <HorizontalLabelledField
+                    label="First name"
+                    htmlFor="firstName"
                     control={
                         <NativeInput
-                            id="fullName"
+                            id="firstName"
                             type="text"
-                            name="full_name"
-                            value={user.full_name || ""}
+                            name="first_name"
+                            value={user.first_name || ""}
                             onChange={onFormChange}
                             required
                         />
                     }
                 />
-                <LabelledField
+                <HorizontalLabelledField
+                    label="Last name"
+                    htmlFor="lastName"
+                    control={
+                        <NativeInput
+                            id="lastName"
+                            type="text"
+                            name="last_name"
+                            value={user.last_name || ""}
+                            onChange={onFormChange}
+                        />
+                    }
+                />
+                <HorizontalLabelledField
                     label="Short bio"
+                    htmlFor="shortBio"
                     control={
                         <NativeInput
                             type="text"
@@ -51,22 +62,42 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                         />
                     }
                 />
-                <LabelledField
-                    label="Email"
+
+                <HorizontalLabelledField
+                    label="Username"
+                    htmlFor="username"
                     control={
                         <NativeInput
-                            type="email"
+                            type="text"
+                            name="username"
+                            id="username"
+                            value={user.username || ""}
+                            onChange={onFormChange}
+                            autoFocus
+                            required
+                        />
+                    }
+                />
+                <HorizontalLabelledField
+                    label="Email"
+                    htmlFor="email"
+                    control={
+                        <NativeInput
+                            id="email"
                             name="email"
+                            type="email"
                             value={user.email || ""}
                             onChange={onFormChange}
                             required
                         />
                     }
                 />
-                <LabelledField
+
+                <HorizontalLabelledField
                     label="Role"
+                    htmlFor="role"
                     control={
-                        <NativeSelect name="role" onChange={onFormChange} value={user.role} required>
+                        <NativeSelect id="role" name="role" onChange={onFormChange} value={user.role} required>
                             {UserRoles.map((role) => (
                                 <option key={`role_${role.id}`} value={role.id}>
                                     {role.name}
@@ -75,7 +106,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                         </NativeSelect>
                     }
                 />
-                <LabelledField
+                <HorizontalLabelledField
                     label="Properties"
                     control={
                         <div>
@@ -88,62 +119,6 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                         </div>
                     }
                 />
-            </fieldset>
-
-            <fieldset>
-                <legend>Credentials</legend>
-                <LabelledField
-                    label="Username"
-                    control={
-                        <NativeInput
-                            type="text"
-                            name="username"
-                            value={user.username || ""}
-                            onChange={onFormChange}
-                            autoFocus
-                            required
-                        />
-                    }
-                />
-                {!isEdit && (
-                    <>
-                        <LabelledField
-                            label="Password generation method"
-                            control={
-                                <NativeSelect
-                                    name="passwordGenerationMethod"
-                                    onChange={onPasswordGenerationMethodChange}
-                                >
-                                    <option value="auto">Auto-generated</option>
-                                    <option value="manual">Manual</option>
-                                </NativeSelect>
-                            }
-                        />
-                        {passwordGenerationMethod === "manual" && (
-                            <>
-                                <LabelledField
-                                    label="Password"
-                                    control={
-                                        <NativeInput
-                                            type="password"
-                                            name="unencryptedPassword"
-                                            onChange={onFormChange}
-                                            required
-                                        />
-                                    }
-                                />
-                                <LabelledField
-                                    label=""
-                                    control={
-                                        <NativeCheckbox name="sendEmailToUser" onChange={onFormChange}>
-                                            Send email to user
-                                        </NativeCheckbox>
-                                    }
-                                />
-                            </>
-                        )}
-                    </>
-                )}
             </fieldset>
 
             <LabelledField
