@@ -12,6 +12,9 @@ import APP_TRANSLATIONS_FR from "translations/fr/application.json";
 import COMMON_TRANSLATIONS_FR from "translations/fr/common.json";
 import APP_TRANSLATIONS_PT from "translations/pt/application.json";
 import COMMON_TRANSLATIONS_PT from "translations/pt/common.json";
+import APP_TRANSLATIONS_DE from "translations/de/application.json";
+import COMMON_TRANSLATIONS_DE from "translations/de/common.json";
+
 
 i18next
     .use(I18nextBrowserLanguageDetector)
@@ -42,5 +45,9 @@ i18next
                 app: APP_TRANSLATIONS_FR,
                 common: COMMON_TRANSLATIONS_FR,
             },
+            de: {
+                app: APP_TRANSLATIONS_DE,
+                common: COMMON_TRANSLATIONS_DE,
+            }
         },
     });

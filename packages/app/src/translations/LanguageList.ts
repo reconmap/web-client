@@ -9,6 +9,7 @@ const LanguageList: Language[] = [
     { id: "cn", name: "Chinese" },
     { id: "pt", name: "Portuguese" },
     { id: "fr", name: "French" },
+    { id: "de", name: "German" },
 ];
 
 export { LanguageList };
