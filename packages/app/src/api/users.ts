@@ -1,9 +1,9 @@
-import { User } from "models/User.js";
+import { UserInterface } from "models/User.js";
 import secureApiFetch from "services/api.js";
 
 const API_PREFIX: string = "/users";
 
-const createUserApi = (user: User): Promise<Response> => {
+const createUserApi = (user: UserInterface): Promise<Response> => {
     return secureApiFetch(API_PREFIX, {
         method: "POST",
         headers: {
@@ -25,7 +25,7 @@ const getUsers = (): Promise<Response> => {
     });
 };
 
-const updateUser = (user: User): Promise<Response> => {
+const updateUser = (user: UserInterface): Promise<Response> => {
     return secureApiFetch(`${API_PREFIX}/${user.id}`, {
         method: "PATCH",
         headers: {

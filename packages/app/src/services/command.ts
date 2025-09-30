@@ -1,13 +1,13 @@
-import { Command } from "models/Command.js";
-import { CommandUsage } from "models/CommandUsage.js";
+import { CommandInterface } from "models/Command.js";
+import { CommandUsageInterface } from "models/CommandUsage.js";
 import parseArguments, { CommandArgumentsMap } from "./commands/arguments.js";
 
 const HostCommandLineGenerator = {
-    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage) => {
+    generateEntryPoint: (projectId: number, command: CommandInterface, usage: CommandUsageInterface) => {
         return usage.executable_path;
     },
 
-    renderArguments: (projectId: number, command: CommandUsage, commandArgs: any = null) => {
+    renderArguments: (projectId: number, command: CommandUsageInterface, commandArgs: any = null) => {
         if (commandArgs === null) {
             commandArgs = parseArguments(command);
         }
@@ -28,7 +28,7 @@ const HostCommandLineGenerator = {
 };
 
 const RmapCommandLineGenerator = {
-    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage) => {
+    generateEntryPoint: (projectId: number, command: CommandInterface, usage: CommandUsageInterface) => {
         const commandParts = ["rmap", "command run"];
         if (projectId !== null) {
             commandParts.push(`-pid ${projectId}`);
@@ -39,7 +39,7 @@ const RmapCommandLineGenerator = {
         return entryPoint;
     },
 
-    renderArguments: (projectId: number, command: Command, commandArgs: CommandArgumentsMap) => {
+    renderArguments: (projectId: number, command: CommandInterface, commandArgs: CommandArgumentsMap) => {
         let commandArgsRendered = "";
 
         Object.keys(commandArgs).forEach((key) => {
@@ -52,11 +52,11 @@ const RmapCommandLineGenerator = {
 };
 
 const CommandService = {
-    generateEntryPoint: (projectId: number, command: Command, usage: CommandUsage) => {
+    generateEntryPoint: (projectId: number, command: CommandInterface, usage: CommandUsageInterface) => {
         return RmapCommandLineGenerator.generateEntryPoint(projectId, command, usage);
     },
 
-    renderArguments: (projectId: number, command: Command, commandArgs: CommandArgumentsMap) => {
+    renderArguments: (projectId: number, command: CommandInterface, commandArgs: CommandArgumentsMap) => {
         return RmapCommandLineGenerator.renderArguments(projectId, command, commandArgs);
     },
 };
