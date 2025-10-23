@@ -1,9 +1,9 @@
-import useFetch from "hooks/useFetch";
+import { useAuditLogStatsQuery } from "api/auditlog.js";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import DashboardWidget from "./Widget";
 
 const UserActivityStatsWidget = () => {
-    const [auditLogStats] = useFetch("/auditlog/stats");
+    const { data: auditLogStats } = useAuditLogStatsQuery();
 
     return (
         <DashboardWidget title="User activity over time">

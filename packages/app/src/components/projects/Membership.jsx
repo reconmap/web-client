@@ -1,3 +1,4 @@
+import { useProjectQuery } from "api/projects.js";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -17,7 +18,7 @@ const ProjectMembership = () => {
     const { projectId } = useParams();
     const [users] = useFetch(`/users`);
     const [members, updateMembers] = useFetch(`/projects/${projectId}/users`);
-    const [savedProject] = useFetch(`/projects/${projectId}`);
+    const { data: savedProject } = useProjectQuery(projectId);
     const [availableUsers, setAvailableUsers] = useState([]);
 
     const handleOnClick = (ev) => {

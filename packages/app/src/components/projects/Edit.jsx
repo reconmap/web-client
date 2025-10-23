@@ -1,6 +1,6 @@
+import { useProjectQuery } from "api/projects.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
@@ -11,7 +11,7 @@ import ProjectForm from "./Form";
 const ProjectEdit = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
-    const [serverProject] = useFetch(`/projects/${projectId}`);
+    const { data: serverProject, isLoading: isProjectLoading } = useProjectQuery(projectId);
     const [clientProject, setClientProject] = useState(null);
 
     const onFormSubmit = async (ev) => {
@@ -31,7 +31,7 @@ const ProjectEdit = () => {
         setClientProject(serverProject);
     }, [serverProject]);
 
-    if (!serverProject || !clientProject) {
+    if (isProjectLoading || !clientProject) {
         return <Loading />;
     }
 

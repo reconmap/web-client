@@ -1,3 +1,4 @@
+import { useClient } from "api/clients.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeInput from "components/form/NativeInput";
@@ -62,7 +63,7 @@ const ClientDetails = () => {
     const { clientId } = useParams();
     const navigate = useNavigate();
 
-    const [client] = useFetch(`/clients/${clientId}`);
+    const { data: client, isLoading: isClientLoading } = useClient(clientId);
     const [contacts, fetchContacts] = useFetch(`/clients/${clientId}/contacts`);
 
     const [contact, setContact] = useState({ ...Contact });
@@ -143,7 +144,7 @@ const ClientDetails = () => {
             });
     };
 
-    if (!client) {
+    if (isClientLoading) {
         return <Loading />;
     }
 

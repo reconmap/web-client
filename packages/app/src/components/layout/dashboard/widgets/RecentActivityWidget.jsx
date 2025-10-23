@@ -1,10 +1,10 @@
+import { useAuditLogQuery } from "api/auditlog.js";
 import Badge from "components/badges/Badge";
 import UserLink from "components/users/Link";
-import useFetch from "hooks/useFetch";
 import DashboardWidget from "./Widget";
 
 const RecentActivityWidget = () => {
-    const [auditLog] = useFetch("/auditlog?limit=5");
+    const { data: auditLog } = useAuditLogQuery(5);
 
     return (
         <DashboardWidget title="Recent activity">

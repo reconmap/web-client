@@ -1,3 +1,4 @@
+import { useNotificationsQuery } from "api/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
@@ -9,12 +10,11 @@ import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { actionCompletedToast } from "components/ui/toast.jsx";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 
 const isUnread = (notification) => notification.status === "unread";
 
 const NotificationsList = () => {
-    const [notifications, fetchNotifications] = useFetch("/notifications");
+    const { data: notifications } = useNotificationsQuery();
 
     const markAllNotificationsAsRead = () => {
         secureApiFetch("/notifications", {

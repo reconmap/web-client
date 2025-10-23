@@ -1,3 +1,4 @@
+import { useProjectQuery } from "api/projects.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -14,7 +15,7 @@ import PrimaryButton from "../ui/buttons/Primary";
 const SendReport = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
-    const [project] = useFetch(`/projects/${projectId}`);
+    const { data: project, isLoading: isProjectLoading } = useProjectQuery(projectId);
     const [revisions] = useFetch(`/reports?projectId=${projectId}`);
     const [recipientsGroup, setRecipientsGroup] = useState("all_contacts");
 
@@ -52,7 +53,7 @@ const SendReport = () => {
         setRecipientsGroup(ev.target.value);
     };
 
-    if (!project) return <Loading />;
+    if (isProjectLoading) return <Loading />;
 
     return (
         <div>

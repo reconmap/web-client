@@ -1,9 +1,9 @@
+import { useCommandsQuery } from "api/commands.js";
 import CommandBadge from "components/commands/Badge";
-import useFetch from "hooks/useFetch";
 import DashboardWidget from "./Widget";
 
 const PopularCommandsWidget = () => {
-    const [commands] = useFetch("/commands?limit=5");
+    const { data: commands } = useCommandsQuery(5);
 
     return (
         <DashboardWidget title="Popular commands">

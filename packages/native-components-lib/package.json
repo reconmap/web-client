@@ -12,11 +12,11 @@
     }
   },
   "devDependencies": {
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.3",
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "vite": "^7.0.0"
+    "vite": "^7.1.12"
   },
   "scripts": {
     "build": "vite build",

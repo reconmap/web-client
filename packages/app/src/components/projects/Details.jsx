@@ -1,3 +1,4 @@
+import { useProjectQuery } from "api/projects.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
@@ -10,7 +11,6 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from "../ui/buttons/Secondary";
 import Loading from "../ui/Loading";
@@ -27,7 +27,7 @@ const ProjectDetails = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
 
-    const [project, updateProject] = useFetch(`/projects/${projectId}`);
+    const { data: project } = useProjectQuery(projectId);
     const destroy = useDelete(`/projects/`, updateProject);
 
     const [tabIndex, tabIndexSetter] = useState(0);

@@ -1,3 +1,4 @@
+import { useCommandQuery } from "api/commands.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -30,7 +31,7 @@ const CommandDetailsPage = () => {
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
-    const [command] = useFetch(`/commands/${commandId}`);
+    const { data: command, isLoading } = useCommandQuery(commandId);
     const deleteClient = useDelete(`/commands/`);
 
     const handleDelete = async () => {
@@ -48,9 +49,7 @@ const CommandDetailsPage = () => {
 
     const [commandUsages, fetchCommandUsages] = useFetch(`/commands/${commandId}/usages`);
 
-    if (!command) {
-        return <Loading />;
-    }
+    if (isLoading) return <Loading />;
 
     return (
         <div>

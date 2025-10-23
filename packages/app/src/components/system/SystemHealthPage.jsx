@@ -1,9 +1,9 @@
+import { useSystemHealthQuery } from "api/system.js";
 import Title from "components/ui/Title";
 import { WebsocketContext } from "contexts/WebsocketContext";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import convertReadyStateToText from "utilities/WebsocketState";
-import useFetch from "../../hooks/useFetch.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 
 const GreenYes = ({ label = "Yes" }) => <span style={{ color: "green" }}>{label}</span>;
@@ -12,7 +12,7 @@ const RedNo = () => <span style={{ color: "red" }}>No</span>;
 const SystemHealthPage = () => {
     const [t] = useTranslation();
     const wsContextData = useContext(WebsocketContext);
-    const [apiHealth] = useFetch("/system/health");
+    const { data: apiHealth } = useSystemHealthQuery();
 
     return (
         <div>

@@ -1,15 +1,15 @@
+import { useSystemUsageQuery } from "api/system.js";
 import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
-import useFetch from "hooks/useFetch";
 import { useTranslation } from "react-i18next";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 
 const SystemUsagePage = () => {
     const [t] = useTranslation();
-    const [usage] = useFetch("/system/usage");
+    const { data: usage, isLoading } = useSystemUsageQuery();
 
-    if (!usage) return <Loading />;
+    if (isLoading) return <Loading />;
 
     return (
         <div>
