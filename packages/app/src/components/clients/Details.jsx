@@ -1,4 +1,5 @@
-import { useClient } from "api/clients.js";
+import { useOrganisationContactsQuery, useOrganisationQuery } from "api/clients.js";
+import { useProjectsQuery } from "api/projects.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeInput from "components/form/NativeInput";
@@ -26,7 +27,6 @@ import ExternalLink from "../ui/ExternalLink";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
 import useDelete from "./../../hooks/useDelete";
-import useFetch from "./../../hooks/useFetch";
 import Loading from "./../ui/Loading";
 import OrganisationsUrls from "./OrganisationsUrls";
 
@@ -37,7 +37,7 @@ const ContactTypes = {
 };
 
 const ClientProjectsTab = ({ clientId }) => {
-    const [projects] = useFetch(`/projects?clientId=${clientId}`);
+    const { data: projects } = useProjectsQuery({ clientId: clientId });
 
     if (!projects) return <Loading />;
 
@@ -63,8 +63,8 @@ const ClientDetails = () => {
     const { clientId } = useParams();
     const navigate = useNavigate();
 
-    const { data: client, isLoading: isClientLoading } = useClient(clientId);
-    const [contacts, fetchContacts] = useFetch(`/clients/${clientId}/contacts`);
+    const { data: client, isLoading: isClientLoading } = useOrganisationQuery(clientId);
+    const { data: contacts } = useOrganisationContactsQuery(clientId);
 
     const [contact, setContact] = useState({ ...Contact });
 
@@ -92,7 +92,6 @@ const ClientDetails = () => {
         }).then((resp) => {
             if (resp.status === 201) {
                 setContact({ ...Contact });
-                fetchContacts();
                 actionCompletedToast(`The contact has been added.`);
             } else {
                 errorToast("The contact could not be saved. Review the form data or check the application logs.");
@@ -104,7 +103,6 @@ const ClientDetails = () => {
         secureApiFetch(`/contacts/${contactId}`, { method: "DELETE" })
             .then((resp) => {
                 if (resp.ok) {
-                    fetchContacts();
                     actionCompletedToast("The contact has been deleted.");
                 } else {
                     errorToast("Unable to delete contact");

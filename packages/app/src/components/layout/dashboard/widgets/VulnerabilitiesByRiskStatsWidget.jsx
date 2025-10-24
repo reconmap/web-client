@@ -1,4 +1,4 @@
-import useFetch from "hooks/useFetch";
+import { useVulnerabilitiesStatsQuery } from "api/vulnerabilities.js";
 import { Cell, Pie, PieChart } from "recharts";
 import DashboardWidget from "./Widget";
 
@@ -25,10 +25,12 @@ const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
         );
     };
 
-    const url =
-        "/vulnerabilities/stats?groupBy=risk" +
-        (null !== projectId ? "&projectId=" + encodeURIComponent(projectId) : "");
-    const [vulnerabilitiesByRiskStats] = useFetch(url);
+    const params = { groupBy: "risk" };
+    if (null !== projectId) params["projectId"] = projectId;
+    const { data: vulnerabilitiesByRiskStats, isLoading, error, isError } = useVulnerabilitiesStatsQuery(params);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>Error loading vulnerabilities stats: {error.message}</p>;
 
     return (
         <DashboardWidget title="Vulnerabilities by risk">
@@ -47,7 +49,7 @@ const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
                     >
                         {vulnerabilitiesByRiskStats &&
                             vulnerabilitiesByRiskStats.map((entry, index) => (
-                                <Cell key={index} fill={RISKS[entry.risk].color} />
+                                <Cell key={index} fill={RISKS[entry.risk]?.color} />
                             ))}
                     </Pie>
                 </PieChart>

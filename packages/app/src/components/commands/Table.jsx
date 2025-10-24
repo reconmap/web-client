@@ -1,3 +1,4 @@
+import { useCommandDeleteMutation } from "api/commands.js";
 import Tags from "components/ui/Tags";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
@@ -6,8 +7,9 @@ import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { useTranslation } from "react-i18next";
 import CommandBadge from "./Badge";
 
-const CommandsTable = ({ commands, onDeleteCallback = null }) => {
+const CommandsTable = ({ commands }) => {
     const [t] = useTranslation();
+    const commandDeleteMutation = useCommandDeleteMutation();
 
     return (
         <table className="table is-fullwidth">
@@ -37,7 +39,7 @@ const CommandsTable = ({ commands, onDeleteCallback = null }) => {
                             <td>{command.output_parser ?? "-"}</td>
                             <td>
                                 <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
-                                {onDeleteCallback && <DeleteIconButton onClick={() => onDeleteCallback(command.id)} />}
+                                <DeleteIconButton onClick={() => commandDeleteMutation.mutate(command.id)} />
                             </td>
                         </tr>
                     ))}

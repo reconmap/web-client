@@ -1,26 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
 import secureApiFetch from "services/api.js";
 
-const requestClients = () => {
-    return secureApiFetch("/clients", { method: "GET" });
+const requestOrganisations = (params: any) => {
+    const url = "/clients?" + new URLSearchParams(params).toString();
+    return secureApiFetch(url, { method: "GET" });
 };
 
-const requestClient = (clientId: number) => {
-    return secureApiFetch(`/clients/${clientId}`, { method: "GET" });
+const requestOrganisation = (organisationId: number) => {
+    return secureApiFetch(`/clients/${organisationId}`, { method: "GET" });
 };
 
-const useClients = () => {
+const requestOrganisationContacts = (organisationId: number) => {
+    return secureApiFetch(`/clients/${organisationId}/contacts`, { method: "GET" });
+};
+
+const useOrganisationsQuery = (params: any) => {
     return useQuery({
-        queryKey: ["agents"],
-        queryFn: () => requestClients().then((res) => res.json()),
+        queryKey: ["organisations"],
+        queryFn: () => requestOrganisations(params).then((res) => res.json()),
     });
 };
 
-const useClient = (clientId: number) => {
+const useOrganisationQuery = (clientId: number) => {
     return useQuery({
-        queryKey: ["agents"],
-        queryFn: () => requestClient(clientId).then((res) => res.json()),
+        queryKey: ["organisations"],
+        queryFn: () => requestOrganisation(clientId).then((res) => res.json()),
     });
 };
 
-export { useClient, useClients };
+const useOrganisationContactsQuery = (clientId: number) => {
+    return useQuery({
+        queryKey: ["organisations"],
+        queryFn: () => requestOrganisationContacts(clientId).then((res) => res.json()),
+    });
+};
+
+export { useOrganisationContactsQuery, useOrganisationQuery, useOrganisationsQuery };

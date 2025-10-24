@@ -1,3 +1,4 @@
+import { useSystemCustomFieldsQuery } from "api/system.js";
 import DynamicForm from "components/form/DynamicForm";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeCheckbox from "components/form/NativeCheckbox";
@@ -5,7 +6,6 @@ import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import Tooltip from "components/ui/Tooltip.jsx";
-import useFetch from "hooks/useFetch";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import RemediationComplexity from "models/RemediationComplexity";
 import RemediationPriority from "models/RemediationPriority";
@@ -42,7 +42,7 @@ const VulnerabilityForm = ({
     const [subCategories, setSubCategories] = useState(null);
     const [targets, setTargets] = useState(null);
     const [useOWASP, setMetrics] = useState(false);
-    const [customFields] = useFetch("/system/custom-fields");
+    const { data: customFields } = useSystemCustomFieldsQuery();
 
     useEffect(() => {
         if (initialised) return;

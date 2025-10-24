@@ -1,5 +1,6 @@
-import { useClients } from "api/clients.js";
+import { useOrganisationsQuery } from "api/clients.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
+import Loading from "components/ui/Loading.jsx";
 import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
@@ -17,9 +18,18 @@ import OrganisationsUrls from "./OrganisationsUrls";
 const ClientsList = () => {
     const [t] = useTranslation();
 
-    const { data: clients } = useClients();
+    const { data: clients, isLoading, isError, error } = useOrganisationsQuery({});
 
     const destroy = useDelete("/clients/");
+
+    if (isLoading) return <Loading />;
+
+    if (isError)
+        return (
+            <div>
+                {t("An error occurred while fetching the organisations.")} {error.message}
+            </div>
+        );
 
     return (
         <>

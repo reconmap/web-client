@@ -1,3 +1,4 @@
+import { useAttachmentDeleteMutation } from "api/attachments.js";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import FileSizeSpan from "components/ui/FileSizeSpan";
@@ -7,11 +8,10 @@ import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import UserLink from "components/users/Link";
 import { resolveMime } from "friendly-mimes";
-import useDelete from "hooks/useDelete";
 import { useState } from "react";
 import secureApiFetch from "services/api";
 
-const AttachmentsTable = ({ attachments, reloadAttachments }) => {
+const AttachmentsTable = ({ attachments }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [content, setContent] = useState(null);
 
@@ -19,7 +19,7 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
         setModalVisible(false);
     };
 
-    const deleteAttachmentById = useDelete("/attachments/", reloadAttachments);
+    const attachmentDeleteMutation = useAttachmentDeleteMutation();
 
     const onViewClick = (ev, attachmentId) => {
         secureApiFetch(`/attachments/${attachmentId}`, { method: "GET", headers: {} })
@@ -65,7 +65,7 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
     };
 
     const onDeleteAttachmentClick = (ev, attachmentId) => {
-        deleteAttachmentById(attachmentId).then(() => reloadAttachments());
+        attachmentDeleteMutation(attachmentId);
     };
 
     const safeResolveMime = (mimeType) => {

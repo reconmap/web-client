@@ -1,14 +1,14 @@
 import { Tag } from "@reconmap/native-components";
+import { useNotificationsQuery } from "api/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import CssIcon from "components/ui/CssIcon";
 import { useWebsocketMessage } from "contexts/WebsocketContext";
-import useFetch from "hooks/useFetch";
 import useToggle from "hooks/useToggle";
 import { Link } from "react-router-dom";
 import secureApiFetch from "services/api";
 
 const NotificationsBadge = () => {
-    const [notifications, fetchNotifications] = useFetch("/notifications?status=unread");
+    const { data: notifications, isLoading } = useNotificationsQuery({ status: "unread" });
     const { value, toggle } = useToggle(false);
 
     const onMessageHandler = () => {
@@ -25,6 +25,10 @@ const NotificationsBadge = () => {
             fetchNotifications();
         });
     };
+
+    if (isLoading) {
+        return null;
+    }
 
     return (
         <div className={`dropdown ${value ? "is-active" : ""}`}>

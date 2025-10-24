@@ -1,3 +1,4 @@
+import { useNotesQuery } from "api/comments.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import NotesForm from "components/notes/Form";
 import PrimaryButton from "components/ui/buttons/Primary.jsx";
@@ -6,12 +7,11 @@ import Note from "models/Note";
 import { useState } from "react";
 import secureApiFetch from "services/api";
 import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";
 
 const VulnerabilitiesNotesTab = ({ vulnerability }) => {
-    const [notes, reloadNotes] = useFetch(`/notes?parentType=vulnerability&parentId=${vulnerability.id}`);
-    const deleteNoteById = useDelete("/notes/", reloadNotes);
+    const { data: notes } = useNotesQuery({ parentType: "vulnerability", parentId: vulnerability.id });
+    const deleteNoteById = useDelete("/notes/");
     const emptyNote = {
         ...Note,
         content: "",

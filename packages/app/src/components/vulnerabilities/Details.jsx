@@ -1,4 +1,6 @@
 import { Tag } from "@reconmap/native-components";
+import { useAttachmentsQuery } from "api/attachments.js";
+import { useVulnerabilityQuery } from "api/vulnerabilities.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeSelect from "components/form/NativeSelect";
@@ -17,7 +19,6 @@ import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
 import { actionCompletedToast } from "../ui/toast";
 import useDelete from "./../../hooks/useDelete";
-import useFetch from "./../../hooks/useFetch";
 import VulnerabilitiesNotesTab from "./NotesTab";
 import VulnerabilityDescriptionPanel from "./VulnerabilityDescriptionPanel";
 import VulnerabilityRemediationPanel from "./VulnerabilityRemediationPanel";
@@ -25,12 +26,12 @@ import VulnerabilityRemediationPanel from "./VulnerabilityRemediationPanel";
 const VulnerabilityDetails = () => {
     const navigate = useNavigate();
     const { vulnerabilityId } = useParams();
-    const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`);
+    const { data: vulnerability } = useVulnerabilityQuery(vulnerabilityId);
     const deleteVulnerability = useDelete(`/vulnerabilities/`);
 
     const parentType = "vulnerability";
     const parentId = vulnerabilityId;
-    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`);
+    const { data: attachments } = useAttachmentsQuery({ parentType, parentId });
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
@@ -47,7 +48,6 @@ const VulnerabilityDetails = () => {
         })
             .then(() => {
                 actionCompletedToast("The status has been transitioned.");
-                updateVulnerability();
             })
             .catch((err) => console.error(err));
     };
@@ -125,14 +125,10 @@ const VulnerabilityDetails = () => {
                         )}
                         {3 === tabIndex && (
                             <div>
-                                <AttachmentsDropzone
-                                    parentType={parentType}
-                                    parentId={parentId}
-                                    onUploadFinished={reloadAttachments}
-                                />
+                                <AttachmentsDropzone parentType={parentType} parentId={parentId} />
 
                                 <h4>Attachment list</h4>
-                                <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                                <AttachmentsTable attachments={attachments} />
                             </div>
                         )}
                     </div>

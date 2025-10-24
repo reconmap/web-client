@@ -1,17 +1,18 @@
+import { useOrganisationsQuery } from "api/clients.js";
+import { useProjectCategoriesQuery } from "api/projects.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
-import useFetch from "../../hooks/useFetch";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
-    const [clients] = useFetch("/clients?kind=client");
-    const [serviceProviders] = useFetch("/clients?kind=service_provider");
-    const [categories] = useFetch("/project/categories");
+    const { data: clients } = useOrganisationsQuery({ kind: "client" });
+    const { data: serviceProviders } = useOrganisationsQuery({ kind: "service_provider" });
+    const { data: categories } = useProjectCategoriesQuery();
 
     const handleFormChange = (ev) => {
         const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;

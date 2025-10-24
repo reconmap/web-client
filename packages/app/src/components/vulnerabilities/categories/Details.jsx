@@ -1,3 +1,4 @@
+import { useVulnerabilityQuery } from "api/vulnerabilities.js";
 import CvssScore from "components/badges/CvssScore";
 import RiskBadge from "components/badges/RiskBadge";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
@@ -13,7 +14,6 @@ import TimestampsSection from "components/ui/TimestampsSection";
 import Title from "components/ui/Title";
 import UserLink from "components/users/Link";
 import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import ReactMarkdown from "react-markdown";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -23,7 +23,7 @@ import VulnerabilityStatusBadge from "../StatusBadge";
 const TemplateDetails = () => {
     const navigate = useNavigate();
     const { templateId } = useParams();
-    const [vulnerability] = useFetch(`/vulnerabilities/${templateId}`);
+    const { data: vulnerability } = useVulnerabilityQuery(templateId);
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })

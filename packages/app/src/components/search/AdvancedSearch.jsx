@@ -1,7 +1,7 @@
+import { useRecentSearchesQuery } from "api/system.js";
 import NativeButton from "components/form/NativeButton";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -22,7 +22,7 @@ const AdvancedSearch = () => {
 
     const [keywords, setKeywords] = useState("");
     const [entities, setEntities] = useState(Object.keys(entityList));
-    const [recentSearches] = useFetch("/recent-searches");
+    const { data: recentSearches } = useRecentSearchesQuery();
 
     const onFormSubmit = (ev) => {
         ev.preventDefault();

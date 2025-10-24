@@ -1,3 +1,4 @@
+import { useReportsTemplatesQuery } from "api/reports.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
@@ -5,7 +6,6 @@ import NativeSelect from "components/form/NativeSelect";
 import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
-import useFetch from "hooks/useFetch";
 import TargetIcon from "images/icons/target.svg?react";
 import secureApiFetch from "services/api";
 
@@ -15,7 +15,7 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
         name: "",
         description: "",
     };
-    const [templates] = useFetch("/reports/templates");
+    const { data: templates } = useReportsTemplatesQuery();
 
     const beforeCancelCallback = (ev) => {
         ev.target.closest("form").reset();

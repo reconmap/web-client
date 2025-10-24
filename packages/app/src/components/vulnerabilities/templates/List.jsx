@@ -1,3 +1,4 @@
+import { useVulnerabilitiesQuery } from "api/vulnerabilities.js";
 import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
 import AscendingSortLink from "components/ui/AscendingSortLink";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -10,7 +11,6 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -22,9 +22,12 @@ const VulnerabilityTemplatesList = () => {
         column: "insert_ts",
         order: "DESC",
     });
-    const [templates, updateTemplates] = useFetch(
-        `/vulnerabilities?isTemplate=1&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`,
-    );
+    const params = {
+        isTemplate: 1,
+        orderColumn: sortBy.column,
+        orderDirection: sortBy.order,
+    };
+    const { data: templates, isLoading } = useVulnerabilitiesQuery(params);
 
     const cloneVulnerability = (ev, templateId) => {
         ev.stopPropagation();
@@ -48,7 +51,7 @@ const VulnerabilityTemplatesList = () => {
         navigate(`/vulnerabilities/templates/${templateId}`);
     };
 
-    const destroy = useDelete("/vulnerabilities/", updateTemplates);
+    const destroy = useDelete("/vulnerabilities/");
 
     const deleteTemplate = (ev, templateId) => {
         ev.stopPropagation();
@@ -70,7 +73,7 @@ const VulnerabilityTemplatesList = () => {
                 <CreateButton onClick={onAddVulnerabilityTemplateClick}>Add vulnerability template</CreateButton>
             </div>
             <Title type="Library" title="Vulnerability templates" />
-            {!templates ? (
+            {isLoading ? (
                 <Loading />
             ) : (
                 <table className="table is-fullwidth">

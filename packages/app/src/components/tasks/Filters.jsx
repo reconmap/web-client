@@ -1,13 +1,14 @@
+import { useQueryActiveProjects } from "api/projects.js";
+import { useUsersQuery } from "api/users.js";
 import NativeSelect from "components/form/NativeSelect";
 import { useAuth } from "contexts/AuthContext";
-import useFetch from "hooks/useFetch";
 import { TaskPriorityList } from "models/TaskPriority";
 import TaskStatuses from "models/TaskStatuses";
 
 const TaskFilters = ({ tableModel, tableModelSetter: setTableModel }) => {
     const { user: loggedInUser } = useAuth();
-    const [projects] = useFetch("/projects");
-    const [users] = useFetch("/users");
+    const { data: projects, isLoading: isLoadingProjects } = useQueryActiveProjects();
+    const { data: users, isLoading: isLoadingUsers } = useUsersQuery();
 
     const onFilterChange = (ev) => {
         setTableModel({ ...tableModel, filters: { ...tableModel.filters, [ev.target.name]: ev.target.value } });
@@ -21,7 +22,7 @@ const TaskFilters = ({ tableModel, tableModelSetter: setTableModel }) => {
                     <div className="control">
                         <NativeSelect name="projectId" onChange={onFilterChange}>
                             <option value="">Project = (any)</option>
-                            {null !== projects &&
+                            {!isLoadingProjects &&
                                 projects.map((project) => (
                                     <option key={project.id} value={project.id}>
                                         Project = {project.name}
@@ -42,7 +43,7 @@ const TaskFilters = ({ tableModel, tableModelSetter: setTableModel }) => {
                     <div className="control">
                         <NativeSelect name="assigneeUid" onChange={onFilterChange}>
                             <option value="">Assignee = (anybody)</option>
-                            {null !== users &&
+                            {!isLoadingUsers &&
                                 users.map((user) => (
                                     <option key={user.id} value={user.id}>
                                         Assignee = {user.full_name}

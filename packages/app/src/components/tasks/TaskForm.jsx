@@ -1,3 +1,5 @@
+import { useCommandsQuery } from "api/commands.js";
+import { useProjectsQuery } from "api/projects.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -6,13 +8,12 @@ import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import { useEffect, useState } from "react";
 import AsyncSelect from "react-select/async";
 import secureApiFetch from "services/api";
-import useFetch from "../../hooks/useFetch.js";
 import { TaskPriorityList } from "../../models/TaskPriority.js";
 import PrimaryButton from "../ui/buttons/Primary.jsx";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
-    const [projects] = useFetch(`/projects?isTemplate=${forTemplate ? 1 : 0}`);
-    const [commands] = useFetch("/commands");
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ isTemplate: forTemplate ? 1 : 0 });
+    const { data: commands, isLoading: isLoadingCommands } = useCommandsQuery();
 
     const onFormChange = (ev) => {
         const target = ev.target;
@@ -30,7 +31,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
     };
 
     useEffect(() => {
-        if (projects !== null && projects.length && task.project_id === "") {
+        if (!isLoadingProjects && projects.length && task.project_id === "") {
             const newProjectId = projects[0].id;
             setTask((prevTask) => ({ ...prevTask, project_id: newProjectId }));
         }
@@ -42,7 +43,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
         );
     };
 
-    if (!commands) return <Loading />;
+    if (isLoadingCommands) return <Loading />;
 
     return (
         <form onSubmit={onFormSubmit}>

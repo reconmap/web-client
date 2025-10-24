@@ -1,12 +1,11 @@
-import useFetch from "hooks/useFetch";
+import { useVulnerabilitiesStatsQuery } from "api/vulnerabilities.js";
 import { Pie, PieChart } from "recharts";
 import DashboardWidget from "./Widget";
 
 const VulnerabilitiesByCategoryStatsWidget = ({ projectId = null }) => {
-    const url =
-        "/vulnerabilities/stats?groupBy=category" +
-        (null !== projectId ? "&projectId=" + encodeURIComponent(projectId) : "");
-    const [vulnerabilitiesByCategoryStats] = useFetch(url);
+    const params = { groupBy: "category" };
+    if (null !== projectId) params["projectId"] = projectId;
+    const { data: vulnerabilitiesByCategoryStats } = useVulnerabilitiesStatsQuery(params);
 
     return (
         <DashboardWidget title="Vulnerabilities by category">

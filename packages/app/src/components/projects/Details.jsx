@@ -28,7 +28,7 @@ const ProjectDetails = () => {
     const { projectId } = useParams();
 
     const { data: project } = useProjectQuery(projectId);
-    const destroy = useDelete(`/projects/`, updateProject);
+    const destroy = useDelete(`/projects/`);
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
@@ -46,7 +46,6 @@ const ProjectDetails = () => {
             body: JSON.stringify({ archived: !project.archived }),
         })
             .then(() => {
-                updateProject();
                 actionCompletedToast("The project has been updated.");
             })
             .catch((err) => console.error(err));

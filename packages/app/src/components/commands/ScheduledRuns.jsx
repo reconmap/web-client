@@ -1,10 +1,10 @@
+import { useCommandSchedulesQuery, useCommandUsagesQuery } from "api/commands.js";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import { toString as CronExpressionToString } from "cronstrue";
-import useFetch from "hooks/useFetch";
 
 const ScheduledRuns = ({ command, task = null }) => {
-    const [commandUsages] = useFetch(`/commands/${command?.id}/usages`);
-    const [scheduledCommands, fetchScheduledCommands] = useFetch(`/commands/${command?.id}/schedules`);
+    const { data: commandUsages } = useCommandUsagesQuery(command?.id);
+    const { data: scheduledCommands } = useCommandSchedulesQuery(command?.id);
 
     const deleteScheduledCommand = (ev, commandSchedule) => {
         secureApiFetch(`/commands/schedules/${commandSchedule.id}`, {

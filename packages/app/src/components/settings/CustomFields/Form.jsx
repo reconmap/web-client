@@ -1,22 +1,25 @@
+import {
+    useSystemCustomFieldDeletionMutation,
+    useSystemCustomFieldPostMutation,
+    useSystemCustomFieldsQuery,
+} from "api/system.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import PrimaryButton from "components/ui/buttons/Primary";
 import Title from "components/ui/Title";
-import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
-import secureApiFetch from "services/api";
 
 const CustomFieldsPage = () => {
-    const [customFields, refetchCustomFields] = useFetch("/system/custom-fields");
+    const { data: customFields } = useSystemCustomFieldsQuery();
 
-    const deleteCustomFieldById = useDelete("/system/custom-fields/", refetchCustomFields);
+    const customFieldDeletionMutation = useSystemCustomFieldDeletionMutation();
+    const customFieldPostMutation = useSystemCustomFieldPostMutation();
 
     const onDeleteCustomFieldClick = (ev, field) => {
         ev.preventDefault();
 
-        deleteCustomFieldById(field.id);
+        customFieldDeletionMutation.mutate(field.id);
     };
 
     const onAddCustomFieldSubmit = (ev) => {
@@ -24,14 +27,10 @@ const CustomFieldsPage = () => {
 
         const formData = new FormData(ev.target);
         const data = Object.fromEntries(formData.entries());
-        secureApiFetch(`/system/custom-fields`, {
-            method: "POST",
-            body: JSON.stringify(data),
-        }).then((resp) => {
-            if (resp.status === 201) {
-                refetchCustomFields();
-            }
-        });
+
+        customFieldPostMutation.mutate(data);
+
+        ev.target.reset();
 
         return false;
     };

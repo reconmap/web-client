@@ -1,4 +1,3 @@
-import useFetch from "hooks/useFetch.js";
 import CommandUsage from "models/CommandUsage.js";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -10,7 +9,6 @@ import CommandUsageForm from "./UsageForm.jsx";
 const AddCommandUsagePage = () => {
     const navigate = useNavigate();
     const { commandId } = useParams();
-    const [command] = useFetch(`/commands/${commandId}`);
     const defaultCommmandUsage = { command_id: commandId, ...CommandUsage };
 
     const [commandUsage, setCommandUsage] = useState(defaultCommmandUsage);

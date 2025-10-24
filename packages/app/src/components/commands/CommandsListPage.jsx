@@ -7,7 +7,6 @@ import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete.js";
 import CommandsTable from "./Table.jsx";
 
 const CommandsListPage = () => {
@@ -57,8 +56,6 @@ const CommandsListPage = () => {
             });
     }, [setCommands, apiPageNumber]);
 
-    const destroy = useDelete("/commands/", reloadCommands);
-
     useEffect(() => {
         reloadCommands();
     }, [reloadCommands]);
@@ -74,7 +71,7 @@ const CommandsListPage = () => {
                 </NativeButtonGroup>
             </div>
             <Title title={`Commands (${totalCount})`} />
-            <CommandsTable commands={commands} onDeleteCallback={destroy} />
+            <CommandsTable commands={commands} />
         </div>
     );
 };

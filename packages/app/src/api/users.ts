@@ -1,3 +1,4 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UserInterface } from "models/User.js";
 import secureApiFetch from "services/api.js";
 
@@ -15,6 +16,12 @@ const createUserApi = (user: UserInterface): Promise<Response> => {
 
 const getUser = (userId: number): Promise<Response> => {
     return secureApiFetch(`${API_PREFIX}/${userId}`, {
+        method: "GET",
+    });
+};
+
+const requestUserActivity = (userId: number): Promise<Response> => {
+    return secureApiFetch(`${API_PREFIX}/${userId}/activity`, {
         method: "GET",
     });
 };
@@ -70,4 +77,48 @@ const resetPassword = (userId: number): Promise<Response> => {
     return requestUserAction(userId, "reset-password");
 };
 
-export { createUserApi, deleteUser, deleteUsers, enableMfaApi, getUser, getUsers, resetPassword, updateUser };
+const useUserQuery = (userId: number) => {
+    return useQuery({
+        queryKey: ["users", userId],
+        queryFn: () => getUser(userId).then((res) => res.json()),
+    });
+};
+
+const useUserActivity = (userId: number) => {
+    return useQuery({
+        queryKey: ["users", userId],
+        queryFn: () => requestUserActivity(userId).then((res) => res.json()),
+    });
+};
+
+const useUsersQuery = () => {
+    return useQuery({
+        queryKey: ["users"],
+        queryFn: () => getUsers().then((res) => res.json()),
+    });
+};
+
+const useUserDeleteMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (userId: number) => deleteUser(userId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+        },
+    });
+};
+
+export {
+    createUserApi,
+    deleteUser,
+    deleteUsers,
+    enableMfaApi,
+    getUser,
+    getUsers,
+    resetPassword,
+    updateUser,
+    useUserActivity,
+    useUserDeleteMutation,
+    useUserQuery,
+    useUsersQuery,
+};

@@ -1,4 +1,5 @@
 import { resetPassword } from "api/users";
+import { useUserActivity, useUserDeleteMutation, useUserQuery } from "api/users.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
@@ -9,8 +10,6 @@ import TimestampsSection from "components/ui/TimestampsSection";
 import { actionCompletedToast } from "components/ui/toast";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import AuditLogsTable from "../auditlog/AuditLogsTable";
 import UserAvatar from "../badges/UserAvatar";
 import UserRoleBadge from "../badges/UserRoleBadge";
@@ -25,16 +24,16 @@ const UserProfile = () => {
     const navigate = useNavigate();
 
     const { userId } = useParams();
-    const [user, , error] = useFetch(`/users/${userId}`);
-    const [auditLog] = useFetch(`/users/${userId}/activity`);
-    const deleteUser = useDelete("/users/");
+    const { data: user, isLoading, isError, error } = useUserQuery(userId);
+    const { data: auditLog, isLoadingUserActivity } = useUserActivity(userId);
+    const userDeleteMutation = useUserDeleteMutation();
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
     const onDeleteButtonClick = (ev) => {
         ev.preventDefault();
 
-        deleteUser(userId).then(() => {
+        userDeleteMutation.mutate(userId).then(() => {
             navigate("/users");
         });
     };
@@ -51,11 +50,11 @@ const UserProfile = () => {
         });
     };
 
-    if (error) {
+    if (isError) {
         return <>{error.message}</>;
     }
 
-    if (!user) return <Loading />;
+    if (isLoading) return <Loading />;
 
     return (
         <>
@@ -130,7 +129,11 @@ const UserProfile = () => {
                             <h4>
                                 Activity (<Link to="/auditlog">view full audit log</Link>)
                             </h4>
-                            {auditLog ? <AuditLogsTable auditLog={auditLog} hideUserColumns="true" /> : <Loading />}
+                            {!isLoadingUserActivity ? (
+                                <AuditLogsTable auditLog={auditLog} hideUserColumns="true" />
+                            ) : (
+                                <Loading />
+                            )}
                         </div>
                     )}
                 </div>

@@ -1,12 +1,12 @@
+import { useSystemIntegrationsQuery } from "api/system.js";
 import ExternalLink from "components/ui/ExternalLink";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import Title from "components/ui/Title";
-import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 
 const SystemIntegrationsPage = () => {
-    const [integrations] = useFetch("/system/integrations");
+    const { data: integrations, isLoading } = useSystemIntegrationsQuery();
 
     return (
         <div>
@@ -28,23 +28,28 @@ const SystemIntegrationsPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {null === integrations && <LoadingTableRow numColumns={5} />}
-                    {null !== integrations && 0 === integrations.length && <NoResultsTableRow numColumns={5} />}
-                    {null !== integrations &&
-                        0 !== integrations.length &&
-                        integrations.map((integration, index) => (
-                            <tr key={index}>
-                                <td>{integration.name}</td>
-                                <td>{integration.description}</td>
-                                <td>
-                                    <ExternalLink href={integration.externalUrl}>
-                                        {integration.externalUrl}
-                                    </ExternalLink>
-                                </td>
-                                <td>{integration.configured ? "Yes" : "No"}</td>
-                                <td>-</td>
-                            </tr>
-                        ))}
+                    {isLoading ? (
+                        <LoadingTableRow numColumns={5} />
+                    ) : (
+                        <>
+                            {null !== integrations && 0 === integrations.length && <NoResultsTableRow numColumns={5} />}
+                            {null !== integrations &&
+                                0 !== integrations.length &&
+                                integrations.map((integration, index) => (
+                                    <tr key={index}>
+                                        <td>{integration.name}</td>
+                                        <td>{integration.description}</td>
+                                        <td>
+                                            <ExternalLink href={integration.externalUrl}>
+                                                {integration.externalUrl}
+                                            </ExternalLink>
+                                        </td>
+                                        <td>{integration.configured ? "Yes" : "No"}</td>
+                                        <td>-</td>
+                                    </tr>
+                                ))}
+                        </>
+                    )}{" "}
                 </tbody>
             </table>
         </div>

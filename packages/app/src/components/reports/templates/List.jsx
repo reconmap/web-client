@@ -1,4 +1,5 @@
 import { UserManualUrl } from "ServerUrls";
+import { useReportsTemplatesQuery } from "api/reports.js";
 import Breadcrumb from "components/ui/Breadcrumb";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
@@ -11,15 +12,14 @@ import SecondaryButton from "components/ui/buttons/Secondary";
 import { resolveMime } from "friendly-mimes";
 import useBoolean from "hooks/useBoolean";
 import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { Link } from "react-router-dom";
 import secureApiFetch from "services/api";
 import ReportModalDialog from "./ModalDialog";
 
 const ReportTemplatesList = () => {
-    const [templates, refetchTemplates] = useFetch("/reports/templates");
+    const { data: templates, isLoading } = useReportsTemplatesQuery();
 
-    const destroy = useDelete("/reports/", refetchTemplates);
+    const destroy = useDelete("/reports/");
 
     const deleteTemplate = (ev, templateId) => {
         ev.stopPropagation();
@@ -94,7 +94,7 @@ const ReportTemplatesList = () => {
                 if you want to find out which variables are available to your report templates.
             </div>
 
-            {!templates ? (
+            {isLoading ? (
                 <Loading />
             ) : (
                 <table className="table is-fullwidth">

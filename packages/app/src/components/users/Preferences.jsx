@@ -1,9 +1,9 @@
+import { useUserQuery } from "api/users.js";
 import NativeSelect from "components/form/NativeSelect";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
 import CountriesTimezones from "countries-and-timezones";
-import useFetch from "hooks/useFetch";
 import { useTheme } from "hooks/useTheme";
 import { ThemeList } from "models/themes";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ const UserPreferences = () => {
 
     const { user } = useAuth();
 
-    const [userData] = useFetch(`/users/${user.id}`);
+    const { data: userData } = useUserQuery(user.id);
 
     const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();

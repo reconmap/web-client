@@ -1,3 +1,4 @@
+import { useVulnerabilityQuery } from "api/vulnerabilities.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -7,14 +8,13 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 
 const ReportTemplateDetails = () => {
     const navigate = useNavigate();
     const { templateId } = useParams();
-    const [vulnerability] = useFetch(`/vulnerabilities/${templateId}`);
+    const { data: vulnerability } = useVulnerabilityQuery(templateId);
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })

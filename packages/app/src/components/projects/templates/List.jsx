@@ -1,3 +1,4 @@
+import { useProjectsQuery } from "api/projects.js";
 import BadgeOutline from "components/badges/BadgeOutline";
 import ProjectBadge from "components/projects/ProjectBadge";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -9,13 +10,12 @@ import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
 import Title from "components/ui/Title";
 import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
 
 const TemplatesList = () => {
     const navigate = useNavigate();
-    const [templates, updateTemplates] = useFetch("/projects?isTemplate=1");
+    const { data: templates } = useProjectsQuery({ isTemplate: 1 });
 
     const cloneProject = (ev, templateId) => {
         ev.stopPropagation();
@@ -31,7 +31,7 @@ const TemplatesList = () => {
         navigate(`/projects/templates/${templateId}`);
     };
 
-    const destroy = useDelete("/projects/", updateTemplates);
+    const destroy = useDelete("/projects/");
 
     const deleteTemplate = (ev, templateId) => {
         ev.stopPropagation();

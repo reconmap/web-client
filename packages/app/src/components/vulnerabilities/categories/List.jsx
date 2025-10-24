@@ -1,3 +1,4 @@
+import { useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import Breadcrumb from "components/ui/Breadcrumb";
 import NoResults from "components/ui/NoResults";
 import Title from "components/ui/Title";
@@ -6,16 +7,15 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import useBoolean from "hooks/useBoolean";
 import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import VulnerabilityCategoryAddModalDialog from "./AddModalDialog";
 import VulnerabilityCategoryEditModalDialog from "./EditModalDialog";
 
 const VulnerabilityCategoriesPage = () => {
-    const [categories, fetchParentCategories] = useFetch("/vulnerabilities/categories?parentsOnly=0");
+    const { data: categories } = useVulnerabilityCategoriesQuery({ parentsOnly: false });
 
-    const destroy = useDelete("/vulnerabilities/categories/", fetchParentCategories);
+    const destroy = useDelete("/vulnerabilities/categories/");
 
     const [editCategory, setEditCategory] = useState({});
 

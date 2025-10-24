@@ -1,10 +1,10 @@
 import { useProjectQuery } from "api/projects.js";
+import { useReportsQuery } from "api/reports.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTextArea from "components/form/NativeTextArea";
 import Loading from "components/ui/Loading";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "../../services/api";
@@ -16,7 +16,7 @@ const SendReport = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
     const { data: project, isLoading: isProjectLoading } = useProjectQuery(projectId);
-    const [revisions] = useFetch(`/reports?projectId=${projectId}`);
+    const { data: revisions } = useReportsQuery({ projectId });
     const [recipientsGroup, setRecipientsGroup] = useState("all_contacts");
 
     const deliverySettings = {

@@ -1,3 +1,6 @@
+import { useAttachmentsQuery } from "api/attachments.js";
+import { useTaskQuery } from "api/tasks.js";
+import { useUsersQuery } from "api/users.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import CommandBadge from "components/commands/Badge";
@@ -18,7 +21,6 @@ import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useDelete from "../../hooks/useDelete.js";
-import useFetch from "../../hooks/useFetch.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import secureApiFetch from "../../services/api.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
@@ -31,8 +33,8 @@ const TaskDetailsPage = () => {
     const { user: loggedInUser } = useAuth();
     const navigate = useNavigate();
     const { taskId } = useParams();
-    const [task, fetchTask] = useFetch(`/tasks/${taskId}`);
-    const [users] = useFetch(`/users`);
+    const { data: task } = useTaskQuery(taskId);
+    const { data: users } = useUsersQuery();
     const [project, setProject] = useState(null);
     const [command, setCommand] = useState(null);
 
@@ -40,9 +42,9 @@ const TaskDetailsPage = () => {
 
     const parentType = "task";
     const parentId = taskId;
-    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`);
+    const { data: attachments } = useAttachmentsQuery({ parentType, parentId });
 
-    const destroy = useDelete("/tasks/", fetchTask);
+    const destroy = useDelete("/tasks/");
 
     const handleDelete = () => {
         destroy(task.id);
@@ -59,7 +61,6 @@ const TaskDetailsPage = () => {
         })
             .then(() => {
                 actionCompletedToast("The assignee has been updated.");
-                fetchTask();
             })
             .catch((err) => console.error(err));
     };
@@ -80,7 +81,6 @@ const TaskDetailsPage = () => {
         })
             .then(() => {
                 actionCompletedToast("The status has been transitioned.");
-                fetchTask();
             })
             .catch((err) => console.error(err));
     };
@@ -235,14 +235,10 @@ const TaskDetailsPage = () => {
                             )}
                             {1 === tabIndex && (
                                 <div>
-                                    <AttachmentsDropzone
-                                        parentType={parentType}
-                                        parentId={parentId}
-                                        onUploadFinished={reloadAttachments}
-                                    />
+                                    <AttachmentsDropzone parentType={parentType} parentId={parentId} />
 
                                     <h4>Attachment list</h4>
-                                    <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                                    <AttachmentsTable attachments={attachments} />
                                 </div>
                             )}
                         </div>

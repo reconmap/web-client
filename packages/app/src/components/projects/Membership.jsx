@@ -1,4 +1,5 @@
-import { useProjectQuery } from "api/projects.js";
+import { useProjectQuery, useProjectUsersQuery } from "api/projects.js";
+import { useUsersQuery } from "api/users.js";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -6,7 +7,6 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import Title from "components/ui/Title";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import UserAvatar from "../badges/UserAvatar";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -16,8 +16,8 @@ import UserLink from "../users/Link";
 
 const ProjectMembership = () => {
     const { projectId } = useParams();
-    const [users] = useFetch(`/users`);
-    const [members, updateMembers] = useFetch(`/projects/${projectId}/users`);
+    const { data: users } = useUsersQuery();
+    const { data: members } = useProjectUsersQuery(projectId);
     const { data: savedProject } = useProjectQuery(projectId);
     const [availableUsers, setAvailableUsers] = useState([]);
 
