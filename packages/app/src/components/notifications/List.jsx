@@ -1,4 +1,4 @@
-import { useNotificationsQuery } from "api/notifications.js";
+import { useDeleteNotificationMutation, useNotificationsQuery } from "api/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
@@ -9,12 +9,12 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { actionCompletedToast } from "components/ui/toast.jsx";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
 
 const isUnread = (notification) => notification.status === "unread";
 
 const NotificationsList = () => {
     const { data: notifications } = useNotificationsQuery();
+    const deleteNotificatioMutation = useDeleteNotificationMutation();
 
     const markAllNotificationsAsRead = () => {
         secureApiFetch("/notifications", {
@@ -36,8 +36,6 @@ const NotificationsList = () => {
             fetchNotifications();
         });
     };
-
-    const deleteNotification = useDelete("/notifications/", fetchNotifications);
 
     return (
         <>
@@ -85,7 +83,9 @@ const NotificationsList = () => {
                                                 Mark as read
                                             </NativeButton>
                                         )}
-                                        <DeleteIconButton onClick={() => deleteNotification(notification.id)} />
+                                        <DeleteIconButton
+                                            onClick={() => deleteNotificatioMutation.mutate(notification.id)}
+                                        />
                                     </NativeButtonGroup>
                                 </td>
                             </tr>

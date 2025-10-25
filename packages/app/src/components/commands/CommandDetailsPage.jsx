@@ -1,4 +1,4 @@
-import { useCommandQuery, useCommandUsagesQuery } from "api/commands.js";
+import { useCommandDeleteMutation, useCommandQuery, useCommandUsagesQuery } from "api/commands.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import Loading from "../ui/Loading.jsx";
 import DeleteButton from "../ui/buttons/Delete.jsx";
@@ -31,10 +30,10 @@ const CommandDetailsPage = () => {
     const [tabIndex, tabIndexSetter] = useState(0);
 
     const { data: command, isLoading } = useCommandQuery(commandId);
-    const deleteClient = useDelete(`/commands/`);
+    const deleteCommandMutation = useCommandDeleteMutation();
 
     const handleDelete = async () => {
-        const confirmed = await deleteClient(commandId);
+        const confirmed = await deleteCommandMutation.mutateAsync(commandId);
         if (confirmed) navigate("/commands");
     };
 

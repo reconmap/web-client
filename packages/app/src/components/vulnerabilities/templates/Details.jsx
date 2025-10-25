@@ -1,4 +1,4 @@
-import { useVulnerabilityQuery } from "api/vulnerabilities.js";
+import { useDeleteVulnerabilityMutation, useVulnerabilityQuery } from "api/vulnerabilities.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -8,7 +8,6 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
-import useDelete from "hooks/useDelete";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 import VulnerabilityDescriptionPanel from "../VulnerabilityDescriptionPanel";
@@ -17,7 +16,8 @@ import VulnerabilityRemediationPanel from "../VulnerabilityRemediationPanel";
 const VulnerabilityTemplateDetails = () => {
     const navigate = useNavigate();
     const { templateId } = useParams();
-    const { data: vulnerability } = useVulnerabilityQuery(templateId);
+    const { data: vulnerability, isLoading } = useVulnerabilityQuery(templateId);
+    const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })
@@ -27,11 +27,15 @@ const VulnerabilityTemplateDetails = () => {
             });
     };
 
-    const destroy = useDelete("/vulnerabilities/", () => {
-        navigate("/vulnerabilities/templates");
-    });
+    const onDelete = () => {
+        deleteVulnerabilityMutation.mutate(templateId, {
+            onSuccess: () => {
+                navigate("/vulnerabilities/templates");
+            },
+        });
+    };
 
-    if (!vulnerability) return <Loading />;
+    if (isLoading) return <Loading />;
 
     if (vulnerability && !vulnerability.is_template) {
         return <Navigate to={`/vulnerabilities/${vulnerability.id}`} />;
@@ -51,7 +55,7 @@ const VulnerabilityTemplateDetails = () => {
                         </RestrictedComponent>
                         <PrimaryButton onClick={() => cloneProject(vulnerability.id)}>Clone and edit</PrimaryButton>
                         <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                            <DeleteButton onClick={() => destroy(vulnerability.id)} />
+                            <DeleteButton onClick={onDelete} />
                         </RestrictedComponent>
                     </NativeButtonGroup>
                 </div>

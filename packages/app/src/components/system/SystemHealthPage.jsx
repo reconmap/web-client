@@ -12,7 +12,7 @@ const RedNo = () => <span style={{ color: "red" }}>No</span>;
 const SystemHealthPage = () => {
     const [t] = useTranslation();
     const wsContextData = useContext(WebsocketContext);
-    const { data: apiHealth } = useSystemHealthQuery();
+    const { data: apiHealth, isLoading } = useSystemHealthQuery();
 
     return (
         <div>
@@ -23,7 +23,7 @@ const SystemHealthPage = () => {
             </div>
             <Title title={t("System health")} />
 
-            {apiHealth !== null && (
+            {!isLoading && (
                 <>
                     <table className="table">
                         <caption>API health</caption>

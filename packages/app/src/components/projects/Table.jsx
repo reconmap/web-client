@@ -1,3 +1,4 @@
+import { useDeleteProjectMutation } from "api/projects.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
@@ -8,6 +9,7 @@ import ProjectBadge from "./ProjectBadge";
 
 const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) => {
     const numColumns = showClientColumn ? 7 : 6;
+    const deleteProjectMutation = useDeleteProjectMutation();
 
     return (
         <table className="table is-fullwidth">
@@ -48,7 +50,9 @@ const ProjectsTable = ({ projects, destroy = null, showClientColumn = true }) =>
                             <td style={{ textAlign: "right" }}>
                                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                                     <LinkButton href={`/projects/${project.id}/edit`}>Edit</LinkButton>
-                                    {destroy && <DeleteIconButton onClick={() => destroy(project.id)} />}
+                                    {destroy && (
+                                        <DeleteIconButton onClick={() => deleteProjectMutation.mutate(project.id)} />
+                                    )}
                                 </RestrictedComponent>
                             </td>
                         </tr>

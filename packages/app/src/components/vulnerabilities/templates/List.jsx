@@ -1,4 +1,4 @@
-import { useVulnerabilitiesQuery } from "api/vulnerabilities.js";
+import { useDeleteVulnerabilityMutation, useVulnerabilitiesQuery } from "api/vulnerabilities.js";
 import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
 import AscendingSortLink from "components/ui/AscendingSortLink";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -10,7 +10,6 @@ import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import useDelete from "hooks/useDelete";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -28,6 +27,7 @@ const VulnerabilityTemplatesList = () => {
         orderDirection: sortBy.order,
     };
     const { data: templates, isLoading } = useVulnerabilitiesQuery(params);
+    const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const cloneVulnerability = (ev, templateId) => {
         ev.stopPropagation();
@@ -51,12 +51,10 @@ const VulnerabilityTemplatesList = () => {
         navigate(`/vulnerabilities/templates/${templateId}`);
     };
 
-    const destroy = useDelete("/vulnerabilities/");
-
     const deleteTemplate = (ev, templateId) => {
         ev.stopPropagation();
 
-        destroy(templateId);
+        deleteVulnerabilityMutation.mutate(templateId);
     };
 
     const onAddVulnerabilityTemplateClick = () => {

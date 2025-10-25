@@ -1,4 +1,4 @@
-import { useVulnerabilityDeleteMutation } from "api/vulnerabilities.js";
+import { useDeleteVulnerabilityMutation } from "api/vulnerabilities.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -22,7 +22,7 @@ const VulnerabilitiesList = () => {
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
 
-    const vulnerabilitiesDeleteMutation = useVulnerabilityDeleteMutation();
+    const vulnerabilitiesDeleteMutation = useDeleteVulnerabilityMutation();
 
     const [tableModel, setTableModel] = useState(new VulnerabilityTableModel());
 

@@ -1,4 +1,6 @@
+import { useProjectsQuery } from "api/projects.js";
 import { useSystemCustomFieldsQuery } from "api/system.js";
+import { useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import DynamicForm from "components/form/DynamicForm";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeCheckbox from "components/form/NativeCheckbox";
@@ -37,72 +39,61 @@ const VulnerabilityForm = ({
     onFormSubmit,
 }) => {
     const [initialised, setInitialised] = useState(false);
-    const [projects, setProjects] = useState(null);
-    const [categories, setCategories] = useState(null);
     const [subCategories, setSubCategories] = useState(null);
     const [targets, setTargets] = useState(null);
     const [useOWASP, setMetrics] = useState(false);
     const { data: customFields } = useSystemCustomFieldsQuery();
 
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery();
+    const { data: categories, isLoading: isLoadingVulnerabilityCategories } = useVulnerabilityCategoriesQuery();
+
     useEffect(() => {
         if (initialised) return;
 
-        Promise.all([
-            secureApiFetch(`/projects`, { method: "GET" }),
-            secureApiFetch(`/vulnerabilities/categories`, { method: "GET" }),
-        ])
-            .then((resp) => {
-                const [respA, respB] = resp;
-                return Promise.all([respA.json(), respB.json()]);
-            })
-            .then(([projects, categories]) => {
-                const defaultProjectId = projects.length ? projects[0].id : 0;
-                const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
-                setMetrics(isOwaspProject(projects, projectId));
+        const defaultProjectId = projects.length ? projects[0].id : 0;
+        const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
+        setMetrics(isOwaspProject(projects, projectId));
 
-                var subcategories = null;
-                if (vulnerability.parent_category_id) {
-                    secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: "GET" })
-                        .then((response) => response.json())
-                        .then((json) => {
-                            subcategories = json;
-                        });
-                }
+        var subcategories = null;
+        if (vulnerability.parent_category_id) {
+            secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: "GET" })
+                .then((response) => response.json())
+                .then((json) => {
+                    subcategories = json;
+                });
+        }
 
-                secureApiFetch(`/targets?projectId=${projectId}`, {
-                    method: "GET",
-                })
-                    .then((resp) => resp.json())
-                    .then((targets) => {
-                        unstable_batchedUpdates(() => {
-                            setProjects(projects);
-                            setCategories(categories);
-                            setTargets(targets);
-                            setVulnerability((prevVulnerability) => {
-                                let updatedVulnerability = prevVulnerability;
-                                if (!idExists(projects, prevVulnerability.project_id)) {
-                                    updatedVulnerability.project_id = defaultProjectId;
-                                }
-                                if (
-                                    !idExists(categories, prevVulnerability.category_id) &&
-                                    !idExists(subcategories, prevVulnerability.category_id)
-                                ) {
-                                    updatedVulnerability.category_id = categories[0].id;
-                                }
-                                if (!idExists(targets, vulnerability.target_id)) {
-                                    updatedVulnerability.target_id = null;
-                                }
-                                return updatedVulnerability;
-                            });
-                            setInitialised(true);
-                        });
+        secureApiFetch(`/targets?projectId=${projectId}`, {
+            method: "GET",
+        })
+            .then((resp) => resp.json())
+            .then((targets) => {
+                unstable_batchedUpdates(() => {
+                    setTargets(targets);
+                    setVulnerability((prevVulnerability) => {
+                        let updatedVulnerability = prevVulnerability;
+                        if (!idExists(projects, prevVulnerability.project_id)) {
+                            updatedVulnerability.project_id = defaultProjectId;
+                        }
+                        if (
+                            !idExists(categories, prevVulnerability.category_id) &&
+                            !idExists(subcategories, prevVulnerability.category_id)
+                        ) {
+                            updatedVulnerability.category_id = categories[0].id;
+                        }
+                        if (!idExists(targets, vulnerability.target_id)) {
+                            updatedVulnerability.target_id = null;
+                        }
+                        return updatedVulnerability;
                     });
+                    setInitialised(true);
+                });
             });
     }, [
         initialised,
         isEditForm,
-        setProjects,
-        setCategories,
+        isLoadingProjects,
+        isLoadingVulnerabilityCategories,
         setTargets,
         setMetrics,
         setVulnerability,

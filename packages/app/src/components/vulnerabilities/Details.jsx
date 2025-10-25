@@ -1,6 +1,6 @@
 import { Tag } from "@reconmap/native-components";
 import { useAttachmentsQuery } from "api/attachments.js";
-import { useVulnerabilityQuery } from "api/vulnerabilities.js";
+import { useDeleteVulnerabilityMutation, useVulnerabilityQuery } from "api/vulnerabilities.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeSelect from "components/form/NativeSelect";
@@ -18,7 +18,6 @@ import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
 import { actionCompletedToast } from "../ui/toast";
-import useDelete from "./../../hooks/useDelete";
 import VulnerabilitiesNotesTab from "./NotesTab";
 import VulnerabilityDescriptionPanel from "./VulnerabilityDescriptionPanel";
 import VulnerabilityRemediationPanel from "./VulnerabilityRemediationPanel";
@@ -27,7 +26,7 @@ const VulnerabilityDetails = () => {
     const navigate = useNavigate();
     const { vulnerabilityId } = useParams();
     const { data: vulnerability } = useVulnerabilityQuery(vulnerabilityId);
-    const deleteVulnerability = useDelete(`/vulnerabilities/`);
+    const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const parentType = "vulnerability";
     const parentId = vulnerabilityId;
@@ -36,7 +35,7 @@ const VulnerabilityDetails = () => {
     const [tabIndex, tabIndexSetter] = useState(0);
 
     const handleDelete = async () => {
-        const confirmed = await deleteVulnerability(vulnerabilityId);
+        const confirmed = await deleteVulnerabilityMutation.mutateAsync(vulnerabilityId);
         if (confirmed) navigate("/vulnerabilities");
     };
 

@@ -1,7 +1,7 @@
-import { useAgents } from "api/agents.js";
+import { useAgentsQuery } from "api/agents.js";
 
 const AgentsListPage = () => {
-    const { data: agents, isLoading } = useAgents();
+    const { data: agents, isLoading } = useAgentsQuery();
     if (isLoading) return <div>Loading...</div>;
 
     return (

@@ -1,3 +1,4 @@
+import { useDeleteVulnerabilityMutation } from "api/vulnerabilities.js";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
@@ -8,7 +9,7 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ReloadButton from "components/ui/buttons/Reload";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
-import useDelete from "hooks/useDelete";
+import { actionCompletedToast } from "components/ui/toast.jsx";
 import CvssScore from "../badges/CvssScore";
 import RiskBadge from "../badges/RiskBadge";
 import VulnerabilityBadge from "../badges/VulnerabilityBadge";
@@ -59,15 +60,24 @@ const VulnerabilitiesTable = ({
         }
     };
 
+    const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
+
     const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
     const vulnerabilitiesLength = null !== tableModel.vulnerabilities ? tableModel.vulnerabilities.length : 0;
 
-    const deleteVulnerability = useDelete(
-        "/vulnerabilities/",
-        reloadCallback,
-        "Do you really want to delete this vulnerability?",
-        "The vulnerability has been deleted.",
-    );
+    const deleteVulnerability = async (vulnerabilityId) => {
+        if (window.confirm("Do you really want to delete this vulnerability?")) {
+            try {
+                await deleteVulnerabilityMutation.mutateAsync(vulnerabilityId);
+                actionCompletedToast("The vulnerability has been deleted.");
+                if (reloadCallback) {
+                    reloadCallback();
+                }
+            } catch (error) {
+                alert("An error occurred while deleting the vulnerability.");
+            }
+        }
+    };
 
     return (
         <table className="table is-fullwidth">

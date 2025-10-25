@@ -1,4 +1,4 @@
-import { useOrganisationsQuery } from "api/clients.js";
+import { useDeleteOrganisationMutation, useOrganisationsQuery } from "api/clients.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Loading from "components/ui/Loading.jsx";
 import Title from "components/ui/Title";
@@ -8,7 +8,6 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import OrganisationTypes from "models/OrganisationTypes.js";
 import { useTranslation } from "react-i18next";
-import useDelete from "../../hooks/useDelete";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
 import LinkButton from "../ui/buttons/Link";
@@ -19,8 +18,7 @@ const ClientsList = () => {
     const [t] = useTranslation();
 
     const { data: clients, isLoading, isError, error } = useOrganisationsQuery({});
-
-    const destroy = useDelete("/clients/");
+    const deleteOrganisationMutation = useDeleteOrganisationMutation();
 
     if (isLoading) return <Loading />;
 
@@ -74,7 +72,7 @@ const ClientsList = () => {
                                     <LinkButton href={OrganisationsUrls.Edit.replace(":organisationId", client.id)}>
                                         {t("Edit")}
                                     </LinkButton>
-                                    <DeleteIconButton onClick={() => destroy(client.id)} />
+                                    <DeleteIconButton onClick={() => deleteOrganisationMutation.mutate(client.id)} />
                                 </td>
                             </tr>
                         ))}

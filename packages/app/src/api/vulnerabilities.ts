@@ -25,6 +25,10 @@ const requestVulnerabilityPost = (vulnerability: any) => {
     return secureApiFetch(`/vulnerabilities`, { method: "POST", body: JSON.stringify(vulnerability) });
 };
 
+const requestVulnerabilityCategoryDelete = (vulnerabilityCategoryId: number) => {
+    return secureApiFetch(`/vulnerabilitiies/categories/${vulnerabilityCategoryId}`, { method: "DELETE" });
+};
+
 const requestVulnerabilityDelete = (vulnerabilityIds: number[]) => {
     return secureApiFetch(`/vulnerabilities`, {
         method: "PATCH",
@@ -41,6 +45,7 @@ const useVulnerabilitiesQuery = (params: any) => {
         queryFn: () => requestVulnerabilities(params).then((res) => res.json()),
     });
 };
+
 const useVulnerabilityCategoriesQuery = () => {
     return useQuery({
         queryKey: ["vulnerabilities"],
@@ -72,7 +77,7 @@ const useMutationPostDocument = () => {
     });
 };
 
-const useVulnerabilityDeleteMutation = () => {
+const useDeleteVulnerabilityMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (vulnerabilityIds: number[]) =>
@@ -83,11 +88,23 @@ const useVulnerabilityDeleteMutation = () => {
     });
 };
 
+const useDeleteVulnerabilityCategoryMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (vulnerabilityCategoryId: number) =>
+            requestVulnerabilityCategoryDelete(vulnerabilityCategoryId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["vulnerabilities"] });
+        },
+    });
+};
+
 export {
+    useDeleteVulnerabilityCategoryMutation,
+    useDeleteVulnerabilityMutation,
     useMutationPostDocument,
     useVulnerabilitiesQuery,
     useVulnerabilitiesStatsQuery,
     useVulnerabilityCategoriesQuery,
-    useVulnerabilityDeleteMutation,
-    useVulnerabilityQuery as useVulnerabilityQuery,
+    useVulnerabilityQuery,
 };

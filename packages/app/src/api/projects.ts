@@ -1,15 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import secureApiFetch from "services/api.js";
 
 const requestProject = (projectId: number) => {
     return secureApiFetch(`/projects/${projectId}`, { method: "GET" });
-};
-
-const useProjectQuery = (projectId: number) => {
-    return useQuery({
-        queryKey: ["projects", projectId],
-        queryFn: () => requestProject(projectId).then((res) => res.json()),
-    });
 };
 
 const requestProjects = (params: Record<string, any>) => {
@@ -31,6 +24,19 @@ const requestActiveProjects = () => {
 
 const requestProjectCategories = () => {
     return secureApiFetch(`/project/categories`, { method: "GET" });
+};
+
+const requestProjectDelete = (projectId: number) => {
+    return secureApiFetch(`/projects/${projectId}`, {
+        method: "DELETE",
+    });
+};
+
+const useProjectQuery = (projectId: number) => {
+    return useQuery({
+        queryKey: ["projects", projectId],
+        queryFn: () => requestProject(projectId).then((res) => res.json()),
+    });
 };
 
 const useProjectsQuery = (params: Record<string, any>) => {
@@ -67,7 +73,18 @@ const useProjectCategoriesQuery = () => {
     });
 };
 
+const useDeleteProjectMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (projectId: number) => requestProjectDelete(projectId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["vulnerabilities"] });
+        },
+    });
+};
+
 export {
+    useDeleteProjectMutation,
     useProjectCategoriesQuery,
     useProjectQuery,
     useProjectsQuery,

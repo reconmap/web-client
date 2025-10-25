@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import secureApiFetch from "services/api.js";
 
 const requestOrganisations = (params: any) => {
@@ -12,6 +12,12 @@ const requestOrganisation = (organisationId: number) => {
 
 const requestOrganisationContacts = (organisationId: number) => {
     return secureApiFetch(`/clients/${organisationId}/contacts`, { method: "GET" });
+};
+
+const requestOrganisationDelete = (organisationId: number) => {
+    return secureApiFetch(`/clients/${organisationId}`, {
+        method: "DELETE",
+    });
 };
 
 const useOrganisationsQuery = (params: any) => {
@@ -35,4 +41,14 @@ const useOrganisationContactsQuery = (clientId: number) => {
     });
 };
 
-export { useOrganisationContactsQuery, useOrganisationQuery, useOrganisationsQuery };
+const useDeleteOrganisationMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (organisationId: number) => requestOrganisationDelete(organisationId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["organisations"] });
+        },
+    });
+};
+
+export { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganisationQuery, useOrganisationsQuery };

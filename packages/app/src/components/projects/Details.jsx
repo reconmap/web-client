@@ -1,4 +1,4 @@
-import { useProjectQuery } from "api/projects.js";
+import { useDeleteProjectMutation, useProjectQuery } from "api/projects.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
@@ -10,7 +10,6 @@ import { t } from "i18next";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from "../ui/buttons/Secondary";
 import Loading from "../ui/Loading";
@@ -28,7 +27,7 @@ const ProjectDetails = () => {
     const { projectId } = useParams();
 
     const { data: project } = useProjectQuery(projectId);
-    const destroy = useDelete(`/projects/`);
+    const deleteProjectMutation = useDeleteProjectMutation();
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
@@ -78,7 +77,9 @@ const ProjectDetails = () => {
                                 <NativeButton onClick={() => onArchiveButtonClick(project)}>
                                     {project.archived ? "Unarchive" : "Archive"}
                                 </NativeButton>
-                                <DeleteButton onClick={() => destroy(project.id)}>Delete</DeleteButton>
+                                <DeleteButton onClick={() => deleteProjectMutation.mutate(project.id)}>
+                                    Delete
+                                </DeleteButton>
                             </RestrictedComponent>
                         </NativeButtonGroup>
                     </>

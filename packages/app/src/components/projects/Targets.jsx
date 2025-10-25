@@ -1,3 +1,4 @@
+import { useDeleteAssetMutation } from "api/assets.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -23,13 +24,13 @@ const ProjectTargets = ({ project }) => {
     const [targets, setTargets] = useState([]);
 
     const { value: isAddTargetDialogOpen, setTrue: openAddTargetDialog, setFalse: closeAddTargetDialog } = useBoolean();
+    const deleteAssetMutation = useDeleteAssetMutation();
 
     const onDeleteButtonClick = (ev, targetId) => {
         ev.preventDefault();
 
-        secureApiFetch(`/targets/${targetId}`, { method: "DELETE" }).then(() => {
-            reloadTargets();
-        });
+        deleteAssetMutation.mutate(targetId);
+        reloadTargets();
     };
 
     const onTargetFormSaved = () => {

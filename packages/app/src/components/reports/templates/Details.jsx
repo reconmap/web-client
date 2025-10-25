@@ -1,4 +1,4 @@
-import { useVulnerabilityQuery } from "api/vulnerabilities.js";
+import { useDeleteVulnerabilityMutation, useVulnerabilityQuery } from "api/vulnerabilities.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -7,14 +7,14 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
-import useDelete from "hooks/useDelete";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 
 const ReportTemplateDetails = () => {
     const navigate = useNavigate();
     const { templateId } = useParams();
-    const { data: vulnerability } = useVulnerabilityQuery(templateId);
+    const { data: vulnerability, isLoading } = useVulnerabilityQuery(templateId);
+    const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })
@@ -24,11 +24,13 @@ const ReportTemplateDetails = () => {
             });
     };
 
-    const destroy = useDelete("/vulnerabilities/", () => {
-        navigate("/vulnerabilities/templates");
-    });
+    const onDelete = () => {
+        deleteVulnerabilityMutation.mutate(vulnerability.id).then(() => {
+            navigate("/vulnerabilities/templates");
+        });
+    };
 
-    if (!vulnerability) return <Loading />;
+    if (isLoading) return <Loading />;
 
     if (vulnerability && !vulnerability.is_template) {
         return <Navigate to={`/vulnerabilities/${vulnerability.id}`} />;
@@ -47,7 +49,7 @@ const ReportTemplateDetails = () => {
 
                         <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                             <LinkButton href={`/vulnerabilities/${vulnerability.id}/edit`}>Edit</LinkButton>
-                            <DeleteButton onClick={() => destroy(vulnerability.id)} />
+                            <DeleteButton onClick={onDelete} />
                         </RestrictedComponent>
                     </NativeButtonGroup>
                 </div>

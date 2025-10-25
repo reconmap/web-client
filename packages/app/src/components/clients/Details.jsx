@@ -1,4 +1,4 @@
-import { useOrganisationContactsQuery, useOrganisationQuery } from "api/clients.js";
+import { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganisationQuery } from "api/clients.js";
 import { useProjectsQuery } from "api/projects.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
@@ -26,7 +26,6 @@ import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
-import useDelete from "./../../hooks/useDelete";
 import Loading from "./../ui/Loading";
 import OrganisationsUrls from "./OrganisationsUrls";
 
@@ -65,6 +64,7 @@ const ClientDetails = () => {
 
     const { data: client, isLoading: isClientLoading } = useOrganisationQuery(clientId);
     const { data: contacts } = useOrganisationContactsQuery(clientId);
+    const deleteOrganisationMutation = useDeleteOrganisationMutation();
 
     const [contact, setContact] = useState({ ...Contact });
 
@@ -74,12 +74,11 @@ const ClientDetails = () => {
         setContact({ ...contact, [ev.target.name]: ev.target.value });
     };
 
-    const deleteClient = useDelete(`/clients/`);
     const [logo, setLogo] = useState(null);
     const [smallLogo, setSmallLogo] = useState(null);
 
     const handleDelete = async () => {
-        const confirmed = await deleteClient(clientId);
+        const confirmed = await deleteOrganisationMutation.mutateAsync(clientId);
         if (confirmed) navigate("/clients");
     };
 

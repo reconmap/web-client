@@ -1,8 +1,9 @@
+import { useAuditLogQuery } from "api/auditlog.js";
 import PaginationV2 from "components/layout/PaginationV2";
+import Loading from "components/ui/Loading.jsx";
 import useQuery from "hooks/useQuery";
-import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch, { downloadFromApi } from "../../services/api";
+import { downloadFromApi } from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExportButton from "../ui/buttons/Export";
 import Title from "../ui/Title";
@@ -15,33 +16,17 @@ const AuditLogList = () => {
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
 
-    const [auditLog, setAuditLog] = useState([]);
-    const [numberPages, setNumberPages] = useState(1);
+    const { data: auditLog, isLoading } = useAuditLogQuery({ page: apiPageNumber });
 
     const onPageChange = (pageNumber) => {
         navigate(`/auditlog?page=${pageNumber + 1}`);
     };
 
-    const reloadData = useCallback(() => {
-        secureApiFetch(`/auditlog?page=${apiPageNumber}`, { method: "GET" })
-            .then((resp) => {
-                if (resp.headers.has("X-Page-Count")) {
-                    setNumberPages(resp.headers.get("X-Page-Count"));
-                }
-                return resp.json();
-            })
-            .then((data) => {
-                setAuditLog(data);
-            });
-    }, [apiPageNumber]);
-
-    useEffect(() => {
-        reloadData();
-    }, [reloadData]);
-
     const onExportClick = () => {
         downloadFromApi("/system/data?entities=audit_log");
     };
+
+    if (isLoading) return <Loading />;
 
     return (
         <>
@@ -49,11 +34,11 @@ const AuditLogList = () => {
                 <Breadcrumb>
                     <div>System</div>
                 </Breadcrumb>
-                <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
+                <PaginationV2 page={apiPageNumber} total={auditLog.pageCount} onPageChange={onPageChange} />
                 <ExportButton onClick={onExportClick} />
             </div>
             <Title type="System" title={`Audit log (page ${pageNumber})`} />
-            <AuditLogsTable auditLog={auditLog} />
+            <AuditLogsTable auditLog={auditLog.data} />
         </>
     );
 };

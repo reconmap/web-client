@@ -1,15 +1,49 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import secureApiFetch from "services/api.js";
 
-const requestComments = (params: any) => {
-    return secureApiFetch("/notes?" + new URLSearchParams(params).toString(), { method: "GET" });
+const requestComments = async (params: any) => {
+    return (await secureApiFetch("/notes?" + new URLSearchParams(params).toString(), { method: "GET" })).json();
+};
+
+const requestCommentDelete = (taskId: number) => {
+    return secureApiFetch(`/notes/${taskId}`, {
+        method: "DELETE",
+    });
+};
+
+const requestPostComment = async (comment: any) => {
+    return (await secureApiFetch(`/notes`, {
+        method: "POST",
+        body: JSON.stringify(comment),
+    })).json();
 };
 
 const useNotesQuery = (params: any) => {
     return useQuery({
-        queryKey: ["notes"],
-        queryFn: () => requestComments(params).then((res) => res.json()),
+        queryKey: ["comments"],
+        queryFn: () => requestComments(params),
     });
 };
 
-export { useNotesQuery };
+const useDeleteCommentMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (commentId: number) => requestCommentDelete(commentId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["comments"] });
+        },
+    });
+};
+
+const useCreateCommentMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (comment: any) => requestPostComment(comment).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["comments"] });
+        },
+    });
+};
+
+
+export { useDeleteCommentMutation, useCreateCommentMutation, useNotesQuery };

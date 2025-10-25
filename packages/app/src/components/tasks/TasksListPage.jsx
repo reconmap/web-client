@@ -7,7 +7,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import CreateButton from "../ui/buttons/Create.jsx";
@@ -86,8 +85,6 @@ const TasksListPage = () => {
             .catch((err) => console.error(err));
     };
 
-    const destroy = useDelete("/tasks/", reloadTasks);
-
     useEffect(() => {
         reloadTasks();
     }, [reloadTasks, tableModel.filters]);
@@ -121,12 +118,7 @@ const TasksListPage = () => {
                 <TaskFilters tableModel={tableModel} tableModelSetter={setTableModel} />
             </div>
 
-            <TasksTable
-                tableModel={tableModel}
-                tableModelSetter={setTableModel}
-                destroy={destroy}
-                reloadCallback={reloadTasks}
-            />
+            <TasksTable tableModel={tableModel} tableModelSetter={setTableModel} reloadCallback={reloadTasks} />
         </>
     );
 };

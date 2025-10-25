@@ -1,15 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import secureApiFetch from "services/api.js";
+import { requestAgents } from "./requests/agents.js";
 
-const requestAgents = () => {
-    return secureApiFetch("/agents", { method: "GET" });
-};
-
-const useAgents = () => {
+const useAgentsQuery = () => {
     return useQuery({
         queryKey: ["agents"],
-        queryFn: () => requestAgents().then((res) => res.json()),
+        queryFn: requestAgents,
     });
 };
 
-export { useAgents };
+export { useAgentsQuery };

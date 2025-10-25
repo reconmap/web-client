@@ -1,15 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
-import secureApiFetch from "services/api.js";
-
-const requestAsset = (assetId: number) => {
-    return secureApiFetch(`/targets/${assetId}`, { method: "GET" });
-};
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { requestAsset, requestAssetDelete } from "./requests/assets.js";
 
 const useAssetQuery = (assetId: number) => {
     return useQuery({
         queryKey: ["assets"],
-        queryFn: () => requestAsset(assetId).then((res) => res.json()),
+        queryFn: () => requestAsset(assetId),
     });
 };
 
-export { useAssetQuery };
+const useDeleteAssetMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (assetId: number) => requestAssetDelete(assetId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["assets"] });
+        },
+    });
+};
+
+export { useAssetQuery, useDeleteAssetMutation };

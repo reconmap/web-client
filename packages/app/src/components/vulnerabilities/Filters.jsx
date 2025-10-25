@@ -5,7 +5,7 @@ import Risks from "models/Risks";
 
 const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, showProjectFilter = true }) => {
     const { data: categories, isLoading } = useVulnerabilityCategoriesQuery({ parentsOnly: true });
-    const { data: projects } = useProjectsQuery({ status: "active" });
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ status: "active" });
 
     const onFilterChange = (ev) => {
         setTableModel({
@@ -25,7 +25,7 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
                     <div className="control">
                         <NativeSelect name="projectId" onChange={onFilterChange}>
                             <option value="">Project = (any)</option>
-                            {projects !== null &&
+                            {!isLoadingProjects &&
                                 projects.map((project) => (
                                     <option key={project.id} value={project.id}>
                                         Project = {project.name}

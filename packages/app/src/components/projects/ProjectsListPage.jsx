@@ -7,7 +7,6 @@ import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import CreateButton from "../ui/buttons/Create.jsx";
 import ProjectsTable from "./Table.jsx";
@@ -65,8 +64,6 @@ const ProjectsListPage = () => {
             });
     }, [apiPageNumber, statusFilter]);
 
-    const destroy = useDelete("/projects/", reloadProjects);
-
     useDocumentTitle("Projects");
 
     useEffect(() => {
@@ -99,7 +96,7 @@ const ProjectsListPage = () => {
                 </div>
             </details>
 
-            <ProjectsTable projects={projects} destroy={destroy} />
+            <ProjectsTable projects={projects} />
         </div>
     );
 };

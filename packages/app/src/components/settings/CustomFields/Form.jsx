@@ -13,13 +13,13 @@ import Title from "components/ui/Title";
 const CustomFieldsPage = () => {
     const { data: customFields } = useSystemCustomFieldsQuery();
 
-    const customFieldDeletionMutation = useSystemCustomFieldDeletionMutation();
-    const customFieldPostMutation = useSystemCustomFieldPostMutation();
+    const deleteCustomFieldMutation = useSystemCustomFieldDeletionMutation();
+    const createCustomFieldMutation = useSystemCustomFieldPostMutation();
 
     const onDeleteCustomFieldClick = (ev, field) => {
         ev.preventDefault();
 
-        customFieldDeletionMutation.mutate(field.id);
+        deleteCustomFieldMutation.mutate(field.id);
     };
 
     const onAddCustomFieldSubmit = (ev) => {
@@ -28,7 +28,7 @@ const CustomFieldsPage = () => {
         const formData = new FormData(ev.target);
         const data = Object.fromEntries(formData.entries());
 
-        customFieldPostMutation.mutate(data);
+        createCustomFieldMutation.mutate(data);
 
         ev.target.reset();
 

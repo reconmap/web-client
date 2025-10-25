@@ -1,5 +1,5 @@
 import { useAttachmentsQuery } from "api/attachments.js";
-import { useTaskQuery } from "api/tasks.js";
+import { useDeleteTaskMutation, useTaskQuery } from "api/tasks.js";
 import { useUsersQuery } from "api/users.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
@@ -20,7 +20,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useDelete from "../../hooks/useDelete.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import secureApiFetch from "../../services/api.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
@@ -43,11 +42,10 @@ const TaskDetailsPage = () => {
     const parentType = "task";
     const parentId = taskId;
     const { data: attachments } = useAttachmentsQuery({ parentType, parentId });
-
-    const destroy = useDelete("/tasks/");
+    const deleteTaskMutation = useDeleteTaskMutation();
 
     const handleDelete = () => {
-        destroy(task.id);
+        deleteTaskMutation.mutate(task.id);
         navigate("/tasks");
     };
 

@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import secureApiFetch from "services/api.js";
 
 const requestTasksForUser = (userId: number) => {
@@ -7,6 +7,12 @@ const requestTasksForUser = (userId: number) => {
 
 const requestTask = (taskId: number) => {
     return secureApiFetch(`/tasks/${taskId}`, { method: "GET" });
+};
+
+const requestTaskDelete = (taskId: number) => {
+    return secureApiFetch(`/tasks/${taskId}`, {
+        method: "DELETE",
+    });
 };
 
 const useQueryTasksForUser = (userId: number) => {
@@ -23,4 +29,14 @@ const useTaskQuery = (taskId: number) => {
     });
 };
 
-export { useQueryTasksForUser, useTaskQuery };
+const useDeleteTaskMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (taskId: number) => requestTaskDelete(taskId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["tasks"] });
+        },
+    });
+};
+
+export { useDeleteTaskMutation, useQueryTasksForUser, useTaskQuery };
