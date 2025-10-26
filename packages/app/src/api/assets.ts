@@ -3,14 +3,14 @@ import { requestAsset, requestAssetDelete, requestAssets } from "./requests/asse
 
 const useAssetQuery = (assetId: number) => {
     return useQuery({
-        queryKey: ["assets"],
+        queryKey: ["asset", assetId],
         queryFn: () => requestAsset(assetId),
     });
 };
 
 const useAssetsQuery = (params: any) => {
     return useQuery({
-        queryKey: ["assets"],
+        queryKey: ["assets", params],
         queryFn: () => requestAssets(params),
     });
 };

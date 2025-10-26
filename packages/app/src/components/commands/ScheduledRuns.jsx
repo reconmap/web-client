@@ -1,4 +1,5 @@
 import { useCommandSchedulesQuery, useCommandUsagesQuery } from "api/commands.js";
+import { requestCommandScheduleDelete } from "api/requests/commands.js";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import { toString as CronExpressionToString } from "cronstrue";
 
@@ -7,9 +8,7 @@ const ScheduledRuns = ({ command, task = null }) => {
     const { data: scheduledCommands } = useCommandSchedulesQuery(command?.id);
 
     const deleteScheduledCommand = (ev, commandSchedule) => {
-        secureApiFetch(`/commands/schedules/${commandSchedule.id}`, {
-            method: "DELETE",
-        })
+        requestCommandScheduleDelete(commandSchedule.id)
             .then(() => {
                 fetchScheduledCommands();
                 actionCompletedToast("The scheduled command has been deleted.");

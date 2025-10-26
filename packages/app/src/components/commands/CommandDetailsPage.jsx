@@ -1,4 +1,5 @@
 import { useCommandDeleteMutation, useCommandQuery, useCommandUsagesQuery } from "api/commands.js";
+import { requestCommandUsageDelete } from "api/requests/commands.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -13,7 +14,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import Loading from "../ui/Loading.jsx";
 import DeleteButton from "../ui/buttons/Delete.jsx";
@@ -38,9 +38,7 @@ const CommandDetailsPage = () => {
     };
 
     const deleteUsage = (usage) => {
-        secureApiFetch(`/commands/usage/${usage.id}`, {
-            method: "DELETE",
-        }).finally(() => {
+        requestCommandUsageDelete(usage.id).finally(() => {
             fetchCommandUsages();
         });
     };

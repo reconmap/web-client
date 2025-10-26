@@ -20,7 +20,7 @@ const ProjectsListPage = () => {
     const apiPageNumber = pageNumber - 1;
 
     const [statusFilter, setStatusFilter] = useState("active");
-    const { data: projects, isLoading } = useProjectsQuery({ status: statusFilter, page: apiPageNumber });
+    const { data: projects, isLoading } = useProjectsQuery({ limit: 10, status: statusFilter, page: apiPageNumber });
 
     const handleCreateProject = () => {
         navigate("/projects/create");

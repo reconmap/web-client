@@ -10,34 +10,34 @@ import {
 
 const useCommandsQuery = (params: any) => {
     return useQuery({
-        queryKey: ["commands"],
+        queryKey: ["commands", params],
         queryFn: () => requestCommands(params),
     });
 };
 
 const useCommandsOutputParsersQuery = () => {
     return useQuery({
-        queryKey: ["commands"],
+        queryKey: ["commands", "outputParsers"],
         queryFn: () => requestCommandsOutputParsers().then((res) => res.json()),
     });
 };
 
 const useCommandQuery = (commandId: number) => {
     return useQuery({
-        queryKey: ["commands"],
+        queryKey: ["command", commandId],
         queryFn: () => requestCommand(commandId).then((res) => res.json()),
     });
 };
 
 const useCommandUsagesQuery = (commandId: number) => {
     return useQuery({
-        queryKey: ["commands"],
+        queryKey: ["command", "usage", commandId],
         queryFn: () => requestCommandUsages(commandId).then((res) => res.json()),
     });
 };
 const useCommandSchedulesQuery = (commandId: number) => {
     return useQuery({
-        queryKey: ["commands"],
+        queryKey: ["command", "schedule", commandId],
         queryFn: () => requestCommandSchedules(commandId).then((res) => res.json()),
     });
 };

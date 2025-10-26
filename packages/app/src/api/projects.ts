@@ -47,7 +47,7 @@ const useDeleteProjectMutation = () => {
     return useMutation({
         mutationFn: (projectId: number) => requestProjectDelete(projectId).then((res) => res.json()),
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: ["vulnerabilities"] });
+            queryClient.invalidateQueries({ queryKey: ["projects"] });
         },
     });
 };

@@ -1,4 +1,5 @@
 import { useAttachmentsQuery } from "api/attachments.js";
+import { requestAttachmentDelete } from "api/requests/attachments.js";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -22,7 +23,7 @@ const CommandOutputs = ({ command }) => {
     const onDeleteOutputClick = (ev, attachmentId) => {
         ev.preventDefault();
 
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "DELETE" })
+        requestAttachmentDelete(attachmentId)
             .then(() => {
                 actionCompletedToast("The output has been deleted.");
             })

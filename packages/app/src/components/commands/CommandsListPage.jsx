@@ -16,7 +16,7 @@ const CommandsListPage = () => {
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
 
-    const { data: commands, isLoading } = useCommandsQuery({ page: apiPageNumber });
+    const { data: commands, isLoading } = useCommandsQuery({ limit: 10, page: apiPageNumber });
 
     const onAddCommandClick = (ev) => {
         ev.preventDefault();

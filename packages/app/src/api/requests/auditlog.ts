@@ -1,7 +1,9 @@
 import secureApiFetch from "services/api.js";
 
+const API_BASE_URL = "/auditlog";
+
 const requestAuditLog = async (params: any) => {
-    const resp = await secureApiFetch(`/auditlog?` + new URLSearchParams(params).toString(), { method: "GET" });
+    const resp = await secureApiFetch(`${API_BASE_URL}?` + new URLSearchParams(params).toString(), { method: "GET" });
     const auditLog: { data: any; pageCount?: string | null; totalCount?: string | null } = {
         data: await resp.json(),
     };
@@ -15,7 +17,7 @@ const requestAuditLog = async (params: any) => {
 };
 
 const requestAuditLogStats = () => {
-    return secureApiFetch("/auditlog/stats", { method: "GET" });
+    return secureApiFetch("${API_BASE_URL}/stats", { method: "GET" });
 };
 
 export { requestAuditLog, requestAuditLogStats };

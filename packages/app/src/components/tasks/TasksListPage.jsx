@@ -1,3 +1,4 @@
+import { requestTasksDelete } from "api/requests/tasks.js";
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteButton from "components/ui/buttons/Delete";
@@ -70,13 +71,7 @@ const TasksListPage = () => {
     };
 
     const onDeleteButtonClick = () => {
-        secureApiFetch("/tasks", {
-            method: "PATCH",
-            headers: {
-                "Bulk-Operation": "DELETE",
-            },
-            body: JSON.stringify(tableModel.selection),
-        })
+        requestTasksDelete(tableModel.selection)
             .then(reloadTasks)
             .then(() => {
                 setTableModel({ ...tableModel, selection: [] });

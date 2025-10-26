@@ -1,18 +1,22 @@
 import secureApiFetch from "services/api.js";
 
+const API_BASE_URL = "/notes";
+
 const requestComments = async (params: any) => {
-    return (await secureApiFetch("/notes?" + new URLSearchParams(params).toString(), { method: "GET" })).json();
+    return (
+        await secureApiFetch("${API_BASE_URL}?" + new URLSearchParams(params).toString(), { method: "GET" })
+    ).json();
 };
 
 const requestCommentDelete = (taskId: number) => {
-    return secureApiFetch(`/notes/${taskId}`, {
+    return secureApiFetch(`${API_BASE_URL}/${taskId}`, {
         method: "DELETE",
     });
 };
 
 const requestPostComment = async (comment: any) => {
     return (
-        await secureApiFetch(`/notes`, {
+        await secureApiFetch(`${API_BASE_URL}`, {
             method: "POST",
             body: JSON.stringify(comment),
         })

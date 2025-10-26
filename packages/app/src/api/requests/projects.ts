@@ -41,12 +41,30 @@ const requestProjectDelete = (projectId: number) => {
     });
 };
 
+const requestProjectPost = (project: Record<string, any>) => {
+    return secureApiFetch(`/projects`, {
+        method: "POST",
+        body: JSON.stringify(project),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+};
+
+const requestProjectUserDelete = (projectId: number, userId: number) => {
+    return secureApiFetch(`/projects/${projectId}/users/${userId}`, {
+        method: "DELETE",
+    });
+};
+
 export {
     requestActiveProjects,
     requestProject,
     requestProjectCategories,
     requestProjectDelete,
+    requestProjectPost,
     requestProjects,
+    requestProjectUserDelete,
     requestProjectUsers,
     requestProjectVault,
 };

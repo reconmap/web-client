@@ -40,7 +40,7 @@ const ProjectTargets = ({ project }) => {
     };
 
     const onPageChange = (pageNumber) => {
-        setPageNumber(pageNumber);
+        setPageNumber(pageNumber + 1);
     };
 
     return (

@@ -25,7 +25,7 @@ import VulnerabilityRemediationPanel from "./VulnerabilityRemediationPanel";
 const VulnerabilityDetails = () => {
     const navigate = useNavigate();
     const { vulnerabilityId } = useParams();
-    const { data: vulnerability } = useVulnerabilityQuery(vulnerabilityId);
+    const { data: vulnerability, isLoading } = useVulnerabilityQuery(vulnerabilityId);
     const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const parentType = "vulnerability";
@@ -51,7 +51,7 @@ const VulnerabilityDetails = () => {
             .catch((err) => console.error(err));
     };
 
-    if (!vulnerability) return <Loading />;
+    if (isLoading) return <Loading />;
 
     if (vulnerability && vulnerability.is_template) {
         return <Navigate to={`/vulnerabilities/templates/${vulnerability.id}`} />;

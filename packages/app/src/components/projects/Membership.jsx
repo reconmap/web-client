@@ -1,4 +1,5 @@
 import { useProjectQuery, useProjectUsersQuery } from "api/projects.js";
+import { requestProjectUserDelete } from "api/requests/projects.js";
 import { useUsersQuery } from "api/users.js";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
@@ -35,9 +36,7 @@ const ProjectMembership = () => {
     };
 
     const handleDelete = (member) => {
-        secureApiFetch(`/projects/${projectId}/users/${member.membership_id}`, {
-            method: "DELETE",
-        }).then(() => {
+        requestProjectUserDelete(projectId, member.membership_id).then(() => {
             updateMembers();
         });
     };

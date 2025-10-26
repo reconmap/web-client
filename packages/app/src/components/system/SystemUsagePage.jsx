@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useSystemUsageQuery } from "api/system.js";
 import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
@@ -8,6 +9,11 @@ import Breadcrumb from "../ui/Breadcrumb.jsx";
 const SystemUsagePage = () => {
     const [t] = useTranslation();
     const { data: usage, isLoading } = useSystemUsageQuery();
+    const queryClient = useQueryClient();
+    const activeQueries = queryClient
+        .getQueryCache()
+        .getAll()
+        .filter((q) => q.isActive());
 
     if (isLoading) return <Loading />;
 
@@ -50,6 +56,11 @@ const SystemUsagePage = () => {
                         <tr>
                             <td>Notifications</td>
                             <td>{usage.queueLengths.notifications}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Client queries cached</td>
+                            <td>{activeQueries.length}</td>
                         </tr>
                     </tbody>
                 </table>

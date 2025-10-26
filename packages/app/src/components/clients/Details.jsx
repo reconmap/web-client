@@ -1,5 +1,6 @@
 import { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganisationQuery } from "api/clients.js";
 import { useProjectsQuery } from "api/projects.js";
+import { requestContactDelete } from "api/requests/contacts.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeInput from "components/form/NativeInput";
@@ -99,7 +100,7 @@ const ClientDetails = () => {
     };
 
     const onContactDelete = (contactId) => {
-        secureApiFetch(`/contacts/${contactId}`, { method: "DELETE" })
+        requestContactDelete(contactId)
             .then((resp) => {
                 if (resp.ok) {
                     actionCompletedToast("The contact has been deleted.");
