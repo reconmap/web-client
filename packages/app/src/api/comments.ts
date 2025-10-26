@@ -1,22 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import secureApiFetch from "services/api.js";
-
-const requestComments = async (params: any) => {
-    return (await secureApiFetch("/notes?" + new URLSearchParams(params).toString(), { method: "GET" })).json();
-};
-
-const requestCommentDelete = (taskId: number) => {
-    return secureApiFetch(`/notes/${taskId}`, {
-        method: "DELETE",
-    });
-};
-
-const requestPostComment = async (comment: any) => {
-    return (await secureApiFetch(`/notes`, {
-        method: "POST",
-        body: JSON.stringify(comment),
-    })).json();
-};
+import { requestCommentDelete, requestComments, requestPostComment } from "./requests/comments.js";
 
 const useNotesQuery = (params: any) => {
     return useQuery({
@@ -45,5 +28,4 @@ const useCreateCommentMutation = () => {
     });
 };
 
-
-export { useDeleteCommentMutation, useCreateCommentMutation, useNotesQuery };
+export { useCreateCommentMutation, useDeleteCommentMutation, useNotesQuery };

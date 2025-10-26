@@ -1,16 +1,18 @@
-import { useQueryActiveProjects } from "api/projects.js";
+import { useProjectsQuery } from "api/projects.js";
 import ProjectBadge from "components/projects/ProjectBadge";
 import Loading from "components/ui/Loading";
 import DashboardWidget from "./Widget";
 
 const ActiveProjectsWidget = () => {
-    const { data: projects, isPending } = useQueryActiveProjects();
+    const { data: projects, isLoading, isError, error } = useProjectsQuery({ status: "active" });
 
-    if (isPending) return <Loading />;
+    if (isLoading) return <Loading />;
+
+    if (isError) return <p>Error loading projects: {error.message}</p>;
 
     return (
         <DashboardWidget title="Active projects">
-            {projects.length === 0 ? (
+            {projects.data.length === 0 ? (
                 <p>No projects to show.</p>
             ) : (
                 <table className="table is-fullwidth">
@@ -21,7 +23,7 @@ const ActiveProjectsWidget = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {projects.map((project) => (
+                        {projects.data.map((project) => (
                             <tr key={project.id}>
                                 <td>
                                     <ProjectBadge key={project.id} project={project} />

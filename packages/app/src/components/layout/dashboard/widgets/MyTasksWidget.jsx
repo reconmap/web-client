@@ -1,4 +1,4 @@
-import { useQueryTasksForUser } from "api/tasks.js";
+import { useTasksQuery } from "api/tasks.js";
 import TaskBadge from "components/tasks/TaskBadge";
 import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
@@ -8,7 +8,7 @@ import DashboardWidget from "./Widget";
 
 const MyTasksWidget = () => {
     const { user } = useContext(AuthContext);
-    const { isPending, data: tasks } = useQueryTasksForUser(user.id);
+    const { isPending, data: tasks } = useTasksQuery({ assigneeUid: user.id, limit: 5, projectIsArchived: 0 });
 
     if (isPending) return <Loading />;
 

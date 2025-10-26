@@ -1,4 +1,4 @@
-import { useDeleteAssetMutation } from "api/assets.js";
+import { useAssetsQuery, useDeleteAssetMutation } from "api/assets.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -9,9 +9,8 @@ import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import useBoolean from "hooks/useBoolean";
 import useQuery from "hooks/useQuery";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Loading from "../ui/Loading";
 import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 
@@ -20,46 +19,29 @@ const ProjectTargets = ({ project }) => {
     const urlPageNumber = query.get("page") !== null ? parseInt(query.get("page")) : 1;
     const [pageNumber, setPageNumber] = useState(urlPageNumber);
 
-    const [numberPages, setNumberPages] = useState(1);
-    const [targets, setTargets] = useState([]);
-
     const { value: isAddTargetDialogOpen, setTrue: openAddTargetDialog, setFalse: closeAddTargetDialog } = useBoolean();
+    const {
+        data: targets,
+        isLoading,
+        refetch,
+    } = useAssetsQuery({ limit: 5, projectId: project.id, page: pageNumber - 1 });
     const deleteAssetMutation = useDeleteAssetMutation();
 
     const onDeleteButtonClick = (ev, targetId) => {
         ev.preventDefault();
 
         deleteAssetMutation.mutate(targetId);
-        reloadTargets();
+        refetch();
     };
 
     const onTargetFormSaved = () => {
-        reloadTargets();
+        refetch();
         closeAddTargetDialog();
     };
-
-    const reloadTargets = useCallback(() => {
-        setTargets([]);
-
-        secureApiFetch(`/targets?projectId=${project.id}&page=${pageNumber - 1}`, { method: "GET" })
-            .then((resp) => {
-                if (resp.headers.has("X-Page-Count")) {
-                    setNumberPages(resp.headers.get("X-Page-Count"));
-                }
-                return resp.json();
-            })
-            .then((data) => {
-                setTargets(data);
-            });
-    }, [pageNumber, project]);
 
     const onPageChange = (pageNumber) => {
         setPageNumber(pageNumber);
     };
-
-    useEffect(() => {
-        reloadTargets();
-    }, [reloadTargets]);
 
     return (
         <section>
@@ -77,13 +59,13 @@ const ProjectTargets = ({ project }) => {
                     </NativeButtonGroup>
                 </RestrictedComponent>
             )}
-            {!targets ? (
+            {isLoading ? (
                 <Loading />
             ) : (
                 <>
-                    {numberPages > 1 && (
+                    {targets.pageCount > 1 && (
                         <center>
-                            <PaginationV2 page={pageNumber - 1} total={numberPages} onPageChange={onPageChange} />
+                            <PaginationV2 page={pageNumber - 1} total={targets.pageCount} onPageChange={onPageChange} />
                         </center>
                     )}
                     <table className="table is-fullwidth">
@@ -97,8 +79,8 @@ const ProjectTargets = ({ project }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {targets.length === 0 && <NoResultsTableRow numColumns={4} />}
-                            {targets.map((target, index) => (
+                            {targets.data.length === 0 && <NoResultsTableRow numColumns={4} />}
+                            {targets.data.map((target, index) => (
                                 <tr key={index}>
                                     <td>
                                         {!target.parent_id && (

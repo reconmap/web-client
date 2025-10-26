@@ -155,7 +155,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                             if (ev.target.value === "discard") {
                                 setProjectId(null);
                             } else {
-                                setProjectId(projects[0].id);
+                                setProjectId(projects.data[0].id);
                             }
                         }}
                     >
@@ -171,7 +171,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                     htmlFor="projectId"
                     control={
                         <NativeSelect id="projectId" name="project_id" onChange={(ev) => setProjectId(ev.target.value)}>
-                            {projects.map((project) => (
+                            {projects.data.map((project) => (
                                 <option value={project.id}>{project.name}</option>
                             ))}
                         </NativeSelect>

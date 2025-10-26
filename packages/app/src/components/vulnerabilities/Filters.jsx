@@ -26,7 +26,7 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
                         <NativeSelect name="projectId" onChange={onFilterChange}>
                             <option value="">Project = (any)</option>
                             {!isLoadingProjects &&
-                                projects.map((project) => (
+                                projects.data.map((project) => (
                                     <option key={project.id} value={project.id}>
                                         Project = {project.name}
                                     </option>

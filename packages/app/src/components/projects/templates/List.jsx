@@ -14,7 +14,7 @@ import secureApiFetch from "services/api";
 
 const TemplatesList = () => {
     const navigate = useNavigate();
-    const { data: templates } = useProjectsQuery({ isTemplate: 1 });
+    const { data: templates, isLoading } = useProjectsQuery({ isTemplate: 1 });
     const deleteProjectMutation = useDeleteProjectMutation();
 
     const cloneProject = (ev, templateId) => {
@@ -51,7 +51,7 @@ const TemplatesList = () => {
                 <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
             </div>
             <Title title="Project templates" />
-            {!templates ? (
+            {isLoading ? (
                 <Loading />
             ) : (
                 <table className="table is-fullwidth">
@@ -64,14 +64,14 @@ const TemplatesList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {templates.length === 0 ? (
+                        {templates.data.length === 0 ? (
                             <tr>
                                 <td colSpan={4}>
                                     <NoResults />
                                 </td>
                             </tr>
                         ) : (
-                            templates.map((template) => (
+                            templates.data.map((template) => (
                                 <tr key={template.id} onClick={() => viewProject(template.id)}>
                                     <td>
                                         <ProjectBadge project={template} />

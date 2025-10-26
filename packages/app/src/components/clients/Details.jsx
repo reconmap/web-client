@@ -36,11 +36,11 @@ const ContactTypes = {
 };
 
 const ClientProjectsTab = ({ clientId }) => {
-    const { data: projects } = useProjectsQuery({ clientId: clientId });
+    const { data: projects, isLoading } = useProjectsQuery({ clientId: clientId });
 
-    if (!projects) return <Loading />;
+    if (isLoading) return <Loading />;
 
-    if (projects.length === 0) {
+    if (projects.data.length === 0) {
         return (
             <div>
                 This client has no projects. You can see all projects and their clients <Link to="/projects">here</Link>
@@ -51,7 +51,7 @@ const ClientProjectsTab = ({ clientId }) => {
 
     return (
         <div>
-            <ProjectsTable projects={projects} showClientColumn={false} />
+            <ProjectsTable projects={projects.data} showClientColumn={false} />
         </div>
     );
 };

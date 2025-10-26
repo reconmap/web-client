@@ -1,4 +1,4 @@
-import { resetPassword } from "api/users";
+import { resetPassword } from "api/requests/users.js";
 import { useUserActivity, useUserDeleteMutation, useUserQuery } from "api/users.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";

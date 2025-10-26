@@ -31,8 +31,8 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
     };
 
     useEffect(() => {
-        if (!isLoadingProjects && projects.length && task.project_id === "") {
-            const newProjectId = projects[0].id;
+        if (!isLoadingProjects && projects.data.length && task.project_id === "") {
+            const newProjectId = projects.data[0].id;
             setTask((prevTask) => ({ ...prevTask, project_id: newProjectId }));
         }
     }, [task.project_id, projects, setTask]);
@@ -60,7 +60,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     >
                         <optgroup label="Projects">
                             {projects &&
-                                projects
+                                projects.data
                                     .filter((project) => project.is_template === 0)
                                     .map((project, index) => (
                                         <option key={index} value={project.id}>
@@ -70,7 +70,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                         </optgroup>
                         <optgroup label="Project templates">
                             {projects &&
-                                projects
+                                projects.data
                                     .filter((project) => project.is_template === 1)
                                     .map((project, index) => (
                                         <option key={index} value={project.id}>

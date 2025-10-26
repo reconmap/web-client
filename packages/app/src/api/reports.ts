@@ -1,19 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import secureApiFetch from "services/api.js";
-
-const requestReports = (params: any) => {
-    return secureApiFetch("/reports?" + new URLSearchParams(params).toString(), { method: "GET" });
-};
-
-const requestReportsTemplates = (params: any = {}) => {
-    return secureApiFetch("/reports/templates?" + new URLSearchParams(params).toString(), { method: "GET" });
-};
-
-const requestReportDelete = (reportId: number) => {
-    return secureApiFetch(`/reports/${reportId}`, {
-        method: "DELETE",
-    });
-};
+import { requestReportDelete, requestReports, requestReportsTemplates } from "./requests/reports.js";
 
 const useReportsQuery = (params: any) => {
     return useQuery({

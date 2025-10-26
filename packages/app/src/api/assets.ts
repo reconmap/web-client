@@ -1,10 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { requestAsset, requestAssetDelete } from "./requests/assets.js";
+import { requestAsset, requestAssetDelete, requestAssets } from "./requests/assets.js";
 
 const useAssetQuery = (assetId: number) => {
     return useQuery({
         queryKey: ["assets"],
         queryFn: () => requestAsset(assetId),
+    });
+};
+
+const useAssetsQuery = (params: any) => {
+    return useQuery({
+        queryKey: ["assets"],
+        queryFn: () => requestAssets(params),
     });
 };
 
@@ -18,4 +25,4 @@ const useDeleteAssetMutation = () => {
     });
 };
 
-export { useAssetQuery, useDeleteAssetMutation };
+export { useAssetQuery, useAssetsQuery, useDeleteAssetMutation };

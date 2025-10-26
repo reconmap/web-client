@@ -1,4 +1,4 @@
-import { useQueryActiveProjects } from "api/projects.js";
+import { useProjectsQuery } from "api/projects.js";
 import { useUsersQuery } from "api/users.js";
 import NativeSelect from "components/form/NativeSelect";
 import { useAuth } from "contexts/AuthContext";
@@ -7,7 +7,7 @@ import TaskStatuses from "models/TaskStatuses";
 
 const TaskFilters = ({ tableModel, tableModelSetter: setTableModel }) => {
     const { user: loggedInUser } = useAuth();
-    const { data: projects, isLoading: isLoadingProjects } = useQueryActiveProjects();
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ status: "active" });
     const { data: users, isLoading: isLoadingUsers } = useUsersQuery();
 
     const onFilterChange = (ev) => {
@@ -23,7 +23,7 @@ const TaskFilters = ({ tableModel, tableModelSetter: setTableModel }) => {
                         <NativeSelect name="projectId" onChange={onFilterChange}>
                             <option value="">Project = (any)</option>
                             {!isLoadingProjects &&
-                                projects.map((project) => (
+                                projects.data.map((project) => (
                                     <option key={project.id} value={project.id}>
                                         Project = {project.name}
                                     </option>

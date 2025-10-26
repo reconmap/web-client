@@ -10,16 +10,16 @@ import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
-    const { data: clients } = useOrganisationsQuery({ kind: "client" });
+    const { data: clients, isLoading: isLoadingClients } = useOrganisationsQuery({ kind: "client" });
     const { data: serviceProviders } = useOrganisationsQuery({ kind: "service_provider" });
-    const { data: categories } = useProjectCategoriesQuery();
+    const { data: categories, isLoading: isLoadingCategories } = useProjectCategoriesQuery();
 
     const handleFormChange = (ev) => {
         const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
         setProject({ ...project, [ev.target.name]: value });
     };
 
-    if (!project && !clients && !serviceProviders) return <Loading />;
+    if (!project || isLoadingClients || isLoadingCategories || !serviceProviders) return <Loading />;
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -50,12 +50,11 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             value={project.category_id || ""}
                         >
                             <option value="">(none)</option>
-                            {categories &&
-                                categories.map((category) => (
-                                    <option key={`category_${category.id}`} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
+                            {categories.map((category) => (
+                                <option key={`category_${category.id}`} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
                         </NativeSelect>
                     }
                 />

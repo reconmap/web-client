@@ -1,7 +1,9 @@
 import secureApiFetch from "services/api.js";
 
+const API_BASE_URL: string = "/agents";
+
 const requestAgents = async () => {
-    return (await secureApiFetch("/agents", { method: "GET" })).json();
+    return (await secureApiFetch(API_BASE_URL, { method: "GET" })).json();
 };
 
 export { requestAgents };

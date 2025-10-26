@@ -1,4 +1,4 @@
-import { deleteUsers } from "api/users";
+import { deleteUsers } from "api/requests/users.js";
 import { useUserDeleteMutation, useUsersQuery } from "api/users.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";

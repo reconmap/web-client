@@ -1,11 +1,13 @@
 import secureApiFetch from "services/api.js";
 
+const API_BASE_URL: string = "/attachments";
+
 const requestAttachments = (params: any) => {
-    return secureApiFetch("/attachments?" + new URLSearchParams(params).toString(), { method: "GET" });
+    return secureApiFetch("${API_BASE_URL}?" + new URLSearchParams(params).toString(), { method: "GET" });
 };
 
 const requestAttachmentDelete = (attachmentId: number) => {
-    return secureApiFetch(`/attachments/${attachmentId}`, { method: "DELETE" });
+    return secureApiFetch(`${API_BASE_URL}/${attachmentId}`, { method: "DELETE" });
 };
 
 export { requestAttachmentDelete, requestAttachments };

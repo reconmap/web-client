@@ -44,15 +44,15 @@ const VulnerabilityForm = ({
     const [useOWASP, setMetrics] = useState(false);
     const { data: customFields } = useSystemCustomFieldsQuery();
 
-    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery();
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({});
     const { data: categories, isLoading: isLoadingVulnerabilityCategories } = useVulnerabilityCategoriesQuery();
 
     useEffect(() => {
         if (initialised) return;
 
-        const defaultProjectId = projects.length ? projects[0].id : 0;
+        const defaultProjectId = projects.data.length ? projects.data[0].id : 0;
         const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
-        setMetrics(isOwaspProject(projects, projectId));
+        setMetrics(isOwaspProject(projects.data, projectId));
 
         var subcategories = null;
         if (vulnerability.parent_category_id) {
@@ -72,7 +72,7 @@ const VulnerabilityForm = ({
                     setTargets(targets);
                     setVulnerability((prevVulnerability) => {
                         let updatedVulnerability = prevVulnerability;
-                        if (!idExists(projects, prevVulnerability.project_id)) {
+                        if (!idExists(projects.data, prevVulnerability.project_id)) {
                             updatedVulnerability.project_id = defaultProjectId;
                         }
                         if (
@@ -367,8 +367,8 @@ const VulnerabilityForm = ({
                                     onChange={onFormChange}
                                     required
                                 >
-                                    {projects &&
-                                        projects.map((project, index) => (
+                                    {projects.data &&
+                                        projects.data.map((project, index) => (
                                             <option key={index} value={project.id}>
                                                 {project.name}
                                             </option>
