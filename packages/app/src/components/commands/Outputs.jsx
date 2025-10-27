@@ -1,5 +1,5 @@
 import { useAttachmentsQuery } from "api/attachments.js";
-import { requestAttachmentDelete } from "api/requests/attachments.js";
+import { requestAttachment, requestAttachmentDelete } from "api/requests/attachments.js";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -12,7 +12,6 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import UserLink from "components/users/Link";
 import { useState } from "react";
-import secureApiFetch from "services/api";
 import { actionCompletedToast } from "../ui/toast";
 
 const CommandOutputs = ({ command }) => {
@@ -31,37 +30,20 @@ const CommandOutputs = ({ command }) => {
     };
 
     const onDownloadClick = (ev, attachmentId) => {
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = filename;
-                a.click();
-            });
+        requestAttachment(attachmentId).then(({ blob, filename }) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+        });
     };
 
     const onViewClick = (ev, attachmentId) => {
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then(async (values) => {
-                const blob = values[0];
-                setContent(await blob.text());
-                setModalVisible(true);
-            });
+        requestAttachment(attachmentId).then(async ({ blob }) => {
+            setContent(await blob.text());
+            setModalVisible(true);
+        });
     };
 
     const onModalClose = () => {

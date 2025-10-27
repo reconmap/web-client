@@ -1,5 +1,6 @@
 import { Tag } from "@reconmap/native-components";
 import { useAttachmentsQuery } from "api/attachments.js";
+import { requestVulnerabilityPatch } from "api/requests/vulnerabilities.js";
 import { useDeleteVulnerabilityMutation, useVulnerabilityQuery } from "api/vulnerabilities.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
@@ -12,7 +13,6 @@ import { t } from "i18next";
 import VulnerabilityStatuses from "models/VulnerabilityStatuses";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
@@ -41,10 +41,8 @@ const VulnerabilityDetails = () => {
 
     const onStatusChange = (ev) => {
         const [status, substatus] = ev.target.value.split("-");
-        secureApiFetch(`/vulnerabilities/${vulnerability.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ status, substatus }),
-        })
+
+        requestVulnerabilityPatch(vulnerability.id, { status, substatus })
             .then(() => {
                 actionCompletedToast("The status has been transitioned.");
             })

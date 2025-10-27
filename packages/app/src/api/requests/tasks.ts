@@ -26,6 +26,23 @@ const requestTasksDelete = (taskIds: number[]) => {
     });
 };
 
+const requestTaskPatch = (taskId: number, data: any) => {
+    return secureApiFetch(`/tasks/${taskId}`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+    });
+};
+
+const requestTasksPatch = (data: any) => {
+    return secureApiFetch("/tasks", {
+        method: "PATCH",
+        headers: {
+            "Bulk-Operation": "UPDATE",
+        },
+        body: JSON.stringify(data),
+    });
+};
+
 const requestTaskPost = (task: any) => {
     return secureApiFetch(`${API_BASE_URL}`, {
         method: "POST",
@@ -33,4 +50,12 @@ const requestTaskPost = (task: any) => {
     });
 };
 
-export { requestTask, requestTaskDelete, requestTaskPost, requestTasks, requestTasksDelete };
+export {
+    requestTask,
+    requestTaskDelete,
+    requestTaskPatch,
+    requestTaskPost,
+    requestTasks,
+    requestTasksDelete,
+    requestTasksPatch,
+};

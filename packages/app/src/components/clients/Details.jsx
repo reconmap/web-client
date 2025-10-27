@@ -1,5 +1,6 @@
 import { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganisationQuery } from "api/clients.js";
 import { useProjectsQuery } from "api/projects.js";
+import { requestAttachment } from "api/requests/attachments.js";
 import { requestContactDelete } from "api/requests/contacts.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
@@ -124,22 +125,14 @@ const ClientDetails = () => {
     }, [client]);
 
     const downloadAndDisplayLogo = (logoId, type) => {
-        secureApiFetch(`/attachments/${logoId}`, { method: "GET" })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const url = URL.createObjectURL(blob);
-                if (type === "small_logo") {
-                    setSmallLogo(url);
-                } else {
-                    setLogo(url);
-                }
-            });
+        requestAttachment(logoId).then(({ blob }) => {
+            const url = URL.createObjectURL(blob);
+            if (type === "small_logo") {
+                setSmallLogo(url);
+            } else {
+                setLogo(url);
+            }
+        });
     };
 
     if (isClientLoading) {

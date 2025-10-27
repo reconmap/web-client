@@ -47,6 +47,13 @@ const deleteUser = (userId: number): Promise<Response> => {
     });
 };
 
+const requestUserPatch = (userId: number, data: any): Promise<Response> => {
+    return secureApiFetch(`${API_PREFIX}/${userId}`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+    });
+};
+
 const deleteUsers = (userIds: number[]): Promise<Response> => {
     return secureApiFetch(API_PREFIX, {
         method: "PATCH",
@@ -84,6 +91,7 @@ export {
     getUser,
     getUsers,
     requestUserActivity,
+    requestUserPatch,
     resetPassword,
     updateUser,
 };

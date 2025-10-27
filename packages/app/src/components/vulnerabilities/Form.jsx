@@ -1,4 +1,5 @@
 import { useProjectsQuery } from "api/projects.js";
+import { requestAssets } from "api/requests/assets.js";
 import { useSystemCustomFieldsQuery } from "api/system.js";
 import { useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import DynamicForm from "components/form/DynamicForm";
@@ -118,7 +119,7 @@ const VulnerabilityForm = ({
         }
 
         const projectId = vulnerability.project_id;
-        secureApiFetch(`/targets?projectId=${projectId}`, { method: "GET" })
+        requestAssets({ projectId })
             .then((resp) => resp.json())
             .then((targets) => {
                 unstable_batchedUpdates(() => {

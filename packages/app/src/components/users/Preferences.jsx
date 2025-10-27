@@ -1,3 +1,4 @@
+import { requestUserPatch } from "api/requests/users.js";
 import { useUserQuery } from "api/users.js";
 import NativeSelect from "components/form/NativeSelect";
 import PrimaryButton from "components/ui/buttons/Primary";
@@ -10,7 +11,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { initialiseUserPreferences } from "services/userPreferences";
 import { LanguageList } from "translations/LanguageList";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 
@@ -41,12 +41,9 @@ const UserPreferences = () => {
             "web-client.language": formValues.language,
         };
 
-        secureApiFetch(`/users/${user.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                timezone: formValues.timezone,
-                preferences: user.preferences,
-            }),
+        requestUserPatch(user.id, {
+            timezone: formValues.timezone,
+            preferences: user.preferences,
         })
             .then(() => {
                 setTheme(formValues.theme);

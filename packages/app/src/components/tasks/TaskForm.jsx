@@ -1,5 +1,6 @@
 import { useCommandsQuery } from "api/commands.js";
 import { useProjectsQuery } from "api/projects.js";
+import { requestComments } from "api/requests/comments.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -7,7 +8,6 @@ import Loading from "components/ui/Loading";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import { useEffect, useState } from "react";
 import AsyncSelect from "react-select/async";
-import secureApiFetch from "services/api";
 import { TaskPriorityList } from "../../models/TaskPriority.js";
 import PrimaryButton from "../ui/buttons/Primary.jsx";
 
@@ -38,9 +38,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
     }, [task.project_id, projects, setTask]);
 
     const loadOptions = (keywords) => {
-        return secureApiFetch(`/commands?keywords=` + encodeURIComponent(keywords), { method: "GET" }).then((data) =>
-            data.json(),
-        );
+        return requestComments({ keywords }).then((data) => data.json());
     };
 
     if (isLoadingCommands) return <Loading />;

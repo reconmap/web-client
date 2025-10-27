@@ -1,4 +1,5 @@
 import { useDeleteNotificationMutation, useNotificationsQuery } from "api/notifications.js";
+import { requestNotificationsPatch } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
@@ -17,11 +18,8 @@ const NotificationsList = () => {
     const deleteNotificatioMutation = useDeleteNotificationMutation();
 
     const markAllNotificationsAsRead = () => {
-        secureApiFetch("/notifications", {
-            method: "PATCH",
-            body: JSON.stringify({
-                notificationIds: notifications.filter(isUnread).map((n) => n.id),
-            }),
+        requestNotificationsPatch({
+            notificationIds: notifications.filter(isUnread).map((n) => n.id),
         }).then(() => {
             fetchNotifications();
             actionCompletedToast("All notifications marked as read");

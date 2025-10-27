@@ -1,4 +1,7 @@
 import { useAttachmentsQuery } from "api/attachments.js";
+import { requestCommand } from "api/requests/commands.js";
+import { requestProject } from "api/requests/projects.js";
+import { requestTaskPatch } from "api/requests/tasks.js";
 import { useDeleteTaskMutation, useTaskQuery } from "api/tasks.js";
 import { useUsersQuery } from "api/users.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
@@ -51,11 +54,9 @@ const TaskDetailsPage = () => {
 
     const onAssigneeChange = (ev) => {
         const assigneeUid = ev.target.value;
-        secureApiFetch(`/tasks/${task.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                assignee_uid: "" === assigneeUid ? null : assigneeUid,
-            }),
+
+        requestTaskPatch(task.id, {
+            assignee_uid: "" === assigneeUid ? null : assigneeUid,
         })
             .then(() => {
                 actionCompletedToast("The assignee has been updated.");
@@ -73,10 +74,7 @@ const TaskDetailsPage = () => {
 
     const onStatusChange = (ev) => {
         const status = ev.target.value;
-        secureApiFetch(`/tasks/${task.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ status: status }),
-        })
+        requestTaskPatch(task.id, { status: status })
             .then(() => {
                 actionCompletedToast("The status has been transitioned.");
             })
@@ -86,15 +84,13 @@ const TaskDetailsPage = () => {
     useEffect(() => {
         if (task) {
             if (task.command_id) {
-                secureApiFetch(`/commands/${task.command_id}`, {
-                    method: "GET",
-                })
+                requestCommand(task.command_id)
                     .then((resp) => resp.json())
                     .then((command) => setCommand(command))
                     .catch((err) => console.error(err));
             }
 
-            secureApiFetch(`/projects/${task.project_id}`, { method: "GET" })
+            requestProject(task.project_id)
                 .then((resp) => resp.json())
                 .then((project) => setProject(project))
                 .catch((err) => console.error(err));

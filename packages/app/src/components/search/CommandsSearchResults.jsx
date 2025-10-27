@@ -1,29 +1,35 @@
-import CommandsTable from 'components/commands/Table';
-import { useEffect, useState } from 'react';
-import secureApiFetch from '../../services/api';
+import { requestCommands } from "api/requests/commands.js";
+import CommandsTable from "components/commands/Table";
+import { useEffect, useState } from "react";
 
 const CommandsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }) => {
     const [commands, setCommands] = useState([]);
 
     useEffect(() => {
         const reloadData = () => {
-            secureApiFetch(`/commands?keywords=${keywords}`, { method: 'GET' })
-                .then(resp => resp.json())
-                .then(commands => {
+            requestCommands({ keywords })
+                .then((resp) => resp.json())
+                .then((commands) => {
                     setCommands(commands);
-                    setEmptyResults(emptyResults => 0 === commands.length ? emptyResults.concat('commands') : emptyResults.filter(value => value !== 'commands'));
-                })
-        }
+                    setEmptyResults((emptyResults) =>
+                        0 === commands.length
+                            ? emptyResults.concat("commands")
+                            : emptyResults.filter((value) => value !== "commands"),
+                    );
+                });
+        };
 
-        reloadData()
-    }, [keywords, setEmptyResults])
+        reloadData();
+    }, [keywords, setEmptyResults]);
 
-    if (commands.length === 0) return <></>
+    if (commands.length === 0) return <></>;
 
-    return <>
-        <h3>{commands.length} matching commands</h3>
-        <CommandsTable commands={commands} />
-    </>
-}
+    return (
+        <>
+            <h3>{commands.length} matching commands</h3>
+            <CommandsTable commands={commands} />
+        </>
+    );
+};
 
 export default CommandsSearchResults;

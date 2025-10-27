@@ -6,7 +6,7 @@ import ReportVersionModalDialog from "./ModalDialog";
 import ReportsTable from "./Table";
 
 const ReportRevisions = ({ projectId }) => {
-    const { data: reports } = useReportsQuery({ projectId });
+    const { data: reports, refetch: refetchReports } = useReportsQuery({ projectId });
 
     const { value: isAddDialogOpen, setTrue: openAddDialog, setFalse: closeAddDialog } = useBoolean();
 

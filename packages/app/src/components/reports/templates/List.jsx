@@ -1,5 +1,6 @@
 import { UserManualUrl } from "ServerUrls";
 import { useDeleteReportMutation, useReportsTemplatesQuery } from "api/reports.js";
+import { requestAttachment } from "api/requests/attachments.js";
 import Breadcrumb from "components/ui/Breadcrumb";
 import EmptyField from "components/ui/EmptyField";
 import ExternalLink from "components/ui/ExternalLink";
@@ -12,7 +13,6 @@ import SecondaryButton from "components/ui/buttons/Secondary";
 import { resolveMime } from "friendly-mimes";
 import useBoolean from "hooks/useBoolean";
 import { Link } from "react-router-dom";
-import secureApiFetch from "services/api";
 import ReportModalDialog from "./ModalDialog";
 
 const ReportTemplatesList = () => {
@@ -37,22 +37,13 @@ const ReportTemplatesList = () => {
     };
 
     const handleDownload = (reportId) => {
-        secureApiFetch(`/attachments/${reportId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = filename;
-                a.click();
-            });
+        requestAttachment(reportId).then(({ blob, filename }) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+        });
     };
 
     const safeResolveMime = (mimeType) => {

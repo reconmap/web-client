@@ -1,5 +1,7 @@
 import secureApiFetch from "services/api.js";
 
+const API_BASE_URL = "/projects";
+
 const requestProject = (projectId: number) => {
     return secureApiFetch(`/projects/${projectId}`, { method: "GET" });
 };
@@ -51,6 +53,13 @@ const requestProjectPost = (project: Record<string, any>) => {
     });
 };
 
+const requestProjectPatch = (projectId: number, data: any): Promise<Response> => {
+    return secureApiFetch(`${API_BASE_URL}/${projectId}`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+    });
+};
+
 const requestProjectUserDelete = (projectId: number, userId: number) => {
     return secureApiFetch(`/projects/${projectId}/users/${userId}`, {
         method: "DELETE",
@@ -62,6 +71,7 @@ export {
     requestProject,
     requestProjectCategories,
     requestProjectDelete,
+    requestProjectPatch,
     requestProjectPost,
     requestProjects,
     requestProjectUserDelete,

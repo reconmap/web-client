@@ -1,4 +1,4 @@
-import { requestTasksDelete } from "api/requests/tasks.js";
+import { requestTasksDelete, requestTasksPatch } from "api/requests/tasks.js";
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteButton from "components/ui/buttons/Delete";
@@ -52,15 +52,9 @@ const TasksListPage = () => {
     const onStatusSelectChange = (ev) => {
         const newStatus = ev.target.value;
 
-        secureApiFetch("/tasks", {
-            method: "PATCH",
-            headers: {
-                "Bulk-Operation": "UPDATE",
-            },
-            body: JSON.stringify({
-                taskIds: tableModel.selection,
-                newStatus: newStatus,
-            }),
+        requestTasksPatch({
+            taskIds: tableModel.selection,
+            newStatus: newStatus,
         })
             .then(reloadTasks)
             .then(() => {

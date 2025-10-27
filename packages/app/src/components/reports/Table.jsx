@@ -1,11 +1,11 @@
 import { useDeleteReportMutation } from "api/reports.js";
+import { requestAttachment } from "api/requests/attachments.js";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
 
 const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) => {
     const navigate = useNavigate();
@@ -13,22 +13,13 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
     const deleteReportMutation = useDeleteReportMutation();
 
     const handleDownload = (reportId) => {
-        secureApiFetch(`/attachments/${reportId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = filename;
-                a.click();
-            });
+        requestAttachment(reportId).then(({ blob, filename }) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+        });
     };
 
     const handleSendByEmail = (projectId) => {
