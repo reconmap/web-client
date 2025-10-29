@@ -1,11 +1,14 @@
+import { useProjectQuery, useProjectUsersQuery } from "api/projects.js";
+import { requestProjectUserDelete } from "api/requests/projects.js";
+import { useUsersQuery } from "api/users.js";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import Loading from "components/ui/Loading.jsx";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import Title from "components/ui/Title";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import UserAvatar from "../badges/UserAvatar";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -15,9 +18,9 @@ import UserLink from "../users/Link";
 
 const ProjectMembership = () => {
     const { projectId } = useParams();
-    const [users] = useFetch(`/users`);
-    const [members, updateMembers] = useFetch(`/projects/${projectId}/users`);
-    const [savedProject] = useFetch(`/projects/${projectId}`);
+    const { data: users } = useUsersQuery();
+    const { data: members, isLoading, refetch } = useProjectUsersQuery(projectId);
+    const { data: savedProject } = useProjectQuery(projectId);
     const [availableUsers, setAvailableUsers] = useState([]);
 
     const handleOnClick = (ev) => {
@@ -29,15 +32,13 @@ const ProjectMembership = () => {
             method: "POST",
             body: JSON.stringify(userData),
         }).then(() => {
-            updateMembers();
+            refetch();
         });
     };
 
     const handleDelete = (member) => {
-        secureApiFetch(`/projects/${projectId}/users/${member.membership_id}`, {
-            method: "DELETE",
-        }).then(() => {
-            updateMembers();
+        requestProjectUserDelete(projectId, member.membership_id).then(() => {
+            refetch();
         });
     };
 
@@ -47,6 +48,8 @@ const ProjectMembership = () => {
             setAvailableUsers(users.filter((user) => !memberIds.includes(user.id)));
         }
     }, [members, users]);
+
+    if (isLoading) return <Loading />;
 
     return (
         <div>

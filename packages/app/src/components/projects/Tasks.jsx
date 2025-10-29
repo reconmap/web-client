@@ -1,6 +1,5 @@
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TaskTableModel from "components/tasks/TaskTableModel";
-import useDelete from "hooks/useDelete";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -43,8 +42,6 @@ const ProjectTasks = ({ project }) => {
         navigate(`/tasks/create?projectId=${project.id}&forTemplate=${project.is_template}`);
     };
 
-    const onDeleteTask = useDelete("/tasks/", reloadTasks);
-
     useEffect(() => {
         reloadTasks();
     }, [reloadTasks, tableModel.filters]);
@@ -73,12 +70,7 @@ const ProjectTasks = ({ project }) => {
                 )}
             </h4>
 
-            <TasksTable
-                tableModel={tableModel}
-                showProjectColumn={false}
-                destroy={onDeleteTask}
-                reloadCallback={reloadTasks}
-            />
+            <TasksTable tableModel={tableModel} showProjectColumn={false} reloadCallback={reloadTasks} />
         </section>
     );
 };

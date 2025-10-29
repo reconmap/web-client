@@ -1,3 +1,4 @@
+import { useDeleteVulnerabilityMutation, useVulnerabilitiesQuery } from "api/vulnerabilities.js";
 import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
 import AscendingSortLink from "components/ui/AscendingSortLink";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -9,8 +10,6 @@ import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
-import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -22,9 +21,13 @@ const VulnerabilityTemplatesList = () => {
         column: "insert_ts",
         order: "DESC",
     });
-    const [templates, updateTemplates] = useFetch(
-        `/vulnerabilities?isTemplate=1&orderColumn=${sortBy.column}&orderDirection=${sortBy.order}`,
-    );
+    const params = {
+        isTemplate: 1,
+        orderColumn: sortBy.column,
+        orderDirection: sortBy.order,
+    };
+    const { data: templates, isLoading } = useVulnerabilitiesQuery(params);
+    const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const cloneVulnerability = (ev, templateId) => {
         ev.stopPropagation();
@@ -48,17 +51,17 @@ const VulnerabilityTemplatesList = () => {
         navigate(`/vulnerabilities/templates/${templateId}`);
     };
 
-    const destroy = useDelete("/vulnerabilities/", updateTemplates);
-
     const deleteTemplate = (ev, templateId) => {
         ev.stopPropagation();
 
-        destroy(templateId);
+        deleteVulnerabilityMutation.mutate(templateId);
     };
 
     const onAddVulnerabilityTemplateClick = () => {
         navigate(`/vulnerabilities/create?isTemplate=true`);
     };
+
+    if (isLoading) return <Loading />;
 
     return (
         <>
@@ -70,7 +73,7 @@ const VulnerabilityTemplatesList = () => {
                 <CreateButton onClick={onAddVulnerabilityTemplateClick}>Add vulnerability template</CreateButton>
             </div>
             <Title type="Library" title="Vulnerability templates" />
-            {!templates ? (
+            {isLoading ? (
                 <Loading />
             ) : (
                 <table className="table is-fullwidth">
@@ -84,14 +87,14 @@ const VulnerabilityTemplatesList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {templates.length === 0 ? (
+                        {templates.data.length === 0 ? (
                             <tr>
                                 <td colSpan={3}>
                                     <NoResults />
                                 </td>
                             </tr>
                         ) : (
-                            templates.map((template) => (
+                            templates.data.map((template) => (
                                 <tr key={template.id} onClick={() => viewTemplate(template.id)}>
                                     <td>
                                         <VulnerabilityBadge vulnerability={template} />

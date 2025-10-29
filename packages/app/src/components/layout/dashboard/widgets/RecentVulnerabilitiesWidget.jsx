@@ -1,17 +1,27 @@
+import { useVulnerabilitiesQuery } from "api/vulnerabilities.js";
 import VulnerabilityBadge from "components/badges/VulnerabilityBadge";
 import Loading from "components/ui/Loading";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
-import useFetch from "hooks/useFetch";
 import DashboardWidget from "./Widget";
 
 const RecentVulnerabilitiesWidget = () => {
-    const [vulnerabilities] = useFetch(`/vulnerabilities?limit=5&orderColumn=insert_ts&orderDirection=desc`);
+    const {
+        data: vulnerabilities,
+        isLoading,
+        isError,
+        error,
+    } = useVulnerabilitiesQuery({
+        limit: 5,
+        orderColumn: "insert_ts",
+        orderDirection: "desc",
+    });
 
-    if (!vulnerabilities) return <Loading />;
+    if (isLoading) return <Loading />;
+    if (isError) return <p>Error loading vulnerabilities: {error.message}</p>;
 
     return (
         <DashboardWidget title="Recent vulnerabilities">
-            {vulnerabilities.length === 0 ? (
+            {vulnerabilities.data.length === 0 ? (
                 <p>No vulnerabilities to show.</p>
             ) : (
                 <table className="table is-fullwidth">
@@ -22,7 +32,7 @@ const RecentVulnerabilitiesWidget = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {vulnerabilities.map((vulnerability) => (
+                        {vulnerabilities.data.map((vulnerability) => (
                             <tr key={vulnerability.id}>
                                 <td>
                                     <VulnerabilityBadge key={vulnerability.id} vulnerability={vulnerability} />

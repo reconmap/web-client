@@ -1,17 +1,16 @@
+import { useReportsQuery } from "api/reports.js";
 import CreateButton from "components/ui/buttons/Create";
 import Loading from "components/ui/Loading";
 import useBoolean from "hooks/useBoolean";
-import useFetch from "hooks/useFetch";
 import ReportVersionModalDialog from "./ModalDialog";
 import ReportsTable from "./Table";
 
 const ReportRevisions = ({ projectId }) => {
-    const [reports, refetchReports] = useFetch(`/reports?projectId=${projectId}`);
+    const { data: reports, refetch: refetchReports } = useReportsQuery({ projectId });
 
     const { value: isAddDialogOpen, setTrue: openAddDialog, setFalse: closeAddDialog } = useBoolean();
 
     const onDialogOk = () => {
-        refetchReports();
         closeAddDialog();
     };
 

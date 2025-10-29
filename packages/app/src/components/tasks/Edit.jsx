@@ -1,9 +1,9 @@
+import { requestTaskPatch } from "api/requests/tasks.js";
+import { useTaskQuery } from "api/tasks.js";
 import { actionCompletedToast } from "components/ui/toast";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
@@ -13,13 +13,13 @@ const EditTaskPage = () => {
     const navigate = useNavigate();
     const { taskId } = useParams();
 
-    const [serverTask] = useFetch(`/tasks/${taskId}`);
+    const { data: serverTask } = useTaskQuery(taskId);
     const [clientTask, setClientTask] = useState(null);
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/tasks/${taskId}`, { method: "PATCH", body: JSON.stringify(clientTask) });
+        await requestTaskPatch(taskId, clientTask);
         actionCompletedToast(`The task "${clientTask.summary}" has been updated.`);
         navigate(`/tasks/${taskId}`);
     };

@@ -1,13 +1,13 @@
+import { useProjectsQuery } from "api/projects.js";
 import NativeSelect from "components/form/NativeSelect";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import Loading from "components/ui/Loading.jsx";
 import Title from "components/ui/Title";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import useQuery from "hooks/useQuery";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import CreateButton from "../ui/buttons/Create.jsx";
 import ProjectsTable from "./Table.jsx";
@@ -19,11 +19,8 @@ const ProjectsListPage = () => {
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
 
-    const [numberPages, setNumberPages] = useState(1);
-    const [totalCount, setTotalCount] = useState("?");
-
-    const [projects, setProjects] = useState([]);
     const [statusFilter, setStatusFilter] = useState("active");
+    const { data: projects, isLoading } = useProjectsQuery({ limit: 10, status: statusFilter, page: apiPageNumber });
 
     const handleCreateProject = () => {
         navigate("/projects/create");
@@ -40,44 +37,15 @@ const ProjectsListPage = () => {
         navigate(url);
     };
 
-    const reloadProjects = useCallback(() => {
-        setProjects(null);
-
-        const queryParams = new URLSearchParams();
-        queryParams.set("page", apiPageNumber);
-        if (statusFilter.length) {
-            queryParams.set("status", statusFilter);
-        }
-        const url = `/projects?${queryParams.toString()}`;
-
-        secureApiFetch(url)
-            .then((resp) => {
-                if (resp.headers.has("X-Page-Count")) {
-                    setNumberPages(resp.headers.get("X-Page-Count"));
-                }
-                if (resp.headers.has("X-Total-Count")) {
-                    setTotalCount(resp.headers.get("X-Total-Count"));
-                }
-                return resp.json();
-            })
-            .then((projects) => {
-                setProjects(projects);
-            });
-    }, [apiPageNumber, statusFilter]);
-
-    const destroy = useDelete("/projects/", reloadProjects);
-
     useDocumentTitle("Projects");
 
-    useEffect(() => {
-        reloadProjects();
-    }, [statusFilter, reloadProjects]);
+    if (isLoading) return <Loading />;
 
     return (
         <div>
             <div className="heading">
                 <Breadcrumb />
-                <PaginationV2 page={apiPageNumber} total={numberPages} onPageChange={onPageChange} />
+                <PaginationV2 page={apiPageNumber} total={projects.pageCount} onPageChange={onPageChange} />
 
                 <div>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
@@ -85,7 +53,7 @@ const ProjectsListPage = () => {
                     </RestrictedComponent>
                 </div>
             </div>
-            <Title title={`Projects (${totalCount})`} />
+            <Title title={`Projects (${projects.totalCount})`} />
 
             <details>
                 <summary>Filters</summary>
@@ -99,7 +67,7 @@ const ProjectsListPage = () => {
                 </div>
             </details>
 
-            <ProjectsTable projects={projects} destroy={destroy} />
+            <ProjectsTable projects={projects.data} />
         </div>
     );
 };

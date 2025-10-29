@@ -7,16 +7,17 @@
   "dependencies": {
     "@eslint/compat": "^1.4.0",
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.38.0",
     "globals": "^16.4.0",
-    "npm-check-updates": "^19.0.0"
+    "npm-check-updates": "^19.1.1"
   },
   "devDependencies": {
-    "@types/node": "^24.6.0",
+    "@types/node": "^24.9.1",
     "husky": "^9.1.7",
-    "knip": "^5.64.1",
-    "lint-staged": "^16.2.3",
-    "typescript": "^5.9.2"
+    "knip": "^5.66.2",
+    "lint-staged": "^16.2.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.4"
   },
   "scripts": {
     "knip": "knip",

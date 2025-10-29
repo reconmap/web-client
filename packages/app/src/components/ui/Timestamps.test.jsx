@@ -1,34 +1,26 @@
-import ReactDOM from 'react-dom/client';
-import { act } from "react";
+import { render, screen } from "@testing-library/react";
 import Timestamps from "./Timestamps";
 
-let container = null;
+describe("Timestamps", () => {
+    it("renders time element for creation time", () => {
+        render(<Timestamps insertTs="2020-10-15 13:13:13" />);
 
-beforeEach(() => {
-    container = document.createElement("div");
-    document.body.appendChild(container);
-});
+        const created = screen.getByText("2020-10-15 13:13:13");
+        expect(created).toBeInTheDocument();
+        expect(created.tagName.toLowerCase()).toBe("time");
 
-afterEach(() => {
-    container.remove();
-    container = null;
-});
-
-it("renders time element for creation time", () => {
-    act(() => {
-        ReactDOM.createRoot(container).render(<Timestamps insertTs="2020-10-15 13:13:13" />);
+        expect(screen.queryByText(/Modified at/i)).not.toBeInTheDocument();
     });
 
-    expect(container.innerHTML).toEqual(expect.stringContaining('<time datetime="2020-10-15 13:13:13">2020-10-15 13:13:13</time>'));
-    expect(container.innerHTML).not.toEqual(expect.stringContaining('<strong>Modified at</strong>'));
-});
+    it("renders time elements for creation and modification times", () => {
+        render(<Timestamps insertTs="2020-10-15 13:13:13" updateTs="2021-12-15 13:13:13" />);
 
-it("renders time element for creation and modification times", () => {
-    act(() => {
-        ReactDOM.createRoot(container).render(<Timestamps insertTs="2020-10-15 13:13:13" updateTs="2021-12-15 13:13:13" />);
+        const created = screen.getByText("2020-10-15 13:13:13");
+        const modified = screen.getByText("2021-12-15 13:13:13");
+        const label = screen.getByText(/Modified at/i);
+
+        expect(created).toBeInTheDocument();
+        expect(modified).toBeInTheDocument();
+        expect(label).toBeInTheDocument();
     });
-
-    expect(container.innerHTML).toEqual(expect.stringContaining('<time datetime="2020-10-15 13:13:13">2020-10-15 13:13:13</time>'));
-    expect(container.innerHTML).toEqual(expect.stringContaining('<strong>Modified at</strong>'));
-    expect(container.innerHTML).toEqual(expect.stringContaining('<time datetime="2021-12-15 13:13:13">2021-12-15 13:13:13</time>'));
 });

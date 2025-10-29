@@ -1,6 +1,6 @@
+import { useCommandQuery } from "api/commands.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
@@ -12,7 +12,7 @@ const EditCommandPage = () => {
     const navigate = useNavigate();
     const { commandId } = useParams();
 
-    const [serverCommand] = useFetch(`/commands/${commandId}`);
+    const { data: serverCommand } = useCommandQuery(commandId);
     const [clientCommand, setClientCommand] = useState(null);
 
     const onFormSubmit = async (ev) => {

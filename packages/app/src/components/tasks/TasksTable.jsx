@@ -1,3 +1,4 @@
+import { useDeleteTaskMutation } from "api/tasks.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -13,6 +14,7 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
     const showSelection = tableModel.columnsVisibility.selection;
     const showProjectColumn = tableModel.columnsVisibility.project;
     const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
+    const deleteTaskMutation = useDeleteTaskMutation();
 
     const onSelectionChange = (ev) => {
         const target = ev.target;
@@ -92,7 +94,7 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                             <td style={{ textAlign: "right" }}>
                                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                                     <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
-                                    {destroy && <DeleteIconButton onClick={() => destroy(task.id)} />}
+                                    <DeleteIconButton onClick={() => deleteTaskMutation.mutate(task.id)} />
                                 </RestrictedComponent>
                             </td>
                         </tr>

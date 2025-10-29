@@ -1,23 +1,38 @@
-import { buildApiRequest } from "services/api.js";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { requestDeleteDocument, requestDocument, requestDocuments, requestPostDocument } from "./requests/documents.js";
 
-const API_PREFIX: string = "/documents";
-
-const getDocument = (documentId: number): Request => {
-    return buildApiRequest(`${API_PREFIX}/${documentId}`, {
-        method: "GET",
+const useDocuments = () => {
+    return useQuery({
+        queryKey: ["documents"],
+        queryFn: () => requestDocuments().then((res) => res.json()),
     });
 };
 
-const getDocuments = (): Request => {
-    return buildApiRequest(API_PREFIX, {
-        method: "GET",
+const useDocumentQuery = (documentId: number) => {
+    return useQuery({
+        queryKey: ["documents", documentId],
+        queryFn: () => requestDocument(documentId).then((res) => res.json()),
     });
 };
 
-const deleteDocument = (documentId: number): Request => {
-    return buildApiRequest(`${API_PREFIX}/${documentId}`, {
-        method: "DELETE",
+const useMutationPostDocument = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (document: any) => requestPostDocument(document).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["documents"] });
+        },
     });
 };
 
-export { deleteDocument, getDocument, getDocuments };
+const useQueryDeleteDocument = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (documentId: number) => requestDeleteDocument(documentId).then((res) => res.json()),
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["documents"] });
+        },
+    });
+};
+
+export { useDocumentQuery, useDocuments, useMutationPostDocument, useQueryDeleteDocument };

@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Compose from "components/Compose";
 import AgentRoutes from "components/agents/AgentsRoutes.jsx";
 import DashboardRoutes from "components/layout/dashboard/Routes";
@@ -26,39 +27,50 @@ import UsersRoutes from "./components/users/Routes";
 import VulnerabilitiesRoutes from "./components/vulnerabilities/Routes";
 import { AuthProvider } from "./contexts/AuthContext";
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 2 * (60 * 1000), // 2 mins
+            cacheTime: 5 * (60 * 1000), // 5 mins
+        },
+    },
+});
+
 const App = () => {
     return (
-        <BrowserRouter basename={Configuration.getContextPath()}>
-            {/* Order of provider components matters */}
-            <Compose components={[AuthProvider, WebsocketProvider]}>
-                <Routes>
-                    <Route element={<DashboardLayout />}>
-                        {[
-                            ...DashboardRoutes,
-                            ...ClientsRoutes,
-                            ...CommandsRoutes,
-                            ...DocumentsRoutes,
-                            ...ProjectTemplatesRoutes,
-                            ...ProjectsRoutes,
-                            ...ReportTemplatesRoutes,
-                            ...ReportsRoutes,
-                            ...NotificationsRoutes,
-                            ...SearchRoutes,
-                            ...SettingsRoutes,
-                            ...SupportRoutes,
-                            ...SystemRoutes,
-                            ...TargetRoutes,
-                            ...TasksRoutes,
-                            ...ToolsRoutes,
-                            ...AgentRoutes,
-                            ...UsersRoutes,
-                            ...VulnerabilitiesRoutes,
-                        ].map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))}
-                        <Route path="*" element={<PageNotFound />} />
-                    </Route>
-                </Routes>
-            </Compose>
-        </BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter basename={Configuration.getContextPath()}>
+                {/* Order of provider components matters */}
+                <Compose components={[AuthProvider, WebsocketProvider]}>
+                    <Routes>
+                        <Route element={<DashboardLayout />}>
+                            {[
+                                ...DashboardRoutes,
+                                ...ClientsRoutes,
+                                ...CommandsRoutes,
+                                ...DocumentsRoutes,
+                                ...ProjectTemplatesRoutes,
+                                ...ProjectsRoutes,
+                                ...ReportTemplatesRoutes,
+                                ...ReportsRoutes,
+                                ...NotificationsRoutes,
+                                ...SearchRoutes,
+                                ...SettingsRoutes,
+                                ...SupportRoutes,
+                                ...SystemRoutes,
+                                ...TargetRoutes,
+                                ...TasksRoutes,
+                                ...ToolsRoutes,
+                                ...AgentRoutes,
+                                ...UsersRoutes,
+                                ...VulnerabilitiesRoutes,
+                            ].map((value, index) => React.cloneElement(value, { key: `protected_route_${index}` }))}
+                            <Route path="*" element={<PageNotFound />} />
+                        </Route>
+                    </Routes>
+                </Compose>
+            </BrowserRouter>
+        </QueryClientProvider>
     );
 };
 

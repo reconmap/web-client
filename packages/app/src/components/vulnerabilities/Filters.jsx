@@ -1,10 +1,11 @@
+import { useProjectsQuery } from "api/projects.js";
+import { useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import NativeSelect from "components/form/NativeSelect";
-import useFetch from "hooks/useFetch";
 import Risks from "models/Risks";
 
 const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, showProjectFilter = true }) => {
-    const [categories] = useFetch("/vulnerabilities/categories?parentsOnly=true");
-    const [projects] = useFetch("/projects?status=active");
+    const { data: categories, isLoading } = useVulnerabilityCategoriesQuery({ parentsOnly: true });
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ status: "active" });
 
     const onFilterChange = (ev) => {
         setTableModel({
@@ -24,8 +25,8 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
                     <div className="control">
                         <NativeSelect name="projectId" onChange={onFilterChange}>
                             <option value="">Project = (any)</option>
-                            {projects !== null &&
-                                projects.map((project) => (
+                            {!isLoadingProjects &&
+                                projects.data.map((project) => (
                                     <option key={project.id} value={project.id}>
                                         Project = {project.name}
                                     </option>
@@ -56,12 +57,15 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
                 <div className="control">
                     <NativeSelect name="categoryId" onChange={onFilterChange}>
                         <option value="">Category = (any)</option>
-                        {categories !== null &&
-                            categories.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    Category = {category.name}
-                                </option>
-                            ))}
+                        {!isLoading && (
+                            <>
+                                {categories.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        Category = {category.name}
+                                    </option>
+                                ))}
+                            </>
+                        )}
                     </NativeSelect>
                 </div>
             </div>

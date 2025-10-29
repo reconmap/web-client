@@ -1,16 +1,16 @@
+import { requestUserPatch } from "api/requests/users.js";
+import { useUserQuery } from "api/users.js";
 import NativeSelect from "components/form/NativeSelect";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { actionCompletedToast } from "components/ui/toast";
 import { useAuth } from "contexts/AuthContext";
 import CountriesTimezones from "countries-and-timezones";
-import useFetch from "hooks/useFetch";
 import { useTheme } from "hooks/useTheme";
 import { ThemeList } from "models/themes";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { initialiseUserPreferences } from "services/userPreferences";
 import { LanguageList } from "translations/LanguageList";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 
@@ -19,7 +19,7 @@ const UserPreferences = () => {
 
     const { user } = useAuth();
 
-    const [userData] = useFetch(`/users/${user.id}`);
+    const { data: userData } = useUserQuery(user.id);
 
     const timezones = CountriesTimezones.getAllTimezones();
     const timezoneKeys = Object.keys(timezones).sort();
@@ -41,12 +41,9 @@ const UserPreferences = () => {
             "web-client.language": formValues.language,
         };
 
-        secureApiFetch(`/users/${user.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                timezone: formValues.timezone,
-                preferences: user.preferences,
-            }),
+        requestUserPatch(user.id, {
+            timezone: formValues.timezone,
+            preferences: user.preferences,
         })
             .then(() => {
                 setTheme(formValues.theme);

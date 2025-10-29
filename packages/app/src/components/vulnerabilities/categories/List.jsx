@@ -1,21 +1,20 @@
+import { useDeleteVulnerabilityCategoryMutation, useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import Breadcrumb from "components/ui/Breadcrumb";
+import Loading from "components/ui/Loading.jsx";
 import NoResults from "components/ui/NoResults";
 import Title from "components/ui/Title";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
 import useBoolean from "hooks/useBoolean";
-import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import VulnerabilityCategoryAddModalDialog from "./AddModalDialog";
 import VulnerabilityCategoryEditModalDialog from "./EditModalDialog";
 
 const VulnerabilityCategoriesPage = () => {
-    const [categories, fetchParentCategories] = useFetch("/vulnerabilities/categories?parentsOnly=0");
-
-    const destroy = useDelete("/vulnerabilities/categories/", fetchParentCategories);
+    const { data: categories, isLoading } = useVulnerabilityCategoriesQuery({ parentsOnly: false });
+    const deleteVulnerabilityCategoryMutation = useDeleteVulnerabilityCategoryMutation();
 
     const [editCategory, setEditCategory] = useState({});
 
@@ -53,8 +52,10 @@ const VulnerabilityCategoriesPage = () => {
     const onDeleteClick = (ev, templateId) => {
         ev.stopPropagation();
 
-        destroy(templateId);
+        deleteVulnerabilityCategoryMutation.mutate(templateId);
     };
+
+    if (isLoading) return <Loading />;
 
     return (
         <>

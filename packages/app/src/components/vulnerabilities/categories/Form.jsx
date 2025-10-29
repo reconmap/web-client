@@ -1,10 +1,10 @@
+import { useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
-import useFetch from "hooks/useFetch";
 
 const VulnerabilityCategoryForm = ({ category, onFormSubmit, categorySetter: setCategory }) => {
-    const [categories] = useFetch("/vulnerabilities/categories?parentsOnly=true");
+    const { data: categories } = useVulnerabilityCategoriesQuery({ parentsOnly: true });
 
     const onFormInputChange = (ev) => {
         const target = ev.target;

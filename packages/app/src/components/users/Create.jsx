@@ -1,4 +1,4 @@
-import { createUserApi } from "api/users";
+import { createUserApi } from "api/requests/users.js";
 import defaultUser from "models/User";
 import UserRoles from "models/UserRoles.js";
 import { useState } from "react";

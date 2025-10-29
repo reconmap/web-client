@@ -1,3 +1,4 @@
+import { useDeleteProjectMutation, useProjectQuery } from "api/projects.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -6,8 +7,6 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
-import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
@@ -17,7 +16,8 @@ import ProjectTasks from "../Tasks";
 const TemplateDetails = () => {
     const navigate = useNavigate();
     const { templateId } = useParams();
-    const [template] = useFetch(`/projects/${templateId}`);
+    const { data: template } = useProjectQuery(templateId);
+    const deleteProjectMutation = useDeleteProjectMutation();
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
@@ -29,9 +29,11 @@ const TemplateDetails = () => {
             });
     };
 
-    const destroy = useDelete("/projects/", () => {
-        navigate("/projects/templates");
-    });
+    const destroy = (projectId) => {
+        deleteProjectMutation.mutate(projectId).then(() => {
+            navigate("/projects/templates");
+        });
+    };
 
     if (template && !template.is_template) {
         return <Navigate to={`/projects/${template.id}`} />;

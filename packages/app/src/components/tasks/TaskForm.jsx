@@ -1,3 +1,6 @@
+import { useCommandsQuery } from "api/commands.js";
+import { useProjectsQuery } from "api/projects.js";
+import { requestComments } from "api/requests/comments.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -5,14 +8,12 @@ import Loading from "components/ui/Loading";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import { useEffect, useState } from "react";
 import AsyncSelect from "react-select/async";
-import secureApiFetch from "services/api";
-import useFetch from "../../hooks/useFetch.js";
 import { TaskPriorityList } from "../../models/TaskPriority.js";
 import PrimaryButton from "../ui/buttons/Primary.jsx";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
-    const [projects] = useFetch(`/projects?isTemplate=${forTemplate ? 1 : 0}`);
-    const [commands] = useFetch("/commands");
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ isTemplate: forTemplate ? 1 : 0 });
+    const { data: commands, isLoading: isLoadingCommands } = useCommandsQuery();
 
     const onFormChange = (ev) => {
         const target = ev.target;
@@ -30,19 +31,17 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
     };
 
     useEffect(() => {
-        if (projects !== null && projects.length && task.project_id === "") {
-            const newProjectId = projects[0].id;
+        if (!isLoadingProjects && projects.data.length && task.project_id === "") {
+            const newProjectId = projects.data[0].id;
             setTask((prevTask) => ({ ...prevTask, project_id: newProjectId }));
         }
     }, [task.project_id, projects, setTask]);
 
     const loadOptions = (keywords) => {
-        return secureApiFetch(`/commands?keywords=` + encodeURIComponent(keywords), { method: "GET" }).then((data) =>
-            data.json(),
-        );
+        return requestComments({ keywords }).then((data) => data.json());
     };
 
-    if (!commands) return <Loading />;
+    if (isLoadingCommands) return <Loading />;
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -59,7 +58,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     >
                         <optgroup label="Projects">
                             {projects &&
-                                projects
+                                projects.data
                                     .filter((project) => project.is_template === 0)
                                     .map((project, index) => (
                                         <option key={index} value={project.id}>
@@ -69,7 +68,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                         </optgroup>
                         <optgroup label="Project templates">
                             {projects &&
-                                projects
+                                projects.data
                                     .filter((project) => project.is_template === 1)
                                     .map((project, index) => (
                                         <option key={index} value={project.id}>

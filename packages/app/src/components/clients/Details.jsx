@@ -1,3 +1,7 @@
+import { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganisationQuery } from "api/clients.js";
+import { useProjectsQuery } from "api/projects.js";
+import { requestAttachment } from "api/requests/attachments.js";
+import { requestContactDelete } from "api/requests/contacts.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeInput from "components/form/NativeInput";
@@ -24,8 +28,6 @@ import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
-import useDelete from "./../../hooks/useDelete";
-import useFetch from "./../../hooks/useFetch";
 import Loading from "./../ui/Loading";
 import OrganisationsUrls from "./OrganisationsUrls";
 
@@ -36,11 +38,11 @@ const ContactTypes = {
 };
 
 const ClientProjectsTab = ({ clientId }) => {
-    const [projects] = useFetch(`/projects?clientId=${clientId}`);
+    const { data: projects, isLoading } = useProjectsQuery({ clientId: clientId });
 
-    if (!projects) return <Loading />;
+    if (isLoading) return <Loading />;
 
-    if (projects.length === 0) {
+    if (projects.data.length === 0) {
         return (
             <div>
                 This client has no projects. You can see all projects and their clients <Link to="/projects">here</Link>
@@ -51,7 +53,7 @@ const ClientProjectsTab = ({ clientId }) => {
 
     return (
         <div>
-            <ProjectsTable projects={projects} showClientColumn={false} />
+            <ProjectsTable projects={projects.data} showClientColumn={false} />
         </div>
     );
 };
@@ -62,8 +64,9 @@ const ClientDetails = () => {
     const { clientId } = useParams();
     const navigate = useNavigate();
 
-    const [client] = useFetch(`/clients/${clientId}`);
-    const [contacts, fetchContacts] = useFetch(`/clients/${clientId}/contacts`);
+    const { data: client, isLoading: isClientLoading } = useOrganisationQuery(clientId);
+    const { data: contacts } = useOrganisationContactsQuery(clientId);
+    const deleteOrganisationMutation = useDeleteOrganisationMutation();
 
     const [contact, setContact] = useState({ ...Contact });
 
@@ -73,12 +76,11 @@ const ClientDetails = () => {
         setContact({ ...contact, [ev.target.name]: ev.target.value });
     };
 
-    const deleteClient = useDelete(`/clients/`);
     const [logo, setLogo] = useState(null);
     const [smallLogo, setSmallLogo] = useState(null);
 
     const handleDelete = async () => {
-        const confirmed = await deleteClient(clientId);
+        const confirmed = await deleteOrganisationMutation.mutateAsync(clientId);
         if (confirmed) navigate("/clients");
     };
 
@@ -91,7 +93,6 @@ const ClientDetails = () => {
         }).then((resp) => {
             if (resp.status === 201) {
                 setContact({ ...Contact });
-                fetchContacts();
                 actionCompletedToast(`The contact has been added.`);
             } else {
                 errorToast("The contact could not be saved. Review the form data or check the application logs.");
@@ -100,10 +101,9 @@ const ClientDetails = () => {
     };
 
     const onContactDelete = (contactId) => {
-        secureApiFetch(`/contacts/${contactId}`, { method: "DELETE" })
+        requestContactDelete(contactId)
             .then((resp) => {
                 if (resp.ok) {
-                    fetchContacts();
                     actionCompletedToast("The contact has been deleted.");
                 } else {
                     errorToast("Unable to delete contact");
@@ -125,25 +125,17 @@ const ClientDetails = () => {
     }, [client]);
 
     const downloadAndDisplayLogo = (logoId, type) => {
-        secureApiFetch(`/attachments/${logoId}`, { method: "GET" })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const url = URL.createObjectURL(blob);
-                if (type === "small_logo") {
-                    setSmallLogo(url);
-                } else {
-                    setLogo(url);
-                }
-            });
+        requestAttachment(logoId).then(({ blob }) => {
+            const url = URL.createObjectURL(blob);
+            if (type === "small_logo") {
+                setSmallLogo(url);
+            } else {
+                setLogo(url);
+            }
+        });
     };
 
-    if (!client) {
+    if (isClientLoading) {
         return <Loading />;
     }
 

@@ -1,3 +1,5 @@
+import { useAttachmentsQuery } from "api/attachments.js";
+import { requestAttachment, requestAttachmentDelete } from "api/requests/attachments.js";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -9,59 +11,39 @@ import SecondaryButton from "components/ui/buttons/Secondary";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import UserLink from "components/users/Link";
-import useFetch from "hooks/useFetch";
 import { useState } from "react";
-import secureApiFetch from "services/api";
 import { actionCompletedToast } from "../ui/toast";
 
 const CommandOutputs = ({ command }) => {
-    const [commandOutputs, updateCommandOutputs] = useFetch(`/attachments?parentType=command&parentId=${command.id}`);
+    const { data: commandOutputs } = useAttachmentsQuery({ parentType: "command", parentId: command.id });
     const [modalVisible, setModalVisible] = useState(false);
     const [content, setContent] = useState(null);
 
     const onDeleteOutputClick = (ev, attachmentId) => {
         ev.preventDefault();
 
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "DELETE" })
+        requestAttachmentDelete(attachmentId)
             .then(() => {
                 actionCompletedToast("The output has been deleted.");
-                updateCommandOutputs();
             })
             .catch((err) => console.error(err));
     };
 
     const onDownloadClick = (ev, attachmentId) => {
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = filename;
-                a.click();
-            });
+        requestAttachment(attachmentId).then(({ blob, filename }) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+        });
     };
 
     const onViewClick = (ev, attachmentId) => {
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then(async (values) => {
-                const blob = values[0];
-                setContent(await blob.text());
-                setModalVisible(true);
-            });
+        requestAttachment(attachmentId).then(async ({ blob }) => {
+            setContent(await blob.text());
+            setModalVisible(true);
+        });
     };
 
     const onModalClose = () => {
@@ -80,11 +62,7 @@ const CommandOutputs = ({ command }) => {
             </ModalDialog>
 
             <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                <AttachmentsDropzone
-                    parentType={"command"}
-                    parentId={command.id}
-                    onUploadFinished={updateCommandOutputs}
-                />
+                <AttachmentsDropzone parentType={"command"} parentId={command.id} />
             </RestrictedComponent>
 
             <h4>Command output list</h4>

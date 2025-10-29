@@ -1,3 +1,4 @@
+import { requestTaskPost } from "api/requests/tasks.js";
 import { actionCompletedToast } from "components/ui/toast";
 import { errorToast } from "components/ui/toast.jsx";
 import useQuery from "hooks/useQuery";
@@ -5,7 +6,6 @@ import Task from "models/Task";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 import TaskForm from "./TaskForm";
@@ -23,7 +23,7 @@ const TaskCreationPage = () => {
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/tasks`, { method: "POST", body: JSON.stringify(newTask) })
+        requestTaskPost(newTask)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(response.statusText);

@@ -1,3 +1,4 @@
+import { useDeleteProjectMutation, useProjectsQuery } from "api/projects.js";
 import BadgeOutline from "components/badges/BadgeOutline";
 import ProjectBadge from "components/projects/ProjectBadge";
 import Breadcrumb from "components/ui/Breadcrumb";
@@ -8,14 +9,13 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
 import Title from "components/ui/Title";
-import useDelete from "hooks/useDelete";
-import useFetch from "hooks/useFetch";
 import { Link, useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
 
 const TemplatesList = () => {
     const navigate = useNavigate();
-    const [templates, updateTemplates] = useFetch("/projects?isTemplate=1");
+    const { data: templates, isLoading } = useProjectsQuery({ isTemplate: 1 });
+    const deleteProjectMutation = useDeleteProjectMutation();
 
     const cloneProject = (ev, templateId) => {
         ev.stopPropagation();
@@ -31,12 +31,10 @@ const TemplatesList = () => {
         navigate(`/projects/templates/${templateId}`);
     };
 
-    const destroy = useDelete("/projects/", updateTemplates);
-
     const deleteTemplate = (ev, templateId) => {
         ev.stopPropagation();
 
-        destroy(templateId);
+        deleteProjectMutation.mutate(templateId);
     };
 
     const onAddProjectTemplateClick = () => {
@@ -53,7 +51,7 @@ const TemplatesList = () => {
                 <CreateButton onClick={onAddProjectTemplateClick}>Add project template</CreateButton>
             </div>
             <Title title="Project templates" />
-            {!templates ? (
+            {isLoading ? (
                 <Loading />
             ) : (
                 <table className="table is-fullwidth">
@@ -66,14 +64,14 @@ const TemplatesList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {templates.length === 0 ? (
+                        {templates.data.length === 0 ? (
                             <tr>
                                 <td colSpan={4}>
                                     <NoResults />
                                 </td>
                             </tr>
                         ) : (
-                            templates.map((template) => (
+                            templates.data.map((template) => (
                                 <tr key={template.id} onClick={() => viewProject(template.id)}>
                                     <td>
                                         <ProjectBadge project={template} />

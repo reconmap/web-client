@@ -1,14 +1,14 @@
+import { useAuditLogQuery } from "api/auditlog.js";
 import Badge from "components/badges/Badge";
 import UserLink from "components/users/Link";
-import useFetch from "hooks/useFetch";
 import DashboardWidget from "./Widget";
 
 const RecentActivityWidget = () => {
-    const [auditLog] = useFetch("/auditlog?limit=5");
+    const { data: auditLog } = useAuditLogQuery({ limit: 5 });
 
     return (
         <DashboardWidget title="Recent activity">
-            {auditLog && auditLog.length > 0 ? (
+            {auditLog && auditLog.data.length > 0 ? (
                 <table className="table is-fullwidth">
                     <thead>
                         <tr>
@@ -19,7 +19,7 @@ const RecentActivityWidget = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {auditLog.map((log) => (
+                        {auditLog.data.map((log) => (
                             <tr key={log.id}>
                                 <td>
                                     <Badge>{log.action}</Badge>
