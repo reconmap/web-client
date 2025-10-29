@@ -61,6 +61,8 @@ const VulnerabilityTemplatesList = () => {
         navigate(`/vulnerabilities/create?isTemplate=true`);
     };
 
+    if (isLoading) return <Loading />;
+
     return (
         <>
             <div className="heading">
@@ -85,14 +87,14 @@ const VulnerabilityTemplatesList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {templates.length === 0 ? (
+                        {templates.data.length === 0 ? (
                             <tr>
                                 <td colSpan={3}>
                                     <NoResults />
                                 </td>
                             </tr>
                         ) : (
-                            templates.map((template) => (
+                            templates.data.map((template) => (
                                 <tr key={template.id} onClick={() => viewTemplate(template.id)}>
                                     <td>
                                         <VulnerabilityBadge vulnerability={template} />

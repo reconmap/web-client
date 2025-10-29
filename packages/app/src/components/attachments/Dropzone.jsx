@@ -1,7 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { requestAttachmentPost } from "api/requests/attachments.js";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import secureApiFetch from "services/api";
 
 const baseStyle = {
     flex: 1,
@@ -20,7 +21,9 @@ const acceptStyle = {};
 
 const rejectStyle = {};
 
-const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, attachmentId = null }) => {
+const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null }) => {
+    const queryClient = useQueryClient();
+
     const onFileDrop = (newFiles) => {
         setAcceptedFiles(newFiles);
     };
@@ -39,18 +42,10 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null, at
             formData.append("attachment[]", file);
         });
 
-        let uri = "/attachments";
-        if (attachmentId) {
-            formData.append("attachmentId", attachmentId);
-            uri = `/attachments/${attachmentId}`;
-        }
-
-        secureApiFetch(uri, {
-            method: "POST",
-            body: formData,
-        })
+        requestAttachmentPost(formData)
             .then(() => {
                 setAcceptedFiles([]);
+                queryClient.invalidateQueries(["attachments"]);
                 if (onUploadFinished) onUploadFinished();
             })
             .catch((err) => console.error(err));

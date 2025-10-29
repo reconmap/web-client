@@ -4,17 +4,17 @@ const API_BASE_URL = "/notes";
 
 const requestComments = async (params: any) => {
     return (
-        await secureApiFetch("${API_BASE_URL}?" + new URLSearchParams(params).toString(), { method: "GET" })
+        await secureApiFetch(`${API_BASE_URL}?` + new URLSearchParams(params).toString(), { method: "GET" })
     ).json();
 };
 
-const requestCommentDelete = (taskId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/${taskId}`, {
+const requestCommentDelete = (commentId: number) => {
+    return secureApiFetch(`${API_BASE_URL}/${commentId}`, {
         method: "DELETE",
     });
 };
 
-const requestPostComment = async (comment: any) => {
+const requestCommentPost = async (comment: any) => {
     return (
         await secureApiFetch(`${API_BASE_URL}`, {
             method: "POST",
@@ -23,4 +23,4 @@ const requestPostComment = async (comment: any) => {
     ).json();
 };
 
-export { requestCommentDelete, requestComments, requestPostComment };
+export { requestCommentDelete, requestCommentPost, requestComments };

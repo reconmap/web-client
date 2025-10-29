@@ -4,6 +4,7 @@ import { useUsersQuery } from "api/users.js";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import Loading from "components/ui/Loading.jsx";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import Title from "components/ui/Title";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ import UserLink from "../users/Link";
 const ProjectMembership = () => {
     const { projectId } = useParams();
     const { data: users } = useUsersQuery();
-    const { data: members } = useProjectUsersQuery(projectId);
+    const { data: members, isLoading, refetch } = useProjectUsersQuery(projectId);
     const { data: savedProject } = useProjectQuery(projectId);
     const [availableUsers, setAvailableUsers] = useState([]);
 
@@ -31,13 +32,13 @@ const ProjectMembership = () => {
             method: "POST",
             body: JSON.stringify(userData),
         }).then(() => {
-            updateMembers();
+            refetch();
         });
     };
 
     const handleDelete = (member) => {
         requestProjectUserDelete(projectId, member.membership_id).then(() => {
-            updateMembers();
+            refetch();
         });
     };
 
@@ -47,6 +48,8 @@ const ProjectMembership = () => {
             setAvailableUsers(users.filter((user) => !memberIds.includes(user.id)));
         }
     }, [members, users]);
+
+    if (isLoading) return <Loading />;
 
     return (
         <div>

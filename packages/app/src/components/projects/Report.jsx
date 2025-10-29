@@ -2,9 +2,9 @@ import { useProjectQuery } from "api/projects.js";
 import NativeTabs from "components/form/NativeTabs";
 import ReportRevisions from "components/reports/Revisions";
 import Configuration from "Configuration";
-import { AuthContext } from "contexts/AuthContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import KeyCloakService from "services/keycloak.js";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import Breadcrumb from "./../ui/Breadcrumb";
@@ -39,8 +39,7 @@ const ProjectReport = () => {
 export default ProjectReport;
 
 const ReportPreview = ({ projectId }) => {
-    const { user } = useContext(AuthContext);
-
+    const user = KeyCloakService.getUserInfo();
     return (
         <iframe
             title="Report preview"

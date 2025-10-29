@@ -4,7 +4,7 @@ import Loading from "components/ui/Loading";
 import DashboardWidget from "./Widget";
 
 const ActiveProjectsWidget = () => {
-    const { data: projects, isLoading, isError, error } = useProjectsQuery({ status: "active" });
+    const { data: projects, isLoading, isError, error } = useProjectsQuery({ limit: 5, status: "active" });
 
     if (isLoading) return <Loading />;
 

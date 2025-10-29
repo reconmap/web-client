@@ -1,4 +1,5 @@
 import { useReportsTemplatesQuery } from "api/reports.js";
+import { requestReportPost } from "api/requests/reports.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
@@ -7,7 +8,6 @@ import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import TargetIcon from "images/icons/target.svg?react";
-import secureApiFetch from "services/api";
 
 const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => {
     const defaultFormValues = {
@@ -25,13 +25,11 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        const formData = new FormData(ev.target);
+        const reportForm = ev.target;
+        const formData = new FormData(reportForm);
         const data = Object.fromEntries(formData.entries());
 
-        secureApiFetch(`/reports`, {
-            method: "POST",
-            body: JSON.stringify(data),
-        })
+        requestReportPost(data)
             .then((resp) => {
                 if (resp.ok) {
                     onSubmit();
@@ -45,7 +43,7 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
                 console.error(err);
             })
             .finally(() => {
-                setFormValues(defaultFormValues);
+                reportForm.reset();
             });
     };
 

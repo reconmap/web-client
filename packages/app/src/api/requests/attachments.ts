@@ -20,8 +20,12 @@ const requestAttachments = (params: any) => {
     return secureApiFetch(`${API_BASE_URL}?` + new URLSearchParams(params).toString(), { method: "GET" });
 };
 
+const requestAttachmentPost = (attachment: FormData) => {
+    return secureApiFetch(`${API_BASE_URL}`, { method: "POST", body: attachment });
+};
+
 const requestAttachmentDelete = (attachmentId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${attachmentId}`, { method: "DELETE" });
 };
 
-export { requestAttachment, requestAttachmentDelete, requestAttachments };
+export { requestAttachment, requestAttachmentDelete, requestAttachmentPost, requestAttachments };

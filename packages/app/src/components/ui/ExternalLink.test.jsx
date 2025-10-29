@@ -1,31 +1,18 @@
-import ReactDOM from 'react-dom/client';
-import { act } from "react";
+import { render, screen } from "@testing-library/react";
 import ExternalLink from "./ExternalLink";
 
-let container = null;
-
-beforeEach(() => {
-    container = document.createElement("div");
-    document.body.appendChild(container);
-});
-
-afterEach(() => {
-    container.remove();
-    container = null;
-});
-
-it("renders a dash when there are no children", () => {
-    act(() => {
-        ReactDOM.createRoot(container).render(<ExternalLink></ExternalLink>);
+describe("ExternalLink", () => {
+    it("renders a dash when there are no children", () => {
+        render(<ExternalLink />);
+        expect(screen.getByText("-")).toBeInTheDocument();
     });
 
-    expect(container.innerHTML).toEqual("-");
-});
+    it("renders a link that opens in a new target", () => {
+        render(<ExternalLink href="#bar">Foo</ExternalLink>);
 
-it("renders a link that opens in a new target", () => {
-    act(() => {
-        ReactDOM.createRoot(container).render(<ExternalLink href="#bar">Foo</ExternalLink>);
+        const link = screen.getByRole("link", { name: /foo/i });
+        expect(link).toHaveAttribute("href", "#bar");
+        expect(link).toHaveAttribute("target", "_blank");
+        expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
-
-    expect(container.innerHTML).toEqual(expect.stringContaining('target="_blank" rel="noopener noreferrer"'));
 });

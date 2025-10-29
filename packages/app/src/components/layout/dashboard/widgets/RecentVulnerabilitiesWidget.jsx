@@ -21,7 +21,7 @@ const RecentVulnerabilitiesWidget = () => {
 
     return (
         <DashboardWidget title="Recent vulnerabilities">
-            {vulnerabilities.length === 0 ? (
+            {vulnerabilities.data.length === 0 ? (
                 <p>No vulnerabilities to show.</p>
             ) : (
                 <table className="table is-fullwidth">
@@ -32,7 +32,7 @@ const RecentVulnerabilitiesWidget = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {vulnerabilities.map((vulnerability) => (
+                        {vulnerabilities.data.map((vulnerability) => (
                             <tr key={vulnerability.id}>
                                 <td>
                                     <VulnerabilityBadge key={vulnerability.id} vulnerability={vulnerability} />

@@ -9,13 +9,22 @@ import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 
+const notEmpty = (value) => {
+    return value !== null && value !== undefined && value !== "";
+};
+
+const convertValue = (value) => {
+    if (value === "(null)") return null;
+    return value;
+};
+
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
     const { data: clients, isLoading: isLoadingClients } = useOrganisationsQuery({ kind: "client" });
     const { data: serviceProviders } = useOrganisationsQuery({ kind: "service_provider" });
     const { data: categories, isLoading: isLoadingCategories } = useProjectCategoriesQuery();
 
     const handleFormChange = (ev) => {
-        const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
+        const value = ev.target.type === "checkbox" ? ev.target.checked : convertValue(ev.target.value);
         setProject({ ...project, [ev.target.name]: value });
     };
 
@@ -170,10 +179,10 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     control={
                         <NativeSelect
                             name="vulnerability_metrics"
-                            value={project.vulnerability_metrics || ""}
+                            value={notEmpty(project.vulnerability_metrics) ? project.vulnerability_metrics : "(null)"}
                             onChange={handleFormChange}
                         >
-                            <option value="">(undefined)</option>
+                            <option value="(null)">(undefined)</option>
                             {ProjectVulnerabilityMetrics.map((type) => (
                                 <option key={`metrics_${type.id}`} value={type.id}>
                                     {type.name}

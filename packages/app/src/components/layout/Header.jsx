@@ -49,8 +49,8 @@ const MenuLinks = [
             null,
             { name: t("Custom fields"), url: "/settings/custom-fields" },
             null,
-            { name: t("Import data"), url: "/system/import-data" },
             { name: t("Export data"), url: "/system/export-data" },
+            { name: t("Import data"), url: "/system/import-data" },
         ],
     },
     {

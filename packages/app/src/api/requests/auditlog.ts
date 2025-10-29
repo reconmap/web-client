@@ -17,7 +17,7 @@ const requestAuditLog = async (params: any) => {
 };
 
 const requestAuditLogStats = () => {
-    return secureApiFetch("${API_BASE_URL}/stats", { method: "GET" });
+    return secureApiFetch(`${API_BASE_URL}/stats`, { method: "GET" });
 };
 
 export { requestAuditLog, requestAuditLogStats };

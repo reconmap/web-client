@@ -1,61 +1,31 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import secureApiFetch from "services/api.js";
-
-const requestVulnerabilities = (params: any) => {
-    const url = "/vulnerabilities?" + new URLSearchParams(params).toString();
-
-    return secureApiFetch(url, { method: "GET" });
-};
-
-const requestVulnerabilityCategories = (params: any) => {
-    const url = "/vulnerabilities/categories?" + new URLSearchParams(params).toString();
-    return secureApiFetch(url, { method: "GET" });
-};
-
-const requestVulnerabilitiesStats = (params: any) => {
-    const url = "/vulnerabilities/stats?" + new URLSearchParams(params).toString();
-    return secureApiFetch(url, { method: "GET" });
-};
-
-const requestVulnerability = (vulnerabilityId: number) => {
-    return secureApiFetch(`/vulnerabilities/${vulnerabilityId}`, { method: "GET" });
-};
-
-const requestVulnerabilityPost = (vulnerability: any) => {
-    return secureApiFetch(`/vulnerabilities`, { method: "POST", body: JSON.stringify(vulnerability) });
-};
-
-const requestVulnerabilityCategoryDelete = (vulnerabilityCategoryId: number) => {
-    return secureApiFetch(`/vulnerabilitiies/categories/${vulnerabilityCategoryId}`, { method: "DELETE" });
-};
-
-const requestVulnerabilityDelete = (vulnerabilityIds: number[]) => {
-    return secureApiFetch(`/vulnerabilities`, {
-        method: "PATCH",
-        headers: {
-            "Bulk-Operation": "DELETE",
-        },
-        body: JSON.stringify(vulnerabilityIds),
-    });
-};
+import {
+    requestVulnerabilities,
+    requestVulnerabilitiesStats,
+    requestVulnerability,
+    requestVulnerabilityCategories,
+    requestVulnerabilityCategoryDelete,
+    requestVulnerabilityDelete,
+    requestVulnerabilityPost,
+} from "./requests/vulnerabilities.js";
 
 const useVulnerabilitiesQuery = (params: any) => {
     return useQuery({
-        queryKey: ["vulnerabilities"],
-        queryFn: () => requestVulnerabilities(params).then((res) => res.json()),
+        queryKey: ["vulnerabilities", params],
+        queryFn: () => requestVulnerabilities(params),
     });
 };
 
-const useVulnerabilityCategoriesQuery = () => {
+const useVulnerabilityCategoriesQuery = (params: any) => {
     return useQuery({
-        queryKey: ["vulnerabilities"],
-        queryFn: (params: any) => requestVulnerabilityCategories(params).then((res) => res.json()),
+        queryKey: ["vulnerabilities", "categories", params],
+        queryFn: () => requestVulnerabilityCategories(params).then((res) => res.json()),
     });
 };
 
 const useVulnerabilitiesStatsQuery = (params: any) => {
     return useQuery({
-        queryKey: ["vulnerabilities"],
+        queryKey: ["vulnerabilities", "stats", params],
         queryFn: () => requestVulnerabilitiesStats(params).then((res) => res.json()),
     });
 };

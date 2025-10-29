@@ -7,7 +7,7 @@ import NotesTable from "../notes/Table";
 import Loading from "../ui/Loading";
 
 const ProjectNotesTab = ({ project }) => {
-    const { data: notes, isLoading } = useNotesQuery({ parentType: "project", parentId: project.id });
+    const { data: notes, isLoading, refetch } = useNotesQuery({ parentType: "project", parentId: project.id });
     const deleteCommentMutation = useDeleteCommentMutation();
     const { value: isOpen, setTrue: openDialog, setFalse: closeDialog } = useBoolean();
 
@@ -19,7 +19,7 @@ const ProjectNotesTab = ({ project }) => {
 
     const onNoteFormSaved = () => {
         closeDialog();
-        reloadNotes();
+        refetch();
     };
 
     if (isLoading) {

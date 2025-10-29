@@ -56,8 +56,7 @@
     "stylelint-config-standard": "^39.0.1",
     "vite": "^7.1.12",
     "vite-plugin-svgr": "^4.5.0",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.0.1"
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "scripts": {
     "lint": "npx eslint . --ext .js",

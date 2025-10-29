@@ -1,5 +1,5 @@
+import { useAssetsQuery } from "api/assets.js";
 import { useProjectsQuery } from "api/projects.js";
-import { requestAssets } from "api/requests/assets.js";
 import { useSystemCustomFieldsQuery } from "api/system.js";
 import { useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import DynamicForm from "components/form/DynamicForm";
@@ -9,16 +9,37 @@ import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import Tooltip from "components/ui/Tooltip.jsx";
-import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
 import RemediationComplexity from "models/RemediationComplexity";
 import RemediationPriority from "models/RemediationPriority";
-import { useEffect, useState } from "react";
-import { unstable_batchedUpdates } from "react-dom";
+import { useState } from "react";
 import Risks from "../../models/Risks";
-import secureApiFetch from "../../services/api";
 import Primary from "../ui/buttons/Primary";
 import CvssAbbr from "./CvssAbbr";
 import OwaspRR from "./OwaspRR";
+
+const idExists = (elements, id) => {
+    if (!elements) return false;
+    for (const el of elements) {
+        if (el.id === parseInt(id)) return true;
+    }
+    return false;
+};
+
+const TargetsSelectControl = ({ projectId, value, onFormChange }) => {
+    const { data: targets, isLoading } = useAssetsQuery({ projectId });
+
+    return (
+        <NativeSelect name="target_id" value={value} onChange={onFormChange}>
+            <option value="0">(none)</option>
+            {!isLoading &&
+                targets.data.map((target, index) => (
+                    <option key={index} value={target.id}>
+                        {target.name}
+                    </option>
+                ))}
+        </NativeSelect>
+    );
+};
 
 const tryParseTags = (tags) => {
     if (!tags) return "";
@@ -39,128 +60,13 @@ const VulnerabilityForm = ({
     vulnerabilitySetter: setVulnerability,
     onFormSubmit,
 }) => {
-    const [initialised, setInitialised] = useState(false);
-    const [subCategories, setSubCategories] = useState(null);
-    const [targets, setTargets] = useState(null);
-    const [useOWASP, setMetrics] = useState(false);
+    const [selectedProject, setSelectedProject] = useState(null);
     const { data: customFields } = useSystemCustomFieldsQuery();
 
     const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({});
-    const { data: categories, isLoading: isLoadingVulnerabilityCategories } = useVulnerabilityCategoriesQuery();
-
-    useEffect(() => {
-        if (initialised) return;
-
-        const defaultProjectId = projects.data.length ? projects.data[0].id : 0;
-        const projectId = isEditForm ? vulnerability.project_id : defaultProjectId;
-        setMetrics(isOwaspProject(projects.data, projectId));
-
-        var subcategories = null;
-        if (vulnerability.parent_category_id) {
-            secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, { method: "GET" })
-                .then((response) => response.json())
-                .then((json) => {
-                    subcategories = json;
-                });
-        }
-
-        secureApiFetch(`/targets?projectId=${projectId}`, {
-            method: "GET",
-        })
-            .then((resp) => resp.json())
-            .then((targets) => {
-                unstable_batchedUpdates(() => {
-                    setTargets(targets);
-                    setVulnerability((prevVulnerability) => {
-                        let updatedVulnerability = prevVulnerability;
-                        if (!idExists(projects.data, prevVulnerability.project_id)) {
-                            updatedVulnerability.project_id = defaultProjectId;
-                        }
-                        if (
-                            !idExists(categories, prevVulnerability.category_id) &&
-                            !idExists(subcategories, prevVulnerability.category_id)
-                        ) {
-                            updatedVulnerability.category_id = categories[0].id;
-                        }
-                        if (!idExists(targets, vulnerability.target_id)) {
-                            updatedVulnerability.target_id = null;
-                        }
-                        return updatedVulnerability;
-                    });
-                    setInitialised(true);
-                });
-            });
-    }, [
-        initialised,
-        isEditForm,
-        isLoadingProjects,
-        isLoadingVulnerabilityCategories,
-        setTargets,
-        setMetrics,
-        setVulnerability,
-        vulnerability.target_id,
-        vulnerability.project_id,
-        vulnerability.parent_category_id,
-        subCategories,
-        setSubCategories,
-    ]);
-
-    useEffect(() => {
-        if (!initialised) return;
-
-        if (vulnerability.parent_category_id) {
-            secureApiFetch(`/vulnerabilities/categories/${vulnerability.parent_category_id}`, {
-                method: "GET",
-            })
-                .then((response) => response.json())
-                .then((json) => {
-                    setSubCategories(json);
-                });
-        }
-
-        const projectId = vulnerability.project_id;
-        requestAssets({ projectId })
-            .then((resp) => resp.json())
-            .then((targets) => {
-                unstable_batchedUpdates(() => {
-                    setTargets(targets);
-                    if (isEditForm) {
-                        // Edit
-                        if (!idExists(targets, vulnerability.target_id)) {
-                            setVulnerability((prevVulnerability) => {
-                                return { ...prevVulnerability, target_id: 0 };
-                            });
-                        }
-                    }
-                });
-            });
-    }, [
-        initialised,
-        isEditForm,
-        setTargets,
-        setVulnerability,
-        vulnerability.target_id,
-        vulnerability.project_id,
-        vulnerability.parent_category_id,
-    ]);
-
-    const idExists = (elements, id) => {
-        if (!elements) return false;
-        for (const el of elements) {
-            if (el.id === parseInt(id)) return true;
-        }
-        return false;
-    };
-
-    const isOwaspProject = (elements, id) => {
-        let metrics = ProjectVulnerabilityMetrics[0].id;
-        for (const el of elements) {
-            if (el.id === parseInt(id)) {
-                metrics = el.vulnerability_metrics;
-            }
-        }
-        return ProjectVulnerabilityMetrics[1].id === metrics;
-    };
+    const { data: categories, isLoading: isLoadingVulnerabilityCategories } = useVulnerabilityCategoriesQuery({
+        parentsOnly: false,
+    });
 
     const onFormChange = (ev) => {
         const target = ev.target;
@@ -169,16 +75,8 @@ const VulnerabilityForm = ({
 
         if ("category_id" === name) {
             if (value !== "(none)") {
-                secureApiFetch(`/vulnerabilities/categories/${value}`, {
-                    method: "GET",
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-                        setSubCategories(json);
-                    });
                 setVulnerability({
                     ...vulnerability,
-                    parent_category_id: value,
                     [name]: value,
                 });
             } else {
@@ -189,6 +87,17 @@ const VulnerabilityForm = ({
         } else {
             setVulnerability({ ...vulnerability, [name]: value });
         }
+    };
+
+    const onProjectChange = (ev) => {
+        const target = ev.target;
+        const name = target.name;
+        let value = target.value;
+
+        const project = projects.data.find((proj) => proj.id === parseInt(value));
+        setSelectedProject(project);
+
+        setVulnerability({ ...vulnerability, [name]: value, target_id: 0 });
     };
 
     return (
@@ -261,7 +170,7 @@ const VulnerabilityForm = ({
                         <NativeSelect
                             id="categoryId"
                             name="category_id"
-                            value={vulnerability.parent_category_id || ""}
+                            value={vulnerability.category_id || ""}
                             onChange={onFormChange}
                             required
                         >
@@ -270,27 +179,6 @@ const VulnerabilityForm = ({
                                 categories.map((cat) => (
                                     <option key={cat.id} value={cat.id}>
                                         {cat.name}
-                                    </option>
-                                ))}
-                        </NativeSelect>
-                    }
-                />
-                <HorizontalLabelledField
-                    label="Subcategory"
-                    htmlFor="subCategoryId"
-                    control={
-                        <NativeSelect
-                            id="subCategoryId"
-                            name="subcategory_id"
-                            value={vulnerability.category_id || ""}
-                            onChange={onFormChange}
-                            required
-                        >
-                            <option>(none)</option>
-                            {subCategories &&
-                                subCategories.map((subcat) => (
-                                    <option key={subcat.id} value={subcat.id}>
-                                        {subcat.name}
                                     </option>
                                 ))}
                         </NativeSelect>
@@ -365,15 +253,19 @@ const VulnerabilityForm = ({
                                     id="projectId"
                                     name="project_id"
                                     value={vulnerability.project_id || ""}
-                                    onChange={onFormChange}
+                                    onChange={onProjectChange}
                                     required
                                 >
-                                    {projects.data &&
-                                        projects.data.map((project, index) => (
-                                            <option key={index} value={project.id}>
-                                                {project.name}
-                                            </option>
-                                        ))}
+                                    {!isLoadingProjects && (
+                                        <>
+                                            {projects.data &&
+                                                projects.data.map((project, index) => (
+                                                    <option key={index} value={project.id}>
+                                                        {project.name}
+                                                    </option>
+                                                ))}
+                                        </>
+                                    )}
                                 </NativeSelect>
                             }
                         />
@@ -382,19 +274,11 @@ const VulnerabilityForm = ({
                             label="Affected asset"
                             htmlFor="targetId"
                             control={
-                                <NativeSelect
-                                    name="target_id"
-                                    value={vulnerability.target_id || ""}
-                                    onChange={onFormChange}
-                                >
-                                    <option value="0">(none)</option>
-                                    {targets &&
-                                        targets.map((target, index) => (
-                                            <option key={index} value={target.id}>
-                                                {target.name}
-                                            </option>
-                                        ))}
-                                </NativeSelect>
+                                <TargetsSelectControl
+                                    projectId={vulnerability.project_id}
+                                    value={vulnerability.target_id}
+                                    onFormChange={onFormChange}
+                                />
                             }
                         />
                     </fieldset>
@@ -421,7 +305,7 @@ const VulnerabilityForm = ({
                     Impact
                     <MarkdownEditor name="impact" value={vulnerability.impact || ""} onChange={onFormChange} />
                 </label>
-                {!useOWASP && (
+                {"CVSS" === selectedProject?.vulnerability_metrics && (
                     <>
                         <label>
                             CVSS score
@@ -451,7 +335,7 @@ const VulnerabilityForm = ({
                 )}
             </fieldset>
 
-            {useOWASP && (
+            {"OWASP_RR" === selectedProject?.vulnerability_metrics && (
                 <div>
                     <h2>
                         <div>Owasp Risk Rating calculator</div>

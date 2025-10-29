@@ -13,10 +13,23 @@ const requestOrganisationContacts = (organisationId: number) => {
     return secureApiFetch(`/clients/${organisationId}/contacts`, { method: "GET" });
 };
 
+const requestOrganisationPost = (organisation: FormData) => {
+    return secureApiFetch(`/clients`, {
+        method: "POST",
+        body: organisation,
+    });
+};
+
 const requestOrganisationDelete = (organisationId: number) => {
     return secureApiFetch(`/clients/${organisationId}`, {
         method: "DELETE",
     });
 };
 
-export { requestOrganisation, requestOrganisationContacts, requestOrganisationDelete, requestOrganisations };
+export {
+    requestOrganisation,
+    requestOrganisationContacts,
+    requestOrganisationDelete,
+    requestOrganisationPost,
+    requestOrganisations,
+};

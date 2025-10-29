@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { requestCommentDelete, requestComments, requestPostComment } from "./requests/comments.js";
+import { requestCommentDelete, requestCommentPost, requestComments } from "./requests/comments.js";
 
 const useNotesQuery = (params: any) => {
     return useQuery({
-        queryKey: ["comments"],
+        queryKey: ["comments", params],
         queryFn: () => requestComments(params),
     });
 };
@@ -21,7 +21,7 @@ const useDeleteCommentMutation = () => {
 const useCreateCommentMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (comment: any) => requestPostComment(comment).then((res) => res.json()),
+        mutationFn: (comment: any) => requestCommentPost(comment).then((res) => res.json()),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["comments"] });
         },

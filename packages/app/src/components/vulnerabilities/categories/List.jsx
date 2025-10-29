@@ -1,5 +1,6 @@
 import { useDeleteVulnerabilityCategoryMutation, useVulnerabilityCategoriesQuery } from "api/vulnerabilities.js";
 import Breadcrumb from "components/ui/Breadcrumb";
+import Loading from "components/ui/Loading.jsx";
 import NoResults from "components/ui/NoResults";
 import Title from "components/ui/Title";
 import CreateButton from "components/ui/buttons/Create";
@@ -12,7 +13,7 @@ import VulnerabilityCategoryAddModalDialog from "./AddModalDialog";
 import VulnerabilityCategoryEditModalDialog from "./EditModalDialog";
 
 const VulnerabilityCategoriesPage = () => {
-    const { data: categories } = useVulnerabilityCategoriesQuery({ parentsOnly: false });
+    const { data: categories, isLoading } = useVulnerabilityCategoriesQuery({ parentsOnly: false });
     const deleteVulnerabilityCategoryMutation = useDeleteVulnerabilityCategoryMutation();
 
     const [editCategory, setEditCategory] = useState({});
@@ -53,6 +54,8 @@ const VulnerabilityCategoriesPage = () => {
 
         deleteVulnerabilityCategoryMutation.mutate(templateId);
     };
+
+    if (isLoading) return <Loading />;
 
     return (
         <>
