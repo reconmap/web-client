@@ -1,3 +1,4 @@
+import { useProjectUsersQuery } from "api/projects.js";
 import UserAvatar from "components/badges/UserAvatar.jsx";
 import ClientLink from "components/clients/Link";
 import VulnerabilitiesByCategoryStatsWidget from "components/layout/dashboard/widgets/VulnerabilitiesByCategoryStatsWidget";
@@ -7,14 +8,13 @@ import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import TimestampsSection from "components/ui/TimestampsSection";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import UserLink from "components/users/Link";
-import useFetch from "hooks/useFetch.js";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import remarkGfm from "remark-gfm";
 
 const ProjectDetailsTab = ({ project }) => {
     const isTemplate = project.is_template === 1;
-    const [users] = useFetch(`/projects/${project.id}/users`);
+    const { data: users } = useProjectUsersQuery(project.id);
 
     return (
         <section className="columns">

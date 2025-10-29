@@ -1,3 +1,5 @@
+import { useDeleteProjectMutation, useProjectQuery } from "api/projects.js";
+import { requestProjectPatch } from "api/requests/projects.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
@@ -8,9 +10,6 @@ import { actionCompletedToast } from "components/ui/toast";
 import { t } from "i18next";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import LinkButton from "../ui/buttons/Link";
 import SecondaryButton from "../ui/buttons/Secondary";
 import Loading from "../ui/Loading";
@@ -27,8 +26,8 @@ const ProjectDetails = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
 
-    const [project, updateProject] = useFetch(`/projects/${projectId}`);
-    const destroy = useDelete(`/projects/`, updateProject);
+    const { data: project } = useProjectQuery(projectId);
+    const deleteProjectMutation = useDeleteProjectMutation();
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
@@ -41,12 +40,8 @@ const ProjectDetails = () => {
     };
 
     const onArchiveButtonClick = (project) => {
-        secureApiFetch(`/projects/${project.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ archived: !project.archived }),
-        })
+        requestProjectPatch(project.id, { archived: !project.archived })
             .then(() => {
-                updateProject();
                 actionCompletedToast("The project has been updated.");
             })
             .catch((err) => console.error(err));
@@ -79,7 +74,9 @@ const ProjectDetails = () => {
                                 <NativeButton onClick={() => onArchiveButtonClick(project)}>
                                     {project.archived ? "Unarchive" : "Archive"}
                                 </NativeButton>
-                                <DeleteButton onClick={() => destroy(project.id)}>Delete</DeleteButton>
+                                <DeleteButton onClick={() => deleteProjectMutation.mutate(project.id)}>
+                                    Delete
+                                </DeleteButton>
                             </RestrictedComponent>
                         </NativeButtonGroup>
                     </>

@@ -1,17 +1,17 @@
+import {useCreateCommentMutation, useDeleteCommentMutation, useNotesQuery} from "api/comments.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import NotesForm from "components/notes/Form";
 import PrimaryButton from "components/ui/buttons/Primary.jsx";
-import { actionCompletedToast } from "components/ui/toast";
+import {actionCompletedToast} from "components/ui/toast";
 import Note from "models/Note";
-import { useState } from "react";
-import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
+import {useState} from "react";
 import NotesTable from "../notes/Table";
 
-const VulnerabilitiesNotesTab = ({ vulnerability }) => {
-    const [notes, reloadNotes] = useFetch(`/notes?parentType=vulnerability&parentId=${vulnerability.id}`);
-    const deleteNoteById = useDelete("/notes/", reloadNotes);
+const VulnerabilitiesNotesTab = ({vulnerability}) => {
+    const {data: notes, refetch} = useNotesQuery({parentType: "vulnerability", parentId: vulnerability.id});
+    const createCommentMutation = useCreateCommentMutation();
+    const deleteCommentMutation = useDeleteCommentMutation();
+
     const emptyNote = {
         ...Note,
         content: "",
@@ -24,23 +24,16 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
     const onDeleteButtonClick = (ev, note) => {
         ev.preventDefault();
 
-        deleteNoteById(note.id);
+        deleteCommentMutation.mutate(note.id);
     };
 
     const onCreateNoteFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/notes`, {
-            method: "POST",
-            body: JSON.stringify(newNote),
-        })
-            .then(() => {
-                actionCompletedToast(`The note has been created.`);
-                reloadNotes();
-            })
-            .finally(() => {
-                updateNewNote({ ...emptyNote, content: "" });
-            });
+        createCommentMutation.mutate(newNote);
+        actionCompletedToast(`The note has been created.`);
+        await refetch();
+        updateNewNote({...emptyNote, content: ""});
     };
 
     return (
@@ -56,13 +49,13 @@ const VulnerabilitiesNotesTab = ({ vulnerability }) => {
                 />
             </RestrictedComponent>
 
-            <div style={{ paddingTop: "20px" }}>
+            <div style={{paddingTop: "20px"}}>
                 <PrimaryButton type="submit" form="vulnerabilityCommentForm">
                     Save
                 </PrimaryButton>
             </div>
 
-            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
+            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick}/>
         </section>
     );
 };

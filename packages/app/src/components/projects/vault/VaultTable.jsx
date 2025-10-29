@@ -1,16 +1,14 @@
+import { requestSecretDelete } from "api/requests/vault.js";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton.jsx";
 import LinkButton from "components/ui/buttons/Link.jsx";
 import ExternalLink from "components/ui/ExternalLink.jsx";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter.jsx";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow.jsx";
 import { actionCompletedToast } from "components/ui/toast.jsx";
-import secureApiFetch from "services/api.js";
 
 const VaultTable = ({ secrets, onDelete }) => {
     const onVaultItemDelete = (vaultItemId) => {
-        secureApiFetch(`/vault/${vaultItemId}`, {
-            method: "DELETE",
-        })
+        requestSecretDelete(vaultItemId)
             .then(() => {
                 if (onDelete) onDelete();
                 actionCompletedToast("The vault item has been deleted.");

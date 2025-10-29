@@ -1,16 +1,16 @@
+import { useTasksQuery } from "api/tasks.js";
 import TaskBadge from "components/tasks/TaskBadge";
 import TaskStatusFormatter from "components/tasks/TaskStatusFormatter";
 import Loading from "components/ui/Loading";
 import { AuthContext } from "contexts/AuthContext";
-import useFetch from "hooks/useFetch";
 import { useContext } from "react";
 import DashboardWidget from "./Widget";
 
 const MyTasksWidget = () => {
     const { user } = useContext(AuthContext);
-    const [tasks] = useFetch(`/tasks?assigneeUid=${user.id}&limit=5&projectIsArchived=0`);
+    const { isPending, data: tasks } = useTasksQuery({ assigneeUid: user.id, limit: 5, projectIsArchived: 0 });
 
-    if (!tasks) return <Loading />;
+    if (isPending) return <Loading />;
 
     return (
         <DashboardWidget title="My tasks">

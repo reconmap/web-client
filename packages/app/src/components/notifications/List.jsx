@@ -1,3 +1,5 @@
+import { useDeleteNotificationMutation, useNotificationsQuery } from "api/notifications.js";
+import { requestNotificationsPatch } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
@@ -8,20 +10,16 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { actionCompletedToast } from "components/ui/toast.jsx";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 
 const isUnread = (notification) => notification.status === "unread";
 
 const NotificationsList = () => {
-    const [notifications, fetchNotifications] = useFetch("/notifications");
+    const { data: notifications } = useNotificationsQuery();
+    const deleteNotificatioMutation = useDeleteNotificationMutation();
 
     const markAllNotificationsAsRead = () => {
-        secureApiFetch("/notifications", {
-            method: "PATCH",
-            body: JSON.stringify({
-                notificationIds: notifications.filter(isUnread).map((n) => n.id),
-            }),
+        requestNotificationsPatch({
+            notificationIds: notifications.filter(isUnread).map((n) => n.id),
         }).then(() => {
             fetchNotifications();
             actionCompletedToast("All notifications marked as read");
@@ -36,8 +34,6 @@ const NotificationsList = () => {
             fetchNotifications();
         });
     };
-
-    const deleteNotification = useDelete("/notifications/", fetchNotifications);
 
     return (
         <>
@@ -85,7 +81,9 @@ const NotificationsList = () => {
                                                 Mark as read
                                             </NativeButton>
                                         )}
-                                        <DeleteIconButton onClick={() => deleteNotification(notification.id)} />
+                                        <DeleteIconButton
+                                            onClick={() => deleteNotificatioMutation.mutate(notification.id)}
+                                        />
                                     </NativeButtonGroup>
                                 </td>
                             </tr>

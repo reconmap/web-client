@@ -1,9 +1,9 @@
+import { useCommandsOutputParsersQuery } from "api/commands.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
-import useFetch from "hooks/useFetch";
 import { useTranslation } from "react-i18next";
 import PrimaryButton from "../ui/buttons/Primary";
 
@@ -21,7 +21,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
         setCommand({ ...commandUsage, [name]: value });
     };
 
-    const [parsers] = useFetch("/commands/output-parsers");
+    const { data: parsers } = useCommandsOutputParsersQuery();
 
     return (
         <form onSubmit={onFormSubmit}>

@@ -1,9 +1,9 @@
+import { requestVulnerabilityPost } from "api/requests/vulnerabilities.js";
 import { actionCompletedToast } from "components/ui/toast";
 import useQuery from "hooks/useQuery";
 import defaultVulnerability from "models/Vulnerability";
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 import VulnerabilityForm from "./Form";
@@ -32,7 +32,7 @@ const VulnerabilityCreate = () => {
             fields.is_template = "0";
         }
 
-        secureApiFetch(`/vulnerabilities`, { method: "POST", body: JSON.stringify(fields) }).then(() => {
+        requestVulnerabilityPost(fields).then(() => {
             if (vulnerability.is_template) {
                 navigate("/vulnerabilities/templates");
             } else {

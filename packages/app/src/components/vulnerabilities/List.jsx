@@ -1,3 +1,4 @@
+import { useDeleteVulnerabilityMutation } from "api/vulnerabilities.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -20,6 +21,8 @@ const VulnerabilitiesList = () => {
     let pageNumber = query.get("page");
     pageNumber = pageNumber !== null ? parseInt(pageNumber) : 1;
     const apiPageNumber = pageNumber - 1;
+
+    const vulnerabilitiesDeleteMutation = useDeleteVulnerabilityMutation();
 
     const [tableModel, setTableModel] = useState(new VulnerabilityTableModel());
 
@@ -80,19 +83,16 @@ const VulnerabilitiesList = () => {
     }, [setTableModel, apiPageNumber, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order]);
 
     const onDeleteButtonClick = () => {
-        secureApiFetch("/vulnerabilities", {
-            method: "PATCH",
-            headers: {
-                "Bulk-Operation": "DELETE",
-            },
-            body: JSON.stringify(tableModel.selection),
-        })
-            .then(reloadVulnerabilities)
-            .then(() => {
+        vulnerabilitiesDeleteMutation.mutate(tableModel.selection, {
+            onSuccess: () => {
+                reloadVulnerabilities();
                 setTableModel({ ...tableModel, selection: [] });
                 actionCompletedToast("All selected vulnerabilities were deleted.");
-            })
-            .catch((err) => console.error(err));
+            },
+            onError: (err) => {
+                console.error(err);
+            },
+        });
     };
 
     const onAddVulnerabilityClick = () => {

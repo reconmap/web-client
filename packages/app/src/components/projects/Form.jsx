@@ -1,24 +1,34 @@
+import { useOrganisationsQuery } from "api/clients.js";
+import { useProjectCategoriesQuery } from "api/projects.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
 import ProjectVulnerabilityMetrics from "models/ProjectVulnerabilityMetrics";
-import useFetch from "../../hooks/useFetch";
 import Loading from "../ui/Loading";
 import PrimaryButton from "../ui/buttons/Primary";
 
+const notEmpty = (value) => {
+    return value !== null && value !== undefined && value !== "";
+};
+
+const convertValue = (value) => {
+    if (value === "(null)") return null;
+    return value;
+};
+
 const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFormSubmit }) => {
-    const [clients] = useFetch("/clients?kind=client");
-    const [serviceProviders] = useFetch("/clients?kind=service_provider");
-    const [categories] = useFetch("/project/categories");
+    const { data: clients, isLoading: isLoadingClients } = useOrganisationsQuery({ kind: "client" });
+    const { data: serviceProviders } = useOrganisationsQuery({ kind: "service_provider" });
+    const { data: categories, isLoading: isLoadingCategories } = useProjectCategoriesQuery();
 
     const handleFormChange = (ev) => {
-        const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
+        const value = ev.target.type === "checkbox" ? ev.target.checked : convertValue(ev.target.value);
         setProject({ ...project, [ev.target.name]: value });
     };
 
-    if (!project && !clients && !serviceProviders) return <Loading />;
+    if (!project || isLoadingClients || isLoadingCategories || !serviceProviders) return <Loading />;
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -49,12 +59,11 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             value={project.category_id || ""}
                         >
                             <option value="">(none)</option>
-                            {categories &&
-                                categories.map((category) => (
-                                    <option key={`category_${category.id}`} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
+                            {categories.map((category) => (
+                                <option key={`category_${category.id}`} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
                         </NativeSelect>
                     }
                 />
@@ -170,10 +179,10 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     control={
                         <NativeSelect
                             name="vulnerability_metrics"
-                            value={project.vulnerability_metrics || ""}
+                            value={notEmpty(project.vulnerability_metrics) ? project.vulnerability_metrics : "(null)"}
                             onChange={handleFormChange}
                         >
-                            <option value="">(undefined)</option>
+                            <option value="(null)">(undefined)</option>
                             {ProjectVulnerabilityMetrics.map((type) => (
                                 <option key={`metrics_${type.id}`} value={type.id}>
                                     {type.name}

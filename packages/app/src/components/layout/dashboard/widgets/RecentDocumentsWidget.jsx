@@ -1,13 +1,13 @@
+import { useDocuments } from "api/documents.js";
 import DocumentBadge from "components/documents/Badge";
 import Loading from "components/ui/Loading";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
-import useFetch from "hooks/useFetch";
 import DashboardWidget from "./Widget";
 
 const RecentDocumentsWidget = () => {
-    const [documents] = useFetch(`/documents?limit=5`);
+    const { data: documents, isLoading } = useDocuments(5);
 
-    if (!documents) return <Loading />;
+    if (isLoading) return <Loading />;
 
     return (
         <DashboardWidget title="Recent documents">

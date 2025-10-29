@@ -1,3 +1,9 @@
+import { useAttachmentsQuery } from "api/attachments.js";
+import { requestCommand } from "api/requests/commands.js";
+import { requestProject } from "api/requests/projects.js";
+import { requestTaskPatch } from "api/requests/tasks.js";
+import { useDeleteTaskMutation, useTaskQuery } from "api/tasks.js";
+import { useUsersQuery } from "api/users.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import CommandBadge from "components/commands/Badge";
@@ -17,8 +23,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useDelete from "../../hooks/useDelete.js";
-import useFetch from "../../hooks/useFetch.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import secureApiFetch from "../../services/api.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
@@ -31,8 +35,8 @@ const TaskDetailsPage = () => {
     const { user: loggedInUser } = useAuth();
     const navigate = useNavigate();
     const { taskId } = useParams();
-    const [task, fetchTask] = useFetch(`/tasks/${taskId}`);
-    const [users] = useFetch(`/users`);
+    const { data: task } = useTaskQuery(taskId);
+    const { data: users } = useUsersQuery();
     const [project, setProject] = useState(null);
     const [command, setCommand] = useState(null);
 
@@ -40,26 +44,22 @@ const TaskDetailsPage = () => {
 
     const parentType = "task";
     const parentId = taskId;
-    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`);
-
-    const destroy = useDelete("/tasks/", fetchTask);
+    const { data: attachments } = useAttachmentsQuery({ parentType, parentId });
+    const deleteTaskMutation = useDeleteTaskMutation();
 
     const handleDelete = () => {
-        destroy(task.id);
+        deleteTaskMutation.mutate(task.id);
         navigate("/tasks");
     };
 
     const onAssigneeChange = (ev) => {
         const assigneeUid = ev.target.value;
-        secureApiFetch(`/tasks/${task.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                assignee_uid: "" === assigneeUid ? null : assigneeUid,
-            }),
+
+        requestTaskPatch(task.id, {
+            assignee_uid: "" === assigneeUid ? null : assigneeUid,
         })
             .then(() => {
                 actionCompletedToast("The assignee has been updated.");
-                fetchTask();
             })
             .catch((err) => console.error(err));
     };
@@ -74,13 +74,9 @@ const TaskDetailsPage = () => {
 
     const onStatusChange = (ev) => {
         const status = ev.target.value;
-        secureApiFetch(`/tasks/${task.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ status: status }),
-        })
+        requestTaskPatch(task.id, { status: status })
             .then(() => {
                 actionCompletedToast("The status has been transitioned.");
-                fetchTask();
             })
             .catch((err) => console.error(err));
     };
@@ -88,15 +84,13 @@ const TaskDetailsPage = () => {
     useEffect(() => {
         if (task) {
             if (task.command_id) {
-                secureApiFetch(`/commands/${task.command_id}`, {
-                    method: "GET",
-                })
+                requestCommand(task.command_id)
                     .then((resp) => resp.json())
                     .then((command) => setCommand(command))
                     .catch((err) => console.error(err));
             }
 
-            secureApiFetch(`/projects/${task.project_id}`, { method: "GET" })
+            requestProject(task.project_id)
                 .then((resp) => resp.json())
                 .then((project) => setProject(project))
                 .catch((err) => console.error(err));
@@ -235,14 +229,10 @@ const TaskDetailsPage = () => {
                             )}
                             {1 === tabIndex && (
                                 <div>
-                                    <AttachmentsDropzone
-                                        parentType={parentType}
-                                        parentId={parentId}
-                                        onUploadFinished={reloadAttachments}
-                                    />
+                                    <AttachmentsDropzone parentType={parentType} parentId={parentId} />
 
                                     <h4>Attachment list</h4>
-                                    <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                                    <AttachmentsTable attachments={attachments} />
                                 </div>
                             )}
                         </div>

@@ -1,4 +1,5 @@
-import { deleteUser, deleteUsers } from "api/users";
+import { deleteUsers } from "api/requests/users.js";
+import { useUserDeleteMutation, useUsersQuery } from "api/users.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import BooleanText from "components/ui/BooleanText";
@@ -11,7 +12,6 @@ import { AuthContext } from "contexts/AuthContext";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CreateButton from "../../components/ui/buttons/Create";
-import useFetch from "../../hooks/useFetch";
 import UserAvatar from "../badges/UserAvatar";
 import UserRoleBadge from "../badges/UserRoleBadge";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -24,7 +24,8 @@ import UserLink from "./Link";
 const UsersList = () => {
     const navigate = useNavigate();
     const { user: loggedInUser } = useContext(AuthContext);
-    const [users, updateUsers] = useFetch("/users");
+    const { data: users, isLoading } = useUsersQuery();
+    const userDeleteMutation = useUserDeleteMutation();
 
     const handleCreate = () => {
         navigate("/users/create");
@@ -44,7 +45,6 @@ const UsersList = () => {
 
     const handleBulkDelete = () => {
         deleteUsers(selectedUsers)
-            .then(updateUsers)
             .then(() => {
                 setSelectedUsers([]);
                 actionCompletedToast("All selected users were deleted.");
@@ -52,10 +52,8 @@ const UsersList = () => {
             .catch((err) => console.error(err));
     };
 
-    const handleDelete = (id) => {
-        deleteUser(id).then(() => {
-            updateUsers();
-        });
+    const handleDelete = (userId) => {
+        userDeleteMutation.mutate(userId).then(() => {});
     };
 
     return (
@@ -92,50 +90,55 @@ const UsersList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {null === users && <LoadingTableRow numColumns={8} />}
-                    {null !== users && 0 === users.length && <NoResultsTableRow numColumns={8} />}
-                    {null !== users &&
-                        0 !== users.length &&
-                        users.map((user, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <input
-                                        type="checkbox"
-                                        value={user.id}
-                                        onChange={onTaskCheckboxChange}
-                                        checked={selectedUsers.includes(user.id)}
-                                    />
-                                </td>
-                                <td>
-                                    <UserAvatar email={user.email} />
-                                </td>
-                                <td>
-                                    <Link to={`/users/${user.id}`}>{user.full_name}</Link>
-                                </td>
-                                <td>
-                                    <UserLink userId={user.id}>{user.username}</UserLink>
-                                </td>
-                                <td>
-                                    <UserRoleBadge role={user.role} />
-                                </td>
-                                <td>
-                                    <BooleanText value={user.active} />
-                                </td>
-                                <td>
-                                    <LastLogin user={user} />{" "}
-                                </td>
-                                <td>
-                                    <BooleanText value={user.mfa_enabled} />
-                                </td>
-                                <td style={{ textAlign: "right" }}>
-                                    <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
-                                    <DeleteIconButton
-                                        onClick={() => handleDelete(user.id)}
-                                        disabled={parseInt(user.id) === loggedInUser.id ? "disabled" : ""}
-                                    />
-                                </td>
-                            </tr>
-                        ))}
+                    {isLoading ? (
+                        <LoadingTableRow numColumns={8} />
+                    ) : (
+                        <>
+                            {null !== users && 0 === users.length && <NoResultsTableRow numColumns={8} />}
+                            {null !== users &&
+                                0 !== users.length &&
+                                users.map((user, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                value={user.id}
+                                                onChange={onTaskCheckboxChange}
+                                                checked={selectedUsers.includes(user.id)}
+                                            />
+                                        </td>
+                                        <td>
+                                            <UserAvatar email={user.email} />
+                                        </td>
+                                        <td>
+                                            <Link to={`/users/${user.id}`}>{user.full_name}</Link>
+                                        </td>
+                                        <td>
+                                            <UserLink userId={user.id}>{user.username}</UserLink>
+                                        </td>
+                                        <td>
+                                            <UserRoleBadge role={user.role} />
+                                        </td>
+                                        <td>
+                                            <BooleanText value={user.active} />
+                                        </td>
+                                        <td>
+                                            <LastLogin user={user} />{" "}
+                                        </td>
+                                        <td>
+                                            <BooleanText value={user.mfa_enabled} />
+                                        </td>
+                                        <td style={{ textAlign: "right" }}>
+                                            <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
+                                            <DeleteIconButton
+                                                onClick={() => handleDelete(user.id)}
+                                                disabled={parseInt(user.id) === loggedInUser.id ? "disabled" : ""}
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                        </>
+                    )}
                 </tbody>
             </table>
         </>

@@ -1,3 +1,4 @@
+import { requestUserPatch } from "api/requests/users.js";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeTabs from "components/form/NativeTabs";
 import PrimaryButton from "components/ui/buttons/Primary";
@@ -8,7 +9,6 @@ import { useAuth } from "contexts/AuthContext";
 import Widgets from "models/Widgets";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import secureApiFetch from "services/api";
 import PermissionsService from "services/permissions";
 import { initialiseUserPreferences } from "services/userPreferences";
 import widgetIsVisible from "services/widgets";
@@ -65,10 +65,7 @@ const DashboardPage = () => {
 
         user.preferences["web-client.widgets"] = dashboardConfig;
 
-        secureApiFetch(`/users/${user.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ preferences: user.preferences }),
-        })
+        requestUserPatch(user.id, { preferences: user.preferences })
             .then(() => {
                 setVisibleWidgets(filterWidgets(user));
 

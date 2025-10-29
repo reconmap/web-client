@@ -1,3 +1,4 @@
+import { requestTasksDelete, requestTasksPatch } from "api/requests/tasks.js";
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import DeleteButton from "components/ui/buttons/Delete";
@@ -7,7 +8,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import CreateButton from "../ui/buttons/Create.jsx";
@@ -52,15 +52,9 @@ const TasksListPage = () => {
     const onStatusSelectChange = (ev) => {
         const newStatus = ev.target.value;
 
-        secureApiFetch("/tasks", {
-            method: "PATCH",
-            headers: {
-                "Bulk-Operation": "UPDATE",
-            },
-            body: JSON.stringify({
-                taskIds: tableModel.selection,
-                newStatus: newStatus,
-            }),
+        requestTasksPatch({
+            taskIds: tableModel.selection,
+            newStatus: newStatus,
         })
             .then(reloadTasks)
             .then(() => {
@@ -71,13 +65,7 @@ const TasksListPage = () => {
     };
 
     const onDeleteButtonClick = () => {
-        secureApiFetch("/tasks", {
-            method: "PATCH",
-            headers: {
-                "Bulk-Operation": "DELETE",
-            },
-            body: JSON.stringify(tableModel.selection),
-        })
+        requestTasksDelete(tableModel.selection)
             .then(reloadTasks)
             .then(() => {
                 setTableModel({ ...tableModel, selection: [] });
@@ -85,8 +73,6 @@ const TasksListPage = () => {
             })
             .catch((err) => console.error(err));
     };
-
-    const destroy = useDelete("/tasks/", reloadTasks);
 
     useEffect(() => {
         reloadTasks();
@@ -121,12 +107,7 @@ const TasksListPage = () => {
                 <TaskFilters tableModel={tableModel} tableModelSetter={setTableModel} />
             </div>
 
-            <TasksTable
-                tableModel={tableModel}
-                tableModelSetter={setTableModel}
-                destroy={destroy}
-                reloadCallback={reloadTasks}
-            />
+            <TasksTable tableModel={tableModel} tableModelSetter={setTableModel} reloadCallback={reloadTasks} />
         </>
     );
 };

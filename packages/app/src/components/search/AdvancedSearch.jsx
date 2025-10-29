@@ -1,7 +1,8 @@
+import { useRecentSearchesQuery } from "api/system.js";
 import NativeButton from "components/form/NativeButton";
 import NativeCheckbox from "components/form/NativeCheckbox";
 import NativeInput from "components/form/NativeInput";
-import useFetch from "hooks/useFetch";
+import Loading from "components/ui/Loading.jsx";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -22,7 +23,7 @@ const AdvancedSearch = () => {
 
     const [keywords, setKeywords] = useState("");
     const [entities, setEntities] = useState(Object.keys(entityList));
-    const [recentSearches] = useFetch("/recent-searches");
+    const { data: recentSearches, isLoading: isLoadingRecentSearches } = useRecentSearchesQuery();
 
     const onFormSubmit = (ev) => {
         ev.preventDefault();
@@ -79,16 +80,24 @@ const AdvancedSearch = () => {
                 </div>
                 <div className="column">
                     <h4 className="is-size-4">Recent searches</h4>
-                    {recentSearches === null ? (
-                        <>No searches.</>
+                    {isLoadingRecentSearches ? (
+                        <Loading />
                     ) : (
-                        <ol>
-                            {recentSearches.map((search, index) => (
-                                <li key={index}>
-                                    <Link to={SearchUrls.KeywordsSearch.replace(":keywords", search)}>{search}</Link>
-                                </li>
-                            ))}
-                        </ol>
+                        <>
+                            {recentSearches === null ? (
+                                <>No searches.</>
+                            ) : (
+                                <ol>
+                                    {recentSearches.map((search, index) => (
+                                        <li key={index}>
+                                            <Link to={SearchUrls.KeywordsSearch.replace(":keywords", search)}>
+                                                {search}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ol>
+                            )}
+                        </>
                     )}
                 </div>
             </div>

@@ -1,14 +1,14 @@
-import { deleteDocument, getDocuments } from "api/documents";
+import { useDocuments, useQueryDeleteDocument } from "api/documents.js";
 import CreateButton from "components/ui/buttons/Create";
 import Title from "components/ui/Title";
-import useFetchRequest from "hooks/useFetchRequest";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import DocumentsTable from "./Table.jsx";
 
 const DocumentsListPage = () => {
     const navigate = useNavigate();
-    const { data: documents, refetch } = useFetchRequest(getDocuments());
+    const { data: documents, isLoading } = useDocuments();
+    const deleteMutation = useQueryDeleteDocument();
 
     const onAddCommandClick = (ev) => {
         ev.preventDefault();
@@ -17,7 +17,7 @@ const DocumentsListPage = () => {
     };
 
     const onDeleteClick = (documentId) => {
-        fetch(deleteDocument(documentId)).then(refetch);
+        deleteMutation.mutate(documentId);
     };
 
     return (
@@ -27,7 +27,12 @@ const DocumentsListPage = () => {
                 <CreateButton onClick={onAddCommandClick}>Create document</CreateButton>
             </div>
             <Title title="Documents" />
-            <DocumentsTable documents={documents} onDeleteButtonClick={onDeleteClick} />
+
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                <DocumentsTable documents={documents} onDeleteButtonClick={onDeleteClick} />
+            )}
         </div>
     );
 };

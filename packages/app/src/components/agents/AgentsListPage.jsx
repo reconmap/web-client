@@ -1,8 +1,9 @@
-import useFetch from "hooks/useFetch.js";
+import { useAgentsQuery } from "api/agents.js";
 
 const AgentsListPage = () => {
-    const [agents] = useFetch(`/agents`);
-    if (!agents) return <div>Loading...</div>;
+    const { data: agents, isLoading } = useAgentsQuery();
+    if (isLoading) return <div>Loading...</div>;
+
     return (
         <table className="table table-striped">
             <thead>

@@ -1,9 +1,10 @@
+import { requestOrganisationPost } from "api/requests/organisations.js";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
+import { StatusCodes } from "http-status-codes";
 import Client from "models/Client";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 import ClientForm from "./Form";
@@ -21,11 +22,8 @@ const ClientCreate = () => {
         const form = ev.target.closest("form");
         const formData = new FormData(form);
 
-        secureApiFetch("/clients", {
-            method: "POST",
-            body: formData,
-        }).then((resp) => {
-            if (resp.status === 201) {
+        requestOrganisationPost(formData).then((resp) => {
+            if (resp.status === StatusCodes.CREATED) {
                 navigate(OrganisationsUrls.List);
                 actionCompletedToast(`The client "${newClient.name}" has been added.`);
             } else {

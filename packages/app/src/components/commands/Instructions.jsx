@@ -1,3 +1,5 @@
+import { useCommandUsagesQuery } from "api/commands.js";
+import { useProjectsQuery } from "api/projects.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
@@ -7,7 +9,6 @@ import ExternalLink from "components/ui/ExternalLink";
 import ShellCommand from "components/ui/ShellCommand";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import cronstrue from "cronstrue";
-import useFetch from "hooks/useFetch";
 import { StatusCodes } from "http-status-codes";
 import { useEffect, useState } from "react";
 import { CliDownloadUrl } from "ServerUrls";
@@ -18,7 +19,7 @@ import parseArguments from "services/commands/arguments";
 const Bullet = () => <span style={{ color: "var(--bulma-primary" }}>▸</span>;
 
 const CommandInstructions = ({ command, projectId = null }) => {
-    const [commandUsages] = useFetch(`/commands/${command?.id}/usages`);
+    const { data: commandUsages } = useCommandUsagesQuery(command?.id);
 
     const [usage, setUsage] = useState(null);
 
@@ -64,7 +65,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
     const [runFrequency, setRunFrequency] = useState("once");
     const [projectId, setProjectId] = useState(null);
     const [terminalEnvironment, setTerminalEnvironment] = useState("browser");
-    const [projects] = useFetch("/projects?isTemplate=0&status=active");
+    const { data: projects } = useProjectsQuery({ isTemplate: 0, status: "active" });
 
     useEffect(() => {
         const commandArgsRendered = CommandService.renderArguments(projectId, usage, commandArgs);
@@ -154,7 +155,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                             if (ev.target.value === "discard") {
                                 setProjectId(null);
                             } else {
-                                setProjectId(projects[0].id);
+                                setProjectId(projects.data[0].id);
                             }
                         }}
                     >
@@ -170,7 +171,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                     htmlFor="projectId"
                     control={
                         <NativeSelect id="projectId" name="project_id" onChange={(ev) => setProjectId(ev.target.value)}>
-                            {projects.map((project) => (
+                            {projects.data.map((project) => (
                                 <option value={project.id}>{project.name}</option>
                             ))}
                         </NativeSelect>

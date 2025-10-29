@@ -1,3 +1,5 @@
+import { useCommandDeleteMutation, useCommandQuery, useCommandUsagesQuery } from "api/commands.js";
+import { requestCommandUsageDelete } from "api/requests/commands.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -12,9 +14,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete.js";
-import useFetch from "../../hooks/useFetch.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import Loading from "../ui/Loading.jsx";
 import DeleteButton from "../ui/buttons/Delete.jsx";
@@ -30,27 +29,23 @@ const CommandDetailsPage = () => {
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
-    const [command] = useFetch(`/commands/${commandId}`);
-    const deleteClient = useDelete(`/commands/`);
+    const { data: command, isLoading } = useCommandQuery(commandId);
+    const deleteCommandMutation = useCommandDeleteMutation();
 
     const handleDelete = async () => {
-        const confirmed = await deleteClient(commandId);
+        const confirmed = await deleteCommandMutation.mutateAsync(commandId);
         if (confirmed) navigate("/commands");
     };
 
     const deleteUsage = (usage) => {
-        secureApiFetch(`/commands/usage/${usage.id}`, {
-            method: "DELETE",
-        }).finally(() => {
+        requestCommandUsageDelete(usage.id).finally(() => {
             fetchCommandUsages();
         });
     };
 
-    const [commandUsages, fetchCommandUsages] = useFetch(`/commands/${commandId}/usages`);
+    const { data: commandUsages } = useCommandUsagesQuery(commandId);
 
-    if (!command) {
-        return <Loading />;
-    }
+    if (isLoading) return <Loading />;
 
     return (
         <div>

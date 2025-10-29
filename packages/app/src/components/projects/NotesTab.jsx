@@ -1,29 +1,28 @@
+import { useDeleteCommentMutation, useNotesQuery } from "api/comments.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import NoteModalDialog from "components/notes/ModalDialog";
 import CreateButton from "components/ui/buttons/Create";
 import useBoolean from "hooks/useBoolean";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import NotesTable from "../notes/Table";
 import Loading from "../ui/Loading";
 
 const ProjectNotesTab = ({ project }) => {
-    const [notes, reloadNotes] = useFetch(`/notes?parentType=project&parentId=${project.id}`);
-    const deleteNoteById = useDelete("/notes/", reloadNotes);
+    const { data: notes, isLoading, refetch } = useNotesQuery({ parentType: "project", parentId: project.id });
+    const deleteCommentMutation = useDeleteCommentMutation();
     const { value: isOpen, setTrue: openDialog, setFalse: closeDialog } = useBoolean();
 
     const onDeleteButtonClick = (ev, note) => {
         ev.preventDefault();
 
-        deleteNoteById(note.id);
+        deleteCommentMutation.mutate(note.id);
     };
 
     const onNoteFormSaved = () => {
         closeDialog();
-        reloadNotes();
+        refetch();
     };
 
-    if (!notes) {
+    if (isLoading) {
         return <Loading />;
     }
 

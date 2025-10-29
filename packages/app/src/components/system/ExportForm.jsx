@@ -1,12 +1,11 @@
-import { getExportables } from "api/system";
+import { useExportablesQuery } from "api/system.js";
 import NativeSelect from "components/form/NativeSelect";
-import useFetchRequest from "hooks/useFetchRequest";
 import { useState } from "react";
 import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ExportForm = () => {
-    const { data: exportables } = useFetchRequest(getExportables());
+    const { data: exportables } = useExportablesQuery();
 
     const [exportButtonDisabled, setExportButtonDisabled] = useState(true);
 

@@ -1,4 +1,4 @@
-import { getUser, updateUser } from "api/users";
+import { getUser, updateUser } from "api/requests/users.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Breadcrumb from "../ui/Breadcrumb";

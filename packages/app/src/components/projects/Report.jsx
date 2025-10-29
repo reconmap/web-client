@@ -1,10 +1,10 @@
+import { useProjectQuery } from "api/projects.js";
 import NativeTabs from "components/form/NativeTabs";
 import ReportRevisions from "components/reports/Revisions";
 import Configuration from "Configuration";
-import { AuthContext } from "contexts/AuthContext";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
+import KeyCloakService from "services/keycloak.js";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import Breadcrumb from "./../ui/Breadcrumb";
@@ -12,23 +12,11 @@ import "./Report.css";
 
 const ProjectReport = () => {
     const { projectId } = useParams();
-    const [project, setProject] = useState(null);
+    const { data: project, isLoading } = useProjectQuery(projectId);
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
-    useEffect(() => {
-        secureApiFetch(`/projects/${projectId}`, {
-            method: "GET",
-        })
-            .then((resp) => resp.json())
-            .then((json) => {
-                setProject(json);
-            });
-    }, [projectId, setProject]);
-
-    if (!project) {
-        return <Loading />;
-    }
+    if (isLoading) return <Loading />;
 
     return (
         <>
@@ -51,8 +39,7 @@ const ProjectReport = () => {
 export default ProjectReport;
 
 const ReportPreview = ({ projectId }) => {
-    const { user } = useContext(AuthContext);
-
+    const user = KeyCloakService.getUserInfo();
     return (
         <iframe
             title="Report preview"

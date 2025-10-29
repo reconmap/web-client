@@ -14,6 +14,7 @@ const ImportForm = () => {
 
         const formData = new FormData();
         formData.append("importFile", importFileRef.current.files[0]);
+
         secureApiFetch("/system/data", {
             method: "POST",
             body: formData,

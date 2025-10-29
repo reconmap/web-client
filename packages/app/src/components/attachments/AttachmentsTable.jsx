@@ -1,3 +1,5 @@
+import { useAttachmentDeleteMutation } from "api/attachments.js";
+import { requestAttachment } from "api/requests/attachments.js";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import SecondaryButton from "components/ui/buttons/Secondary";
 import FileSizeSpan from "components/ui/FileSizeSpan";
@@ -7,11 +9,9 @@ import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import UserLink from "components/users/Link";
 import { resolveMime } from "friendly-mimes";
-import useDelete from "hooks/useDelete";
 import { useState } from "react";
-import secureApiFetch from "services/api";
 
-const AttachmentsTable = ({ attachments, reloadAttachments }) => {
+const AttachmentsTable = ({ attachments }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [content, setContent] = useState(null);
 
@@ -19,53 +19,32 @@ const AttachmentsTable = ({ attachments, reloadAttachments }) => {
         setModalVisible(false);
     };
 
-    const deleteAttachmentById = useDelete("/attachments/", reloadAttachments);
+    const deleteAttachmentMutation = useAttachmentDeleteMutation();
 
     const onViewClick = (ev, attachmentId) => {
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const contentType = resp.headers.get("Content-Type");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([contentType, filename, resp.blob()]);
-            })
-            .then(async (values) => {
-                const [contentType, , blob] = values;
-
-                if (contentType.indexOf("image/") !== -1) {
-                    setContent(<img src={await URL.createObjectURL(blob)} alt="" />);
-                    // @todo -> URL.revokeObjectURL
-                } else {
-                    setContent(
-                        <textarea style={{ width: "100%", height: "90%" }} value={await blob.text()} readOnly />,
-                    );
-                }
-                setModalVisible(true);
-            });
+        requestAttachment(attachmentId).then(async ({ contentType, blob }) => {
+            if (contentType.indexOf("image/") !== -1) {
+                setContent(<img src={await URL.createObjectURL(blob)} alt="" />);
+                // @todo -> URL.revokeObjectURL
+            } else {
+                setContent(<textarea style={{ width: "100%", height: "90%" }} value={await blob.text()} readOnly />);
+            }
+            setModalVisible(true);
+        });
     };
 
     const onDownloadClick = (ev, attachmentId) => {
-        secureApiFetch(`/attachments/${attachmentId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = filename;
-                a.click();
-            });
+        requestAttachment(attachmentId).then(({ blob, filename }) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+        });
     };
 
     const onDeleteAttachmentClick = (ev, attachmentId) => {
-        deleteAttachmentById(attachmentId).then(() => reloadAttachments());
+        deleteAttachmentMutation.mutate(attachmentId);
     };
 
     const safeResolveMime = (mimeType) => {

@@ -1,4 +1,6 @@
+import { useDeleteOrganisationMutation, useOrganisationsQuery } from "api/clients.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
+import Loading from "components/ui/Loading.jsx";
 import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
@@ -6,8 +8,6 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import OrganisationTypes from "models/OrganisationTypes.js";
 import { useTranslation } from "react-i18next";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
 import LinkButton from "../ui/buttons/Link";
@@ -17,9 +17,17 @@ import OrganisationsUrls from "./OrganisationsUrls";
 const ClientsList = () => {
     const [t] = useTranslation();
 
-    const [clients, updateTasks] = useFetch("/clients");
+    const { data: clients, isLoading, isError, error } = useOrganisationsQuery({});
+    const deleteOrganisationMutation = useDeleteOrganisationMutation();
 
-    const destroy = useDelete("/clients/", updateTasks);
+    if (isLoading) return <Loading />;
+
+    if (isError)
+        return (
+            <div>
+                {t("An error occurred while fetching the organisations.")} {error.message}
+            </div>
+        );
 
     return (
         <>
@@ -64,7 +72,7 @@ const ClientsList = () => {
                                     <LinkButton href={OrganisationsUrls.Edit.replace(":organisationId", client.id)}>
                                         {t("Edit")}
                                     </LinkButton>
-                                    <DeleteIconButton onClick={() => destroy(client.id)} />
+                                    <DeleteIconButton onClick={() => deleteOrganisationMutation.mutate(client.id)} />
                                 </td>
                             </tr>
                         ))}

@@ -1,3 +1,4 @@
+import { requestAttachment } from "api/requests/attachments.js";
 import LabelledField from "components/form/LabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -5,7 +6,6 @@ import RestrictedComponent from "components/logic/RestrictedComponent";
 import OrganisationTypes from "models/OrganisationTypes.js";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import secureApiFetch from "../../services/api";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: setClient }) => {
@@ -33,22 +33,14 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
     }, [client]);
 
     const downloadAndDisplayLogo = (logoId, type) => {
-        secureApiFetch(`/attachments/${logoId}`, { method: "GET", headers: {} })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const url = URL.createObjectURL(blob);
-                if (type === "small_logo") {
-                    setSmallLogo(url);
-                } else {
-                    setLogo(url);
-                }
-            });
+        requestAttachment(logoId).then(({ blob }) => {
+            const url = URL.createObjectURL(blob);
+            if (type === "small_logo") {
+                setSmallLogo(url);
+            } else {
+                setLogo(url);
+            }
+        });
     };
 
     return (

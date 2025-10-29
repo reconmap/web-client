@@ -1,11 +1,10 @@
+import { useAssetQuery, useDeleteAssetMutation } from "api/assets.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TimestampsSection from "components/ui/TimestampsSection";
 import VulnerabilityTableModel from "components/vulnerabilities/VulnerabilityTableModel";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
-import useDelete from "../../hooks/useDelete";
-import useFetch from "../../hooks/useFetch";
 import Badge from "../badges/Badge";
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from "../ui/buttons/Delete";
@@ -16,8 +15,9 @@ import VulnerabilitiesTable from "../vulnerabilities/VulnerabilitiesTable";
 const TargetView = () => {
     const navigate = useNavigate();
     const { targetId } = useParams();
-    const [target] = useFetch(`/targets/${targetId}`);
-    const destroy = useDelete(`/targets/`);
+    const { data: target } = useAssetQuery(targetId);
+    const deleteAssetMutation = useDeleteAssetMutation();
+
     const [savedProject, setSavedProject] = useState(null);
 
     const [tableModel, setTableModel] = useState(new VulnerabilityTableModel());
@@ -53,7 +53,8 @@ const TargetView = () => {
     }, [target]);
 
     const handleDelete = () => {
-        destroy(targetId)
+        deleteAssetMutation
+            .mutate(targetId)
             .then((success) => {
                 if (success) navigate("/projects");
             })

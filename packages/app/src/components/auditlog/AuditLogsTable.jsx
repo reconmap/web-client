@@ -7,6 +7,9 @@ import UserAgentLabel from "components/ui/UserAgentLabel";
 import UserLink from "components/users/Link";
 
 const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
+    if (!(auditLog instanceof Array)) {
+        return <>Invalid audit log data</>;
+    }
     const hasUserLocations = auditLog.some((entry) => entry.hasOwnProperty("user_location"));
     const numColumns = 4 + (hideUserColumns ? 0 : 2) + (hasUserLocations ? 1 : 0);
 

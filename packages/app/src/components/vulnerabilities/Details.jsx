@@ -1,4 +1,7 @@
 import { Tag } from "@reconmap/native-components";
+import { useAttachmentsQuery } from "api/attachments.js";
+import { requestVulnerabilityPatch } from "api/requests/vulnerabilities.js";
+import { useDeleteVulnerabilityMutation, useVulnerabilityQuery } from "api/vulnerabilities.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeSelect from "components/form/NativeSelect";
@@ -10,14 +13,11 @@ import { t } from "i18next";
 import VulnerabilityStatuses from "models/VulnerabilityStatuses";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
 import DeleteButton from "../ui/buttons/Delete";
 import { actionCompletedToast } from "../ui/toast";
-import useDelete from "./../../hooks/useDelete";
-import useFetch from "./../../hooks/useFetch";
 import VulnerabilitiesNotesTab from "./NotesTab";
 import VulnerabilityDescriptionPanel from "./VulnerabilityDescriptionPanel";
 import VulnerabilityRemediationPanel from "./VulnerabilityRemediationPanel";
@@ -25,34 +25,31 @@ import VulnerabilityRemediationPanel from "./VulnerabilityRemediationPanel";
 const VulnerabilityDetails = () => {
     const navigate = useNavigate();
     const { vulnerabilityId } = useParams();
-    const [vulnerability, updateVulnerability] = useFetch(`/vulnerabilities/${vulnerabilityId}`);
-    const deleteVulnerability = useDelete(`/vulnerabilities/`);
+    const { data: vulnerability, isLoading } = useVulnerabilityQuery(vulnerabilityId);
+    const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const parentType = "vulnerability";
     const parentId = vulnerabilityId;
-    const [attachments, reloadAttachments] = useFetch(`/attachments?parentType=${parentType}&parentId=${parentId}`);
+    const { data: attachments } = useAttachmentsQuery({ parentType, parentId });
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
     const handleDelete = async () => {
-        const confirmed = await deleteVulnerability(vulnerabilityId);
+        const confirmed = await deleteVulnerabilityMutation.mutateAsync(vulnerabilityId);
         if (confirmed) navigate("/vulnerabilities");
     };
 
     const onStatusChange = (ev) => {
         const [status, substatus] = ev.target.value.split("-");
-        secureApiFetch(`/vulnerabilities/${vulnerability.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ status, substatus }),
-        })
+
+        requestVulnerabilityPatch(vulnerability.id, { status, substatus })
             .then(() => {
                 actionCompletedToast("The status has been transitioned.");
-                updateVulnerability();
             })
             .catch((err) => console.error(err));
     };
 
-    if (!vulnerability) return <Loading />;
+    if (isLoading) return <Loading />;
 
     if (vulnerability && vulnerability.is_template) {
         return <Navigate to={`/vulnerabilities/templates/${vulnerability.id}`} />;
@@ -125,14 +122,10 @@ const VulnerabilityDetails = () => {
                         )}
                         {3 === tabIndex && (
                             <div>
-                                <AttachmentsDropzone
-                                    parentType={parentType}
-                                    parentId={parentId}
-                                    onUploadFinished={reloadAttachments}
-                                />
+                                <AttachmentsDropzone parentType={parentType} parentId={parentId} />
 
                                 <h4>Attachment list</h4>
-                                <AttachmentsTable attachments={attachments} reloadAttachments={reloadAttachments} />
+                                <AttachmentsTable attachments={attachments} />
                             </div>
                         )}
                     </div>
