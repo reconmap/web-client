@@ -8,21 +8,21 @@ import {
 
 const useOrganisationsQuery = (params: any) => {
     return useQuery({
-        queryKey: ["organisations"],
+        queryKey: ["organisations", params],
         queryFn: () => requestOrganisations(params).then((res) => res.json()),
     });
 };
 
 const useOrganisationQuery = (clientId: number) => {
     return useQuery({
-        queryKey: ["organisations"],
+        queryKey: ["organisations", clientId],
         queryFn: () => requestOrganisation(clientId).then((res) => res.json()),
     });
 };
 
 const useOrganisationContactsQuery = (clientId: number) => {
     return useQuery({
-        queryKey: ["organisations"],
+        queryKey: ["organisations", clientId, "contacts"],
         queryFn: () => requestOrganisationContacts(clientId).then((res) => res.json()),
     });
 };
@@ -35,6 +35,13 @@ const useDeleteOrganisationMutation = () => {
             queryClient.invalidateQueries({ queryKey: ["organisations"] });
         },
     });
+};
+
+export const useOrganisationsQueriesInvalidation = () => {
+    const queryClient = useQueryClient();
+    return () => {
+        queryClient.invalidateQueries({ queryKey: ["organisations"] });
+    };
 };
 
 export { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganisationQuery, useOrganisationsQuery };

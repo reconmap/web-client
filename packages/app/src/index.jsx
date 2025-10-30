@@ -1,10 +1,10 @@
+import { requestSessionPost } from "api/requests/session.js";
 import HeaderLogo from "components/layout/HeaderLogo.jsx";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
-import secureApiFetch from "services/api.js";
 import KeyCloakService from "services/keycloak.js";
 import { initialiseUserPreferences } from "services/userPreferences.js";
 import "translations/i18n";
@@ -57,10 +57,7 @@ const scheduleTokenRefreshBeforeExpiration = () => {
 const onAuthSuccess = () => {
     TimeAgo.addDefaultLocale(en);
 
-    secureApiFetch(`/users/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-    })
+    requestSessionPost()
         .then((resp) => resp.json())
         .then((data) => {
             const userObject = {

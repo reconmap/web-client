@@ -1,7 +1,7 @@
 import { useExportablesQuery } from "api/system.js";
 import NativeSelect from "components/form/NativeSelect";
 import { useState } from "react";
-import secureApiFetch from "../../services/api";
+import { downloadFromApi } from "services/api.js";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ExportForm = () => {
@@ -21,22 +21,7 @@ const ExportForm = () => {
         ev.preventDefault();
 
         const url = `/system/data?` + new URLSearchParams({ entities: entitiesToExport }).toString();
-        secureApiFetch(url, { method: "GET" })
-            .then((resp) => {
-                const contentDispositionHeader = resp.headers.get("Content-Disposition");
-                const filenameRe = new RegExp(/filename="(.*)";/);
-                const filename = filenameRe.exec(contentDispositionHeader)[1];
-                return Promise.all([resp.blob(), filename]);
-            })
-            .then((values) => {
-                const blob = values[0];
-                const filename = values[1];
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = filename;
-                a.click();
-            });
+        downloadFromApi(url);
     };
 
     return (

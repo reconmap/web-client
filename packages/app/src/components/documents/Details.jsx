@@ -1,4 +1,6 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useDocumentQuery } from "api/documents.js";
+import { requestDeleteDocument } from "api/requests/documents.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import TimestampsSection from "components/ui/TimestampsSection";
 import VisibilityLegend from "components/ui/VisibilityLegend";
@@ -14,11 +16,13 @@ import DocumentPreview from "./Preview";
 const DocumentDetailsPage = () => {
     const { documentId } = useParams();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const { isLoading, data: serverDoc } = useDocumentQuery(documentId);
 
     const handleDelete = async () => {
-        fetch(deleteDocument(documentId)).then(() => {
+        requestDeleteDocument(documentId).then(() => {
+            queryClient.invalidateQueries({ queryKey: ["documents"] });
             navigate("/documents");
         });
     };

@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { requestOrganisationPost } from "api/requests/organisations.js";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { StatusCodes } from "http-status-codes";
@@ -15,6 +16,7 @@ const ClientCreate = () => {
 
     const navigate = useNavigate();
     const [newClient, setNewClient] = useState(Client);
+    const queryClient = useQueryClient();
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
@@ -24,8 +26,9 @@ const ClientCreate = () => {
 
         requestOrganisationPost(formData).then((resp) => {
             if (resp.status === StatusCodes.CREATED) {
-                navigate(OrganisationsUrls.List);
+                queryClient.invalidateQueries({ queryKey: ["organisations"] });
                 actionCompletedToast(`The client "${newClient.name}" has been added.`);
+                navigate(OrganisationsUrls.List);
             } else {
                 errorToast("The client could not be saved. Review the form data or check the application logs.");
             }

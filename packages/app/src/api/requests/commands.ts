@@ -1,4 +1,5 @@
 import secureApiFetch from "services/api.js";
+import { requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/commands";
 
@@ -35,6 +36,9 @@ const requestCommandsOutputParsers = () => {
 const requestCommandDelete = (commandId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${commandId}`, { method: "DELETE" });
 };
+
+export const requestCommandPut = (commandId: number, data: any) =>
+    requestEntityPut(`${API_BASE_URL}/${commandId}`, data);
 
 const requestCommandPost = (command: object) => {
     return secureApiFetch(`${API_BASE_URL}`, { method: "POST", body: JSON.stringify(command) });

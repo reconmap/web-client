@@ -1,5 +1,5 @@
-import { useDeleteProjectMutation, useProjectQuery } from "api/projects.js";
-import { requestProjectPatch } from "api/requests/projects.js";
+import { useDeleteProjectMutation, useProjectQueriesInvalidation, useProjectQuery } from "api/projects.js";
+import { requestProjectPut } from "api/requests/projects.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
@@ -27,6 +27,7 @@ const ProjectDetails = () => {
     const { projectId } = useParams();
 
     const { data: project } = useProjectQuery(projectId);
+    const projectQueriesInvalidation = useProjectQueriesInvalidation();
     const deleteProjectMutation = useDeleteProjectMutation();
 
     const [tabIndex, tabIndexSetter] = useState(0);
@@ -40,9 +41,10 @@ const ProjectDetails = () => {
     };
 
     const onArchiveButtonClick = (project) => {
-        requestProjectPatch(project.id, { archived: !project.archived })
+        requestProjectPut(project.id, { archived: !project.archived })
             .then(() => {
                 actionCompletedToast("The project has been updated.");
+                projectQueriesInvalidation();
             })
             .catch((err) => console.error(err));
     };

@@ -7,16 +7,14 @@ const CommandsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }
 
     useEffect(() => {
         const reloadData = () => {
-            requestCommands({ keywords })
-                .then((resp) => resp.json())
-                .then((commands) => {
-                    setCommands(commands);
-                    setEmptyResults((emptyResults) =>
-                        0 === commands.length
-                            ? emptyResults.concat("commands")
-                            : emptyResults.filter((value) => value !== "commands"),
-                    );
-                });
+            requestCommands({ keywords }).then((commands) => {
+                setCommands(commands.data);
+                setEmptyResults((emptyResults) =>
+                    0 === commands.data.length
+                        ? emptyResults.concat("commands")
+                        : emptyResults.filter((value) => value !== "commands"),
+                );
+            });
         };
 
         reloadData();

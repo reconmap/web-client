@@ -10,7 +10,7 @@ import {
 
 const useProjectQuery = (projectId: number) => {
     return useQuery({
-        queryKey: ["project", projectId],
+        queryKey: ["projects", projectId],
         queryFn: () => requestProject(projectId).then((res) => res.json()),
     });
 };
@@ -24,20 +24,20 @@ const useProjectsQuery = (params: Record<string, any>) => {
 
 const useProjectUsersQuery = (projectId: number) => {
     return useQuery({
-        queryKey: ["project", "users", projectId],
+        queryKey: ["projects", projectId, "users"],
         queryFn: () => requestProjectUsers(projectId).then((res) => res.json()),
     });
 };
 const useProjectVaultQuery = (projectId: number) => {
     return useQuery({
-        queryKey: ["project", "vault", projectId],
+        queryKey: ["projects", projectId, "vault"],
         queryFn: () => requestProjectVault(projectId).then((res) => res.json()),
     });
 };
 
 const useProjectCategoriesQuery = () => {
     return useQuery({
-        queryKey: ["project", "categories"],
+        queryKey: ["projects", "categories"],
         queryFn: () => requestProjectCategories().then((res) => res.json()),
     });
 };
@@ -50,6 +50,13 @@ const useDeleteProjectMutation = () => {
             queryClient.invalidateQueries({ queryKey: ["projects"] });
         },
     });
+};
+
+export const useProjectQueriesInvalidation = () => {
+    const queryClient = useQueryClient();
+    return () => {
+        queryClient.invalidateQueries({ queryKey: ["projects"] });
+    };
 };
 
 export {

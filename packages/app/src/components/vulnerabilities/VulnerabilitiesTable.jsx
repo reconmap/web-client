@@ -68,7 +68,7 @@ const VulnerabilitiesTable = ({
     const deleteVulnerability = async (vulnerabilityId) => {
         if (window.confirm("Do you really want to delete this vulnerability?")) {
             try {
-                await deleteVulnerabilityMutation.mutateAsync(vulnerabilityId);
+                await deleteVulnerabilityMutation.mutateAsync([vulnerabilityId]);
                 actionCompletedToast("The vulnerability has been deleted.");
                 if (reloadCallback) {
                     reloadCallback();

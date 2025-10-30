@@ -8,16 +8,14 @@ const VulnerabilitiesSearchResults = ({ keywords, emptyResultsSetter: setEmptyRe
 
     useEffect(() => {
         const reloadData = () => {
-            requestVulnerabilities({ isTemplate: 0, keywords })
-                .then((resp) => resp.json())
-                .then((vulnerabilities) => {
-                    setTableModel((tableModel) => ({ ...tableModel, vulnerabilities: vulnerabilities }));
-                    setEmptyResults((emptyResults) =>
-                        0 === vulnerabilities.length
-                            ? emptyResults.concat("vulnerabilities")
-                            : emptyResults.filter((value) => value !== "vulnerabilities"),
-                    );
-                });
+            requestVulnerabilities({ isTemplate: 0, keywords }).then((vulnerabilities) => {
+                setTableModel((tableModel) => ({ ...tableModel, vulnerabilities: vulnerabilities.data }));
+                setEmptyResults((emptyResults) =>
+                    0 === vulnerabilities.data.length
+                        ? emptyResults.concat("vulnerabilities")
+                        : emptyResults.filter((value) => value !== "vulnerabilities"),
+                );
+            });
         };
 
         reloadData();

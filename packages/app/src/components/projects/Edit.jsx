@@ -1,7 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useProjectQuery } from "api/projects.js";
+import { requestProjectPut } from "api/requests/projects.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
@@ -13,11 +14,13 @@ const ProjectEdit = () => {
     const { projectId } = useParams();
     const { data: serverProject, isLoading: isProjectLoading } = useProjectQuery(projectId);
     const [clientProject, setClientProject] = useState(null);
+    const queryClient = useQueryClient();
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/projects/${projectId}`, { method: "PUT", body: JSON.stringify(clientProject) });
+        await requestProjectPut(projectId, clientProject);
+        queryClient.invalidateQueries({ queryKey: ["projects", projectId] });
         actionCompletedToast(`The project "${clientProject.name}" has been updated.`);
 
         if (clientProject.is_template) {

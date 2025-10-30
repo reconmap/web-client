@@ -10,10 +10,12 @@ const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCan
     const [newCategory, updateNewCategory] = useState(category);
 
     const onCreateCategoryFormSubmit = (ev) => {
-        if (!document.getElementById("vulnerability_category_form").checkValidity()) {
+        const categoryForm = ev.target.form;
+        /*
+        if (!categoryForm.checkValidity()) {
             return false;
         }
-
+        */
         ev.preventDefault();
 
         secureApiFetch(`/vulnerabilities/categories/${category.id}`, {

@@ -1,7 +1,7 @@
-import { useOrganisationQuery } from "api/clients.js";
+import { useOrganisationQuery, useOrganisationsQueriesInvalidation } from "api/clients.js";
+import { requestOrganisationPut } from "api/requests/organisations.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
@@ -12,25 +12,23 @@ const EditClientPage = () => {
     const navigate = useNavigate();
     const { clientId } = useParams();
 
-    const { data: serverClient } = useOrganisationQuery(clientId);
+    const { data: serverClient, isLoading } = useOrganisationQuery(clientId);
     const [clientClient, setClientClient] = useState(null);
+    const organisationsQueryInvalidation = useOrganisationsQueriesInvalidation();
 
-    const onFormSubmit = async (ev) => {
+    const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/clients/${clientId}`, {
-            method: "PUT",
-            body: JSON.stringify(clientClient),
+        requestOrganisationPut(clientId, clientClient).then(() => {
+            actionCompletedToast(`The client "${clientClient.name}" has been updated.`);
+            organisationsQueryInvalidation();
+            navigate(`/organisations/${clientId}`);
         });
-
-        actionCompletedToast(`The client "${clientClient.name}" has been updated.`);
-
-        navigate(`/organisations/${clientId}`);
     };
 
     useEffect(() => {
-        if (serverClient) setClientClient(serverClient);
-    }, [serverClient]);
+        if (!isLoading) setClientClient(serverClient);
+    }, [isLoading, serverClient]);
 
     return (
         <div>

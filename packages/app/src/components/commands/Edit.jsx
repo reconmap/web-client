@@ -1,7 +1,7 @@
 import { useCommandQuery } from "api/commands.js";
+import { requestCommandPut } from "api/requests/commands.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
@@ -18,10 +18,7 @@ const EditCommandPage = () => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/commands/${commandId}`, {
-            method: "PUT",
-            body: JSON.stringify(clientCommand),
-        });
+        await requestCommandPut(commandId, clientCommand);
 
         actionCompletedToast(`The command "${clientCommand.name}" has been updated.`);
 

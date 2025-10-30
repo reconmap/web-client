@@ -1,35 +1,24 @@
-import secureApiFetch from "services/api.js";
+import {
+    requestEntities,
+    requestEntity,
+    requestEntityDelete,
+    requestEntityPost,
+    requestEntityPut,
+} from "utilities/requests.js";
 
-const requestOrganisations = (params: any) => {
-    const url = "/clients?" + new URLSearchParams(params).toString();
-    return secureApiFetch(url, { method: "GET" });
-};
+const API_BASE_URL = "/clients";
 
-const requestOrganisation = (organisationId: number) => {
-    return secureApiFetch(`/clients/${organisationId}`, { method: "GET" });
-};
+export const requestOrganisation = (organisationId: number) => requestEntity(`${API_BASE_URL}/${organisationId}`);
 
-const requestOrganisationContacts = (organisationId: number) => {
-    return secureApiFetch(`/clients/${organisationId}/contacts`, { method: "GET" });
-};
+export const requestOrganisations = (params: any) => requestEntities(API_BASE_URL, params);
 
-const requestOrganisationPost = (organisation: FormData) => {
-    return secureApiFetch(`/clients`, {
-        method: "POST",
-        body: organisation,
-    });
-};
+export const requestOrganisationContacts = (organisationId: number) =>
+    requestEntities(`${API_BASE_URL}/${organisationId}/contacts`);
 
-const requestOrganisationDelete = (organisationId: number) => {
-    return secureApiFetch(`/clients/${organisationId}`, {
-        method: "DELETE",
-    });
-};
+export const requestOrganisationPost = (organisation: FormData) => requestEntityPost(API_BASE_URL, organisation);
 
-export {
-    requestOrganisation,
-    requestOrganisationContacts,
-    requestOrganisationDelete,
-    requestOrganisationPost,
-    requestOrganisations,
-};
+export const requestOrganisationPut = (organisationId: number, data: any) =>
+    requestEntityPut(`${API_BASE_URL}/${organisationId}`, data);
+
+export const requestOrganisationDelete = (organisationId: number) =>
+    requestEntityDelete(`${API_BASE_URL}/${organisationId}`);

@@ -1,4 +1,5 @@
 import secureApiFetch from "services/api.js";
+import { requestEntity } from "utilities/requests.js";
 
 const API_BASE_URL = "/tasks";
 
@@ -6,9 +7,7 @@ const requestTasks = (params: any) => {
     return secureApiFetch(`${API_BASE_URL}?` + new URLSearchParams(params).toString(), { method: "GET" });
 };
 
-const requestTask = (taskId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/${taskId}`, { method: "GET" });
-};
+const requestTask = (taskId: number) => requestEntity(`${API_BASE_URL}/${taskId}`);
 
 const requestTaskDelete = (taskId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${taskId}`, {

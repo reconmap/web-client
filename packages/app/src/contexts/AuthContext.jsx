@@ -1,23 +1,21 @@
+import { requestSessionDelete } from "api/requests/session.js";
 import { useTheme } from "hooks/useTheme";
 import { createContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import KeyCloakService from "services/keycloak";
 import { memoryStore } from "utilities/memoryStore.js";
-import secureApiFetch from "../services/api";
 
 const AuthContext = createContext();
 
 function useAuth() {
     const { i18n } = useTranslation();
 
-    const [user, setUser] = useState(memoryStore.get("user"));
+    const [user] = useState(memoryStore.get("user"));
 
     const { setTheme } = useTheme();
 
     const logout = () => {
-        secureApiFetch(`/users/logout`, {
-            method: "POST",
-        }).finally(() => {
+        requestSessionDelete().finally(() => {
             KeyCloakService.logout();
         });
     };

@@ -1,5 +1,5 @@
 import { useDeleteNotificationMutation, useNotificationsQuery } from "api/notifications.js";
-import { requestNotificationsPatch } from "api/requests/notifications.js";
+import { requestNotificationPut, requestNotificationsPatch } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
@@ -9,29 +9,25 @@ import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
 import { actionCompletedToast } from "components/ui/toast.jsx";
-import secureApiFetch from "services/api";
 
 const isUnread = (notification) => notification.status === "unread";
 
 const NotificationsList = () => {
-    const { data: notifications } = useNotificationsQuery();
+    const { data: notifications, refetch } = useNotificationsQuery();
     const deleteNotificatioMutation = useDeleteNotificationMutation();
 
     const markAllNotificationsAsRead = () => {
         requestNotificationsPatch({
             notificationIds: notifications.filter(isUnread).map((n) => n.id),
         }).then(() => {
-            fetchNotifications();
+            refetch();
             actionCompletedToast("All notifications marked as read");
         });
     };
 
     const markNotificationAsRead = (notification) => {
-        secureApiFetch(`/notifications/${notification.id}`, {
-            method: "PUT",
-            body: JSON.stringify({ status: "read" }),
-        }).then(() => {
-            fetchNotifications();
+        requestNotificationPut(notification.id, { status: "read" }).then(() => {
+            refetch();
         });
     };
 
