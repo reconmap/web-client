@@ -4,6 +4,7 @@ import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import FileSizeSpan from "components/ui/FileSizeSpan";
+import Loading from "components/ui/Loading.jsx";
 import ModalDialog from "components/ui/ModalDIalog";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -15,7 +16,7 @@ import { useState } from "react";
 import { actionCompletedToast } from "../ui/toast";
 
 const CommandOutputs = ({ command }) => {
-    const { data: commandOutputs } = useAttachmentsQuery({ parentType: "command", parentId: command.id });
+    const { data: commandOutputs, isLoading } = useAttachmentsQuery({ parentType: "command", parentId: command.id });
     const [modalVisible, setModalVisible] = useState(false);
     const [content, setContent] = useState(null);
 
@@ -49,6 +50,8 @@ const CommandOutputs = ({ command }) => {
     const onModalClose = () => {
         setModalVisible(false);
     };
+
+    if (isLoading) return <Loading />;
 
     return (
         <>

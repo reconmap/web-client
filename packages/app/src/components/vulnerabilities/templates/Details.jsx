@@ -8,6 +8,7 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
+import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
 import VulnerabilityDescriptionPanel from "../VulnerabilityDescriptionPanel";
@@ -18,6 +19,7 @@ const VulnerabilityTemplateDetails = () => {
     const { templateId } = useParams();
     const { data: vulnerability, isLoading } = useVulnerabilityQuery(templateId);
     const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
+    const [tabIndex, tabIndexSetter] = useState(0);
 
     const cloneProject = async (templateId) => {
         secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })
@@ -63,15 +65,21 @@ const VulnerabilityTemplateDetails = () => {
                     <Title type="Vulnerability template" title={vulnerability.summary} />
 
                     <div>
-                        <NativeTabs labels={["Description", "Remediation"]} />
-                        <div>
+                        <NativeTabs
+                            labels={["Description", "Remediation"]}
+                            tabIndex={tabIndex}
+                            tabIndexSetter={tabIndexSetter}
+                        />
+                        {0 === tabIndex && (
                             <div>
                                 <VulnerabilityDescriptionPanel vulnerability={vulnerability} />
                             </div>
+                        )}
+                        {1 === tabIndex && (
                             <div>
                                 <VulnerabilityRemediationPanel vulnerability={vulnerability} />
                             </div>
-                        </div>
+                        )}
                     </div>
                 </article>
             </div>

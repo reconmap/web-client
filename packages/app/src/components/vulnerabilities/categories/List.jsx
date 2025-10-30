@@ -13,7 +13,7 @@ import VulnerabilityCategoryAddModalDialog from "./AddModalDialog";
 import VulnerabilityCategoryEditModalDialog from "./EditModalDialog";
 
 const VulnerabilityCategoriesPage = () => {
-    const { data: categories, isLoading } = useVulnerabilityCategoriesQuery({ parentsOnly: false });
+    const { data: categories, isLoading, refetch } = useVulnerabilityCategoriesQuery({ parentsOnly: false });
     const deleteVulnerabilityCategoryMutation = useDeleteVulnerabilityCategoryMutation();
 
     const [editCategory, setEditCategory] = useState({});
@@ -30,7 +30,7 @@ const VulnerabilityCategoriesPage = () => {
     } = useBoolean();
 
     const onCategoryDialogClosed = () => {
-        fetchParentCategories();
+        refetch();
 
         closeAddCategoryDialog();
         closeEditCategoryDialog();

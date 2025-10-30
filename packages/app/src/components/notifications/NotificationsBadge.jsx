@@ -1,28 +1,25 @@
 import { Tag } from "@reconmap/native-components";
 import { useNotificationsQuery } from "api/notifications.js";
+import { requestNotificationPut } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import CssIcon from "components/ui/CssIcon";
 import { useWebsocketMessage } from "contexts/WebsocketContext";
 import useToggle from "hooks/useToggle";
 import { Link } from "react-router-dom";
-import secureApiFetch from "services/api";
 
 const NotificationsBadge = () => {
-    const { data: notifications, isLoading } = useNotificationsQuery({ status: "unread" });
+    const { data: notifications, refetch, isLoading } = useNotificationsQuery({ status: "unread" });
     const { value, toggle } = useToggle(false);
 
     const onMessageHandler = () => {
-        fetchNotifications();
+        refetch();
     };
 
     useWebsocketMessage(onMessageHandler);
 
     const markAsRead = (notification) => {
-        secureApiFetch(`/notifications/${notification.id}`, {
-            method: "PUT",
-            body: JSON.stringify({ status: "read" }),
-        }).then(() => {
-            fetchNotifications();
+        requestNotificationPut(notification.id, { status: "read" }).then(() => {
+            refetch();
         });
     };
 

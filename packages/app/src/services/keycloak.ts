@@ -50,7 +50,9 @@ const KeyCloakService = {
     login: login,
     getUsername: () => keycloak.tokenParsed?.preferred_username,
     getUserInfo: getUserInfo,
-    logout: keycloak.logout,
+    logout: () => {
+        keycloak.logout();
+    },
     getInstance: () => keycloak,
     getProfileUrl: () => keycloak.createAccountUrl({ redirectUri: redirectionUrl }),
     redirectToAccountManagement: () => keycloak.accountManagement(),

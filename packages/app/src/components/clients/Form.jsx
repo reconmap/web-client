@@ -50,7 +50,7 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                 <LabelledField
                     label={t("Type")}
                     control={
-                        <NativeSelect name="kind" defaultValue={client.kind}>
+                        <NativeSelect name="kind" value={client.kind} onChange={onFormChange}>
                             {Object.entries(OrganisationTypes).map(([k, v]) => (
                                 <option key={k} value={k}>
                                     {t(v)}
@@ -66,8 +66,8 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                         <NativeInput
                             type="text"
                             name="name"
-                            onChange={onFormChange}
                             value={client.name || ""}
+                            onChange={onFormChange}
                             required
                             autoFocus
                         />
@@ -77,13 +77,13 @@ const ClientForm = ({ isEditForm = false, onFormSubmit, client, clientSetter: se
                 <LabelledField
                     label={t("Address")}
                     control={
-                        <NativeInput type="text" name="address" onChange={onFormChange} value={client.address || ""} />
+                        <NativeInput type="text" name="address" value={client.address || ""} onChange={onFormChange} />
                     }
                 />
 
                 <label>
                     URL
-                    <NativeInput type="text" name="url" onChange={onFormChange} value={client.url || ""} />
+                    <NativeInput type="text" name="url" value={client.url || ""} onChange={onFormChange} />
                 </label>
             </fieldset>
 

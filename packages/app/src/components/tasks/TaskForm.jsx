@@ -1,6 +1,6 @@
 import { useCommandsQuery } from "api/commands.js";
 import { useProjectsQuery } from "api/projects.js";
-import { requestComments } from "api/requests/comments.js";
+import { requestCommands } from "api/requests/commands.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
@@ -22,12 +22,17 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
         setTask({ ...task, [name]: value });
     };
 
-    const initialCommand = { id: task.command_id, name: task.command_name };
+    const initialCommand = { value: task.command_id, label: task.command_name };
     const [selectedCommand, setSelectedCommand] = useState(initialCommand);
 
     const onCommandChange = (command) => {
+        if (!command) {
+            console.debug("no command selected");
+            return;
+        }
+        console.dir(command);
         setSelectedCommand(command);
-        setTask({ ...task, command_id: command.id });
+        setTask({ ...task, command_id: command.value });
     };
 
     useEffect(() => {
@@ -37,8 +42,12 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
         }
     }, [task.project_id, projects, setTask]);
 
-    const loadOptions = (keywords) => {
-        return requestComments({ keywords }).then((data) => data.json());
+    const loadCommands = async (keywords) => {
+        const commands = await requestCommands({ keywords });
+        return commands.data.map((command) => ({
+            value: parseInt(command.id),
+            label: command.name,
+        }));
     };
 
     if (isLoadingCommands) return <Loading />;
@@ -169,12 +178,11 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                         id="commandId"
                         name="command_id"
                         value={selectedCommand}
-                        defaultOptions={true}
-                        loadOptions={loadOptions}
-                        getOptionLabel={(opt) => opt.name}
-                        getOptionValue={(opt) => opt.id}
+                        defaultOptions
+                        options={commands}
+                        loadOptions={loadCommands}
                         onChange={onCommandChange}
-                        isClearable
+                        isClearable={true}
                     />
                 }
             />

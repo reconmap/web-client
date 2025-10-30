@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { requestTaskPatch } from "api/requests/tasks.js";
 import { useTaskQuery } from "api/tasks.js";
 import { actionCompletedToast } from "components/ui/toast";
@@ -12,6 +13,7 @@ import TaskForm from "./TaskForm";
 const EditTaskPage = () => {
     const navigate = useNavigate();
     const { taskId } = useParams();
+    const queryClient = useQueryClient();
 
     const { data: serverTask } = useTaskQuery(taskId);
     const [clientTask, setClientTask] = useState(null);
@@ -21,6 +23,7 @@ const EditTaskPage = () => {
 
         await requestTaskPatch(taskId, clientTask);
         actionCompletedToast(`The task "${clientTask.summary}" has been updated.`);
+        queryClient.invalidateQueries({ queryKey: ["tasks", taskId] });
         navigate(`/tasks/${taskId}`);
     };
 

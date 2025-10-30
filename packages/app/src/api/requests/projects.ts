@@ -1,10 +1,9 @@
 import secureApiFetch from "services/api.js";
+import { requestEntity, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/projects";
 
-const requestProject = (projectId: number) => {
-    return secureApiFetch(`/projects/${projectId}`, { method: "GET" });
-};
+const requestProject = (projectId: number) => requestEntity(`${API_BASE_URL}/${projectId}`);
 
 const requestProjects = async (params: Record<string, any>) => {
     const queryParams = new URLSearchParams(params).toString();
@@ -53,12 +52,8 @@ const requestProjectPost = (project: Record<string, any>) => {
     });
 };
 
-const requestProjectPatch = (projectId: number, data: any): Promise<Response> => {
-    return secureApiFetch(`${API_BASE_URL}/${projectId}`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-    });
-};
+export const requestProjectPut = (projectId: number, data: any) =>
+    requestEntityPut(`${API_BASE_URL}/${projectId}`, data);
 
 const requestProjectUserDelete = (projectId: number, userId: number) => {
     return secureApiFetch(`/projects/${projectId}/users/${userId}`, {
@@ -71,7 +66,6 @@ export {
     requestProject,
     requestProjectCategories,
     requestProjectDelete,
-    requestProjectPatch,
     requestProjectPost,
     requestProjects,
     requestProjectUserDelete,

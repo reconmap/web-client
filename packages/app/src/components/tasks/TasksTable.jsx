@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteTaskMutation } from "api/tasks.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import ProjectBadge from "components/projects/ProjectBadge";
@@ -15,6 +16,7 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
     const showProjectColumn = tableModel.columnsVisibility.project;
     const numColumns = 6 + (showSelection ? 1 : 0) + (showProjectColumn ? 1 : 0);
     const deleteTaskMutation = useDeleteTaskMutation();
+    const queryClient = useQueryClient();
 
     const onSelectionChange = (ev) => {
         const target = ev.target;
@@ -30,6 +32,11 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                 selection: tableModel.selection.filter((value) => value !== selectionId),
             });
         }
+    };
+
+    const onDelete = (taskId) => {
+        deleteTaskMutation.mutate(taskId);
+        queryClient.invalidateQueries({ queryKey: ["tasks"] });
     };
 
     return (
@@ -94,7 +101,7 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
                             <td style={{ textAlign: "right" }}>
                                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                                     <LinkButton href={`/tasks/${task.id}/edit`}>Edit</LinkButton>
-                                    <DeleteIconButton onClick={() => deleteTaskMutation.mutate(task.id)} />
+                                    <DeleteIconButton onClick={() => onDelete(task.id)} />
                                 </RestrictedComponent>
                             </td>
                         </tr>

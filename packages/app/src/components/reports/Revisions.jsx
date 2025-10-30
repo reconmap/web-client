@@ -11,6 +11,7 @@ const ReportRevisions = ({ projectId }) => {
     const { value: isAddDialogOpen, setTrue: openAddDialog, setFalse: closeAddDialog } = useBoolean();
 
     const onDialogOk = () => {
+        refetchReports();
         closeAddDialog();
     };
 

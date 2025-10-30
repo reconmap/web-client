@@ -36,7 +36,7 @@ const ClientsList = () => {
 
                 <NativeButtonGroup>
                     <LinkButton href={OrganisationsUrls.Create}>{t("Add organisation")}</LinkButton>
-                    <ExportButton entity="clients" disabled={clients === null || clients?.length === 0} />
+                    <ExportButton entity="organisations" disabled={clients === null || clients?.length === 0} />
                 </NativeButtonGroup>
             </div>
             <Title title={t("Organisations")} />

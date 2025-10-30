@@ -3,7 +3,7 @@ import { requestTask, requestTaskDelete, requestTasks } from "./requests/tasks.j
 
 const useTasksQuery = (params: any) => {
     return useQuery({
-        queryKey: ["tasks"],
+        queryKey: ["tasks", params],
         queryFn: () => requestTasks(params).then((res) => res.json()),
     });
 };
