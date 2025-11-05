@@ -3,6 +3,7 @@ import { requestNotificationPut, requestNotificationsPatch } from "api/requests/
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
+import Loading from "components/ui/Loading.jsx";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -13,7 +14,7 @@ import { actionCompletedToast } from "components/ui/toast.jsx";
 const isUnread = (notification) => notification.status === "unread";
 
 const NotificationsList = () => {
-    const { data: notifications, refetch } = useNotificationsQuery();
+    const { data: notifications, refetch, isLoading } = useNotificationsQuery({});
     const deleteNotificatioMutation = useDeleteNotificationMutation();
 
     const markAllNotificationsAsRead = () => {
@@ -30,6 +31,8 @@ const NotificationsList = () => {
             refetch();
         });
     };
+
+    if (isLoading) return <Loading />;
 
     return (
         <>

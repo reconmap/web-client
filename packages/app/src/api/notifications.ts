@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { requestNotificationDelete, requestNotifications } from "./requests/notifications.js";
 
-const useNotificationsQuery = () => {
+const useNotificationsQuery = (params: any) => {
     return useQuery({
-        queryKey: ["system-notifications"],
-        queryFn: requestNotifications,
+        queryKey: ["system-notifications", params],
+        queryFn: () => requestNotifications(params).then((resp) => resp.json()),
     });
 };
 

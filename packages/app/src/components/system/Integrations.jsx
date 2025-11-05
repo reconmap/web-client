@@ -49,7 +49,7 @@ const SystemIntegrationsPage = () => {
                                     </tr>
                                 ))}
                         </>
-                    )}{" "}
+                    )}
                 </tbody>
             </table>
         </div>

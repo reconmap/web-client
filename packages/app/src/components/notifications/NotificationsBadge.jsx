@@ -11,7 +11,9 @@ const NotificationsBadge = () => {
     const { data: notifications, refetch, isLoading } = useNotificationsQuery({ status: "unread" });
     const { value, toggle } = useToggle(false);
 
-    const onMessageHandler = () => {
+    const onMessageHandler = (message) => {
+        console.debug("received message");
+        console.dir(JSON.parse(message.data));
         refetch();
     };
 
@@ -64,7 +66,9 @@ const NotificationsBadge = () => {
                                             right="8px"
                                             top="8px"
                                             onClick={() => markAsRead(notification)}
-                                        />
+                                        >
+                                            x
+                                        </NativeButton>
                                     </div>
                                 ))}
                             </div>

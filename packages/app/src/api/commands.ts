@@ -24,20 +24,20 @@ const useCommandsOutputParsersQuery = () => {
 
 const useCommandQuery = (commandId: number) => {
     return useQuery({
-        queryKey: ["command", commandId],
+        queryKey: ["commands", commandId],
         queryFn: () => requestCommand(commandId).then((res) => res.json()),
     });
 };
 
 const useCommandUsagesQuery = (commandId: number) => {
     return useQuery({
-        queryKey: ["command", "usage", commandId],
+        queryKey: ["commands", commandId, "usages"],
         queryFn: () => requestCommandUsages(commandId).then((res) => res.json()),
     });
 };
 const useCommandSchedulesQuery = (commandId: number) => {
     return useQuery({
-        queryKey: ["command", "schedule", commandId],
+        queryKey: ["commands", commandId, "schedules"],
         queryFn: () => requestCommandSchedules(commandId).then((res) => res.json()),
     });
 };
