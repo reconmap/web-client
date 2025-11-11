@@ -11,9 +11,8 @@ const NotificationsBadge = () => {
     const { data: notifications, refetch, isLoading } = useNotificationsQuery({ status: "unread" });
     const { value, toggle } = useToggle(false);
 
-    const onMessageHandler = (message) => {
-        console.debug("received message");
-        console.dir(JSON.parse(message.data));
+    const onMessageHandler = (wsMessage) => {
+        const message = JSON.parse(wsMessage.data);
         refetch();
     };
 

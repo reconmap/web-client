@@ -30,7 +30,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
             console.debug("no command selected");
             return;
         }
-        console.dir(command);
+
         setSelectedCommand(command);
         setTask({ ...task, command_id: command.value });
     };

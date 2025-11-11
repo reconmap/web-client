@@ -27,7 +27,6 @@ Server
 ------
 API URL: ${Configuration.getDefaultApiUrl()}
 Notifications URL: ${Configuration.getNotificationsServiceUrl()}
-Agent URL: ${Configuration.getAgentServiceUrl()}
 Keycloak URL: ${Configuration.getKeycloakConfig().url}
 
 `;
