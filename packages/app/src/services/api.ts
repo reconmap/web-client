@@ -5,21 +5,6 @@ function resetSessionStorageAndRedirect() {
     window.location.assign(Configuration.getContextPath());
 }
 
-function buildApiRequest(url: string, init: Record<string, any> = {}): Request {
-    const user = KeyCloakService.getUserInfo();
-
-    const headers = user && user.access_token !== null ? { Authorization: "Bearer " + user.access_token } : {};
-    const initWithAuth = init;
-    if (Object.prototype.hasOwnProperty.call(initWithAuth, "headers")) {
-        Object.assign(initWithAuth.headers, headers);
-    } else {
-        initWithAuth.headers = headers;
-    }
-    init.credentials = "include";
-
-    return new Request(Configuration.getDefaultApiUrl() + url, init);
-}
-
 function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Response> {
     if ("undefined" === typeof init) {
         init = {};
@@ -78,6 +63,6 @@ const downloadFromApi = (url: string) => {
         });
 };
 
-export { buildApiRequest, downloadFromApi };
+export { downloadFromApi };
 
 export default secureApiFetch;

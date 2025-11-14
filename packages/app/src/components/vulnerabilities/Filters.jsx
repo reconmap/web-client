@@ -4,7 +4,7 @@ import NativeSelect from "components/form/NativeSelect";
 import Risks from "models/Risks";
 
 const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, showProjectFilter = true }) => {
-    const { data: categories, isLoading } = useVulnerabilityCategoriesQuery({ parentsOnly: true });
+    const { data: categories, isLoading, isError } = useVulnerabilityCategoriesQuery({ parentsOnly: true });
     const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ status: "active" });
 
     const onFilterChange = (ev) => {
@@ -57,7 +57,7 @@ const VulnerabilityFilters = ({ tableModel, tableModelSetter: setTableModel, sho
                 <div className="control">
                     <NativeSelect name="categoryId" onChange={onFilterChange}>
                         <option value="">Category = (any)</option>
-                        {!isLoading && (
+                        {!isLoading && !isError && (
                             <>
                                 {categories.map((category) => (
                                     <option key={category.id} value={category.id}>

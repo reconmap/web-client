@@ -1,13 +1,16 @@
 import { useCommandsQuery } from "api/commands.js";
 import CommandBadge from "components/commands/Badge";
+import Loading from "components/ui/Loading.jsx";
 import DashboardWidget from "./Widget";
 
 const PopularCommandsWidget = () => {
-    const { data: commands } = useCommandsQuery(5);
+    const { data: commands, isLoading } = useCommandsQuery({ limit: 5 });
+
+    if (isLoading) return <Loading />;
 
     return (
         <DashboardWidget title="Popular commands">
-            {commands && commands.length > 0 ? (
+            {commands && commands.data.length > 0 ? (
                 <table className="table is-fullwidth">
                     <thead>
                         <tr>
@@ -16,7 +19,7 @@ const PopularCommandsWidget = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {commands.map((command) => (
+                        {commands.data.map((command) => (
                             <tr key={command.id}>
                                 <td>
                                     <CommandBadge command={command}>{command.name}</CommandBadge>

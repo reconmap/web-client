@@ -8,9 +8,9 @@ import DashboardWidget from "./Widget";
 
 const MyTasksWidget = () => {
     const { user } = useContext(AuthContext);
-    const { isPending, data: tasks } = useTasksQuery({ assigneeUid: user.id, limit: 5, projectIsArchived: 0 });
+    const { data: tasks, isLoading, isError } = useTasksQuery({ assigneeUid: user.id, limit: 5, projectIsArchived: 0 });
 
-    if (isPending) return <Loading />;
+    if (isLoading || isError) return <Loading />;
 
     return (
         <DashboardWidget title="My tasks">

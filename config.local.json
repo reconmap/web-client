@@ -1,8 +1,8 @@
 {
     "contextPath": "",
     "logoUrl": "/logo-name.png",
-    "reconmapApiUrl": "http://localhost:5510",
-    "notificationsServiceUrl": "ws://localhost:5520",
+    "reconmapApiUrl": "http://localhost:5253/api",
+    "notificationsServiceUrl": "ws://localhost:5253/api",
     "keycloak": {
         "url": "http://localhost:8080",
         "realm": "reconmap",

@@ -2,79 +2,71 @@ import Configuration from "Configuration";
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 
-const createWebsocketConnection = (user) => {
+const createWebsocketConnection = (user, onClose) => {
     const notificationServiceUrl = Configuration.getNotificationsServiceUrl();
     console.debug("reconmap-ws: connecting");
 
     const urlParams = new URLSearchParams();
     urlParams.set("token", user.access_token);
-    const ws = new WebSocket(`${notificationServiceUrl}/notifications?` + urlParams.toString());
+    const ws = new WebSocket(`${notificationServiceUrl}/ws?${urlParams.toString()}`);
 
-    const onConnectionOpen = () => console.debug("reconmap-ws: connected");
-    ws.addEventListener("open", onConnectionOpen);
-
-    const onConnectionError = (ev) => console.debug("reconmap-ws: errored", ev);
-    ws.addEventListener("error", onConnectionError);
-
-    const onConnectionClose = () => {
+    ws.addEventListener("open", () => console.debug("reconmap-ws: connected"));
+    ws.addEventListener("error", (err) => console.debug("reconmap-ws: errored", err));
+    ws.addEventListener("close", () => {
         console.debug("reconmap-ws: disconnected");
-        setTimeout(() => {
-            //setWsContextState(prevState => { return { ...prevState, connection: createWebsocketConnection() } });
-        }, 5000);
-    };
-    ws.addEventListener("close", onConnectionClose);
+        if (onClose) onClose();
+    });
 
-    return { ws, onConnectionOpen, onConnectionError, onConnectionClose };
+    return ws;
 };
 
-const wsContextData = {
-    connection: null,
-};
+export const WebsocketContext = createContext({ connection: null });
 
-export const WebsocketContext = createContext(wsContextData);
-
-const WebsocketProvider = ({ children }) => {
-    const [wsContextState, setWsContextState] = useState(wsContextData);
+export const WebsocketProvider = ({ children }) => {
     const { user } = useContext(AuthContext);
+    const [connection, setConnection] = useState(null);
 
     useEffect(() => {
-        if (user === null || !user || !user.access_token) {
-            setWsContextState((prevState) => {
-                return { ...prevState, connection: null };
-            });
+        if (!user?.access_token) {
+            // User logged out: close connection if exists
+            if (connection && connection.readyState === WebSocket.OPEN) {
+                console.debug("reconmap-ws: closing due to logout");
+                connection.close();
+            }
+            setConnection(null);
             return;
         }
 
-        const { ws, onConnectionOpen, onConnectionError, onConnectionClose } = createWebsocketConnection(user);
-        setWsContextState((prevSate) => {
-            return { ...prevSate, connection: ws };
+        // Avoid reopening if already connected for same user
+        if (connection && connection.readyState <= WebSocket.OPEN) return;
+
+        const ws = createWebsocketConnection(user, () => {
+            // Attempt reconnect after 5s if user still logged in
+            if (user?.access_token) {
+                setTimeout(() => setConnection(createWebsocketConnection(user)), 5000);
+            }
         });
 
-        return () => {
-            console.debug("reconmap-ws: removing listeners");
-            ws.removeEventListener("open", onConnectionOpen);
-            ws.removeEventListener("error", onConnectionError);
-            ws.removeEventListener("close", onConnectionClose);
-        };
-    }, [user]);
+        setConnection(ws);
 
-    return <WebsocketContext.Provider value={wsContextState}>{children}</WebsocketContext.Provider>;
+        return () => {
+            console.debug("reconmap-ws: cleaning up connection");
+            ws.close(1000, "component unmounted");
+        };
+    }, [user]); // only react to user login/logout
+
+    return <WebsocketContext.Provider value={{ connection }}>{children}</WebsocketContext.Provider>;
+};
+
+export const useWebsocketMessage = (onMessageHandler) => {
+    const { connection } = useContext(WebsocketContext);
+
+    useEffect(() => {
+        if (!connection) return;
+        connection.addEventListener("message", onMessageHandler);
+
+        return () => connection.removeEventListener("message", onMessageHandler);
+    }, [connection, onMessageHandler]);
 };
 
 export default WebsocketProvider;
-
-export const useWebsocketMessage = (onMessageHandler) => {
-    const wsContextData = useContext(WebsocketContext);
-
-    useEffect(() => {
-        if (wsContextData.connection) {
-            wsContextData.connection.addEventListener("message", onMessageHandler);
-        }
-
-        return () => {
-            if (wsContextData.connection) {
-                wsContextData.connection.removeEventListener("message", onMessageHandler);
-            }
-        };
-    }, [wsContextData.connection, onMessageHandler]);
-};

@@ -6,7 +6,7 @@ import {
     requestEntityPut,
 } from "utilities/requests.js";
 
-const API_BASE_URL = "/clients";
+const API_BASE_URL = "/organisations";
 
 export const requestOrganisation = (organisationId: number) => requestEntity(`${API_BASE_URL}/${organisationId}`);
 
