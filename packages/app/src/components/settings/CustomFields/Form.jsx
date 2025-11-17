@@ -60,7 +60,7 @@ const CustomFieldsPage = () => {
                 <HorizontalLabelledField
                     label="Parent type"
                     control={
-                        <NativeSelect name="parent_type">
+                        <NativeSelect name="parentType">
                             <option value="vulnerability">Vulnerability</option>
                         </NativeSelect>
                     }

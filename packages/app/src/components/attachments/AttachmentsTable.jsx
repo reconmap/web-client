@@ -6,7 +6,7 @@ import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
 import ModalDialog from "components/ui/ModalDIalog";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
-import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import UserLink from "components/users/Link";
 import { resolveMime } from "friendly-mimes";
 import { useState } from "react";
@@ -60,6 +60,41 @@ const AttachmentsTable = ({ attachments }) => {
         return <Loading />;
     }
 
+    const columns = [
+        {
+            header: "Filename",
+            property: "clientFileName",
+        },
+        {
+            header: "Mimetype",
+            cell: (attachment) => (
+                <span title={safeResolveMime(attachment.fileMimetype)}>{attachment.fileMimetype}</span>
+            ),
+        },
+        {
+            header: "File size",
+            cell: (attachment) => <FileSizeSpan fileSize={attachment.fileSize} />,
+        },
+        {
+            header: "Upload date",
+            cell: (attachment) => <RelativeDateFormatter date={attachment.insertTs} />,
+        },
+        {
+            header: "Uploaded by",
+            cell: (attachment) => <UserLink userId={attachment.submitterUid}>{attachment.submitterName}</UserLink>,
+        },
+        {
+            header: "Filename",
+            cell: (attachment) => (
+                <>
+                    <SecondaryButton onClick={(ev) => onViewClick(ev, attachment.id)}>View</SecondaryButton>
+                    <SecondaryButton onClick={(ev) => onDownloadClick(ev, attachment.id)}>Download</SecondaryButton>
+                    <DeleteIconButton onClick={(ev) => onDeleteAttachmentClick(ev, attachment.id)} />
+                </>
+            ),
+        },
+    ];
+
     return (
         <>
             <ModalDialog
@@ -71,47 +106,7 @@ const AttachmentsTable = ({ attachments }) => {
                 {content}
             </ModalDialog>
 
-            <table className="table is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>Filename</th>
-                        <th>Mimetype</th>
-                        <th>File size</th>
-                        <th>Upload date</th>
-                        <th>Uploaded by</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {attachments.length === 0 && <NoResultsTableRow numColumns={6} />}
-                    {attachments.map((attachment, index) => (
-                        <tr key={index}>
-                            <td>{attachment.client_file_name}</td>
-                            <td>
-                                <span title={safeResolveMime(attachment.file_mimetype)}>
-                                    {attachment.file_mimetype}
-                                </span>
-                            </td>
-                            <td>
-                                <FileSizeSpan fileSize={attachment.file_size} />
-                            </td>
-                            <td>
-                                <RelativeDateFormatter date={attachment.insert_ts} />
-                            </td>
-                            <td>
-                                <UserLink userId={attachment.submitter_uid}>{attachment.submitter_name}</UserLink>
-                            </td>
-                            <td style={{ display: "flex" }}>
-                                <SecondaryButton onClick={(ev) => onViewClick(ev, attachment.id)}>View</SecondaryButton>
-                                <SecondaryButton onClick={(ev) => onDownloadClick(ev, attachment.id)}>
-                                    Download
-                                </SecondaryButton>
-                                <DeleteIconButton onClick={(ev) => onDeleteAttachmentClick(ev, attachment.id)} />
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <NativeTable columns={columns} rows={attachments} rowId={(attachment) => attachment.id}></NativeTable>
         </>
     );
 };

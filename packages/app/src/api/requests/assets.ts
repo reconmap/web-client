@@ -1,6 +1,6 @@
 import secureApiFetch from "services/api.js";
 
-const API_BASE_URL = "/targets";
+const API_BASE_URL = "/assets";
 
 const requestAsset = (assetId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${assetId}`, { method: "GET" }).then((res) => res.json());

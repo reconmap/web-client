@@ -42,7 +42,7 @@ const ScheduledRuns = ({ command, task = null }) => {
                             <tr>
                                 <td>{scheduleCommand.cron_expression}</td>
                                 <td>
-                                    {CronExpressionToString(scheduleCommand.cron_expression, {
+                                    {CronExpressionToString(scheduleCommand.cronExpression, {
                                         throwExceptionOnParseError: false,
                                     })}
                                 </td>

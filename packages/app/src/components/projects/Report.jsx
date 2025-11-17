@@ -45,10 +45,7 @@ const ReportPreview = ({ projectId }) => {
             title="Report preview"
             style={{ width: "50%", margin: "20px auto" }}
             id="report"
-            src={
-                Configuration.getDefaultApiUrl() +
-                `/reports/preview?projectId=${projectId}&accessToken=${user.access_token}`
-            }
+            src={Configuration.getDefaultApiUrl() + `/reports/${projectId}/preview?accessToken=${user.access_token}`}
         ></iframe>
     );
 };

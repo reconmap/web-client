@@ -21,20 +21,20 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
         {
             header: "Role",
             enabled: !hideUserColumns,
-            cell: (entry) => <UserRoleBadge role={entry.user_role} />,
+            cell: (entry) => <UserRoleBadge role={entry.userRole} />,
         },
         {
             header: "IP address",
-            cell: (entry) => <Ipv4Link value={entry.client_ip} />,
+            cell: (entry) => <Ipv4Link value={entry.clientIp} />,
         },
         {
             header: "Location",
-            cell: (entry) => (entry.user_location ? entry.user_location : <EmptyField />),
+            cell: (entry) => (entry.userLocation ? entry.userLocation : <EmptyField />),
             enabled: hasUserLocations,
         },
         {
             header: "User agent",
-            cell: (entry) => (entry.user_agent ? <UserAgentLabel userAgent={entry.user_agent} /> : "-"),
+            cell: (entry) => (entry.userAgent ? <UserAgentLabel userAgent={entry.userAgent} /> : "-"),
         },
         {
             header: "Action",
@@ -50,7 +50,7 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
         },
         {
             header: "Date/Time",
-            cell: (entry) => entry.insert_ts,
+            cell: (entry) => entry.insertTs,
         },
     ];
 

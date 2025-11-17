@@ -21,11 +21,11 @@ const requestProjects = async (params: Record<string, any>) => {
 };
 
 const requestProjectUsers = (projectId: number) => {
-    return secureApiFetch(`/projects/${projectId}/users`, { method: "GET" });
+    return secureApiFetch(`/projects/${projectId}/members`, { method: "GET" });
 };
 
 const requestProjectVault = (projectId: number) => {
-    return secureApiFetch(`/projects/${projectId}/vault`, { method: "GET" });
+    return secureApiFetch(`/projects/${projectId}/secrets`, { method: "GET" });
 };
 
 const requestActiveProjects = () => {

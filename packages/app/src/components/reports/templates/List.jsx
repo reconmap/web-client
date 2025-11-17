@@ -107,11 +107,11 @@ const ReportTemplatesList = () => {
                         ) : (
                             templates.map((template) => (
                                 <tr key={template.id}>
-                                    <td>{template.version_name}</td>
+                                    <td>{template.versionName}</td>
                                     <td>
                                         <EmptyField value={template.version_description} />
                                     </td>
-                                    <td>{template.client_file_name}</td>
+                                    <td>{template.clientFileName}</td>
                                     <td>
                                         <span title={safeResolveMime(template.file_mimetype)}>
                                             {template.file_mimetype}
@@ -119,7 +119,7 @@ const ReportTemplatesList = () => {
                                     </td>
                                     <td>
                                         <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
-                                            {template.client_file_name.split(".").pop().toUpperCase()}
+                                            {template.clientFileName?.split(".").pop().toUpperCase()}
                                         </SecondaryButton>
                                     </td>
                                     <td>

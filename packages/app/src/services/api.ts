@@ -40,11 +40,11 @@ function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Re
 const downloadFromApi = (url: string) => {
     secureApiFetch(url, { method: "GET" })
         .then((resp) => {
-            const contentDispositionHeader = resp.headers.get("Content-Disposition");
+            const contentDispositionHeader = resp.headers.get("content-disposition");
             if (!contentDispositionHeader) {
                 throw new Error("Content-Disposition header not found in response.");
             }
-            const filenameRe = new RegExp(/filename="(.*)";/);
+            const filenameRe = /filename="?([^";]+)"?/i;
             const match = filenameRe.exec(contentDispositionHeader);
             if (!match || !match[1]) {
                 throw new Error("Filename not found in Content-Disposition header.");
@@ -60,6 +60,7 @@ const downloadFromApi = (url: string) => {
             a.href = url;
             a.download = filename;
             a.click();
+            URL.revokeObjectURL(url);
         });
 };
 

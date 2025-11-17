@@ -17,7 +17,13 @@ const requestCustomFields = () => {
 };
 
 const requestCustomFieldPost = (data: any) => {
-    return secureApiFetch(`/system/custom-fields`, { method: "POST", body: JSON.stringify(data) });
+    return secureApiFetch(`/system/custom-fields`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 };
 
 const requestCustomFieldDeletion = (customFieldId: number) => {
