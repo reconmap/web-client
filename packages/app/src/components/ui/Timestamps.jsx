@@ -6,17 +6,17 @@ const styles = {
     },
 };
 
-const Timestamps = ({ insertTs, updateTs }) => {
+const Timestamps = ({ createdAt, updatedAt }) => {
     return (
         <>
             <span style={styles.stamp}>
                 <strong>Created at</strong>&nbsp;
-                <time dateTime={insertTs}>{insertTs}</time>.
-                {updateTs && (
+                <time dateTime={createdAt}>{createdAt}</time>.
+                {updatedAt && (
                     <div>
                         <strong>Modified at</strong>
                         &nbsp;
-                        <time dateTime={updateTs}>{updateTs}</time>.
+                        <time dateTime={updatedAt}>{updatedAt}</time>.
                     </div>
                 )}
             </span>

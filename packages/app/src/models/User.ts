@@ -1,7 +1,7 @@
 interface UserInterface {
     id?: number;
-    insert_ts?: string;
-    update_ts?: string;
+    createdAt?: string;
+    updatedAt?: string;
     last_login_ts?: string;
     subject_id?: string;
     active?: boolean;

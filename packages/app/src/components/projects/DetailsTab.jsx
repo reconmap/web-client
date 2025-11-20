@@ -90,7 +90,7 @@ const ProjectDetailsTab = ({ project }) => {
 
                     <dt>Created by</dt>
                     <dd>
-                        <UserLink userId={project.creator_uid}>{project.creator_full_name}</UserLink>
+                        <UserLink userId={project.createdByUid}>{project.creator_full_name}</UserLink>
                     </dd>
                 </dl>
 

@@ -134,7 +134,7 @@ const TemplateDetails = () => {
                             <dl>
                                 <dt>Created by</dt>
                                 <dd>
-                                    <UserLink userId={vulnerability.creator_uid}>
+                                    <UserLink userId={vulnerability.createdByUid}>
                                         {vulnerability.creator_full_name}
                                     </UserLink>
                                 </dd>

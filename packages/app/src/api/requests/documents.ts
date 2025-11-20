@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntity, requestEntityDelete, requestEntityPut } from "utilities/requests.js";
+import { requestEntity, requestEntityDelete, requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/documents";
 
@@ -9,9 +9,7 @@ const requestDocuments = (limit: number = -1) => {
 
 const requestDocument = (documentId: number) => requestEntity(`${API_BASE_URL}/${documentId}`);
 
-const requestPostDocument = (document: any) => {
-    return secureApiFetch(`/documents`, { method: "POST", body: JSON.stringify(document) });
-};
+const requestPostDocument = (document: any) => requestEntityPost(API_BASE_URL, document);
 
 export const requestDocumentPut = (documentId: number, data: any) =>
     requestEntityPut(`${API_BASE_URL}/${documentId}`, data);

@@ -40,6 +40,7 @@ const AttachmentsTable = ({ attachments }) => {
             a.href = url;
             a.download = filename;
             a.click();
+            URL.revokeObjectURL(url);
         });
     };
 
@@ -68,7 +69,7 @@ const AttachmentsTable = ({ attachments }) => {
         {
             header: "Mimetype",
             cell: (attachment) => (
-                <span title={safeResolveMime(attachment.fileMimetype)}>{attachment.fileMimetype}</span>
+                <span title={safeResolveMime(attachment.fileMimeType)}>{attachment.fileMimeType}</span>
             ),
         },
         {
@@ -77,7 +78,7 @@ const AttachmentsTable = ({ attachments }) => {
         },
         {
             header: "Upload date",
-            cell: (attachment) => <RelativeDateFormatter date={attachment.insertTs} />,
+            cell: (attachment) => <RelativeDateFormatter date={attachment.createdAt} />,
         },
         {
             header: "Uploaded by",

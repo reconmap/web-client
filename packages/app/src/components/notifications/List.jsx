@@ -67,7 +67,7 @@ const NotificationsList = () => {
                             <tr key={notification.id}>
                                 <th>{notification.status === "read" ? <>(read)</> : <>&nbsp;</>}</th>
                                 <td>
-                                    <RelativeDateFormatter date={notification.insert_ts} />
+                                    <RelativeDateFormatter date={notification.createdAt} />
                                 </td>
                                 <td>
                                     <strong>{notification.title}</strong>

@@ -50,7 +50,7 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
         },
         {
             header: "Date/Time",
-            cell: (entry) => entry.insertTs,
+            cell: (entry) => entry.createdAt,
         },
     ];
 

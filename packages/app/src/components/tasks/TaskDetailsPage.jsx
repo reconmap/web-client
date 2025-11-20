@@ -1,12 +1,10 @@
 import { useAttachmentsQuery } from "api/attachments.js";
-import { requestCommand } from "api/requests/commands.js";
 import { requestProject } from "api/requests/projects.js";
 import { requestTaskPatch } from "api/requests/tasks.js";
 import { useDeleteTaskMutation, useTaskQuery } from "api/tasks.js";
 import { useUsersQuery } from "api/users.js";
 import AttachmentsTable from "components/attachments/AttachmentsTable";
 import AttachmentsDropzone from "components/attachments/Dropzone";
-import CommandBadge from "components/commands/Badge";
 import NativeButton from "components/form/NativeButton";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTabs from "components/form/NativeTabs";
@@ -38,7 +36,6 @@ const TaskDetailsPage = () => {
     const { data: task } = useTaskQuery(taskId);
     const { data: users } = useUsersQuery();
     const [project, setProject] = useState(null);
-    const [command, setCommand] = useState(null);
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
@@ -83,14 +80,7 @@ const TaskDetailsPage = () => {
 
     useEffect(() => {
         if (task) {
-            if (task.command_id) {
-                requestCommand(task.command_id)
-                    .then((resp) => resp.json())
-                    .then((command) => setCommand(command))
-                    .catch((err) => console.error(err));
-            }
-
-            requestProject(task.project_id)
+            requestProject(task.projectId)
                 .then((resp) => resp.json())
                 .then((project) => setProject(project))
                 .catch((err) => console.error(err));
@@ -165,18 +155,6 @@ const TaskDetailsPage = () => {
                                                     <TaskStatusFormatter task={task} />
                                                 </dd>
                                             </dl>
-
-                                            {task.command_id && (
-                                                <>
-                                                    <h4>Command</h4>
-                                                    <CommandBadge
-                                                        command={{
-                                                            id: task.command_id,
-                                                            name: task.command_name,
-                                                        }}
-                                                    />
-                                                </>
-                                            )}
                                         </div>
 
                                         <div>
@@ -184,8 +162,8 @@ const TaskDetailsPage = () => {
                                             <dl>
                                                 <dt>{t("Created by")}</dt>
                                                 <dd>
-                                                    <UserLink userId={task.creator_uid}>
-                                                        {task.creator_full_name}
+                                                    <UserLink userId={task.createdByUid}>
+                                                        {task.createdBy?.fullName}
                                                     </UserLink>
                                                 </dd>
 

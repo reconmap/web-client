@@ -109,7 +109,7 @@ const ReportTemplatesList = () => {
                                 <tr key={template.id}>
                                     <td>{template.versionName}</td>
                                     <td>
-                                        <EmptyField value={template.version_description} />
+                                        <EmptyField value={template.versionDescription} />
                                     </td>
                                     <td>{template.clientFileName}</td>
                                     <td>
@@ -124,11 +124,9 @@ const ReportTemplatesList = () => {
                                     </td>
                                     <td>
                                         <DeleteIconButton
-                                            disabled={template.generated_by_uid === 0}
+                                            disabled={template.createdByUid === 0}
                                             title={
-                                                template.generated_by_uid === 0
-                                                    ? "System templates cannot be deleted"
-                                                    : ""
+                                                template.createdByUid === 0 ? "System templates cannot be deleted" : ""
                                             }
                                             onClick={(ev) => deleteTemplate(ev, template.id)}
                                         />

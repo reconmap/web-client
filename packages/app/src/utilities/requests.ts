@@ -14,7 +14,15 @@ const requestEntityPost = (url: string, data?: FormData | Record<string, any>) =
         method: "POST",
     };
     if (data) {
-        params.body = data instanceof FormData ? data : JSON.stringify(data);
+        const isFormData = data instanceof FormData;
+        if (isFormData) {
+            params.body = data;
+        } else {
+            params.body = JSON.stringify(data);
+            params.headers = {
+                "Content-Type": "application/json",
+            };
+        }
     }
     return secureApiFetch(url, params);
 };

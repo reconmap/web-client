@@ -5,19 +5,19 @@ const TimestampsSection = ({ entity }) => {
         <div className="content">
             <h4>📅 Timestamps</h4>
             <dl>
-                {entity.insert_ts && (
+                {entity.createdAt && (
                     <>
                         <dt>Created</dt>
                         <dd>
-                            <RelativeDateFormatter date={entity.insert_ts} />
+                            <RelativeDateFormatter date={entity.createdAt} />
                         </dd>
                     </>
                 )}
-                {entity.update_ts && (
+                {entity.updatedAt && (
                     <>
                         <dt>Updated</dt>
                         <dd>
-                            <RelativeDateFormatter date={entity.update_ts} />
+                            <RelativeDateFormatter date={entity.updatedAt} />
                         </dd>
                     </>
                 )}

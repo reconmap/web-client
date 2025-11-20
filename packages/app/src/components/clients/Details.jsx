@@ -205,7 +205,7 @@ const ClientDetails = () => {
                                         <dl>
                                             <dt>Created by</dt>
                                             <dd>
-                                                <UserLink userId={client.creator_uid}>
+                                                <UserLink userId={client.createdByUid}>
                                                     {client.creator_full_name}
                                                 </UserLink>
                                             </dd>

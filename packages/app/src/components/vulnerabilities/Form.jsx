@@ -17,19 +17,11 @@ import Primary from "../ui/buttons/Primary";
 import CvssAbbr from "./CvssAbbr";
 import OwaspRR from "./OwaspRR";
 
-const idExists = (elements, id) => {
-    if (!elements) return false;
-    for (const el of elements) {
-        if (el.id === parseInt(id)) return true;
-    }
-    return false;
-};
-
 const TargetsSelectControl = ({ projectId, value, onFormChange }) => {
     const { data: targets, isLoading } = useAssetsQuery({ projectId });
 
     return (
-        <NativeSelect name="target_id" value={value} onChange={onFormChange}>
+        <NativeSelect name="targetId" value={value} onChange={onFormChange}>
             <option value="0">(none)</option>
             {!isLoading &&
                 targets.data.map((target, index) => (
@@ -73,17 +65,15 @@ const VulnerabilityForm = ({
         const name = target.name;
         let value = target.type === "checkbox" ? target.checked : target.value;
 
-        if ("category_id" === name) {
+        if ("categoryId" === name) {
             if (value !== "(none)") {
                 setVulnerability({
                     ...vulnerability,
                     [name]: value,
                 });
             } else {
-                setVulnerability({ ...vulnerability, category_id: null });
+                setVulnerability({ ...vulnerability, categoryId: null });
             }
-        } else if ("subcategory_id" === name) {
-            setVulnerability({ ...vulnerability, category_id: value });
         } else {
             setVulnerability({ ...vulnerability, [name]: value });
         }
@@ -97,7 +87,7 @@ const VulnerabilityForm = ({
         const project = projects.data.find((proj) => proj.id === parseInt(value));
         setSelectedProject(project);
 
-        setVulnerability({ ...vulnerability, [name]: value, target_id: 0 });
+        setVulnerability({ ...vulnerability, [name]: value, targetId: 0 });
     };
 
     return (
@@ -107,7 +97,7 @@ const VulnerabilityForm = ({
                 <label>
                     Properties
                     <div>
-                        <NativeCheckbox name="is_template" onChange={onFormChange} checked={vulnerability.is_template}>
+                        <NativeCheckbox name="isTemplate" onChange={onFormChange} checked={vulnerability.isTemplate}>
                             Is template
                         </NativeCheckbox>
                     </div>
@@ -126,9 +116,9 @@ const VulnerabilityForm = ({
                     control={
                         <NativeInput
                             id="externalId"
-                            name="external_id"
+                            name="externalId"
                             type="text"
-                            value={vulnerability.external_id || ""}
+                            value={vulnerability.externalId || ""}
                             onChange={onFormChange}
                         />
                     }
@@ -169,8 +159,8 @@ const VulnerabilityForm = ({
                     control={
                         <NativeSelect
                             id="categoryId"
-                            name="category_id"
-                            value={vulnerability.category_id || ""}
+                            name="categoryId"
+                            value={vulnerability.categoryId || ""}
                             onChange={onFormChange}
                             required
                         >
@@ -251,8 +241,8 @@ const VulnerabilityForm = ({
                             control={
                                 <NativeSelect
                                     id="projectId"
-                                    name="project_id"
-                                    value={vulnerability.project_id || ""}
+                                    name="projectId"
+                                    value={vulnerability.projectId || ""}
                                     onChange={onProjectChange}
                                     required
                                 >
@@ -275,8 +265,8 @@ const VulnerabilityForm = ({
                             htmlFor="targetId"
                             control={
                                 <TargetsSelectControl
-                                    projectId={vulnerability.project_id}
-                                    value={vulnerability.target_id}
+                                    projectId={vulnerability.projectId}
+                                    value={vulnerability.targetId}
                                     onFormChange={onFormChange}
                                 />
                             }

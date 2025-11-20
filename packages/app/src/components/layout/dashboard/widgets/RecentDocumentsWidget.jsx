@@ -28,7 +28,7 @@ const RecentDocumentsWidget = () => {
                                     <DocumentBadge key={doc.id} document={doc} />
                                 </td>
                                 <td>
-                                    <RelativeDateFormatter date={doc.insert_ts} />
+                                    <RelativeDateFormatter date={doc.createdAt} />
                                 </td>
                             </tr>
                         ))}

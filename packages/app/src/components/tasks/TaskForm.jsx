@@ -1,19 +1,14 @@
-import { useCommandsQuery } from "api/commands.js";
 import { useProjectsQuery } from "api/projects.js";
-import { requestCommands } from "api/requests/commands.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField";
 import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
-import Loading from "components/ui/Loading";
 import MarkdownEditor from "components/ui/forms/MarkdownEditor";
-import { useEffect, useState } from "react";
-import AsyncSelect from "react-select/async";
+import { useEffect } from "react";
 import { TaskPriorityList } from "../../models/TaskPriority.js";
 import PrimaryButton from "../ui/buttons/Primary.jsx";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
     const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ isTemplate: forTemplate ? 1 : 0 });
-    const { data: commands, isLoading: isLoadingCommands } = useCommandsQuery();
 
     const onFormChange = (ev) => {
         const target = ev.target;
@@ -22,35 +17,12 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
         setTask({ ...task, [name]: value });
     };
 
-    const initialCommand = { value: task.command_id, label: task.command_name };
-    const [selectedCommand, setSelectedCommand] = useState(initialCommand);
-
-    const onCommandChange = (command) => {
-        if (!command) {
-            console.debug("no command selected");
-            return;
-        }
-
-        setSelectedCommand(command);
-        setTask({ ...task, command_id: command.value });
-    };
-
     useEffect(() => {
-        if (!isLoadingProjects && projects.data.length && task.project_id === "") {
+        if (!isLoadingProjects && projects.data.length && task.projectId === "") {
             const newProjectId = projects.data[0].id;
-            setTask((prevTask) => ({ ...prevTask, project_id: newProjectId }));
+            setTask((prevTask) => ({ ...prevTask, projectId: newProjectId }));
         }
-    }, [task.project_id, projects, setTask]);
-
-    const loadCommands = async (keywords) => {
-        const commands = await requestCommands({ keywords });
-        return commands.data.map((command) => ({
-            value: parseInt(command.id),
-            label: command.name,
-        }));
-    };
-
-    if (isLoadingCommands) return <Loading />;
+    }, [task.projectId, projects, setTask]);
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -60,15 +32,15 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                 control={
                     <NativeSelect
                         id="projectId"
-                        name="project_id"
+                        name="projectId"
                         onChange={onFormChange}
-                        value={task.project_id}
+                        value={task.projectId}
                         required
                     >
                         <optgroup label="Projects">
                             {projects &&
                                 projects.data
-                                    .filter((project) => project.is_template === 0)
+                                    .filter((project) => !project.isTemplate)
                                     .map((project, index) => (
                                         <option key={index} value={project.id}>
                                             {project.name}
@@ -78,7 +50,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                         <optgroup label="Project templates">
                             {projects &&
                                 projects.data
-                                    .filter((project) => project.is_template === 1)
+                                    .filter((project) => project.isTemplate)
                                     .map((project, index) => (
                                         <option key={index} value={project.id}>
                                             {project.name}
@@ -144,7 +116,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                 control={
                     <NativeInput
                         id="durationEstimate"
-                        name="duration_estimate"
+                        name="durationEstimate"
                         type="number"
                         step="1"
                         min="0"
@@ -161,7 +133,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     control={
                         <NativeInput
                             id="dueDate"
-                            name="due_date"
+                            name="dueDate"
                             type="date"
                             onChange={onFormChange}
                             value={task.due_date}
@@ -169,23 +141,6 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                     }
                 />
             )}
-
-            <HorizontalLabelledField
-                label="Command"
-                htmlFor="commandId"
-                control={
-                    <AsyncSelect
-                        id="commandId"
-                        name="command_id"
-                        value={selectedCommand}
-                        defaultOptions
-                        options={commands}
-                        loadOptions={loadCommands}
-                        onChange={onCommandChange}
-                        isClearable={true}
-                    />
-                }
-            />
 
             <PrimaryButton type="submit">{isEditForm ? "Save" : "Create"}</PrimaryButton>
         </form>

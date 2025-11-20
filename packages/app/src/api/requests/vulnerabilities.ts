@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntityDelete, requestEntityPut } from "utilities/requests.js";
+import { requestEntityDelete, requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/vulnerabilities";
 
@@ -34,9 +34,7 @@ const requestVulnerability = (vulnerabilityId: number) => {
     return secureApiFetch(`/vulnerabilities/${vulnerabilityId}`, { method: "GET" });
 };
 
-const requestVulnerabilityPost = (vulnerability: any) => {
-    return secureApiFetch(`/vulnerabilities`, { method: "POST", body: JSON.stringify(vulnerability) });
-};
+const requestVulnerabilityPost = (vulnerability: any) => requestEntityPost(API_BASE_URL, vulnerability);
 
 const requestVulnerabilityCategories = (params: any) => {
     const url = "/vulnerabilities/categories?" + new URLSearchParams(params).toString();

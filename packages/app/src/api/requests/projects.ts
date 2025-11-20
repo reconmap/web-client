@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntity, requestEntityPut } from "utilities/requests.js";
+import { requestEntities, requestEntity, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/projects";
 
@@ -32,9 +32,7 @@ const requestActiveProjects = () => {
     return secureApiFetch(`/projects?status=active&page=0&limit=5`, { method: "GET" });
 };
 
-const requestProjectCategories = () => {
-    return secureApiFetch(`/project/categories`, { method: "GET" });
-};
+const requestProjectCategories = () => requestEntities(`${API_BASE_URL}/categories`);
 
 const requestProjectDelete = (projectId: number) => {
     return secureApiFetch(`/projects/${projectId}`, {

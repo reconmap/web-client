@@ -25,7 +25,7 @@ const NotesTable = ({ notes, onDeleteButtonClick }) => {
                             </p>
                             <p className="is-size-7 has-text-grey-light">
                                 <VisibilityLegend visibility={note.visibility} /> - Posted by {note.user_name} · Posted
-                                by {note.user_name} · <RelativeDateFormatter date={note.insert_ts} />
+                                by {note.user_name} · <RelativeDateFormatter date={note.createdAt} />
                             </p>
                         </div>
                         <div className="media-right">

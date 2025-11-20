@@ -18,7 +18,7 @@ const TaskCreationPage = () => {
     const projectIdParam = useRef(query.get("projectId") || defaultProjectId);
     const forTemplate = parseInt(query.get("forTemplate")) === 1;
 
-    const [newTask, setNewTask] = useState({ ...Task, project_id: projectIdParam.current });
+    const [newTask, setNewTask] = useState({ ...Task, projectId: projectIdParam.current });
 
     const onFormSubmit = (ev) => {
         ev.preventDefault();
@@ -31,7 +31,7 @@ const TaskCreationPage = () => {
                 return response.json();
             })
             .then(() => {
-                navigate(`/projects/${newTask.project_id}`);
+                navigate(`/projects/${newTask.projectId}`);
                 actionCompletedToast(`The task '${newTask.summary}' has been created.`);
             })
             .catch((error) => {

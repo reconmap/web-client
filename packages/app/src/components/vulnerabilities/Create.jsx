@@ -16,8 +16,8 @@ const VulnerabilityCreate = () => {
 
     const [vulnerability, setVulnerability] = useState({
         ...defaultVulnerability,
-        is_template: isTemplate,
-        project_id: urlProjectId.current,
+        isTemplate: isTemplate,
+        projectId: urlProjectId.current,
     });
 
     const onFormSubmit = (ev) => {
@@ -26,14 +26,14 @@ const VulnerabilityCreate = () => {
         var formData = new FormData(document.getElementById("vulnerabilityCreateForm"));
         var fields = Object.fromEntries(formData);
         fields.tags = JSON.stringify(fields.tags.split(","));
-        fields.target_id = null;
-        fields.category_id = null;
-        if (!fields.hasOwnProperty("is_template")) {
-            fields.is_template = "0";
+        fields.targetId = null;
+        fields.categoryId = null;
+        if (!fields.hasOwnProperty("isTemplate")) {
+            fields.isTemplate = false;
         }
 
         requestVulnerabilityPost(fields).then(() => {
-            if (vulnerability.is_template) {
+            if (vulnerability.isTemplate) {
                 navigate("/vulnerabilities/templates");
             } else {
                 navigate(`/vulnerabilities`);

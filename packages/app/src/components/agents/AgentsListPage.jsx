@@ -15,7 +15,7 @@ const AgentsListPage = () => {
             header: "Name",
             cell: (agent) => (
                 <>
-                    <Link to={`/agents/${agent.id}`}>{agent.client_id}</Link>
+                    <Link to={`/agents/${agent.id}`}>{agent.clientId}</Link>
                 </>
             ),
         },
@@ -45,15 +45,15 @@ const AgentsListPage = () => {
         },
         {
             header: "Listen address",
-            property: "listen_addr",
+            property: "listenAddr",
         },
         {
             header: "Last boot at",
-            property: "last_boot_at",
+            property: "lastBootAt",
         },
         {
             header: "Last ping at",
-            property: "last_ping_at",
+            property: "lastPingAt",
         },
     ];
 

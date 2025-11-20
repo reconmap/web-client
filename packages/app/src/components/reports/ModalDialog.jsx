@@ -74,7 +74,7 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
                                     >
                                         {templates.map((template) => (
                                             <option key={template.id} value={template.id}>
-                                                {template.version_name}
+                                                {template.versionName}
                                             </option>
                                         ))}
                                     </NativeSelect>

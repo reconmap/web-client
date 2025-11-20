@@ -28,7 +28,7 @@ const RecentActivityWidget = () => {
                                 <td>
                                     {log.user_name ? <UserLink userId={log.user_id}>{log.user_name}</UserLink> : "-"}
                                 </td>
-                                <td>{log.insert_ts}</td>
+                                <td>{log.createdAt}</td>
                             </tr>
                         ))}
                     </tbody>

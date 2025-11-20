@@ -42,23 +42,23 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                 {reports.map((report, index) => (
                     <tr key={index}>
                         <td>
-                            {report.version_name} ({report.version_description})
+                            {report.versionName} ({report.versionDescription})
                         </td>
                         {includeProjectColumn && (
                             <td>
-                                <ProjectBadge project={{ id: report.project_id, name: report.project_name }} />
+                                <ProjectBadge project={{ id: report.projectId, name: report.project?.name }} />
                             </td>
                         )}
                         <td>
-                            <RelativeDateFormatter date={report.insert_ts} />
+                            <RelativeDateFormatter date={report.createdAt} />
                         </td>
                         <td>
-                            <SecondaryButton onClick={() => handleDownload(report.attachment_id)}>
-                                {report.client_file_name?.split(".").pop().toUpperCase()}
+                            <SecondaryButton onClick={() => handleDownload(report.attachmentId)}>
+                                {report.attachment?.clientFileName?.split(".").pop().toUpperCase()}
                             </SecondaryButton>
                         </td>
                         <td>
-                            <SecondaryButton onClick={() => handleSendByEmail(report.project_id)}>
+                            <SecondaryButton onClick={() => handleSendByEmail(report.projectId)}>
                                 Send by email
                             </SecondaryButton>
 

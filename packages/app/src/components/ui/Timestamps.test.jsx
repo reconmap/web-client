@@ -3,7 +3,7 @@ import Timestamps from "./Timestamps";
 
 describe("Timestamps", () => {
     it("renders time element for creation time", () => {
-        render(<Timestamps insertTs="2020-10-15 13:13:13" />);
+        render(<Timestamps createdAt="2020-10-15 13:13:13" />);
 
         const created = screen.getByText("2020-10-15 13:13:13");
         expect(created).toBeInTheDocument();
@@ -13,7 +13,7 @@ describe("Timestamps", () => {
     });
 
     it("renders time elements for creation and modification times", () => {
-        render(<Timestamps insertTs="2020-10-15 13:13:13" updateTs="2021-12-15 13:13:13" />);
+        render(<Timestamps createdAt="2020-10-15 13:13:13" updatedAt="2021-12-15 13:13:13" />);
 
         const created = screen.getByText("2020-10-15 13:13:13");
         const modified = screen.getByText("2021-12-15 13:13:13");

@@ -18,7 +18,7 @@ import VulnerabilityCategorySpan from "../categories/Span";
 const VulnerabilityTemplatesList = () => {
     const navigate = useNavigate();
     const [sortBy, setSortBy] = useState({
-        column: "insert_ts",
+        column: "createdAt",
         order: "DESC",
     });
     const params = {

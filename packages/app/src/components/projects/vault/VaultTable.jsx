@@ -38,11 +38,11 @@ const VaultTable = ({ secrets, onDelete }) => {
                                 <td>{item.name}</td>
                                 <td>{item.url ? <ExternalLink href={item.url}>{item.url}</ExternalLink> : "(none)"}</td>
                                 <td>
-                                    {item.expiration_date ? (
+                                    {item.expirationDate ? (
                                         <>
-                                            {item.expiration_date}
+                                            {item.expirationDate}
                                             <br />
-                                            (<RelativeDateFormatter date={item.expiration_date} />)
+                                            (<RelativeDateFormatter date={item.expirationDate} />)
                                         </>
                                     ) : (
                                         "(none)"

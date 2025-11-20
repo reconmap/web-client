@@ -116,8 +116,8 @@ const CommandDetailsPage = () => {
                                         <dl>
                                             <dt>Created by</dt>
                                             <dd>
-                                                <UserLink userId={command.creator_uid}>
-                                                    {command.creator_full_name}
+                                                <UserLink userId={command.createdByUid}>
+                                                    {command.createdBy?.fullName}
                                                 </UserLink>
                                             </dd>
                                         </dl>

@@ -94,7 +94,7 @@ const CommandOutputs = ({ command }) => {
                                     <FileSizeSpan fileSize={commandOutput.file_size} />
                                 </td>
                                 <td>
-                                    <RelativeDateFormatter date={commandOutput.insert_ts} />
+                                    <RelativeDateFormatter date={commandOutput.createdAt} />
                                 </td>
                                 <td>
                                     <UserLink userId={commandOutput.submitter_uid}>

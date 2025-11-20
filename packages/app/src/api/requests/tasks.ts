@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntity } from "utilities/requests.js";
+import { requestEntity, requestEntityPost } from "utilities/requests.js";
 
 const API_BASE_URL = "/tasks";
 
@@ -42,12 +42,7 @@ const requestTasksPatch = (data: any) => {
     });
 };
 
-const requestTaskPost = (task: any) => {
-    return secureApiFetch(`${API_BASE_URL}`, {
-        method: "POST",
-        body: JSON.stringify(task),
-    });
-};
+const requestTaskPost = (task: any) => requestEntityPost(API_BASE_URL, task);
 
 export {
     requestTask,
