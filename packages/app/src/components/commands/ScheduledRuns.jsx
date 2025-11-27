@@ -40,7 +40,7 @@ const ScheduledRuns = ({ command, task = null }) => {
                     <tbody>
                         {scheduledCommands.map((scheduleCommand) => (
                             <tr>
-                                <td>{scheduleCommand.cron_expression}</td>
+                                <td>{scheduleCommand.cronExpression}</td>
                                 <td>
                                     {CronExpressionToString(scheduleCommand.cronExpression, {
                                         throwExceptionOnParseError: false,

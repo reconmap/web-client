@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { requestTasksDelete, requestTasksPatch } from "api/requests/tasks.js";
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -19,6 +20,7 @@ const TasksListPage = () => {
     const [t] = useTranslation();
 
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const [tableModel, setTableModel] = useState(new TaskTableModel(true, true));
 
@@ -66,10 +68,11 @@ const TasksListPage = () => {
 
     const onDeleteButtonClick = () => {
         requestTasksDelete(tableModel.selection)
-            .then(reloadTasks)
             .then(() => {
+                reloadTasks();
                 setTableModel({ ...tableModel, selection: [] });
                 actionCompletedToast("All selected tasks were deleted.");
+                queryClient.invalidateQueries({ queryKey: ["tasks"] });
             })
             .catch((err) => console.error(err));
     };

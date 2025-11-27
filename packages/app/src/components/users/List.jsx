@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { deleteUsers } from "api/requests/users.js";
 import { useUserDeleteMutation, useUsersQuery } from "api/users.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
@@ -26,6 +27,7 @@ const UsersList = () => {
     const { user: loggedInUser } = useContext(AuthContext);
     const { data: users, isLoading } = useUsersQuery();
     const userDeleteMutation = useUserDeleteMutation();
+    const queryClient = useQueryClient();
 
     const handleCreate = () => {
         navigate("/users/create");
@@ -54,6 +56,7 @@ const UsersList = () => {
 
     const handleDelete = (userId) => {
         userDeleteMutation.mutate(userId).then(() => {});
+        queryClient.invalidateQueries({ queryKey: ["users"] });
     };
 
     return (

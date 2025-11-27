@@ -5,10 +5,10 @@ interface UserInterface {
     last_login_ts?: string;
     subject_id?: string;
     active?: boolean;
-    mfa_enabled: boolean | undefined;
-    first_name: string | undefined;
-    last_name: string | undefined;
-    full_name?: string;
+    mfaEnabled: boolean | undefined;
+    firstName: string | undefined;
+    lastName: string | undefined;
+    fullName?: string;
     short_bio?: string;
     username: string | undefined;
     email: string | undefined;
@@ -24,12 +24,12 @@ export { UserInterface };
  */
 const User: UserInterface = {
     active: true,
-    mfa_enabled: false,
-    full_name: "",
+    mfaEnabled: false,
+    fullName: "",
     role: undefined,
 
-    first_name: undefined,
-    last_name: undefined,
+    firstName: undefined,
+    lastName: undefined,
     username: undefined,
     email: undefined,
     timezone: undefined,

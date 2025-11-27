@@ -29,6 +29,9 @@ const requestCommandSchedules = (commandId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${commandId}/schedules`, { method: "GET" });
 };
 
+export const requestCommandSchedulePost = (commandId: number, schedule: object) =>
+    requestEntityPost(`${API_BASE_URL}/${commandId}/schedules`, schedule);
+
 const requestCommandsOutputParsers = () => {
     return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" });
 };

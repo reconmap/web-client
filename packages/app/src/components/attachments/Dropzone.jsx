@@ -45,7 +45,7 @@ const AttachmentsDropzone = ({ parentType, parentId, onUploadFinished = null }) 
         requestAttachmentPost(formData)
             .then(() => {
                 setAcceptedFiles([]);
-                queryClient.invalidateQueries(["attachments"]);
+                queryClient.invalidateQueries({ queryKey: ["attachments"] });
                 if (onUploadFinished) onUploadFinished();
             })
             .catch((err) => console.error(err));

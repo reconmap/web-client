@@ -1,5 +1,6 @@
 import { useCommandUsagesQuery } from "api/commands.js";
 import { useProjectsQuery } from "api/projects.js";
+import { requestCommandSchedulePost } from "api/requests/commands.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeButton from "components/form/NativeButton";
 import NativeInput from "components/form/NativeInput";
@@ -12,7 +13,6 @@ import cronstrue from "cronstrue";
 import { StatusCodes } from "http-status-codes";
 import { useEffect, useState } from "react";
 import { CliDownloadUrl } from "ServerUrls";
-import secureApiFetch from "services/api";
 import CommandService from "services/command";
 import parseArguments from "services/commands/arguments";
 
@@ -72,7 +72,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
         setCommandArgsRendered(commandArgsRendered);
     }, [commandArgs]);
 
-    const [cronExpresion, setCronExpresion] = useState("");
+    const [cronExpression, setCronExpression] = useState("");
     const [cronExpressionErrorMessage, setCronExpressionErrorMessage] = useState(null);
 
     const onArgUpdate = (ev, usage) => {
@@ -89,8 +89,8 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
         setShowTerminal(true);
     };
 
-    const onCronExpresionChange = (ev) => {
-        setCronExpresion(ev.target.value);
+    const onCronExpressionChange = (ev) => {
+        setCronExpression(ev.target.value);
         try {
             const message = cronstrue.toString(ev.target.value);
             setCronExpressionErrorMessage(message);
@@ -101,18 +101,15 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
 
     const saveScheduledCommand = (ev, command, usage, commandArgsRendered) => {
         const schedule = {
-            command_id: command.id,
-            argument_values: CommandService.generateEntryPoint(projectId, command, usage) + " " + commandArgsRendered,
-            cron_expression: cronExpresion,
+            commandId: command.id,
+            argumentValues: CommandService.generateEntryPoint(projectId, command, usage) + " " + commandArgsRendered,
+            cronExpression: cronExpression,
         };
 
-        secureApiFetch(`/commands/${command.id}/schedule`, {
-            method: "POST",
-            body: JSON.stringify(schedule),
-        })
+        requestCommandSchedulePost(command.id, schedule)
             .then((resp) => {
                 if (resp.status === StatusCodes.CREATED) {
-                    setCronExpresion("");
+                    setCronExpression("");
                     actionCompletedToast(`The schedule has been saved.`);
                 } else {
                     errorToast("The schedule could not be saved. Review the form data or check the application logs.");
@@ -203,17 +200,17 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                                 </div>
                             </>
                         }
-                        htmlFor="cronExpresion"
+                        htmlFor="cronExpression"
                         control={
                             <>
                                 <NativeInput
-                                    id="cronExpresion"
-                                    name="cronExpresion"
+                                    id="cronExpression"
+                                    name="cronExpression"
                                     type="text"
                                     placeholder="*/1 * * * *"
                                     size="10"
-                                    value={cronExpresion}
-                                    onChange={onCronExpresionChange}
+                                    value={cronExpression}
+                                    onChange={onCronExpressionChange}
                                 />
                                 <div>{cronExpressionErrorMessage}</div>
                             </>
@@ -221,7 +218,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                     />
 
                     <NativeButton
-                        disabled={cronExpresion === ""}
+                        disabled={cronExpression === ""}
                         onClick={(ev) => saveScheduledCommand(ev, command, usage, commandArgsRendered)}
                     >
                         Save scheduled command

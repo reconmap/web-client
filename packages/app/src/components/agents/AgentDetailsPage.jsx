@@ -49,7 +49,7 @@ const AgentDetailsPage = () => {
             {terminalVisibility && (
                 <>
                     {wsContextData?.connection?.readyState === WebSocket.OPEN ? (
-                        <CommandTerminal agentIp={agent.ip} agentPort={agent.listen_addr} commands={[]} />
+                        <CommandTerminal agentIp={agent.ip} agentPort={agent.listenAddr} commands={[]} />
                     ) : (
                         <article className="message is-danger">
                             <div className="message-body">

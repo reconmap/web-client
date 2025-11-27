@@ -1,9 +1,9 @@
 interface CommandScheduleInterface {
     id?: number;
     createdByUid?: number;
-    command_id?: number;
-    argument_values?: string;
-    cron_expression?: string;
+    commandId?: number;
+    argumentValues?: string;
+    cronExpression?: string;
 }
 
 /**

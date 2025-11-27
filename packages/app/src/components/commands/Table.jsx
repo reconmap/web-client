@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useCommandDeleteMutation } from "api/commands.js";
 import Tags from "components/ui/Tags";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -9,6 +10,7 @@ import CommandBadge from "./Badge";
 const CommandsTable = ({ commands }) => {
     const [t] = useTranslation();
     const commandDeleteMutation = useCommandDeleteMutation();
+    const queryClient = useQueryClient();
 
     const columns = [
         {
@@ -36,7 +38,12 @@ const CommandsTable = ({ commands }) => {
                 <>
                     {" "}
                     <LinkButton href={`/commands/${command.id}/edit`}>Edit</LinkButton>
-                    <DeleteIconButton onClick={() => commandDeleteMutation.mutate(command.id)} />
+                    <DeleteIconButton
+                        onClick={() => {
+                            commandDeleteMutation.mutate(command.id);
+                            queryClient.invalidateQueries({ queryKey: ["vault"] });
+                        }}
+                    />
                 </>
             ),
         },
