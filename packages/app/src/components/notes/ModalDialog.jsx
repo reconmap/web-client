@@ -11,8 +11,8 @@ const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
     const emptyNote = {
         ...Note,
         content: "",
-        parent_type: parentType,
-        parent_id: parent.id,
+        parentType: parentType,
+        parentId: parent.id,
         visibility: "public",
     };
     const [newNote, updateNewNote] = useState(emptyNote);

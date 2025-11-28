@@ -17,6 +17,9 @@ export const requestOrganisationContacts = (organisationId: number) =>
 
 export const requestOrganisationPost = (organisation: FormData) => requestEntityPost(API_BASE_URL, organisation);
 
+export const requestOrganisationContactPost = (organisationId: number, contact: any) =>
+    requestEntityPost(`${API_BASE_URL}/${organisationId}/contacts`, contact);
+
 export const requestOrganisationPut = (organisationId: number, data: any) =>
     requestEntityPut(`${API_BASE_URL}/${organisationId}`, data);
 

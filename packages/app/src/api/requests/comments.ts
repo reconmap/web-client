@@ -1,4 +1,5 @@
 import secureApiFetch from "services/api.js";
+import { requestEntityPost } from "utilities/requests.js";
 
 const API_BASE_URL = "/notes";
 
@@ -14,13 +15,6 @@ const requestCommentDelete = (commentId: number) => {
     });
 };
 
-const requestCommentPost = async (comment: any) => {
-    return (
-        await secureApiFetch(`${API_BASE_URL}`, {
-            method: "POST",
-            body: JSON.stringify(comment),
-        })
-    ).json();
-};
+const requestCommentPost = async (comment: any) => requestEntityPost(API_BASE_URL, comment);
 
 export { requestCommentDelete, requestCommentPost, requestComments };

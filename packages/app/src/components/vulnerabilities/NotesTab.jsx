@@ -1,22 +1,22 @@
-import {useCreateCommentMutation, useDeleteCommentMutation, useNotesQuery} from "api/comments.js";
+import { useCreateCommentMutation, useDeleteCommentMutation, useNotesQuery } from "api/comments.js";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import NotesForm from "components/notes/Form";
 import PrimaryButton from "components/ui/buttons/Primary.jsx";
-import {actionCompletedToast} from "components/ui/toast";
+import { actionCompletedToast } from "components/ui/toast";
 import Note from "models/Note";
-import {useState} from "react";
+import { useState } from "react";
 import NotesTable from "../notes/Table";
 
-const VulnerabilitiesNotesTab = ({vulnerability}) => {
-    const {data: notes, refetch} = useNotesQuery({parentType: "vulnerability", parentId: vulnerability.id});
+const VulnerabilitiesNotesTab = ({ vulnerability }) => {
+    const { data: notes, refetch } = useNotesQuery({ parentType: "vulnerability", parentId: vulnerability.id });
     const createCommentMutation = useCreateCommentMutation();
     const deleteCommentMutation = useDeleteCommentMutation();
 
     const emptyNote = {
         ...Note,
         content: "",
-        parent_type: "vulnerability",
-        parent_id: vulnerability.id,
+        parentType: "vulnerability",
+        parentId: vulnerability.id,
         visibility: "public",
     };
     const [newNote, updateNewNote] = useState(emptyNote);
@@ -33,7 +33,7 @@ const VulnerabilitiesNotesTab = ({vulnerability}) => {
         createCommentMutation.mutate(newNote);
         actionCompletedToast(`The note has been created.`);
         await refetch();
-        updateNewNote({...emptyNote, content: ""});
+        updateNewNote({ ...emptyNote, content: "" });
     };
 
     return (
@@ -49,13 +49,13 @@ const VulnerabilitiesNotesTab = ({vulnerability}) => {
                 />
             </RestrictedComponent>
 
-            <div style={{paddingTop: "20px"}}>
+            <div style={{ paddingTop: "20px" }}>
                 <PrimaryButton type="submit" form="vulnerabilityCommentForm">
                     Save
                 </PrimaryButton>
             </div>
 
-            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick}/>
+            <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />
         </section>
     );
 };

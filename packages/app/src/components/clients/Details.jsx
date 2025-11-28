@@ -2,6 +2,7 @@ import { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganis
 import { useProjectsQuery } from "api/projects.js";
 import { requestAttachment } from "api/requests/attachments.js";
 import { requestContactDelete } from "api/requests/contacts.js";
+import { requestOrganisationContactPost } from "api/requests/organisations.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeInput from "components/form/NativeInput";
@@ -23,7 +24,6 @@ import OrganisationTypes from "models/OrganisationTypes.js";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
 import Breadcrumb from "../ui/Breadcrumb";
 import ExternalLink from "../ui/ExternalLink";
 import Title from "../ui/Title";
@@ -87,10 +87,7 @@ const ClientDetails = () => {
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/clients/${clientId}/contacts`, {
-            method: "POST",
-            body: JSON.stringify(contact),
-        }).then((resp) => {
+        requestOrganisationContactPost(clientId, contact).then((resp) => {
             if (resp.status === 201) {
                 setContact({ ...Contact });
                 actionCompletedToast(`The contact has been added.`);
@@ -101,7 +98,7 @@ const ClientDetails = () => {
     };
 
     const onContactDelete = (contactId) => {
-        requestContactDelete(contactId)
+        requestContactDelete(clientId, contactId)
             .then((resp) => {
                 if (resp.ok) {
                     actionCompletedToast("The contact has been deleted.");
