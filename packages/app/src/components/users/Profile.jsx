@@ -89,7 +89,7 @@ const UserProfile = () => {
                                     <h4>Properties</h4>
                                     <dl>
                                         <dt>Short bio</dt>
-                                        <dd>{user.short_bio ? user.short_bio : <EmptyField />}</dd>
+                                        <dd>{user.shortBio ? user.shortBio : <EmptyField />}</dd>
 
                                         <dt>Role</dt>
                                         <dd>

@@ -88,16 +88,16 @@ const CommandOutputs = ({ command }) => {
                         commandOutputs.length !== 0 &&
                         commandOutputs.map((commandOutput, index) => (
                             <tr key={index}>
-                                <td>{commandOutput.client_file_name}</td>
-                                <td>{commandOutput.file_mimetype}</td>
+                                <td>{commandOutput.clientFileName}</td>
+                                <td>{commandOutput.fileMimeType}</td>
                                 <td>
-                                    <FileSizeSpan fileSize={commandOutput.file_size} />
+                                    <FileSizeSpan fileSize={commandOutput.fileSize} />
                                 </td>
                                 <td>
                                     <RelativeDateFormatter date={commandOutput.createdAt} />
                                 </td>
                                 <td>
-                                    <UserLink userId={commandOutput.submitter_uid}>
+                                    <UserLink userId={commandOutput.createdByUid}>
                                         {commandOutput.submitter_name}
                                     </UserLink>
                                 </td>

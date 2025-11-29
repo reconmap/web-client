@@ -16,12 +16,17 @@ const AuditLogsTable = ({ auditLog, hideUserColumns = false }) => {
         {
             header: "User",
             enabled: !hideUserColumns,
-            cell: (entry) => (entry.user_name ? <UserLink userId={entry.user_id}>{entry.user_name}</UserLink> : "-"),
+            cell: (entry) =>
+                entry.createdBy?.fullName ? (
+                    <UserLink userId={entry.userId}>{entry.createdBy?.fullName}</UserLink>
+                ) : (
+                    "-"
+                ),
         },
         {
             header: "Role",
             enabled: !hideUserColumns,
-            cell: (entry) => <UserRoleBadge role={entry.userRole} />,
+            cell: (entry) => <UserRoleBadge role={entry.createdBy?.role} />,
         },
         {
             header: "IP address",

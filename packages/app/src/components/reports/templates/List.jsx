@@ -113,12 +113,12 @@ const ReportTemplatesList = () => {
                                     </td>
                                     <td>{template.clientFileName}</td>
                                     <td>
-                                        <span title={safeResolveMime(template.file_mimetype)}>
-                                            {template.file_mimetype}
+                                        <span title={safeResolveMime(template.fileMimeType)}>
+                                            {template.fileMimeType}
                                         </span>
                                     </td>
                                     <td>
-                                        <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
+                                        <SecondaryButton onClick={() => handleDownload(template.attachmentId)}>
                                             {template.clientFileName?.split(".").pop().toUpperCase()}
                                         </SecondaryButton>
                                     </td>
