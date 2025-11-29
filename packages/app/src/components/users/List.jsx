@@ -114,7 +114,7 @@ const UsersList = () => {
                                             <UserAvatar email={user.email} />
                                         </td>
                                         <td>
-                                            <Link to={`/users/${user.id}`}>{user.full_name}</Link>
+                                            <Link to={`/users/${user.id}`}>{user.fullName}</Link>
                                         </td>
                                         <td>
                                             <UserLink userId={user.id}>{user.username}</UserLink>

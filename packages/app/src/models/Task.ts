@@ -11,7 +11,6 @@ interface TaskInterface {
     status: string | undefined;
     durationEstimate?: number;
     dueDate?: string;
-    command_id?: number;
     command?: string;
     command_parser?: string;
 }

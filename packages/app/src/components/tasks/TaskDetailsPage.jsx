@@ -179,7 +179,7 @@ const TaskDetailsPage = () => {
                                                                     <option value="">(nobody)</option>
                                                                     {users.map((user, index) => (
                                                                         <option key={index} value={user.id}>
-                                                                            {user.full_name}
+                                                                            {user.fullName}
                                                                             {user.id === loggedInUser.id
                                                                                 ? " (You)"
                                                                                 : ""}

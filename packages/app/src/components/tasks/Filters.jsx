@@ -46,7 +46,7 @@ const TaskFilters = ({ tableModel, tableModelSetter: setTableModel }) => {
                             {!isLoadingUsers &&
                                 users.map((user) => (
                                     <option key={user.id} value={user.id}>
-                                        Assignee = {user.full_name}
+                                        Assignee = {user.fullName}
                                         {user.id === loggedInUser.id ? " (You)" : ""}
                                     </option>
                                 ))}

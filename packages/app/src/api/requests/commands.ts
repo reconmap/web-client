@@ -21,6 +21,9 @@ const requestCommands = async (params: any) => {
     return commands;
 };
 
+export const requestCommandUsagePost = (commandId: number, usage: object) =>
+    requestEntityPost(`${API_BASE_URL}/${commandId}/usages`, usage);
+
 const requestCommandUsages = (commandId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${commandId}/usages`, { method: "GET" });
 };
@@ -46,11 +49,11 @@ export const requestCommandPut = (commandId: number, data: any) =>
 const requestCommandPost = (command: object) => requestEntityPost(API_BASE_URL, command);
 
 const requestCommandScheduleDelete = (commandId: number, scheduleId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/schedules/${scheduleId}`, { method: "DELETE" });
+    return secureApiFetch(`${API_BASE_URL}/${commandId}/schedules/${scheduleId}`, { method: "DELETE" });
 };
 
 const requestCommandUsageDelete = (commandId: number, usageId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/usage/${usageId}`, { method: "DELETE" });
+    return secureApiFetch(`${API_BASE_URL}/${commandId}/usages/${usageId}`, { method: "DELETE" });
 };
 
 export {

@@ -61,7 +61,7 @@ const UserProfile = () => {
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
-                    <Link>{user.full_name}</Link>
+                    <Link>{user.fullName}</Link>
                 </Breadcrumb>
                 <NativeButtonGroup>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
@@ -75,7 +75,7 @@ const UserProfile = () => {
             <div>
                 <Title
                     type="User profile"
-                    title={user.full_name}
+                    title={user.fullName}
                     icon={user.email ? <UserAvatar email={user.email} /> : null}
                 />
 

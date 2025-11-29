@@ -8,7 +8,7 @@ const ScheduledRuns = ({ command, task = null }) => {
     const { data: scheduledCommands } = useCommandSchedulesQuery(command?.id);
 
     const deleteScheduledCommand = (ev, commandSchedule) => {
-        requestCommandScheduleDelete(commandSchedule.id)
+        requestCommandScheduleDelete(command?.id, commandSchedule.id)
             .then(() => {
                 fetchScheduledCommands();
                 actionCompletedToast("The scheduled command has been deleted.");

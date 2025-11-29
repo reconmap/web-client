@@ -34,7 +34,7 @@ const getUserInfo = () => {
         const role = kcInstance?.resourceAccess?.["web-client"]?.roles?.[0];
 
         const user = {
-            full_name: kcInstance?.tokenParsed?.name,
+            fullName: kcInstance?.tokenParsed?.name,
             access_token: kcInstance.token,
             email: kcInstance?.tokenParsed?.email,
             role: role,

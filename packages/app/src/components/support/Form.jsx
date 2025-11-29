@@ -13,7 +13,7 @@ const SupportForm = () => {
     const systemInfo = `User
 ----
 ID: ${user.id}
-Name: ${user.full_name}
+Name: ${user.fullName}
 Role: ${user.role}
 
 Client

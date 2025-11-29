@@ -60,9 +60,9 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                     More information URL
                     <NativeInput
                         type="url"
-                        name="more_info_url"
+                        name="moreInfoUrl"
                         onChange={onFormChange}
-                        value={commandUsage.more_info_url || ""}
+                        value={commandUsage.moreInfoUrl || ""}
                     />
                 </label>
             </fieldset>
@@ -74,9 +74,9 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                     Executable path
                     <NativeInput
                         type="text"
-                        name="executable_path"
+                        name="executablePath"
                         onChange={onFormChange}
-                        value={commandUsage.executable_path || ""}
+                        value={commandUsage.executablePath || ""}
                     />
                 </label>
 
@@ -97,10 +97,10 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                     htmlFor="outputCapturingMode"
                     control={
                         <NativeSelect
-                            id="outputCapture"
-                            name="output_capturing_mode"
+                            id="outputCapturingMode"
+                            name="outputCapturingMode"
                             onChange={onFormChange}
-                            value={commandUsage.output_capturing_mode || "none"}
+                            value={commandUsage.outputCapturingMode || "none"}
                             required
                         >
                             <option value="none">None</option>
@@ -110,7 +110,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                     }
                 />
 
-                {commandUsage.output_capturing_mode === "file" && (
+                {commandUsage.outputCapturingMode === "file" && (
                     <HorizontalLabelledField
                         label="Output filename"
                         htmlFor="outputFilename"
@@ -118,24 +118,24 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                             <NativeInput
                                 id="outputFilename"
                                 type="text"
-                                name="output_filename"
+                                name="outputFilename"
                                 onChange={onFormChange}
-                                value={commandUsage.output_filename || ""}
+                                value={commandUsage.outputFilename || ""}
                             />
                         }
                     />
                 )}
 
-                {commandUsage.output_capturing_mode !== "none" && (
+                {commandUsage.outputCapturingMode !== "none" && (
                     <HorizontalLabelledField
                         label="Output parser"
                         htmlFor="outputParser"
                         control={
                             <NativeSelect
                                 id="outputParser"
-                                name="output_parser"
+                                name="outputParser"
                                 onChange={onFormChange}
-                                value={commandUsage.output_parser || ""}
+                                value={commandUsage.outputParser || ""}
                             >
                                 <option value="">(none)</option>
                                 {parsers &&
