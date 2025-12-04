@@ -53,7 +53,7 @@ const TaskDetailsPage = () => {
         const assigneeUid = ev.target.value;
 
         requestTaskPatch(task.id, {
-            assignee_uid: "" === assigneeUid ? null : assigneeUid,
+            assignedToUid: "" === assigneeUid ? null : assigneeUid,
         })
             .then(() => {
                 actionCompletedToast("The assignee has been updated.");
@@ -174,7 +174,7 @@ const TaskDetailsPage = () => {
                                                             {users && (
                                                                 <NativeSelect
                                                                     onChange={onAssigneeChange}
-                                                                    defaultValue={task.assignee_uid}
+                                                                    defaultValue={task.assignedToUid}
                                                                 >
                                                                     <option value="">(nobody)</option>
                                                                     {users.map((user, index) => (

@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntity, requestEntityPost } from "utilities/requests.js";
+import { requestEntity, requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/tasks";
 
@@ -25,12 +25,7 @@ const requestTasksDelete = (taskIds: number[]) => {
     });
 };
 
-const requestTaskPatch = (taskId: number, data: any) => {
-    return secureApiFetch(`/tasks/${taskId}`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-    });
-};
+const requestTaskPatch = (taskId: number, data: any) => requestEntityPut(`${API_BASE_URL}/${taskId}`, data);
 
 const requestTasksPatch = (data: any) => {
     return secureApiFetch("/tasks", {

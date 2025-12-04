@@ -5,7 +5,11 @@ function resetSessionStorageAndRedirect() {
     window.location.assign(Configuration.getContextPath());
 }
 
-function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Response> {
+function secureApiFetch(
+    url: string,
+    init: Record<string, any> = {},
+    apiUrl: string | undefined = undefined,
+): Promise<Response> {
     if ("undefined" === typeof init) {
         init = {};
     }
@@ -20,7 +24,7 @@ function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Re
     }
     init.credentials = "include";
 
-    return fetch(Configuration.getDefaultApiUrl() + url, init)
+    return fetch((apiUrl ?? Configuration.getDefaultApiUrl()) + url, init)
         .then((resp) => {
             if (resp.status === 401) {
                 resetSessionStorageAndRedirect();

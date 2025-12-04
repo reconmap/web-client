@@ -1,4 +1,10 @@
-import { useDeleteOrganisationMutation, useOrganisationContactsQuery, useOrganisationQuery } from "api/clients.js";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+    useDeleteOrganisationMutation,
+    useOrganisationContactsQuery,
+    useOrganisationQuery,
+    useOrganisationsQueriesInvalidation,
+} from "api/clients.js";
 import { useProjectsQuery } from "api/projects.js";
 import { requestAttachment } from "api/requests/attachments.js";
 import { requestContactDelete } from "api/requests/contacts.js";
@@ -63,10 +69,12 @@ const ClientDetails = () => {
 
     const { clientId } = useParams();
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const { data: client, isLoading: isClientLoading } = useOrganisationQuery(clientId);
     const { data: contacts } = useOrganisationContactsQuery(clientId);
     const deleteOrganisationMutation = useDeleteOrganisationMutation();
+    const invalidateOrganisations = useOrganisationsQueriesInvalidation();
 
     const [contact, setContact] = useState({ ...Contact });
 
@@ -90,6 +98,7 @@ const ClientDetails = () => {
         requestOrganisationContactPost(clientId, contact).then((resp) => {
             if (resp.status === 201) {
                 setContact({ ...Contact });
+                invalidateOrganisations();
                 actionCompletedToast(`The contact has been added.`);
             } else {
                 errorToast("The contact could not be saved. Review the form data or check the application logs.");
@@ -102,6 +111,7 @@ const ClientDetails = () => {
             .then((resp) => {
                 if (resp.ok) {
                     actionCompletedToast("The contact has been deleted.");
+                    invalidateOrganisations();
                 } else {
                     errorToast("Unable to delete contact");
                 }

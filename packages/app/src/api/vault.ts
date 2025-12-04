@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import secureApiFetch from "services/api.js";
 
 const requestVault = () => {
@@ -10,6 +10,14 @@ const useVaultQuery = () => {
         queryKey: ["vault"],
         queryFn: requestVault,
     });
+};
+
+export const invalidateVaultQueries = () => {
+    const queryClient = useQueryClient();
+
+    return () => {
+        queryClient.invalidateQueries({ queryKey: ["vault"] });
+    };
 };
 
 export { useVaultQuery };

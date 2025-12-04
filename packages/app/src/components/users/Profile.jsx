@@ -98,7 +98,7 @@ const UserProfile = () => {
                                         </dd>
 
                                         <dt>Timezone</dt>
-                                        <dd>{user.timezone}</dd>
+                                        <dd>{user.timeZone}</dd>
 
                                         <dt>Active?</dt>
                                         <dd>
@@ -107,7 +107,7 @@ const UserProfile = () => {
 
                                         <dt>2FA enabled?</dt>
                                         <dd>
-                                            <BooleanText value={user.mfa_enabled} />
+                                            <BooleanText value={user.mfaEnabled} />
                                         </dd>
                                     </dl>
                                 </div>

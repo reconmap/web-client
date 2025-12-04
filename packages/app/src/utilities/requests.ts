@@ -31,6 +31,9 @@ const requestEntityPut = (url: string, data: any) => {
     return secureApiFetch(url, {
         method: "PUT",
         body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
     });
 };
 
@@ -38,6 +41,9 @@ const requestEntityPatch = (url: string, data: any) => {
     return secureApiFetch(url, {
         method: "PATCH",
         body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
     });
 };
 

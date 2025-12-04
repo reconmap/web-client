@@ -1,4 +1,5 @@
 import { requestSecretDelete } from "api/requests/vault.js";
+import { invalidateVaultQueries } from "api/vault.js";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton.jsx";
 import LinkButton from "components/ui/buttons/Link.jsx";
 import ExternalLink from "components/ui/ExternalLink.jsx";
@@ -7,10 +8,12 @@ import NoResultsTableRow from "components/ui/tables/NoResultsTableRow.jsx";
 import { actionCompletedToast } from "components/ui/toast.jsx";
 
 const VaultTable = ({ secrets, onDelete }) => {
+    const invalidateQueries = invalidateVaultQueries();
     const onVaultItemDelete = (vaultItemId) => {
         requestSecretDelete(vaultItemId)
             .then(() => {
                 if (onDelete) onDelete();
+                invalidateQueries();
                 actionCompletedToast("The vault item has been deleted.");
             })
             .catch((err) => console.error(err));

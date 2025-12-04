@@ -21,7 +21,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
         setCommand({ ...commandUsage, [name]: value });
     };
 
-    const { data: parsers } = useCommandsOutputParsersQuery();
+    const { data: parsers, isLoading: isLoadingParsers } = useCommandsOutputParsersQuery();
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -138,7 +138,7 @@ const CommandUsageForm = ({ isEditForm = false, onFormSubmit, commandUsage, comm
                                 value={commandUsage.outputParser || ""}
                             >
                                 <option value="">(none)</option>
-                                {parsers &&
+                                {!isLoadingParsers &&
                                     parsers.map((parser) => (
                                         <option key={`parser_${parser.code}`} value={parser.code}>
                                             {parser.name}

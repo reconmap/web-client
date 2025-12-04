@@ -2,7 +2,7 @@ interface TaskInterface {
     id?: number;
     projectId?: number;
     createdByUid?: number;
-    assignee_uid?: number;
+    assignedToUid?: number;
     createdAt?: string;
     updatedAt?: string;
     priority: string | undefined;

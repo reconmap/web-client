@@ -75,8 +75,8 @@ const TasksTable = ({ tableModel, tableModelSetter: setTableModel, destroy, relo
             header: "Assignee",
             cell: (task) => (
                 <>
-                    {task.assignee_uid ? (
-                        <UserLink userId={task.assigned_to_uid}>{task.assignedTo?.fullName}</UserLink>
+                    {task.assignedToUid ? (
+                        <UserLink userId={task.assignedToUid}>{task.assignedTo?.fullName}</UserLink>
                     ) : (
                         "(nobody)"
                     )}

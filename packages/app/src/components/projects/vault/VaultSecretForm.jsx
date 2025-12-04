@@ -1,3 +1,4 @@
+import { invalidateVaultQueries } from "api/vault.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeInput from "components/form/NativeInput.jsx";
 import NativeSelect from "components/form/NativeSelect.jsx";
@@ -10,6 +11,7 @@ import { requestEntityPost } from "utilities/requests.js";
 const VaultSecretForm = ({ projectId = null, onSubmit = null }) => {
     const defaultSecret = { ...Vault, projectId: projectId };
     const [vaultItem, setVaultItem] = useState(defaultSecret);
+    const invalidateQueries = invalidateVaultQueries();
 
     const onVaultItemFormChange = (ev) => {
         const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
@@ -23,6 +25,7 @@ const VaultSecretForm = ({ projectId = null, onSubmit = null }) => {
             if (resp.status === 201) {
                 setVaultItem(defaultSecret);
                 if (onSubmit) onSubmit();
+                invalidateQueries();
                 actionCompletedToast(`The vault item has been added.`);
             } else {
                 errorToast("The vault item could not be saved. Review the form data or check the application logs.");

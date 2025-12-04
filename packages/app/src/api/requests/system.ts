@@ -31,11 +31,11 @@ const requestCustomFieldDeletion = (customFieldId: number) => {
 };
 
 const requestSystemIntegrations = () => {
-    return secureApiFetch(`/system/integrations`, { method: "GET" });
+    return secureApiFetch(`/system/integrations`, { method: "GET" }, "http://localhost:5510");
 };
 
 const requestRecentSearches = () => {
-    return secureApiFetch(`/recent-searches`, { method: "GET" });
+    return secureApiFetch(`/searches/recent`, { method: "GET" });
 };
 
 export {

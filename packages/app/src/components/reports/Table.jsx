@@ -19,6 +19,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
             a.href = url;
             a.download = filename;
             a.click();
+            URL.revokeObjectURL(url);
         });
     };
 
@@ -54,7 +55,7 @@ const ReportsTable = ({ reports, updateReports, includeProjectColumn = false }) 
                         </td>
                         <td>
                             <SecondaryButton onClick={() => handleDownload(report.attachmentId)}>
-                                {report.attachment?.clientFileName?.split(".").pop().toUpperCase()}
+                                {report.clientFileName?.split(".").pop().toUpperCase()}
                             </SecondaryButton>
                         </td>
                         <td>

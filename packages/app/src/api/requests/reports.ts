@@ -1,7 +1,11 @@
 import secureApiFetch from "services/api.js";
 
 const requestReports = (params: any) => {
-    return secureApiFetch("/reports?" + new URLSearchParams(params).toString(), { method: "GET" });
+    return secureApiFetch(
+        "/reports?" + new URLSearchParams(params).toString(),
+        { method: "GET" },
+        "http://localhost:5510",
+    );
 };
 
 const requestReportsTemplates = (params: any = {}) => {
@@ -9,10 +13,14 @@ const requestReportsTemplates = (params: any = {}) => {
 };
 
 const requestReportPost = (params: any) => {
-    return secureApiFetch(`/reports`, {
-        method: "POST",
-        body: JSON.stringify(params),
-    });
+    return secureApiFetch(
+        `/reports`,
+        {
+            method: "POST",
+            body: JSON.stringify(params),
+        },
+        "http://localhost:5510",
+    );
 };
 
 const requestReportDelete = (reportId: number) => {

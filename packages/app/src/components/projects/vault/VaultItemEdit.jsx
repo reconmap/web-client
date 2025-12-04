@@ -6,6 +6,7 @@ import Vault from "models/Vault";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 
 const VaultItemEdit = () => {
     const { vaultItemId } = useParams();
@@ -37,10 +38,7 @@ const VaultItemEdit = () => {
     const onPasswordProvided = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/vault/${vaultItemId}`, {
-            method: "POST",
-            body: JSON.stringify({ password: password }),
-        })
+        requestEntityPost(`/secrets/${vaultItemId}/decrypt`, { password })
             .then((resp) => {
                 if (!resp.ok) {
                     throw new Error(`Error: ${resp.status} - ${resp.statusText}`);
