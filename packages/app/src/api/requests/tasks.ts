@@ -15,13 +15,14 @@ const requestTaskDelete = (taskId: number) => {
     });
 };
 
-const requestTasksDelete = (taskIds: number[]) => {
+const requestTasksDelete = (data:object) => {
     return secureApiFetch(`${API_BASE_URL}`, {
         method: "PATCH",
         headers: {
             "Bulk-Operation": "DELETE",
+            "Content-type": "application/json"
         },
-        body: JSON.stringify(taskIds),
+        body: JSON.stringify(data),
     });
 };
 
@@ -32,6 +33,7 @@ const requestTasksPatch = (data: any) => {
         method: "PATCH",
         headers: {
             "Bulk-Operation": "UPDATE",
+            "Content-type": "application/json"
         },
         body: JSON.stringify(data),
     });

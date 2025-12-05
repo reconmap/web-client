@@ -1,5 +1,5 @@
 import { useDeleteNotificationMutation, useNotificationsQuery } from "api/notifications.js";
-import { requestNotificationPut, requestNotificationsPatch } from "api/requests/notifications.js";
+import { requestNotificationPut, requestNotificationsPatch, requestPartialNotificationUpdate } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
@@ -19,7 +19,8 @@ const NotificationsList = () => {
 
     const markAllNotificationsAsRead = () => {
         requestNotificationsPatch({
-            notificationIds: notifications.filter(isUnread).map((n) => n.id),
+            ids: notifications.filter(isUnread).map((n) => n.id),
+            status: 'read'
         }).then(() => {
             refetch();
             actionCompletedToast("All notifications marked as read");
@@ -27,7 +28,7 @@ const NotificationsList = () => {
     };
 
     const markNotificationAsRead = (notification) => {
-        requestNotificationPut(notification.id, { status: "read" }).then(() => {
+        requestPartialNotificationUpdate(notification.id, { status: "read" }).then(() => {
             refetch();
         });
     };

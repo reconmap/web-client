@@ -55,7 +55,7 @@ const TasksListPage = () => {
         const newStatus = ev.target.value;
 
         requestTasksPatch({
-            taskIds: tableModel.selection,
+            ids: tableModel.selection,
             newStatus: newStatus,
         })
             .then(reloadTasks)
@@ -67,7 +67,7 @@ const TasksListPage = () => {
     };
 
     const onDeleteButtonClick = () => {
-        requestTasksDelete(tableModel.selection)
+        requestTasksDelete({ids:tableModel.selection})
             .then(() => {
                 reloadTasks();
                 setTableModel({ ...tableModel, selection: [] });
