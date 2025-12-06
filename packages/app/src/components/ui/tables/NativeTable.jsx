@@ -1,11 +1,10 @@
 import LoadingTableRow from "./LoadingTableRow.jsx";
-import NoResultsTableRow from "./NoResultsTableRow.jsx";
 
 const defaultCellRenderer = (column, row) => {
     return row[column.property] ?? "-";
 };
 
-const NativeTable = ({ columns = [], rows = [], rowId = () => {} }) => {
+const NativeTable = ({ columns = [], rows = [], rowId = () => { }, emptyRowsMessage = 'No results available.' }) => {
     const enabledColumns = columns.filter((column) => column.enabled === undefined || column.enabled);
     const numColumns = enabledColumns.length;
 
@@ -23,7 +22,11 @@ const NativeTable = ({ columns = [], rows = [], rowId = () => {} }) => {
             </thead>
             <tbody>
                 {rowsAreLoading && <LoadingTableRow numColumns={numColumns} />}
-                {rowsAreEmpty && <NoResultsTableRow numColumns={numColumns} />}
+                {rowsAreEmpty && <tr>
+                    <td colSpan={numColumns} style={{ textAlign: 'center' }}>
+                        ∅ {emptyRowsMessage}
+                    </td>
+                </tr>}
                 {!rowsAreLoading &&
                     rows.map((row) => (
                         <tr key={rowId(row)}>
