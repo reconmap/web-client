@@ -1,10 +1,11 @@
+import Configuration from "Configuration.js";
 import secureApiFetch from "services/api.js";
 
 const requestReports = (params: any) => {
     return secureApiFetch(
         "/reports?" + new URLSearchParams(params).toString(),
         { method: "GET" },
-        "http://localhost:5510",
+        Configuration.getIntegrationsApiUrl(),
     );
 };
 
@@ -19,7 +20,7 @@ const requestReportPost = (params: any) => {
             method: "POST",
             body: JSON.stringify(params),
         },
-        "http://localhost:5510",
+        Configuration.getIntegrationsApiUrl(),
     );
 };
 
