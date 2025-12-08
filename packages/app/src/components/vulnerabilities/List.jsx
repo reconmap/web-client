@@ -9,7 +9,7 @@ import { actionCompletedToast } from "components/ui/toast";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch from "../../services/api";
+import { requestEntity } from "utilities/requests.js";
 import CreateButton from "../ui/buttons/Create";
 import VulnerabilityFilters from "./Filters";
 import VulnerabilitiesTable from "./VulnerabilitiesTable";
@@ -64,7 +64,7 @@ const VulnerabilitiesList = () => {
         );
         const url = `/vulnerabilities?${queryParams.toString()}`;
 
-        secureApiFetch(url, { method: "GET" })
+        requestEntity(url)
             .then((resp) => {
                 if (resp.headers.has("X-Page-Count")) {
                     setNumberPages(resp.headers.get("X-Page-Count"));

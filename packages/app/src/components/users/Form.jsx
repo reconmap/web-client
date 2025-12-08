@@ -29,8 +29,8 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                         <NativeInput
                             id="firstName"
                             type="text"
-                            name="first_name"
-                            value={user.first_name || ""}
+                            name="firstName"
+                            value={user.firstName || ""}
                             onChange={onFormChange}
                             required
                         />
@@ -43,8 +43,8 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                         <NativeInput
                             id="lastName"
                             type="text"
-                            name="last_name"
-                            value={user.last_name || ""}
+                            name="lastName"
+                            value={user.lastName || ""}
                             onChange={onFormChange}
                         />
                     }
@@ -55,8 +55,8 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                     control={
                         <NativeInput
                             type="text"
-                            name="short_bio"
-                            value={user.short_bio || ""}
+                            name="shortBio"
+                            value={user.shortBio || ""}
                             onChange={onFormChange}
                             placeholder="DevSecOps, or Project Manager"
                         />
@@ -113,7 +113,7 @@ const UserForm = ({ isEdit = false, user, userSetter: setUser, onFormSubmit }) =
                             <NativeCheckbox name="active" checked={user.active} onChange={onFormChange}>
                                 Active
                             </NativeCheckbox>
-                            <NativeCheckbox name="mfa_enabled" checked={user.mfa_enabled} onChange={onFormChange}>
+                            <NativeCheckbox name="mfaEnabled" checked={user.mfaEnabled} onChange={onFormChange}>
                                 2FA enabled
                             </NativeCheckbox>
                         </div>

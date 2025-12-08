@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { requestTasksDelete, requestTasksPatch } from "api/requests/tasks.js";
 import NativeSelect from "components/form/NativeSelect";
 import RestrictedComponent from "components/logic/RestrictedComponent";
@@ -7,7 +8,7 @@ import { actionCompletedToast } from "components/ui/toast";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntity } from "utilities/requests.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import CreateButton from "../ui/buttons/Create.jsx";
@@ -19,6 +20,7 @@ const TasksListPage = () => {
     const [t] = useTranslation();
 
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const [tableModel, setTableModel] = useState(new TaskTableModel(true, true));
 
@@ -40,7 +42,7 @@ const TasksListPage = () => {
         );
         const url = `/tasks?${queryParams.toString()}`;
 
-        secureApiFetch(url, { method: "GET" })
+        requestEntity(url)
             .then((resp) => {
                 return resp.json();
             })
@@ -53,7 +55,7 @@ const TasksListPage = () => {
         const newStatus = ev.target.value;
 
         requestTasksPatch({
-            taskIds: tableModel.selection,
+            ids: tableModel.selection,
             newStatus: newStatus,
         })
             .then(reloadTasks)
@@ -65,11 +67,12 @@ const TasksListPage = () => {
     };
 
     const onDeleteButtonClick = () => {
-        requestTasksDelete(tableModel.selection)
-            .then(reloadTasks)
+        requestTasksDelete({ ids: tableModel.selection })
             .then(() => {
+                reloadTasks();
                 setTableModel({ ...tableModel, selection: [] });
                 actionCompletedToast("All selected tasks were deleted.");
+                queryClient.invalidateQueries({ queryKey: ["tasks"] });
             })
             .catch((err) => console.error(err));
     };

@@ -1,6 +1,6 @@
 import ProjectsTable from 'components/projects/Table';
 import { useEffect, useState } from 'react';
-import secureApiFetch from '../../services/api';
+import { requestEntities } from 'utilities/requests.js';
 
 const ProjectsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }) => {
 
@@ -8,7 +8,7 @@ const ProjectsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }
 
     useEffect(() => {
         const reloadData = () => {
-            secureApiFetch(`/projects?isTemplate=0&keywords=${keywords}`, { method: 'GET' })
+            requestEntities(`/projects?isTemplate=0&keywords=${keywords}`)
                 .then(resp => resp.json())
                 .then(projects => {
                     setProjects(projects);

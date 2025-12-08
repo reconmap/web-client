@@ -1,5 +1,6 @@
 import { UserInterface } from "models/User.js";
 import secureApiFetch from "services/api.js";
+import { requestEntityPatch } from "utilities/requests.js";
 
 const API_PREFIX: string = "/users";
 
@@ -47,12 +48,7 @@ const deleteUser = (userId: number): Promise<Response> => {
     });
 };
 
-const requestUserPatch = (userId: number, data: any): Promise<Response> => {
-    return secureApiFetch(`${API_PREFIX}/${userId}`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-    });
-};
+const requestUserPatch = (userId: number, data: any): Promise<Response> => requestEntityPatch(`${API_PREFIX}/${userId}`, data);
 
 const deleteUsers = (userIds: number[]): Promise<Response> => {
     return secureApiFetch(API_PREFIX, {

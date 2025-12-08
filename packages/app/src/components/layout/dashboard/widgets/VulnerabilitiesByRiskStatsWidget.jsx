@@ -29,7 +29,7 @@ const VulnerabilitiesByRiskStatsWidget = ({ projectId = null }) => {
     if (null !== projectId) params["projectId"] = projectId;
     const { data: vulnerabilitiesByRiskStats, isLoading, error, isError } = useVulnerabilitiesStatsQuery(params);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <p>Loading&hellip;</p>;
     if (isError) return <p>Error loading vulnerabilities stats: {error.message}</p>;
 
     return (

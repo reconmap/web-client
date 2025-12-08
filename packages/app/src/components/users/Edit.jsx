@@ -17,7 +17,7 @@ const EditUserPage = () => {
 
         updateUser(clientUser).then(() => {
             navigate(`/users/${userId}`);
-            actionCompletedToast(`The user "${clientUser.full_name}" has been updated.`);
+            actionCompletedToast(`The user "${clientUser.fullName}" has been updated.`);
         });
     };
 

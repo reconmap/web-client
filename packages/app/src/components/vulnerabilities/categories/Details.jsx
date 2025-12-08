@@ -15,7 +15,7 @@ import Title from "components/ui/Title";
 import UserLink from "components/users/Link";
 import ReactMarkdown from "react-markdown";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 import CvssAbbr from "../CvssAbbr";
 import VulnerabilityStatusBadge from "../StatusBadge";
 
@@ -26,7 +26,7 @@ const TemplateDetails = () => {
     const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const cloneProject = async (templateId) => {
-        secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })
+        requestEntityPost(`/vulnerabilities/${templateId}/clone`)
             .then((resp) => resp.json())
             .then((data) => {
                 navigate(`/vulnerabilities/${data.vulnerabilityId}/edit`);
@@ -134,8 +134,8 @@ const TemplateDetails = () => {
                             <dl>
                                 <dt>Created by</dt>
                                 <dd>
-                                    <UserLink userId={vulnerability.creator_uid}>
-                                        {vulnerability.creator_full_name}
+                                    <UserLink userId={vulnerability.createdByUid}>
+                                        {vulnerability.createdBy?.fullName}
                                     </UserLink>
                                 </dd>
                             </dl>

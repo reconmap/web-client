@@ -8,10 +8,11 @@ import useToggle from "hooks/useToggle";
 import { Link } from "react-router-dom";
 
 const NotificationsBadge = () => {
-    const { data: notifications, refetch, isLoading } = useNotificationsQuery({ status: "unread" });
+    const { data: notifications, refetch, isLoading, isError } = useNotificationsQuery({ status: "unread" });
     const { value, toggle } = useToggle(false);
 
-    const onMessageHandler = () => {
+    const onMessageHandler = (wsMessage) => {
+        const message = JSON.parse(wsMessage.data);
         refetch();
     };
 
@@ -64,7 +65,9 @@ const NotificationsBadge = () => {
                                             right="8px"
                                             top="8px"
                                             onClick={() => markAsRead(notification)}
-                                        />
+                                        >
+                                            x
+                                        </NativeButton>
                                     </div>
                                 ))}
                             </div>

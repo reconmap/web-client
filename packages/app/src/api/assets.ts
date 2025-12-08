@@ -3,7 +3,7 @@ import { requestAsset, requestAssetDelete, requestAssets } from "./requests/asse
 
 const useAssetQuery = (assetId: number) => {
     return useQuery({
-        queryKey: ["asset", assetId],
+        queryKey: ["assets", assetId],
         queryFn: () => requestAsset(assetId),
     });
 };

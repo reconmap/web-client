@@ -5,14 +5,14 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useRef, useState } from "react";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 
 const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
     const fileRef = useRef();
 
     const emptyReportTemplate = {
-        version_name: "",
-        version_description: null,
+        versionName: "",
+        versionDescription: null,
         resultFile: null,
     };
     const [reportTemplate, setReportTemplate] = useState(emptyReportTemplate);
@@ -21,14 +21,14 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
         ev.preventDefault();
 
         const formData = new FormData();
-        formData.append("version_name", reportTemplate.version_name);
-        formData.append("version_description", reportTemplate.version_description);
+        formData.append("versionName", reportTemplate.versionName);
+        formData.append("versionDescription", reportTemplate.versionDescription);
         formData.append("resultFile", fileRef.current.files[0]);
 
-        secureApiFetch(`/reports/templates`, { method: "POST", body: formData })
+        requestEntityPost(`/reports/templates`, formData)
             .then(() => {
                 onSubmit();
-                actionCompletedToast(`The report template "${reportTemplate.version_name}" has been added.`);
+                actionCompletedToast(`The report template "${reportTemplate.versionName}" has been added.`);
             })
             .catch((err) => {
                 errorToast(err);
@@ -53,7 +53,7 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
                                 control={
                                     <NativeInput
                                         type="text"
-                                        name="version_name"
+                                        name="versionName"
                                         onChange={onFormChange}
                                         autoFocus
                                         required
@@ -64,7 +64,7 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
                         <div>
                             <LabelledField
                                 label="Version description"
-                                control={<NativeInput type="text" name="version_description" onChange={onFormChange} />}
+                                control={<NativeInput type="text" name="versionDescription" onChange={onFormChange} />}
                             />
                         </div>
                         <div>

@@ -3,7 +3,7 @@ import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import ModalDialog from "components/ui/ModalDIalog.jsx";
 import { actionCompletedToast } from "components/ui/toast";
 import { useState } from "react";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 import VulnerabilityCategoryForm from "./Form";
 
 const VulnerabilityCategoryAddModalDialog = ({ isOpen, onClose, onCancel }) => {
@@ -17,10 +17,7 @@ const VulnerabilityCategoryAddModalDialog = ({ isOpen, onClose, onCancel }) => {
 
         ev.preventDefault();
 
-        secureApiFetch(`/vulnerabilities/categories`, {
-            method: "POST",
-            body: JSON.stringify(newCategory),
-        })
+        requestEntityPost(`/vulnerabilities/categories`, newCategory)
             .then(() => {
                 onClose();
                 actionCompletedToast(`The vulnerability category has been created.`);

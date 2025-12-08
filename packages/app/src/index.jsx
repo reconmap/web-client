@@ -44,7 +44,6 @@ const scheduleTokenRefreshBeforeExpiration = () => {
                     })
                     .catch((err) => {
                         console.error("Failed to refresh token " + new Date());
-                        console.dir(err);
                     });
             },
             jwtExpiration * 1000 - Date.now() - 5000,

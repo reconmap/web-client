@@ -4,8 +4,7 @@ import Loading from "components/ui/Loading.jsx";
 import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import ExportButton from "components/ui/buttons/ExportButton";
-import LoadingTableRow from "components/ui/tables/LoadingTableRow";
-import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import OrganisationTypes from "models/OrganisationTypes.js";
 import { useTranslation } from "react-i18next";
 import Breadcrumb from "../ui/Breadcrumb";
@@ -17,7 +16,7 @@ import OrganisationsUrls from "./OrganisationsUrls";
 const ClientsList = () => {
     const [t] = useTranslation();
 
-    const { data: clients, isLoading, isError, error } = useOrganisationsQuery({});
+    const { data: organisations, isLoading, isError, error } = useOrganisationsQuery({});
     const deleteOrganisationMutation = useDeleteOrganisationMutation();
 
     if (isLoading) return <Loading />;
@@ -29,6 +28,43 @@ const ClientsList = () => {
             </div>
         );
 
+    const columns = [
+        {
+            header: t("Type"),
+            cell: (org) => OrganisationTypes[org.kind],
+        },
+        {
+            header: t("Name"),
+            cell: (org) => <ClientLink clientId={org.id}>{org.name}</ClientLink>,
+        },
+        {
+            header: t("Address"),
+            cell: (org) => {
+                org.address || "-";
+            },
+        },
+        {
+            header: t("URL"),
+            cell: (org) => (org.url ? <ExternalLink href={org.url}>{org.url}</ExternalLink> : "-"),
+        },
+        {
+            header: t("Number of contacts"),
+            cell: (org) => org.num_contacts,
+        },
+        {
+            header: <>&nbsp;</>,
+            cell: (org) => (
+                <>
+                    {" "}
+                    <LinkButton href={OrganisationsUrls.Edit.replace(":organisationId", org.id)}>
+                        {t("Edit")}
+                    </LinkButton>
+                    <DeleteIconButton onClick={() => deleteOrganisationMutation.mutate(org.id)} />
+                </>
+            ),
+        },
+    ];
+
     return (
         <>
             <div className="heading">
@@ -36,48 +72,15 @@ const ClientsList = () => {
 
                 <NativeButtonGroup>
                     <LinkButton href={OrganisationsUrls.Create}>{t("Add organisation")}</LinkButton>
-                    <ExportButton entity="organisations" disabled={clients === null || clients?.length === 0} />
+                    <ExportButton
+                        entity="organisations"
+                        disabled={organisations === null || organisations?.length === 0}
+                    />
                 </NativeButtonGroup>
             </div>
             <Title title={t("Organisations")} />
 
-            <table className="table is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>{t("Type")}</th>
-                        <th>{t("Name")}</th>
-                        <th>Address</th>
-                        <th>URL</th>
-                        <th>Number of contacts</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {null === clients && <LoadingTableRow numColumns={5} />}
-                    {null !== clients && 0 === clients.length && <NoResultsTableRow numColumns={5} />}
-                    {null !== clients &&
-                        0 < clients.length &&
-                        clients.map((client) => (
-                            <tr key={client.id}>
-                                <td>{OrganisationTypes[client.kind]}</td>
-                                <td>
-                                    <ClientLink clientId={client.id}>{client.name}</ClientLink>
-                                </td>
-                                <td>{client.address || "-"}</td>
-                                <td>
-                                    {client.url ? <ExternalLink href={client.url}>{client.url}</ExternalLink> : "-"}
-                                </td>
-                                <td>{client.num_contacts}</td>
-                                <td>
-                                    <LinkButton href={OrganisationsUrls.Edit.replace(":organisationId", client.id)}>
-                                        {t("Edit")}
-                                    </LinkButton>
-                                    <DeleteIconButton onClick={() => deleteOrganisationMutation.mutate(client.id)} />
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
+            <NativeTable columns={columns} rows={organisations} rowId={(org) => org.id}></NativeTable>
         </>
     );
 };

@@ -50,8 +50,7 @@ const useMutationPostDocument = () => {
 const useDeleteVulnerabilityMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (vulnerabilityIds: number[]) =>
-            requestVulnerabilityDelete(vulnerabilityIds).then((res) => res.json()),
+        mutationFn: (vulnerabilityId: number) => requestVulnerabilityDelete(vulnerabilityId).then((res) => res.json()),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["vulnerabilities"] });
         },

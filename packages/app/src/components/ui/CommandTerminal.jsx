@@ -1,7 +1,6 @@
 import { FitAddon } from "@xterm/addon-fit";
 import { Terminal } from "@xterm/xterm";
 import "@xterm/xterm/css/xterm.css";
-import Configuration from "Configuration";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useRef, useState } from "react";
 
@@ -11,7 +10,7 @@ const arrayBufferToString = (buf) => {
     return String.fromCharCode.apply(null, new Uint8Array(buf));
 };
 
-const CommandTerminal = ({ commands }) => {
+const CommandTerminal = ({ agentIp, agentPort, commands }) => {
     const terminalEl = useRef();
     const [terminalTitle, setTerminalTitle] = useState("Terminal");
     const { user } = useAuth();
@@ -29,7 +28,7 @@ const CommandTerminal = ({ commands }) => {
         let retryHandle = null;
 
         const connectTerminal = () => {
-            const agentServiceUrl = Configuration.getAgentServiceUrl();
+            const agentServiceUrl = `ws://${agentIp}${agentPort}`;
             const webSocket = new WebSocket(`${agentServiceUrl}/term?token=` + user.access_token);
             webSocket.binaryType = "arraybuffer";
 

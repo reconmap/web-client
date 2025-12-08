@@ -1,7 +1,7 @@
 import NativeInput from "components/form/NativeInput";
 import ExternalLink from "components/ui/ExternalLink";
 import { useRef, useState } from "react";
-import secureApiFetch from "../../services/api";
+import { requestEntityPost } from "utilities/requests.js";
 import PrimaryButton from "../ui/buttons/Primary";
 
 const ImportForm = () => {
@@ -15,10 +15,7 @@ const ImportForm = () => {
         const formData = new FormData();
         formData.append("importFile", importFileRef.current.files[0]);
 
-        secureApiFetch("/system/data", {
-            method: "POST",
-            body: formData,
-        })
+        requestEntityPost("/system/data", formData)
             .then((resp) => resp.json())
             .then((resp) => {
                 setImportResponse(resp);

@@ -1,7 +1,7 @@
 import { useVulnerabilityQuery } from "api/vulnerabilities.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
+import { requestEntityPut } from "utilities/requests.js";
 import Breadcrumb from "../ui/Breadcrumb";
 import Loading from "../ui/Loading";
 import Title from "../ui/Title";
@@ -19,10 +19,7 @@ const VulnerabilityEdit = () => {
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
-        await secureApiFetch(`/vulnerabilities/${vulnerabilityId}`, {
-            method: "PUT",
-            body: JSON.stringify(clientVulnerability),
-        })
+        await requestEntityPut(`/vulnerabilities/${vulnerabilityId}`, clientVulnerability)
             .then((resp) => {
                 if (resp.status === 204) {
                     actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);

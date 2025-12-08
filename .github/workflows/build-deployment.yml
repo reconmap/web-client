@@ -11,7 +11,7 @@ jobs:
         steps:
             - name: Fix folder permissions
               run: sudo chown -R $USER:$USER ${{ github.workspace }}
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - name: Login to container registry

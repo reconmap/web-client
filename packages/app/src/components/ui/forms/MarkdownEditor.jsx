@@ -3,7 +3,7 @@ import "./MarkdownEditor.css";
 
 import MDEditor from "@uiw/react-md-editor";
 import Configuration from "Configuration.js";
-import secureApiFetch from "services/api.js";
+import { requestEntityPost } from "utilities/requests.js";
 
 const fileUpload = async (file) => {
     const formData = new FormData();
@@ -13,10 +13,7 @@ const fileUpload = async (file) => {
 
     let uri = "/attachments";
 
-    const resp = await secureApiFetch(uri, {
-        method: "POST",
-        body: formData,
-    });
+    const resp = await requestEntityPost(uri, formData);
     const json = await resp.json();
     var attachmentId = json[0].id;
     return Configuration.getDefaultApiUrl() + `/image/${attachmentId}`;

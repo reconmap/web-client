@@ -12,7 +12,7 @@ const RecentVulnerabilitiesWidget = () => {
         error,
     } = useVulnerabilitiesQuery({
         limit: 5,
-        orderColumn: "insert_ts",
+        orderColumn: "createdAt",
         orderDirection: "desc",
     });
 
@@ -38,7 +38,7 @@ const RecentVulnerabilitiesWidget = () => {
                                     <VulnerabilityBadge key={vulnerability.id} vulnerability={vulnerability} />
                                 </td>
                                 <td>
-                                    <RelativeDateFormatter date={vulnerability.insert_ts} />
+                                    <RelativeDateFormatter date={vulnerability.createdAt} />
                                 </td>
                             </tr>
                         ))}

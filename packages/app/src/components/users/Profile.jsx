@@ -61,7 +61,7 @@ const UserProfile = () => {
             <div className="heading">
                 <Breadcrumb>
                     <Link to="/users">Users</Link>
-                    <Link>{user.full_name}</Link>
+                    <Link>{user.fullName}</Link>
                 </Breadcrumb>
                 <NativeButtonGroup>
                     <RestrictedComponent roles={["administrator", "superuser", "user"]}>
@@ -75,7 +75,7 @@ const UserProfile = () => {
             <div>
                 <Title
                     type="User profile"
-                    title={user.full_name}
+                    title={user.fullName}
                     icon={user.email ? <UserAvatar email={user.email} /> : null}
                 />
 
@@ -89,7 +89,7 @@ const UserProfile = () => {
                                     <h4>Properties</h4>
                                     <dl>
                                         <dt>Short bio</dt>
-                                        <dd>{user.short_bio ? user.short_bio : <EmptyField />}</dd>
+                                        <dd>{user.shortBio ? user.shortBio : <EmptyField />}</dd>
 
                                         <dt>Role</dt>
                                         <dd>
@@ -98,7 +98,7 @@ const UserProfile = () => {
                                         </dd>
 
                                         <dt>Timezone</dt>
-                                        <dd>{user.timezone}</dd>
+                                        <dd>{user.timeZone}</dd>
 
                                         <dt>Active?</dt>
                                         <dd>
@@ -107,7 +107,7 @@ const UserProfile = () => {
 
                                         <dt>2FA enabled?</dt>
                                         <dd>
-                                            <BooleanText value={user.mfa_enabled} />
+                                            <BooleanText value={user.mfaEnabled} />
                                         </dd>
                                     </dl>
                                 </div>

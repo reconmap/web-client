@@ -90,7 +90,7 @@ const ProjectDetailsTab = ({ project }) => {
 
                     <dt>Created by</dt>
                     <dd>
-                        <UserLink userId={project.creator_uid}>{project.creator_full_name}</UserLink>
+                        <UserLink userId={project.createdByUid}>{project.createdBy?.fullName}</UserLink>
                     </dd>
                 </dl>
 
@@ -104,7 +104,7 @@ const ProjectDetailsTab = ({ project }) => {
                     {users &&
                         users.map((user, index) => (
                             <Link to={`/users/${user.id}`}>
-                                <UserAvatar key={index} email={user.email} /> {user.full_name}
+                                <UserAvatar key={index} email={user.email} /> {user.fullName}
                             </Link>
                         ))}
                 </div>

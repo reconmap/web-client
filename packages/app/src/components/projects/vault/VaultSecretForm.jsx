@@ -1,3 +1,4 @@
+import { invalidateVaultQueries } from "api/vault.js";
 import HorizontalLabelledField from "components/form/HorizontalLabelledField.jsx";
 import NativeInput from "components/form/NativeInput.jsx";
 import NativeSelect from "components/form/NativeSelect.jsx";
@@ -5,11 +6,12 @@ import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import { actionCompletedToast } from "components/ui/toast.jsx";
 import Vault from "models/Vault.js";
 import { useState } from "react";
-import secureApiFetch from "services/api.js";
+import { requestEntityPost } from "utilities/requests.js";
 
 const VaultSecretForm = ({ projectId = null, onSubmit = null }) => {
-    const defaultSecret = { ...Vault, project_id: projectId };
+    const defaultSecret = { ...Vault, projectId: projectId };
     const [vaultItem, setVaultItem] = useState(defaultSecret);
+    const invalidateQueries = invalidateVaultQueries();
 
     const onVaultItemFormChange = (ev) => {
         const value = ev.target.type === "checkbox" ? ev.target.checked : ev.target.value;
@@ -19,13 +21,11 @@ const VaultSecretForm = ({ projectId = null, onSubmit = null }) => {
     const onFormSubmit = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/vault`, {
-            method: "POST",
-            body: JSON.stringify(vaultItem),
-        }).then((resp) => {
+        requestEntityPost("/secrets", vaultItem).then((resp) => {
             if (resp.status === 201) {
                 setVaultItem(defaultSecret);
                 if (onSubmit) onSubmit();
+                invalidateQueries();
                 actionCompletedToast(`The vault item has been added.`);
             } else {
                 errorToast("The vault item could not be saved. Review the form data or check the application logs.");
@@ -106,9 +106,9 @@ const VaultSecretForm = ({ projectId = null, onSubmit = null }) => {
                     control={
                         <NativeInput
                             type="date"
-                            name="expiration_date"
+                            name="expirationDate"
                             onChange={onVaultItemFormChange}
-                            value={vaultItem.expiration_date || ""}
+                            value={vaultItem.expirationDate || ""}
                         />
                     }
                 />

@@ -7,7 +7,7 @@ import NativeTextArea from "components/form/NativeTextArea";
 import Loading from "components/ui/Loading";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
+import { requestEntityPost } from "utilities/requests.js";
 import Breadcrumb from "../ui/Breadcrumb";
 import Title from "../ui/Title";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -37,10 +37,7 @@ const SendReport = () => {
         const formData = new FormData(ev.target);
         const formObject = Object.fromEntries(formData.entries());
 
-        secureApiFetch(`/reports/${formObject.report_id}/send`, {
-            method: "POST",
-            body: JSON.stringify(formObject),
-        })
+        requestEntityPost(`/reports/${formObject.report_id}/send`, formObject)
             .then(() => {
                 navigate(`/projects/${project.id}/report`);
             })
@@ -73,7 +70,7 @@ const SendReport = () => {
                         <NativeSelect id="reportId" name="report_id">
                             {revisions &&
                                 revisions.map((revision) => (
-                                    <option value={revision.id}>{revision.version_name}</option>
+                                    <option value={revision.id}>{revision.versionName}</option>
                                 ))}
                         </NativeSelect>
                     }

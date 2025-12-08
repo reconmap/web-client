@@ -17,7 +17,13 @@ const requestCustomFields = () => {
 };
 
 const requestCustomFieldPost = (data: any) => {
-    return secureApiFetch(`/system/custom-fields`, { method: "POST", body: JSON.stringify(data) });
+    return secureApiFetch(`/system/custom-fields`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 };
 
 const requestCustomFieldDeletion = (customFieldId: number) => {
@@ -25,11 +31,11 @@ const requestCustomFieldDeletion = (customFieldId: number) => {
 };
 
 const requestSystemIntegrations = () => {
-    return secureApiFetch(`/system/integrations`, { method: "GET" });
+    return secureApiFetch(`/system/integrations`, { method: "GET" }, "http://localhost:5510");
 };
 
 const requestRecentSearches = () => {
-    return secureApiFetch(`/recent-searches`, { method: "GET" });
+    return secureApiFetch(`/searches/recent`, { method: "GET" });
 };
 
 export {

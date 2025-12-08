@@ -1,12 +1,34 @@
 import { useSystemIntegrationsQuery } from "api/system.js";
 import ExternalLink from "components/ui/ExternalLink";
-import LoadingTableRow from "components/ui/tables/LoadingTableRow";
-import NoResultsTableRow from "components/ui/tables/NoResultsTableRow";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import Title from "components/ui/Title";
+import { useTranslation } from "react-i18next";
 import Breadcrumb from "../ui/Breadcrumb";
 
 const SystemIntegrationsPage = () => {
     const { data: integrations, isLoading } = useSystemIntegrationsQuery();
+    const [t] = useTranslation();
+
+    const columns = [
+        {
+            header: t("Name"),
+            cell: (integration) => integration.name,
+        },
+        {
+            header: t("Description"),
+            cell: (integration) => integration.description,
+        },
+        {
+            header: t("External URL"),
+            cell: (integration) => (
+                <ExternalLink href={integration.externalUrl}>{integration.externalUrl}</ExternalLink>
+            ),
+        },
+        {
+            header: t("Configured?"),
+            cell: (integration) => (integration.configured ? t("Yes") : t("No")),
+        },
+    ];
 
     return (
         <div>
@@ -17,41 +39,12 @@ const SystemIntegrationsPage = () => {
             </div>
             <Title title="Integrations" />
 
-            <table className="table is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>External URL</th>
-                        <th>Configured?</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {isLoading ? (
-                        <LoadingTableRow numColumns={5} />
-                    ) : (
-                        <>
-                            {null !== integrations && 0 === integrations.length && <NoResultsTableRow numColumns={5} />}
-                            {null !== integrations &&
-                                0 !== integrations.length &&
-                                integrations.map((integration, index) => (
-                                    <tr key={index}>
-                                        <td>{integration.name}</td>
-                                        <td>{integration.description}</td>
-                                        <td>
-                                            <ExternalLink href={integration.externalUrl}>
-                                                {integration.externalUrl}
-                                            </ExternalLink>
-                                        </td>
-                                        <td>{integration.configured ? "Yes" : "No"}</td>
-                                        <td>-</td>
-                                    </tr>
-                                ))}
-                        </>
-                    )}{" "}
-                </tbody>
-            </table>
+            <NativeTable
+                columns={columns}
+                rows={integrations}
+                rowId={(_, index) => index}
+                isLoading={isLoading}
+            ></NativeTable>
         </div>
     );
 };

@@ -1,20 +1,11 @@
 import secureApiFetch from "services/api.js";
 
-const API_BASE_URL = "/contacts";
+const API_BASE_URL = "/organisations";
 
-const requestContactDelete = (contactId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/${contactId}`, {
+const requestContactDelete = (organisationId: number, contactId: number) => {
+    return secureApiFetch(`${API_BASE_URL}/${organisationId}/contacts/${contactId}`, {
         method: "DELETE",
     });
 };
 
-const requestContactPost = async (contact: any) => {
-    return (
-        await secureApiFetch(`${API_BASE_URL}`, {
-            method: "POST",
-            body: JSON.stringify(contact),
-        })
-    ).json();
-};
-
-export { requestContactDelete, requestContactPost };
+export { requestContactDelete };

@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useMutationPostDocument } from "api/documents.js";
 import { actionCompletedToast } from "components/ui/toast";
 import { errorToast } from "components/ui/toast.jsx";
@@ -10,8 +11,9 @@ import DocumentForm from "./Form";
 
 const AddDocumentPage = () => {
     const navigate = useNavigate();
-    const [newDocument, setNewDocument] = useState({ ...Document, parent_type: "library" });
+    const [newDocument, setNewDocument] = useState({ ...Document, parentType: "library" });
     const { mutate: postDocumentMutation } = useMutationPostDocument();
+    const queryClient = useQueryClient();
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
@@ -20,6 +22,7 @@ const AddDocumentPage = () => {
             onSuccess: () => {
                 navigate(`/documents`);
                 actionCompletedToast(`The document "${newDocument.title}" has been added.`);
+                queryClient.invalidateQueries({ queryKey: ["documents"] });
             },
             onError: () => {
                 errorToast(`Failed to add the document "${newDocument.title}".`);

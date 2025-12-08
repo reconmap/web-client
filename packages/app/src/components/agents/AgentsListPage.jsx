@@ -1,41 +1,63 @@
 import { useAgentsQuery } from "api/agents.js";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
+import { Link } from "react-router-dom";
 
 const AgentsListPage = () => {
     const { data: agents, isLoading } = useAgentsQuery();
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div>Loading&hellip;</div>;
 
-    return (
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>Enabled</th>
-                    <th>Name</th>
-                    <th>Hostname</th>
-                    <th>OS</th>
-                    <th>Arch</th>
-                    <th>CPU</th>
-                    <th>Mem</th>
-                    <th>Last boot at</th>
-                    <th>Last ping at</th>
-                </tr>
-            </thead>
-            <tbody>
-                {agents.map((agent, index) => (
-                    <tr key={index}>
-                        <td>{agent.active ? <>True</> : <>False</>}</td>
-                        <td>{agent.client_id}</td>
-                        <td>{agent.hostname}</td>
-                        <td>{agent.os}</td>
-                        <td>{agent.arch}</td>
-                        <td>{agent.cpu}</td>
-                        <td>{agent.memory}</td>
-                        <td>{agent.last_boot_at}</td>
-                        <td>{agent.last_ping_at}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
+    const columns = [
+        {
+            header: "Enabled",
+            cell: (agent) => (agent.active ? <>True</> : <>False</>),
+        },
+        {
+            header: "Name",
+            cell: (agent) => (
+                <>
+                    <Link to={`/agents/${agent.id}`}>{agent.clientId}</Link>
+                </>
+            ),
+        },
+        {
+            header: "Hostname",
+            property: "hostname",
+        },
+        {
+            header: "OS",
+            property: "os",
+        },
+        {
+            header: "Arch",
+            property: "arch",
+        },
+        {
+            header: "CPU",
+            property: "cpu",
+        },
+        {
+            header: "Mem",
+            property: "memory",
+        },
+        {
+            header: "IP",
+            property: "ip",
+        },
+        {
+            header: "Listen address",
+            property: "listenAddr",
+        },
+        {
+            header: "Last boot at",
+            property: "lastBootAt",
+        },
+        {
+            header: "Last ping at",
+            property: "lastPingAt",
+        },
+    ];
+
+    return <NativeTable columns={columns} rows={agents} rowId={(agent) => agent.id}></NativeTable>;
 };
 
 export default AgentsListPage;

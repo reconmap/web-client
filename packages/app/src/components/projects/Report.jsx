@@ -40,15 +40,14 @@ export default ProjectReport;
 
 const ReportPreview = ({ projectId }) => {
     const user = KeyCloakService.getUserInfo();
+    let apiUrl = Configuration.getDefaultApiUrl();
+    apiUrl = "http://localhost:5510";
     return (
         <iframe
             title="Report preview"
             style={{ width: "50%", margin: "20px auto" }}
             id="report"
-            src={
-                Configuration.getDefaultApiUrl() +
-                `/reports/preview?projectId=${projectId}&accessToken=${user.access_token}`
-            }
+            src={apiUrl + `/reports/${projectId}/preview?accessToken=${user.access_token}`}
         ></iframe>
     );
 };

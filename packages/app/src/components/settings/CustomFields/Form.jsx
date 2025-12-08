@@ -60,7 +60,7 @@ const CustomFieldsPage = () => {
                 <HorizontalLabelledField
                     label="Parent type"
                     control={
-                        <NativeSelect name="parent_type">
+                        <NativeSelect name="parentType">
                             <option value="vulnerability">Vulnerability</option>
                         </NativeSelect>
                     }
@@ -87,7 +87,7 @@ const CustomFieldsPage = () => {
                                 <td>{field.name}</td>
                                 <td>{field.kind}</td>
                                 <td>{field.label}</td>
-                                <td>{field.parent_type}</td>
+                                <td>{field.parentType}</td>
                                 <td>
                                     <DeleteIconButton onClick={(ev) => onDeleteCustomFieldClick(ev, field)} />
                                 </td>

@@ -29,7 +29,7 @@ const DocumentsListPage = () => {
             <Title title="Documents" />
 
             {isLoading ? (
-                <div>Loading...</div>
+                <div>Loading&hellip;</div>
             ) : (
                 <DocumentsTable documents={documents} onDeleteButtonClick={onDeleteClick} />
             )}

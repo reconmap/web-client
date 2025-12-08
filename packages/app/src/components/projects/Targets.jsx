@@ -1,5 +1,4 @@
 import { useAssetsQuery, useDeleteAssetMutation } from "api/assets.js";
-import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
 import RestrictedComponent from "components/logic/RestrictedComponent";
 import TargetModalDialog from "components/target/ModalDialog";
@@ -48,15 +47,13 @@ const ProjectTargets = ({ project }) => {
             <h4 className="title is=4">Assets</h4>
             {!project.archived && (
                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                    <NativeButtonGroup>
-                        <TargetModalDialog
-                            project={project}
-                            isOpen={isAddTargetDialogOpen}
-                            onSubmit={onTargetFormSaved}
-                            onCancel={closeAddTargetDialog}
-                        />
-                        <CreateButton onClick={openAddTargetDialog}>Add asset...</CreateButton>
-                    </NativeButtonGroup>
+                    <TargetModalDialog
+                        project={project}
+                        isOpen={isAddTargetDialogOpen}
+                        onSubmit={onTargetFormSaved}
+                        onCancel={closeAddTargetDialog}
+                    />
+                    <CreateButton onClick={openAddTargetDialog}>Add asset&hellip;</CreateButton>
                 </RestrictedComponent>
             )}
             {isLoading ? (

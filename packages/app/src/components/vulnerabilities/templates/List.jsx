@@ -12,13 +12,13 @@ import LinkButton from "components/ui/buttons/Link";
 import PrimaryButton from "components/ui/buttons/Primary";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 import VulnerabilityCategorySpan from "../categories/Span";
 
 const VulnerabilityTemplatesList = () => {
     const navigate = useNavigate();
     const [sortBy, setSortBy] = useState({
-        column: "insert_ts",
+        column: "createdAt",
         order: "DESC",
     });
     const params = {
@@ -32,9 +32,7 @@ const VulnerabilityTemplatesList = () => {
     const cloneVulnerability = (ev, templateId) => {
         ev.stopPropagation();
 
-        secureApiFetch(`/vulnerabilities/${templateId}/clone`, {
-            method: "POST",
-        })
+        requestEntityPost(`/vulnerabilities/${templateId}/clone`)
             .then((resp) => resp.json())
             .then((data) => {
                 navigate(`/vulnerabilities/${data.vulnerabilityId}/edit`);

@@ -10,7 +10,7 @@ import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 import VulnerabilityDescriptionPanel from "../VulnerabilityDescriptionPanel";
 import VulnerabilityRemediationPanel from "../VulnerabilityRemediationPanel";
 
@@ -22,7 +22,7 @@ const VulnerabilityTemplateDetails = () => {
     const [tabIndex, tabIndexSetter] = useState(0);
 
     const cloneProject = async (templateId) => {
-        secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })
+        requestEntityPost(`/vulnerabilities/${templateId}/clone`)
             .then((resp) => resp.json())
             .then((data) => {
                 navigate(`/vulnerabilities/${data.vulnerabilityId}/edit`);

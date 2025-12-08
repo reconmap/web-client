@@ -5,7 +5,7 @@ import { actionCompletedToast, errorToast } from "components/ui/toast";
 import Vault from "models/Vault";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const VaultItemEdit = () => {
     const { vaultItemId } = useParams();
@@ -23,7 +23,7 @@ const VaultItemEdit = () => {
 
         item.password = password;
 
-        secureApiFetch(`/vault/${vaultItemId}`, { method: "PUT", body: JSON.stringify(item) }).then((resp) => {
+        requestEntityPut(`/secrets/${vaultItemId}`, item).then((resp) => {
             if (resp.status === 201) {
                 setVaultItem({ ...Vault });
                 setPassword(null);
@@ -37,10 +37,7 @@ const VaultItemEdit = () => {
     const onPasswordProvided = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/vault/${vaultItemId}`, {
-            method: "POST",
-            body: JSON.stringify({ password: password }),
-        })
+        requestEntityPost(`/secrets/${vaultItemId}/decrypt`, { password })
             .then((resp) => {
                 if (!resp.ok) {
                     throw new Error(`Error: ${resp.status} - ${resp.statusText}`);

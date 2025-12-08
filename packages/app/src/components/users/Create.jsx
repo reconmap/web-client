@@ -18,7 +18,7 @@ const CreateUserPage = () => {
         await createUserApi(userData).then((resp) => {
             if (resp.ok) {
                 navigate("/users/");
-                actionCompletedToast(`The user "${userData.full_name}" has been created.`);
+                actionCompletedToast(`The user "${userData.fullName}" has been created.`);
             } else {
                 errorToast("Unable to create user: " + resp.status);
             }

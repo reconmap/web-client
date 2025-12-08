@@ -107,28 +107,26 @@ const ReportTemplatesList = () => {
                         ) : (
                             templates.map((template) => (
                                 <tr key={template.id}>
-                                    <td>{template.version_name}</td>
+                                    <td>{template.versionName}</td>
                                     <td>
-                                        <EmptyField value={template.version_description} />
+                                        <EmptyField value={template.versionDescription} />
                                     </td>
-                                    <td>{template.client_file_name}</td>
+                                    <td>{template.clientFileName}</td>
                                     <td>
-                                        <span title={safeResolveMime(template.file_mimetype)}>
-                                            {template.file_mimetype}
+                                        <span title={safeResolveMime(template.fileMimeType)}>
+                                            {template.fileMimeType}
                                         </span>
                                     </td>
                                     <td>
-                                        <SecondaryButton onClick={() => handleDownload(template.attachment_id)}>
-                                            {template.client_file_name.split(".").pop().toUpperCase()}
+                                        <SecondaryButton onClick={() => handleDownload(template.attachmentId)}>
+                                            {template.clientFileName?.split(".").pop().toUpperCase()}
                                         </SecondaryButton>
                                     </td>
                                     <td>
                                         <DeleteIconButton
-                                            disabled={template.generated_by_uid === 0}
+                                            disabled={template.createdByUid === 0}
                                             title={
-                                                template.generated_by_uid === 0
-                                                    ? "System templates cannot be deleted"
-                                                    : ""
+                                                template.createdByUid === 0 ? "System templates cannot be deleted" : ""
                                             }
                                             onClick={(ev) => deleteTemplate(ev, template.id)}
                                         />

@@ -8,7 +8,7 @@ const ScheduledRuns = ({ command, task = null }) => {
     const { data: scheduledCommands } = useCommandSchedulesQuery(command?.id);
 
     const deleteScheduledCommand = (ev, commandSchedule) => {
-        requestCommandScheduleDelete(commandSchedule.id)
+        requestCommandScheduleDelete(command?.id, commandSchedule.id)
             .then(() => {
                 fetchScheduledCommands();
                 actionCompletedToast("The scheduled command has been deleted.");
@@ -40,9 +40,9 @@ const ScheduledRuns = ({ command, task = null }) => {
                     <tbody>
                         {scheduledCommands.map((scheduleCommand) => (
                             <tr>
-                                <td>{scheduleCommand.cron_expression}</td>
+                                <td>{scheduleCommand.cronExpression}</td>
                                 <td>
-                                    {CronExpressionToString(scheduleCommand.cron_expression, {
+                                    {CronExpressionToString(scheduleCommand.cronExpression, {
                                         throwExceptionOnParseError: false,
                                     })}
                                 </td>

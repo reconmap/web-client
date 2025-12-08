@@ -30,6 +30,7 @@ const CommandDetailsPage = () => {
     const [tabIndex, tabIndexSetter] = useState(0);
 
     const { data: command, isLoading } = useCommandQuery(commandId);
+    const { data: commandUsages, refetch: refetchCommandUsages } = useCommandUsagesQuery(commandId);
     const deleteCommandMutation = useCommandDeleteMutation();
 
     const handleDelete = async () => {
@@ -38,12 +39,10 @@ const CommandDetailsPage = () => {
     };
 
     const deleteUsage = (usage) => {
-        requestCommandUsageDelete(usage.id).finally(() => {
-            fetchCommandUsages();
+        requestCommandUsageDelete(usage.commandId, usage.id).finally(() => {
+            refetchCommandUsages();
         });
     };
-
-    const { data: commandUsages } = useCommandUsagesQuery(commandId);
 
     if (isLoading) return <Loading />;
 
@@ -116,8 +115,8 @@ const CommandDetailsPage = () => {
                                         <dl>
                                             <dt>Created by</dt>
                                             <dd>
-                                                <UserLink userId={command.creator_uid}>
-                                                    {command.creator_full_name}
+                                                <UserLink userId={command.createdByUid}>
+                                                    {command.createdBy?.fullName}
                                                 </UserLink>
                                             </dd>
                                         </dl>
@@ -141,11 +140,11 @@ const CommandDetailsPage = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {commandUsages.map((command) => (
-                                                    <tr key={command.id}>
-                                                        <td>{command.name}</td>
+                                                {commandUsages.map((usage) => (
+                                                    <tr key={usage.id}>
+                                                        <td>{usage.name}</td>
                                                         <td>
-                                                            <DeleteButton onClick={(ev) => deleteUsage(command)} />
+                                                            <DeleteButton onClick={(ev) => deleteUsage(usage)} />
                                                         </td>
                                                     </tr>
                                                 ))}

@@ -29,10 +29,10 @@ const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
                                 <DocumentBadge document={document} />
                             </td>
                             <td>
-                                <RelativeDateFormatter date={document.insert_ts} />
+                                <RelativeDateFormatter date={document.createdAt} />
                             </td>
                             <td>
-                                <UserLink userId={document.user_id}>{document.user_name}</UserLink>
+                                <UserLink userId={document.createdByUid}>{document.createdBy.fullName}</UserLink>
                             </td>
                             <td>
                                 <VisibilityLegend visibility={document.visibility} />

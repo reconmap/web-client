@@ -10,7 +10,6 @@
         "logoUrl",
         "reconmapApiUrl",
         "notificationsServiceUrl",
-        "agentServiceUrl",
         "keycloak"
     ],
     "properties": {
@@ -29,10 +28,6 @@
             "format": "uri"
         },
         "notificationsServiceUrl": {
-            "type": "string",
-            "format": "uri"
-        },
-        "agentServiceUrl": {
             "type": "string",
             "format": "uri"
         },

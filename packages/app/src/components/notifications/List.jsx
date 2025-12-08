@@ -1,8 +1,9 @@
 import { useDeleteNotificationMutation, useNotificationsQuery } from "api/notifications.js";
-import { requestNotificationPut, requestNotificationsPatch } from "api/requests/notifications.js";
+import { requestNotificationPut, requestNotificationsPatch, requestPartialNotificationUpdate } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import Breadcrumb from "components/ui/Breadcrumb.jsx";
+import Loading from "components/ui/Loading.jsx";
 import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import Title from "components/ui/Title";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
@@ -13,12 +14,13 @@ import { actionCompletedToast } from "components/ui/toast.jsx";
 const isUnread = (notification) => notification.status === "unread";
 
 const NotificationsList = () => {
-    const { data: notifications, refetch } = useNotificationsQuery();
+    const { data: notifications, refetch, isLoading } = useNotificationsQuery({});
     const deleteNotificatioMutation = useDeleteNotificationMutation();
 
     const markAllNotificationsAsRead = () => {
         requestNotificationsPatch({
-            notificationIds: notifications.filter(isUnread).map((n) => n.id),
+            ids: notifications.filter(isUnread).map((n) => n.id),
+            status: 'read'
         }).then(() => {
             refetch();
             actionCompletedToast("All notifications marked as read");
@@ -26,10 +28,12 @@ const NotificationsList = () => {
     };
 
     const markNotificationAsRead = (notification) => {
-        requestNotificationPut(notification.id, { status: "read" }).then(() => {
+        requestPartialNotificationUpdate(notification.id, { status: "read" }).then(() => {
             refetch();
         });
     };
+
+    if (isLoading) return <Loading />;
 
     return (
         <>
@@ -64,7 +68,7 @@ const NotificationsList = () => {
                             <tr key={notification.id}>
                                 <th>{notification.status === "read" ? <>(read)</> : <>&nbsp;</>}</th>
                                 <td>
-                                    <RelativeDateFormatter date={notification.insert_ts} />
+                                    <RelativeDateFormatter date={notification.createdAt} />
                                 </td>
                                 <td>
                                     <strong>{notification.title}</strong>

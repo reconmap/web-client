@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntityPut } from "utilities/requests.js";
+import { requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/commands";
 
@@ -21,6 +21,9 @@ const requestCommands = async (params: any) => {
     return commands;
 };
 
+export const requestCommandUsagePost = (commandId: number, usage: object) =>
+    requestEntityPost(`${API_BASE_URL}/${commandId}/usages`, usage);
+
 const requestCommandUsages = (commandId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${commandId}/usages`, { method: "GET" });
 };
@@ -29,8 +32,11 @@ const requestCommandSchedules = (commandId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${commandId}/schedules`, { method: "GET" });
 };
 
+export const requestCommandSchedulePost = (commandId: number, schedule: object) =>
+    requestEntityPost(`${API_BASE_URL}/${commandId}/schedules`, schedule);
+
 const requestCommandsOutputParsers = () => {
-    return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" });
+    return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" }, "http://localhost:5510");
 };
 
 const requestCommandDelete = (commandId: number) => {
@@ -40,16 +46,14 @@ const requestCommandDelete = (commandId: number) => {
 export const requestCommandPut = (commandId: number, data: any) =>
     requestEntityPut(`${API_BASE_URL}/${commandId}`, data);
 
-const requestCommandPost = (command: object) => {
-    return secureApiFetch(`${API_BASE_URL}`, { method: "POST", body: JSON.stringify(command) });
-};
+const requestCommandPost = (command: object) => requestEntityPost(API_BASE_URL, command);
 
 const requestCommandScheduleDelete = (commandId: number, scheduleId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/schedules/${scheduleId}`, { method: "DELETE" });
+    return secureApiFetch(`${API_BASE_URL}/${commandId}/schedules/${scheduleId}`, { method: "DELETE" });
 };
 
 const requestCommandUsageDelete = (commandId: number, usageId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/usage/${usageId}`, { method: "DELETE" });
+    return secureApiFetch(`${API_BASE_URL}/${commandId}/usages/${usageId}`, { method: "DELETE" });
 };
 
 export {

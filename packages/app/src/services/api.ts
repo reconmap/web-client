@@ -5,22 +5,11 @@ function resetSessionStorageAndRedirect() {
     window.location.assign(Configuration.getContextPath());
 }
 
-function buildApiRequest(url: string, init: Record<string, any> = {}): Request {
-    const user = KeyCloakService.getUserInfo();
-
-    const headers = user && user.access_token !== null ? { Authorization: "Bearer " + user.access_token } : {};
-    const initWithAuth = init;
-    if (Object.prototype.hasOwnProperty.call(initWithAuth, "headers")) {
-        Object.assign(initWithAuth.headers, headers);
-    } else {
-        initWithAuth.headers = headers;
-    }
-    init.credentials = "include";
-
-    return new Request(Configuration.getDefaultApiUrl() + url, init);
-}
-
-function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Response> {
+function secureApiFetch(
+    url: string,
+    init: Record<string, any> = {},
+    apiUrl: string | undefined = undefined,
+): Promise<Response> {
     if ("undefined" === typeof init) {
         init = {};
     }
@@ -35,7 +24,7 @@ function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Re
     }
     init.credentials = "include";
 
-    return fetch(Configuration.getDefaultApiUrl() + url, init)
+    return fetch((apiUrl ?? Configuration.getDefaultApiUrl()) + url, init)
         .then((resp) => {
             if (resp.status === 401) {
                 resetSessionStorageAndRedirect();
@@ -55,11 +44,11 @@ function secureApiFetch(url: string, init: Record<string, any> = {}): Promise<Re
 const downloadFromApi = (url: string) => {
     secureApiFetch(url, { method: "GET" })
         .then((resp) => {
-            const contentDispositionHeader = resp.headers.get("Content-Disposition");
+            const contentDispositionHeader = resp.headers.get("content-disposition");
             if (!contentDispositionHeader) {
                 throw new Error("Content-Disposition header not found in response.");
             }
-            const filenameRe = new RegExp(/filename="(.*)";/);
+            const filenameRe = /filename="?([^";]+)"?/i;
             const match = filenameRe.exec(contentDispositionHeader);
             if (!match || !match[1]) {
                 throw new Error("Filename not found in Content-Disposition header.");
@@ -75,9 +64,10 @@ const downloadFromApi = (url: string) => {
             a.href = url;
             a.download = filename;
             a.click();
+            URL.revokeObjectURL(url);
         });
 };
 
-export { buildApiRequest, downloadFromApi };
+export { downloadFromApi };
 
 export default secureApiFetch;

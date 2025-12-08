@@ -1,5 +1,5 @@
 import { useProjectQuery, useProjectUsersQuery } from "api/projects.js";
-import { requestProjectUserDelete } from "api/requests/projects.js";
+import { requestProjectMemberPost, requestProjectUserDelete } from "api/requests/projects.js";
 import { useUsersQuery } from "api/users.js";
 import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
@@ -9,7 +9,6 @@ import LoadingTableRow from "components/ui/tables/LoadingTableRow";
 import Title from "components/ui/Title";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import secureApiFetch from "../../services/api";
 import UserAvatar from "../badges/UserAvatar";
 import Breadcrumb from "../ui/Breadcrumb";
 import PrimaryButton from "../ui/buttons/Primary";
@@ -27,24 +26,21 @@ const ProjectMembership = () => {
         ev.preventDefault();
 
         const userId = document.getElementById("userId").value;
-        const userData = { userId: userId };
-        secureApiFetch(`/projects/${projectId}/users`, {
-            method: "POST",
-            body: JSON.stringify(userData),
-        }).then(() => {
+        requestProjectMemberPost(projectId, parseInt(userId)).then(() => {
             refetch();
         });
     };
 
     const handleDelete = (member) => {
-        requestProjectUserDelete(projectId, member.membership_id).then(() => {
+        requestProjectUserDelete(projectId, member.id).then(() => {
             refetch();
         });
     };
 
     useEffect(() => {
         if (members && users && users.length > 0) {
-            const memberIds = members.reduce((list, user) => [...list, user.id], []);
+            const memberIds = members.reduce((list, user) => [...list, user.userId], []);
+
             setAvailableUsers(users.filter((user) => !memberIds.includes(user.id)));
         }
     }, [members, users]);
@@ -71,7 +67,7 @@ const ProjectMembership = () => {
                             {availableUsers &&
                                 availableUsers.map((user, index) => (
                                     <option key={index} value={user.id}>
-                                        {user.full_name}
+                                        {user.fullName}
                                     </option>
                                 ))}
                         </NativeSelect>
@@ -101,7 +97,7 @@ const ProjectMembership = () => {
                                     <UserAvatar email={member.email} />
                                 </td>
                                 <td>
-                                    <UserLink userId={member.id}>{member.full_name}</UserLink>
+                                    <UserLink userId={member.userId}>{member.fullName}</UserLink>
                                 </td>
                                 <td>
                                     <UserRoleBadge role={member.role} />

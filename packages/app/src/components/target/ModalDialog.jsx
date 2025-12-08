@@ -1,3 +1,4 @@
+import { requestAssetPost } from "api/requests/assets.js";
 import NativeButton from "components/form/NativeButton";
 import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import ModalDialog from "components/ui/ModalDIalog.jsx";
@@ -5,12 +6,11 @@ import { actionCompletedToast, errorToast } from "components/ui/toast";
 import TargetIcon from "images/icons/target.svg?react";
 import TargetKinds from "models/TargetKinds";
 import { useState } from "react";
-import secureApiFetch from "services/api";
 import TargetForm from "./Form";
 
 const TargetModalDialog = ({ project, isOpen, onSubmit, onCancel }) => {
     const emptyTarget = {
-        project_id: project.id,
+        projectId: project.id,
         name: null,
         kind: TargetKinds[0].value,
     };
@@ -19,10 +19,7 @@ const TargetModalDialog = ({ project, isOpen, onSubmit, onCancel }) => {
     const onAddTargetFormSubmit = (ev) => {
         ev.preventDefault();
 
-        secureApiFetch(`/targets`, {
-            method: "POST",
-            body: JSON.stringify(target),
-        })
+        requestAssetPost(target)
             .then(() => {
                 onSubmit();
                 actionCompletedToast(`The target "${target.name}" has been added.`);

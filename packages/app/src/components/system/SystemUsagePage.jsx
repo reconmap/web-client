@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useSystemUsageQuery } from "api/system.js";
+import NativeButton from "components/form/NativeButton.jsx";
 import FileSizeSpan from "components/ui/FileSizeSpan";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
@@ -14,6 +15,10 @@ const SystemUsagePage = () => {
         .getQueryCache()
         .getAll()
         .filter((q) => q.isActive());
+
+    const invalidateAllQueries = () => {
+        queryClient.invalidateQueries();
+    };
 
     if (isLoading) return <Loading />;
 
@@ -60,7 +65,10 @@ const SystemUsagePage = () => {
 
                         <tr>
                             <td>Client queries cached</td>
-                            <td>{activeQueries.length}</td>
+                            <td>
+                                {activeQueries.length}{" "}
+                                <NativeButton onClick={invalidateAllQueries}>Invalidate all queries</NativeButton>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

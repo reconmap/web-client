@@ -67,7 +67,7 @@ const DocumentDetailsPage = () => {
                         <dl>
                             <dt>Created by</dt>
                             <dd>
-                                <UserLink userId={serverDoc.user_id}>{serverDoc.user_name}</UserLink>
+                                <UserLink userId={serverDoc.createdByUid}>{serverDoc.createdBy.fullName}</UserLink>
                             </dd>
                         </dl>
 

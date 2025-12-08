@@ -10,7 +10,7 @@ const useUserQuery = (userId: number) => {
 
 const useUserActivity = (userId: number) => {
     return useQuery({
-        queryKey: ["user", "activity", userId],
+        queryKey: ["user", userId, "activity"],
         queryFn: () => requestUserActivity(userId).then((res) => res.json()),
     });
 };

@@ -6,7 +6,7 @@ const requestAttachment = async (attachmentId: number) => {
     const resp = await secureApiFetch(`${API_BASE_URL}/${attachmentId}`, { method: "GET" });
     const contentDispositionHeader = resp.headers.get("Content-Disposition") || "";
     const contentType = resp.headers.get("Content-Type");
-    const filenameRe = new RegExp(/filename="(.*)";/);
+    const filenameRe = /filename="?([^";]+)"?/i;
     const filename = filenameRe.exec(contentDispositionHeader)?.[1] || null;
 
     return {
