@@ -4,7 +4,7 @@ import parseArguments, { CommandArgumentsMap } from "./commands/arguments.js";
 
 const HostCommandLineGenerator = {
     generateEntryPoint: (projectId: number, command: CommandInterface, usage: CommandUsageInterface) => {
-        return usage.executable_path;
+        return usage.executablePath;
     },
 
     renderArguments: (projectId: number, command: CommandUsageInterface, commandArgs: any = null) => {
