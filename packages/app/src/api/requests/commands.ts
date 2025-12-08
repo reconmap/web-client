@@ -1,3 +1,4 @@
+import Configuration from "Configuration.js";
 import secureApiFetch from "services/api.js";
 import { requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
@@ -36,7 +37,7 @@ export const requestCommandSchedulePost = (commandId: number, schedule: object) 
     requestEntityPost(`${API_BASE_URL}/${commandId}/schedules`, schedule);
 
 const requestCommandsOutputParsers = () => {
-    return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" }, "http://localhost:5510");
+    return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" }, Configuration.getIntegrationsApiUrl());
 };
 
 const requestCommandDelete = (commandId: number) => {
@@ -65,5 +66,6 @@ export {
     requestCommandSchedules,
     requestCommandsOutputParsers,
     requestCommandUsageDelete,
-    requestCommandUsages,
+    requestCommandUsages
 };
+

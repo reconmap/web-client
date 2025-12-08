@@ -1,3 +1,4 @@
+import Configuration from "Configuration.js";
 import secureApiFetch from "services/api.js";
 
 const requestExportables = () => {
@@ -31,7 +32,7 @@ const requestCustomFieldDeletion = (customFieldId: number) => {
 };
 
 const requestSystemIntegrations = () => {
-    return secureApiFetch(`/system/integrations`, { method: "GET" }, "http://localhost:5510");
+    return secureApiFetch(`/system/integrations`, { method: "GET" }, Configuration.getIntegrationsApiUrl());
 };
 
 const requestRecentSearches = () => {
@@ -46,5 +47,6 @@ export {
     requestRecentSearches,
     requestSystemHealth,
     requestSystemIntegrations,
-    requestSystemUsage,
+    requestSystemUsage
 };
+

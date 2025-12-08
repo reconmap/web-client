@@ -5,6 +5,8 @@ const Configuration = {
 
     getNotificationsServiceUrl: (): string => window.env.notificationsServiceUrl,
 
+    getIntegrationsApiUrl: (): string => window.env.integrationsApiUrl,
+
     getContextPath: (): string => window.env.contextPath || "/",
 
     getLogoUrl: (): string => window.env.logoUrl || "/logo-name.png",
