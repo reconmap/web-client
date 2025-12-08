@@ -1,7 +1,7 @@
 import PrimaryButton from "components/ui/buttons/Primary";
 import { useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 
 const baseStyle = {
     flex: 1,
@@ -65,10 +65,7 @@ const AttachmentsImageDropzone = ({
             uri = `/attachments/${attachmentId}`;
         }
 
-        secureApiFetch(uri, {
-            method: "POST",
-            body: formData,
-        })
+        requestEntityPost(uri, formData)
             .then((response) => response.json())
             .then((json) => {
                 setAcceptedFiles([]);

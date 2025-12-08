@@ -4,7 +4,7 @@ import VulnerabilityFilters from "components/vulnerabilities/Filters";
 import VulnerabilityTableModel from "components/vulnerabilities/VulnerabilityTableModel";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntity } from "utilities/requests.js";
 import VulnerabilitiesTable from "../vulnerabilities/VulnerabilitiesTable";
 
 const ProjectVulnerabilities = ({ project }) => {
@@ -25,7 +25,7 @@ const ProjectVulnerabilities = ({ project }) => {
                 queryParams.append(key, tableModel.filters[key]),
         );
         const url = `/vulnerabilities?${queryParams.toString()}`;
-        secureApiFetch(url, { method: "GET" })
+        requestEntity(url)
             .then((resp) => resp.json())
             .then((data) => {
                 setTableModel((tableModel) => ({ ...tableModel, vulnerabilities: data }));

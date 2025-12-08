@@ -2,7 +2,7 @@ import RestrictedComponent from "components/logic/RestrictedComponent";
 import TaskTableModel from "components/tasks/TaskTableModel";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntity } from "utilities/requests.js";
 import TasksTable from "../tasks/TasksTable";
 import CreateButton from "../ui/buttons/Create";
 
@@ -28,7 +28,7 @@ const ProjectTasks = ({ project }) => {
         );
         const url = `/tasks?${queryParams.toString()}`;
 
-        secureApiFetch(url, { method: "GET" })
+        requestEntity(url)
             .then((resp) => {
                 return resp.json();
             })

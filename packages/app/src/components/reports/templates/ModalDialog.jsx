@@ -5,7 +5,7 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast, errorToast } from "components/ui/toast";
 import { useRef, useState } from "react";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 
 const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
     const fileRef = useRef();
@@ -25,7 +25,7 @@ const ReportModalDialog = ({ isOpen, onSubmit, onCancel }) => {
         formData.append("versionDescription", reportTemplate.versionDescription);
         formData.append("resultFile", fileRef.current.files[0]);
 
-        secureApiFetch(`/reports/templates`, { method: "POST", body: formData })
+        requestEntityPost(`/reports/templates`, formData)
             .then(() => {
                 onSubmit();
                 actionCompletedToast(`The report template "${reportTemplate.versionName}" has been added.`);

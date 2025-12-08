@@ -9,7 +9,7 @@ import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 import ProjectDetailsTab from "../DetailsTab";
 import ProjectTasks from "../Tasks";
 
@@ -22,7 +22,7 @@ const TemplateDetails = () => {
     const [tabIndex, tabIndexSetter] = useState(0);
 
     const cloneProject = (templateId) => {
-        secureApiFetch(`/projects/${templateId}/clone`, { method: "POST" })
+        requestEntityPost(`/projects/${templateId}/clone`)
             .then((resp) => resp.json())
             .then((data) => {
                 navigate(`/projects/${data.projectId}/edit`);

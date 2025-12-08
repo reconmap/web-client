@@ -39,7 +39,8 @@ const ProjectMembership = () => {
 
     useEffect(() => {
         if (members && users && users.length > 0) {
-            const memberIds = members.reduce((list, user) => [...list, user.id], []);
+            const memberIds = members.reduce((list, user) => [...list, user.userId], []);
+
             setAvailableUsers(users.filter((user) => !memberIds.includes(user.id)));
         }
     }, [members, users]);

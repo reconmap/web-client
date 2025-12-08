@@ -3,7 +3,7 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast } from "components/ui/toast";
 import { useState } from "react";
-import secureApiFetch from "services/api";
+import { requestEntityPut } from "utilities/requests.js";
 import VulnerabilityCategoryForm from "./Form";
 
 const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCancel }) => {
@@ -18,15 +18,12 @@ const VulnerabilityCategoryEditModalDialog = ({ category, isOpen, onClose, onCan
         */
         ev.preventDefault();
 
-        secureApiFetch(`/vulnerabilities/categories/${category.id}`, {
-            method: "PUT",
-            body: JSON.stringify(newCategory),
-        })
+        requestEntityPut(`/vulnerabilities/categories/${category.id}`, newCategory)
             .then(() => {
                 onClose();
                 actionCompletedToast(`The vulnerability category has been updated.`);
             })
-            .finally(() => {});
+            .finally(() => { });
     };
 
     return (

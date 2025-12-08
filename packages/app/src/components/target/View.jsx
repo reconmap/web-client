@@ -4,7 +4,7 @@ import TimestampsSection from "components/ui/TimestampsSection";
 import VulnerabilityTableModel from "components/vulnerabilities/VulnerabilityTableModel";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntity } from "utilities/requests.js";
 import Badge from "../badges/Badge";
 import Breadcrumb from "../ui/Breadcrumb";
 import DeleteButton from "../ui/buttons/Delete";
@@ -35,7 +35,7 @@ const TargetView = () => {
                 queryParams.append(key, tableModel.filters[key]),
         );
         const url = `/vulnerabilities?${queryParams.toString()}`;
-        secureApiFetch(url, { method: "GET" })
+        requestEntity(url)
             .then((resp) => resp.json())
             .then((data) => {
                 setTableModel((tableModel) => ({ ...tableModel, vulnerabilities: data }));
@@ -44,7 +44,7 @@ const TargetView = () => {
 
     useEffect(() => {
         if (target) {
-            secureApiFetch(`/projects/${target.project_id}`, { method: "GET", headers: {} })
+            requestEntity(`/projects/${target.project_id}`)
                 .then((resp) => resp.json())
                 .then((json) => {
                     setSavedProject(json);

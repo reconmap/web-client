@@ -21,8 +21,8 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { requestEntityPost } from "utilities/requests.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
-import secureApiFetch from "../../services/api.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import Loading from "../ui/Loading.jsx";
 import DeleteButton from "../ui/buttons/Delete.jsx";
@@ -62,7 +62,7 @@ const TaskDetailsPage = () => {
     };
 
     const cloneTask = () => {
-        secureApiFetch(`/tasks/${task.id}/clone`, { method: "POST" })
+        requestEntityPost(`/tasks/${task.id}/clone`)
             .then((resp) => resp.json())
             .then((data) => {
                 navigate(`/tasks/${data.taskId}/edit`);

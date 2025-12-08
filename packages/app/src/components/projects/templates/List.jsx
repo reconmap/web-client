@@ -10,7 +10,7 @@ import Loading from "components/ui/Loading";
 import NoResults from "components/ui/NoResults";
 import Title from "components/ui/Title";
 import { Link, useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 
 const TemplatesList = () => {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ const TemplatesList = () => {
     const cloneProject = (ev, templateId) => {
         ev.stopPropagation();
 
-        secureApiFetch(`/projects/${templateId}/clone`, { method: "POST" })
+        requestEntityPost(`/projects/${templateId}/clone`)
             .then((resp) => resp.json())
             .then((data) => {
                 navigate(`/projects/${data.projectId}/edit`);

@@ -8,7 +8,7 @@ import { actionCompletedToast } from "components/ui/toast";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntity } from "utilities/requests.js";
 import TaskStatuses from "../../models/TaskStatuses.js";
 import Breadcrumb from "../ui/Breadcrumb.jsx";
 import CreateButton from "../ui/buttons/Create.jsx";
@@ -42,7 +42,7 @@ const TasksListPage = () => {
         );
         const url = `/tasks?${queryParams.toString()}`;
 
-        secureApiFetch(url, { method: "GET" })
+        requestEntity(url)
             .then((resp) => {
                 return resp.json();
             })
@@ -67,7 +67,7 @@ const TasksListPage = () => {
     };
 
     const onDeleteButtonClick = () => {
-        requestTasksDelete({ids:tableModel.selection})
+        requestTasksDelete({ ids: tableModel.selection })
             .then(() => {
                 reloadTasks();
                 setTableModel({ ...tableModel, selection: [] });

@@ -8,7 +8,7 @@ import PrimaryButton from "components/ui/buttons/Primary";
 import Loading from "components/ui/Loading";
 import Title from "components/ui/Title";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import secureApiFetch from "services/api";
+import { requestEntityPost } from "utilities/requests.js";
 
 const ReportTemplateDetails = () => {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const ReportTemplateDetails = () => {
     const deleteVulnerabilityMutation = useDeleteVulnerabilityMutation();
 
     const cloneProject = async (templateId) => {
-        secureApiFetch(`/vulnerabilities/${templateId}/clone`, { method: "POST" })
+        requestEntityPost(`/vulnerabilities/${templateId}/clone`)
             .then((resp) => resp.json())
             .then((data) => {
                 navigate(`/vulnerabilities/${data.vulnerabilityId}/edit`);

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const AgentsListPage = () => {
     const { data: agents, isLoading } = useAgentsQuery();
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div>Loading&hellip;</div>;
 
     const columns = [
         {
