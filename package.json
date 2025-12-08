@@ -3,7 +3,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "0.0.45",
+  "version": "0.0.46",
   "dependencies": {
     "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.1",
