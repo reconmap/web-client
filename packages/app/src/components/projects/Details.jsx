@@ -32,6 +32,20 @@ const ProjectDetails = () => {
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
+    const onDeleteClick = (id) => {
+        deleteProjectMutation.mutate(id, {
+            onSuccess: () => {
+                projectQueriesInvalidation();
+                navigate("/projects");
+                actionCompletedToast("The project has been deleted.");
+            },
+            onError: (err) => {
+                errorToast("An error occurred while deleting the project.");
+                console.error(err);
+            },
+        });
+    }
+
     const handleGenerateReport = () => {
         navigate(`/projects/${project.id}/report`);
     };
@@ -76,7 +90,7 @@ const ProjectDetails = () => {
                                 <NativeButton onClick={() => onArchiveButtonClick(project)}>
                                     {project.archived ? "Unarchive" : "Archive"}
                                 </NativeButton>
-                                <DeleteButton onClick={() => deleteProjectMutation.mutate(project.id)}>
+                                <DeleteButton onClick={() => onDeleteClick(project.id)}>
                                     Delete
                                 </DeleteButton>
                             </RestrictedComponent>

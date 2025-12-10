@@ -34,9 +34,16 @@ const VulnerabilityDetails = () => {
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
-    const handleDelete = async () => {
-        const confirmed = await deleteVulnerabilityMutation.mutateAsync(vulnerabilityId);
-        if (confirmed) navigate("/vulnerabilities");
+    const onDeleteClick = async () => {
+        deleteVulnerabilityMutation.mutate(vulnerabilityId, {
+            onSuccess: () => {
+                actionCompletedToast("The vulnerability has been deleted.");
+                navigate("/vulnerabilities");
+            },
+            onError: (err) => {
+                console.error(err);
+            },
+        });
     };
 
     const onStatusChange = (ev) => {
@@ -79,7 +86,7 @@ const VulnerabilityDetails = () => {
                             </NativeSelect>
                         </label>
 
-                        <DeleteButton onClick={handleDelete} />
+                        <DeleteButton onClick={onDeleteClick} />
                     </RestrictedComponent>
                 </div>
             </div>

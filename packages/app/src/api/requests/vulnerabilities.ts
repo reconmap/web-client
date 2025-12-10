@@ -47,11 +47,7 @@ export const requestVulnerabilityCategoryPut = (categoryId: number, data: any) =
 const requestVulnerabilityCategoryDelete = (categoryId: number) =>
     requestEntityDelete(`/vulnerabilities/categories/${categoryId}`);
 
-const requestVulnerabilityDelete = (vulnerabilityId: number) => {
-    return secureApiFetch(`/vulnerabilities/${vulnerabilityId}`, {
-        method: "DELETE",
-    });
-};
+const requestVulnerabilityDelete = (vulnerabilityId: number) => requestEntityDelete(`/vulnerabilities/${vulnerabilityId}`);
 
 export {
     requestVulnerabilities,
@@ -61,5 +57,6 @@ export {
     requestVulnerabilityCategoryDelete,
     requestVulnerabilityDelete,
     requestVulnerabilityPatch,
-    requestVulnerabilityPost,
+    requestVulnerabilityPost
 };
+

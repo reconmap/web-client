@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useVulnerabilityQuery } from "api/vulnerabilities.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -12,6 +13,7 @@ const VulnerabilityEdit = () => {
     const { vulnerabilityId } = useParams();
 
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const { data: serverVulnerability } = useVulnerabilityQuery(vulnerabilityId);
     const [clientVulnerability, setClientVulnerability] = useState(null);
@@ -21,16 +23,13 @@ const VulnerabilityEdit = () => {
 
         await requestEntityPut(`/vulnerabilities/${vulnerabilityId}`, clientVulnerability)
             .then((resp) => {
-                if (resp.status === 204) {
-                    actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
+                queryClient.invalidateQueries({ queryKey: ["vulnerabilities"] });
+                actionCompletedToast(`The vulnerability "${clientVulnerability.summary}" has been updated.`);
 
-                    if (clientVulnerability.is_template) {
-                        navigate(`/vulnerabilities/templates/${vulnerabilityId}`);
-                    } else {
-                        navigate(`/vulnerabilities/${vulnerabilityId}`);
-                    }
+                if (clientVulnerability.is_template) {
+                    navigate(`/vulnerabilities/templates/${vulnerabilityId}`);
                 } else {
-                    throw new Error("Unable to save. Check form");
+                    navigate(`/vulnerabilities/${vulnerabilityId}`);
                 }
             })
             .catch((err) => {

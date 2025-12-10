@@ -30,7 +30,7 @@ const useOrganisationContactsQuery = (clientId: number) => {
 const useDeleteOrganisationMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (organisationId: number) => requestOrganisationDelete(organisationId).then((res) => res.json()),
+        mutationFn: (organisationId: number) => requestOrganisationDelete(organisationId),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["organisations"] });
         },

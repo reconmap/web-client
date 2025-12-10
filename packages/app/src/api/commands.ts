@@ -45,7 +45,7 @@ const useCommandSchedulesQuery = (commandId: number) => {
 const useCommandDeleteMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (commandId: number) => requestCommandDelete(commandId).then((res) => res.json()),
+        mutationFn: (commandId: number) => requestCommandDelete(commandId),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["commands"] });
         },
@@ -58,5 +58,6 @@ export {
     useCommandSchedulesQuery,
     useCommandsOutputParsersQuery,
     useCommandsQuery,
-    useCommandUsagesQuery,
+    useCommandUsagesQuery
 };
+

@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useCommandQuery } from "api/commands.js";
 import { requestCommandPut } from "api/requests/commands.js";
 import { useEffect, useState } from "react";
@@ -14,15 +15,16 @@ const EditCommandPage = () => {
 
     const { data: serverCommand } = useCommandQuery(commandId);
     const [clientCommand, setClientCommand] = useState(null);
+    const queryClient = useQueryClient();
 
     const onFormSubmit = async (ev) => {
         ev.preventDefault();
 
         await requestCommandPut(commandId, clientCommand);
 
-        actionCompletedToast(`The command "${clientCommand.name}" has been updated.`);
-
+        queryClient.invalidateQueries({ queryKey: ["commands"] });
         navigate(`/commands/${commandId}`);
+        actionCompletedToast(`The command "${clientCommand.name}" has been updated.`);
     };
 
     useEffect(() => {
