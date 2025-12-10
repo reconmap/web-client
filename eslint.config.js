@@ -39,8 +39,14 @@ module.exports = defineConfig([
 
             "import/resolver": {
                 node: {
-                    paths: ["src"],
-                    extensions: [".js", ".jsx", ".ts"],
+                    // allow resolving absolute imports from package src folders
+                    paths: ["src", "packages/app/src", "packages/native-components-lib/src", "packages/*/src"],
+                    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+                },
+                typescript: {
+                    project: ["./packages/app/tsconfig.json", "./packages/native-components-lib/tsconfig.json"],
+                    extensions: [".js", ".jsx", ".ts", ".tsx"],
+                    alwaysTryTypes: true,
                 },
             },
         },

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
-export function useTheme(): { theme: Theme; toggleTheme: () => void; setTheme: (theme: Theme) => void } {
+export function useTheme(): { theme: Theme; toggleTheme: () => void; setTheme: (newTheme: Theme) => void } {
     // Initialize theme with localStorage or default to "light"
     const [theme, setThemeState] = useState<Theme>(() => {
         const savedTheme = localStorage.getItem("theme");

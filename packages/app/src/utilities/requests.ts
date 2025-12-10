@@ -4,13 +4,13 @@ const requestEntity = (url: string) => {
     return secureApiFetch(url, { method: "GET" });
 };
 
-const requestEntities = (url: string, params?: Record<string, any>) => {
+const requestEntities = (url: string, params?: Record<string, string>) => {
     const fullUrl = url + (params ? "?" + new URLSearchParams(params).toString() : "");
     return secureApiFetch(fullUrl, { method: "GET" });
 };
 
-const requestEntityPost = (url: string, data?: FormData | Record<string, any>) => {
-    const params: Record<string, any> = {
+const requestEntityPost = (url: string, data?: FormData | Record<string, string>) => {
+    const params: Record<string, string | FormData | { "Content-Type": string }> = {
         method: "POST",
     };
     if (data) {
@@ -27,7 +27,7 @@ const requestEntityPost = (url: string, data?: FormData | Record<string, any>) =
     return secureApiFetch(url, params);
 };
 
-const requestEntityPut = (url: string, data: any) => {
+const requestEntityPut = (url: string, data: Record<string, string>) => {
     return secureApiFetch(url, {
         method: "PUT",
         body: JSON.stringify(data),
@@ -37,7 +37,7 @@ const requestEntityPut = (url: string, data: any) => {
     });
 };
 
-const requestEntityPatch = (url: string, data: any) => {
+const requestEntityPatch = (url: string, data: Record<string, string>) => {
     return secureApiFetch(url, {
         method: "PATCH",
         body: JSON.stringify(data),
