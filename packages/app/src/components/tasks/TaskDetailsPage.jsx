@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useAttachmentsQuery } from "api/attachments.js";
 import { requestProject } from "api/requests/projects.js";
 import { requestTaskPatch } from "api/requests/tasks.js";
@@ -36,6 +37,7 @@ const TaskDetailsPage = () => {
     const { data: task } = useTaskQuery(taskId);
     const { data: users } = useUsersQuery();
     const [project, setProject] = useState(null);
+    const queryClient = useQueryClient();
 
     const [tabIndex, tabIndexSetter] = useState(0);
 
@@ -44,9 +46,15 @@ const TaskDetailsPage = () => {
     const { data: attachments } = useAttachmentsQuery({ parentType, parentId });
     const deleteTaskMutation = useDeleteTaskMutation();
 
-    const handleDelete = () => {
-        deleteTaskMutation.mutate(task.id);
-        navigate("/tasks");
+    const onDeleteClick = () => {
+        deleteTaskMutation.mutate(task.id, {
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["tasks"] });
+                navigate("/tasks");
+                actionCompletedToast("The task has been deleted.");
+            }
+        });
+
     };
 
     const onAssigneeChange = (ev) => {
@@ -112,7 +120,7 @@ const TaskDetailsPage = () => {
                                     </NativeSelect>
                                 </label>
                             )}
-                            <DeleteButton onClick={() => handleDelete(task.id)} />
+                            <DeleteButton onClick={() => onDeleteClick(task.id)} />
                         </RestrictedComponent>
                     </div>
                 )}

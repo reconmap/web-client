@@ -3,21 +3,21 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "0.0.37",
+  "version": "0.0.47",
   "dependencies": {
     "@eslint/compat": "^2.0.0",
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.38.0",
-    "globals": "^16.4.0",
-    "npm-check-updates": "^19.1.1"
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.1",
+    "globals": "^16.5.0",
+    "npm-check-updates": "^19.2.0"
   },
   "devDependencies": {
-    "@types/node": "^24.9.1",
+    "@types/node": "^25.0.0",
     "husky": "^9.1.7",
-    "knip": "^5.66.2",
-    "lint-staged": "^16.2.6",
+    "knip": "^5.73.1",
+    "lint-staged": "^16.2.7",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.4"
+    "vitest": "^4.0.15"
   },
   "scripts": {
     "knip": "knip",

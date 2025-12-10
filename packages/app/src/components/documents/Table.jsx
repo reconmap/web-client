@@ -2,49 +2,45 @@ import RelativeDateFormatter from "components/ui/RelativeDateFormatter";
 import VisibilityLegend from "components/ui/VisibilityLegend";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import LinkButton from "components/ui/buttons/Link";
-import LoadingTableRow from "components/ui/tables/LoadingTableRow";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import UserLink from "components/users/Link";
-import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 import DocumentBadge from "./Badge";
 
 const DocumentsTable = ({ documents, onDeleteButtonClick }) => {
+    const columns = [
+        {
+            header: 'Title',
+            cell: document => <DocumentBadge document={document} />
+        },
+        {
+            header: 'Creation time',
+            cell: document => <RelativeDateFormatter date={document.createdAt} />,
+            style: { width: "200px" }
+        },
+        {
+            header: 'Author',
+            cell: document => <UserLink userId={document.createdByUid}>{document.createdBy.fullName}</UserLink>,
+            style: { width: "140px" }
+        },
+        {
+            header: 'Visibility',
+            cell: document => <VisibilityLegend visibility={document.visibility} />,
+            style: { width: "140px" }
+        },
+        {
+            header: '',
+            cell: document => (
+                <>
+                    <LinkButton href={`/documents/${document.id}/edit`}>Edit</LinkButton>
+                    <DeleteIconButton onClick={() => onDeleteButtonClick(document.id)} />
+                </>
+            ),
+            style: { textAlign: "right" }
+        }
+    ]
     return (
-        <table className="table is-fullwidth">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th style={{ width: "200px" }}>Creation time</th>
-                    <th style={{ width: "140px" }}>Author</th>
-                    <th style={{ width: "140px" }}>Visibility</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody>
-                {null === documents && <LoadingTableRow numColumns={6} />}
-                {null !== documents && documents.length === 0 && <NoResultsTableRow numColumns={6} />}
-                {null !== documents &&
-                    documents.map((document, index) => (
-                        <tr key={`doc_${document.id}`}>
-                            <td>
-                                <DocumentBadge document={document} />
-                            </td>
-                            <td>
-                                <RelativeDateFormatter date={document.createdAt} />
-                            </td>
-                            <td>
-                                <UserLink userId={document.createdByUid}>{document.createdBy.fullName}</UserLink>
-                            </td>
-                            <td>
-                                <VisibilityLegend visibility={document.visibility} />
-                            </td>
-                            <td style={{ textAlign: "right" }}>
-                                <LinkButton href={`/documents/${document.id}/edit`}>Edit</LinkButton>
-                                <DeleteIconButton onClick={() => onDeleteButtonClick(document.id)} />
-                            </td>
-                        </tr>
-                    ))}
-            </tbody>
-        </table>
+        <NativeTable rows={documents} rowId={document => document.id} columns={columns}>
+        </NativeTable>
     );
 };
 

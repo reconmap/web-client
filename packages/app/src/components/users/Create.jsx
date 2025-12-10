@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { createUserApi } from "api/requests/users.js";
 import defaultUser from "models/User";
 import UserRoles from "models/UserRoles.js";
@@ -11,6 +12,7 @@ import UserForm from "./Form";
 const CreateUserPage = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({ ...defaultUser, role: UserRoles[0].id });
+    const queryClient = useQueryClient();
 
     const handleCreate = async (ev) => {
         ev.preventDefault();
@@ -18,7 +20,8 @@ const CreateUserPage = () => {
         await createUserApi(userData).then((resp) => {
             if (resp.ok) {
                 navigate("/users/");
-                actionCompletedToast(`The user "${userData.fullName}" has been created.`);
+                actionCompletedToast(`The user "${userData.firstName} ${userData.lastName}" has been created.`);
+                queryClient.invalidateQueries({ queryKey: ["users"] });
             } else {
                 errorToast("Unable to create user: " + resp.status);
             }

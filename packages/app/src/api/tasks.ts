@@ -18,7 +18,7 @@ const useTaskQuery = (taskId: number) => {
 const useDeleteTaskMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (taskId: number) => requestTaskDelete(taskId).then((res) => res.json()),
+        mutationFn: (taskId: number) => requestTaskDelete(taskId),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["tasks"] });
         },

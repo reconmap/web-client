@@ -89,7 +89,7 @@ const ClientDetails = () => {
 
     const handleDelete = async () => {
         const confirmed = await deleteOrganisationMutation.mutateAsync(clientId);
-        if (confirmed) navigate("/clients");
+        if (confirmed) navigate("/organisations");
     };
 
     const onFormSubmit = (ev) => {

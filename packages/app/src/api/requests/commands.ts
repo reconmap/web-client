@@ -1,6 +1,6 @@
 import Configuration from "Configuration.js";
 import secureApiFetch from "services/api.js";
-import { requestEntityPost, requestEntityPut } from "utilities/requests.js";
+import { requestEntityDelete, requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/commands";
 
@@ -40,9 +40,7 @@ const requestCommandsOutputParsers = () => {
     return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" }, Configuration.getIntegrationsApiUrl());
 };
 
-const requestCommandDelete = (commandId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/${commandId}`, { method: "DELETE" });
-};
+const requestCommandDelete = (commandId: number) => requestEntityDelete(`${API_BASE_URL}/${commandId}`);
 
 export const requestCommandPut = (commandId: number, data: any) =>
     requestEntityPut(`${API_BASE_URL}/${commandId}`, data);

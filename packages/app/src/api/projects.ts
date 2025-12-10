@@ -45,7 +45,7 @@ const useProjectCategoriesQuery = () => {
 const useDeleteProjectMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (projectId: number) => requestProjectDelete(projectId).then((res) => res.json()),
+        mutationFn: (projectId: number) => requestProjectDelete(projectId),
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["projects"] });
         },
@@ -65,5 +65,6 @@ export {
     useProjectQuery,
     useProjectsQuery,
     useProjectUsersQuery,
-    useProjectVaultQuery,
+    useProjectVaultQuery
 };
+

@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntity, requestEntityPost, requestEntityPut } from "utilities/requests.js";
+import { requestEntity, requestEntityDelete, requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/tasks";
 
@@ -9,13 +9,9 @@ const requestTasks = (params: any) => {
 
 const requestTask = (taskId: number) => requestEntity(`${API_BASE_URL}/${taskId}`);
 
-const requestTaskDelete = (taskId: number) => {
-    return secureApiFetch(`${API_BASE_URL}/${taskId}`, {
-        method: "DELETE",
-    });
-};
+const requestTaskDelete = (taskId: number) => requestEntityDelete(`${API_BASE_URL}/${taskId}`);
 
-const requestTasksDelete = (data:object) => {
+const requestTasksDelete = (data: object) => {
     return secureApiFetch(`${API_BASE_URL}`, {
         method: "PATCH",
         headers: {
@@ -48,5 +44,6 @@ export {
     requestTaskPost,
     requestTasks,
     requestTasksDelete,
-    requestTasksPatch,
+    requestTasksPatch
 };
+

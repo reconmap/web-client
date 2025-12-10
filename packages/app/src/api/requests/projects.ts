@@ -46,11 +46,7 @@ const requestActiveProjects = () => {
 
 const requestProjectCategories = () => requestEntities(`${API_BASE_URL}/categories`);
 
-const requestProjectDelete = (projectId: number) => {
-    return secureApiFetch(`/projects/${projectId}`, {
-        method: "DELETE",
-    });
-};
+const requestProjectDelete = (projectId: number) => requestEntityDelete(`${API_BASE_URL}/${projectId}`);
 
 const requestProjectPost = (project: Record<string, any>) => {
     return secureApiFetch(`/projects`, {
@@ -74,5 +70,6 @@ export {
     requestProjects,
     requestProjectUserDelete,
     requestProjectUsers,
-    requestProjectVault,
+    requestProjectVault
 };
+
