@@ -29,6 +29,25 @@ const CHAR_SETS = {
     symbols: "!@#$%^&*",
 };
 
+// Returns a cryptographically secure random integer in [0, max)
+function getSecureRandomInt(max: number): number {
+    if (max <= 0 || max > Number.MAX_SAFE_INTEGER) {
+        throw new Error("Invalid max value for random integer");
+    }
+    // Range is [0, max)
+    const rand = new Uint32Array(1);
+    let x;
+    // Avoid bias: only accept numbers < rangeLimit
+    // rangeLimit = Math.floor(2**32 / max) * max;
+    // see https://stackoverflow.com/a/78239136 for explanation
+    const rangeLimit = Math.floor(0x100000000 / max) * max;
+    do {
+        window.crypto.getRandomValues(rand);
+        x = rand[0];
+    } while (x >= rangeLimit);
+    return x % max;
+}
+
 function removeAmbiguous(charset: string): string {
     return charset
         .split("")
@@ -37,7 +56,7 @@ function removeAmbiguous(charset: string): string {
 }
 
 function getRandomChar(charset: string): string {
-    const index = Math.floor(Math.random() * charset.length);
+    const index = getSecureRandomInt(charset.length);
     return charset[index];
 }
 
@@ -92,7 +111,7 @@ const generatePassword = (settings: PasswordConfiguration): string => {
 
     // Shuffle the final password
     for (let i = guaranteedChars.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = getSecureRandomInt(i + 1);
         [guaranteedChars[i], guaranteedChars[j]] = [guaranteedChars[j], guaranteedChars[i]];
     }
 
