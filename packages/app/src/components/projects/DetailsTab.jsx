@@ -33,17 +33,17 @@ const ProjectDetailsTab = ({ project }) => {
                         </>
                     )}
 
-                    {project.category_id && (
+                    {project.categoryId && (
                         <>
                             <dt>Category</dt>
-                            <dd>{project.category_name}</dd>
+                            <dd>{project.categoryName}</dd>
                         </>
                     )}
 
-                    {project.vulnerability_metrics && (
+                    {project.vulnerabilityMetrics && (
                         <>
                             <dt>Vulnerability metrics</dt>
-                            <dd>{project.vulnerability_metrics}</dd>
+                            <dd>{project.vulnerabilityMetrics}</dd>
                         </>
                     )}
 
@@ -59,7 +59,7 @@ const ProjectDetailsTab = ({ project }) => {
                     {!isTemplate && (
                         <>
                             <dt>External ID</dt>
-                            <dd>{project.external_id ?? "(none)"}</dd>
+                            <dd>{project.externalId ?? "(none)"}</dd>
                         </>
                     )}
                 </dl>
@@ -83,7 +83,7 @@ const ProjectDetailsTab = ({ project }) => {
                         <>
                             <dt>Client</dt>
                             <dd>
-                                <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>
+                                <ClientLink clientId={project.clientId}>{project.clientName}</ClientLink>
                             </dd>
                         </>
                     )}
@@ -103,8 +103,8 @@ const ProjectDetailsTab = ({ project }) => {
                     )}
                     {users &&
                         users.map((user, index) => (
-                            <Link to={`/users/${user.id}`}>
-                                <UserAvatar key={index} email={user.email} /> {user.fullName}
+                            <Link to={`/users/${user.id}`} key={user.id} >
+                                <UserAvatar email={user.email} /> {user.fullName}<br />
                             </Link>
                         ))}
                 </div>
@@ -112,22 +112,22 @@ const ProjectDetailsTab = ({ project }) => {
 
                 <TimestampsSection entity={project} />
 
-                {(project.engagement_start_date || project.engagement_end_date) && (
+                {(project.engagementStartDate || project.engagementEndDate) && (
                     <dl>
-                        {project.engagement_start_date && (
+                        {project.engagementStartDate && (
                             <>
                                 <dt>Engagement start date</dt>
                                 <dd>
-                                    <RelativeDateFormatter date={project.engagement_start_date} />
+                                    <RelativeDateFormatter date={project.engagementStartDate} />
                                 </dd>
                             </>
                         )}
 
-                        {project.engagement_end_date && (
+                        {project.engagementEndDate && (
                             <>
                                 <dt>Engagement end date</dt>
                                 <dd>
-                                    <RelativeDateFormatter date={project.engagement_end_date} />
+                                    <RelativeDateFormatter date={project.engagementEndDate} />
                                 </dd>
                             </>
                         )}

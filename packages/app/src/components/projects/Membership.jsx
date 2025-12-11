@@ -5,14 +5,13 @@ import UserRoleBadge from "components/badges/UserRoleBadge";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import Loading from "components/ui/Loading.jsx";
-import LoadingTableRow from "components/ui/tables/LoadingTableRow";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import Title from "components/ui/Title";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import UserAvatar from "../badges/UserAvatar";
 import Breadcrumb from "../ui/Breadcrumb";
 import PrimaryButton from "../ui/buttons/Primary";
-import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 import UserLink from "../users/Link";
 
 const ProjectMembership = () => {
@@ -31,7 +30,7 @@ const ProjectMembership = () => {
         });
     };
 
-    const handleDelete = (member) => {
+    const onDeleteClick = (member) => {
         requestProjectUserDelete(projectId, member.id).then(() => {
             refetch();
         });
@@ -46,6 +45,25 @@ const ProjectMembership = () => {
     }, [members, users]);
 
     if (isLoading) return <Loading />;
+
+    const columns = [
+        {
+            header: "",
+            cell: (member) => (<UserAvatar email={member.email} />)
+        },
+        {
+            header: "Name",
+            cell: (member) => <UserLink userId={member.userId}>{member.fullName}</UserLink>
+        },
+        {
+            header: "Role",
+            cell: (member) => <UserRoleBadge role={member.role} />
+        },
+        {
+            header: "",
+            cell: (member) => <DeleteIconButton onClick={() => onDeleteClick(member)} />
+        }
+    ];
 
     return (
         <div>
@@ -78,37 +96,9 @@ const ProjectMembership = () => {
                 <div status="info">All users have been added to the project.</div>
             )}
 
-            <table className="table is-fullwidth">
-                <thead>
-                    <tr>
-                        <th style={{ width: "80px" }}>&nbsp;</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {null === members && <LoadingTableRow numColumns={4} />}
-                    {null !== members && 0 === members.length && <NoResultsTableRow numColumns={4} />}
-                    {members &&
-                        members.map((member, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <UserAvatar email={member.email} />
-                                </td>
-                                <td>
-                                    <UserLink userId={member.userId}>{member.fullName}</UserLink>
-                                </td>
-                                <td>
-                                    <UserRoleBadge role={member.role} />
-                                </td>
-                                <td>
-                                    <DeleteIconButton onClick={() => handleDelete(member)} />
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
+            <NativeTable rows={members} rowId={member => member.id} columns={columns}>
+
+            </NativeTable>
         </div>
     );
 };

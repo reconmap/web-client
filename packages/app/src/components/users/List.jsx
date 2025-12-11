@@ -54,8 +54,8 @@ const UsersList = () => {
             .catch((err) => console.error(err));
     };
 
-    const handleDelete = (userId) => {
-        userDeleteMutation.mutate(userId).then(() => {});
+    const onDeleteClick = (userId) => {
+        userDeleteMutation.mutate(userId).then(() => { });
         queryClient.invalidateQueries({ queryKey: ["users"] });
     };
 
@@ -134,7 +134,7 @@ const UsersList = () => {
                                         <td style={{ textAlign: "right" }}>
                                             <LinkButton href={`/users/${user.id}/edit`}>Edit</LinkButton>
                                             <DeleteIconButton
-                                                onClick={() => handleDelete(user.id)}
+                                                onClick={() => onDeleteClick(user.id)}
                                                 disabled={parseInt(user.id) === loggedInUser.id ? "disabled" : ""}
                                             />
                                         </td>

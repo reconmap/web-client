@@ -39,17 +39,13 @@ const ClientsList = () => {
         },
         {
             header: t("Address"),
-            cell: (org) => {
-                org.address || "-";
-            },
+            cell: (org) =>
+                org.address || "-"
+            ,
         },
         {
             header: t("URL"),
             cell: (org) => (org.url ? <ExternalLink href={org.url}>{org.url}</ExternalLink> : "-"),
-        },
-        {
-            header: t("Number of contacts"),
-            cell: (org) => org.num_contacts,
         },
         {
             header: <>&nbsp;</>,
