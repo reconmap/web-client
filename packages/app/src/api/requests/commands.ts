@@ -22,7 +22,7 @@ const requestCommands = async (params: any) => {
     return commands;
 };
 
-export const requestCommandUsagePost = (commandId: number, usage: object) =>
+export const requestCommandUsagePost = (commandId: number, usage: Record<string, string>) =>
     requestEntityPost(`${API_BASE_URL}/${commandId}/usages`, usage);
 
 const requestCommandUsages = (commandId: number) => {
@@ -33,7 +33,7 @@ const requestCommandSchedules = (commandId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${commandId}/schedules`, { method: "GET" });
 };
 
-export const requestCommandSchedulePost = (commandId: number, schedule: object) =>
+export const requestCommandSchedulePost = (commandId: number, schedule: Record<string, string>) =>
     requestEntityPost(`${API_BASE_URL}/${commandId}/schedules`, schedule);
 
 const requestCommandsOutputParsers = () => {
@@ -45,7 +45,7 @@ const requestCommandDelete = (commandId: number) => requestEntityDelete(`${API_B
 export const requestCommandPut = (commandId: number, data: any) =>
     requestEntityPut(`${API_BASE_URL}/${commandId}`, data);
 
-const requestCommandPost = (command: object) => requestEntityPost(API_BASE_URL, command);
+const requestCommandPost = (command: Record<string, string>) => requestEntityPost(API_BASE_URL, command);
 
 const requestCommandScheduleDelete = (commandId: number, scheduleId: number) => {
     return secureApiFetch(`${API_BASE_URL}/${commandId}/schedules/${scheduleId}`, { method: "DELETE" });

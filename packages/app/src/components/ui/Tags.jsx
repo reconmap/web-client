@@ -1,4 +1,4 @@
-import { Tag } from "@reconmap/native-components";
+import Tag from "components/ui/Tag";
 import { Link } from "react-router-dom";
 
 const Tags = ({ values }) => {

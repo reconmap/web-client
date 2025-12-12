@@ -1,5 +1,4 @@
 import react from "@vitejs/plugin-react";
-import { resolve } from "path";
 import { defineConfig } from "vite";
 import svgrPlugin from "vite-plugin-svgr";
 import viteTsconfigPaths from "vite-tsconfig-paths";
@@ -17,7 +16,6 @@ export default defineConfig({
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
     resolve: {
         alias: {
-            "@reconmap/native-components": resolve(__dirname, "../native-components-lib/src"),
         },
     },
     test: {

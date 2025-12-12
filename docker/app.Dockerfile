@@ -7,7 +7,6 @@ COPY --chown=reconmapper:reconmapper package.json package-lock.json ./
 COPY --chown=reconmapper:reconmapper packages ./packages
 
 RUN npm install && \
-    npm run build -w @reconmap/native-components && \
     npm run build -w @reconmap/app
 
 FROM nginx:stable

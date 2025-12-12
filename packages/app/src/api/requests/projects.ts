@@ -31,7 +31,7 @@ const requestProjectUsers = (projectId: number) => {
 };
 
 export const requestProjectMemberPost = (projectId: number, userId: number) =>
-    requestEntityPost(`/projects/${projectId}/members`, { userId });
+    requestEntityPost(`/projects/${projectId}/members`, { userId: userId.toString() });
 
 const requestProjectUserDelete = (projectId: number, userId: number) =>
     requestEntityDelete(`/projects/${projectId}/members/${userId}`);
