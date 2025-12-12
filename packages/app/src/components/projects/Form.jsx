@@ -39,9 +39,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     control={
                         <NativeCheckbox
                             id="isTemplate"
-                            name="is_template"
+                            name="isTemplate"
                             onChange={handleFormChange}
-                            checked={project.is_template}
+                            checked={project.isTemplate}
                         >
                             Project template
                         </NativeCheckbox>
@@ -54,7 +54,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     control={
                         <NativeSelect
                             id="categoryId"
-                            name="category_id"
+                            name="categoryId"
                             onChange={handleFormChange}
                             value={project.category_id || ""}
                         >
@@ -65,6 +65,23 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                                 </option>
                             ))}
                         </NativeSelect>
+                    }
+                />
+
+
+                <HorizontalLabelledField
+                    label="Name"
+                    htmlFor="name"
+                    control={
+                        <NativeInput
+                            id="name"
+                            name="name"
+                            type="text"
+                            onChange={handleFormChange}
+                            value={project.name || ""}
+                            required
+                            autoFocus
+                        />
                     }
                 />
 
@@ -92,9 +109,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             control={
                                 <NativeSelect
                                     id="serviceProviderId"
-                                    name="service_provider_id"
+                                    name="serviceProviderId"
                                     onChange={handleFormChange}
-                                    value={project.service_provider_id || ""}
+                                    value={project.serviceProviderId || ""}
                                 >
                                     <option value="">(none)</option>
                                     {serviceProviders &&
@@ -113,9 +130,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             control={
                                 <NativeSelect
                                     id="clientId"
-                                    name="client_id"
+                                    name="clientId"
                                     onChange={handleFormChange}
-                                    value={project.client_id || ""}
+                                    value={project.clientId || ""}
                                 >
                                     <option value="">(none)</option>
                                     {clients &&
@@ -134,31 +151,15 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             control={
                                 <NativeInput
                                     id="externalId"
-                                    name="external_id"
+                                    name="externalId"
                                     type="text"
                                     onChange={handleFormChange}
-                                    value={project.external_id || ""}
+                                    value={project.externalId || ""}
                                 />
                             }
                         />
                     </>
                 )}
-
-                <HorizontalLabelledField
-                    label="Name"
-                    htmlFor="name"
-                    control={
-                        <NativeInput
-                            id="name"
-                            name="name"
-                            type="text"
-                            onChange={handleFormChange}
-                            value={project.name || ""}
-                            required
-                            autoFocus
-                        />
-                    }
-                />
 
                 <label>
                     Description
@@ -178,7 +179,8 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                     label="Vulnerability metrics"
                     control={
                         <NativeSelect
-                            name="vulnerability_metrics"
+                            id="vulnerabilityMetrics"
+                            name="vulnerabilityMetrics"
                             value={notEmpty(project.vulnerability_metrics) ? project.vulnerability_metrics : "(null)"}
                             onChange={handleFormChange}
                         >
@@ -199,9 +201,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             control={
                                 <NativeInput
                                     id="engagementStartDate"
-                                    name="engagement_start_date"
+                                    name="engagementStartDate"
                                     type="date"
-                                    value={project.engagement_start_date}
+                                    value={project.engagementStartDate}
                                     onChange={handleFormChange}
                                 />
                             }
@@ -212,9 +214,9 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             control={
                                 <NativeInput
                                     id="engagementEndDate"
-                                    name="engagement_end_date"
+                                    name="engagementEndDate"
                                     type="date"
-                                    value={project.engagement_end_date}
+                                    value={project.engagementEndDate}
                                     onChange={handleFormChange}
                                 />
                             }

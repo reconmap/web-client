@@ -155,8 +155,10 @@ const TaskDetailsPage = () => {
                                                 <dt>{t("Priority")}</dt>
                                                 <dd>{task.priority}</dd>
 
-                                                <dt>{t("Duration estimate")}</dt>
-                                                <dd>{task.duration_estimate}</dd>
+                                                {task.durationEstimate && <>
+                                                    <dt>{t("Duration estimate")}</dt>
+                                                    <dd>{task.durationEstimate}</dd>
+                                                </>}
 
                                                 <dt>{t("Status")}</dt>
                                                 <dd>

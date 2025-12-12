@@ -36,7 +36,7 @@ const ProjectDetailsTab = ({ project }) => {
                     {project.categoryId && (
                         <>
                             <dt>Category</dt>
-                            <dd>{project.categoryName}</dd>
+                            <dd>{project.category?.name}</dd>
                         </>
                     )}
 
@@ -83,7 +83,7 @@ const ProjectDetailsTab = ({ project }) => {
                         <>
                             <dt>Client</dt>
                             <dd>
-                                <ClientLink clientId={project.clientId}>{project.clientName}</ClientLink>
+                                <ClientLink clientId={project.clientId}>{project.client?.name}</ClientLink>
                             </dd>
                         </>
                     )}

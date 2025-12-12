@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { requestCommandUsagePost } from "api/requests/commands.js";
 import CommandUsage from "models/CommandUsage.js";
 import { useState } from "react";
@@ -10,6 +11,7 @@ const AddCommandUsagePage = () => {
     const navigate = useNavigate();
     const { commandId } = useParams();
     const defaultCommmandUsage = { commandId: commandId, ...CommandUsage };
+    const queryClient = useQueryClient();
 
     const [commandUsage, setCommandUsage] = useState(defaultCommmandUsage);
 
@@ -17,6 +19,7 @@ const AddCommandUsagePage = () => {
         ev.preventDefault();
 
         requestCommandUsagePost(commandId, commandUsage).then(() => {
+            queryClient.invalidateQueries({ queryKey: ["commands", commandId, "usages"] });
             setCommandUsage(defaultCommmandUsage);
             navigate(`/commands/${commandId}`);
         });

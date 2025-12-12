@@ -12,9 +12,9 @@
     "npm-check-updates": "^19.2.0"
   },
   "devDependencies": {
-    "@types/node": "^25.0.0",
+    "@types/node": "^25.0.1",
     "husky": "^9.1.7",
-    "knip": "^5.73.1",
+    "knip": "^5.73.4",
     "lint-staged": "^16.2.7",
     "typescript": "^5.9.3",
     "vitest": "^4.0.15"

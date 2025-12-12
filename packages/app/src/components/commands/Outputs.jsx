@@ -99,7 +99,7 @@ const CommandOutputs = ({ command }) => {
                                 </td>
                                 <td>
                                     <UserLink userId={commandOutput.createdByUid}>
-                                        {commandOutput.submitter_name}
+                                        {commandOutput.createdBy?.fullName}
                                     </UserLink>
                                 </td>
                                 <td>
