@@ -1,4 +1,3 @@
-import { Tag } from "@reconmap/native-components";
 import { useAttachmentsQuery } from "api/attachments.js";
 import { requestVulnerabilityPatch } from "api/requests/vulnerabilities.js";
 import { useDeleteVulnerabilityMutation, useVulnerabilityQuery } from "api/vulnerabilities.js";
@@ -7,6 +6,7 @@ import AttachmentsDropzone from "components/attachments/Dropzone";
 import NativeSelect from "components/form/NativeSelect";
 import NativeTabs from "components/form/NativeTabs";
 import RestrictedComponent from "components/logic/RestrictedComponent";
+import Tag from "components/ui/Tag";
 import Tags from "components/ui/Tags";
 import LinkButton from "components/ui/buttons/Link";
 import { t } from "i18next";

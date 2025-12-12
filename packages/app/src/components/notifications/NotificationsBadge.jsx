@@ -1,4 +1,3 @@
-import { Tag } from "@reconmap/native-components";
 import { useNotificationsQuery } from "api/notifications.js";
 import { requestNotificationPut } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
