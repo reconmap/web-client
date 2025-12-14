@@ -2,7 +2,7 @@ interface UserInterface {
     id?: number;
     createdAt?: string;
     updatedAt?: string;
-    last_login_ts?: string;
+    lastLoginAt?: string;
     subject_id?: string;
     active?: boolean;
     mfaEnabled: boolean | undefined;

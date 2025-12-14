@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import NativeInput from "components/form/NativeInput";
 import ExternalLink from "components/ui/ExternalLink";
 import { useRef, useState } from "react";
@@ -8,6 +9,7 @@ const ImportForm = () => {
     const importFileRef = useRef(null);
     const [importResponse, setImportResponse] = useState(null);
     const [importButtonDisabled, setImportButtonDisabled] = useState(true);
+    const queryClient = useQueryClient();
 
     const handleUploadClick = (ev) => {
         ev.preventDefault();
@@ -19,6 +21,7 @@ const ImportForm = () => {
             .then((resp) => resp.json())
             .then((resp) => {
                 setImportResponse(resp);
+                queryClient.invalidateQueries();
             })
             .catch((err) => console.error(err));
     };
