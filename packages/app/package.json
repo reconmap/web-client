@@ -29,7 +29,7 @@
     "react-router-dom": "^7.10.1",
     "react-select": "^5.10.2",
     "react-time-ago": "^7.3.5",
-    "recharts": "^3.5.1",
+    "recharts": "^3.6.0",
     "remark-gfm": "^4.0.1",
     "typescript": "^5.9.3",
     "ua-parser-js": "^2.0.7"
