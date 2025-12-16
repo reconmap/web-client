@@ -20,7 +20,6 @@ Client
 ------
 URL: ${document.location.protocol + "//" + document.location.host}
 User agent: ${navigator.userAgent}
-Version: ${import.meta.env.VITE_VERSION}
 Build: ${import.meta.env.VITE_GIT_COMMIT_HASH}
 
 Server

@@ -24,10 +24,9 @@ jobs:
               run: make
             - name: Run tests
               run: make tests-ci
-            - name: Increase version
+            - name: Push
               if: github.ref == 'refs/heads/main'
               run: |
-                  make version-increase
                   git push
             - name: Build
               if: github.ref == 'refs/heads/main'
