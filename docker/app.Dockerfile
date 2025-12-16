@@ -10,17 +10,17 @@ COPY --chown=node:node package.json package-lock.json tsconfig.json vite.config.
 COPY --chown=node:node src ./app/src
 
 WORKDIR /home/node/app
-RUN npm install && \
+RUN npm ci && \
     npm run build
 
-FROM nginx:stable
+FROM nginx:stable-alpine
 
 LABEL org.opencontainers.image.source=https://github.com/reconmap/reconmap
 LABEL org.opencontainers.image.description="reconmap/web-client"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
-RUN touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid
+RUN mkdir -p /var/cache/nginx /var/run && \
+    chown -R nginx:nginx /var/cache/nginx /var/run
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/
 
