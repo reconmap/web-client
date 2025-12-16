@@ -81,6 +81,7 @@ tests-ci:
 	docker run -u $(CONTAINER_UID_GID) --rm -t \
 		-v $(PWD):/home/node/app \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/node/app/public/config.json \
+		-w /home/node/app \
 		--entrypoint npm -e CI=true $(DOCKER_DEV_TAG) run test:ci
 
 .PHONY: clean
