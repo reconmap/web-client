@@ -61,7 +61,6 @@ const MenuLinks = [
             { name: t("System usage"), url: "/system/usage" },
             null,
             { name: t("Audit log"), url: "/auditlog" },
-            { name: t("Licenses"), url: "/licenses" },
             { name: t("Integrations"), url: "/system/integrations" },
             null,
             { name: t("Support info"), url: "/support" },

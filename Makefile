@@ -25,13 +25,9 @@ GIT_BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD)
 GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
-prepare: base-container
+prepare:
 	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/node/app -w /home/node/app  --entrypoint npm $(DOCKER_DEV_TAG) install
-
-.PHONY: base-container
-base-container:
-	docker build -f docker/node.Dockerfile --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) -t $(DOCKER_DEV_TAG) .
-
+	
 .PHONY: start
 start:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
@@ -76,7 +72,7 @@ tests-ci:
 		-v $(PWD):/home/node/app \
 		-v $(PWD)/$(ENV_FILE_NAME):/home/node/app/public/config.json \
 		-w /home/node/app \
-		--entrypoint npm -e CI=true $(DOCKER_DEV_TAG) run test:ci
+		--entrypoint npm $(DOCKER_DEV_TAG) run test:coverage
 
 .PHONY: clean
 clean: stop
@@ -84,6 +80,7 @@ clean: stop
 
 .PHONY: build
 build:
+	docker build -f docker/node.Dockerfile --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) -t $(DOCKER_DEV_TAG) .
 	docker build -f docker/app.Dockerfile \
 		--build-arg RECONMAP_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-t $(DOCKER_IMAGE_NAME):$(GIT_BRANCH_NAME) -t $(DOCKER_IMAGE_NAME):latest .
@@ -96,8 +93,4 @@ push:
 .PHONY: shell
 shell:
 	docker exec -it $(DOCKER_CONTAINER_NAME) bash
-
-.PHONY: update-license-data
-update-license-data:
-	yarn licenses list --json | jq --slurp . > src/data/licenses.json
 
