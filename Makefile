@@ -35,7 +35,7 @@ base-container:
 .PHONY: version-increase
 version-increase:
 	git stash
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/node/app -v "${HOME}/.gitconfig:/home/node/.gitconfig" --entrypoint npm $(DOCKER_DEV_TAG) version --no-commit-hooks patch -m "Increment version to %s"
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/node/app -v "${HOME}/.gitconfig:/home/node/.gitconfig" -w /home/node/app --entrypoint npm $(DOCKER_DEV_TAG) version --no-commit-hooks patch -m "Increment version to %s"
 	git stash pop || true
 
 .PHONY: start
