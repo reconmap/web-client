@@ -1,21 +1,22 @@
-FROM node:22-bookworm-slim
+FROM node:24-bookworm-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
-
-ARG CONTAINER_USER=reconmapper
-ARG CONTAINER_GROUP=reconmapper
 
 ARG HOST_UID=1000
 ARG HOST_GID=1000
 
-RUN userdel -r node && \
-    groupadd -g ${HOST_GID} ${CONTAINER_GROUP} && \
-    useradd -u ${HOST_UID} -g ${CONTAINER_GROUP} -s /bin/sh -m ${CONTAINER_USER}
+RUN groupmod -g ${HOST_GID} node && \
+    usermod -u ${HOST_UID} -g ${HOST_GID} node
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/*
 
-ENV DISABLE_OPENCOLLECTIVE=true
-ENV PATH=/home/reconmapper/node_modules/.bin:$PATH
+WORKDIR /home/node
+USER node
 
-WORKDIR /home/reconmapper
-USER reconmapper
+ENV NPM_CONFIG_FUND=false \
+    NPM_CONFIG_AUDIT=false \
+    DISABLE_OPENCOLLECTIVE=true
+
+ENV PATH=/home/node/app/node_modules/.bin:$PATH

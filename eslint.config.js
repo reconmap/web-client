@@ -1,20 +1,17 @@
-const { defineConfig, globalIgnores } = require("eslint/config");
-
-const { fixupConfigRules, fixupPluginRules } = require("@eslint/compat");
-
-const reactHooks = require("eslint-plugin-react-hooks");
-const globals = require("globals");
-const js = require("@eslint/js");
-
-const { FlatCompat } = require("@eslint/eslintrc");
+import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
+import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
+import { defineConfig, globalIgnores } from "eslint/config";
+import globals from "globals";
 
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
+    baseDirectory: new URL('.', import.meta.url).pathname,
     recommendedConfig: js.configs.recommended,
     allConfig: js.configs.all,
 });
 
-module.exports = defineConfig([
+export default defineConfig([
     {
         extends: fixupConfigRules(
             compat.extends(
@@ -33,18 +30,14 @@ module.exports = defineConfig([
         },
 
         settings: {
-            react: {
-                version: "detect",
-            },
-
+            react: { version: "detect" },
             "import/resolver": {
                 node: {
-                    // allow resolving absolute imports from package src folders
-                    paths: ["src", "packages/app/src", "packages/*/src"],
+                    paths: ["src"],
                     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
                 },
                 typescript: {
-                    project: ["./packages/app/tsconfig.json"],
+                    project: ["./tsconfig.json"],
                     extensions: [".js", ".jsx", ".ts", ".tsx"],
                     alwaysTryTypes: true,
                 },
@@ -79,5 +72,5 @@ module.exports = defineConfig([
             },
         },
     },
-    globalIgnores(["**/node_modules", "**/build", "packages/app/coverage**"]),
+    globalIgnores(["**/node_modules", "**/build", "coverage**"]),
 ]);

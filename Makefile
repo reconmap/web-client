@@ -26,8 +26,7 @@ GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
 prepare: base-container
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) add npm-check-updates
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper --entrypoint npm $(DOCKER_DEV_TAG) install
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/node/app -w /home/node/app  --entrypoint npm $(DOCKER_DEV_TAG) install
 
 .PHONY: base-container
 base-container:
@@ -36,20 +35,21 @@ base-container:
 .PHONY: version-increase
 version-increase:
 	git stash
-	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/reconmapper -v "${HOME}/.gitconfig:/home/reconmapper/.gitconfig" --entrypoint npm $(DOCKER_DEV_TAG) version --no-commit-hooks patch -m "Increment version to %s"
+	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/node/app -v "${HOME}/.gitconfig:/home/node/.gitconfig" --entrypoint npm $(DOCKER_DEV_TAG) version --no-commit-hooks patch -m "Increment version to %s"
 	git stash pop || true
 
 .PHONY: start
 start:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
-		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
+		-v $(PWD):/home/node/app \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/node/app/public/config.json \
+		-w /home/node/app \
 		-p 5500:5500 \
 		-e VITE_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint npm \
 		--name $(DOCKER_CONTAINER_NAME) \
-		$(DOCKER_DEV_TAG) run start -w @reconmap/app
+		$(DOCKER_DEV_TAG) run start
 
 .PHONY: stop
 stop:
@@ -58,27 +58,29 @@ stop:
 .PHONE: lint
 lint:
 	docker run -u $(CONTAINER_UID_GID) --rm \
-		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/config.json \
-		--entrypoint npm $(DOCKER_DEV_TAG) run lint -w @reconmap/app
+		-v $(PWD):/home/node/app \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/node/app/public/config.json \
+		-w /home/node/app \
+		--entrypoint npm $(DOCKER_DEV_TAG) run lint
 	docker run -u $(CONTAINER_UID_GID) --rm \
-		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/public/config.json \
+		-v $(PWD):/home/node/app \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/node/app/public/config.json \
+		-w /home/node/app \
 		--entrypoint npx $(DOCKER_DEV_TAG) stylelint "**/*.css"
 
 .PHONY: tests
 tests: lint
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
-		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
-		--entrypoint npm $(DOCKER_DEV_TAG) run test -w @reconmap/app
+		-v $(PWD):/home/node/app \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/node/app/public/config.json \
+		--entrypoint npm $(DOCKER_DEV_TAG) run test
 
 .PHONY: tests-ci
 tests-ci:
 	docker run -u $(CONTAINER_UID_GID) --rm -t \
-		-v $(PWD):/home/reconmapper \
-		-v $(PWD)/$(ENV_FILE_NAME):/home/reconmapper/packages/app/public/config.json \
-		--entrypoint npm -e CI=true $(DOCKER_DEV_TAG) run test:ci -w @reconmap/app
+		-v $(PWD):/home/node/app \
+		-v $(PWD)/$(ENV_FILE_NAME):/home/node/app/public/config.json \
+		--entrypoint npm -e CI=true $(DOCKER_DEV_TAG) run test:ci
 
 .PHONY: clean
 clean: stop
@@ -98,10 +100,6 @@ push:
 .PHONY: shell
 shell:
 	docker exec -it $(DOCKER_CONTAINER_NAME) bash
-
-.PHONY: sudo-shell
-sudo-shell:
-	docker exec -u 0 -it $(DOCKER_CONTAINER_NAME) bash
 
 .PHONY: update-license-data
 update-license-data:
