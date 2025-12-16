@@ -1,6 +1,6 @@
 {
   "name": "@reconmap/app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
