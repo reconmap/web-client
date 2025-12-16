@@ -2,6 +2,7 @@ import { useNotificationsQuery } from "api/notifications.js";
 import { requestNotificationPut } from "api/requests/notifications.js";
 import NativeButton from "components/form/NativeButton";
 import CssIcon from "components/ui/CssIcon";
+import Tag from "components/ui/Tag.jsx";
 import { useWebsocketMessage } from "contexts/WebsocketContext";
 import useToggle from "hooks/useToggle";
 import { Link } from "react-router-dom";

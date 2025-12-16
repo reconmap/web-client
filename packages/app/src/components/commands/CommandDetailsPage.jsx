@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useCommandDeleteMutation, useCommandQuery, useCommandUsagesQuery } from "api/commands.js";
 import { requestCommandUsageDelete } from "api/requests/commands.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
@@ -25,6 +26,7 @@ const CommandDetailsPage = () => {
     const [t] = useTranslation();
 
     const { commandId } = useParams();
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
 
     const [tabIndex, tabIndexSetter] = useState(0);
@@ -40,6 +42,7 @@ const CommandDetailsPage = () => {
 
     const deleteUsage = (usage) => {
         requestCommandUsageDelete(usage.commandId, usage.id).finally(() => {
+            queryClient.invalidateQueries(["commands", parseInt(commandId), "usages"]);
             refetchCommandUsages();
         });
     };

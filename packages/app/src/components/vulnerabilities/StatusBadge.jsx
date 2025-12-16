@@ -1,22 +1,23 @@
+const STATUSES = {
+    open: {
+        label: "Open",
+        color: "yellow",
+    },
+    confirmed: {
+        label: "Confirmed",
+        color: "orange",
+    },
+    resolved: {
+        label: "Resolved",
+        color: "blue",
+    },
+    closed: {
+        label: "Closed",
+        color: "green",
+    },
+};
+
 const VulnerabilityStatusBadge = ({ vulnerability }) => {
-    const STATUSES = {
-        open: {
-            label: "Open",
-            color: "yellow",
-        },
-        confirmed: {
-            label: "Confirmed",
-            color: "orange",
-        },
-        resolved: {
-            label: "Resolved",
-            color: "blue",
-        },
-        closed: {
-            label: "Closed",
-            color: "green",
-        },
-    };
     const styles = {
         badge: {
             color: `var(--${STATUSES[vulnerability.status].color})`,
