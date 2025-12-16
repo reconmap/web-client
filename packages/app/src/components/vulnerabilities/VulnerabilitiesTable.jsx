@@ -145,13 +145,13 @@ const VulnerabilitiesTable = ({
                                 </td>
                                 {showProjectColumn && (
                                     <td>
-                                        {vulnerability.is_template ? (
+                                        {vulnerability.isTemplate ? (
                                             <span title="Not applicable">(n/a)</span>
                                         ) : (
                                             <ProjectBadge
                                                 project={{
-                                                    id: vulnerability.project_id,
-                                                    name: vulnerability.project_name,
+                                                    id: vulnerability.projectId,
+                                                    name: vulnerability.project?.name,
                                                 }}
                                             />
                                         )}
@@ -164,11 +164,11 @@ const VulnerabilitiesTable = ({
                                     <RiskBadge risk={vulnerability.risk} />
                                 </td>
                                 <td>
-                                    <CvssScore score={vulnerability.cvss_score} />
+                                    <CvssScore score={vulnerability.cvssScore} />
                                 </td>
                                 <td className="only-desktop">
                                     <VulnerabilityCategorySpan
-                                        name={vulnerability.category_name}
+                                        name={vulnerability.category?.name}
                                         parentName={vulnerability.parent_category_name}
                                     />
                                 </td>

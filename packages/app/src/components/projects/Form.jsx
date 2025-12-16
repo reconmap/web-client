@@ -56,7 +56,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                             id="categoryId"
                             name="categoryId"
                             onChange={handleFormChange}
-                            value={project.category_id || ""}
+                            value={project.categoryId || ""}
                         >
                             <option value="">(none)</option>
                             {categories.map((category) => (
@@ -181,7 +181,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                         <NativeSelect
                             id="vulnerabilityMetrics"
                             name="vulnerabilityMetrics"
-                            value={notEmpty(project.vulnerability_metrics) ? project.vulnerability_metrics : "(null)"}
+                            value={notEmpty(project.vulnerabilityMetrics) ? project.vulnerabilityMetrics : "(null)"}
                             onChange={handleFormChange}
                         >
                             <option value="(null)">(undefined)</option>
@@ -193,7 +193,7 @@ const ProjectForm = ({ isEdit = false, project, projectSetter: setProject, onFor
                         </NativeSelect>
                     }
                 />
-                {!project.is_template && (
+                {!project.isTemplate && (
                     <>
                         <HorizontalLabelledField
                             label="Start date"

@@ -19,10 +19,10 @@ const ProjectsTable = ({ projects, showClientColumn = true }) => {
             enabled: showClientColumn,
             cell: (project) => (
                 <>
-                    {project.is_template ? (
+                    {project.isTemplate ? (
                         <span title="Not applicable">(n/a)</span>
                     ) : (
-                        <ClientLink clientId={project.client_id}>{project.client_name}</ClientLink>
+                        <ClientLink clientId={project.clientId}>{project.client?.name}</ClientLink>
                     )}
                 </>
             ),
@@ -30,11 +30,11 @@ const ProjectsTable = ({ projects, showClientColumn = true }) => {
         { header: "Description", className: "only-desktop", cell: (project) => project.description },
         {
             header: "Category",
-            cell: (project) => (project.category_id !== null ? project.category_name : "(undefined)"),
+            cell: (project) => (project.categoryId !== null ? project.category?.name : "(undefined)"),
         },
         {
             header: "Vulnerability metrics",
-            cell: (project) => (project.vulnerability_metrics ? project.vulnerability_metrics : "(undefined)"),
+            cell: (project) => (project.vulnerabilityMetrics ? project.vulnerabilityMetrics : "(undefined)"),
         },
         { header: "Status", cell: (project) => (project.archived ? "Archived" : "Active") },
         {

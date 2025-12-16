@@ -1,10 +1,10 @@
 
 export const parentChildNames = (parentName, name) => {
-    if (name === null) {
+    if (!name) {
         return '-'
     }
 
-    if (parentName !== null) {
+    if (parentName) {
         return `${parentName} • ${name}`
     }
 

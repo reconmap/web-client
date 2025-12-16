@@ -19,7 +19,7 @@ const AddCommandUsagePage = () => {
         ev.preventDefault();
 
         requestCommandUsagePost(commandId, commandUsage).then(() => {
-            queryClient.invalidateQueries({ queryKey: ["commands", commandId, "usages"] });
+            queryClient.invalidateQueries({ queryKey: ["commands", parseInt(commandId), "usages"] });
             setCommandUsage(defaultCommmandUsage);
             navigate(`/commands/${commandId}`);
         });

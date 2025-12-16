@@ -94,9 +94,9 @@ const VulnerabilityDetails = () => {
                 <Title
                     type="Vulnerability"
                     title={
-                        vulnerability.external_id ? (
+                        vulnerability.externalId ? (
                             <>
-                                <strong>{vulnerability.external_id.toUpperCase()}</strong>
+                                <strong>{vulnerability.externalId.toUpperCase()}</strong>
                                 &nbsp;{vulnerability.summary}
                             </>
                         ) : (
