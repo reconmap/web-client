@@ -26,8 +26,9 @@ GIT_COMMIT_HASH = $(shell git rev-parse --short HEAD)
 
 .PHONY: prepare
 prepare:
+	docker build -f docker/node.Dockerfile --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) -t $(DOCKER_DEV_TAG) .
 	docker run -u $(CONTAINER_UID_GID) --rm -t -v $(PWD):/home/node/app -w /home/node/app  --entrypoint npm $(DOCKER_DEV_TAG) install
-	
+
 .PHONY: start
 start:
 	docker run -u $(CONTAINER_UID_GID) --rm -it \
@@ -80,7 +81,6 @@ clean: stop
 
 .PHONY: build
 build:
-	docker build -f docker/node.Dockerfile --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) -t $(DOCKER_DEV_TAG) .
 	docker build -f docker/app.Dockerfile \
 		--build-arg RECONMAP_APP_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
 		-t $(DOCKER_IMAGE_NAME):$(GIT_BRANCH_NAME) -t $(DOCKER_IMAGE_NAME):latest .
