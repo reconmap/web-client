@@ -9,6 +9,7 @@ ENV VITE_GIT_COMMIT_HASH=${RECONMAP_APP_GIT_COMMIT_HASH}
 
 COPY --chown=node:node package.json package-lock.json tsconfig.json vite.config.js index.html ./app/
 COPY --chown=node:node src ./app/src
+COPY --chown=node:node public ./app/public
 
 WORKDIR /home/node/app
 RUN npm ci && \
