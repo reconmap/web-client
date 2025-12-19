@@ -118,4 +118,4 @@ const generatePassword = (settings: PasswordConfiguration): string => {
     return guaranteedChars.join("");
 };
 
-export { defaultPasswordConfiguration, generatePassword, PasswordConfiguration };
+export { defaultPasswordConfiguration, generatePassword };

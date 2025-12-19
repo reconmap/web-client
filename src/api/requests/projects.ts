@@ -40,10 +40,6 @@ const requestProjectVault = (projectId: number) => {
     return secureApiFetch(`/projects/${projectId}/secrets`, { method: "GET" });
 };
 
-const requestActiveProjects = () => {
-    return secureApiFetch(`/projects?status=active&page=0&limit=5`, { method: "GET" });
-};
-
 const requestProjectCategories = () => requestEntities(`${API_BASE_URL}/categories`);
 
 const requestProjectDelete = (projectId: number) => requestEntityDelete(`${API_BASE_URL}/${projectId}`);
@@ -62,7 +58,6 @@ export const requestProjectPut = (projectId: number, data: any) =>
     requestEntityPut(`${API_BASE_URL}/${projectId}`, data);
 
 export {
-    requestActiveProjects,
     requestProject,
     requestProjectCategories,
     requestProjectDelete,

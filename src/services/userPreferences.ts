@@ -19,4 +19,4 @@ const initialiseUserPreferences = (user: any) => {
     return { ...DefaultUserPreferences, ...user.preferences };
 };
 
-export { DefaultUserPreferences, initialiseUserPreferences };
+export { initialiseUserPreferences };

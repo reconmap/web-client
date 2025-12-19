@@ -8,4 +8,3 @@ const TaskPriority = {
 
 export const TaskPriorityList = Object.entries(TaskPriority).map((kv) => ({ name: kv[0], value: kv[1] }));
 
-export default TaskPriority;

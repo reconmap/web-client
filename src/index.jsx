@@ -10,7 +10,6 @@ import { initialiseUserPreferences } from "services/userPreferences.js";
 import "translations/i18n";
 import { memoryStore } from "utilities/memoryStore.js";
 import App from "./App.jsx";
-import * as serviceWorker from "./serviceWorker.js";
 import "./styles/main.css";
 
 const rootContainer = document.getElementById("root");
@@ -93,4 +92,3 @@ const onAuthFailure = (message) => {
 
 KeyCloakService.login(onAuthSuccess, onAuthFailure);
 
-serviceWorker.unregister();

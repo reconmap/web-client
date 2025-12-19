@@ -9,7 +9,7 @@ type CommandArgument = {
 
 type CommandArgumentsMap = Record<string, CommandArgument>;
 
-export { CommandArgument, CommandArgumentsMap };
+export { CommandArgumentsMap };
 
 const parseArguments = (command: CommandUsageInterface): CommandArgumentsMap => {
     const argumentList: CommandArgumentsMap = {};
