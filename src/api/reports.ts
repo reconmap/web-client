@@ -18,10 +18,7 @@ const useReportsTemplatesQuery = (params: any) => {
 const useDeleteReportMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (reportId: number) => requestReportDelete(reportId).then((res) => res.json()),
-        onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: ["reports"] });
-        },
+        mutationFn: (reportId: number) => requestReportDelete(reportId),
     });
 };
 

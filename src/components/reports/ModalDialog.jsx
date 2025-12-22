@@ -12,8 +12,8 @@ import TargetIcon from "images/icons/target.svg?react";
 const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => {
     const defaultFormValues = {
         reportTemplateId: 0,
-        name: "",
-        description: "",
+        versionName: "",
+        versionDescription: "",
     };
     const { data: templates } = useReportsTemplatesQuery();
 
@@ -33,7 +33,8 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
             .then((resp) => {
                 if (resp.ok) {
                     onSubmit();
-                    actionCompletedToast(`The report version "${data.name}" has been added.`);
+                    reportForm.reset();
+                    actionCompletedToast(`The report version "${data.versionName}" has been added.`);
                 } else {
                     throw new Error(resp.statusText);
                 }
@@ -43,7 +44,7 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
                 console.error(err);
             })
             .finally(() => {
-                reportForm.reset();
+
             });
     };
 
@@ -87,8 +88,8 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
                             control={
                                 <NativeInput
                                     type="text"
-                                    name="name"
-                                    defaultValue={defaultFormValues.name}
+                                    name="versionName"
+                                    defaultValue={defaultFormValues.versionName}
                                     placeholder="eg 1.0, 202103"
                                     autoFocus
                                     required
@@ -101,8 +102,8 @@ const ReportVersionModalDialog = ({ projectId, isOpen, onSubmit, onCancel }) => 
                             control={
                                 <NativeInput
                                     type="text"
-                                    name="description"
-                                    defaultValue={defaultFormValues.description}
+                                    name="versionDescription"
+                                    defaultValue={defaultFormValues.versionDescription}
                                     placeholder="eg Initial version, Draft"
                                     required
                                 />

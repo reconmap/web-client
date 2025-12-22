@@ -40,7 +40,7 @@ export default ProjectReport;
 
 const ReportPreview = ({ projectId }) => {
     const user = KeyCloakService.getUserInfo();
-    let apiUrl = Configuration.getIntegrationsApiUrl()
+    let apiUrl = Configuration.getDefaultApiUrl()
     return (
         <iframe
             title="Report preview"
