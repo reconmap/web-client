@@ -1,4 +1,3 @@
-import Configuration from "Configuration.js";
 import secureApiFetch from "services/api.js";
 import { requestEntityDelete, requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
@@ -37,7 +36,7 @@ export const requestCommandSchedulePost = (commandId: number, schedule: Record<s
     requestEntityPost(`${API_BASE_URL}/${commandId}/schedules`, schedule);
 
 const requestCommandsOutputParsers = () => {
-    return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" }, Configuration.getIntegrationsApiUrl());
+    return secureApiFetch(`${API_BASE_URL}/output-parsers`, { method: "GET" });
 };
 
 const requestCommandDelete = (commandId: number) => requestEntityDelete(`${API_BASE_URL}/${commandId}`);

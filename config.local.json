@@ -3,7 +3,6 @@
     "logoUrl": "/logo-name.png",
     "reconmapApiUrl": "http://localhost:5253/api",
     "notificationsServiceUrl": "ws://localhost:5253/api",
-    "integrationsApiUrl": "http://localhost:5510",
     "keycloak": {
         "url": "http://localhost:8080",
         "realm": "reconmap",

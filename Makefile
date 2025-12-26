@@ -37,7 +37,6 @@ start:
 		-w /home/node/app \
 		-p 5500:5500 \
 		-e VITE_GIT_COMMIT_HASH=$(GIT_COMMIT_HASH) \
-		-e NODE_OPTIONS="--max-old-space-size=8192" \
 		--entrypoint npm \
 		--name $(DOCKER_CONTAINER_NAME) \
 		$(DOCKER_DEV_TAG) run start
