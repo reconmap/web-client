@@ -44,7 +44,7 @@ const ProjectTargets = ({ project }) => {
 
     return (
         <section>
-            <h4 className="title is=4">Assets</h4>
+            <h4 className="title is-4">Assets</h4>
             {!project.archived && (
                 <RestrictedComponent roles={["administrator", "superuser", "user"]}>
                     <TargetModalDialog
@@ -81,16 +81,14 @@ const ProjectTargets = ({ project }) => {
                                 <tr key={index}>
                                     <td>
                                         {!target.parent_id && (
-                                            <div>
-                                                <Link to={`/targets/${target.id}`}>
-                                                    <TargetBadge name={target.name} />
-                                                </Link>
-                                            </div>
+                                            <Link to={`/targets/${target.id}`}>
+                                                <TargetBadge name={target.name} />
+                                            </Link>
                                         )}
-                                        {target.parent_id !== null && <>{target.parent_name ?? "-"}</>}
+                                        {target.parent_id !== null && <>{target.parent?.name}</>}
                                     </td>
                                     <td>
-                                        {target.parent_id !== null ? (
+                                        {target.parent_id ? (
                                             <>
                                                 <Link to={`/targets/${target.id}`}>
                                                     <TargetBadge name={target.name} />

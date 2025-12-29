@@ -20,7 +20,7 @@ const STATUSES = {
 const VulnerabilityStatusBadge = ({ vulnerability }) => {
     const styles = {
         badge: {
-            color: `var(--${STATUSES[vulnerability.status].color})`,
+            color: `${STATUSES[vulnerability.status].color}`,
             backgroundColor: `var(--${STATUSES[vulnerability.status].color}Dark)`,
             alignItems: "center",
             display: `inline-flex`,

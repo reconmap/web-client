@@ -53,21 +53,23 @@ const NotificationsBadge = () => {
                                     <div key={notification.id} status="info" variant="top-accent">
                                         <div flex="1">
                                             <div>
-                                                {notification.time}{" "}
+                                                {notification.createdAt}<br />
+                                                <NativeButton
+                                                    className="delete is-smaxll"
+                                                    position="absolute"
+                                                    right="8px"
+                                                    top="8px"
+                                                    onClick={() => markAsRead(notification)}
+                                                >
+                                                </NativeButton>
+
                                                 <strong>
                                                     <Link to="/vulnerabilities">{notification.title}</Link>
                                                 </strong>
                                             </div>
                                             <div display="block">{notification.content}</div>
                                         </div>
-                                        <NativeButton
-                                            position="absolute"
-                                            right="8px"
-                                            top="8px"
-                                            onClick={() => markAsRead(notification)}
-                                        >
-                                            x
-                                        </NativeButton>
+                                        <hr />
                                     </div>
                                 ))}
                             </div>

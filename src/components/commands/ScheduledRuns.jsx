@@ -1,6 +1,7 @@
 import { useCommandSchedulesQuery, useCommandUsagesQuery } from "api/commands.js";
 import { requestCommandScheduleDelete } from "api/requests/commands.js";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import { toString as CronExpressionToString } from "cronstrue";
 
 const ScheduledRuns = ({ command, task = null }) => {
@@ -16,45 +17,23 @@ const ScheduledRuns = ({ command, task = null }) => {
             .catch((err) => console.error(err));
     };
 
-    if (commandUsages == null) {
-        return (
-            <>
-                <p>This command has no instructions defined.</p>
-            </>
-        );
-    }
+    const columns = [
+        { header: "Cron Expression", property: "cronExpression" },
+        {
+            header: "Description",
+            cell: (scheduledCommand) =>
+                CronExpressionToString(scheduledCommand.cronExpression, {
+                    throwExceptionOnParseError: false,
+                }),
+        },
+        { header: "Argument values", property: "argument_values" },
+        { header: "", cell: (scheduledCommand) => <DeleteIconButton onClick={(ev) => deleteScheduledCommand(ev, scheduledCommand)} /> },
+    ]
 
     return (
         <>
-            {scheduledCommands && (
-                <table className="table is-fullwidth">
-                    <caption>Scheduled commands</caption>
-                    <thead>
-                        <tr>
-                            <th>Cron expression</th>
-                            <th>Description</th>
-                            <th>Argument values</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {scheduledCommands.map((scheduleCommand) => (
-                            <tr>
-                                <td>{scheduleCommand.cronExpression}</td>
-                                <td>
-                                    {CronExpressionToString(scheduleCommand.cronExpression, {
-                                        throwExceptionOnParseError: false,
-                                    })}
-                                </td>
-                                <td>{scheduleCommand.argument_values}</td>
-                                <td>
-                                    <DeleteIconButton onClick={(ev) => deleteScheduledCommand(ev, scheduleCommand)} />
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+            <NativeTable caption="Scheduled commands" rows={scheduledCommands} rowId={(scheduledCommand) => scheduledCommand.id} columns={columns} emptyRowsMessage="No scheduled commands available.">
+            </NativeTable>
         </>
     );
 };

@@ -33,7 +33,7 @@ const AddCommandUsagePage = () => {
                     <Link to="/commands">Commands</Link>
                 </Breadcrumb>
             </div>
-            <Title title="New command details" />
+            <Title title="New command usage details" />
             <CommandUsageForm
                 onFormSubmit={onCommandUsageSubmit}
                 commandUsage={commandUsage}

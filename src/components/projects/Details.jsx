@@ -1,5 +1,5 @@
 import { useDeleteProjectMutation, useProjectQueriesInvalidation, useProjectQuery } from "api/projects.js";
-import { requestProjectPut } from "api/requests/projects.js";
+import { requestProjectPatch } from "api/requests/projects.js";
 import NativeButton from "components/form/NativeButton";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import NativeTabs from "components/form/NativeTabs";
@@ -55,7 +55,7 @@ const ProjectDetails = () => {
     };
 
     const onArchiveButtonClick = (project) => {
-        requestProjectPut(project.id, { archived: !project.archived })
+        requestProjectPatch(project.id, { archived: !project.archived })
             .then(() => {
                 actionCompletedToast("The project has been updated.");
                 projectQueriesInvalidation();

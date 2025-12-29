@@ -3,6 +3,7 @@ import {
     requestEntities,
     requestEntity,
     requestEntityDelete,
+    requestEntityPatch,
     requestEntityPost,
     requestEntityPut,
 } from "utilities/requests.js";
@@ -56,6 +57,9 @@ const requestProjectPost = (project: Record<string, any>) => {
 
 export const requestProjectPut = (projectId: number, data: any) =>
     requestEntityPut(`${API_BASE_URL}/${projectId}`, data);
+
+export const requestProjectPatch = (projectId: number, data: any) =>
+    requestEntityPatch(`${API_BASE_URL}/${projectId}`, data);
 
 export {
     requestProject,
