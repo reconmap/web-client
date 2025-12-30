@@ -66,7 +66,7 @@ const ReportTemplatesList = () => {
                     onSubmit={onReportTemplateFormSaved}
                     onCancel={closeAddReportTemplateDialog}
                 />
-                <CreateButton onClick={openAddReportTemplateDialog}>Add report template...</CreateButton>
+                <CreateButton onClick={openAddReportTemplateDialog}>Add report template&hellip;</CreateButton>
             </div>
             <Title title="Report templates" />
 

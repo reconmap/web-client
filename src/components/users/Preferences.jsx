@@ -65,7 +65,7 @@ const UserPreferences = () => {
     }, [userData]);
 
     if (!userData) {
-        return <>Loading...</>;
+        return <>Loading&hellip;</>;
     }
 
     return (

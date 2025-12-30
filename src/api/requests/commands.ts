@@ -1,5 +1,5 @@
 import secureApiFetch from "services/api.js";
-import { requestEntityDelete, requestEntityPost, requestEntityPut } from "utilities/requests.js";
+import { requestEntities, requestEntityDelete, requestEntityPost, requestEntityPut } from "utilities/requests.js";
 
 const API_BASE_URL = "/commands";
 
@@ -8,17 +8,7 @@ const requestCommand = (commandId: number) => {
 };
 
 const requestCommands = async (params: any) => {
-    const resp = await secureApiFetch(`${API_BASE_URL}?` + new URLSearchParams(params).toString(), { method: "GET" });
-    const commands: { data: any; pageCount?: string | null; totalCount?: string | null } = {
-        data: await resp.json(),
-    };
-    if (resp.headers.has("X-Page-Count")) {
-        commands.pageCount = resp.headers.get("X-Page-Count");
-    }
-    if (resp.headers.has("X-Total-Count")) {
-        commands.totalCount = resp.headers.get("X-Total-Count");
-    }
-    return commands;
+    return (await requestEntities(`${API_BASE_URL}?` + new URLSearchParams(params).toString())).json();
 };
 
 export const requestCommandUsagePost = (commandId: number, usage: Record<string, string>) =>

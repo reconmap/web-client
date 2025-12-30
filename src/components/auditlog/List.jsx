@@ -37,7 +37,7 @@ const AuditLogList = () => {
                 <PaginationV2 page={apiPageNumber} total={auditLog.pageCount} onPageChange={onPageChange} />
                 <ExportButton onClick={onExportClick} />
             </div>
-            <Title type="System" title={`Audit log (page ${pageNumber})`} />
+            <Title type="System" title={`Audit log (${auditLog.totalCount})`} />
             <AuditLogsTable auditLog={auditLog.data} />
         </>
     );

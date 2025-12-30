@@ -9,7 +9,7 @@ const requestEntities = (url: string, params?: Record<string, string>) => {
     return secureApiFetch(fullUrl, { method: "GET" });
 };
 
-const requestEntityPost = (url: string, data?: FormData | Record<string, string>) => {
+const requestEntityPost = (url: string, data?: FormData | Record<string, string | number>) => {
     const params: Record<string, string | FormData | { "Content-Type": string }> = {
         method: "POST",
     };

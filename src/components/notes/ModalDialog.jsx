@@ -3,6 +3,8 @@ import NativeButton from "components/form/NativeButton";
 import PrimaryButton from "components/ui/buttons/Primary.jsx";
 import ModalDialog from "components/ui/ModalDIalog";
 import { actionCompletedToast } from "components/ui/toast";
+import { errorToast } from "components/ui/toast.jsx";
+import { StatusCodes } from "http-status-codes";
 import Note from "models/Note";
 import { useState } from "react";
 import NotesForm from "./Form";
@@ -26,12 +28,16 @@ const NoteModalDialog = ({ parentType, parent, isOpen, onClose, onCancel }) => {
         ev.preventDefault();
 
         requestCommentPost(newNote)
-            .then(() => {
+            .then((resp) => {
+                if (resp.status !== StatusCodes.CREATED) {
+                    throw new Error(`Failed to create note. Status code: ${resp.status}`);
+                }
                 onClose();
                 actionCompletedToast(`The note has been created.`);
-            })
-            .finally(() => {
                 updateNewNote(emptyNote);
+            })
+            .catch((err) => {
+                errorToast(`Error creating note: ${err.message}`);
             });
     };
 

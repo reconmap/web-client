@@ -1,3 +1,4 @@
+import { requestVulnerabilities } from "api/requests/vulnerabilities.js";
 import { useDeleteVulnerabilityMutation } from "api/vulnerabilities.js";
 import NativeButtonGroup from "components/form/NativeButtonGroup";
 import PaginationV2 from "components/layout/PaginationV2";
@@ -9,7 +10,6 @@ import { actionCompletedToast } from "components/ui/toast";
 import useQuery from "hooks/useQuery";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { requestEntity } from "utilities/requests.js";
 import CreateButton from "../ui/buttons/Create";
 import VulnerabilityFilters from "./Filters";
 import VulnerabilitiesTable from "./VulnerabilitiesTable";
@@ -62,22 +62,14 @@ const VulnerabilitiesList = () => {
                 tableModel.filters[key].length !== 0 &&
                 queryParams.append(key, tableModel.filters[key]),
         );
-        const url = `/vulnerabilities?${queryParams.toString()}`;
 
-        requestEntity(url)
-            .then((resp) => {
-                if (resp.headers.has("X-Page-Count")) {
-                    setNumberPages(resp.headers.get("X-Page-Count"));
-                }
-                if (resp.headers.has("X-Total-Count")) {
-                    setTotalCount(resp.headers.get("X-Total-Count"));
-                }
-                return resp.json();
-            })
+        requestVulnerabilities(queryParams)
             .then((data) => {
+                setNumberPages(data.pageCount);
+                setTotalCount(data.totalCount);
                 setTableModel((tableModel) => ({
                     ...tableModel,
-                    vulnerabilities: data,
+                    vulnerabilities: data.data,
                 }));
             });
     }, [setTableModel, apiPageNumber, tableModel.filters, tableModel.sortBy.column, tableModel.sortBy.order]);

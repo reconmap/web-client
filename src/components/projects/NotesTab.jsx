@@ -37,7 +37,7 @@ const ProjectNotesTab = ({ project }) => {
                     onClose={onNoteFormSaved}
                     onCancel={closeDialog}
                 />
-                <CreateButton onClick={openDialog}>Add comment...</CreateButton>
+                <CreateButton onClick={openDialog}>Add comment&hellip;</CreateButton>
             </RestrictedComponent>
 
             <NotesTable notes={notes} onDeleteButtonClick={onDeleteButtonClick} />

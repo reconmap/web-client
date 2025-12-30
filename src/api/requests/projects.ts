@@ -14,17 +14,7 @@ const requestProject = (projectId: number) => requestEntity(`${API_BASE_URL}/${p
 
 const requestProjects = async (params: Record<string, any>) => {
     const queryParams = new URLSearchParams(params).toString();
-    const resp = await secureApiFetch(`/projects?` + queryParams, { method: "GET" });
-    const projects: { data: any; pageCount?: string | null; totalCount?: string | null } = {
-        data: await resp.json(),
-    };
-    if (resp.headers.has("X-Page-Count")) {
-        projects.pageCount = resp.headers.get("X-Page-Count");
-    }
-    if (resp.headers.has("X-Total-Count")) {
-        projects.totalCount = resp.headers.get("X-Total-Count");
-    }
-    return projects;
+    return (await requestEntities(`/projects?` + queryParams)).json();
 };
 
 const requestProjectUsers = (projectId: number) => {
@@ -32,7 +22,7 @@ const requestProjectUsers = (projectId: number) => {
 };
 
 export const requestProjectMemberPost = (projectId: number, userId: number) =>
-    requestEntityPost(`/projects/${projectId}/members`, { userId: userId.toString() });
+    requestEntityPost(`/projects/${projectId}/members`, { userId });
 
 const requestProjectUserDelete = (projectId: number, userId: number) =>
     requestEntityDelete(`/projects/${projectId}/members/${userId}`);
