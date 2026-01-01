@@ -1,4 +1,4 @@
-[![Build and deployment workflow](https://github.com/reconmap/web-client/actions/workflows/build-deployment.yml/badge.svg)](https://github.com/reconmap/web-client/actions/workflows/build-deployment.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/c66c89d29be730d92085/maintainability)](https://codeclimate.com/github/Reconmap/web-client/maintainability)
+[![Build and deployment workflow](https://github.com/reconmap/web-client/actions/workflows/build-deployment.yml/badge.svg)](https://github.com/reconmap/web-client/actions/workflows/build-deployment.yml)
 
 # Reconmap Web client
 
