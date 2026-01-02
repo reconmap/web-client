@@ -234,7 +234,7 @@ const ClientDetails = () => {
                                             <table className="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Kind</th>
+                                                        <th>Type</th>
                                                         <th>Name</th>
                                                         <th>Role</th>
                                                         <th>Email</th>

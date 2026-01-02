@@ -10,7 +10,7 @@ const useAuditLogQuery = (params: any) => {
 
 const useAuditLogStatsQuery = () => {
     return useQuery({
-        queryKey: ["audit-log"],
+        queryKey: ["audit-log", "stats"],
         queryFn: () => requestAuditLogStats().then((res) => res.json()),
     });
 };

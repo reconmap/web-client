@@ -10,9 +10,10 @@ const ProjectTemplatesSearchResults = ({ keywords, emptyResultsSetter: setEmptyR
         const reloadData = () => {
             requestEntities(`/projects?isTemplate=1&keywords=${keywords}`)
                 .then(resp => resp.json())
-                .then(projectTemplates => {
-                    setProjectTemplates(projectTemplates);
-                    setEmptyResults(emptyResults => 0 === projectTemplates.length ? emptyResults.concat('project_templates') : emptyResults.filter(value => value !== 'project_templates'));
+                .then(results => {
+                    const templates = results.data;
+                    setProjectTemplates(templates);
+                    setEmptyResults(emptyResults => 0 === templates.length ? emptyResults.concat('project_templates') : emptyResults.filter(value => value !== 'project_templates'));
                 })
         }
 

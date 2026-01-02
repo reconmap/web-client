@@ -9,9 +9,9 @@ const UserActivityStatsWidget = () => {
         <DashboardWidget title="User activity over time">
             {auditLogStats && auditLogStats.length > 0 ? (
                 <LineChart width={320} height={320} data={auditLogStats}>
-                    <Line type="monotone" dataKey="total" stroke="var(--color-accent-1)" />
                     <CartesianGrid />
-                    <XAxis dataKey="log_date" />
+                    <Line type="monotone" dataKey="total" />
+                    <XAxis dataKey="logDate" />
                     <YAxis dataKey="total" />
                 </LineChart>
             ) : (

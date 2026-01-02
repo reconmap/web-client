@@ -32,7 +32,7 @@ const ScheduledRuns = ({ command, task = null }) => {
 
     return (
         <>
-            <NativeTable caption="Scheduled commands" rows={scheduledCommands} rowId={(scheduledCommand) => scheduledCommand.id} columns={columns} emptyRowsMessage="No scheduled commands available.">
+            <NativeTable rows={scheduledCommands} rowId={(scheduledCommand) => scheduledCommand.id} columns={columns} emptyRowsMessage="No scheduled commands available.">
             </NativeTable>
         </>
     );

@@ -131,8 +131,7 @@ const CommandDetailsPage = () => {
                         )}
                         {1 === tabIndex && (
                             <div>
-                                <h3>Usages</h3>
-                                <Link to={`/commands/${command.id}/usages`}>Add usage</Link>{" "}
+                                <Link className="button is-success" to={`/commands/${command.id}/usages`}>Add usage</Link>{" "}
                                 {commandUsages !== null && (
                                     <>
                                         <table className="table is-fullwidth">

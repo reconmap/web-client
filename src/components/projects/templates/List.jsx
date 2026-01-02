@@ -14,7 +14,7 @@ import { requestEntityPost } from "utilities/requests.js";
 
 const TemplatesList = () => {
     const navigate = useNavigate();
-    const { data: templates, isLoading } = useProjectsQuery({ isTemplate: 1 });
+    const { data: templates, isLoading } = useProjectsQuery({ isTemplate: true });
     const deleteProjectMutation = useDeleteProjectMutation();
 
     const cloneProject = (ev, templateId) => {

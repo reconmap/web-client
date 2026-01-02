@@ -6,12 +6,12 @@ import TargetBadge from "components/target/TargetBadge";
 import Tags from "components/ui/Tags";
 import CreateButton from "components/ui/buttons/Create";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import useBoolean from "hooks/useBoolean";
 import useQuery from "hooks/useQuery";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../ui/Loading";
-import NoResultsTableRow from "../ui/tables/NoResultsTableRow";
 
 const ProjectTargets = ({ project }) => {
     const query = useQuery();
@@ -42,6 +42,62 @@ const ProjectTargets = ({ project }) => {
         setPageNumber(pageNumber + 1);
     };
 
+    const columns = [
+        {
+            header: "Name",
+            cell: (target) => <>
+                {!target.parent_id && (
+                    <Link to={`/targets/${target.id}`}>
+                        <TargetBadge name={target.name} />
+                    </Link>
+                )}
+                {target.parent_id !== null && <>{target.parent?.name}</>}
+            </>
+        },
+        {
+            header: "Sub-target",
+            cell: (target) => (
+                <>
+                    {target.parent_id ? (
+                        <>
+                            <Link to={`/targets/${target.id}`}>
+                                <TargetBadge name={target.name} />
+                            </Link>
+                        </>
+                    ) : (
+                        "-"
+                    )}
+                </>
+            )
+        },
+        {
+            header: "Kind",
+            cell: (target) => (
+                <>
+                    {target.kind} <Tags values={target.tags} />
+                </>
+            )
+        },
+        {
+            header: "Vulnerable?",
+            cell: (target) => (
+                <>
+                    {target.num_vulnerabilities > 0
+                        ? `Yes (${target.num_vulnerabilities} vulnerabilities found)`
+                        : "No"}
+                </>
+            )
+        },
+        {
+            header: "",
+            cell: (target) => (
+                <RestrictedComponent roles={["administrator", "superuser", "user"]}>
+                    <DeleteIconButton onClick={(ev) => onDeleteButtonClick(ev, target.id)} />
+                </RestrictedComponent>
+            )
+        }
+    ]
+
     return (
         <section>
             <h4 className="title is-4">Assets</h4>
@@ -65,56 +121,8 @@ const ProjectTargets = ({ project }) => {
                             <PaginationV2 page={pageNumber - 1} total={targets.pageCount} onPageChange={onPageChange} />
                         </center>
                     )}
-                    <table className="table is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Sub-target</th>
-                                <th>Kind</th>
-                                <th>Vulnerable?</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {targets.data.length === 0 && <NoResultsTableRow numColumns={4} />}
-                            {targets.data.map((target, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        {!target.parent_id && (
-                                            <Link to={`/targets/${target.id}`}>
-                                                <TargetBadge name={target.name} />
-                                            </Link>
-                                        )}
-                                        {target.parent_id !== null && <>{target.parent?.name}</>}
-                                    </td>
-                                    <td>
-                                        {target.parent_id ? (
-                                            <>
-                                                <Link to={`/targets/${target.id}`}>
-                                                    <TargetBadge name={target.name} />
-                                                </Link>
-                                            </>
-                                        ) : (
-                                            "-"
-                                        )}
-                                    </td>
-                                    <td>
-                                        {target.kind} <Tags values={target.tags} />
-                                    </td>
-                                    <td>
-                                        {target.num_vulnerabilities > 0
-                                            ? `Yes (${target.num_vulnerabilities} vulnerabilities found)`
-                                            : "No"}
-                                    </td>
-                                    <td>
-                                        <RestrictedComponent roles={["administrator", "superuser", "user"]}>
-                                            <DeleteIconButton onClick={(ev) => onDeleteButtonClick(ev, target.id)} />
-                                        </RestrictedComponent>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <NativeTable rows={targets.data} rowId={(target) => target.id} columns={columns}>
+                    </NativeTable>
                 </>
             )}
         </section>

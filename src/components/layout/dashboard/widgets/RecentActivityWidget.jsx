@@ -4,7 +4,7 @@ import UserLink from "components/users/Link";
 import DashboardWidget from "./Widget";
 
 const RecentActivityWidget = () => {
-    const { data: auditLog } = useAuditLogQuery({ limit: 5 });
+    const { data: auditLog } = useAuditLogQuery({ limit: 10 });
 
     return (
         <DashboardWidget title="Recent activity">
@@ -26,7 +26,7 @@ const RecentActivityWidget = () => {
                                 </td>
                                 <td>{log.object}</td>
                                 <td>
-                                    {log.user_name ? <UserLink userId={log.user_id}>{log.user_name}</UserLink> : "-"}
+                                    {log.createdBy?.fullName ? <UserLink userId={log.createdByUid}>{log.createdBy?.fullName}</UserLink> : "-"}
                                 </td>
                                 <td>{log.createdAt}</td>
                             </tr>
