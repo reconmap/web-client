@@ -8,7 +8,7 @@ const ProjectsSearchResults = ({ keywords, emptyResultsSetter: setEmptyResults }
 
     useEffect(() => {
         const reloadData = () => {
-            requestEntities(`/projects?isTemplate=0&keywords=${keywords}`)
+            requestEntities(`/projects?isTemplate=false&keywords=${keywords}`)
                 .then(resp => resp.json())
                 .then(results => {
                     const projects = results.data;

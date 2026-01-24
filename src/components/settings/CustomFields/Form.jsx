@@ -8,6 +8,7 @@ import NativeInput from "components/form/NativeInput";
 import NativeSelect from "components/form/NativeSelect";
 import DeleteIconButton from "components/ui/buttons/DeleteIconButton";
 import PrimaryButton from "components/ui/buttons/Primary";
+import NativeTable from "components/ui/tables/NativeTable.jsx";
 import Title from "components/ui/Title";
 
 const CustomFieldsPage = () => {
@@ -35,6 +36,20 @@ const CustomFieldsPage = () => {
         return false;
     };
 
+    const columns = [
+        { header: "Name", property: "name" },
+        { header: "Label", property: "label" },
+        { header: "Type", property: "kind" },
+        { header: "Parent type", property: "parentType" },
+        {
+            header: "",
+            property: "actions",
+            cell: (field) => (
+                <DeleteIconButton onClick={(ev) => onDeleteCustomFieldClick(ev, field)} />
+            ),
+        },
+    ];
+
     return (
         <>
             <Title type="System" title="Custom fields" documentTitle="single" />
@@ -45,7 +60,7 @@ const CustomFieldsPage = () => {
                 <HorizontalLabelledField label="Name" control={<NativeInput type="text" name="name" required />} />
 
                 <HorizontalLabelledField
-                    label="Kind"
+                    label="Type"
                     control={
                         <NativeSelect name="kind">
                             <option value="text">Text</option>
@@ -70,31 +85,8 @@ const CustomFieldsPage = () => {
                 <HorizontalLabelledField control={<PrimaryButton type="submit">Add</PrimaryButton>} />
             </form>
 
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Kind</th>
-                        <th>Label</th>
-                        <th>Parent type</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {customFields &&
-                        customFields.map((field) => (
-                            <tr key={field.id}>
-                                <td>{field.name}</td>
-                                <td>{field.kind}</td>
-                                <td>{field.label}</td>
-                                <td>{field.parentType}</td>
-                                <td>
-                                    <DeleteIconButton onClick={(ev) => onDeleteCustomFieldClick(ev, field)} />
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
+            <NativeTable rows={customFields} rowId={(customField) => customField.id} columns={columns}>
+            </NativeTable>
         </>
     );
 };
