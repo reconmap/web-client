@@ -59,7 +59,7 @@
     "jsdom": "^27.4.0",
     "knip": "^5.85.0",
     "lint-staged": "^16.2.7",
-    "npm-check-updates": "^19.4.1",
+    "npm-check-updates": "^19.6.3",
     "prettier": "^3.8.1",
     "stylelint": "^17.3.0",
     "stylelint-config-recommended": "^18.0.0",
