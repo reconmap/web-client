@@ -37,8 +37,8 @@ const TargetView = () => {
         const url = `/vulnerabilities?${queryParams.toString()}`;
         requestEntity(url)
             .then((resp) => resp.json())
-            .then((data) => {
-                setTableModel((tableModel) => ({ ...tableModel, vulnerabilities: data }));
+            .then((vulnerabilities) => {
+                setTableModel((tableModel) => ({ ...tableModel, vulnerabilities: vulnerabilities.data }));
             });
     }, [tableModel.filters, tableModel.sortBy, targetId]);
 

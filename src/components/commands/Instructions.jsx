@@ -65,7 +65,7 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
     const [runFrequency, setRunFrequency] = useState("once");
     const [projectId, setProjectId] = useState(null);
     const [terminalEnvironment, setTerminalEnvironment] = useState("browser");
-    const { data: projects } = useProjectsQuery({ isTemplate: 0, status: "active" });
+    const { data: projects } = useProjectsQuery({ isTemplate: false, status: "active" });
 
     useEffect(() => {
         const commandArgsRendered = CommandService.renderArguments(projectId, usage, commandArgs);
@@ -248,8 +248,8 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                         <CommandTerminal
                             commands={[
                                 CommandService.generateEntryPoint(projectId, command, usage) +
-                                    " " +
-                                    commandArgsRendered,
+                                " " +
+                                commandArgsRendered,
                             ]}
                         />
                     )}
