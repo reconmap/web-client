@@ -8,7 +8,7 @@ import { TaskPriorityList } from "../../models/TaskPriority.js";
 import PrimaryButton from "../ui/buttons/Primary.jsx";
 
 const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task, taskSetter: setTask }) => {
-    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ isTemplate: forTemplate ? 1 : 0 });
+    const { data: projects, isLoading: isLoadingProjects } = useProjectsQuery({ isTemplate: forTemplate });
 
     const onFormChange = (ev) => {
         const target = ev.target;
@@ -38,7 +38,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                         required
                     >
                         <optgroup label="Projects">
-                            {projects &&
+                            {!isLoadingProjects &&
                                 projects.data
                                     .filter((project) => !project.isTemplate)
                                     .map((project, index) => (
@@ -48,7 +48,7 @@ const TaskForm = ({ isEditForm = false, forTemplate = false, onFormSubmit, task,
                                     ))}
                         </optgroup>
                         <optgroup label="Project templates">
-                            {projects &&
+                            {!isLoadingProjects &&
                                 projects.data
                                     .filter((project) => project.isTemplate)
                                     .map((project, index) => (
