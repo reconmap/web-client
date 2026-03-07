@@ -27,7 +27,7 @@
     "react-router-dom": "^7.13.1",
     "react-select": "^5.10.2",
     "react-time-ago": "^7.4.4",
-    "recharts": "^3.7.0",
+    "recharts": "^3.8.0",
     "remark-gfm": "^4.0.1",
     "ua-parser-js": "^2.0.9",
     "vite": "^7.3.1",
