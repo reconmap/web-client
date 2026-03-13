@@ -46,20 +46,9 @@ const AgentDetailsPage = () => {
                 </PrimaryButton>
             </NativeButtonGroup>
 
-            {terminalVisibility && (
-                <>
-                    {wsContextData?.connection?.readyState === WebSocket.OPEN ? (
-                        <CommandTerminal agentIp={agent.ip} agentPort={agent.listenAddr} commands={[]} />
-                    ) : (
-                        <article className="message is-danger">
-                            <div className="message-body">
-                                <strong>Unable to establish connection to the Reconmap agent.</strong> Please review the
-                                web socket connection settings.
-                            </div>
-                        </article>
-                    )}
-                </>
-            )}
+            {terminalVisibility &&
+                <CommandTerminal agentIp={agent.ip} agentPort={agent.listenAddr} commands={[]} />
+            }
         </div>
     );
 };

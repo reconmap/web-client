@@ -1,3 +1,4 @@
+import { useAgentsQuery } from "api/agents.js";
 import { useCommandUsagesQuery } from "api/commands.js";
 import { useProjectsQuery } from "api/projects.js";
 import { requestCommandSchedulePost } from "api/requests/commands.js";
@@ -65,7 +66,9 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
     const [runFrequency, setRunFrequency] = useState("once");
     const [projectId, setProjectId] = useState(null);
     const [terminalEnvironment, setTerminalEnvironment] = useState("browser");
+    const [agent, setAgent] = useState(null);
     const { data: projects } = useProjectsQuery({ isTemplate: false, status: "active" });
+    const { data: agents, isLoading: isAgentsLoading } = useAgentsQuery();
 
     useEffect(() => {
         const commandArgsRendered = CommandService.renderArguments(projectId, usage, commandArgs);
@@ -119,6 +122,11 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
                 errorToast(reason);
             });
     };
+
+    useEffect(() => {
+        if (isAgentsLoading || agents.length === 0) return;
+        setAgent(agents[0]);
+    }, [isAgentsLoading]);
 
     return (
         <>
@@ -242,10 +250,23 @@ const UsageDetail = ({ projectId: parentProjectId, command, usage }) => {
 
             {runFrequency === "once" && terminalEnvironment === "browser" && (
                 <>
+                    <HorizontalLabelledField
+                        label="Agent"
+                        control={
+                            <NativeSelect onChange={(ev) => { console.dir(agents); setAgent(agents.find((a) => a.id === parseInt(ev.target.value))) }}>
+                                {agents?.map((agent) => (
+                                    <option key={agent.id} value={agent.id}>
+                                        {agent.clientId} - {agent.hostname} ({agent.ip})
+                                    </option>
+                                ))}
+                            </NativeSelect>
+                        }
+                    />
+
                     <NativeButton onClick={runOnTerminal}>Run on a browser terminal</NativeButton>
 
                     {showTerminal && (
-                        <CommandTerminal
+                        <CommandTerminal agentIp={agent?.ip} agentPort={agent?.listenAddr}
                             commands={[
                                 CommandService.generateEntryPoint(projectId, command, usage) +
                                 " " +

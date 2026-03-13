@@ -15,6 +15,8 @@ const CommandTerminal = ({ agentIp, agentPort, commands }) => {
     const [terminalTitle, setTerminalTitle] = useState("Terminal");
     const { user } = useAuth();
 
+    const [wsError, setWsError] = useState(null);
+
     useEffect(() => {
         const term = new Terminal({
             screenKeys: true,
@@ -65,6 +67,7 @@ const CommandTerminal = ({ agentIp, agentPort, commands }) => {
 
             webSocket.onerror = (ev) => {
                 console.error(ev);
+                setWsError(ev);
                 webSocket.close();
             };
 
@@ -84,8 +87,19 @@ const CommandTerminal = ({ agentIp, agentPort, commands }) => {
 
     return (
         <div>
-            <h4>{terminalTitle}</h4>
-            <div ref={terminalEl}></div>
+            {wsError != null ?
+                <article className="message is-danger">
+                    <div className="message-body">
+                        <strong>Unable to establish connection to the Reconmap agent.</strong> Please review the
+                        web socket connection settings.
+                    </div>
+                </article>
+                :
+                <>
+                    <h4>{terminalTitle}</h4>
+                    <div ref={terminalEl}></div>
+                </>
+            }
         </div>
     );
 };
