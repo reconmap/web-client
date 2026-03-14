@@ -30,9 +30,8 @@
     "recharts": "^3.8.0",
     "remark-gfm": "^4.0.1",
     "ua-parser-js": "^2.0.9",
-    "vite": "^7.3.1",
-    "vite-plugin-svgr": "^4.5.0",
-    "vite-tsconfig-paths": "^6.1.1"
+    "vite": "^8.0.0",
+    "vite-plugin-svgr": "^4.5.0"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
@@ -46,7 +45,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
-    "@vitejs/plugin-react": "^5.2.0",
+    "@vitejs/plugin-react": "^6.0.1",
     "@vitest/coverage-v8": "^4.1.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
